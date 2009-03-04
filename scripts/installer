@@ -8,13 +8,15 @@ find_cc() {
 
 ask_mudname() {
   echo -n "Your mud should have a name, please enter one : "
-  read var
-  echo -n ${var}" will be the name of your mud. Is this correct? (y/N) : "
-  read var
-  if [ -z "${var}" -o "${var}" != "y" ]; then
-    return
-  else
-    MUDNAME=${var}
+  read name
+  if [ ! -z "${name}" ]; then
+  echo -n ${name}" will be the name of your mud. Is this correct? (y/N) : "
+    read var
+    if [ -z "${var}" -o "${var}" != "y" ]; then
+      return
+    else
+      MUDNAME=${name}
+    fi
   fi
 }
 
@@ -54,17 +56,18 @@ if [ ! -f gurba.dgd ]; then
   cat net.dgd | sed -e "s/\/gurba040/${TD}/g" >./gurba.dgd
 fi
 
-cd ..
 echo "BASEDIR="`pwd` >.basedir
 
 while [ -z "${MUDNAME}" ]; do
   ask_mudname
 done
 
-cat lib/kernel/include/std.h | sed -e "s/MUD_NAME  \"GurbaLib\"/MUD_NAME  \"${MUDNAME}\"/"
-cat lib/kernel/include/std.h | sed -e "s/MUD_NAME  \"GurbaLib\"/IMUD_NAME  \"${MUDNAME}\"/"
+echo "Using mudname: " ${MUDNAME}
+
+cat lib/kernel/include/std.h | sed -e "s/MUD_NAME  \"GurbaLib\"/MUD_NAME  \"${MUDNAME}\"/" -e "s/IMUD_NAME \"GurbaLib\"/IMUD_NAME \"${MUDNAME}\"/" >./tmpfile && mv tmpfile lib/kernel/include/std.h
 
 echo "All done."
+echo "You may want to review lib/kernel/include/std.h to change your email address or such."
 echo "To start the mud, type 'bin/driver gurba.dgd'"
 
 
