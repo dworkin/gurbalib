@@ -9,6 +9,7 @@
 
 #include <status.h>
 #include <limits.h>
+#include <ports.h>
 
 inherit M_CONNECTION;
 inherit M_SAVERESTORE;

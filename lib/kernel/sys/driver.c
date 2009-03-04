@@ -41,8 +41,8 @@ static initialize() {
   call_other( TIME_D, "???" );
 #ifdef SYS_NETWORKING
   call_other( TELNET_D, "???" );
- /* call_other( FTP_D, "initialize" );
-  call_other( IMUD_D, "???" ); */
+/*  call_other( FTP_D, "initialize" ); */
+  call_other( IMUD_D, "???" ); 
 #endif
   call_other( OBJECT_D, "???" );
   call_other( RACE_D, "???" );
