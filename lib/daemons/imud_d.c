@@ -9,7 +9,6 @@
 
 #include <status.h>
 #include <limits.h>
-#include <ports.h>
 
 inherit M_CONNECTION;
 inherit M_SAVERESTORE;
@@ -526,10 +525,11 @@ void receive_message(string str) {
   settings, notify a group that may be logged in, log event to a file,
   etc.
 */
-void close() {
+int close(varargs int force) {
   connected = 0;
   IMUDLOG( "Connection lost.\n" );
-  call_out( "reconnect", 300 );
+  call_out( "reconnect", 120 );
+  return connected == 0;
 }
 
 void reconnect( void ) {

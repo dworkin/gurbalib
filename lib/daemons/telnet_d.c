@@ -16,7 +16,6 @@ object connection( string ip, int port ) {
 
   DRIVER->message( "New connection from " + ip + "\n" );
   user = clone_object( "/std/user" );
-  user->open();
   return( user );
 }
 
