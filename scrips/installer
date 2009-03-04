@@ -1,0 +1,47 @@
+#!/bin/bash
+
+find_cc() {
+  which cc 2>/dev/null
+}
+
+CC=`find_cc`
+
+if [ -z "$CC" ]; then
+  echo "No compiler found, cannot continue"
+  exit 1
+fi
+
+PWD=`pwd`
+CMD=$0
+
+DIR=${PWD}/${CMD}
+DIR=${DIR%%installer}../
+
+cd ${DIR}
+echo -n "Using "`pwd`" as base directory, is this ok? (Y/n) : "
+
+read var
+
+[ -z "${var}" -o "${var}" != "n" ] || exit 1
+
+echo "Compiling driver.."
+
+cd src
+
+make && make install || exit
+
+cd ..
+
+TD=`pwd`
+TD=${TD//\//\\\/}
+
+
+if [ ! -f gurba.dgd ]; then
+  cat net.dgd | sed -e "s/\/gurba040/${TD}/g" >./gurba.dgd
+fi
+
+echo "BASEDIR="`pwd` >../.basedir
+
+echo "All done."
+echo "To start the mud, type 'bin/driver gurba.dgd'"
+
