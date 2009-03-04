@@ -1,0 +1,17 @@
+#define TO            this_object()
+#define RACE_OB       TO->query_racial_object()
+#define MIN_STR       query_racial_min_str()
+#define MAX_STR       query_racial_max_str()
+#define MIN_INT       query_racial_min_int()
+#define MAX_INT       query_racial_max_int()
+#define MIN_DEX       query_racial_min_dex()
+#define MAX_DEX       query_racial_max_dex()
+#define MIN_WIS       query_racial_min_wis()
+#define MAX_WIS       query_racial_max_wis()
+#define MIN_CON       query_racial_min_con()
+#define MAX_CON       query_racial_max_con()
+#define MIN_CHA       query_racial_min_cha()
+#define MAX_CHA       query_racial_max_cha()
+#define MAX_HP        1000
+#define MAX_SP        1000
+#define MAX_PSYHP     1000

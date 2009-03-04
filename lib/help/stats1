@@ -1,0 +1,90 @@
+Topic: Stats #1
+
+Stats are the attributes that players raise by using up experience points,
+as opposed to skills which are improved by doing the skill-action itself.
+
+The actual act of raising stats is totally mud implementation dependant.
+A traditional Adventure's Guild setup, special trainers or anything else
+the imagination brings to mind can be coded as a player interface to raise
+stats.
+
+Since stats by their nature effect a lot of the game code, we need to settle
+at the beginning on the number of stats and their basic utility. We can
+tweak their effect on things as we develop, but I think its impractical to
+try to code too general a case for adding and using new stats. Rather, as
+we code things like combat and other stats dependant features, we should
+document clearly which stats are used in a given code object.
+
+I also think we should implement the concept of effective_stats, where this
+is calculated for each stat by adding a base_stat and a bonus_stat.
+For example, eff_strength = base_strength + bonus_strength. The base_stat
+would be the permanently stored value that the player has obtained thru
+expending acquired experience. The bonus_stat would be a temprary increase
+in a given stat that the player obtains by getting items or things during
+a single play session. Bonus_stats are not saved and go back to zero as
+soon as the player goes off line.
+
+The idea of the effective stat makes doing magic effects alot easier, things
+like Potions of Strength become trivial to do and need little policing.
+
+On the City mud, we toyed with this idea. The BASE stat maximum was to be
+60 and the BONUS stat maximum 39, yielding an EFFECTIVE stat maximum of 99.
+Also, it was suggested that the BONUS be fairly easy to raise to about 20,
+but then get progressively harder to increase after that. We were assuming
+that an average player would have stats in the 30's, so a bonus of roughly
+20 would mean we should balance the game for players with effective stats
+roughly in the 50's.
+
+On the city we only had one race to deal with, that being humans. I think
+we can use this effective stat idea to good end with the various races
+that the GurbaLIB supports. We would use the existing idea of racial
+stat maximums and minimums for both base and bonus stats. Actually, this
+could be quite fun. Consider a troll race for example. Perhaps we set
+its base stat maximums and minimums quite high, but NOT allow it to raise
+the bonus stat numbers very much. Obviously, i think the idea of races
+being differentiate at least in part by stats is a good one. Also,
+that the idea of maximum and minimum stat values is very useful too.
+
+That all said, here are my first suggestions for stats and their basic
+effects:
+
+    str : strength;     // strength
+    con : constitution; // hit points, resistance to physical harm
+    end : endurance;    // move points, how long player can do things
+    dex : dexterity;    // hand speed
+    agl : agility;      // foot speed, perhaps effects escaping fights
+    aim : aim;          // hand-eye coordination
+    int : intelligence; // spell points, raw mental or psi ability
+    wis : wisdom;       // book or acquried learning
+    per : perception;   // intuition, attention to detail
+    cha : charisma;     // force of personality, charm
+    luc : luck;         // luck, karma, fate
+    spr : spirituality; // religous ability
+    
+These 12 stats cover alot of ground. I cant really see a need for more 
+stats than about this. They fall into 4 basic catagories that I have
+assigned working names to to aid in getting a better feel for how they
+should be used. These catagories are:
+
+1) BODY: str, con, end  
+   Things that effect the body or are effected by physical
+   exertion might use these.
+         
+2) COORDINATION: dex, agl, aim
+   This will probably be used in conjunction with weapon skills alot,
+   but they have a host of other uses too. Like running away. ;)
+   
+3) MIND: int, wis, per
+   Int would be involved in various mental powers, like spells and psi
+   abilities. Wis perhaps in learning new trades or skills. Per could
+   be used in searches, noticing hidden items, stuff like that.
+   
+4) SOUL: cha, luc, spr
+   These struck me as semi-inate characteristic in people in real life.
+   I think they should be LESS under player control than the other stats.
+   Wouldn't it be funny if a fairly strong player is the unluckiest on the
+   mud? I mean, tripping over cobblestones all the time, getting hit by
+   all the traps... ;)
+   
+Well, that's my first draft on stats.
+    

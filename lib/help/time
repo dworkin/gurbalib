@@ -1,0 +1,11 @@
+Usage:
+	time
+
+This command will report the current day and time in the realm. The calendar
+system is as follows.
+
+	One year has 17 months, one for each of the deities.
+	One month has 5 weeks, one for each of the Elder Gods.
+	One week has 4 days, one for each of the elements.
+
+	One year has 340 days. One month is 20 days.

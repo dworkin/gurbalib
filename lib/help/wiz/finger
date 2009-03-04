@@ -1,0 +1,11 @@
+Usage:
+	finger <name>
+
+Finger is a wizard only command.
+It will display the following info about <name>.
+
+Name
+Title
+Description
+Status (Wiz / Admin / Player)
+Idle time

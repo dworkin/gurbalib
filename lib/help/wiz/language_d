@@ -1,0 +1,16 @@
+NAME
+	language_d - translate from English into another language
+SYNOPSIS
+	string english_to_racial(string language, string englishword)
+DESCRIPTION
+	The english_to_racial() function will translate a word from english
+	to another language. A random word will be created / picked to be the
+	foreign language. The word is then added to the global database for
+	that language. The arguments are both strings, the first being the 
+	name of the language to convert to (dwarf, catfolk, human, etc), the
+	second is the word to translate. The translated word is then returned.
+	If the word already exists in the language database then no new word
+	will be generated, the old one will be returned instead.
+SEE ALSO
+	/cmds/race/*/rsay.c - command to speak in that language.
+

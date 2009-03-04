@@ -1,0 +1,39 @@
+	Use this command to say something to the room you are currently
+standing in. Everybody in the room will be able to see what you are saying.
+If you want to talk only to a specific person, use tell or whisper instead.
+	The say command has been globally aliased to "'" (without the quotes). 
+So, instead of typing:
+
+> say Hello
+
+you can type 
+
+> 'Hello
+
+to achieve the same effect.
+	There are various ways of affecting the way your character says
+something. By adding certain characters to the end of what you say you can say
+it in different ways. For example, typing
+
+> 'Hello 
+
+will result in 'You say: Hello.' being written on the screen. However, if you
+say "Hello!" instead of "Hello" (With the exclamation mark) you will see 'You
+exclaim: Hello!'. If you add yet another exclamation point you will yell your
+message, and a third one will make you shout it. 
+	Similarily, if you put a question mark at the end of your statement,
+you will ask instead of say. Simple enough so far.
+	But if you want even more control of the way your character says
+something, there are even more characters that can be appended. If you type
+
+> 'I rule!#
+
+(Note the "#" at the end) then it will be seen as 'You boast: I rule!'. Or, if
+you want to be thoughtful when you speak, add a "%" to it. That will result in
+'You say thoughtfully: I'm a big thinker!'
+	These are only two of the many modifiers to your speech. A complete list
+can be found in 'help say-modifiers'. Use them frequently, they really spice up
+a conversation.
+
+See also:
+	help say-modifiers, help tell, help whisper

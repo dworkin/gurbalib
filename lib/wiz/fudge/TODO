@@ -1,0 +1,66 @@
+My current TODO list:
+DONE - Channel emotes
+Emote adverbs
+Combat which takes into account hitbonuses and armor.
+Armor not just clothes
+ALMOST DONE - Shopkeepers
+DONE - Guild Daemon 
+Clans
+passwd command
+.here:fudge in eval
+force system
+DONE - snoop system 
+Weather
+Nuke player
+DONE - Money
+Economy
+Spells daemon
+Magic system
+mail system
+DONE - bug command
+Religion system
+Prayer daemon
+DONE - Doors
+m_aggressive
+DONE - m_guild_master
+m_guild_trainer
+m_knockable
+m_lightable
+m_lockable
+DONE - m_openable
+m_switchable
+m_throwable
+m_trainer
+DONE - m_valuable
+ALMOST DONE - m_vendor
+m_edible
+DONE - m_readable
+m_writable
+m_wander
+DONE - get / put objects from/into containers
+keys
+ladders/stairs
+portals
+DONE - signs
+DONE - reply command
+tracking of most used rooms
+tracking of objects
+auto dest/update of all instances of an object
+Endurance/Stamina
+Different combat messages based on current weapon
+Different death messages
+PK announcing
+PK death announcing
+Combat styles
+Better coin system
+support for getting 2nd or 3rd sword in a room or inv
+Weight of objects
+Chests ( put in / get from / look in )
+XP / Levels
+Bank
+DONE - Alias system (personal and global)
+DONE - Parser improvements
+String generation improvements
+Levers
+Party system (invite, follow, say, report)
+Port commands to verbs

@@ -1,0 +1,11 @@
+Usage:
+	whisper <person> <message>
+
+	Use this command to whisper something to another character who is 
+currently in the same room as you are. Nobody except the two of you will see
+the message, but everyone else in the room will be able to see that you are
+whispering. It is reccommended that you use whisper instead of tell when the
+two of you are in the same room, as that is more realistic.
+
+See also:
+	help say, help tell

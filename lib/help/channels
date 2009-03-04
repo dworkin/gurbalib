@@ -1,0 +1,13 @@
+How to use the channel system:
+
+> chan gossip /on
+
+This will turn the gossip channel on. To speak over the gossip channel,
+use
+
+> gossip Hello everybody!
+
+Gossip is an out of character channel. IE, nothing that relates to the
+characters in the game can be discussed there. There is no public channel
+that is in character (yet).
+

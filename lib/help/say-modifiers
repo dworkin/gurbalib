@@ -1,0 +1,50 @@
+Modifier			Effect
+-------------------------------------------------------------------------------
+!				'Say excitedly'
+!!				'Yell'
+!!!				'Shout'
+...				'Trail off'
+?				'Ask'
+@				'Exclaim proudly'
+#				'Boast'
+$				'Say sarcastically'
+%				'Say thoughtfully'
+^				'Say admiringly'
+&				'Say mockingly'
+*				'Snap'
+/				'Say with a rising voice'
++				'Say loudly'
+-				'Whisper'[1]
+=				'Correct'
+~				'Blurt out'
+;				'Say softly'
+:				'Mumble'
+|				'Reply with'
+>				'Point and say'
+<				'Point at yourself and say'
+{				'Slobber out'
+}				'Struggle to say'
+[				'Laugh and say'
+]				'Say jokingly'
+\				'Say with a sinking voice'
+`				'Comment'
+_				'Say under your breath'
+
+
+Notes:
+[1] Not to be confused with the command 'whisper'.
+
+Examples:
+
+> 'I'll get you for that!/
+You say with a rising voice: I'll get you for that!
+
+> 'You're my hero.^
+You say admiringly: You're my hero.
+
+> 'Get away from me*
+You snap: Get away from me.
+
+
+See also:
+	help say, help tell, help whisper
