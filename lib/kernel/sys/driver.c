@@ -24,7 +24,7 @@ void message(string str) {
 
 static initialize() {
 
-  message( "DGD " + status()[ST_VERSION] + " running " + LIB_NAME + " " + LIB_VERSION + ".\n");
+  message( status()[ST_VERSION] + " running " + LIB_NAME + " " + LIB_VERSION + ".\n");
   message( "Initializing...\n" );
   message( "Preloading...\n" );
   compile_object( STARTING_ROOM );

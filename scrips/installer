@@ -1,7 +1,21 @@
 #!/bin/bash
 
+MUDNAME=""
+
 find_cc() {
   which cc 2>/dev/null
+}
+
+ask_mudname() {
+  echo -n "Your mud should have a name, please enter one : "
+  read var
+  echo -n ${var}" will be the name of your mud. Is this correct? (y/N) : "
+  read var
+  if [ -z "${var}" -o "${var}" != "y" ]; then
+    return
+  else
+    MUDNAME=${var}
+  fi
 }
 
 CC=`find_cc`
@@ -40,8 +54,17 @@ if [ ! -f gurba.dgd ]; then
   cat net.dgd | sed -e "s/\/gurba040/${TD}/g" >./gurba.dgd
 fi
 
-echo "BASEDIR="`pwd` >../.basedir
+cd ..
+echo "BASEDIR="`pwd` >.basedir
+
+while [ -z "${MUDNAME}" ]; do
+  ask_mudname
+done
+
+cat lib/kernel/include/std.h | sed -e "s/MUD_NAME  \"GurbaLib\"/MUD_NAME  \"${MUDNAME}\"/"
+cat lib/kernel/include/std.h | sed -e "s/MUD_NAME  \"GurbaLib\"/IMUD_NAME  \"${MUDNAME}\"/"
 
 echo "All done."
 echo "To start the mud, type 'bin/driver gurba.dgd'"
+
 
