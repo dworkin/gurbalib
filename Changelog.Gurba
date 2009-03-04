@@ -1,0 +1,62 @@
+DGD 1.2 experimental conversion by Nullinfinite
+
+Lib changes:
+
+- All files - I changed typesetting to 2.  A lot of 0's were turned to 'nil', 
+  and some changes made to comparative operations.    Some new checks were added,
+  mostly along the lines of if(x) or if(!x).
+  There were also cases when i would assign the value of an operation to a mixed 
+  variable, and than do checks on that variable.
+
+- All files - str[i] = 0 is an illegal operation.  It is an attempt to delete a i
+  character from a string.  The new operation is:  str = str[0..(i-1)]
+- All files: The syntax for varargs is different since 1.1.  Varargs is now a part 
+  of the argument to a function, rather than a part of the functions type.
+- /cmds/player/help.c, line 62 - I removed 2nd arg from call to 
+  this_player()->more(lines, 0)  A 2nd argument is not defined in /std/player->more.
+- /daemons/event_d.c, line 35 - added a check for arg - now will not call optional 
+  argument if non exists.
+- All cmds now have a string argument in main(), even if the string is not used. 
+  Calling main(str) to main(void) creates an error.  Gurba calls cmd->main(str), 
+  but many commands had main(void).
+- /daemons/parse_d.c, added fix_order function and new production rule for 'from' 
+  token.  This all allows proper get x from y support with current dgd.
+- /std/body/stats.c, line 81 - I removed 2 call_others which would try 
+  calling an undefined function.
+- /kernel/include/std.h, removed LOGIN_PORT, FTP_PORT, etc.  New define made in 
+  /kernel/include/ :  ports.h.  This file contains new definitions for the PORT defines.
+
+Driver changes:
+
+- Changed Gurba's driver object to use same interface as described in /dgd/doc/Introduction 
+  of DGD 1.2.157.
+- Added atomic_error function from Kernel lib's driver to Gurba's
+- Added object_type function from Kernel lib's driver to Gurba's
+- Changed compile_rlimits and runtime_rlimits functions from the gurba driver with the 
+  ones from the kernel driver.
+- runtime_error shows error message now, instead of just the call trace.
+
+Network changes:
+
+- The following changes made for network package support:
+  * Definitions added in /kernel/include/std.h which automatically configure driver
+    object for network package support if the patch has been installed on the dgd driver.
+  * Added new files: /kernel/obj/net/connection.c, /daemons/telnet_d.c, 
+    /std/modules/m_connection.c
+    These were provided by Aidil@Way of the Force
+  * Updated imud_d.c with revised code provided by Aidil@Way of the Force
+  * changed driver->initialize() so that telnet_d, imud_d, and ftp_d are all 
+    dependent on #ifdef SYS_NETWORKING.
+  * Added a telnet_connect function to driver.  This is enabled when SYS_NETWORKING 
+    is not defined.  It handles connections in absence of the need for a port daemon.
+
+Changes by Aidil
+
+- Updated driver source to dgd-1.2.157 (with version 05 of the network package)
+- Updated all files in doc/ to match dgd 1.2.157 (with network package)
+- Added patch to revert to dgd-1.2.157 (without network package)
+- Updated the Copyright and README files in the root directory
+- Fixed a bug in the restore_variable() grammar
+- Fixed reconnection after connection loss in the intermud daemon
+- Added a small installation script
+
