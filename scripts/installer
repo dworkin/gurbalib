@@ -64,7 +64,7 @@ done
 
 echo "Using mudname: " ${MUDNAME}
 
-cat lib/kernel/include/std.h | sed -e "s/MUD_NAME  \"GurbaLib\"/MUD_NAME  \"${MUDNAME}\"/" -e "s/IMUD_NAME \"GurbaLib\"/IMUD_NAME \"${MUDNAME}\"/" >./tmpfile && mv tmpfile lib/kernel/include/std.h
+cat lib/kernel/include/std.h.default | sed -e "s/MUD_NAME  \"GurbaLib\"/MUD_NAME  \"${MUDNAME}\"/" -e "s/IMUD_NAME \"GurbaLib\"/IMUD_NAME \"${MUDNAME}\"/" >./tmpfile && mv tmpfile lib/kernel/include/std.h
 
 echo "All done."
 echo "You may want to review lib/kernel/include/std.h to change your email address or such."

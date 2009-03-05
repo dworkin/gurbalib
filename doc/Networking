@@ -1,0 +1,61 @@
+	General overview of the facilities of the DGD Networking package
+
+This package extends the IP networking features of DGD, at the cost of some
+security.  (A driver that can initiate connections or send udp packets can,
+if its internal security fails, be used as a platform for further attacks
+by a cracker or other malicious user.)
+
+Note: Like the file access functions, the network functions are
+unprotected.  If you install this package, you must redefine the functions
+connect() and open_port() in the auto object to implement the desired
+security.  A common method is to allow any object in /sys/net/ (and no
+others) to call these functions.
+
+The networking package introduces three special kinds of objects:
+	- tcp and telnet port objects
+	- tcp and telnet connection objects
+	- udp port objects
+
+Tcp and telnet port objects are associated with a tcp port.
+Whenever a client seeks a connection with a port DGD has opened, 
+	connection(string clienthost, int clientport)
+is called in the port object associated with that port.  This function is
+expected to return an object that will function as the connection object
+for that client.
+
+Udp port objects are associated with a udp port.  There are no udp
+connection objects.  When a udp datagram arrives on a port DGD has opened,
+	receive_datagram(string data, string fromhost, int fromport)
+is called in the udp port object associated with it.
+
+Tcp and telnet connection objects are associated with a client.  Whenever
+data arrives on a tcp connection, receive_message(string data) is called in
+the connection object.  When data arrives on a telnet connection, the
+driver parses it according to the telnet protocol.  Whenever a full line is
+parsed, receive_message(string text) is called in the connection object.
+
+See the Introduction text for a more complete explanation of what functions
+are called, when they are called, and what they mean.
+
+There are kfuns for opening ports, sending udp datagrams and tcp/telnet
+data, and initiating tcp or telnet connections. See kfun/open_port,
+kfun/send_datagram, kfun/send_message, and kfun/connect.
+
+The config-file entries `telnet_port' and `binary_port' are still valid but
+will be ignored.  The driver object should take care of opening the
+appropriate ports during initialization.
+
+The kfun users() returns all connection objects.  The kfun ports() returns
+all port objects.  The kfun query_ip_number() returns 0 for port objects.
+The config-file entry `users' also counts port objects.
+
+The driver-object functions telnet_connect() and binary_connect() are
+no longer used.
+
+Acknowledgements:
+I would like to thank Robert Leslie, Erwin Harte, and Adam David for
+their willingness to run real projects on test versions of this package,
+for many excellent suggestions, and for their help in hunting down and
+killing some nasty bugs.
+
+Richard Braakman <dark@xs4all.nl>

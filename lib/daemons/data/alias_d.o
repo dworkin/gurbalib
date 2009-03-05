@@ -1,0 +1,2 @@
+player_alias ([13|"d":"go down","e":"go east","i":"inventory","l":"look $*","n":"go north","ne":"go northeast","nw":"go northwest","s":"go south","sc":"score","se":"go southeast","sw":"go southwest","u":"go up","w":"go west",])
+wizard_alias ([2|"p":"people","z":"update $*",])
