@@ -3,6 +3,10 @@ then cd to this directory and type:
 
   scripts/installer
 
+This will compile the driver, write a configuration
+file and update an include file to reflect the name
+of your mud.
+
 Review gurba.dgd and change the telnet port
 number if so desired.
 
@@ -10,3 +14,10 @@ Now, type
 
   bin/driver gurba.dgd
 
+If all went well, you can now connect to the telnet port 
+mentioned in the gurba.dgd config file.
+
+The first character logging in will automatically get the
+admin role, so be sure its you.
+
+Aidil@Way of the Force
