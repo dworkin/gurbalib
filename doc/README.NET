@@ -1,0 +1,44 @@
+DGD-1.2.144-NET-02
+
+This patch is highly experimental, and very likely incomplete.
+Don't blame me or any of the other people involved with the
+old network package, you have been warned.
+
+It works for my own mud, but this is not thoroughly tested
+yet.
+
+This patch is based on the original network package and the
+experimental network package for DGD 1.2.37, adapted for
+modern dgd versions and extended to handle connect() in non 
+blocking mode. 
+
+It also includes the ansi patch.
+
+For copyright information on the original code, see the
+Copyright files in this directory
+
+Included is a network enabled kernel. This is merely an example,
+I do not use the kernel library myself.
+
+Tested: 
+1. open_port() and listening for tcp connections
+2. accepting incomming tcp connections
+3. making outgoing tcp connections.
+
+Untested: 
+1. UDP
+2. long term testing.
+
+What doesn't work:
+
+IPv6 support is not implemented by this package, and has been
+disabled.
+
+For questions, bugs etc please goto http://lpmuds.net/forum/index.php?board=2.0
+Please send patches to aidil@wotf.org
+
+Please note: This package is NOT supported by Dworkin, and won't be supported
+on the dgd mailinglist. For any problems, bugs and such, aidil@wotf.org or the
+lpmuds.net forums are the place to go. Please report possible security problems
+directly to aidil@wotf.org
+
