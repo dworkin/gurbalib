@@ -1,0 +1,12 @@
+Unpack the distribution into a directory
+then cd to this directory and type:
+
+  scripts/installer
+
+Review gurba.dgd and change the telnet port
+number if so desired.
+
+Now, type 
+
+  bin/driver gurba.dgd
+
