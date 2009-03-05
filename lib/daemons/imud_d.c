@@ -624,7 +624,7 @@ void create( void )
   string *spAddress;
 
   if(IMUD_NAME=="GurbaLib") {
-    error("Please edit kernel/include/std.h and change the MUD_NAME and IMUD_NAME defines");
+    error("Please edit kernel/include/mudname.h and change the MUD_NAME and IMUD_NAME defines");
   }
 
   connected = 0;

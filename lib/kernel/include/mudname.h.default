@@ -1,0 +1,3 @@
+#define MUD_NAME  "GurbaLib"
+#define IMUD_NAME "GurbaLib"
+

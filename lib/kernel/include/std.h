@@ -4,8 +4,7 @@
 #endif
 #endif
 
-#define MUD_NAME  "GurbaLib"
-#define IMUD_NAME "GurbaLib"
+#include <mudname.h>
 
 #define LIB_NAME  "GurbaLib"
 #define LIB_VERSION "v0.40"
