@@ -332,8 +332,6 @@ void runtime_error( string error, int cought, int ticks ) {
 	player = this_user()->query_player();
 	if( player ) {
 	    player->write( error + "\nObject: " + objname + ", program: " + progname + ", line " + line + "\n" );
-	  } else {
-	    player->write( "\nObject: " + objname + ", program: " + progname + ", line " + line + "\n" );
 	  }
 	}
       }
