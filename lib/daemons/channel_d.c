@@ -392,6 +392,7 @@ void chan_emote( string chan, string what ) {
   }
 
 
+#ifdef SYS_NETWORKING
   ichans = map_indices( imud );
   for( i = 0; i < sizeof( ichans ); i++ ) {
     if( imud[ichans[i]] == chan ) {
@@ -403,6 +404,7 @@ void chan_emote( string chan, string what ) {
       return;
     }
   }
+#endif
 
   chan_send_string( chan, what );
 }
@@ -425,6 +427,7 @@ void chan_say( string chan, string what ) {
   if( what == "" )
     return;
 
+#ifdef SYS_NETWORKING
   ichans = map_indices( imud );
   for( i = 0; i < sizeof( ichans ); i++ ) {
     if( imud[ichans[i]] == chan ) {
@@ -433,6 +436,7 @@ void chan_say( string chan, string what ) {
       return;
     }
   }
+#endif
   
   chan_send_string( chan, capitalize( this_player()->query_name() ) + ": " + capitalize( what ) );
 }
