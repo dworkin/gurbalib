@@ -340,6 +340,9 @@ void runtime_error( string error, int cought, int ticks ) {
 }
 int compile_rlimits( string objname ) {
   message( "compile_rlimits( " + objname + " );\n" );
+  if(sscanf(objname,"/kernel/%*s") == 1 || sscanf(objname,"/daemons/%*s") == 1) {
+    return 1;
+  }
 }
 
 int runtime_rlimits( object obj, int stack, int ticks ) {

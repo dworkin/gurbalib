@@ -59,12 +59,12 @@ mixed parse( string str ) {
     if( sscanf(err,"Bad token at offset %d",pos) == 1) {
       write("Invalid character " + str[pos..pos]);
     }
-    return 0;
+    return nil;
   }
 
 
   if( !result )
-    return( 0 );
+    return( nil );
 
   function = "";
   if( sizeof( result ) > 1 ) {
