@@ -251,10 +251,13 @@ object binary_connect(int port) {
 
 void interrupt() {
   object *usrs;
+  object p;
   int i;
 
   for( i=0; i < sizeof( usrs ); i++ ) {
-    usrs[i]->query_player()->do_quit();
+    p = usrs[i]->query_player();
+    if(p) p->do_quit();
+    else destruct_object(p);
   }
   message( "Shutting down." );
   shutdown();
