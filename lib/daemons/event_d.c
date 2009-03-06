@@ -27,7 +27,9 @@ void event( string name, varargs mixed args... ) {
   object *obs;
   int i;
 
+  global_events[name] -= ({ nil });
   obs = global_events[name];
+
   if( !obs )
     return;
 
