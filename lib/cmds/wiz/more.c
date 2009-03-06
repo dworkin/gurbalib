@@ -41,5 +41,5 @@ void main( string arg ) {
   }
   
 
-  this_player()->more( lines, 0 );
+  this_player()->more( lines );
 }
