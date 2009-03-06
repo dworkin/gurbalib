@@ -341,17 +341,37 @@ void runtime_error( string error, int cought, int ticks ) {
     }
   }
 }
+
+static void atomic_error(string error, int a, int t) {
+    error = "(atom: "+a+", "+t+" ticks remaining) "+error;
+    runtime_error(error,0,t);
+}
+
+static string object_type(string from, string obtype) {
+  return normalize_path(obtype,from);
+}
+
 int compile_rlimits( string objname ) {
-  message( "compile_rlimits( " + objname + " );\n" );
   if(sscanf(objname,"/kernel/%*s") == 1 || sscanf(objname,"/daemons/%*s") == 1) {
+    message( "compile rlimits permitted for " + objname + "\n" );
     return 1;
+  } else {
+    message( "compile rlimits denied for " + objname + "\n" );
   }
 }
 
 int runtime_rlimits( object obj, int stack, int ticks ) {
-  message( "runtime_rlimits( );\n" );
+  string * objname;
+  objname = explode(object_name(obj),"/");
+  switch(objname[0]) {
+    case "kernel"  :
+    case "daemons" : return 1;
+                     break;
+    default        : message("runtime rlimits denied for "+object_name(obj)+"\n");
+                     break;
+  }
 }
 
-void remove_program( string objname, int timestamp, int index ) {
-  message( "remove_program( " + objname + ",... );\n" );
+void remove_program( string ob, int t, int issue ) {
+  message("Program "+ob + ", issue:"+issue+" ("+ctime(t)+") is no longer referenced\n" );
 }
