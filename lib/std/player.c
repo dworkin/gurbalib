@@ -433,9 +433,7 @@ void more_prompt( string arg ) {
     break;
   }
 
-  height = query_env( "height" );
-  if( !height )
-    height = 23;
+  height = (query_env( "height" ) ? query_env( "height" ) : 23);
 
   if( sizeof( more_lines ) > height + more_line_num ) {
     out_unmod( implode( more_lines[more_line_num..more_line_num+height], "\n" ) );
