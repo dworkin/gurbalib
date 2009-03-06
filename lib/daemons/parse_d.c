@@ -38,16 +38,30 @@ string query_grammar( void ) {
 mixed parse( string str ) {
   mixed *result;
   string function;
+  string err;
   mixed returned;
   int i;
 
   last_obj = nil;
 
-  result = parse_string( grammar, str );
+  err = catch(result = parse_string( grammar, str ) );
 
 #ifdef DEBUG_PARSE
   write( "result: " + dump_value( result, ([ ]) ) );
 #endif
+  if( err ) {
+    int pos;
+
+#ifdef DEBUG_PARSE
+    write( "error: " + err );
+#endif
+
+    if( sscanf(err,"Bad token at offset %d",pos) == 1) {
+      write("Invalid character " + str[pos..pos]);
+    }
+    return 0;
+  }
+
 
   if( !result )
     return( 0 );
