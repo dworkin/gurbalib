@@ -1,4 +1,4 @@
-void main( string str ) {
+void main( string what ) {
    object ob;
    string str, tmp;
    object *inv;
