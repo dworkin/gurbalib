@@ -293,7 +293,6 @@ void chan_imud_rcv_emote( string chan, string who, string where,
 void chan_imud_rcv_say( string chan, string who, string where, string what ) {
 
   if( !imud[chan] ) {
-     chan_send_string( "wiz", "[" + chan + "] " + who + "@" + where + ": " + what );
     return;
   }
 
