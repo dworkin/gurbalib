@@ -1,5 +1,7 @@
 #define CHUNK_SIZE 8192
 
+inherit M_CONNECTION;
+
 int timeout_handle;
 string name;
 string password;
@@ -45,9 +47,9 @@ void open( void ) {
   timeout_handle = call_out( "login_timeout", 120 );
 }
 
-void close( void ) {
+void close( varargs int flag ) {
   if( connection ) {
-    destruct_object( connection );
+    connection->terminate();
   }
   destruct_object( this_object() );
 }
@@ -94,13 +96,13 @@ void FTP_CMD_pass( string arg ) {
     FTPLOG("Anomymous login (" + arg + ")\n" );
     return;
    }
-  password = crypt( arg, "fudge" );
+  password = crypt( arg, "gurba" );
   player = clone_object( "/std/player" );
   player->set_name( name );
   player->restore_me();
   if( password != player->query_password() ) {
     send_message( "530 Login incorrect.\n" );
-    destruct_object( this_object() );
+    disconnect();
     return;
   }
   send_message( "230 User " + name + " logged in.\n" );
@@ -114,21 +116,21 @@ void FTP_CMD_retr( string str ) {
 
   if( !str ) {
     send_message( "550 No file selected.\n" );
-    destruct_object( connection );
+    connection->terminate();
     return;
   }
   
   str = normalize_path( str, cwd );
   if( str == "" ) {
     send_message( "550 " + str + ": Permission denied.\n" );
-    destruct_object( connection );
+    connection->terminate();
     return;
   }
 
   
-  if( file_exists( str ) < 0 ) {
+  if( file_exists( str ) <= 0 ) {
     send_message( "550 " + str + ": No such file.\n" );
-    destruct_object( connection );
+    connection->terminate();
     return;
   }
 
@@ -137,7 +139,7 @@ void FTP_CMD_retr( string str ) {
   filesize = file_size( str );
   file_name = str;
 
-  if( !binary ) {
+  if( binary == 0 ) {
     where = strlen( chunk );
     chunk = implode( explode( chunk, "\n" ), "\r\n" );
     send_message("150 Opening ASCII mode data connection for " + str + " (" + filesize + " bytes).\n" );
@@ -163,7 +165,7 @@ void FTP_CMD_stor( string arg ) {
   string *dirs;
   string dir;
 
-  if( !priv ) {
+  if( priv == 0 ) {
     send_message( "550 Permission denied.\n" );
     return;
   }
@@ -189,7 +191,7 @@ void FTP_CMD_stor( string arg ) {
 
   connection->set_read_callback( "FTP_stor" );
 
-  if( !binary ) {
+  if( binary == 0 ) {
     send_message( "150 Opening ASCII mode data connection for "+arg+".\n" );
   } else {
     send_message( "150 Opening binary mode data connection for "+arg+".\n" );
@@ -223,7 +225,7 @@ void FTP_CMD_nlst( string str ) {
   str = normalize_path( str, cwd );
   if( str == "" ) {
     send_message( "550 " + str + ": Permission denied.\n" );
-    destruct_object( connection );
+    connection->terminate();
     return;
   }
 
@@ -232,22 +234,22 @@ void FTP_CMD_nlst( string str ) {
 
   if( !files ) {
     send_message( "550 " + str + ": No such file or directory.\n" );
-    destruct_object( connection );
+    connection->terminate();
     return;
   }
   
   files = get_dir(str + "/*");
   if (!files) {
     send_message( "550 " + str + ": Permission denied.\n");
-    destruct_object( connection );
+    connection->terminate();
     return;
   }
   
   names = files[0];
   sz = sizeof(names);
-  if (!sz) {
+  if (sz == 0) {
     send_message( "550 No files found.\n" );
-    destruct_object( connection );
+    connection->terminate();
     return;
   }
   sizes = files[1];
@@ -308,7 +310,7 @@ void FTP_CMD_list( string str ) {
   str = normalize_path( str, cwd );
   if( str == "" ) {
     send_message( "550 " + str + ": Permission denied.\n" );
-    destruct_object( connection );
+    connection->terminate();
     return;
   }
 
@@ -317,22 +319,22 @@ void FTP_CMD_list( string str ) {
 
   if( !files ) {
     send_message( "550 " + str + ": No such file or directory.\n" );
-    destruct_object( connection );
+    connection->terminate();
     return;
   }
   
   files = get_dir(str + "/*");
   if (!files) {
     send_message( "550 " + str + ": Permission denied.\n");
-    destruct_object( connection );
+    connection->terminate();
     return;
   }
   
   names = files[0];
   sz = sizeof(names);
-  if (!sz) {
+  if (sz == 0) {
     send_message( "550 No files found.\n" );
-    destruct_object( connection );
+    connection->terminate();
     return;
   }
   sizes = files[1];
@@ -359,7 +361,7 @@ void FTP_CMD_list( string str ) {
 }
 
 void FTP_connection_wait( void ) {
-  if( !connection->is_connected() ) {
+  if( connection->is_connected() == 0 ) {
     call_out( "FTP_connection_wait", 1 );
     return;
   }
@@ -422,13 +424,13 @@ void FTP_CMD_mkd( string arg ) {
   string file;
 
   file = normalize_path( arg, cwd );
-  if( file == "" || !priv) {
+  if( file == "" || priv == 0) {
     send_message( "550 Permission denied.\n" );
     return;
   }
 
-  if( !file_exists( file ) ) {
-    if( !make_dir( file ) ) {
+  if( file_exists( file ) == 0 ) {
+    if( make_dir( file ) == 0 ) {
       send_message( "550 Unable to create directory.\n" );
       return;
     } else {
@@ -457,10 +459,10 @@ void FTP_CMD_port( string arg ) {
   port = ( str2val( tmp[4] ) << 8 ) + ( str2val( tmp[5] ) );
 
   if( connection ) {
-    destruct_object( connection );
+    connection->terminate();
   }
 
-  connection = clone_object( "/kernel/net/ftp_conn" );
+  connection = clone_object( "/daemons/ftp_data" );
   connection->start_connection( ip, port, binary );
   FTP_connection_wait();
 }
@@ -472,19 +474,19 @@ void FTP_CMD_noop( string arg ) {
 void FTP_CMD_dele( string arg ) {
   string file;
   file = normalize_path( arg, cwd );
-  if( file == "" || !priv) {
+  if( file == "" || priv == 0) {
     send_message( "550 " + arg + ": Permission denied.\n" );
     return;
   }
 
   if( file_exists( file ) == -1 ) {
-    if( !remove_dir( file ) ) {
+    if( remove_dir( file ) == 0 ) {
       send_message( "550 " + arg + ": Not empty.\n" );
     } else {
       send_message( "250 DELE command successful.\n" );
     }
   } else if( file_exists( file ) != 0 ) {
-    if( !remove_file( file ) ) {
+    if( remove_file( file ) == 0 ) {
       send_message( "550 " + arg + ": Unable to DELE.\n" );
     } else {
       send_message( "250 DELE command successful.\n" );
@@ -500,7 +502,7 @@ void FTP_CMD_syst( string arg ) {
 
 void FTP_write( void ) {
   send_message( "226 Transfer complete.\n" );
-  destruct_object( connection );
+  connection->terminate();
 }
 
 
@@ -513,7 +515,7 @@ void FTP_retr( void ) {
   }
 
 
-  if( !binary && chunk != "" ) {
+  if( binary == 0 && chunk != "" ) {
     if( chunk[strlen(chunk)-1] == '\n' )
       chunk += " ";
     if( chunk[0] == '\n' )
@@ -532,7 +534,7 @@ void FTP_retr( void ) {
 void FTP_stor( string str ) {
   string *lines;
 
-  if( !binary ) {
+  if( binary == 0 ) {
     lines = explode( str, "\r" );
     str = implode( lines, "" );
   }
@@ -566,7 +568,7 @@ void receive_message( string message ) {
 
   cmd = lowercase( cmd );
 
-  if( !connected ) {
+  if( connected == 0 ) {
     /* Only allow these commands if not connected */
     switch( cmd ) {
     case "user" : 
@@ -605,6 +607,7 @@ void receive_message( string message ) {
 void login_timeout( void ) {
   if( !connected ) {
     send_message( "220 Timed out.\n" );
+    disconnect();
     destruct_object( this_object() );
   }
 }

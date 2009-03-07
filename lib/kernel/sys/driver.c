@@ -11,6 +11,16 @@
 #include <status.h>
 #include <ports.h>
 
+/*
+ * Used by object_type(), maps between shortnames for
+ * some common object types and their absolute path
+ */
+#define SHORT_OBJECT_TYPE ([\
+  "player"     :"/std/player",\
+  "user"       :"/std/user",\
+  "connection" :"/kernel/obj/net/connection"\
+])
+
 private object load( string path ) {
   object ob;
 
@@ -41,7 +51,7 @@ static initialize() {
   call_other( TIME_D, "???" );
 #ifdef SYS_NETWORKING
   call_other( TELNET_D, "???" );
-/*  call_other( FTP_D, "initialize" ); */
+  call_other( FTP_D, "???" );
   call_other( IMUD_D, "???" ); 
 #endif
   call_other( OBJECT_D, "???" );
@@ -348,7 +358,11 @@ static void atomic_error(string error, int a, int t) {
 }
 
 static string object_type(string from, string obtype) {
-  return normalize_path(obtype,from);
+  if(SHORT_OBJECT_TYPE[obtype]) {
+    return SHORT_OBJECT_TYPE[obtype];
+  } else {
+    return normalize_path(obtype,from);
+  }
 }
 
 int compile_rlimits( string objname ) {

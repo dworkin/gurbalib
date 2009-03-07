@@ -85,7 +85,7 @@ static void close(varargs int force) {
   if(user) {
     catch(user->close(force));
   }
-  if(force) {
+  if(!force) {
     destruct_object(this_object());
   }
 }
@@ -132,13 +132,15 @@ static void message_done() {
 }
 
 static void receive_error(string err) {
-  "/kernel/sys/driver"->message(err);
+  "/kernel/sys/driver"->message(err+" : "+ (user ? typeof(user):"<none>")) ;
   if(user) user->receive_error(err);
 }
 
 static void receive_message(string str) {
   if(user) {
-    user->receive_message(str);
+    rlimits(256;1000000) {
+      user->receive_message(str);
+    }
   } else {
     /*
      * Our user is gone, we have no reason to be here either.
