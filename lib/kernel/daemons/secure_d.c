@@ -62,11 +62,13 @@ void make_admin( string name ) {
       player->restore_me();
       player->add_cmd_path( "/cmds/wiz" );
       player->add_cmd_path( "/kernel/cmds/admin" );
+      player->add_channel("dgd");
       player->save_me();
       destruct_object( player );
     } else {
       player->add_cmd_path( "/cmds/wiz" );
       player->add_cmd_path( "/kernel/cmds/admin" );
+      player->add_channel("dgd");
       player->save_me();
     }
     write( capitalize( name ) + " has been made an admin." );
