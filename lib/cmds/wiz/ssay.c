@@ -10,10 +10,12 @@ void main( string str ) {
     str = str[0..(i-1)];
   }
 
+  if(sscanf(str, "%s|%s", how, what) != 2) {
+    write("usage: ssay how|what");
+    return;
+  }
 
-  sscanf(str, "%s|%s", how, what);
-
-if (str != "") {
+  if (str != "") {
     
     switch(what[strlen(what)-1]) {
     case '.' :

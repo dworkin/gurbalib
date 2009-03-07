@@ -1,4 +1,4 @@
-void main ( void ) {
+void main ( string junk ) {
   
   int day;
   int hour;

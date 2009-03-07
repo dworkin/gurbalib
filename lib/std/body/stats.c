@@ -28,6 +28,8 @@ string query_valid_base_stat( string statname )
 
 int  query_stat( string statname )
 {
+   int base, bonus;
+
    if( !statname ) {
       return 0;
    }
@@ -37,7 +39,9 @@ int  query_stat( string statname )
    if( !bonus_stats ) {
       bonus_stats = ([ ]);
    }
-   return ( base_stats[statname] + bonus_stats[statname] );
+   base = base_stats[statname] ? base_stats[statname] : 0;
+   bonus = bonus_stats[statname] ? bonus_stats[statname] : 0;
+   return ( base + bonus );
 }
 
 int  query_base_stat( string statname )
@@ -48,7 +52,7 @@ int  query_base_stat( string statname )
    if( !base_stats ) {
       base_stats = ([ ]);
    }
-   return base_stats[statname];
+   return base_stats[statname] ? base_stats[statname]:0;
 }
 
 int  query_bonus_stat( string statname )
@@ -59,7 +63,7 @@ int  query_bonus_stat( string statname )
    if( !bonus_stats ) {
       bonus_stats = ([ ]);
    }
-   return bonus_stats[statname];
+   return bonus_stats[statname] ? bonus_stats[statname]:0;
 }
 
 void trim_base_stat(string statname) 
@@ -68,10 +72,11 @@ void trim_base_stat(string statname)
    return;
    max = this_object()->query_race_object()->query_base_stat_maximum(statname);    
    min = this_object()->query_race_object()->query_base_stat_minimum(statname); 
-   if( base_stats[statname] < min) {
+   
+   if( query_base_stat(statname) < min) {
       base_stats[statname] = min;
    }
-   else if( base_stats[statname] > max) {
+   else if( query_base_stat(statname) > max) {
       base_stats[statname] = max;
    }
 }   
@@ -85,10 +90,10 @@ void trim_bonus_stat(string statname)
    max = this_object()->query_race_object()->query_bonus_stat_maximum(statname);    
    min = this_object()->query_race_object()->query_bonus_stat_minimum(statname);
    */
-   if( bonus_stats[statname] < min) {
+   if( query_bonus_stat(statname) < min) {
       bonus_stats[statname] = min;
    }
-   else if( bonus_stats[statname] > max) {
+   else if( query_bonus_stat(statname) > max) {
       bonus_stats[statname] = max;
    }
 }

@@ -1,6 +1,6 @@
 void main( string str ) {
    object ob;
-   string str, tmp;
+   tmp;
    object *inv;
    int i;
    

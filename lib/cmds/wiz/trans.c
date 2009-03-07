@@ -3,6 +3,11 @@ void main (string str) {
   object usr;
   object player;
   
+  if(!str || str == "") {
+    write( "Usage: trans <player>" );
+    return;
+  }
+
   usr = USER_D->find_user(str);
   if (usr) {
     player = usr->query_player();
