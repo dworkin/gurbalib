@@ -264,10 +264,11 @@ void interrupt() {
   object p;
   int i;
 
+  usrs = users();
   for( i=0; i < sizeof( usrs ); i++ ) {
     p = usrs[i]->query_player();
-    if(p) p->do_quit();
-    else destruct_object(p);
+    if(p) p->do_quit("");
+    else destruct_object(usrs[i]);
   }
   message( "Shutting down." );
   shutdown();
