@@ -34,7 +34,6 @@ string *query_banned_sites( void ) {
 int is_a_banned( string name ) {
    string *tmp;
    string tmp_name;
-   write(name);
    if(strlen(name) == 0) return 0;
    tmp = explode(name,".");
    if(!sizeof(tmp)) return 0;
@@ -140,7 +139,6 @@ int siteban (string str) {
    flag = 0;
    tmp = explode(str,".");
    if(sizeof(tmp) != 4) {
-     write("bad IP");
      return 0;
    }
 
@@ -190,7 +188,6 @@ int unsiteban (string str) {
    tmp = explode(str,".");
    
    if(sizeof(tmp) != 4) {
-     write("bad IP");
      return 0;
    }
    if( (tmp[1] == "*") && (tmp[2] == "*") && (tmp[3] == "*") ) {
