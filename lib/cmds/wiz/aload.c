@@ -1,7 +1,6 @@
 void main( string str ) {
    string file, argument, rest;
    object ob;
-   string str;
    
    str = this_player()->query_autoload_string();
    while(str && str != "*^!") {

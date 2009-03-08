@@ -34,7 +34,10 @@ string *query_banned_sites( void ) {
 int is_a_banned( string name ) {
    string *tmp;
    string tmp_name;
+   write(name);
+   if(strlen(name) == 0) return 0;
    tmp = explode(name,".");
+   if(!sizeof(tmp)) return 0;
    tmp_name = tmp[0] + ".*.*.*";
    if( member_array(tmp_name, a_banned_sites) != -1 ) 
       return( 1 );
@@ -47,6 +50,7 @@ int is_a_newbanned( string name ) {
    if( member_array("new.new.new.new", a_banned_sites) != -1 ) 
       return( 1 );
    tmp = explode(name,".");
+   if(!sizeof(tmp)) return 0;
    tmp_name = tmp[0] + ".new.new.new";
    if( member_array(tmp_name, a_banned_sites) != -1 ) 
       return( 1 );
@@ -56,7 +60,9 @@ int is_a_newbanned( string name ) {
 int is_b_banned( string name ) {
    string *tmp;
    string tmp_name;
+   if(!name) return 0;
    tmp = explode(name,".");
+   if(sizeof(tmp) < 2) return 0;
    tmp_name = tmp[0]+"."+tmp[1] + ".*.*";
    if( member_array(tmp_name, b_banned_sites) != -1 ) 
       return( 1 );
@@ -67,6 +73,7 @@ int is_b_newbanned( string name ) {
    string *tmp;
    string tmp_name;
    tmp = explode(name,".");
+   if(sizeof(tmp) < 2) return 0;
    tmp_name = tmp[0]+"."+tmp[1] + ".new.new";
    if( member_array(tmp_name, b_banned_sites) != -1 ) 
       return( 1 );
@@ -77,6 +84,7 @@ int is_c_banned( string name ) {
    string *tmp;
    string tmp_name;
    tmp = explode(name,".");
+   if(sizeof(tmp) < 3) return 0;
    tmp_name = tmp[0]+"."+tmp[1]+"."+tmp[2]+".*";
    if( member_array(tmp_name, c_banned_sites) != -1 ) 
       return( 1 );
@@ -87,6 +95,7 @@ int is_c_newbanned( string name ) {
    string *tmp;
    string tmp_name;
    tmp = explode(name,".");
+   if(sizeof(tmp) < 3) return 0;
    tmp_name = tmp[0]+"."+tmp[1]+"."+tmp[2]+".new";
    if( member_array(tmp_name, c_banned_sites) != -1 ) 
       return( 1 );
@@ -130,6 +139,11 @@ int siteban (string str) {
    int flag;
    flag = 0;
    tmp = explode(str,".");
+   if(sizeof(tmp) != 4) {
+     write("bad IP");
+     return 0;
+   }
+
    if( (tmp[1] == "*") && (tmp[2] == "*") && (tmp[3] == "*") ) {
       /* A class siteban */
       write_file("/data/banned/a/"+str,ctime(time())+"\tby:  "+this_user()->query_name()+"\n");
@@ -175,6 +189,10 @@ int unsiteban (string str) {
    flag = 0;
    tmp = explode(str,".");
    
+   if(sizeof(tmp) != 4) {
+     write("bad IP");
+     return 0;
+   }
    if( (tmp[1] == "*") && (tmp[2] == "*") && (tmp[3] == "*") ) {
       /* A class siteban */
       remove_file("/data/banned/a/"+str);
