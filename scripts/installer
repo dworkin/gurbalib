@@ -53,7 +53,7 @@ TD=${TD//\//\\\/}
 
 
 if [ ! -f gurba.dgd ]; then
-  cat net.dgd | sed -e "s/\/gurba040/${TD}/g" >./gurba.dgd
+  cat net.dgd | sed -e "s/\/gurbalib/${TD}/g" >./gurba.dgd
 fi
 
 echo "BASEDIR="`pwd` >.basedir

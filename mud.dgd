@@ -1,6 +1,6 @@
 telnet_port	= 4000;			/* telnet port number */
 binary_port = 4001;
-directory	= "/gurba040/lib/";/* base directory (MUST be absolute) */
+directory	= "/gurbalib/lib/";/* base directory (MUST be absolute) */
 users		= 40;			/* max # of users */
 editors		= 40;			/* max # of editor sessions */
 ed_tmpfile	= "../tmp/ed";		/* proto editor tmpfile */
