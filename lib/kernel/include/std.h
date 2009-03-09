@@ -4,12 +4,14 @@
 #endif
 #endif
 
+#define SYS_COLOR
+
 #include <mudname.h>
 
 #define LIB_NAME  "GurbaLib"
-#define LIB_VERSION "v0.40"
+#define LIB_VERSION "v0.41"
 
-#define ADMIN_EMAIL "fudge@planetarion.com"
+#define ADMIN_EMAIL "gurba@wotf.org"
 
 #define LINKDEAD_TIMEOUT 10*60
 

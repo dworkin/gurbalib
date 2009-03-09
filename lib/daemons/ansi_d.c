@@ -81,6 +81,10 @@ string parse_colors( string str ) {
   string msg;
   int i;
 
+#ifndef SYS_COLOR
+  return strip_colors( str );
+#endif
+
   tmp = explode( str, "%^" );
 
   for( i=0; i < sizeof( tmp ); i++ ) {
