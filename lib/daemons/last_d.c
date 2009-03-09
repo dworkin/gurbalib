@@ -18,10 +18,14 @@ void save_me( void ) {
 }
 
 void add_entry( string name, int on ) {
+  string ip;
+
   if( on ) {
     last[name] = "[%^CYAN%^" + ctime( time() ) + "%^RESET%^] %^GREEN%^" + capitalize( name ) + "%^RESET%^ logs on from %^BOLD%^" + query_ip_number( USER_D->find_user( name ) ) + "%^RESET%^\n";
   } else {
-    last[name] = "[%^CYAN%^" + ctime( time() ) + "%^RESET%^] %^GREEN%^" + capitalize( name ) + "%^RESET%^ logged off from %^BOLD%^" + query_ip_number( USER_D->find_user( name ) ) + "%^RESET%^\n";
+    ip = query_ip_number( USER_D->find_user( name ) );
+    if(!ip) ip = "<LD>";
+    last[name] = "[%^CYAN%^" + ctime( time() ) + "%^RESET%^] %^GREEN%^" + capitalize( name ) + "%^RESET%^ logged off from %^BOLD%^" + ip + "%^RESET%^\n";
   } 
   save_me();
 }

@@ -40,10 +40,13 @@ void open() {
 }
 
 void close( int ld ) {
+  string ip;
     
+  ip = query_ip_number(this_object());
+  if(!ip) ip = "<NO IP>";
   if( ld == 0 ) {
     player->set_linkdead( 1 );
-    write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+    write_file( "/logs/logins", ctime( time() ) + "\t" + ip +
       "\t\t" + this_object()->query_name() +" disconnects\n" );
 
   } else {
@@ -69,7 +72,7 @@ void quit( void ) {
       write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
       "\t" + this_object()->query_name() +" quits\n" );
   } else {
-      write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+      write_file( "/logs/logins", ctime( time() ) + "\t" +
       "\t\t" + this_object()->query_name() +" LD quits\n" );
   }
 
