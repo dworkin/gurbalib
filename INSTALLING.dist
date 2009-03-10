@@ -5,7 +5,7 @@ Please check the doc/ directory for more information.
 
 1. Using the installer script:
 
-  checkout or export the distribution into a directory
+  Unpack the distribution into a directory
   then cd to this directory and type:
 
     scripts/installer
@@ -26,8 +26,8 @@ Please check the doc/ directory for more information.
 
 2. Doing it yourself:
 
-  - checkout or export the distribution to a directory and 
-    cd to this directory.
+  - Unpack the distribution to a directory and cd to this
+    directory
   - cd lib/kernel/include
   - cp mudname.h.default mudname.h
   - edit the mudname.h file and change the mudname
