@@ -1,0 +1,44 @@
+Q: When trying to start the mud, it complains about the file
+   mudname.h not being there and then terminates.
+
+A: You didn't use scripts/installer to configure the mud and
+   install the driver. Please do so as it will ensure this
+   file gets created properly.
+
+   Alternatively:
+
+   cd lib/kernel/include
+   copy the file mudname.h.default to mudname.h and edit it
+   to contain the name of your mud.
+
+Q: When starting the mud, I get the following output:
+
+
+  Mar 10 13:00:16 ** DGD 1.2.157-NET-05 running GurbaLib v0.41.
+  Mar 10 13:00:16 ** Initializing...
+  Mar 10 13:00:16 ** Preloading...
+  Mar 10 13:00:16 ** Setting up events
+  Mar 10 13:00:16 ** Setting up daemons
+  Mar 10 13:00:16 ** Opening telnet port...
+  /daemons/imud_d.c, 73: syntax error
+    55 initialize        /kernel/sys/driver
+  Failed to compile "/daemons/imud_d.c"
+  Object: /kernel/sys/driver, program: /kernel/sys/driver, line 55
+   210 call_object       /kernel/sys/driver
+  Failed to compile "/daemons/imud_d.c"
+  Config error: initialization failed
+
+A: The file lib/kernel/include/mudname.h does not define the
+   IMUD_NAME macro, probably because you created an empty file
+   there or removed that macro. 
+
+   You should use scripts/installer to ensure the mudname.h
+   file is created properly or do what is described above to
+   create it yourself.
+
+Q: I changed the Makefile to build the driver with -O or -O2
+   and now it crashes.
+
+A: Don't do this. It is not supported and the possible gain it
+   could give is very small.
+
