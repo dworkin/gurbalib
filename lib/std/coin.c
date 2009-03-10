@@ -25,8 +25,6 @@ int do_read( object who ) {
   write( text );
   return( 1 );
 }
-rrency = str;
-}
 
 void set_amount( int amt ) {
   amount = amt;
