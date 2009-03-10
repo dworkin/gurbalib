@@ -4,6 +4,8 @@ inherit OBJECT;
 inherit M_GETTABLE;
 
 string text;
+int amount;
+string currency;
 
 void create( void ) {
   ::create( );
@@ -24,6 +26,10 @@ int can_read( object who ) {
 int do_read( object who ) {
   write( text );
   return( 1 );
+}
+
+void set_currency(string str) {
+  currency = str;
 }
 
 void set_amount( int amt ) {
