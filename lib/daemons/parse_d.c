@@ -70,12 +70,6 @@ mixed parse( string str ) {
   if( sizeof( result ) > 1 ) {
     for( i = 0; i < sizeof( result ); i ++ ) {
       switch( typeof( result[i] ) ) {
-      case T_STRING:
-	/*	if( i == 0 ) */
-	  function += lowercase(result[i]) + " ";
-	  /*	else
-		function += "str "; */
-	break;
       case T_OBJECT:
 	if( result[i]->is_living() )
 
@@ -83,6 +77,13 @@ mixed parse( string str ) {
 	else
 	  function += "obj ";
 	break;
+      case T_STRING:
+        if( i == 0 )
+         function += lowercase(result[i]) + " ";
+               else
+                function += "str ";
+        break;
+
       }
     }
     function = implode( explode( function, " " ), "_" );
