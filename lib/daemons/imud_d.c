@@ -16,7 +16,8 @@ inherit M_SAVERESTORE;
 
 mixed *mpRouterList;
 static private mapping aServices;
-int connected;
+static int connected;
+int password;
 mapping chanlist;
 int chanlist_id;
 mapping mudlist;
@@ -568,7 +569,7 @@ void open()
   mudlist_id = 0;
   chanlist_id = 0;
   send_to_router("startup-req-3", ({
-    0, /* Password - Send 0 if you're new */
+    password, /* Password - Send 0 if you're new */
     query_mudlist_id(), /* Mudlist ID - Send 0 if you're new */
     query_chanlist_id(),  /* Channel List ID - Send 0 if you're new */
     LOGIN_PORT, /* What port people use to connect to your MUD */
@@ -628,6 +629,7 @@ void create( void )
     return;
   }
 
+  password = 0;
   connected = 0;
 #if 0
   mpRouterList = ({ ({ "*yatmim", "149.152.218.102 23"}) });
