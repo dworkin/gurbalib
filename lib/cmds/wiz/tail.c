@@ -6,7 +6,7 @@ void main( string arg ) {
    int where;
    int num_lines, start;
 
-   if( arg == "" ) {
+   if( !arg || arg == "" ) {
       arg = this_environment()->file_name();
    }
 

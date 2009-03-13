@@ -10,13 +10,13 @@ void main( string str ) {
   string *parts;
   string in;
 
-  if( sscanf( str, "%s %s", str, where ) != 2 ) {
+  if( !str || str == "" || ( sscanf( str, "%s %s", str, where ) != 2 ) ) {
     write( "Please specify a source and a destination." );
     return;
   }
 
   file = normalize_path( str, this_player()->query_env( "cwd" ) );
-  if( file == "" ) {
+  if( !file || file == "" ) {
     write( file + ": Permission denied." );
     return;
   }
@@ -35,7 +35,7 @@ void main( string str ) {
   file_name = parts[ sizeof( parts ) - 1 ];
 
   dest = normalize_path( where, this_player()->query_env( "cwd" ) );
-  if( dest == "" ) {
+  if( !dest || dest == "" ) {
     write( dest + ": Permission denied." );
     return;
   }

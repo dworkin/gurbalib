@@ -33,7 +33,7 @@ void main( string str) {
     if( usr[i]->query_name() == who ) {
       flag = 1;
       path = normalize_path( what, path);
-      if( path == "" ) {
+      if( !path || path == "" ) {
 	write( "Access denied.\n" );
 	return;
       }

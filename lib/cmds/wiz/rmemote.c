@@ -1,6 +1,6 @@
 void main( string str ) {
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     write( "Useage: rmemote <name>\n" );
     return;
   }

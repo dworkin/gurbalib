@@ -83,7 +83,7 @@ void FTP_CMD_pass( string arg ) {
 
   object player;
 
-  if( name == "" ) {
+  if( !name || name == "" ) {
     send_message( "530 Login with USER first.\n" );
     return;
   }
@@ -121,7 +121,7 @@ void FTP_CMD_retr( string str ) {
   }
   
   str = normalize_path( str, cwd );
-  if( str == "" ) {
+  if( !str || str == "" ) {
     send_message( "550 " + str + ": Permission denied.\n" );
     connection->terminate();
     return;
@@ -171,7 +171,7 @@ void FTP_CMD_stor( string arg ) {
   }
 
   path = normalize_path( arg, cwd );
-  if( path == "" ) {
+  if( !path || path == "" ) {
     send_message( "550 Permission denied.\n" );
     return;
   }
@@ -223,7 +223,7 @@ void FTP_CMD_nlst( string str ) {
   }
   
   str = normalize_path( str, cwd );
-  if( str == "" ) {
+  if( !str || str == "" ) {
     send_message( "550 " + str + ": Permission denied.\n" );
     connection->terminate();
     return;
@@ -308,7 +308,7 @@ void FTP_CMD_list( string str ) {
   }
   
   str = normalize_path( str, cwd );
-  if( str == "" ) {
+  if( !str || str == "" ) {
     send_message( "550 " + str + ": Permission denied.\n" );
     connection->terminate();
     return;
@@ -376,7 +376,7 @@ void FTP_CMD_cwd( string arg ) {
 
   arg = normalize_path( arg, cwd );
 
-  if( arg == "" ) {
+  if( !arg || arg == "" ) {
     send_message( "550 " + arg + ": Permission denied.\n" );
     return;
   }
@@ -424,7 +424,7 @@ void FTP_CMD_mkd( string arg ) {
   string file;
 
   file = normalize_path( arg, cwd );
-  if( file == "" || priv == 0) {
+  if( !file || file == "" || priv == 0) {
     send_message( "550 Permission denied.\n" );
     return;
   }
@@ -474,7 +474,7 @@ void FTP_CMD_noop( string arg ) {
 void FTP_CMD_dele( string arg ) {
   string file;
   file = normalize_path( arg, cwd );
-  if( file == "" || priv == 0) {
+  if( !file || file == "" || priv == 0) {
     send_message( "550 " + arg + ": Permission denied.\n" );
     return;
   }

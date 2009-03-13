@@ -7,7 +7,7 @@ void main( string str ) {
   int i;
 
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     str = this_player()->query_env( "cwf" );
   }
 
@@ -25,7 +25,7 @@ void main( string str ) {
   }
 
   path = normalize_path( str, path );
-  if( path == "" ) {
+  if( !path || path == "" ) {
     write( "Access denied.\n" );
     return;
   }

@@ -1,5 +1,5 @@
 void main( string str ) {
-  if( str == "" ) {
+  if( !str || str == "" ) {
     /* Not starting with a file */
     this_player()->edit("");
     this_player()->edit( "file" );

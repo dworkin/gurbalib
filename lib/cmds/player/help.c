@@ -10,7 +10,7 @@ void main( string arg ) {
   int i;
   int where;
 
-  if (arg == "") {
+  if ( !arg || arg == "" ) {
     arg = "help";
   }
 

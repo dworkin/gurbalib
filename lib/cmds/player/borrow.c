@@ -1,6 +1,6 @@
 void main( string str ) {
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     this_player()->write( "Borrow what?" );
     return;
   }

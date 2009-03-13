@@ -14,7 +14,7 @@ void main( string str ) {
     write( "Try writing a message at a message board.\n" );
     return;
   } 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     subject[this_player()->query_name()] = "(none)";
   } else {
     subject[this_player()->query_name()] = str;

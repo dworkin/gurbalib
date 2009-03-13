@@ -317,7 +317,7 @@ void chan_emote( string chan, string what ) {
     return;
   }
 
-  if( what == "" )
+  if( !what || what == "" )
     return;
 
   if( sscanf( what, "%s %s", cmd, arg ) != 2 ) 
@@ -423,7 +423,7 @@ void chan_say( string chan, string what ) {
     return;
   }
 
-  if( what == "" )
+  if( !what || what == "" )
     return;
 
 #ifdef SYS_NETWORKING

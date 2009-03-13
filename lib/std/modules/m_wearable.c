@@ -4,7 +4,7 @@ static string wear_message;
 static string remove_message;
 
 void create( void ) {
-  slot == "";
+  slot = "";
   wear_message = "$N $vwear $o.";
   remove_message = "$N $vremove $o.";
 }

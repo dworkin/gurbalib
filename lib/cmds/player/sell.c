@@ -5,7 +5,7 @@ void main( string str ) {
   object obj;
   int i;
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     write( "Sell what?" );
     return;
   }

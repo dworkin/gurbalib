@@ -4,16 +4,16 @@ void main( string file ) {
   string name;
   int i;
 
-  if( file == "" ) 
+  if( !file || file == "" ) 
     file = this_player()->query_env( "cwf" );
 
-  if( file == "" ) {
+  if( !file || file == "" ) {
     write( "Please specify a filename." );
     return;
   }
 
   name = normalize_path( file, this_player()->query_env( "cwd" ) );
-  if( name == "" ) {
+  if( !name || name == "" ) {
     write( "Access denied.\n" );
     return;
   }

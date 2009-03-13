@@ -4,7 +4,7 @@ void main( string str ) {
   object *objs;
   int i;
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     write( "Buy what?" );
     return;
   }

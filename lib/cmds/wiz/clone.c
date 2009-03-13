@@ -3,11 +3,11 @@ void main( string str ) {
   object ob;
 
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     str = this_player()->query_env( "cwf" );
   }
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     write( "Please specify a file to clone." );
     return;
   }
@@ -22,7 +22,7 @@ void main( string str ) {
 
   path = normalize_path( str, path );
 
-  if( path == "" ) {
+  if( !path || path == "" ) {
     write( "Access denied.\n" );
     return;
   }

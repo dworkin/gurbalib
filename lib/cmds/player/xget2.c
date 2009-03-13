@@ -5,7 +5,7 @@ void main( string arg ) {
    object *objs;
    
 
-   if( arg == "" ) {
+   if( !arg || arg == "" ) {
       write( "Get what?\n" );
       return;
    }

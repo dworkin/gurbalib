@@ -1,7 +1,7 @@
 void main( string str ) {
   object ob;
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     if( this_user()->query_player()->is_possessing() ) {
       write( "Your release your grasp on " + this_player()->query_name() + "." );
       this_user()->query_player()->query_possessing()->set_possessor( nil );

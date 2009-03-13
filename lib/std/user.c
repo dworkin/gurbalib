@@ -81,7 +81,7 @@ void quit( void ) {
 }
 
 void put_original( string str ) {
-  if( str == "" )
+  if( !str || str == "" )
     return;
   send_message( str );
 }
@@ -89,7 +89,7 @@ void put_original( string str ) {
 void put_message( string str ) {
   string msg;
 
-  if( str == "" )
+  if( !str || str == "" )
     return;
 
   if( query_player()->query_ansi() )
@@ -108,7 +108,7 @@ void wrap_message( string str ) {
   int i,j;
   int sz;
 
-  if( str == "" )
+  if( !str || str == "" )
     return;
 
   /* Get the width from the player */
@@ -226,7 +226,7 @@ void login_user( void ) {
 }
 
 void handle_reconnect( string str ) {
-  if( str == "" ) {
+  if( !str || str == "" ) {
     send_message( "Please enter y or n : " );
     player->input_to_object( this_object(), "handle_reconnect" );
   } else if( lowercase( str ) == "y" ) {
@@ -272,7 +272,7 @@ string query_player_name( void ) {
 }
 
 void input_name( string str ) {
-  if( str == "" ) {
+  if( !str || str == "" ) {
     send_message( "Please enter your name : " );
     player->input_to_object( this_object(), "input_name" );
   } else {
@@ -315,7 +315,7 @@ void input_name( string str ) {
 }
 
 void input_correct_name( string str ) {
-  if( str == "" ) {
+  if( !str || str == "" ) {
     send_message( "Please enter 'y' or 'n' : " );
       send_message( "Is '" + user_name + "' correct (y/n)? : ");
     player->input_to_object( this_object(), "input_correct_name" );
@@ -333,7 +333,7 @@ void input_correct_name( string str ) {
 }
 
 void input_old_passwd( string str ) {
-  if( str == "" ) {
+  if( !str || str == "" ) {
     send_message( "\nPlease enter your password : " );
     send_message( 0 );
     player->input_to_object( this_object(), "input_old_passwd" );
@@ -353,7 +353,7 @@ void input_new_passwd( string str ) {
   write_file( "/logs/new_players", ctime( time() ) + "\t" + query_ip_number(this_object()) +
       "\t" + query_name() + "\n" );
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     send_message( "\nPlease enter your password : " );
     send_message( 0 );
     player->input_to_object( this_object(), "input_new_passwd" );
@@ -366,7 +366,7 @@ void input_new_passwd( string str ) {
 }
 
 void input_check_passwd( string str ) {
-  if( str == "" ) {
+  if( !str || str == "" ) {
     send_message( "\nPlease enter the password again : " );
     send_message( 0 );
     player->input_to_object( this_object(), "input_check_passwd" );
@@ -386,7 +386,7 @@ void input_check_passwd( string str ) {
 
 void input_get_gender( string str ) {
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     send_message( "Please enter your gender (male/female) : " );
     player->input_to_object( this_object(), "input_get_gender" );
     return;
@@ -442,7 +442,7 @@ void input_get_email( string str ) {
 
 void input_get_race( string str ) {
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     send_message( "Please choose one of the races : " );
     player->input_to_object( this_object(), "input_get_race" );
     return;

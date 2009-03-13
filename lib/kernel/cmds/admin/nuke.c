@@ -19,7 +19,7 @@ int main( string arg )
       return 1;
    }
 
-   if( arg == "" )
+   if( !arg || arg == "" )
    {
       write( SYNTAX );
       return 1;

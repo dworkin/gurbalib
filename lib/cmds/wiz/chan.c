@@ -9,7 +9,7 @@ void main( string str ) {
   string cmd;
 
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     write( "Usage: chan <channel> </command>\n Command can be join, leave, quit, new, admin, wiz, permanent, who, list, info, or delete.\n" );
     return;
   }

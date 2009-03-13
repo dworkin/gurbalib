@@ -21,7 +21,7 @@ void main( string str ) {
       return;
     }
     
-    if( str == "" ) {
+    if( !str || str == "" ) {
       write( "Read what?" );
       return;
     }

@@ -423,7 +423,7 @@ void more_prompt( string arg ) {
   string msg;
   int height;
 
-  if( arg == "" )
+  if( !arg || arg == "" )
     arg = " ";
   switch( arg[0] ) {
   case 'q':

@@ -1,5 +1,5 @@
 void main( string str ) {
-  if( str == "" ) {
+  if( !str || str == "" ) {
     int i;
     object *pSnooping;
     

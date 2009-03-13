@@ -14,7 +14,7 @@ void main( string str ) {
     write( "Unable to locate the bug board. Tell a wizard.\n" );
     return;
   } 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     subject[this_player()->query_name()] = "[" + this_player()->query_environment()->file_name() + "]";
   } else {
     subject[this_player()->query_name()] = str;

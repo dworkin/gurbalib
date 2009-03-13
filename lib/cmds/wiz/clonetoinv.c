@@ -16,7 +16,12 @@ void main( string str) {
       who = words[0]; 
       what = words[1]; */
 
- sscanf( str, "%s %s", who, what );
+  if( !str || str == "" ) {
+    write("Usage: clonetoinv <who> <what>");
+    return;
+  }
+
+  sscanf( str, "%s %s", who, what );
 
   usr = USER_D->query_users();
   flag = 0;
@@ -33,7 +38,7 @@ void main( string str) {
     if( usr[i]->query_name() == who ) {
       flag = 1;
       path = normalize_path( what, path);
-      if( path == "" ) {
+      if( !path || path == "" ) {
 	write( "Access denied.\n" );
 	return;
       }

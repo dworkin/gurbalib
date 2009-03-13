@@ -18,7 +18,7 @@ void main( string arg )
    object *usrs;
    string time, reason;
 
-   if( arg == "" )
+   if( !arg || arg == "" )
    {
       write(SYNTAX);
       return;
