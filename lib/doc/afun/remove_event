@@ -1,1 +1,16 @@
-Todo
+NAME
+        remove_event - remove an event
+
+SYNOPSIS
+        void remove_event( string name )
+
+
+DESCRIPTION
+        Removes the event with the given name, after this the event
+        can no longer be signalled. All subscribers are removed when
+        an event is removed, and objects can no longer subscribe to
+        it.
+
+SEE ALSO
+        afun/event, afun/add_event, afun/subscribe_event,
+        afun/unsubscribe_event

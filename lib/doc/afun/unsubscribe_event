@@ -1,1 +1,14 @@
-Todo
+NAME
+        unsubscribe_event - unsubscribe from an event
+
+SYNOPSIS
+        ob->unsubscribe_event( string name )
+
+
+DESCRIPTION
+        Unsubscribes this_object() from an event with the given name
+        in the object ob.
+
+SEE ALSO
+        afun/event, afun/add_event, afun/remove_event, 
+        afun/subscribe_event

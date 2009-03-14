@@ -1,1 +1,15 @@
-Todo
+NAME
+        add_event - add an event
+
+SYNOPSIS
+        void add_event( string name )
+
+
+DESCRIPTION
+        Adds an event with the given name, needed before the 
+        event can be signalled or other objects subscribe to 
+        the event.
+
+SEE ALSO
+        afun/event, afun/remove_event, afun/subscribe_event,
+        afun/unsubscribe_event
