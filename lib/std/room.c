@@ -203,7 +203,7 @@ string body_exit( object who, string dir ) {
     event( "body_leave", who );
     tell_room( who, capitalize( who->query_id() ) + " leaves " + dir + ".\n" );
     error = catch( who->move( query_exit( dir ) ) );
-    last_exit = time();
+    if (who->is_player()) last_exit = time();
   } else if( query_hidden_exit( dir ) ) {
     /* there is a hidden exit */
     if( query_hidden_exit( dir )[0] == '#' ) {
@@ -221,7 +221,7 @@ string body_exit( object who, string dir ) {
     event( "body_leave", who );
     tell_room( who, capitalize( who->query_id() ) + " leaves " + dir + ".\n" );
     error = catch( who->move( query_hidden_exit( dir ) ) );
-    last_exit = time();
+    if (who->is_player()) last_exit = time();
   }
   
   
