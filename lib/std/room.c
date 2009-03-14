@@ -78,6 +78,24 @@ string query_hidden_exit( string direction ) {
   return( hidden_exits[direction] );
 }
 
+/* Attempts to find the actual room object attached to a given exit.
+  Will compile it if necessary.
+  Cerihan - 3/13/09
+*/
+object query_exit_room( string direction ) {
+  string exit;
+  object qroom;
+
+  exit = query_exit( direction );
+  if( !exit ) return nil;
+
+  qroom = find_object( exit );
+  if ( !qroom )
+    qroom = compile_object( exit );
+
+  return qroom;
+}
+
 string query_desc( varargs int brief ) {
   string text;
   int i;
