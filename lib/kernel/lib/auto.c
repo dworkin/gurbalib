@@ -490,6 +490,15 @@ int file_size(string file, varargs int dir)
     (i == 0) ? 1 : (i == -2 && dir) ? dir_size(file) : 0;
 }
 
+/* Returns random element from the given array.
+   Returns nil if array is empty. */
+mixed random_element( mixed *arr ) {
+  if (sizeof(arr) < 1)
+    return nil;
+  
+  return arr[random(sizeof(arr))];
+}
+
 string base_name( void ) {
 
   string str,obname;
