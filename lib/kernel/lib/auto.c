@@ -6,8 +6,11 @@
  */
 
 #include <type.h>
+#include <privileges.h>
 
 #include "afun/variables.c"
+#include "afun/set_list.c"
+#include "afun/get_list.c"
 #include "afun/compile_object.c"
 #include "afun/clone_object.c"
 #include "afun/set_this_player.c"
