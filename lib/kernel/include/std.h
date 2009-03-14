@@ -9,7 +9,7 @@
 #include <mudname.h>
 
 #define LIB_NAME  "GurbaLib"
-#define LIB_VERSION "v0.41"
+#define LIB_VERSION "v0.42 devel"
 
 #define ADMIN_EMAIL "gurba@wotf.org"
 
