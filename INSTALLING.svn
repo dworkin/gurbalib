@@ -32,9 +32,12 @@ Please check the doc/ directory for more information.
   - cp mudname.h.default mudname.h
   - edit the mudname.h file and change the mudname
   - cd ../../../
-  - Copy the DGD driver of your choice to bin/driver
+  - 1. Copy the DGD driver of your choice to bin/driver
+    or
+    2. cd src && make clean && make && make install && cd ..
   - Use either net.dgd or mud.dgd depending on if you are
-    using the network package
+    using the network package, make sure to edit it to 
+    point to the directory where your mud is installed.
   - If not using the network package and not using the ansi
     patches, edit lib/kernel/include/std.h and remove the
     #define SYS_COLOR
