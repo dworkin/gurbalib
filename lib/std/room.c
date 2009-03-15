@@ -7,6 +7,7 @@ inherit M_FAKE_OBJECT;
 static mapping exits;
 static mapping hidden_exits;
 static mapping areas;
+static mapping room_commands;
 static int last_exit;
 
 void setup( void );
@@ -23,6 +24,7 @@ void create( void ) {
   exits = ([]);
   hidden_exits = ([]);
   areas = ([]);
+  room_commands = ([]);
   last_exit = 0;
   setup();
 }
@@ -162,6 +164,15 @@ string query_desc( varargs int brief ) {
     }
   }
   return( text );
+}
+
+void add_room_command( string command, string function ) {
+  if (!room_commands[command]) room_commands += ([ command : function ]);
+  else room_commands[command] = function;
+}
+
+string query_room_command( string command ) {
+  return room_commands[command];
 }
 
 void tell_room( object originator, string str, varargs mixed obj...) {

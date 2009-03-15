@@ -702,6 +702,16 @@ void receive_message( string message ) {
 	    }
 	 }
       }
+
+      if ( !flag ) {
+         /* Check for a room command */
+         string roomcmd_h;
+         roomcmd_h = this_environment()->query_room_command(cmd);
+         if (roomcmd_h) {
+           call_other( this_environment(), roomcmd_h, arg );
+           flag = 1;
+         }
+      }
       
       if( !flag ) {
 	 /* Check if the command is an emote */
