@@ -9,28 +9,30 @@
 /*   } */
 /* } */
 
+/*
+  'who' command
+  Originally by Fudge
+  Improved by Cerihan 3/15/09
+*/
+
 void main( string str ) {
   object *usr;
   int i;
-
   usr = USER_D->query_users();
-  if (SECURE_D->query_wiz(this_player()->query_name()) > 0 ) {
-    for( i = 0; i < sizeof( usr ); i++) {
-      if (SECURE_D->query_wiz(usr[i]->query_player()->query_name()) > 0 ) {
-	write( "%^RED%^[WIZ] %^RESET%^" + capitalize(usr[i]->query_player()->query_title() + "\n"));
-      }
+  
+  write(MUD_NAME + " currently has " + sizeof( usr ) + " users online."); 
+  write("------------------------------------------------------");
+  for( i = 0; i < sizeof( usr ); i++) {
+    string line;
+    line = capitalize(usr[i]->query_player()->query_title());
+    if ( SECURE_D->query_admin(usr[i]->query_player()->query_name()) > 0 ) {
+      line += " %^BOLD%^%^BLUE%^(Admin)%^RESET%^";
     }
-    write("------------------------------------------------------------------------------\n");
-    for( i = 0; i < sizeof( usr ); i++) {
-      if (!SECURE_D->query_wiz(usr[i]->query_player()->query_name()) ) {
-	write( capitalize(usr[i]->query_player()->query_title() + "\n"));
-      }
+    else if ( SECURE_D->query_wiz(usr[i]->query_player()->query_name()) > 0 ) {
+      line += " %^CYAN%^(Wizard)%^RESET%^";
     }
-  } else {
-    for (i = 0; i < sizeof( usr); i++) {
-      if (!SECURE_D->query_wiz(usr[i]->query_player()->query_name()) ) {
-	write( capitalize(usr[i]->query_player()->query_title()) + "\n");
-      }
-    }
+    write(line + "\n");
   }
+  write("------------------------------------------------------");
 }
+
