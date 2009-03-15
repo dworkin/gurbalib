@@ -55,6 +55,8 @@ void create( void ) {
   timestamp = time();
   set_env( "cwd", "/" );
   set_env( "pwd", "/" );
+  set_env( "width", "78" );
+
   item_commands = ([ ]);
 }
 

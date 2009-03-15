@@ -1,6 +1,6 @@
 inherit "/std/modules/m_autoload_string";
 #include <user.h>
-
+#include <limits.h>
 
 object player;
 
@@ -104,19 +104,21 @@ void wrap_message( string str ) {
   string msg;
   string *words;
   string *lines;
-  mixed width;
+  int width;
   int i,j;
   int sz;
 
   if( !str || str == "" )
     return;
 
+  width = -1;
   /* Get the width from the player */
   if( player ) {
-    width = player->query_env( "width" );
+    	catch (width = str2val((string)player->query_env( "width" )));
   }
-  if( !width )
-    width = 78;
+
+  if( width < 0 ) width = 78;
+  if( width  == 0 ) width = MAX_STRING_SIZE;
 
   /* Split the string into lines */
   lines = explode( str, "\n" );
