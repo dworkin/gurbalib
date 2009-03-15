@@ -375,7 +375,18 @@ void rcv_startup_reply( string origmud, mixed origuser, mixed destuser,
 
 void rcv_error( string origmud, mixed origuser, mixed destuser, 
 			mixed rest ) {
+  object user;
+
   IMUDLOG( "Got an error packet! " + (rest[0] ? rest[0]:"<none>")+" : "+(rest[1] ? rest[1] : "<none>")+"\n" );
+  if(stringp(destuser)) {
+    user = USER_D->find_user( destuser );
+    if(!user || !user->query_player()) 
+      return;
+
+    user->query_player()->message("%^RED%^Intermud error "+(rest[0] ? ("'"+rest[0]+"'"):"<no error>")+
+      " received from "+origmud+"%^RESET%^\n"+
+      "%^CYAN%^" +(rest[1] ? rest[1] : "<no message>")+"%^RESET%^\n");
+  }
 }
 
 void rcv_auth_mud_req(string origmud, mixed origuser, mixed destuser,
