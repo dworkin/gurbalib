@@ -19,7 +19,7 @@ include_file	= "/kernel/include/std.h";	/* standard include file */
 include_dirs	= ({ "/include", "/kernel/include", "~/include" }); /* directories to search */
 auto_object	= "/kernel/lib/auto";	/* auto inherited object */
 driver_object	= "/kernel/sys/driver";	/* driver object */
-create		= "create";		/* name of create function */
+create		= "_F_create";		/* name of create function */
 
 array_size	= 4000;			/* max array size */
 objects		= 500;			/* max # of objects */

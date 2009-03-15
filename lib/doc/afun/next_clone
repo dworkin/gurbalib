@@ -1,0 +1,15 @@
+NAME
+        next_clone - get the next object on the clone list
+
+SYNOPSIS
+        object next_clone( )
+
+DESCRIPTION
+        Get the next object on the clone list
+
+RETURN VALUE
+        Returns the next object if any, or nil
+
+SEE ALSO
+        num_clones, prev_clone
+

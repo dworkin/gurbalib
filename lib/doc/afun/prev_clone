@@ -1,0 +1,18 @@
+NAME
+        prev_clone - get the previous object on the clone list
+
+SYNOPSIS
+        object next_clone( )
+
+DESCRIPTION
+        Get the previous object on the clone list or the
+        master of the object if there is no previous clone.
+        Calling this on the master of an object will return nil
+
+RETURN VALUE
+        Returns the previous object if any, or the master of an
+        object. Returns nil if called on the master.
+
+SEE ALSO
+        num_clones, next_clone
+

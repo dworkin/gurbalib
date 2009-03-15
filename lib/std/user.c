@@ -170,7 +170,9 @@ void wrap_message( string str ) {
 }
 
 void receive_message( string message ) {
-  player->receive_message( message );
+  rlimits(256; 1000000) {
+    player->receive_message( message );
+  }
 }
 
 void login_user( void ) {

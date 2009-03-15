@@ -8,12 +8,16 @@
 #include <type.h>
 #include <privileges.h>
 
+#define LIST_PREV 0
+#define LIST_NEXT 1
+
 #include "afun/variables.c"
 #include "afun/set_list.c"
 #include "afun/get_list.c"
 #include "afun/console_msg.c"
 #include "afun/compile_object.c"
 #include "afun/clone_object.c"
+#include "afun/destruct_object.c"
 #include "afun/set_this_player.c"
 #include "afun/this_player.c"
 #include "afun/this_body.c"
@@ -42,6 +46,9 @@
 #include "afun/base_name.c"
 #include "afun/file_name.c"
 #include "afun/clone_num.c"
+#include "afun/num_clones.c"
+#include "afun/prev_clone.c"
+#include "afun/next_clone.c"
 #include "afun/add_event.c"
 #include "afun/remove_event.c"
 #include "afun/subscribe_event.c"
@@ -57,3 +64,7 @@
 #include "afun/strstr.c"
 #include "afun/replace_string.c"
 #include "afun/invert_exit.c"
+
+#include "sys/_F_create.c"
+#include "sys/_F_destruct.c"
+

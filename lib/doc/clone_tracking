@@ -1,0 +1,33 @@
+Related functions:
+
+  ob->num_clones()
+  ob->next_clone()
+  ob->prev_clone()
+
+How it works
+
+  Clone tracking uses a doubly linked list that is
+  maintained by the _F_create() and _F_destruct() functions
+  in the auto object.
+
+  The head of the list is the master of an object, following
+  the next_clone() link lets you itterate over the list of clones
+
+Example:
+
+int do_to_all_clones(object ob) {
+  /*
+   * Get the master for the object
+   */
+  ob = find_object( ob->base_name() );
+
+  /*
+   * This loops through all clones, but
+   * skips the master.
+   */
+  while( ob = ob->next_clone() ) {
+    ob->do_something();
+  }
+}
+
+

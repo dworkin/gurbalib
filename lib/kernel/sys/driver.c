@@ -413,7 +413,7 @@ static string object_type(string from, string obtype) {
 }
 
 int compile_rlimits( string objname ) {
-  if(sscanf(objname,"/kernel/%*s") == 1 || sscanf(objname,"/daemons/%*s") == 1) {
+  if(sscanf(objname,"/kernel/%*s") == 1 || sscanf(objname,"/daemons/%*s") == 1 || sscanf(objname,"/std/%*s") == 1 ) {
     message( "compile rlimits permitted for " + objname + "\n" );
     return 1;
   } else {

@@ -1,6 +1,16 @@
 #include <privileges.h>
 
 static void create() {
+  if(!get_list( "clones" )) {
+    error(
+      "Your config file is out of date.\n"+
+      "Please change the line reading:\n"+
+      "create = \"create\"\n"+
+      "to\n"+
+      "create = \"_F_create\"\n"+
+      "or see the net.dgd/mud.dgd example config files\n"
+    );
+  }
   DRIVER->register_compiler_d();
 }
 
