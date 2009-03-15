@@ -48,8 +48,9 @@ string format_runtime_error( string error, mixed **trace, int caught, int ticks 
           str += " (" + objname + ")";
         }
       }
-      result += ( str + "\n" );
-      if(i == 0) {
+      if(i != 0) {
+        result += ( str + "\n" );
+      } else {
         result += ((caught ? "[CAUGHT] ":"")+error + "\nObject: " + objname + ", program: " + progname + ", line " + line + "\n" );
       }
     }
@@ -78,7 +79,7 @@ void runtime_error(string error, mixed **trace, int caught, int ticks) {
       switch(display_caught) {
         case "on" :
         case "1"  :
-          player->write( "%^ORANGE%^"+result+"%^RESET%^\n" );
+          player->write( result );
           break;
       }
     }
@@ -89,10 +90,39 @@ void runtime_error(string error, mixed **trace, int caught, int ticks) {
     }
     write_file("/logs/errors/runtime", result+"\n");
     if(player) {
-      player->write("%^RED%^"+result+"%^RESET%^\n");
+      player->write("%^RED%^Runtime error: %^RESET%^"+
+        "%^CYAN%^"+result+"%^RESET%^"
+      );
     }
   }
 }
 
     
+string format_compile_error( string file, int line, string err ) {
+  return file + ", " + (string) line + ": " + err + "\n";
+}
+
+void compile_error( string file, int line, string err ) {
+  string error;
+  object usr;
+  object plr;
+
+  error = format_compile_error( file, line, err );
+  console_msg( error );
+  write_file("/logs/errors/compile", error);
+
+  usr = this_user();
+  if( usr ) {
+    if( usr->query_player() ) {
+      if( SECURE_D->query_wiz( usr->query_player()->query_name() ) == 1 ) {
+        usr->query_player()->write( "%^RED%^Compiler error:%^RESET%^\n"+
+               "%^YELLOW%^"+ error + "%^RESET%^" 
+        );
+      } else {
+        usr->query_player()->write( "You have encountered a rift in reality. Please report it to the admins.\n" );
+      }
+    }
+  }
+}
+
 

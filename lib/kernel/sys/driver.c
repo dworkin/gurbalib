@@ -331,6 +331,11 @@ void compile_error( string file, int line, string err ) {
 
   /* Error during compiling */
 
+  if( error_d ) {
+    error_d->compile_error( file, line, err );
+    return;
+  }
+
   error = file + ", " + (string) line + ": " + err + "\n";
   send_message( error );
   write_file("/logs/errors/compile", error);
@@ -338,7 +343,7 @@ void compile_error( string file, int line, string err ) {
   if( usr ) {
     if( usr->query_player() ) {
       if( SECURE_D->query_wiz( usr->query_player()->query_name() ) == 1 ) {
-   usr->query_player()->write( err );
+   usr->query_player()->write( error );
       } else {
    usr->query_player()->write( "You have encountered a rift in reality. Please report it to the admins.\n" );
       }
