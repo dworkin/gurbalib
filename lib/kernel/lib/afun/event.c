@@ -2,10 +2,11 @@ void event( string name, varargs mixed args... ) {
   object *obs;
   int i;
 
+  /* Remove objects that have vanished */
+  events[name] -= ({ nil });
   obs = events[name];
-  for( i = 0; i < sizeof( obs ); i++ ) {
-    if( obs[i] )
-      call_other( obs[i], "event_" + name, args );
-  }
+
+  /* Use the event daemon to send the event */
+  EVENT_D->dispatch_event( name, obs, 0, sizeof(obs) - 1, args );
 }
 
