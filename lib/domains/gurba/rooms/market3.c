@@ -2,7 +2,7 @@
 inherit ROOM;
 
 void setup( void ) {
-  set_area( "Gurba" );
+  add_area( "Gurba" );
   set_brief( "%^MAGENTA%^Market Boulevard%^RESET%^" );
   set_long( "This is the market street in Gurba. Further to the east lies the town square. To the north is the first National Bank of Gurba, southwards you can find a cozy little restaurant called 'Chez Mario'. There is a small sign standing here." );
   set_exits( ([ 

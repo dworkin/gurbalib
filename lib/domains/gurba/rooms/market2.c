@@ -2,7 +2,7 @@
 inherit ROOM;
 
 void setup( void ) {
-  set_area( "Gurba" );
+  add_area( "Gurba" );
   set_brief( "%^MAGENTA%^Market Boulevard%^RESET%^" );
   set_long( "You are further up in the market street of Gurba. A bit to the east you see the town square. There is a statue of Albert Von Turnip here. To the north you will find the weaponshop, and to the south the armorshop." );
   set_exits( ([ 

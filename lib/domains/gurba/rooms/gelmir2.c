@@ -1,7 +1,7 @@
 inherit ROOM;
 
 void setup( void ) {
-  set_area( "Gurba" );
+  add_area( "Gurba" );
   set_brief( "%^CYAN%^Gelmir Road%^RESET%^" );
   set_long( "You are now a short distance from the town square. It's getting harder to see what's going on over there. To the west is a pub, and to the east you see the Fighters Guild." );
   set_exits( ([ 

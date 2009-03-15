@@ -6,7 +6,7 @@ inherit M_FAKE_OBJECT;
 
 static mapping exits;
 static mapping hidden_exits;
-static string  area;
+static mapping areas;
 static int last_exit;
 
 void setup( void );
@@ -22,16 +22,22 @@ void create( void ) {
   EVENT_D->subscribe_event( "clean_up" );
   exits = ([]);
   hidden_exits = ([]);
+  areas = ([]);
   last_exit = 0;
   setup();
 }
 
-void set_area( string str ) {
-  area = str;
+void add_area( string str ) {
+  areas += ([ str : 1 ]);
 }
 
-string query_area( void ) {
-  return area;
+int query_in_area( string str ) {
+  if ( areas[str] ) return 1;
+  else return 0;
+}
+
+string *query_areas() {
+  return map_indices( areas );
 }
 
 void set_exits( mapping ex ) {

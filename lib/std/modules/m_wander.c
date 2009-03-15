@@ -42,7 +42,7 @@ void wander( void ) {
     exit = random_element( exits );
     catch(exarea = this_object()->query_environment()->query_exit_room( exit ));
     if (exarea && exit) {
-      if (!wander_area || wander_area == exarea->query_area()) {
+      if (!wander_area || exarea->query_in_area(wander_area)) {
         this_object()->query_environment()->body_exit( this_object(), exit );
         return; /* success */
       }

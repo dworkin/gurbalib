@@ -1,4 +1,4 @@
 permanent ([8|"admin":3,"announce":4,"dgd":2,"fighter":1,"gossip":1,"icode":2,"igossip":2,"wiz":2,])
 colors ([8|"admin":"%^BLUE%^","announce":"%^CYAN%^","dgd":"%^BLUE%^","fighter":"%^BLUE%^","gossip":"%^GREEN%^","icode":"%^RED%^","igossip":"%^GREEN%^","wiz":"%^RED%^",])
+imud ([6|"dchat":"dchat","dgd":"dgd","imud_code":"icode","imud_dgd":"idgd","imud_gossip":"igossip","intercre":"intercre",])
 guilds ([1|"fighter":"fighter",])
-imud ([5|"dgd":"dgd","imud_code":"icode","imud_dgd":"idgd","imud_gossip":"igossip","intercre":"intercre",])
