@@ -1,1 +1,15 @@
-Todo
+NAME
+        mappingp - test if a variable is a mapping
+
+SYNOPSIS
+        int mappingp( mixed arg )
+
+DESCRIPTION
+        Check if 'arg' is a mapping.
+
+RETURN VALUE
+        Returns 1 if 'arg' is a mapping, 0 otherwise.
+
+SEE ALSO
+        arrayp, floatp, intp, stringp, objectp
+

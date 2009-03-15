@@ -1,1 +1,15 @@
-Todo
+NAME
+        stringp - test if a variable is a string
+
+SYNOPSIS
+        int stringp( mixed arg )
+
+DESCRIPTION
+        Check if 'arg' is a string.
+
+RETURN VALUE
+        Returns 1 if 'arg' is a string, 0 otherwise.
+
+SEE ALSO
+        stringp, floatp, intp, objectp, mappingp
+

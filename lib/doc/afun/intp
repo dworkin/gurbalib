@@ -1,1 +1,15 @@
-Todo
+NAME
+        intp - test if a variable is an integer
+
+SYNOPSIS
+        int intp( mixed arg )
+
+DESCRIPTION
+        Check if 'arg' is an int.
+
+RETURN VALUE
+        Returns 1 if 'arg' is an int, 0 otherwise.
+
+SEE ALSO
+        arrayp, floatp, stringp, objectp, mappingp
+

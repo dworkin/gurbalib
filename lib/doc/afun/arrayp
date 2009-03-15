@@ -1,1 +1,15 @@
-Todo
+NAME
+        arrayp - test if a variable is an array
+
+SYNOPSIS
+        int arrayp( mixed arg )
+
+DESCRIPTION
+        Check if 'arg' is an array.
+
+RETURN VALUE
+        Returns 1 if 'arg' is an array, 0 otherwise.
+
+SEE ALSO
+        floatp, intp, stringp, objectp, mappingp
+

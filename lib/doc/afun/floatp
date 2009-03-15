@@ -1,1 +1,15 @@
-Todo
+NAME
+        floatp - test if a variable is a float
+
+SYNOPSIS
+        int floatp( mixed arg )
+
+DESCRIPTION
+        Check if 'arg' is a float.
+
+RETURN VALUE
+        Returns 1 if 'arg' is a float, 0 otherwise.
+
+SEE ALSO
+        arrayp, intp, stringp, objectp, mappingp
+

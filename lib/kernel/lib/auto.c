@@ -52,6 +52,7 @@
 #include "afun/floatp.c"
 #include "afun/arrayp.c"
 #include "afun/mappingp.c"
+#include "afun/objectp.c"
 #include "afun/stringp.c"
 #include "afun/strstr.c"
 #include "afun/replace_string.c"
