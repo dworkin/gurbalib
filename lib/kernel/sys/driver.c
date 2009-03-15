@@ -10,6 +10,9 @@
 
 #include <status.h>
 #include <ports.h>
+#include <trace.h>
+#include <tlsvar.h>
+#include <privileges.h>
 
 /*
  * Used by object_type(), maps between shortnames for
@@ -18,8 +21,18 @@
 #define SHORT_OBJECT_TYPE ([\
   "player"     :"/std/player",\
   "user"       :"/std/user",\
-  "connection" :"/kernel/obj/net/connection"\
+  "connection" :"/kernel/obj/net/connection",\
+  "compiler"   :"/kernel/daemon/compiler"\
 ])
+
+int query_tls_size();
+mixed get_tlvar(int index);
+void set_tlvar(int index, mixed value);
+
+int tls_size;
+
+object compiler_d;
+object error_d;
 
 private object load( string path ) {
   object ob;
@@ -32,10 +45,25 @@ void message(string str) {
   send_message(ctime(time())[4 .. 18] + " ** " + str);
 }
 
-static initialize() {
+void register_compiler_d() {
+  if(KERNEL()) {
+    message("Registering compiler_d: "+object_name(previous_object())+"\n");
+    compiler_d = previous_object();
+  }
+}
+
+void register_error_d() {
+  if(KERNEL()) {
+    message("Registering error_d: "+object_name(previous_object())+"\n");
+    error_d = previous_object();
+  }
+}
+
+static _initialize(mixed * tls) {
 
   message( status()[ST_VERSION] + " running " + LIB_NAME + " " + LIB_VERSION + ".\n");
   message( "Initializing...\n" );
+  call_other( COMPILER_D, "???" );
   message( "Preloading...\n" );
   compile_object( STARTING_ROOM );
 
@@ -65,25 +93,31 @@ static initialize() {
   call_other( PARSE_D, "???" );
 
   message( "Setting up call outs\n" );
-  call_out( "swapswap", 1800 );
   call_out( "clean_up", 60 );
   call_out( "heart_beat", 2 );
   message( "Done.\n" );
 }
 
-static void heart_beat( void ) {
+static void initialize() {
+  _initialize(allocate(query_tls_size()));
+}
+
+static void _heart_beat( mixed * tls ) {
   EVENT_D->event( "heart_beat" );
   call_out( "heart_beat", 2 );
 }
 
-static void clean_up( void ) {
+static void heart_beat() {
+  _heart_beat(allocate(query_tls_size()));
+}
+
+static void _clean_up( mixed * tls ) {
   EVENT_D->event( "clean_up" );
   call_out( "clean_up", 60 );
 }
 
-static void swapswap() {
-  swapout();
-  call_out( "swapswap", 1800 );
+static void clean_up() {
+  _clean_up(allocate(query_tls_size()));
 }
 
 object clone_object( string path ) {
@@ -95,10 +129,14 @@ object clone_object( string path ) {
     return ::clone_object( compile_object( path ) );
 }
 
-static restored() {
+static void _restored(mixed * tls) {
   message( "DGD " + status()[ST_VERSION] + " running Gurba.\n" );
   call_other("/daemons/telnet_d","initialize");
   message( "State restored.\n" );
+}
+
+static void restored() {
+  _restored(allocate(query_tls_size()));
 }
 
 /*
@@ -221,6 +259,10 @@ object inherit_program( string file, string program, int priv ) {
 }
 
 string include_file( string file, string path ) {
+
+  if(compiler_d) 
+    return compiler_d->include_file(file, path);
+
   if( path[0] != '/' ) {
     return file + "/../" + path;
   } else {
@@ -259,7 +301,7 @@ object binary_connect(int port) {
   }
 #endif
 
-void interrupt() {
+void _interrupt(mixed * tls) {
   object *usrs;
   object p;
   int i;
@@ -272,6 +314,10 @@ void interrupt() {
   }
   message( "Shutting down." );
   shutdown();
+}
+
+void interrupt() {
+  _interrupt(allocate(query_tls_size()));
 }
 
 void compile_error( string file, int line, string err ) {
@@ -390,3 +436,37 @@ int runtime_rlimits( object obj, int stack, int ticks ) {
 void remove_program( string ob, int t, int issue ) {
   message("Program "+ob + ", issue:"+issue+" ("+ctime(t)+") is no longer referenced\n" );
 }
+
+/*
+ * tls support
+ *
+ */
+
+void set_tls_size(int s) {
+  if(KERNEL()) {
+    tls_size = s + 2;
+  }
+}
+
+int query_tls_size() {
+    return tls_size;
+}
+
+mixed * new_tls() {
+  if(KERNEL()) {
+    return allocate(tls_size);
+  }
+}
+
+mixed get_tlvar(int i) {
+  if(KERNEL()) {
+    return call_trace()[1][TRACE_FIRSTARG][i + 2];
+  }
+}
+
+void set_tlvar(int i, mixed v) {
+  if(KERNEL()) {
+    call_trace()[1][TRACE_FIRSTARG][i + 2] = v;
+  }
+}
+

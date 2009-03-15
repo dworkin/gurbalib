@@ -1,5 +1,4 @@
 #include <ports.h>
-#define DRIVER find_object("/kernel/sys/driver")
 
 inherit M_CONNECTION;
 

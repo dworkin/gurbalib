@@ -31,6 +31,7 @@
 #define TELNET_D     "/daemons/telnet_d"
 #define FTP_D        "/daemons/ftp_d"
 #define SECURE_D     "/kernel/daemons/secure_d"
+#define COMPILER_D   "/kernel/daemons/compiler_d"
 #define CHANNEL_D    "/daemons/channel_d"
 #define TIME_D       "/daemons/time_d"
 #define IMUD_D       "/daemons/imud_d"
@@ -65,6 +66,9 @@
 #define M_WANDER        "/std/modules/m_wander"
 #define M_WEARABLE      "/std/modules/m_wearable"
 #define M_WIELDABLE     "/std/modules/m_wieldable"
+
+#define DRIVER          "/kernel/sys/driver"
+#define AUTO            "/kernel/lib/auto"
 
 #define ROOM            "/std/room"
 #define OUTDOOR_ROOM    "/std/outdoor_room"
