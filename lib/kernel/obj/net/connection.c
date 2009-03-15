@@ -77,17 +77,25 @@ void set_protocol(string proto) {
   }
 }
 
-static void open() {
+static void _open(mixed * tls) {
   if(user) user->open();
 }
 
-static void close(varargs int force) {
+void open() {
+  _open(DRIVER->new_tls());
+}
+
+static void _close(mixed * tls, varargs int force) {
   if(user) {
     catch(user->close(force));
   }
   if(!force) {
     destruct_object(this_object());
   }
+}
+
+static void close(varargs int force) {
+  _close(DRIVER->new_tls(), force);
 }
 
 #ifdef SYS_NETWORKING
@@ -131,14 +139,18 @@ static void message_done() {
   if(user) user->message_done();
 }
 
-static void receive_error(string err) {
+static void _receive_error(mixed * tls, string err) {
   "/kernel/sys/driver"->message(err+" : "+ (user ? typeof(user):"<none>")) ;
   if(user) user->receive_error(err);
 }
 
-static void receive_message(string str) {
+static void receive_error(string err) {
+  _receive_error(DRIVER->new_tls(), err);
+}
+
+static void _receive_message(mixed * tls, string str) {
   if(user) {
-    rlimits(256;1000000) {
+    rlimits(MAX_DEPTH; MAX_TICKS) {
       user->receive_message(str);
     }
   } else {
@@ -147,4 +159,8 @@ static void receive_message(string str) {
      */
     destruct_object(this_object());
   }
+}
+
+static void receive_message(string str) {
+  _receive_message(DRIVER->new_tls(), str);
 }

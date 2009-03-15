@@ -49,6 +49,7 @@
 #include "afun/num_clones.c"
 #include "afun/prev_clone.c"
 #include "afun/next_clone.c"
+#include "afun/call_out.c"
 #include "afun/add_event.c"
 #include "afun/remove_event.c"
 #include "afun/subscribe_event.c"
@@ -67,4 +68,5 @@
 
 #include "sys/_F_create.c"
 #include "sys/_F_destruct.c"
+#include "sys/_F_call_out.c"
 

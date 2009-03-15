@@ -12,7 +12,7 @@ void create() {
   user_name = "";
 }
 
-void open() {
+void _open(mixed * tls) {
   if( SITEBAN_D->is_banned(query_ip_number(this_object())) ) {
       /* site is banned */
       write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
@@ -39,7 +39,11 @@ void open() {
   player->input_to_object( this_object(), "input_name" );
 }
 
-void close( int ld ) {
+void open() {
+  _open(allocate(DRIVER->query_tls_size()));
+}
+
+static void _close( mixed * tls, int ld ) {
   string ip;
     
   ip = query_ip_number(this_object());
@@ -54,6 +58,10 @@ void close( int ld ) {
       destruct_object( player );
     }
   }
+}
+
+void close(int ld) {
+  _close(allocate(DRIVER->query_tls_size()), ld);
 }
 
 void login_timeout( void ) {
@@ -169,10 +177,14 @@ void wrap_message( string str ) {
   }
 }
 
-void receive_message( string message ) {
-  rlimits(256; 1000000) {
+static void _receive_message( mixed * tls, string message ) {
+  rlimits(MAX_DEPTH; MAX_TICKS) {
     player->receive_message( message );
   }
+}
+
+void receive_message(string message) {
+  _receive_message(allocate(DRIVER->query_tls_size()), message);
 }
 
 void login_user( void ) {
@@ -471,3 +483,12 @@ void set_player( object p ) {
 object query_player( void ) {
   return( player );
 }
+
+static void _receive_error(mixed * tls, string err) {
+  console_msg("Network error in user object: "+object_name(this_object())+" : "+err+"\n");
+}
+
+void receive_error(string err) {
+  _receive_error(allocate(DRIVER->query_tls_size()), err);
+}
+

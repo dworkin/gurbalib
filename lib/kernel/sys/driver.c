@@ -26,6 +26,7 @@
 ])
 
 int query_tls_size();
+void set_tls_size(int size);
 mixed get_tlvar(int index);
 void set_tlvar(int index, mixed value);
 
@@ -63,7 +64,9 @@ static _initialize(mixed * tls) {
 
   message( status()[ST_VERSION] + " running " + LIB_NAME + " " + LIB_VERSION + ".\n");
   message( "Initializing...\n" );
+  set_tls_size(DEFAULT_TLS_SIZE);
   call_other( COMPILER_D, "???" );
+  call_other( ERROR_D, "???" );
   message( "Preloading...\n" );
   compile_object( STARTING_ROOM );
 
@@ -347,13 +350,18 @@ void compile_error( string file, int line, string err ) {
  * NAME:	runtime_error()
  * DESCRIPTION:	log a runtime error
  */
-void runtime_error( string error, int cought, int ticks ) {
+void runtime_error( string error, int caught, int ticks ) {
   mixed **trace;
   string progname, objname, function, str;
   int i, sz, line, len;
   object player;
 
-  if( cought ) {
+  if(error_d) {
+    error_d->runtime_error(error, call_trace(), caught, ticks );
+    return;
+  }
+
+  if( caught ) {
     return;
   }
 

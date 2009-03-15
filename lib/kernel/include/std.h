@@ -32,6 +32,7 @@
 #define FTP_D        "/daemons/ftp_d"
 #define SECURE_D     "/kernel/daemons/secure_d"
 #define COMPILER_D   "/kernel/daemons/compiler_d"
+#define ERROR_D      "/kernel/daemons/error_d"
 #define CHANNEL_D    "/daemons/channel_d"
 #define TIME_D       "/daemons/time_d"
 #define IMUD_D       "/daemons/imud_d"
@@ -86,3 +87,5 @@
 #define RACE            "/std/race"
 #define MONSTER_RACE    "/std/monster_race" 
 
+#define MAX_DEPTH       256
+#define MAX_TICKS       1000000
