@@ -165,7 +165,7 @@ void rescan_verbs( void ) {
     verbs[names[i]] = verb;
   }
 
-  grammar = "whitespace = / / word = /[a-z]+/ number = /[0-9]+/ ";
+  grammar = "whitespace = / / word = /[a-zA-Z]+/ number = /[0-9]+/ ";
 
   for( i = 0; i < sizeof( names ); i++ ) {
     write( "Scanning " + names[i] + "(" + verbs[names[i]] + ")" );
