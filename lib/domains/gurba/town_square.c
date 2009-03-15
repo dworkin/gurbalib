@@ -4,12 +4,10 @@ inherit ROOM;
 void setup( void ) {
    set_area("Gurba");
    set_brief( "%^GREEN%^Gurba Town Square%^RESET%^" );
-   set_long( "This is the natural meeting place in the town of Gurba. In the center of the square is a large statue of the citys founder. It's a breathtaking sight." );
+   set_long( "This is the natural meeting place in the town of Gurba. In the center of the square is a large statue of the city's founder. It's a breathtaking sight." );
    set_exits( ([ 
-		  "north" : "/domains/gurba/rooms/north",
 		  "west" : "/domains/gurba/rooms/market1", 
 		  "east" : "/domains/gurba/rooms/gelmir1",
-		  "south" : "/domains/gurba/rooms/south"
 		  ]) );
    
    add_item( "statue", "A pretty large and well crafted statue of a small dwarf. It is decorated with fine jewels and gold, and at the base is a small plaque." );

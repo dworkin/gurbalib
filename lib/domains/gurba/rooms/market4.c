@@ -8,7 +8,6 @@ void setup( void ) {
   set_exits( ([ 
 	       "east" : "/domains/gurba/rooms/market3",
                "north" : "/domains/gurba/rooms/sixp1",
-               "south" : "/domains/gurba/rooms/sixp5",
   ]) );
 
   add_item( "road", "The road here is paved with cobblestones due to all the traffic that runs through here. However you can se that traffic has not been that hard on the road here." );

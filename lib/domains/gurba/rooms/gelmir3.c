@@ -7,7 +7,6 @@ void setup( void ) {
   set_exits( ([ 
 	       "north" : "/domains/gurba/guilds/fighter/entrance",
 	       "west"  : "/domains/gurba/rooms/gelmir2",
-	       "east"  : "/domains/gurba/rooms/gelmir4",
   ]) );
 
   add_item( "road", "path", "floor", "street", "The further you get from the town square, the poorer the condition of the road. Here there are some rather big holes in the stonework, and it could use some maintainance." );
