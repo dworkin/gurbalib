@@ -29,7 +29,11 @@ void main( string str ) {
   if (err) {
     write("Error: " + err + ".\n");
   } else {
-    write( "Result: \n" + dump_value(result, ([ ])) + "\n" );
+    if(result || intp(result)) {
+      write( "Result: \n" + dump_value(result, ([ ])) + "\n" );
+    } else {
+      write( "Result: \n" + "<nil>" + "\n" );
+    }
   }    
   remove_file( filename + ".c" );
 
