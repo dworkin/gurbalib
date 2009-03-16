@@ -1,29 +1,32 @@
 #include <ports.h>
 
-inherit M_CONNECTION;
+inherit M_PORT;
 
- void initialize() {
+void initialize() {
 #ifdef SYS_NETWORKING
-  DRIVER->message( "Opening telnet port...\n" );
   open_port("telnet", LOGIN_PORT);
 #endif
- }
+}
+
+void close_listener() {
+  ::close_port();
+}
 
 object connection( string ip, int port ) {
 
   object user;
 
-  DRIVER->message( "New connection from " + ip + "\n" );
+  console_msg( "New telnet connection from " + ip + ":"+port+"\n" );
   user = clone_object( "/std/user" );
   return( user );
 }
 
- void open(varargs int port) {
- }
+void open(varargs int port) {
+}
 
- void close(varargs int force) {
- }
+void close(varargs int force) {
+}
 
- void create() {
- initialize();
- }
+void create() {
+  initialize();
+}

@@ -22,6 +22,7 @@
   "player"     :"/std/player",\
   "user"       :"/std/user",\
   "connection" :"/kernel/obj/net/connection",\
+  "port"       :"/kernel/obj/net/port",\
   "compiler"   :"/kernel/daemon/compiler"\
 ])
 
@@ -64,7 +65,6 @@ static _initialize(mixed * tls) {
 
   message( status()[ST_VERSION] + " running " + LIB_NAME + " " + LIB_VERSION + ".\n");
   message( "Initializing...\n" );
-  set_tls_size(DEFAULT_TLS_SIZE);
   call_other( COMPILER_D, "???" );
   call_other( ERROR_D, "???" );
   message( "Preloading...\n" );
@@ -102,6 +102,7 @@ static _initialize(mixed * tls) {
 }
 
 static void initialize() {
+  tls_size = DEFAULT_TLS_SIZE;
   _initialize(allocate(query_tls_size()));
 }
 
@@ -481,5 +482,21 @@ void set_tlvar(int i, mixed v) {
   if(KERNEL()) {
     call_trace()[1][TRACE_FIRSTARG][i + 2] = v;
   }
+}
+
+static int _touch(mixed tls, object ob, string function) {
+  object savep;
+  object * clones;
+  int i;
+
+  message("touching "+object_name(ob)+ " due to a call to "+function+"\n");
+
+  rlimits(MAX_DEPTH; MAX_TICKS) {
+    ob->upgraded();
+  }
+}
+
+int touch(object ob, string function) {
+  return _touch(allocate(query_tls_size()),ob,function);
 }
 

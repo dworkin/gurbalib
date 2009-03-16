@@ -47,11 +47,13 @@
 #define MSG_D        "/daemons/messages_d"
 
 #define CONNECTION      "/kernel/obj/net/connection"
+#define PORT            "/kernel/obj/net/port"
 
 #define M_ACTIONS       "/std/modules/m_actions"
 #define M_BLOCKEXITS    "/std/modules/m_block_exits"
 #define M_BOARD         "/std/modules/m_board"
 #define M_CONNECTION    "/std/modules/m_connection"
+#define M_PORT          "/std/modules/m_port"
 #define M_FAKE_OBJECT   "/std/modules/m_fake_object"
 #define M_GETTABLE      "/std/modules/m_gettable"
 #define M_GUILD_MASTER  "/std/modules/m_guild_master"
