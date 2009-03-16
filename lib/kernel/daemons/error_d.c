@@ -48,11 +48,10 @@ string format_runtime_error( string error, mixed **trace, int caught, int ticks 
           str += " (" + objname + ")";
         }
       }
-      if(i != 0) {
-        result += ( str + "\n" );
-      } else {
+      if(i == 0) {
         result += ((caught ? "[CAUGHT] ":"")+error + "\nObject: " + objname + ", program: " + progname + ", line " + line + "\n" );
       }
+      result += ( str + "\n" );
     }
   }
   return result;
@@ -90,9 +89,14 @@ void runtime_error(string error, mixed **trace, int caught, int ticks) {
     }
     write_file("/logs/errors/runtime", result+"\n");
     if(player) {
-      player->write("%^RED%^Runtime error: %^RESET%^"+
-        "%^CYAN%^"+result+"%^RESET%^"
-      );
+      if( SECURE_D->query_wiz( player->query_name() ) == 1 ) {
+        player->write("%^RED%^Runtime error: %^RESET%^"+
+          "%^CYAN%^"+result+"%^RESET%^"
+        );
+      } else {
+        player->write( "You have encountered a rift in reality. Please report it to the admins.\n" );
+      }
+      player->write_prompt();
     }
   }
 }
