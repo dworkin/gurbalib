@@ -70,6 +70,8 @@ static string dump_value(mixed value, mapping seen)
     }
     return str + dump_value(indices[i], seen) + ":" +
       dump_value(values[i], seen) + " ])";
+    case T_NIL:
+      return "<NIL>";
   }
 }
 
