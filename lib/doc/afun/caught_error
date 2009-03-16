@@ -1,0 +1,19 @@
+NAME
+        caught_error - get information on the last caught error
+
+SYNOPSIS
+        string caught_error( varargs mixed arg )
+
+DESCRIPTION
+        Get information about the last caught error.
+        If flag contains something, the entire error
+        trace is returned, otherwise only the error
+        itself is returned.
+
+RETURN VALUE
+        Returns a string with information if an error was
+        caught, nil otherwise.
+
+SEE ALSO
+        catch
+

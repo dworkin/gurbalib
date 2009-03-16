@@ -7,6 +7,7 @@
 
 #include <type.h>
 #include <privileges.h>
+#include <tlsvar.h>
 
 #define LIST_PREV 0
 #define LIST_NEXT 1
@@ -65,6 +66,7 @@
 #include "afun/strstr.c"
 #include "afun/replace_string.c"
 #include "afun/invert_exit.c"
+#include "afun/caught_error.c"
 
 #include "sys/_F_create.c"
 #include "sys/_F_destruct.c"

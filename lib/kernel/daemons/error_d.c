@@ -69,7 +69,8 @@ void runtime_error(string error, mixed **trace, int caught, int ticks) {
     player = this_user()->query_player();
   }
   if(caught) {
-    DRIVER->set_tls_var(TLS_CAUGHT_ERROR, result);
+    DRIVER->message("setting TLS_CAUGHT_ERROR: "+result);
+    DRIVER->set_tlvar(TLS_CAUGHT_ERROR, result);
     if(player) {
       mixed display_caught;
 
