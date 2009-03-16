@@ -87,14 +87,14 @@ void update_description( void ) {
 void set_open_state( int state ) {
   open_state = state;
   if( state == 1 ) 
-    this_object()->other_action( this_object(), "$N $vopen." );
+    this_object()->simple_action( "$N $vopen." );
   else
-    this_object()->other_action( this_object(), "$N $vclose." );
+    this_object()->simple_action( "$N $vclose." );
     
   update_description();
 }
 
-int query_open_state( int state ) {
+int query_open_state( void ) {
   return( open_state );
 }
 
@@ -108,7 +108,7 @@ int do_open( object who ) {
   if( who ) {
     who->targetted_action( query_open_message(), nil, this_object() );
   } else {
-    this_object()->other_action( this_object(), "$N $vopen." );
+    this_object()->simple_action( "$N $vopen." );
   }
 }
 
@@ -122,7 +122,7 @@ int do_close( object who ) {
   if( who ) {
     who->targetted_action( query_close_message(), nil, this_object() );
   } else {
-    this_object()->other_action( this_object(), "$N $vclose." );
+    this_object()->simple_action( "$N $vclose." );
   }
 }
 

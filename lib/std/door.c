@@ -87,7 +87,7 @@ void do_on_close( object who ) {
 
 int do_block( object who ) {
   if( !this_object()->query_open_state() )
-    return( nil );
+    return( 0 );
   return( 1 );
 }
 
