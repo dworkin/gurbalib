@@ -380,6 +380,7 @@ void write_prompt() {
   if( !prompt ) {
     prompt = "> ";
   } else {
+    prompt = replace_string( prompt, "%t", ctime(time())[11..18] );
     prompt = replace_string( prompt, "%n", capitalize( player_name ) );
     prompt = replace_string( prompt, "%m", MUD_NAME );
     prompt = replace_string( prompt, "%w", query_env( "cwd" ) );
