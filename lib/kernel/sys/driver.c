@@ -102,7 +102,7 @@ static _initialize(mixed * tls) {
 }
 
 static void initialize() {
-  tls_size = DEFAULT_TLS_SIZE;
+  tls_size = DEFAULT_TLS_SIZE + 2; 
   _initialize(allocate(query_tls_size()));
 }
 
