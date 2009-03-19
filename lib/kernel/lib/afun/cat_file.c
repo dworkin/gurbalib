@@ -1,5 +1,5 @@
 int cat_file( string filename ) {
-  int i;
+  int i, sz;
   string *lines;
 
   i = file_exists( filename );
@@ -12,7 +12,7 @@ int cat_file( string filename ) {
     return( 0 );
   }
   lines = explode( read_file( filename ), "\n" );
-  for( i = 0; i < sizeof( lines ); i++ ) {
+  for( i = 0, sz = sizeof( lines ); i < sz; i++ ) {
     send_message( lines[i] + "\n" );
   }
   return( 1 );

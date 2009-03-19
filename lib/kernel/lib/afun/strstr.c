@@ -1,8 +1,10 @@
 int strstr( string search, string what ) {
-  int i;
+  int i, lw, ls;
 
-  for( i = 0; i < (strlen( search ) - ( strlen( what ) - 1 )); i++ ) {
-    if( search[i..(i+strlen(what)-1)] == what )
+  ls = strlen( search );
+  lw = strlen( what ) - 1;
+  for( i = 0; i < (ls - lw); i++ ) {
+    if( search[i..(i+lw)] == what )
       return i;
   }
   return( -1 );

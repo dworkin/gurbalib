@@ -1,13 +1,116 @@
-How to use the channel system:
+The channels allow group communication between users of the mud. Since
+working with others and communication is the key benefit of an online
+system these functions are highly important.
+
+The following are the key commands available:
+
+chan        allows you to use the channels
+channels    list all player channels 
+chanlist    list all channels (wiz only)
+
+The chan command itself is quite powerful and complex. Basic usage will
+be presented below, full syntax will be explained futher down this page.
 
 > chan gossip /on
 
-This will turn the gossip channel on. To speak over the gossip channel,
-use
+This will turn the gossip channel on. Note that channel names auto alias to
+commands, so that 
+
+> chan gossip /on
+and
+> gossip /on
+
+are the same.
+
+To speak over the gossip channel, use
 
 > gossip Hello everybody!
 
-Gossip is an out of character channel. IE, nothing that relates to the
-characters in the game can be discussed there. There is no public channel
-that is in character (yet).
 
+Full syntax:
+
+chan <channel> [/switch] [parameter]
+
+Available switches:
+
+/on
+    allows players to join a channel
+
+/off
+    allows players to leave a channel
+
+emotes / socials
+    ;   - You can use the semi-colon to send emotes in channel, best shown 
+          in example:
+
+    >  gossip hi everyone
+    [gossip] Mordain: Hi everyone
+    >  gossip ;smile
+    [gossip] Mordain smiles.
+
+/hist
+    shows the chat history
+
+    > gossip /hist
+    [gossip][Mar 18 19:54:14] Dil@Gev2: will have a laptop and mobile internet
+    [gossip][Mar 18 19:54:54] Dil@Gev2: anyway, catch you later.
+    [gossip][Mar 18 19:55:07] Han@Era: Have fun.
+
+""
+/who
+/list
+    if no arg, or the /who argument is given, chan will list who is
+    subscribed to that channel.
+
+/new
+    Access level: (WIZ)
+    allows a new channel to be created
+
+/admin
+    Access level: (ADMIN)
+    set a channel for Admin only access Wiz and users will be denied
+    
+/wiz
+    Access level: (ADMIN)
+    set a channel for Wiz access, player access will be denied
+
+/readonly
+    Access level: (ADMIN)
+    undocumented
+
+/permanent
+    undocumented
+
+/delete
+    unimplemented
+
+/info
+    unimplemented
+
+/color
+    Access level: (ADMIN)
+    sets the highlight color for all users
+
+/imud
+    Access level: (ADMIN)
+    
+    chan dstest /new
+    chan dstest /imud dead_test4
+
+    >  chan dstest /new
+    Channel created.
+    >  chan dstest /imud dead_test4
+    >  chan dstest /on
+    Subscribed to dstest.
+    >  dstest test
+    >  [dstest] Admin@Warlords_Gurba: test
+
+
+/guild
+    undocumented
+
+
+
+see also
+---------
+chanlist, channels, alias

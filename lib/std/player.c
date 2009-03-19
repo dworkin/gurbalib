@@ -779,7 +779,7 @@ void receive_message( string message ) {
 		CHANNEL_D->query_priv( cmd ) <= SECURE_D->query_priv( player_name ) ) { 
 	       
 	       flag = 1;
-	       CHANNEL_D->chan_cmd( cmd, arg );
+            "/cmds/player/chan"->chan_cmd( cmd, arg );
 	    }
 	 }
       }

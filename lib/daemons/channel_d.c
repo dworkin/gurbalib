@@ -6,6 +6,7 @@ mapping imud;
 mapping guilds;
 static mapping channels;
 static mapping listeners;
+static mapping history;
 
 #include <channel.h>
 
@@ -23,10 +24,11 @@ void chan_set_color( string chan, string col );
 void chan_set_guild( string chan, string guild );
 void chan_set_flag( string chan, int flag );
 void chan_imud( string chan, string name );
+void add_history(string channel, string message);
 
 void create( void ) {
   string *chans;
-  int i;
+  int i, sz;
 
   permanent = ([ ]);
   channels = ([ ]);
@@ -36,73 +38,13 @@ void create( void ) {
   guilds = ([ ]);
   restore_me();
   chans = map_indices( permanent );
-  for( i = 0; i < sizeof( chans ); i++ ) {
+  for( i = 0, sz = sizeof( chans ); i < sz; i++ ) {
     channels[chans[i]] = permanent[chans[i]];
   }
 
   EVENT_D->subscribe_event( "player_login" );
   EVENT_D->subscribe_event( "player_logout" );
   EVENT_D->subscribe_event( "new_player" );
-}
-void chan_cmd( string chan, string cmd ) {
-
-  switch( cmd ) {
-  case "/on":
-  case "/join":
-    chan_join( chan, this_player() );
-    this_player()->add_channel( chan );
-    break;
-  case "/off":
-  case "/leave":
-  case "/quit":
-    chan_leave( chan, this_player() );
-    this_player()->remove_channel( chan );
-    write( "Not subscribed to " + chan + ".\n" );
-    break;
-  case "/new":
-    chan_new( chan, ALL );
-    break;
-  case "/admin":
-    chan_set_flag( chan, ADMIN_ONLY );
-    break;
-  case "/wiz":
-    chan_set_flag( chan, WIZ_ONLY );
-    break;
-  case "/readonly":
-    chan_set_flag( chan, READ_ONLY );
-    break;
-  case "/permanent":
-    chan_make_permanent( chan );
-    break;
-  case "":
-  case "/who":
-  case "/list":
-    chan_who( chan );
-    break;
-  case "/delete":
-    break;
-  case "/info":
-    break;
-  default:
-    if( strlen( cmd ) > 8 )
-      if( cmd[..5] == "/color" ) {
-	/* Let's change the color of the channel */
-	chan_set_color( chan, cmd[7..] );
-	break;
-      } else if( cmd[..4] == "/imud" ) {
-	chan_imud( chan, cmd[6..] );
-	break;
-      } else if( cmd[..5] == "/guild" ) {
-	chan_set_guild( chan, cmd[7..] );
-	break;
-      }
-    if( cmd[0] == ';' ) {
-      chan_emote( chan, cmd[1..] );
-      break;
-    }
-    chan_say( chan, cmd );
-    return;
-  }
 }
 
 void restore_me( void ) {
@@ -114,7 +56,10 @@ void save_me( void ) {
 }
 
 void chan_set_flag( string chan, int flag ) {
-
+  if( SECURE_D->query_admin( this_player()->query_name() ) != 1 ) {
+      write( "Access denied.\n" );
+      return;
+  }
   channels[chan] = flag;
   if( permanent[chan] )
     permanent[chan] = channels[chan];
@@ -213,12 +158,13 @@ void chan_leave( string chan, object ob ) {
     return;
   }
 
-  if( channels[chan] != READ_ONLY )
-    if( SECURE_D->query_priv( ob->query_name() ) < channels[chan] - 1 ) {
+  if( channels[chan] != READ_ONLY ) {
+  /* no point denying leave channel */
+/*    if( SECURE_D->query_priv( ob->query_name() ) < channels[chan] - 1 ) {
       write( "No such channel.\n" );
       return;
-    }
-
+    }*/
+  }
   if( !listeners[chan] ) {
     listeners[chan] = ({ });
   }
@@ -230,7 +176,7 @@ void chan_leave( string chan, object ob ) {
 
 void chan_who( string chan ) {
   object *users;
-  int i;
+  int i, sz;
 
   chan = lowercase( chan );
 
@@ -242,7 +188,7 @@ void chan_who( string chan ) {
   write( "Subscribed to " + chan + ":\n" );
 
   users = listeners[chan];
-  for( i = 0; i < sizeof( users ); i ++ ) {
+  for( i = 0, sz = sizeof( users ); i < sz; i ++ ) {
     write( "  " + capitalize( users[i]->query_name() ) + "\n" );
   }
 }
@@ -250,7 +196,7 @@ void chan_who( string chan ) {
 void chan_send_string( string chan, string str ) {
   object *users;
   string line;
-  int i;
+  int i, sz;
 
   if( !colors ) {
     colors = ([ ]);
@@ -264,9 +210,11 @@ void chan_send_string( string chan, string str ) {
   users = listeners[chan];
 
   if( users )
-    for( i = 0; i < sizeof( users ); i++ ) {
+    for( i = 0, sz = sizeof( users ); i < sz; i++ ) {
       users[i]->message( line );
     }
+
+  add_history( chan, str );
 }
 
 void chan_imud_rcv_targetted( string chan, string who, string where, 
@@ -292,9 +240,8 @@ void chan_imud_rcv_emote( string chan, string who, string where,
 
 void chan_imud_rcv_say( string chan, string who, string where, string what ) {
 
-  if( !imud[chan] ) {
+  if( !imud[chan] )
     return;
-  }
 
   chan_send_string( imud[chan], who + "@" + where
 		    + ": " + what );
@@ -303,7 +250,7 @@ void chan_imud_rcv_say( string chan, string who, string where, string what ) {
 void chan_emote( string chan, string what ) {
   string *ichans;
   string *result;
-  int i;
+  int i, sz;
   string cmd;
   string arg;
   
@@ -389,11 +336,10 @@ void chan_emote( string chan, string what ) {
     else
       what = capitalize( this_player()->query_name() ) + " " + cmd;
   }
-
-
+  
 #ifdef SYS_NETWORKING
   ichans = map_indices( imud );
-  for( i = 0; i < sizeof( ichans ); i++ ) {
+  for( i = 0, sz = sizeof( ichans ); i < sz; i++ ) {
     if( imud[ichans[i]] == chan ) {
 
        what = replace_string( what, capitalize( this_player()->query_name() ), "$N" );
@@ -411,7 +357,7 @@ void chan_emote( string chan, string what ) {
 void chan_say( string chan, string what ) {
 
   string *ichans;
-  int i;
+  int i, sz;
 
   if( !query_subscribed( chan ) ) {
     write( "Not subscribed to channel " + chan + ".\n" );
@@ -425,10 +371,10 @@ void chan_say( string chan, string what ) {
 
   if( !what || what == "" )
     return;
-
+    
 #ifdef SYS_NETWORKING
   ichans = map_indices( imud );
-  for( i = 0; i < sizeof( ichans ); i++ ) {
+  for( i = 0, sz = sizeof( ichans ); i < sz; i++ ) {
     if( imud[ichans[i]] == chan ) {
       /* Found an intermud channel */
       IMUD_D->do_channel_m( ichans[i], what );
@@ -436,7 +382,7 @@ void chan_say( string chan, string what ) {
     }
   }
 #endif
-  
+
   chan_send_string( chan, capitalize( this_player()->query_name() ) + ": " + capitalize( what ) );
 }
 
@@ -534,4 +480,40 @@ void event_player_join( string *args ) {
   if( channels["announce"] ) {
     chan_send_string( "announce", "Trumpets blast a fanfare as " + capitalize(args[0]) + " joins " + args[1] + "!" );
   }
+}
+
+void add_history(string channel, string message) {
+  int i, sz;
+  string *temp;
+
+  if( !channel || channel == "" ) return;
+  if( !message || message == "" ) return;
+  if( !history ) history = ([]);
+
+  temp = history[channel];
+  if( !temp ) temp = ({ });
+  if( sizeof(temp) >= MAX_HIST_SIZE )
+    temp = temp[sizeof(temp)-(MAX_HIST_SIZE-1) .. sizeof(temp)-1];
+  temp += ({ "%^CYAN%^[" + (ctime(time())[4..18]) + 
+    "]%^RESET%^ " + message });
+  history[channel] = nil;
+  history += ([ channel : temp ]);
+  return;
+}
+
+void show_history(string channel) {
+  int i, sz;
+  string out;
+  
+  if( catch(sz = sizeof(history[channel])) ) return;
+  if( !colors ) colors = ([ ]);
+
+  for ( i = 0; i < sz; ++i ) {
+    out = "";
+    if( colors[channel] ) out += colors[channel];
+    out += "[" + channel + "]" + history[channel][i];
+
+    this_player()->message(out);
+  }
+  return;
 }
