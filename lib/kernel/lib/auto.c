@@ -63,6 +63,7 @@
 #include "afun/mappingp.c"
 #include "afun/objectp.c"
 #include "afun/stringp.c"
+#include "afun/nullp.c"
 #include "afun/strstr.c"
 #include "afun/replace_string.c"
 #include "afun/invert_exit.c"

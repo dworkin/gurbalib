@@ -1,0 +1,14 @@
+NAME
+        nullp - test if a variable is null (nil)
+
+SYNOPSIS
+        int nullp( mixed arg )
+
+DESCRIPTION
+        Check if 'arg' is the nil type.
+
+RETURN VALUE
+        Returns 1 if 'arg' is null, 0 otherwise.
+
+SEE ALSO
+        arrayp, intp, stringp, floatp, objectp, mappingp

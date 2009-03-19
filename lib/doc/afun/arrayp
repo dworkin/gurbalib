@@ -11,5 +11,5 @@ RETURN VALUE
         Returns 1 if 'arg' is an array, 0 otherwise.
 
 SEE ALSO
-        floatp, intp, stringp, objectp, mappingp
+        floatp, intp, stringp, objectp, mappingp, nullp
 
