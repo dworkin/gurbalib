@@ -278,32 +278,25 @@ void recompile( object obj ) {
   message( "recompile( obj );\n" );
 }
 
-object telnet_connect(int port) {
+object _telnet_connect(mixed * tls, int port) {
 
   object connection;
-  
-  
-#ifdef SYS_NETWORKING
-  connection = find_object(TELNET_D);
-  return( connection );
-#else
+
   connection = clone_object( "/std/user" );
   return( connection );
-#endif
-  }
+}
 
-#ifdef SYS_NETWORKING
+object telnet_connect(int port) {
+  return _telnet_connect(allocate(query_tls_size()), port);
+}
+
+object _binary_connect(mixed * tls, int port) {
+}
+
 object binary_connect(int port) {
-  object connection;
-	
-	message(FTP_PORT);
-  /*switch(port) {
-    case FTP_PORT :
-      connection = find_object(FTP_D);
-      break;
-    }*/
-  }
-#endif
+  _binary_connect(allocate(query_tls_size()), port);
+}
+
 
 void _interrupt(mixed * tls) {
   object *usrs;
