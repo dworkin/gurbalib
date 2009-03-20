@@ -246,7 +246,7 @@ string query_title_string( void ) {
 void set_linkdead( int flag ) {
   if( flag == 1 ) {
     set_brief( query_title() + " [link-dead]" );
-    linkdead = call_out( "do_quit", LINKDEAD_TIMEOUT );
+    linkdead = call_out( "do_quit", LINKDEAD_TIMEOUT, nil );
   } else {
     set_brief( query_title() );
     if( linkdead )
