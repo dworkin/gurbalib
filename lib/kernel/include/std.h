@@ -4,6 +4,8 @@
 #endif
 #endif
 
+#include "AUTO"
+
 #define SYS_COLOR
 
 #include <mudname.h>
@@ -11,7 +13,7 @@
 #define LIB_NAME  "GurbaLib"
 #define LIB_VERSION "v0.42 devel"
 
-#define ADMIN_EMAIL "gurba@wotf.org"
+#define ADMIN_EMAIL "you@some.place"
 
 #define LINKDEAD_TIMEOUT 10*60
 

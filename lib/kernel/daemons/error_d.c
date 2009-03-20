@@ -6,6 +6,8 @@
  */
 #include <tlsvar.h>
 
+int count;
+
 static void create() {
   DRIVER->register_error_d();
 }
@@ -22,6 +24,7 @@ string format_runtime_error( string error, mixed **trace, int caught, int ticks 
 
   result = "";
 
+  count++;
   if( (sz=sizeof(trace) - 1) != 0 ) {
     for( i=0; i<sz; i++ ) {
       progname = trace[i][1];
@@ -57,13 +60,10 @@ string format_runtime_error( string error, mixed **trace, int caught, int ticks 
   return result;
 }
 
-void runtime_error(string error, mixed **trace, int caught, int ticks) {
-  string result;
+static void log_runtime_error(string result, int caught) {
   object player;
   string * lines;
   int i, sz;
-
-  result = format_runtime_error( error, trace, caught, ticks );
 
   if(this_user()) {
     player = this_user()->query_player();
@@ -101,6 +101,26 @@ void runtime_error(string error, mixed **trace, int caught, int ticks) {
   }
 }
 
+void runtime_error(string error, mixed **trace, int caught, int ticks, int atom) {
+  string result;
+
+  /*
+   * not atomic, we can write to files, do so.
+   *
+   */
+  if(atom < 0) {
+    result = format_runtime_error( error, trace, caught, ticks );
+    log_runtime_error(result, caught);
+  } else {
+  /*
+   * Writing to files is illegal here, and variables will get rolled back after the
+   * error, except for output to the console, so that is what we do to leave a trace
+   * of the error.
+   */
+    result = format_runtime_error( error, trace, caught, ticks );
+    console_msg(result);
+  }
+}
     
 string format_compile_error( string file, int line, string err ) {
   return file + ", " + (string) line + ": " + err + "\n";
@@ -113,6 +133,10 @@ void compile_error( string file, int line, string err ) {
 
   error = format_compile_error( file, line, err );
   console_msg( error );
+  /*
+   * we'll have to change this to support compilation during
+   * atomic functions I suppose.. for now it will do.
+   */
   write_file("/logs/errors/compile", error);
 
   usr = this_user();

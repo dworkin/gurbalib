@@ -1,4 +1,6 @@
 #include <privileges.h>
+#include <tlsvar.h>
+
 
 static void create() {
   if(!get_list( "clones" )) {
@@ -17,7 +19,7 @@ static void create() {
 mixed include_file( string file, string path ) {
   if(path == "AUTO") {
     string * parts;
-    parts = explode( file, "/" );
+    parts = explode( DRIVER->get_tlvar(TLS_COMPILING), "/" );
     if(parts[0] == "kernel") {
       return "/kernel/include/std-kernel.h";
     } else {
@@ -31,3 +33,22 @@ mixed include_file( string file, string path ) {
     return path;
   }
 }
+
+
+
+void register_includes(object by, string * what) {
+  if(what && sizeof(what)) {
+#ifdef DEBUG_COMPILER_D
+    console_msg( object_name( by ) + " includes " + dump_value( what, ([]) ) + "\n" );
+#endif
+  }
+}
+
+void register_inherits(object by, object * what) {
+  if(what && sizeof(what)) {
+#ifdef DEBUG_COMPILER_D
+    console_msg( object_name( by ) + " inherits " + dump_value( what, ([]) ) + "\n" );
+#endif
+  }
+}
+

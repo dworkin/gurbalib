@@ -36,15 +36,35 @@ int tls_size;
 object compiler_d;
 object error_d;
 
-private object load( string path ) {
-  object ob;
-
-  ob = find_object( path );
-  return( ob ) ? ob : compile_object( path );
-}
-
 void message(string str) {
   send_message(ctime(time())[4 .. 18] + " ** " + str);
+}
+
+object compile_object( string path, varargs string code ) {
+  object ob;
+     
+  set_tlvar(TLS_INCLUDES, ({ "/kernel/include/std.h" }) );
+  set_tlvar(TLS_INHERITS, ({ }) );
+  set_tlvar(TLS_COMPILING, path);
+
+  if(code) {
+    ob = ::compile_object( path, code );
+  } else {
+    ob = ::compile_object( path );
+  }
+
+  if(get_tlvar(TLS_COMPILING) != AUTO && get_tlvar(TLS_COMPILING) != DRIVER) {
+    set_tlvar( TLS_INHERITS, ({ find_object( AUTO ) }) | get_tlvar( TLS_INHERITS ) );
+  }
+
+  set_tlvar(TLS_COMPILING, nil);
+
+  if(compiler_d) {
+    compiler_d->register_includes( ob, get_tlvar(TLS_INCLUDES) );
+    compiler_d->register_inherits( ob, get_tlvar(TLS_INHERITS) );
+  }
+
+  return ob;
 }
 
 void register_compiler_d() {
@@ -61,7 +81,7 @@ void register_error_d() {
   }
 }
 
-static _initialize(mixed * tls) {
+static void _initialize(mixed * tls) {
 
   message( status()[ST_VERSION] + " running " + LIB_NAME + " " + LIB_VERSION + ".\n");
   message( "Initializing...\n" );
@@ -255,27 +275,64 @@ object call_object( string name ) {
 
 object inherit_program( string file, string program, int priv ) {
   object ob;
+  string * old_includes;
+  object * old_inherits;
+  string old_compiling;
 
-  if( ob = find_object( program ) )
-    return ob;
-  else
-    return compile_object( program );
+  if( !(ob = find_object( program )) ) {
+
+    old_includes = get_tlvar( TLS_INCLUDES );
+    old_inherits = get_tlvar( TLS_INHERITS );
+    old_compiling = get_tlvar( TLS_COMPILING );
+    set_tlvar( TLS_INCLUDES, ({ "/kernel/includes/std.h" }) );
+    set_tlvar( TLS_INHERITS, ({ }) );
+    set_tlvar( TLS_COMPILING, program );
+
+    ob = ::compile_object( program );
+
+    if(  get_tlvar( TLS_COMPILING ) != AUTO ) {
+      set_tlvar(TLS_INHERITS, ({ find_object(AUTO) }) | get_tlvar(TLS_INHERITS) );
+    }
+
+    if(compiler_d) {
+      compiler_d->register_includes(ob, get_tlvar(TLS_INCLUDES));
+      compiler_d->register_inherits(ob, get_tlvar(TLS_INHERITS));
+    }
+
+    set_tlvar(TLS_COMPILING, old_compiling);
+    set_tlvar(TLS_INCLUDES,old_includes);
+    set_tlvar(TLS_INHERITS,old_inherits);
+  }
+
+  if(ob) {
+    set_tlvar(TLS_INHERITS, get_tlvar(TLS_INHERITS) | ({ ob }) );
+  }
+
+  return ob;
 }
 
 string include_file( string file, string path ) {
+  string res;
 
-  if(compiler_d) 
-    return compiler_d->include_file(file, path);
 
-  if( path[0] != '/' ) {
-    return file + "/../" + path;
+  if(compiler_d)  {
+    res = compiler_d->include_file(file, path);
   } else {
-    return path;
+    if( path[0] != '/' ) {
+      res = file + "/../" + path;
+    } else {
+      res = path;
+    }
+  } 
+
+  if(read_file(res)) {
+    set_tlvar(TLS_INCLUDES, get_tlvar(TLS_INCLUDES) | ({ res }) );
   }
+  return res;
 }
 
 void recompile( object obj ) {
-  message( "recompile( obj );\n" );
+  if( obj ) destruct_object( obj );
 }
 
 object _telnet_connect(mixed * tls, int port) {
@@ -356,7 +413,7 @@ void runtime_error( string error, int caught, int ticks ) {
   object player;
 
   if(error_d) {
-    error_d->runtime_error(error, call_trace(), caught, ticks );
+    error_d->runtime_error( error, call_trace(), caught, ticks , -1 );
     return;
   }
 
@@ -407,8 +464,12 @@ void runtime_error( string error, int caught, int ticks ) {
 }
 
 static void atomic_error(string error, int a, int t) {
-    error = "(atom: "+a+", "+t+" ticks remaining) "+error;
+  error = "(atom: "+a+", "+t+" ticks remaining) "+error;
+  if(error_d) {
+    error_d->runtime_error(error,call_trace(), 0,t,a);
+  } else {
     runtime_error(error,0,t);
+  }
 }
 
 static string object_type(string from, string obtype) {
