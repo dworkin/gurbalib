@@ -1,23 +1,16 @@
-
-inherit ROOM;
+inherit OUTDOOR_ROOM;
 
 void setup( void ) {
-  add_area( "Gurba" );
-  set_brief( "%^MAGENTA%^Market Boulevard%^RESET%^" );
-  set_long( "This is where Market boulevard meets Six-pence Avenue, and ends. to the east you will reach the town square. Northwards you will find the University of Gurba. South lies the park." );
-  set_exits( ([ 
-	       "east" : "/domains/gurba/rooms/market3",
-               "north" : "/domains/gurba/rooms/sixp1",
-  ]) );
-
-  add_item( "road", "The road here is paved with cobblestones due to all the traffic that runs through here. However you can se that traffic has not been that hard on the road here." );
-  add_item( "cobblestone", "cobblestones", "cobble", "stones", "The stones are small quadratic stones laid down side by side." );
-   set_objects( ([ 
-  ]) );
-
+   add_area( "Gurba" );
+   add_area( "MarketStreet" );
+   add_area( "GurbaOutdoor" );
+   
+   set_brief( "Market Street" );
+   set_long( "This is the western end of Market Street, an extremely old and narrow road that is known for having some of the best deals on all manner of goods. Naturally, the combination has led to a bit of a congestion problem. All around you people push and shove while trying to haggle with any of a hundred merchants, or simply trying to make headway in either direction. The western gate can be seen from here, and the town square lies in the distance to the east." );
+   
+   set_exits( ([ 
+		  "east" : "/domains/gurba/rooms/market3",
+		  "west" : "/domains/gurba/rooms/gate_west",
+		  ]) );
+   
 }
-
-void do_listen( object player ) {
-  write( "You hear the muffled sound of trade, money, haggling and merchants having it off at each other." );
-}
-

@@ -1,26 +1,16 @@
-
-inherit ROOM;
+inherit OUTDOOR_ROOM;
 
 void setup( void ) {
-  add_area( "Gurba" );
-  set_brief( "%^MAGENTA%^Market Boulevard%^RESET%^" );
-  set_long( "This is the market street in Gurba. Further to the east lies the town square. To the north is the first National Bank of Gurba, southwards you can find a cozy little restaurant called 'Chez Mario'. There is a small sign standing here." );
-  set_exits( ([ 
-	       "west" : "/domains/gurba/rooms/market4", 
-	       "east" : "/domains/gurba/rooms/market2",
-               "north" : "/domains/gurba/rooms/bank",
-               "south" : "/domains/gurba/rooms/restaurant",
-  ]) );
-
-  add_item( "road", "The road here is paved with cobblestones due to all the traffic that runs through here." );
-  add_item( "cobblestone", "cobblestones", "cobble", "stones", "The stones are small quadratic stones laid down side by side." );
-  add_item( "sign", "There is a piece of paper nailed to the sign it says: 'Playing tonight at Mario's, The Rolling Stones'." );
-  set_objects( ([ 
-  ]) );
-
+   add_area( "Gurba" );
+   add_area( "MarketStreet" );
+   add_area( "GurbaOutdoor" );
+   
+   set_brief( "Market Street" );
+   set_long( "You are near the middle of Market Street, the oldest (and most crowded) section of Gurba Town. This particular section of the street seems to be a bit wider than the surrounding areas, thus giving those weary of the oppressive atmosphere a chance to catch a bit of fresh air. The buildings here are tall and crooked, and merchants are set up all along the road with their wares. The town square can barely be seen through the sea of people to the east, while the westen gate lies in the opposite direction." );
+   
+   set_exits( ([ 
+		  "east" : "/domains/gurba/rooms/market2",
+		  "west" : "/domains/gurba/rooms/market4",
+		  ]) );
+   
 }
-
-void do_listen( object player ) {
-  write( "You hear the bustling sound of trade, money, haggling and merchants having it off at each other." );
-}
-

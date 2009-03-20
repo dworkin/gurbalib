@@ -1,14 +1,16 @@
-inherit ROOM;
+inherit OUTDOOR_ROOM;
 
 void setup( void ) {
-  add_area( "Gurba" );
-  set_brief( "%^CYAN%^Gelmir Road%^RESET%^" );
-  set_long( "To the north is the entrance to the Fighters Guild. A short distance to the west is the town square, but you can't see if anything is going on there." );
-  set_exits( ([ 
-	       "north" : "/domains/gurba/guilds/fighter/entrance",
-	       "west"  : "/domains/gurba/rooms/gelmir2",
-  ]) );
-
-  add_item( "road", "path", "floor", "street", "The further you get from the town square, the poorer the condition of the road. Here there are some rather big holes in the stonework, and it could use some maintainance." );
-  add_item( "guild", "fighters guild", "fighters", "guild hall", "hall", "The building doesn't look much different from the other houses in this area, except for it beeing a lot bigger. It's made of red brick, and it looks a bit faded." );
+   add_area( "Gurba" );
+   add_area( "GelmirRoad" );
+   add_area( "GurbaOutdoor" );
+   
+   set_brief( "Gelmir Road" );
+   set_long( "This section of Gelmir Road is dominated by a bunch of formidable-looking individuals wearing armor and carrying weapons.  Most of them seem to be coming and going from the Fighter's Guild to the north, whose large tiled dome towers over the surrounding buildings.  The entrance is large and ornate, and wide enough for several people to come and go at once.  Gelmir Road heads west from here towards the town square, and in the other direction towards the eastern gate of the town." );
+   
+   set_exits( ([ 
+		  "east" : "/domains/gurba/rooms/gelmir4",
+		  "west" : "/domains/gurba/rooms/gelmir2",
+		  ]) );
+   
 }

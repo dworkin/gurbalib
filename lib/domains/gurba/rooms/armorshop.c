@@ -2,21 +2,17 @@
 inherit ROOM;
 
 void setup( void ) {
-  set_brief( "%^CYAN%^The armor shop%^RESET%^" );
-  set_long( "Here is the armor shop, a small plaque hangs on a wall next to the entrance, all sorts of armor and shields are hung on the walls. Timoth the centaur is running the show here. ");
+  set_brief( "Timoth's Armorarium" );
+  set_long( "This small but well-maintained shop smells strongly of armor polish. This is no surprise, since the walls are covered in all manner of gleaming plate armor and leather clothing. As the primary supplier of armor for the fighters of Gurba's Fighter's Guild, Timoth (a centaur) does quite a respectable business. Indeed, hardly a minute goes by where a fighter doesn't show up asking for a new breastplate or a repair of some kind.");
   set_exits( ([ 
               
-	       "north" : "/domains/gurba/rooms/market2",
+	       "north" : "/domains/gurba/rooms/square_southeast",
  ]) );
   
-  add_item(  "armor", "armors", "shields", "shield", "Shields and armor for all races." );
-  add_item( "plaque", "The plaque says: We rather be safe than sorry!" );
+  add_item( "armor", "armors", "shields", "shield", "Shields and armor for all races." );
+  add_item( "plaque", "The plaque says: \"Timoth's Armorarium: We'd rather be safe than sorry!\"" );
   set_objects( ([ 
   ]) );
   
-}
-
-void do_listen( object player ) {
-  write( "You can hear the tail of Timoth the centaur swapping flies." );
 }
 

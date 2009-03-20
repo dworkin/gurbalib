@@ -2,23 +2,17 @@
 inherit ROOM;
 
 void setup( void ) {
-  set_brief( "%^GREEN%^First National Bank of Gurba%^RESET%^" );
-  set_long( " This is the proud bank of Gurba. Two heavily armed guards are standing on each side of the entrance. there are two counters with a clerk behind each. One sign above the counter says 'Withdraw', the other says 'Deposit'. The floor and columns supporting the roof are made of marble. This place reeks of money. A huge sign hangs from the roof just after entering.");
+  set_brief( "Gurba Bank" );
+  set_long( "This is the main bank branch of Gurba. There are two large counters with a clerk behind each. One sign above the counter says 'Withdraw', while the other reads 'Deposit'. The floor and columns supporting the roof are made of what appears to be marble.");
   set_exits( ([ 
               
-	       "south" : "/domains/gurba/rooms/market3",
+	       "south" : "/domains/gurba/rooms/border_south9",
  ]) );
   
-  add_item(  "counter", "counters", "Each of the counters is made out of solid oak." );
-  add_item( "guards", "guard", "The guards are dressed in full platemail, with full helmets on top. They both have two-handed swords on their backs and seem almost lifeless, statuelike standing there." );
-  add_item( "sign", "The sign exclaims in capital letters 'Robbery is not allowed'." ); 
-  add_item( "floor", "columns", "column", "The are nicely cut and tiled out of marble. It is obvious that this is a place of money." );
+  add_item( "counter", "counters", "Each of the counters are made out of solid oak." );
+  add_item( "floor", "columns", "column", "The are nicely cut and tiled out of what seems to be marble, though upon closer inspection it seems to be fake." );
   set_objects( ([ 
   ]) );
   
-}
-
-void do_listen( object player ) {
-  write( "You can even hear the sound of money." );
 }
 

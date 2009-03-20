@@ -18,7 +18,7 @@
 #define TRUE  1
 #define FALSE 0
 
-#define STARTING_ROOM "/domains/gurba/town_square"
+#define STARTING_ROOM "/domains/gurba/rooms/square_center"
 
 #define LANGUAGE_D   "/daemons/language_d"
 #define ANSI_D       "/daemons/ansi_d"
