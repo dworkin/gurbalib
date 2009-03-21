@@ -1,3 +1,22 @@
+/*
+ * This function is atomic so that the destruct_object() gets
+ * undone if the following compile_object() fails.
+ *
+ */
+static atomic object recompile_library(string str) {
+  object ob;
+
+  ob = find_object(str);
+  if(ob) {
+    if(ob->num_clones()) {
+      error ("Cannot recompile object that is inherited and has clones");
+    } else {
+      destruct_object(ob);
+      return compile_object(str);
+    }
+  }
+}
+
 void main( string str ) {
   string path;
   object *objs;
@@ -67,7 +86,19 @@ void main( string str ) {
     }
   } else if( file_exists( path + ".c" ) ) {
     this_player()->set_env( "cwf", path );
-    ob = compile_object( path );
+    catch {
+      ob = compile_object( path );
+    } : {
+      switch(caught_error()) {
+        case "Cannot recompile inherited object" :
+          write( path + " is inherited, trying to destruct/compile." );
+          ob = recompile_library(path);
+          break;
+        default :
+          rethrow();
+          break;
+      }
+    }
     if( ob ) {
       write( "Compilation successful.\n" );
     }

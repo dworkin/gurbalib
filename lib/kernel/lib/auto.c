@@ -13,6 +13,8 @@
 #define LIST_NEXT 1
 
 #include "afun/variables.c"
+#include "afun/caught_error.c"
+#include "afun/rethrow.c"
 #include "afun/set_list.c"
 #include "afun/get_list.c"
 #include "afun/console_msg.c"
@@ -67,7 +69,6 @@
 #include "afun/strstr.c"
 #include "afun/replace_string.c"
 #include "afun/invert_exit.c"
-#include "afun/caught_error.c"
 
 #include "sys/_F_create.c"
 #include "sys/_F_destruct.c"

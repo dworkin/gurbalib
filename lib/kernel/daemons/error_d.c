@@ -5,7 +5,12 @@
  *
  */
 #include <tlsvar.h>
+#include <error_handling.h>
 
+/*
+ * counts the number of runtime errors we have had so far
+ *
+ */
 int count;
 
 static void create() {
@@ -16,16 +21,18 @@ static void create() {
  * NAME:        format_runtime_error()
  * DESCRIPTION: format a runtime error
  */
-string format_runtime_error( string error, mixed **trace, int caught, int ticks ) {
+string format_runtime_error( string error, mixed **trace, int caught, int ticks, int atom ) {
   string result;
-  string progname, objname, function, str;
+  string progname, objname, function, str, rethrown;
   int i, sz, line, len;
   object player;
 
   result = "";
 
   count++;
-  if( (sz=sizeof(trace) - 1) != 0 ) {
+  if(sscanf(error, MAGIC_ERROR_STRING+"%s",rethrown) == 1) {
+    result = rethrown;
+  } else if( (sz=sizeof(trace) - 1) != 0 ) {
     for( i=0; i<sz; i++ ) {
       progname = trace[i][1];
       function = trace[i][2];
@@ -51,34 +58,51 @@ string format_runtime_error( string error, mixed **trace, int caught, int ticks 
           str += " (" + objname + ")";
         }
       }
-      if(i == 0) {
-        result += ((caught ? "[CAUGHT] ":"")+error + "\nObject: " + objname + ", program: " + progname + ", line " + line + "\n" );
+      if(i == sz - 1) {
+        result = error + "\nObject: " + objname + ", program: " + progname + ", line " + line + "\n" + result ;
       }
       result += ( str + "\n" );
     }
+  } else {
+    result = error + "<NO CALL TRACE AVAILABLE>\n";
   }
+
+  if(atom >= 0) result = "[ATOMIC:"+atom+"] "+result;
   return result;
 }
 
 static void log_runtime_error(string result, int caught) {
   object player;
-  string * lines;
+  string * lines, rethrown;
   int i, sz;
+  mixed verbose;
 
   if(this_user()) {
     player = this_user()->query_player();
   }
+
+  if(player) {
+    verbose = player->query_env("verbose_errors");
+    if(stringp(verbose) && (verbose == "1" || verbose == "on")) verbose = 1;
+  }
+
+  lines = explode( result, "\n" );
+
   if(caught) {
-    DRIVER->set_tlvar(TLS_CAUGHT_ERROR, result);
-    if(player) {
-      mixed display_caught;
+    if(player && player->query_name() && SECURE_D->query_wiz( player->query_name()) ) {
+      mixed display_caught, verbose;
 
       display_caught = player->query_env("display_caught");
       if(intp(display_caught)) display_caught = (string) display_caught;
+
       switch(display_caught) {
         case "on" :
         case "1"  :
-          player->write( result );
+          if(verbose) {
+            player->write( result );
+          } else {
+            player->write( lines[0]+"%^RESET%^\n" );
+          }
           break;
       }
     }
@@ -91,7 +115,7 @@ static void log_runtime_error(string result, int caught) {
     if(player) {
       if( SECURE_D->query_wiz( player->query_name() ) == 1 ) {
         player->write("%^RED%^Runtime error: %^RESET%^"+
-          "%^CYAN%^"+result+"%^RESET%^"
+          "%^CYAN%^"+ (verbose ? result : lines[0]) + "%^RESET%^"
         );
       } else {
         player->write( "You have encountered a rift in reality. Please report it to the admins.\n" );
@@ -104,12 +128,17 @@ static void log_runtime_error(string result, int caught) {
 void runtime_error(string error, mixed **trace, int caught, int ticks, int atom) {
   string result;
 
+  result = format_runtime_error( error, trace, caught, ticks, atom );
+
+  if(caught) {
+    DRIVER->set_tlvar(TLS_CAUGHT_ERROR, result);
+  }
+
   /*
    * not atomic, we can write to files, do so.
    *
    */
   if(atom < 0) {
-    result = format_runtime_error( error, trace, caught, ticks );
     log_runtime_error(result, caught);
   } else {
   /*
@@ -117,7 +146,6 @@ void runtime_error(string error, mixed **trace, int caught, int ticks, int atom)
    * error, except for output to the console, so that is what we do to leave a trace
    * of the error.
    */
-    result = format_runtime_error( error, trace, caught, ticks );
     console_msg(result);
   }
 }
@@ -133,10 +161,7 @@ void compile_error( string file, int line, string err ) {
 
   error = format_compile_error( file, line, err );
   console_msg( error );
-  /*
-   * we'll have to change this to support compilation during
-   * atomic functions I suppose.. for now it will do.
-   */
+
   write_file("/logs/errors/compile", error);
 
   usr = this_user();

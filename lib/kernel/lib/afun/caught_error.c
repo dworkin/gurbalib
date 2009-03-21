@@ -11,8 +11,6 @@ string caught_error(varargs mixed flag) {
 
   result = DRIVER->get_tlvar(TLS_CAUGHT_ERROR);
 
-  DRIVER->message("caught_error() : "+(result? result:"<NONE>")+"\n");
-
   if(!flag) {
     if(result) {
       lines = explode(result,"\n");
