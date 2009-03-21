@@ -17,6 +17,18 @@ static atomic object recompile_library(string str) {
   }
 }
 
+static atomic object recompile_object(string str) {
+  object ob;
+
+  ob = find_object(str);
+  if(!ob) {
+    return compile_object(str);
+  } else {
+    ob = compile_object(str);
+    call_touch(ob);
+  }
+}
+
 void main( string str ) {
   string path;
   object *objs;

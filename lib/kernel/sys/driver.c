@@ -42,11 +42,13 @@ void message(string str) {
 
 object compile_object( string path, varargs string code ) {
   object ob;
+  int mark;
      
   set_tlvar(TLS_INCLUDES, ({ "/kernel/include/std.h" }) );
   set_tlvar(TLS_INHERITS, ({ }) );
   set_tlvar(TLS_COMPILING, path);
 
+  if(path != DRIVER && find_object(path)) mark = 1;
   if(code) {
     ob = ::compile_object( path, code );
   } else {
@@ -62,6 +64,31 @@ object compile_object( string path, varargs string code ) {
   if(compiler_d) {
     compiler_d->register_includes( ob, get_tlvar(TLS_INCLUDES) );
     compiler_d->register_inherits( ob, get_tlvar(TLS_INHERITS) );
+  }
+
+  if(mark) {
+    object clone;
+    /* 
+     * ensure '_F_upgraded() will get called 
+     */
+    call_touch(ob);
+    /*
+     * This can take a lot of time, but shouldn't recurse too deep,
+     * setup rlimits for this.
+     */
+    rlimits(MAX_DEPTH; (MAX_TICKS * MAX_TICKS)) {
+      while(clone = ob->next_clone()) {
+        /* 
+         * also do this for all clones of the object
+         * note, this may need a lot of memory, and
+         * should be split up over multiple call_outs
+         * to ensure the swapper can do its job when an
+         * object has a huge number of clones.
+         * not for today tho.
+         */
+        call_touch(clone);
+      }
+    }
   }
 
   return ob;
@@ -538,6 +565,13 @@ void set_tlvar(int i, mixed v) {
   }
 }
 
+/*
+ * This will be called before an object that has been upgraded gets
+ * called for the first time, it ensures _F_upgraded() gets called.
+ * This needs wrapping in rlimits to protect against infinite recursion
+ * and loops. Also, note that this_player() will not be set correctly
+ * during an upgrade, this may need fixing later.
+ */
 static int _touch(mixed tls, object ob, string function) {
   object savep;
   object * clones;
@@ -546,7 +580,7 @@ static int _touch(mixed tls, object ob, string function) {
   message("touching "+object_name(ob)+ " due to a call to "+function+"\n");
 
   rlimits(MAX_DEPTH; MAX_TICKS) {
-    ob->upgraded();
+    ob->_F_upgraded();
   }
 }
 

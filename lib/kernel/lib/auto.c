@@ -65,7 +65,7 @@
 #include "afun/mappingp.c"
 #include "afun/objectp.c"
 #include "afun/stringp.c"
-#include "afun/nullp.c"
+#include "afun/nilp.c"
 #include "afun/strstr.c"
 #include "afun/replace_string.c"
 #include "afun/invert_exit.c"
@@ -73,4 +73,4 @@
 #include "sys/_F_create.c"
 #include "sys/_F_destruct.c"
 #include "sys/_F_call_out.c"
-
+#include "sys/_F_upgraded.c"

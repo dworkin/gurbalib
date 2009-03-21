@@ -1,14 +1,14 @@
 NAME
-        nullp - test if a variable is null (nil)
+        nilp - test if a variable is nil (null)
 
 SYNOPSIS
-        int nullp( mixed arg )
+        int nilp( mixed arg )
 
 DESCRIPTION
         Check if 'arg' is the nil type.
 
 RETURN VALUE
-        Returns 1 if 'arg' is null, 0 otherwise.
+        Returns 1 if 'arg' is nil, 0 otherwise.
 
 SEE ALSO
         arrayp, intp, stringp, floatp, objectp, mappingp
