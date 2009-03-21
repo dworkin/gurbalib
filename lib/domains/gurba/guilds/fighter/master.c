@@ -6,15 +6,16 @@ void setup( void ) {
   set_proper_name( "Bob" );
   set_gender( 1 );
   add_id( "master", "guildmaster" );
-  set_in_room_desc( "Bob, the Guildmaster" );
-  set_long( "A sturdy fighter, if you ever saw one." );
+  set_in_room_desc( "Bob, the Fighter's Guildmaster" );
+  set_long( "Bob is the leader of the Fighter's Guild. He is gray-haired, but this does not by any means indicate weakness. After all, to stay the leader you probably need to be pretty good at what you do." );
   set_race( "human" );
   add_block( "north" );
-  set_actions( 60, ({
-    "say Want to be a fighter?",
+  set_actions( 80, ({
+    "say Surely you seek the path of a fighter!",
       "say All you have to do is say 'join'.",
       "say Say 'join' to become a fighter.",
       "smile",
+      "emote waves his sword around a bit while whistling.",
       })
 	       );
   add_pattern( "%s says: Join", "call join_guild $1" );
@@ -27,7 +28,7 @@ int can_join( object player ) {
 }
 
 void do_join( object player ) {
-  this_player()->respond( "say Welcome to the Fighter Guild, " + player->query_name() );
+  this_player()->respond( "say Welcome to the Fighter's Guild, " + player->query_name() );
   this_player()->respond( "smile" );
   this_player()->respond( "bow " + player->query_name() );
 }

@@ -16,6 +16,7 @@ string query_guild( void ) {
 int do_block( object who ) {
   if( who->guild_member( guild ) )
     return( 1 );
+  this_object()->respond( "say Sorry. You need to be a member of this guild to enter." );
   return( 0 );
 }
 
@@ -31,7 +32,7 @@ void join_guild( string who ) {
     return;
 
   if( player->guild_member( guild ) ) {
-    this_player()->respond( "say But, you're already a member?" );
+    this_player()->respond( "say You're already a member." );
     return;
   }
 
