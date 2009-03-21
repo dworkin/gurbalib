@@ -2,6 +2,8 @@ int cat_file( string filename ) {
   int i, sz;
   string *lines;
 
+  argcheck( filename, 1, "string" );
+
   i = file_exists( filename );
   if( !i ) {
     write( "No such file.\n" );

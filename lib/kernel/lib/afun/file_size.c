@@ -9,6 +9,8 @@ int file_size(string file, varargs int dir)
   string *files, name;
   int i, sz;
 
+  argcheck( file, 1, "string" );
+
   if (file == "/") {
     file = ".";
   }

@@ -7,6 +7,9 @@ string normalize_path(string file, string dir)
   string *path;
   int i, j, sz;
 
+  argcheck( file, 1, "string" );
+  argcheck( dir, 2, "string" );
+
   if (strlen(file) == 0) {
     file = dir;
   }

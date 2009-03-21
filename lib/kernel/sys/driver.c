@@ -40,6 +40,40 @@ void message(string str) {
   send_message(ctime(time())[4 .. 18] + " ** " + str);
 }
 
+void upgrade_done() {
+  /* a stub for now */
+}
+
+void queue_upgrade(object ob) {
+  object next;
+  int count;
+
+  count = 0;
+
+  rlimits(MAX_DEPTH; (MAX_TICKS * MAX_TICKS)) {
+    while(ob && count < 500) {
+      /*
+       * Note the order here, it is important.
+       * doing this the other way around would result
+       * in _F_upgraded() getting called inmediately
+       * instead of on the next call to the object/clone
+       *
+       */
+      next = ob->next_clone();
+      message("call_touch "+object_name(ob)+"\n");
+      call_touch(ob);
+      ob = next;
+      count++;
+    }
+  }
+
+  if(ob)
+    call_out("queue_upgrade",0,ob);
+  else
+    upgrade_done();
+}
+
+
 object compile_object( string path, varargs string code ) {
   object ob;
   int mark;
@@ -67,28 +101,7 @@ object compile_object( string path, varargs string code ) {
   }
 
   if(mark) {
-    object clone;
-    /* 
-     * ensure '_F_upgraded() will get called 
-     */
-    call_touch(ob);
-    /*
-     * This can take a lot of time, but shouldn't recurse too deep,
-     * setup rlimits for this.
-     */
-    rlimits(MAX_DEPTH; (MAX_TICKS * MAX_TICKS)) {
-      while(clone = ob->next_clone()) {
-        /* 
-         * also do this for all clones of the object
-         * note, this may need a lot of memory, and
-         * should be split up over multiple call_outs
-         * to ensure the swapper can do its job when an
-         * object has a huge number of clones.
-         * not for today tho.
-         */
-        call_touch(clone);
-      }
-    }
+    queue_upgrade(ob);
   }
 
   return ob;

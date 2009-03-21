@@ -23,16 +23,20 @@ static void create() {
  */
 string format_runtime_error( string error, mixed **trace, int caught, int ticks, int atom ) {
   string result;
-  string progname, objname, function, str, rethrown;
+  string progname, objname, function, str, tmp;
   int i, sz, line, len;
   object player;
 
   result = "";
 
   count++;
-  if(sscanf(error, MAGIC_ERROR_STRING+"%s",rethrown) == 1) {
-    result = rethrown;
-  } else if( (sz=sizeof(trace) - 1) != 0 ) {
+  if(sscanf(error, MAGIC_ERROR_RETHROWN+"%s", tmp ) == 1) {
+    result = tmp;
+  } else if( (sz=sizeof(trace) - 1) > 0 ) {
+    if( sscanf( error, MAGIC_ERROR_ARGCHECK+"%s", tmp ) == 1 && trace[sz-1][1] == AUTO && trace[sz-1][2] == "argcheck") {
+      sz -= 2;
+    }
+
     for( i=0; i<sz; i++ ) {
       progname = trace[i][1];
       function = trace[i][2];

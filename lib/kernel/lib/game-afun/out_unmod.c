@@ -1,4 +1,6 @@
 void out_unmod( string str ) {
+  argcheck( str, 1, "string" );
+
   if( !this_user()  )
     return;
   this_user()->put_original( str );

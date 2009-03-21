@@ -4,6 +4,12 @@
 
 mapping privs;
 
+static void write(string message) {
+  if(this_user() && this_user()->query_player()) {
+    this_user()->query_player()->write(message);
+  }
+}
+
 void restore_me( void ) {
   restore_object( "/kernel/daemons/data/secure_d.o" );
 }
@@ -22,7 +28,7 @@ void make_wizard( string name ) {
   object player;
 
   if( previous_object()->base_name() != "/kernel/cmds/admin/mkwiz" ) {
-    write( "Hey! No cheating!\n" );
+    error( "Hey! No cheating!\n" );
   }
 
   name = lowercase( name );

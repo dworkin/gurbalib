@@ -3,6 +3,8 @@ int str2val( string str ) {
   int val;
   int i;
 
+  argcheck( str, 1, "string" );
+
   val = 0;
   ten = 1;
   for( i = strlen( str )-1; i >= 0; i-- ) {

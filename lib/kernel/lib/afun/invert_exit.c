@@ -1,4 +1,5 @@
 string invert_exit( string exit ) {
+  argcheck( exit, 1, "string" );
   switch( exit ) {
   case "north":
     return( "south" );

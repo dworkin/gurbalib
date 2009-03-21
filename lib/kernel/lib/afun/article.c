@@ -1,4 +1,6 @@
 string article( string name ) {
+  argcheck( name, 1, "string" );
+
   if( lowercase( name ) == "hour" )
     return( "an" );
 

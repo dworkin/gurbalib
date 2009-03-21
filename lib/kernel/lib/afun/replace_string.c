@@ -5,6 +5,9 @@ string replace_string( string str, string old, string new ) {
   string done;
   int d;
 
+  argcheck( str, 1, "string" );
+  argcheck( old, 2, "string" );
+  argcheck( new, 3, "string" );
 
   olen = strlen( old );
   slen = strlen( str );

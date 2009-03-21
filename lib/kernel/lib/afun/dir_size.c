@@ -7,6 +7,8 @@ private int dir_size(string file)
   mixed **info;
   int *sizes, size, i, sz;
 
+  argcheck( file, 1, "string" );
+
   info = get_dir(file + "/*");
   sizes = info[1];
   size = 1;             /* 1K for directory itself */
