@@ -10,6 +10,7 @@
 
 #include <status.h>
 #include <ports.h>
+#include <type.h>
 #include <trace.h>
 #include <tlsvar.h>
 #include <privileges.h>
@@ -35,6 +36,7 @@ int tls_size;
 
 object compiler_d;
 object error_d;
+object secure_d;
 
 void message(string str) {
   send_message(ctime(time())[4 .. 18] + " ** " + str);
@@ -75,6 +77,7 @@ void queue_upgrade(object ob) {
 
 
 object compile_object( string path, varargs string code ) {
+  mixed stuff;
   object ob;
   int mark;
      
@@ -83,6 +86,16 @@ object compile_object( string path, varargs string code ) {
   set_tlvar(TLS_COMPILING, path);
 
   if(path != DRIVER && find_object(path)) mark = 1;
+
+  if(compiler_d) {
+    stuff = compiler_d->allow_compile(path, nil);
+    if(typeof(stuff) == T_STRING) {
+      path = stuff;
+    } else if(typeof(stuff) == T_ARRAY) {
+      code = implode(stuff, "\n")+"\n";
+    }
+  }
+    
   if(code) {
     ob = ::compile_object( path, code );
   } else {
@@ -109,15 +122,22 @@ object compile_object( string path, varargs string code ) {
 
 void register_compiler_d() {
   if(KERNEL()) {
-    message("Registering compiler_d: "+object_name(previous_object())+"\n");
+    message("Registering compiler daemon : "+object_name(previous_object())+"\n");
     compiler_d = previous_object();
   }
 }
 
 void register_error_d() {
   if(KERNEL()) {
-    message("Registering error_d: "+object_name(previous_object())+"\n");
+    message("Registering error daemon    : "+object_name(previous_object())+"\n");
     error_d = previous_object();
+  }
+}
+
+void register_secure_d() {
+  if(KERNEL()) {
+    message("Registering security daemon : "+object_name(previous_object())+"\n");
+    secure_d = previous_object();
   }
 }
 
@@ -125,6 +145,12 @@ static void _initialize(mixed * tls) {
 
   message( status()[ST_VERSION] + " running " + LIB_NAME + " " + LIB_VERSION + ".\n");
   message( "Initializing...\n" );
+  /*
+   * Order is important.
+   * The auto object caches the security daemon
+   * so it must be loaded before anything else.
+   */
+  call_other( SECURE_D, "???" );
   call_other( COMPILER_D, "???" );
   call_other( ERROR_D, "???" );
   message( "Preloading...\n" );
@@ -229,7 +255,7 @@ string normalize_path(string file, string dir)
 
     path = explode(file, "/");
 
-    if( (path[0] == "data" || path[0] == "kernel") && !SECURE_D->query_admin( this_user()->query_name() ) )
+    if( (path[0] == "data" || path[0] == "kernel") && (!secure_d || !secure_d->query_admin( this_user()->query_name() ) ) )
       return("");
 
     if (sscanf(file, "%*s//") == 0 && sscanf(file, "%*s/.") == 0) {
@@ -250,7 +276,7 @@ string normalize_path(string file, string dir)
       else
    path = explode( dir + "/" + file, "/" );
 
-      if( (path[0] == "data" || path[0] == "kernel") && !SECURE_D->query_admin( this_user()->query_name() ) )
+      if( (path[0] == "data" || path[0] == "kernel") && (!secure_d || !secure_d->query_admin( this_user()->query_name() ) ) )
    return("");
 
 
@@ -282,7 +308,7 @@ string normalize_path(string file, string dir)
     path[++j] = path[i];
   }
 
-  if( (path[0] == "data" || path[0] == "kernel") && !SECURE_D->query_admin( this_user()->query_name() ) ) {
+  if( (path[0] == "data" || path[0] == "kernel") && (!secure_d || !secure_d->query_admin( this_user()->query_name() ) ) ) {
     return "";
   }
 
@@ -318,6 +344,8 @@ object inherit_program( string file, string program, int priv ) {
   string * old_includes;
   object * old_inherits;
   string old_compiling;
+  mixed stuff;
+  string code;
 
   if( !(ob = find_object( program )) ) {
 
@@ -328,7 +356,21 @@ object inherit_program( string file, string program, int priv ) {
     set_tlvar( TLS_INHERITS, ({ }) );
     set_tlvar( TLS_COMPILING, program );
 
-    ob = ::compile_object( program );
+
+    if(compiler_d) {
+      stuff = compiler_d->allow_compile(program, nil);
+      if(typeof(stuff) == T_STRING) {
+        program = stuff;
+      } else if(typeof(stuff) == T_ARRAY) {
+        code = implode(stuff, "\n")+"\n";
+      }
+    }
+
+    if(code) {
+      ob = ::compile_object( program, code );
+    } else {
+      ob = ::compile_object( program );
+    }
 
     if(  get_tlvar( TLS_COMPILING ) != AUTO ) {
       set_tlvar(TLS_INHERITS, ({ find_object(AUTO) }) | get_tlvar(TLS_INHERITS) );
@@ -433,7 +475,7 @@ void compile_error( string file, int line, string err ) {
   usr = this_user();
   if( usr ) {
     if( usr->query_player() ) {
-      if( SECURE_D->query_wiz( usr->query_player()->query_name() ) == 1 ) {
+      if( secure_d && secure_d->query_wiz( usr->query_player()->query_name() ) == 1 ) {
    usr->query_player()->write( error );
       } else {
    usr->query_player()->write( "You have encountered a rift in reality. Please report it to the admins.\n" );

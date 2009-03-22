@@ -1,0 +1,14 @@
+Gurbalib uses a custom written kernel.
+
+It was started by Fudge in times now lost to
+history. Since then, it has been updated and
+enhanced by the Gurbalib resurrection project.
+
+The error handling and dynamic/in-place recompilation
+support was ported from Way of the Force.
+
+Many ideas for this kernel come from Dworkin's kernel
+library and discussions on the DGD mailinglist.
+
+Main contributors:
+Fudge, Aidil, Cerihan

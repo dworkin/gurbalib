@@ -1,0 +1,49 @@
+Gurbalib supports the use of DGD's atomic functions.
+
+There are a number of important things to know about
+atomic functions:
+
+- Using write_file and save_object are forbidden during
+  atomic functions.
+
+- When an error occurs during an atomic function, everything
+  that was changed during the execution of the function and
+  every function called by it, is undone, unless the error
+  is caught. An exception to this is the argument passed
+  to the error() and rethrow() afuns.
+
+  This means it is useless to write something like:
+
+  atomic void foo() {
+    object ob;
+
+    catch {
+      ob->bar();
+    } : {
+      write("BOOHOO, ob isn't there!");
+      rethrow();
+    }
+  }
+
+  While the catch and the rethrow will do their job, the
+  write() will get nowhere, it will be canceled.
+
+  What does work however is:
+
+  atomic void foo() {
+    object ob;
+
+    catch {
+      ob->bar();
+    } : {
+      rethrow("BOOHOO, ob isn't there!");
+    }
+  }
+
+  This will change the resulting error to the text passed to
+  rethrow(). Anything other then the arguments to error()
+  or rethrow() will however still be canceled.
+
+- Destructing and recompiling objects will also be undone when an
+  error occurs during atomic execution.
+  

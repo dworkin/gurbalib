@@ -2,4 +2,4 @@
 #define __GAME__
 #endif
 
-inherit "/kernel/lib/sauto";
+inherit "/sys/lib/auto";

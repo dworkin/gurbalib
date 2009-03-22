@@ -17,16 +17,36 @@ static atomic object recompile_library(string str) {
   }
 }
 
-static atomic object recompile_object(string str) {
+static object recompile_object(string str) {
   object ob;
 
   ob = find_object(str);
+
+  /*
+   * object isn't loaded yet, compile it
+   * and make sure the create() function is
+   * called.
+   */
   if(!ob) {
-    return compile_object(str);
-  } else {
     ob = compile_object(str);
-    call_touch(ob);
+
+    /*
+     * if this fails, we destruct the object so
+     * we aren't left with half constructed objects.
+     *
+     */
+    if( catch( call_other( ob, "???" ) ) ) {
+      destruct_object(ob);
+      rethrow();
+    }
+  } else {
+    /*
+     * object is loaded, simply recompile it and let the
+     * driver object handle the rest.
+     */
+    ob = compile_object(str);
   }
+  return ob;
 }
 
 void main( string str ) {
@@ -99,7 +119,7 @@ void main( string str ) {
   } else if( file_exists( path + ".c" ) ) {
     this_player()->set_env( "cwf", path );
     catch {
-      ob = compile_object( path );
+      ob = recompile_object( path );
     } : {
       switch(caught_error()) {
         case "Cannot recompile inherited object" :

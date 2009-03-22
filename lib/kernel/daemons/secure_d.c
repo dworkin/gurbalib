@@ -2,13 +2,17 @@
 #define WIZ    1
 #define ADMIN  2
 
-mapping privs;
+/*
+ * During boot, the compiler daemon will not be available yet to
+ * include std-kernel.h automatically. However, when this object
+ * gets recompiled later, the compiler daemon will be there and
+ * automatically include std-kernel.h
+ */
+#ifndef __KERNEL__
+#include <std-kernel.h>
+#endif
 
-static void write(string message) {
-  if(this_user() && this_user()->query_player()) {
-    this_user()->query_player()->write(message);
-  }
-}
+mapping privs;
 
 void restore_me( void ) {
   restore_object( "/kernel/daemons/data/secure_d.o" );
@@ -19,9 +23,9 @@ void save_me( void ) {
 }
 
 void create( void ) {
-  /* privs =  ([ "fudge" : ADMIN ]); */
   privs =  ([]);
   restore_me();
+  DRIVER->register_secure_d();
 }
 
 void make_wizard( string name ) {
@@ -103,3 +107,39 @@ int query_priv( string name ) {
     return 0;
   return( privs[name] );
 }
+
+#define ROOT_OVERRIDE ({ "/std/user.c", "/std/player.c" })
+
+string owner_file(string file) {
+  string * parts;
+  string tmp;
+  int i,sz;
+
+  argcheck(file, 1, "string");
+
+  file = normalize_path(file, previous_program()+"../");
+
+  if( sizeof( ({ file }) & ROOT_OVERRIDE ) ) {
+    return "root";
+  }
+
+  parts = explode(file, "/");
+
+  switch(parts[0]) {
+    case "kernel"  :
+      return "kernel";
+      break;
+    case "daemons" :
+    case "sys"     :
+      return "system";
+      break;
+    case "wiz"     :
+    case "domains" :
+      if(sizeof(parts) > 1) {
+        return parts[1];
+      }
+      break;
+  }
+  return "nobody";
+}
+

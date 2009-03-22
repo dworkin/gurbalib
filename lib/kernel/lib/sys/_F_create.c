@@ -66,6 +66,13 @@ nomask void _F_create() {
       break;
   }
 
+  driver = find_object(DRIVER);
+  if(object_name(this_object()) == SECURE_D) {
+    secure_d = this_object();
+  } else {
+    secure_d = find_object(SECURE_D);
+  }
+
   if( function_object( "create", this_object() ) ) {
     call_other(this_object(),"create");
   }

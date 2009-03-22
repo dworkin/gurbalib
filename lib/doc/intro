@@ -1,0 +1,11 @@
+Introduction to GurbaLib development
+
+afun   : Documentation on functions defined in /kernel/lib/afun
+kfun   : Documentation on functions provided by the driver
+
+When something exists as an afun and kfun, the afun will be used.
+When something exists both as an afun and a kfun, you can review
+the kfun version by using 'man kfun/subject'
+
+kernel : General documentation of the kernel
+misc   : misc documentation

@@ -103,9 +103,9 @@ static void log_runtime_error(string result, int caught) {
         case "on" :
         case "1"  :
           if(verbose) {
-            player->write( result );
+            write( result );
           } else {
-            player->write( lines[0]+"%^RESET%^\n" );
+            write( lines[0]+"%^RESET%^\n" );
           }
           break;
       }
@@ -118,11 +118,11 @@ static void log_runtime_error(string result, int caught) {
     write_file("/logs/errors/runtime", result+"\n");
     if(player) {
       if( SECURE_D->query_wiz( player->query_name() ) == 1 ) {
-        player->write("%^RED%^Runtime error: %^RESET%^"+
+        write("%^RED%^Runtime error: %^RESET%^"+
           "%^CYAN%^"+ (verbose ? result : lines[0]) + "%^RESET%^"
         );
       } else {
-        player->write( "You have encountered a rift in reality. Please report it to the admins.\n" );
+        write( "You have encountered a rift in reality. Please report it to the admins.\n" );
       }
       player->write_prompt();
     }
@@ -172,11 +172,11 @@ void compile_error( string file, int line, string err ) {
   if( usr ) {
     if( usr->query_player() ) {
       if( SECURE_D->query_wiz( usr->query_player()->query_name() ) == 1 ) {
-        usr->query_player()->write( "%^RED%^Compiler error:%^RESET%^\n"+
+        write( "%^RED%^Compiler error:%^RESET%^\n"+
                "%^YELLOW%^"+ error + "%^RESET%^" 
         );
       } else {
-        usr->query_player()->write( "You have encountered a rift in reality. Please report it to the admins.\n" );
+        write( "You have encountered a rift in reality. Please report it to the admins.\n" );
       }
     }
   }

@@ -9,13 +9,13 @@ string caught_error(varargs mixed flag) {
   string * lines;
   string result;
 
-  result = DRIVER->get_tlvar(TLS_CAUGHT_ERROR);
+  result = driver->get_tlvar(TLS_CAUGHT_ERROR);
 
   if(!flag) {
     if(result) {
       lines = explode(result,"\n");
-      sscanf(lines[0],"[CAUGHT] %s",result);
+      result = lines[0];
     }
-  } 
+  }
   return result;
 }

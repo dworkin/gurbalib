@@ -13,6 +13,7 @@
 #define LIST_NEXT 1
 
 #include "afun/variables.c"
+#include "afun/prototypes.c"
 #include "afun/caught_error.c"
 #include "afun/rethrow.c"
 #include "afun/intp.c"
@@ -42,6 +43,8 @@
 #include "afun/dump_value.c"
 #include "afun/wiz_dir.c"
 #include "afun/normalize_path.c"
+#include "afun/owner_file.c"
+#include "afun/owner_object.c"
 #include "afun/dir_size.c"
 #include "afun/file_size.c"
 #include "afun/random_element.c"

@@ -1,6 +1,8 @@
 #include <privileges.h>
 #include <tlsvar.h>
 
+#undef DEBUG_COMPILER_D
+
 
 static void create() {
   if(!get_list( "clones" )) {
@@ -19,11 +21,23 @@ static void create() {
 mixed include_file( string file, string path ) {
   if(path == "AUTO") {
     string * parts;
-    parts = explode( DRIVER->get_tlvar(TLS_COMPILING), "/" );
+    string compiling;
+
+    compiling = DRIVER->get_tlvar(TLS_COMPILING);
+    parts = explode( compiling, "/" );
+
     if(parts[0] == "kernel") {
-      return "/kernel/include/std-kernel.h";
+      /*
+       * Don't do anything for auto objects
+       *
+       */
+      if( sscanf(compiling, "/kernel/lib/auto%*s") == 0 ) {
+        return "/kernel/include/std-kernel.h";
+      }
     } else {
-      return "/kernel/include/std-game.h";
+      if( compiling != "/sys/lib/auto" ) {
+        return "/kernel/include/std-game.h";
+      }
     }
   }
 
@@ -33,7 +47,6 @@ mixed include_file( string file, string path ) {
     return path;
   }
 }
-
 
 
 void register_includes(object by, string * what) {
@@ -50,5 +63,32 @@ void register_inherits(object by, object * what) {
     console_msg( object_name( by ) + " inherits " + dump_value( what, ([]) ) + "\n" );
 #endif
   }
+}
+
+mixed allow_compile(string path, string file) {
+  if(path == "/sys/lib/auto") {
+    string * files;
+    string * code;
+    int i, sz;
+
+    console_msg("allow_compile: "+path+"\n");
+    code = ({ "inherit \"/kernel/lib/auto-game\";" });
+    files = get_dir("/sys/safun/*.c")[0];
+    if(files) {
+      for( i = 0, sz=sizeof(files); i<sz; i++ ) {
+        code += ({ "#include \"/sys/safun/"+files[i]+"\"" });
+      }
+    }
+#ifdef DEBUG_COMPILER_D
+    console_msg("Dumping safun object:\n\n"+implode(code,"\n")+"\n\n");
+#endif
+    return code;
+  } else {
+    return path;
+  }
+}
+
+string allow_inherit(string path, string file) {
+  return path;
 }
 
