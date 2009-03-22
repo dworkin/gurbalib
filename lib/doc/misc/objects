@@ -1,0 +1,28 @@
+Objects must come from an object directory.
+
+Valid object directories are:
+
+..../obj/...
+..../daemons/...
+..../rooms/...
+..../cmds/...
+
+So.. 
+/wiz/yourname/obj is a valid object path
+/wiz/yourname is not.
+
+
+Inheritables must come from an inheritable direcory.
+
+Valid directories for inheritables are:
+
+..../lib/...
+..../std/...
+
+So..
+/wiz/yourname/lib is a valid inheritable path
+/wiz/yourname/obj is not.
+
+This means that you should inherit from .../std/ and .../lib/
+and clone from .../obj/ and possibly .../rooms/
+

@@ -333,6 +333,10 @@ string path_write( string path ) {
 object call_object( string name ) {
   object ob;
 
+  if(compiler_d) {
+    name = compiler_d->allow_object(name);
+  }
+
   if( ob = find_object(name) )
     return ob;
   ob = compile_object(name);
@@ -346,6 +350,10 @@ object inherit_program( string file, string program, int priv ) {
   string old_compiling;
   mixed stuff;
   string code;
+
+  if( compiler_d ) {
+    program = compiler_d->allow_inherit(program, file);
+  }
 
   if( !(ob = find_object( program )) ) {
 

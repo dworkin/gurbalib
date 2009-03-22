@@ -29,7 +29,7 @@ void _open(mixed * tls) {
   send_message( "Enter your name : " );
   send_message( 1 );
   timeout_handle = call_out( "login_timeout", 600 );
-  player = clone_object( "/std/player" );
+  player = clone_object( PLAYER_OB );
   player->set_user( this_object() );
   player->initialize_cmd_path();
   player->initialize_alias();

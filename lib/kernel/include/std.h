@@ -91,5 +91,15 @@
 #define RACE            "/std/race"
 #define MONSTER_RACE    "/std/monster_race" 
 
+#define USER_OB         "/obj/user"
+#define PLAYER_OB       "/obj/player"
+#define WEAPON_OB       "/obj/weapon"
+#define ARMOR_OB        "/obj/armor"
+#define COINS_OB        "/obj/coins"
+#define DOOR_OB         "/obj/door"
+#define SIGN_OB         "/obj/sign"
+#define MONSTER_OB      "/obj/monster"
+
+
 #define MAX_DEPTH       256
 #define MAX_TICKS       1000000

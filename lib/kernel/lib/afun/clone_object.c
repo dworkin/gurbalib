@@ -8,6 +8,10 @@ static object clone_object( string path ) {
       path = path[..strlen(path)-3];
   }
 
+  if(find_object(COMPILER_D)) {
+    path = COMPILER_D->allow_object( path );
+  }
+
   if( ob = find_object( path ) )
     return ::clone_object( ob );
   else

@@ -14,6 +14,7 @@
 
 #include "afun/variables.c"
 #include "afun/prototypes.c"
+#include "afun/find_object.c"
 #include "afun/caught_error.c"
 #include "afun/rethrow.c"
 #include "afun/intp.c"
@@ -28,6 +29,7 @@
 #include "afun/get_list.c"
 #include "afun/console_msg.c"
 #include "afun/compile_object.c"
+#include "afun/compile_library.c"
 #include "afun/clone_object.c"
 #include "afun/destruct_object.c"
 #include "afun/file_exists.c"

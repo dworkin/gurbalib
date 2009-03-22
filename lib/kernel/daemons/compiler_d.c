@@ -2,7 +2,10 @@
 #include <tlsvar.h>
 
 #undef DEBUG_COMPILER_D
+#undef STRICT_OBJECT_CHECKS
 
+#define INHERIT_DIRS ({ "std", "lib" })
+#define OBJECT_DIRS ({ "obj", "daemons", "rooms", "tmp", "cmds" })
 
 static void create() {
   if(!get_list( "clones" )) {
@@ -16,6 +19,27 @@ static void create() {
     );
   }
   DRIVER->register_compiler_d();
+}
+
+private int test_path(string path, string * comp) {
+  string * parts;
+  int i, sz;
+
+  parts = explode( path, "/" );
+  for( i = 0, sz = sizeof( parts ) - 1; i < sz; i++ ) { 
+    if( sizeof( parts[i..i] & comp ) > 0 ) {
+      return 1;
+    }
+  }
+  return 0;
+}
+  
+int test_inheritable( string path ) {
+  return test_path( path, INHERIT_DIRS );
+}
+
+int test_object( string path ) {
+  return path == DRIVER || test_path( path, OBJECT_DIRS );
 }
 
 mixed include_file( string file, string path ) {
@@ -89,6 +113,23 @@ mixed allow_compile(string path, string file) {
 }
 
 string allow_inherit(string path, string file) {
+  if( !test_inheritable( path ) ) {
+#ifndef STRICT_OBJECT_CHECKS
+    console_msg("WARNING: inheriting a program that is not in an inheritable dir : " + path + "\n" );
+#else
+    error(path + " is not inheritable");
+#endif
+  }
   return path;
 }
 
+string allow_object(string path) {
+  if( !test_object( path ) ) {
+#ifndef STRICT_OBJECT_CHECKS
+    console_msg("WARNING: " + path + " is used as an object, but doesn't come from an object dir!\n" );
+#else
+    error(path + " is not an object");
+#endif
+  }
+  return path;
+}

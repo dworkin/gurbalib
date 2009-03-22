@@ -1,20 +1,16 @@
+object compiler_d;
+
+void create() {
+  compiler_d = find_object(COMPILER_D);
+}
+
 /*
  * This function is atomic so that the destruct_object() gets
  * undone if the following compile_object() fails.
  *
  */
-static atomic object recompile_library(string str) {
-  object ob;
-
-  ob = find_object(str);
-  if(ob) {
-    if(ob->num_clones()) {
-      error ("Cannot recompile object that is inherited and has clones");
-    } else {
-      destruct_object(ob);
-      return compile_object(str);
-    }
-  }
+static int recompile_library(string str) {
+  return compile_library(str);
 }
 
 static object recompile_object(string str) {
@@ -118,17 +114,30 @@ void main( string str ) {
     }
   } else if( file_exists( path + ".c" ) ) {
     this_player()->set_env( "cwf", path );
-    catch {
-      ob = recompile_object( path );
-    } : {
-      switch(caught_error()) {
-        case "Cannot recompile inherited object" :
-          write( path + " is inherited, trying to destruct/compile." );
-          ob = recompile_library(path);
-          break;
-        default :
-          rethrow();
-          break;
+    if( compiler_d->test_inheritable( path ) ) {
+      if( recompile_library( path ) ) {
+        write("Compilation successful.\n");
+      } else {
+        write("Something went wrong.\n");
+      }
+    } else if( compiler_d->test_object( path ) ) {
+      catch {
+        ob = recompile_object( path );
+      } : {
+        switch(caught_error()) {
+          case "Cannot recompile inherited object" :
+            write( path + " is inherited, trying to destruct/compile." );
+            if( !recompile_library(path) ) {
+              write("Something went wrong. ");
+            } else {
+              write("Compilation succesful.\n" );
+            }
+            return;
+            break;
+          default :
+            rethrow();
+            break;
+        }
       }
     }
     if( ob ) {
