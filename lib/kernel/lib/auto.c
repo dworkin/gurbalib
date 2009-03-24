@@ -42,6 +42,8 @@
 #include "afun/format_time.c"
 #include "afun/member_array.c"
 #include "afun/member_map.c"
+#include "afun/filter_array.c"
+#include "afun/map_array.c"
 #include "afun/dump_value.c"
 #include "afun/wiz_dir.c"
 #include "afun/normalize_path.c"

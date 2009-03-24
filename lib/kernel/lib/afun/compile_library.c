@@ -1,4 +1,4 @@
-static atomic int compile_library( string path, varargs string code ) {
+static int compile_library( string path, varargs string code ) {
   argcheck( path, 1, "string" );
 
   if( strlen(path) > 2 ) {
