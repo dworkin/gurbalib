@@ -7,8 +7,14 @@ void main( string what ) {
 
   who = this_player()->query_last_tell();
 
+  write(dump_value(who,([]))+"\n");
   if( !who || who == "" ) {
     write( "Nobody has told you anything lately." );
+    return;
+  }
+
+  if ( !what || what == "" ) {
+    write( "You will reply to " + capitalize(lowercase(who)) + "." );
     return;
   }
 
