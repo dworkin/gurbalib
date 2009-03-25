@@ -140,7 +140,7 @@ static void message_done() {
 }
 
 static void _receive_error(mixed * tls, string err) {
-  "/kernel/sys/driver"->message(err+" : "+ (user ? typeof(user):"<none>")) ;
+  "/kernel/sys/driver"->message(err+" : "+ (user ? typeof(user):"<none>") + "\n") ;
   if(user) user->receive_error(err);
 }
 

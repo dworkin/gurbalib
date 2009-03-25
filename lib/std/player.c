@@ -32,6 +32,7 @@ string player_name;		/* The player name */
 string password;		/* The password */
 string *cmd_path;		/* The path which is searched for comands */
 string *channels;		/* Channels we're listening to */
+string *ignored;        /* the users we are ignoring */
 mapping alias;			/* The players aliases */
 int last_login;			/* The last login */
 mapping guilds;			/* The guilds the player is a member of. The values are the guild title. */
@@ -49,6 +50,7 @@ void create( void ) {
 
   board_read = ([ ]);
   channels = ({ "gossip", "announce" });
+  ignored = ({ });
   title = "$N the nondescript";
   long_desc = "";
   set_brief( "A nondescript player" );
@@ -56,6 +58,7 @@ void create( void ) {
   set_env( "cwd", "/" );
   set_env( "pwd", "/" );
   set_env( "width", "78" );
+  set_env( "height", "23" );
 
   item_commands = ([ ]);
 }
@@ -341,6 +344,29 @@ void remove_channel( string chan ) {
 string *query_channels( void ) {
   return( channels );
 }
+
+void add_ignore( string who ) {
+    if (who == "") return;
+/*    if ( !ignored ) ignored = ({ });*/
+    ignored += ({ lowercase(who) });
+}
+
+void remove_ignore( string who ) {
+    if ( !ignored ) ignored = ({ });
+    ignored -= ({ lowercase(who) });
+}
+
+int query_ignored( string who ) {
+    if ( !ignored ) ignored = ({ });    
+    who = lowercase(who);
+    return member_array( who, ignored ) >= 0;
+}
+
+string *query_ignored_all() {
+    if ( !ignored ) ignored = ({ });
+    return ignored;
+}
+
 
 /* Redirect input to another funtion */
 void input_to( string func ) {

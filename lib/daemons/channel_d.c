@@ -1,14 +1,17 @@
+#include <channel.h>
+
+#define NOT_EMOTE   0
+#define EMOTE       (!NOT_EMOTE)
+
 inherit M_MESSAGES;
 
 mapping permanent;
 mapping colors;
 mapping imud;
 mapping guilds;
+mapping history;
 static mapping channels;
 static mapping listeners;
-static mapping history;
-
-#include <channel.h>
 
 void restore_me( void );
 void save_me( void );
@@ -24,7 +27,8 @@ void chan_set_color( string chan, string col );
 void chan_set_guild( string chan, string guild );
 void chan_set_flag( string chan, int flag );
 void chan_imud( string chan, string name );
-void add_history(string channel, string message);
+void add_history(string channel, string who, string message);
+void chan_send_string( string chan, string from, string str, int is_emote );
 
 void create( void ) {
   string *chans;
@@ -36,6 +40,7 @@ void create( void ) {
   colors = ([ ]);
   imud = ([ ]);
   guilds = ([ ]);
+  history = ([ ]);
   restore_me();
   chans = map_indices( permanent );
   for( i = 0, sz = sizeof( chans ); i < sz; i++ ) {
@@ -86,7 +91,7 @@ void chan_imud( string chan, string name ) {
   }
 
   if( !channels[chan] ) {
-    write( "Channel doesn't exists.\n" );
+    write( "Channel doesn't exist.\n" );
     return;
   }
 
@@ -193,28 +198,26 @@ void chan_who( string chan ) {
   }
 }
 
-void chan_send_string( string chan, string str ) {
+void chan_send_string( string chan, string from, string str, int is_emote ) {
   object *users;
   string line;
   int i, sz;
 
-  if( !colors ) {
-    colors = ([ ]);
-  }
-
-  if( colors[chan] ) {
-    line = colors[chan] + "[" + lowercase(chan) + "]%^RESET%^ " + str;
-  } else {
-    line = "[" + lowercase(chan) + "] " + str; 
-  }
+  if( !colors ) colors = ([ ]);
+  line = colors[chan] ? colors[chan] : "";
+  line += "[" + chan + "]%^RESET%^ ";
+  if( !is_emote ) line += capitalize(from) + ": ";
+  line += str + "%^RESET%^";
   users = listeners[chan];
 
-  if( users )
+  if( users ) {
     for( i = 0, sz = sizeof( users ); i < sz; i++ ) {
-      users[i]->message( line );
+        if ( !users[i]->query_ignored(from) )
+            users[i]->message( line );
     }
+  }
 
-  add_history( chan, str );
+  add_history( chan, from, str );
 }
 
 void chan_imud_rcv_targetted( string chan, string who, string where, 
@@ -225,7 +228,7 @@ void chan_imud_rcv_targetted( string chan, string who, string where,
 
   what = replace_string( what, "$O", target + "@" + targetmud );
   what = replace_string( what, "$N", who + "@" + where );
-  chan_send_string( imud[chan], what );
+  chan_send_string( imud[chan], who + "@" + where, what, NOT_EMOTE );
 }
 
 void chan_imud_rcv_emote( string chan, string who, string where, 
@@ -235,7 +238,7 @@ void chan_imud_rcv_emote( string chan, string who, string where,
     return;
   }
   what = replace_string( what, "$N", who + "@" + where );
-  chan_send_string( imud[chan], what );
+  chan_send_string( imud[chan], who + "@" + where, what, EMOTE );
 }
 
 void chan_imud_rcv_say( string chan, string who, string where, string what ) {
@@ -243,8 +246,7 @@ void chan_imud_rcv_say( string chan, string who, string where, string what ) {
   if( !imud[chan] )
     return;
 
-  chan_send_string( imud[chan], who + "@" + where
-		    + ": " + what );
+  chan_send_string( imud[chan], who + "@" + where, what, NOT_EMOTE );
 }
 
 void chan_emote( string chan, string what ) {
@@ -351,7 +353,7 @@ void chan_emote( string chan, string what ) {
   }
 #endif
 
-  chan_send_string( chan, what );
+  chan_send_string( chan, this_player()->query_name(), what, EMOTE );
 }
 
 void chan_say( string chan, string what ) {
@@ -383,7 +385,7 @@ void chan_say( string chan, string what ) {
   }
 #endif
 
-  chan_send_string( chan, capitalize( this_player()->query_name() ) + ": " + capitalize( what ) );
+  chan_send_string( chan, this_player()->query_name(), what, NOT_EMOTE );
 }
 
 void chan_set_color( string chan, string col ) {
@@ -460,29 +462,35 @@ int query_subscribed( string chan ) {
 
 void event_new_player( string *args ) {
   if( channels["announce"] ) {
-    chan_send_string( "announce", "Trumpets sound as " + capitalize( args[0] ) + " joins the realm." );
+    chan_send_string( "announce", "channel_d", 
+      "Trumpets sound as " + capitalize( args[0] ) + " joins the realm.", 
+      NOT_EMOTE );
   }
 }
 
 void event_player_login( string *args ) {
   if( channels["announce"] ) {
-    chan_send_string( "announce", capitalize(args[0]) + " logs in." );
+    chan_send_string( "announce", "channel_d", 
+      capitalize(args[0]) + " logs in.", NOT_EMOTE );
   }
 }
 
 void event_player_logout( string *args ) {
   if( channels["announce"] ) {
-    chan_send_string( "announce", capitalize(args[0]) + " logs out." );
+    chan_send_string( "announce", "channel_d", 
+      capitalize(args[0]) + " logs out.", NOT_EMOTE );
   }
 }
  
 void event_player_join( string *args ) {
   if( channels["announce"] ) {
-    chan_send_string( "announce", "Trumpets blast a fanfare as " + capitalize(args[0]) + " joins " + args[1] + "!" );
+    chan_send_string( "announce", "channel_d", 
+      "Trumpets blast a fanfare as " + capitalize(args[0]) + " joins " + 
+      args[1] + "!", NOT_EMOTE );
   }
 }
 
-void add_history(string channel, string message) {
+void add_history(string channel, string who, string message) {
   int i, sz;
   string *temp;
 
@@ -494,26 +502,29 @@ void add_history(string channel, string message) {
   if( !temp ) temp = ({ });
   if( sizeof(temp) >= MAX_HIST_SIZE )
     temp = temp[sizeof(temp)-(MAX_HIST_SIZE-1) .. sizeof(temp)-1];
-  temp += ({ "%^CYAN%^[" + (ctime(time())[4..18]) + 
-    "]%^RESET%^ " + message });
+  temp += ({ "%^CYAN%^[" + (ctime(time())[4..18]) + "]%^RESET%^" +
+             "[" + who + "] " +
+             message });
   history[channel] = nil;
   history += ([ channel : temp ]);
   return;
 }
 
-void show_history(string channel) {
+string get_history(string channel) {
   int i, sz;
   string out;
   
-  if( catch(sz = sizeof(history[channel])) ) return;
+  out = "";
+  if( catch(sz = sizeof(history[channel])) ) return out;
   if( !colors ) colors = ([ ]);
 
   for ( i = 0; i < sz; ++i ) {
-    out = "";
-    if( colors[channel] ) out += colors[channel];
-    out += "[" + channel + "]" + history[channel][i];
-
-    this_player()->message(out);
+    out += colors[channel] ? colors[channel] : "";
+    out += "[" + channel + "]%^RESET%^" + history[channel][i] + "%^RESET%^\n";
   }
-  return;
+  return out;
+}
+
+void show_history(string channel) {
+    write(get_history(channel));
 }

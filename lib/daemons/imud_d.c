@@ -157,7 +157,12 @@ void do_channel_e( string chan, string what ) {
 }
 
 void do_tell( string who, string where, string what ) {
-  send_to_user( "tell", where, who, ({ capitalize( this_player()->query_name() ), what }) );
+  string s;
+
+  if (catch(s = capitalize(this_player()->query_name()))) 
+    s = object_name(this_object()); /* if not a player sending the tell, identify ourself */
+
+  send_to_user( "tell", where, who, ({ s, what }) );
 }
 
 void do_who( string where ) {
@@ -216,12 +221,10 @@ void rcv_locate_req( string origmud, mixed origuser, mixed destuser,
   object u;
 
   if(!stringp(rest[0])) return;
-  u = USER_D->find_user( lowercase( rest[0] ) );
+  u = USER_D->find_player( lowercase( rest[0] ) );
   if( u ) {
     send_to_user( "locate-reply", origmud, origuser, 
-		  ({ IMUD_NAME, capitalize( u->query_player()->query_name() ),
-		       u->query_player()->query_idle(), 0 
-		  }) );
+	  ({ IMUD_NAME, capitalize( u->query_name() ), u->query_idle(), 0 }) );
   }
 }
 
@@ -287,11 +290,18 @@ void rcv_tell( string origmud, mixed origuser, mixed destuser,
 
   IMUDLOG( "Got tell from " + origuser + "@" + origmud + " to " + destuser + ":" + rest[1] + ".\n" );
 
-  if(!destuser) return;
-  user = USER_D->find_user( destuser );
-  if( user ) {
-     user->query_player()->set_last_tell( origuser + "@" + origmud );
-     user->query_player()->message( rest[0] + "@" + origmud + " tells you: " + rest[1] );
+  if( !destuser ) return;
+  user = USER_D->find_player( destuser );
+  if( user && !user->query_ignored(origuser + "@" + origmud) ) {
+    user->set_last_tell( origuser + "@" + origmud );
+    user->message( rest[0] + "@" + origmud + " tells you: " + rest[1] );
+  } else {
+    write_imud_stream(
+      "error", 
+      origmud, 
+      origuser,
+      ({ "unk-user", "You can't seem to reach "+destuser+" on "+IMUD_NAME, 0 }) 
+    );
   }
 }
 
@@ -379,11 +389,10 @@ void rcv_error( string origmud, mixed origuser, mixed destuser,
 
   IMUDLOG( "Got an error packet! " + (rest[0] ? rest[0]:"<none>")+" : "+(rest[1] ? rest[1] : "<none>")+"\n" );
   if(stringp(destuser)) {
-    user = USER_D->find_user( destuser );
-    if(!user || !user->query_player()) 
-      return;
+    user = USER_D->find_player( destuser );
+    if( !user ) return;
 
-    user->query_player()->message("%^RED%^Intermud error "+(rest[0] ? ("'"+rest[0]+"'"):"<no error>")+
+    user->message("%^RED%^Intermud error "+(rest[0] ? ("'"+rest[0]+"'"):"<no error>")+
       " received from "+origmud+"%^RESET%^\n"+
       "%^CYAN%^" +(rest[1] ? rest[1] : "<no message>")+"%^RESET%^\n");
   }
