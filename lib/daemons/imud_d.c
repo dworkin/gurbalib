@@ -161,7 +161,7 @@ void do_tell( string who, string where, string what ) {
 }
 
 void do_who( string where ) {
-  send_to_mud( "who-req", where, ({ 0 }) );
+  send_to_mud( "who-req", where, ({ }) );
 }
 
 void do_locate( string who ) {
