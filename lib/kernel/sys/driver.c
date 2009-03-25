@@ -422,7 +422,7 @@ string include_file( string file, string path ) {
 }
 
 void recompile( object obj ) {
-  if( obj )  obj->_F_destruct();
+  if( obj )  destruct_object(obj);
 }
 
 object _telnet_connect(mixed * tls, int port) {

@@ -5,7 +5,7 @@
 #undef STRICT_OBJECT_CHECKS
 
 #define INHERIT_DIRS ({ "std", "lib" })
-#define OBJECT_DIRS ({ "obj", "daemons", "rooms", "tmp", "cmds" })
+#define OBJECT_DIRS ({ "obj", "mon", "npc", "vendors", "objects", "monsters", "daemons", "rooms", "tmp", "cmds" })
 
 static void create() {
   if(!get_list( "clones" )) {

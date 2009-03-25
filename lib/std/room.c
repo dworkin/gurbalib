@@ -54,8 +54,16 @@ void add_exit( string direction, string file ) {
   exits += ([ direction : file ]);
 }
 
+void remove_exit( string direction ) {
+  exits[direction] = nil;
+}
+
 void add_hidden_exit( string direction, string file ) {
   hidden_exits += ([ direction : file ]);
+}
+
+void remove_hidden_exit( string direction ) {
+  hidden_exits[direction] = nil;
 }
 
 void set_exit_msg( string ext, string msg ) {
