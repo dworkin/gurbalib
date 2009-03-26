@@ -5,6 +5,7 @@
 #endif
 
 #include "AUTO"
+#include "CONFIG"
 
 #define SYS_COLOR
 
