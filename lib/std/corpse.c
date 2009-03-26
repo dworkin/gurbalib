@@ -17,6 +17,8 @@ void set_name( string name ) {
 
 void decompose( void ) {
   call_out( "destruct", 30 );
+  if(!orig_name) orig_name = "noone";
+
   set_in_room_desc( "The somewhat decayed corpse of " + orig_name );
 }
   
