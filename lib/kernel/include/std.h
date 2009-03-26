@@ -14,14 +14,20 @@
 #define LIB_NAME  "GurbaLib"
 #define LIB_VERSION "v0.42 devel"
 
+#ifndef ADMIN_EMAIL
 #define ADMIN_EMAIL "you@some.place"
+#endif
 
+#ifndef LINKDEAD_TIMEOUT
 #define LINKDEAD_TIMEOUT 10*60
+#endif
 
 #define TRUE  1
 #define FALSE 0
 
+#ifndef STARTING_ROOM
 #define STARTING_ROOM "/domains/gurba/rooms/square_center"
+#endif
 
 #define LANGUAGE_D   "/daemons/language_d"
 #define ANSI_D       "/daemons/ansi_d"
@@ -102,5 +108,10 @@
 #define MONSTER_OB      "/obj/monster"
 
 
+#ifndef MAX_DEPTH
 #define MAX_DEPTH       256
+#endif
+
+#ifndef MAX_TICKS
 #define MAX_TICKS       1000000
+#endif
