@@ -11,7 +11,7 @@ void main( string str ) {
   string cmd;
 
   if( str == "" ) {
-    write( "Usage: chan <channel> </command>\n Command can be join, leave, quit, new, admin, wiz, hist, permanent, who, list, info, or delete.\n" );
+    write( "Usage: chan <channel> </command>\n Command can be join (or on), leave (or off), quit, new, admin, wiz, hist, permanent, who, list, info, or delete.\n" );
     return;
   }
   if( sscanf( str, "%s %s", chan, cmd ) != 2 ) {
@@ -25,10 +25,12 @@ void main( string str ) {
 void chan_cmd( string chan, string cmd ) {
 
   switch( cmd ) {
+  case "/join":
   case "/on":
     CHANNEL_D->chan_join( chan, this_player() );
     this_player()->add_channel( chan );
     break;
+  case "/leave":
   case "/off":
     CHANNEL_D->chan_leave( chan, this_player() );
     this_player()->remove_channel( chan );
@@ -74,7 +76,7 @@ void chan_cmd( string chan, string cmd ) {
 	CHANNEL_D->chan_set_guild( chan, cmd[7..] );
 	break;
       }
-    if( cmd[0] == ';' ) {
+    if( cmd[0] == ';' || cmd[0] == ':' || cmd[0] == '!' ) {
       CHANNEL_D->chan_emote( chan, cmd[1..] );
       break;
     }
