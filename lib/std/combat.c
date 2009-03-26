@@ -33,7 +33,7 @@ void die( void ) {
   object obj;
 
 
-  obj = clone_object( "/std/corpse" );
+  obj = clone_object( "/obj/corpse" );
   if( this_object()->is_player() ) 
      obj->set_name( capitalize(this_object()->query_name()) );
   else
