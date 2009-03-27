@@ -55,7 +55,9 @@ void save_me( void ) {
   save_object( ANSI_DATA );
 }
 
-void create( void ) {
+void setup( void ) {
+  mapping tmp;
+
   color_trans = ([
 		   "BLACK" : BLACK,
 		   "RED" : RED,
@@ -100,10 +102,11 @@ void create( void ) {
 		   "HOME" : HOME,
 		  ]);
 
-  symbolic_trans = ([
+  tmp            = ([
 		   "CHAN_NAME" : BLUE,
 		   "CHAN_DATE" : CYAN,
 		   "CHAN_TEXT" : RESET,
+                   "CHAN_USER" : RESET,
 
 		   "ROOM_NAME" : GREEN,
 		   "ROOM_DESC" : RESET,
@@ -120,7 +123,14 @@ void create( void ) {
 
   restore_me();
 
+  if(!symbolic_trans) symbolic_trans = tmp;
+  else symbolic_trans = tmp + symbolic_trans;
+
   translations = color_trans + attr_trans + terminal_trans ;
+}
+
+void create() {
+  setup();
 }
 
 string strip_colors( string str ) {

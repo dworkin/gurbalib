@@ -204,9 +204,10 @@ void chan_send_string( string chan, string from, string str, varargs int is_emot
   int i, sz;
 
   if( !colors ) colors = ([ ]);
-  line = colors[chan] ? colors[chan] : "";
+  line = "%^CHAN_NAME%^";
+  line += colors[chan] ? colors[chan] : "";
   line += "[" + chan + "]%^RESET%^ ";
-  if( !is_emote ) line += capitalize(from) + ": ";
+  if( !is_emote ) line += "%^CHAN_USER%^" + capitalize(from) + "%^RESET%^: ";
   line += "%^CHAN_TEXT%^" + str + "%^RESET%^";
   users = listeners[chan];
 
@@ -502,8 +503,8 @@ void add_history(string channel, string who, string message) {
   if( !temp ) temp = ({ });
   if( sizeof(temp) >= MAX_HIST_SIZE )
     temp = temp[sizeof(temp)-(MAX_HIST_SIZE-1) .. sizeof(temp)-1];
-  temp += ({ "%^CYAN%^[" + (ctime(time())[4..18]) + "]%^RESET%^" +
-             "[" + who + "] " +
+  temp += ({ "%^CHAN_DATE%^[" + (ctime(time())[4..18]) + "]%^RESET%^" +
+             "[%^CHAN_USER%^" + who + "]%^RESET%^ " +
              "%^CHAN_TEXT%^" + message + "%^RESET%^" });
   history[channel] = nil;
   history += ([ channel : temp ]);
@@ -519,7 +520,7 @@ string get_history(string channel) {
   if( !colors ) colors = ([ ]);
 
   for ( i = 0; i < sz; ++i ) {
-    out += colors[channel] ? colors[channel] : "";
+    out += "%^CHAN_NAME%^" + (colors[channel] ? colors[channel] : "");
     out += "[" + channel + "]%^RESET%^" + history[channel][i] + "%^RESET%^\n";
   }
   return out;
