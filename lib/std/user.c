@@ -293,6 +293,18 @@ void input_name( string str ) {
     player->input_to_object( this_object(), "input_name" );
   } else {
     str = lowercase( str );
+
+    if(strlen(str) > 16) {
+      send_message("Name too long.\n");
+      input_name("");
+      return;
+    }
+    if( catch(parse_string("valid=/[a-zA-Z][a-zA-Z0-9]+/ name: valid", str))) {
+      send_message("A name must start with a letter, and can contain letters and numbers.\n");
+      input_name("");
+      return;
+    }
+
     user_name = str;
     if( BANISH_D->is_banished(user_name) ) {
       /* user_name is a banished name */

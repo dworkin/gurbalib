@@ -237,6 +237,10 @@ string query_title( void ) {
   string t;
 
   t = title;
+  if( ! player_name ) {
+    return "";
+  }
+
   if( !t || t == "" )
     t = "$N the title less";
   return( replace_string( t, "$N", capitalize( player_name ) ) );
