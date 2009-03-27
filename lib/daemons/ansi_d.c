@@ -155,7 +155,7 @@ string parse_colors( string str , varargs int curdepth ) {
     if( translations[tmp[i]] ) {
       tmp[i] = translations[ tmp[i] ];
     } else if( symbolic_trans[tmp[i]] && curdepth < MAX_RECURSION) {
-      tmp[i] = parse_colors( symbolic_trans[ tmp[i] ] , ++curdepth );
+      tmp[i] = parse_colors( symbolic_trans[ tmp[i] ] , curdepth+1 );
     }
   }
   msg = implode( tmp, "" );
