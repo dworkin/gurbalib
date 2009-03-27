@@ -120,7 +120,7 @@ void create( void ) {
 
   restore_me();
 
-  translations = color_trans + attr_trans + terminal_trans ;
+  translations = color_trans + attr_trans + terminal_trans + symbolic_trans;
 }
 
 string strip_colors( string str ) {
