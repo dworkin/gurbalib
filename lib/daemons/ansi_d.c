@@ -272,3 +272,16 @@ void ansi_remove_color( string name )
   save_me();
 }
 
+string query_base_symbol(string str) {
+  return translations[str];
+}
+
+string query_custom_symbol(string str) {
+  return symbolic_trans[str];
+}
+
+string query_any_symbol(string str) {
+  if(translations[str]) return translations[str];
+  if(symbolic_trans[str]) return symbolic_trans[str];
+}
+
