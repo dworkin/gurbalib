@@ -47,6 +47,9 @@ Updating and compiling
   the object is referenced next time. You'll see this on the
   console (Touching /path/to/my/object due to a call to <some fun>)
 
+  If your object has a setup() function, it will be called after
+  recompilation and upgrading has been completed.
+
 Handling of global variables and upgrading
 ==========================================
 
@@ -109,6 +112,13 @@ Handling of global variables and upgrading
   a conversion function for it needs to be provided by the
   inheritable, and then be called from the upgraded() function
   in any object that inherits it.
+
+  Note that 'upgraded()' is called before 'setup()' so you can
+  first convert variables if needed before a new 'setup' of the
+  object is performed.
+
+  A consequence is also that your 'setup()' function should not
+  cause problems when being called more then once.
 
 How seperation is handled
 =========================
