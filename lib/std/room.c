@@ -142,7 +142,7 @@ string query_desc( varargs int brief ) {
 
     for( i = 0; i < sizeof( inventory ); i++ ) {
       if( !inventory[i]->is_living() ) {
-	  text += "  %^OBJ_BRIEF%^" + inventory[i]->query_brief() + "%^RESET%^\n";
+	  text += "  %^OBJ_BRIEF%^" + capitalize( inventory[i]->query_brief() ) + "%^RESET%^\n";
       }
       else {
         mixed x;
@@ -152,10 +152,10 @@ string query_desc( varargs int brief ) {
         x = inventory[i]->query_idle();
         pc = inventory[i]->is_player() ? "%^PLAYER%^" : "%^NPC_FRIENDLY%^";
         if( x && x > 60 ) {
-          text += "  " + pc + inventory[i]->query_brief() 
+          text += "  " + pc + capitalize( inventory[i]->query_brief() ) 
                   + " [idle" + format_idle_time( inventory[i]->query_idle() ) + "]%^RESET%^\n";
         } else {
-          text += "  " + pc + inventory[i]->query_brief() + "%^RESET%^\n";
+          text += "  " + pc + capitalize( inventory[i]->query_brief() ) + "%^RESET%^\n";
         }
       }
     }
@@ -217,12 +217,22 @@ void tell_room( object originator, string str, varargs mixed obj...) {
 string body_exit( object who, string dir ) {
   int i;
   string error;
-  
+  string lname;
+  string aname;  
+
   if( !query_exit( dir ) && !query_hidden_exit( dir ) ) {
     write( "You can't go " + dir + ".\n" );
     return( nil );
   } 
   
+  lname = who->query_proper_name();
+  aname = lname;
+  if ( !lname ) {
+    /* Generic-named NPCs */
+    lname = "The " + who->query_id();
+    aname = "A " + who->query_id();
+  }
+
   /* there is a normal exit */
   if( query_exit( dir ) ) {
     /* Is there a fake exit? */
@@ -239,7 +249,7 @@ string body_exit( object who, string dir ) {
       }
     }
     event( "body_leave", who );
-    tell_room( who, capitalize( who->query_id() ) + " leaves " + dir + ".\n" );
+    tell_room( who, lname + " leaves " + dir + ".\n" );
     error = catch( who->move( query_exit( dir ) ) );
     if (who->is_player()) last_exit = time();
   } else if( query_hidden_exit( dir ) ) {
@@ -257,7 +267,7 @@ string body_exit( object who, string dir ) {
       }
     }
     event( "body_leave", who );
-    tell_room( who, capitalize( who->query_id() ) + " leaves " + dir + ".\n" );
+    tell_room( who, lname + " leaves " + dir + ".\n" );
     error = catch( who->move( query_hidden_exit( dir ) ) );
     if (who->is_player()) last_exit = time();
   }
@@ -278,7 +288,7 @@ string body_exit( object who, string dir ) {
      }
   }
   event( "body_enter", who );
-  who->query_environment()->tell_room( who, capitalize( who->query_id() ) + " enters.\n" );
+  who->query_environment()->tell_room( who, aname + " enters.\n" );
   return( nil );
 }
 
