@@ -46,6 +46,7 @@
 static mapping color_trans, attr_trans, terminal_trans;
 mapping symbolic_trans;
 static mapping translations; 
+static mapping player_trans;
 
 void restore_me( void ) {
   restore_object( ANSI_DATA );
@@ -57,6 +58,9 @@ void save_me( void ) {
 
 void setup( void ) {
   mapping tmp;
+
+  if(!player_trans)
+    player_trans = ([ ]);
 
   color_trans = ([
 		   "BLACK" : BLACK,
@@ -150,6 +154,7 @@ string strip_colors( string str ) {
 }
 
 string parse_colors( string str , varargs int curdepth ) {
+  object player;
   string *tmp;
   string msg;
   mixed *ind, *sym;
@@ -159,14 +164,23 @@ string parse_colors( string str , varargs int curdepth ) {
   return strip_colors( str );
 #endif
 
+  player = previous_object()->query_player();
+  if(!player_trans) player_trans = ([ ]);
+
+  if(player && player->base_name() != PLAYER_OB) player = nil;
+
   tmp = explode( str, "%^" );
 
   rlimits(MAX_DEPTH; MAX_TICKS) {
     for( i=0; i < sizeof( tmp ); i++ ) {
       if( translations[tmp[i]] ) {
         tmp[i] = translations[ tmp[i] ];
-      } else if( symbolic_trans[tmp[i]] && curdepth < MAX_RECURSION) {
-        tmp[i] = parse_colors( symbolic_trans[ tmp[i] ] , curdepth+1 );
+      } else if(curdepth < MAX_RECURSION) {
+        if( player && player_trans[player] && player_trans[player][tmp[i]]) {
+          tmp[i] = parse_colors( player_trans[player][tmp[i]], curdepth+1 );
+        } else if( symbolic_trans[tmp[i]] ) {
+          tmp[i] = parse_colors( symbolic_trans[ tmp[i] ] , curdepth+1 );
+        }
       }
     }
   }
@@ -294,4 +308,14 @@ string query_any_symbol(string str) {
   if(translations[str]) return translations[str];
   if(symbolic_trans[str]) return symbolic_trans[str];
 }
+
+void set_player_translations(mapping trans) {
+  object player;
+
+  player = (object PLAYER_OB) previous_object();
+
+  if(!player_trans) player_trans = ([ player:trans ]);
+  else player_trans[player] = trans;
+}
+
 

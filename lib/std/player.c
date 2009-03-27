@@ -37,6 +37,7 @@ string *ignored;        /* the users we are ignoring */
 mapping alias;			/* The players aliases */
 int last_login;			/* The last login */
 mapping guilds;			/* The guilds the player is a member of. The values are the guild title. */
+mapping custom_colors;          /* custom color symbols for this player */
 
 void save_me( void );
 void restore_me( void );
@@ -61,6 +62,7 @@ void create( void ) {
   set_env( "width", "78" );
   set_env( "height", "23" );
 
+  custom_colors = ([ ]);
   item_commands = ([ ]);
 }
 
@@ -140,6 +142,7 @@ void login_player( void ) {
   initialize_race();    /* Load up this players race */
   set_brief( query_title() ); /* Set the brief description */
   set_hit_skill( "combat/unarmed" );
+  ANSI_D->set_player_translations( custom_colors );
 }
 
 int query_last_login( void ) {
@@ -844,4 +847,32 @@ void receive_message( string message ) {
    }
 }
 
+void set_custom_color( string name, string * symbols ) {
+  int i, sz;
+  string tmp;
 
+  tmp = "";
+  for( i=0, sz = sizeof( symbols); i < sz; i++ ) {
+    if( strstr( "%^", symbols[i] ) == -1 ) {
+      symbols[i] = uppercase( symbols[i] );
+      if( !ANSI_D->query_any_symbol( symbols[i] ) ) {
+        /* Each symbol must resolve to a pre-defined token */
+        write( "Symbolic color tokens must be composed of only valid base color tokens "+
+               "or pre-existing custom tokens.\n" +
+               "see 'ansi show' for valid tokens" );
+        return;
+      }
+      tmp += "%^" + symbols[i] + "%^";
+    } else {
+      write( "Symbolic color tokens cannot (YET) contain custom tokens\n" );
+      return;
+    }
+  }
+
+  if(!custom_colors) custom_colors = ([ ]);
+  custom_colors[name] = tmp;
+  /* translations = color_trans + attr_trans + terminal_trans + symbolic_trans; */
+  out_unmod( name + " is now " + tmp + "\n" );
+  ANSI_D->set_player_translations(custom_colors);
+  save_me();
+}
