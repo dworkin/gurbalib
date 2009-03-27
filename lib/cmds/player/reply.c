@@ -2,7 +2,7 @@ void main( string what ) {
   object usr;
   string who, where;
 
-  who = lowercase(this_player()->query_last_tell());
+  who = this_player()->query_last_tell();
 
   if( !who || who == "" ) {
     write( "Nobody has told you anything lately." );

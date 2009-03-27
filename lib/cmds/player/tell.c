@@ -19,7 +19,7 @@ void main( string who ) {
   } else {
     who = lowercase(who);
     usr = USER_D->find_player(who);
-    if( usr && !usr->query_ignored(this_player()->query_name()) ) {
+    if( usr && (!usr->query_ignored(this_player()->query_name()) || query_wizard(this_player())) ) {
       usr->message( capitalize(this_player()->query_name()) + " tells you: " + what + "\n" );
       usr->set_last_tell( lowercase( this_player()->query_name() ) );
       write( "You tell " + capitalize(who) + ": " + what + "\n" );
