@@ -185,6 +185,29 @@ string query_room_command( string command ) {
   return room_commands[command];
 }
 
+/*-------------------------------------------------------------------
+  void message_room( object originator, string str );
+  
+  sends a message to the room, designed specificly for non-living
+  objects to communicate with the room
+*/
+void message_room( object originator, string str ) {
+  int i, sz;
+
+  if( !inventory && sizeof(inventory) > 0 ) {
+    return;
+  }
+  for( i = 0, sz = sizeof(inventory); i < sz; i++ ) {
+    if( !inventory[i] ) continue;
+    if( originator != inventory[i] ) {
+      if( inventory[i]->is_living() ) {
+        inventory[i]->message(str);
+      }
+      inventory[i]->outside_message(str);
+    }
+  }
+}
+
 void tell_room( object originator, string str, varargs mixed obj...) {
   int i;
   
