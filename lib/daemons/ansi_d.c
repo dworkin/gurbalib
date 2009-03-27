@@ -1,5 +1,7 @@
 #define ANSI_DATA "/daemons/data/ansi_d.o"
 
+#define MAX_RECURSION 5
+
 #define BLACK "\x1b[30m"
 #define RED "\x1b[31m"
 #define GREEN "\x1b[32m"
@@ -118,7 +120,7 @@ void create( void ) {
 
   restore_me();
 
-  translations = color_trans + attr_trans + terminal_trans + symbolic_trans;
+  translations = color_trans + attr_trans + terminal_trans ;
 }
 
 string strip_colors( string str ) {
@@ -129,7 +131,7 @@ string strip_colors( string str ) {
   tmp = explode( str, "%^" );
 
   for( i=0; i < sizeof( tmp ); i++ ) {
-    if( member_array( tmp[i], map_indices(translations) ) != -1 ) {
+    if( translations[tmp[i]] ) {
       tmp[i] = "";
     }
   }
@@ -137,7 +139,7 @@ string strip_colors( string str ) {
   return( msg );
 }
 
-string parse_colors( string str ) {
+string parse_colors( string str , varargs int curdepth ) {
   string *tmp;
   string msg;
   mixed *ind, *sym;
@@ -148,14 +150,12 @@ string parse_colors( string str ) {
 #endif
 
   tmp = explode( str, "%^" );
-  ind = map_indices( translations );
-  sym = map_indices( symbolic_trans );
 
   for( i=0; i < sizeof( tmp ); i++ ) {
-    if( member_array( tmp[i], ind ) != -1 ) {
+    if( translations[tmp[i]] ) {
       tmp[i] = translations[ tmp[i] ];
-    } else if( member_array( tmp[i], sym ) != -1 ) {
-      tmp[i] = parse_colors( symbolic_trans[ tmp[i] ] );
+    } else if( symbolic_trans[tmp[i]] && curdepth < MAX_RECURSION) {
+      tmp[i] = parse_colors( symbolic_trans[ tmp[i] ] , ++curdepth );
     }
   }
   msg = implode( tmp, "" );
@@ -228,9 +228,10 @@ void ansi_set_color( string name, string *symbols )
   for( i=0; i < sizeof( symbols ); i++ ) {
     if( strstr( "%^", symbols[i] ) == -1 ) {
       symbols[i] = uppercase( symbols[i] );
-      if( member_array( symbols[i], ind ) == -1 ) {
+      if( !translations[symbols[i]] && !symbolic_trans[symbols[i]] ) {
         /* Each symbol must resolve to a pre-defined token */
-        write( "Symbolic color tokens must be composed of only valid base color tokens\n" );
+        write( "Symbolic color tokens must be composed of only valid base color tokens "+
+               "or pre-existing custom tokens.\n" );
         return;
       }
       tmp += "%^" + symbols[i] + "%^";
@@ -240,8 +241,8 @@ void ansi_set_color( string name, string *symbols )
     }
   }
 
-  symbolic_trans[name] = parse_colors(tmp);
-  translations = color_trans + attr_trans + terminal_trans + symbolic_trans;
+  symbolic_trans[name] = tmp;
+  /* translations = color_trans + attr_trans + terminal_trans + symbolic_trans; */
   out_unmod( name + " is now " + tmp + "\n" );
   save_me();
 }
@@ -258,7 +259,7 @@ void ansi_remove_color( string name )
   name = uppercase( name );
   ind = map_indices( symbolic_trans );
 
-  if( member_array( name, ind ) == -1 ) {
+  if( !symbolic_trans[name] ) {
     write( name + " is not currently a symbolic color!\n" );
     return;
   }

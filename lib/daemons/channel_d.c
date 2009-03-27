@@ -207,7 +207,7 @@ void chan_send_string( string chan, string from, string str, varargs int is_emot
   line = colors[chan] ? colors[chan] : "";
   line += "[" + chan + "]%^RESET%^ ";
   if( !is_emote ) line += capitalize(from) + ": ";
-  line += str + "%^RESET%^";
+  line += "%^CHAN_TEXT%^" + str + "%^RESET%^";
   users = listeners[chan];
 
   if( users ) {
@@ -504,7 +504,7 @@ void add_history(string channel, string who, string message) {
     temp = temp[sizeof(temp)-(MAX_HIST_SIZE-1) .. sizeof(temp)-1];
   temp += ({ "%^CYAN%^[" + (ctime(time())[4..18]) + "]%^RESET%^" +
              "[" + who + "] " +
-             message });
+             "%^CHAN_TEXT%^" + message + "%^RESET%^" });
   history[channel] = nil;
   history += ([ channel : temp ]);
   return;
