@@ -98,7 +98,7 @@ void main( string str ) {
       old_room = this_environment();
       
       for( i = 0; i < sizeof( players ); i++ ) {
-	players[i]->move( "/domains/gurba/void" );
+	players[i]->move( "/rooms/void" );
       }
       
       old_room->destruct();

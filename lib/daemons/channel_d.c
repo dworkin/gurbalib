@@ -28,7 +28,7 @@ void chan_set_guild( string chan, string guild );
 void chan_set_flag( string chan, int flag );
 void chan_imud( string chan, string name );
 void add_history(string channel, string who, string message);
-void chan_send_string( string chan, string from, string str, int is_emote );
+void chan_send_string( string chan, string from, string str, varargs int is_emote );
 
 void create( void ) {
   string *chans;
@@ -198,7 +198,7 @@ void chan_who( string chan ) {
   }
 }
 
-void chan_send_string( string chan, string from, string str, int is_emote ) {
+void chan_send_string( string chan, string from, string str, varargs int is_emote ) {
   object *users;
   string line;
   int i, sz;

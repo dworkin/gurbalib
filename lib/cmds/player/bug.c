@@ -9,7 +9,7 @@ void main( string str ) {
     subject = ([ ]);
     ob = ([ ]);
   }
-  ob[this_player()->query_name()] = "/domains/gurba/bug_room"->find_object( "board" );
+  ob[this_player()->query_name()] = "/rooms/bug_room"->find_object( "board" );
   if( !ob[this_player()->query_name()] ) {
     write( "Unable to locate the bug board. Tell a wizard.\n" );
     return;
@@ -42,7 +42,7 @@ void enter_line( string line ) {
     } else {
       ob[this_player()->query_name()]->add_message( this_player()->query_name(), subject[this_player()->query_name()], msg[this_player()->query_name()] );
       write( " \nBug report sendt! Thank you.\n" );
-      CHANNEL_D->chan_send_string( "wiz", capitalize(this_player()->query_name()) + " sends off a bugreport." );
+      CHANNEL_D->chan_send_string( "wiz", capitalize(this_player()->query_name()), "sends off a bugreport.", 1 );
       
     }
     this_player()->set_editing( 0 );
