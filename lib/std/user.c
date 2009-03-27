@@ -299,7 +299,7 @@ void input_name( string str ) {
       input_name("");
       return;
     }
-    if( catch(parse_string("valid=/[a-zA-Z][a-zA-Z0-9]+/ name: valid", str))) {
+    if( !USER_D->valid_player_name( str )) {
       send_message("A name must start with a letter, and can contain letters and numbers.\n");
       input_name("");
       return;
