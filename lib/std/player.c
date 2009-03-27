@@ -200,12 +200,11 @@ string *query_env_indices( void ) {
 
 int query_ansi( void ) {
   mixed x;
-  if( !environment_variables ) {
-    environment_variables = ([ ]);
-  }
+
   x = query_env( "ansi");
-  if(x) return( x );
-  return 1; /* ansi is on if query_env("ansi") is undefined */
+  if( typeof( x ) == T_NIL )
+    return 1; /* ansi is on if query_env("ansi") is undefined */
+  return x;
 }
 
 void set_ansi( int state ) {

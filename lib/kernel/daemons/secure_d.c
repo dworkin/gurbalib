@@ -100,6 +100,11 @@ int query_wiz( string name ) {
   return 0;
 }
 
+int query_mortal( string name ) {
+  return privs[name] != ADMIN && privs[name] != WIZ ;
+}
+
+
 int query_priv( string name ) {
   if( map_sizeof(privs) == 0 )
   	make_admin( name );

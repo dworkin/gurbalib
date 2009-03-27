@@ -117,9 +117,9 @@ string query_desc( varargs int brief ) {
   int i;
 
   if(!brief) brief = 0;
-  text = query_brief();
+  text = "%^ROOM_NAME%^" + query_brief() + "%^RESET%^";
 
-  text += " %^CYAN%^[ exits: ";
+  text += " %^ROOM_EXIT%^[ exits: ";
 
   if( !exits || map_sizeof( exits ) == 0 ) {
     text += "none ";
@@ -131,7 +131,7 @@ string query_desc( varargs int brief ) {
 
   text += "]%^RESET%^\n";
 
-  text += query_long();
+  text += "%^ROOM_DESC%^" + query_long() + "%^RESET%^";
 
   text += "\n";
 
@@ -146,12 +146,12 @@ string query_desc( varargs int brief ) {
 	    || inventory[i]->query_brief() == "" ) {
 	  if( !inventory[i]->query_adj()
 	      || inventory[i]->query_adj() == "" ) {
-	    text += "  " + article( inventory[i]->query_id() ) + " " + inventory[i]->query_id() + "\n";
+	    text += "  %^OBJ_ID%^" + article( inventory[i]->query_id() ) + " " + inventory[i]->query_id() + "%^RESET%^\n";
 	  } else {
-	    text += "  " + article( inventory[i]->query_adj() ) + " " + inventory[i]->query_adj() + " " + inventory[i]->query_id() + "\n";
+	    text += "  %^OBJ_ADJ%^" + article( inventory[i]->query_adj() ) + " " + inventory[i]->query_adj() + " " + inventory[i]->query_id() + "%^RESET%^\n";
 	  }
 	} else {
-	  text += "  " + inventory[i]->query_brief() + "\n";
+	  text += "  %^OBJ_BRIEF%^" + inventory[i]->query_brief() + "%^RESET%^\n";
 	}
       }
     }
@@ -159,14 +159,16 @@ string query_desc( varargs int brief ) {
     for( i = 0; i < sizeof( inventory ); i++ ) {
       if( inventory[i]->is_living() ) {
         mixed x;
+        string pc;
         if( inventory[i] == this_player() )
           continue;
         x = inventory[i]->query_idle();
+        pc = inventory[i]->is_player() ? "%^PLAYER%^" : "%^NPC_FRIENDLY%^";
         if( x && x > 60 ) {
-          text += "  " + inventory[i]->query_brief() 
-                  + " [idle" + format_idle_time( inventory[i]->query_idle() ) + "]\n";
+          text += "  " + pc + inventory[i]->query_brief() 
+                  + " [idle" + format_idle_time( inventory[i]->query_idle() ) + "]%^RESET%^\n";
         } else {
-          text += "  " + inventory[i]->query_brief() + "\n";
+          text += "  " + pc + inventory[i]->query_brief() + "%^RESET%^\n";
         }
       }
     }
