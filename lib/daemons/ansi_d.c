@@ -151,13 +151,16 @@ string parse_colors( string str , varargs int curdepth ) {
 
   tmp = explode( str, "%^" );
 
-  for( i=0; i < sizeof( tmp ); i++ ) {
-    if( translations[tmp[i]] ) {
-      tmp[i] = translations[ tmp[i] ];
-    } else if( symbolic_trans[tmp[i]] && curdepth < MAX_RECURSION) {
-      tmp[i] = parse_colors( symbolic_trans[ tmp[i] ] , curdepth+1 );
+  rlimits(MAX_DEPTH; MAX_TICKS) {
+    for( i=0; i < sizeof( tmp ); i++ ) {
+      if( translations[tmp[i]] ) {
+        tmp[i] = translations[ tmp[i] ];
+      } else if( symbolic_trans[tmp[i]] && curdepth < MAX_RECURSION) {
+        tmp[i] = parse_colors( symbolic_trans[ tmp[i] ] , curdepth+1 );
+      }
     }
   }
+
   msg = implode( tmp, "" );
   return( msg );
 }
