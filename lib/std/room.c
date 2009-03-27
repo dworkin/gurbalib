@@ -142,22 +142,9 @@ string query_desc( varargs int brief ) {
 
     for( i = 0; i < sizeof( inventory ); i++ ) {
       if( !inventory[i]->is_living() ) {
-	if( !inventory[i]->query_brief() 
-	    || inventory[i]->query_brief() == "" ) {
-	  if( !inventory[i]->query_adj()
-	      || inventory[i]->query_adj() == "" ) {
-	    text += "  %^OBJ_ID%^" + article( inventory[i]->query_id() ) + " " + inventory[i]->query_id() + "%^RESET%^\n";
-	  } else {
-	    text += "  %^OBJ_ADJ%^" + article( inventory[i]->query_adj() ) + " " + inventory[i]->query_adj() + " " + inventory[i]->query_id() + "%^RESET%^\n";
-	  }
-	} else {
 	  text += "  %^OBJ_BRIEF%^" + inventory[i]->query_brief() + "%^RESET%^\n";
-	}
       }
-    }
-
-    for( i = 0; i < sizeof( inventory ); i++ ) {
-      if( inventory[i]->is_living() ) {
+      else {
         mixed x;
         string pc;
         if( inventory[i] == this_player() )

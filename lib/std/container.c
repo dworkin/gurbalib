@@ -21,6 +21,7 @@ void object_removed( object obj ) {
 }
 
 int receive_object( object obj ) {
+  obj = (object "/std/object") obj;
   if( !inventory )
     inventory = ({ obj });
   else
