@@ -1,0 +1,22 @@
+Gurbalib uses a number of environment variables,
+you can list the ones currently set for your character
+with the 'set' command.
+
+You can change them with
+set <varname> <value>
+
+and clear them with
+unset <varname>
+
+Some userful variables:
+
+width          : [0 or positive int] 
+                 terminal width, 0 is unlimited.
+height         : [0 or positive int]
+                 terminal height
+verbose_errors : [0 or 1]
+                 show a full call trace when a runtime error
+                 occurs
+display_caught : [0 or 1]
+                 show caught runtime errors
+
