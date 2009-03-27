@@ -1,0 +1,16 @@
+NAME
+        query_wizard - test if a player is a wizard
+
+SYNOPSIS
+        int query_wizard( object arg )
+
+DESCRIPTION
+        Check if 'arg' is a wizard player object
+
+RETURN VALUE
+        Returns 1 if 'arg' is a wizard player object, 0 otherwise.
+
+SEE ALSO
+        query_mortal, query_admin
+
+

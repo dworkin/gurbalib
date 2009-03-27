@@ -1,0 +1,16 @@
+NAME
+        query_mortal - test if a player is a mortal
+
+SYNOPSIS
+        int query_mortal( object arg )
+
+DESCRIPTION
+        Check if 'arg' is a mortal player object
+
+RETURN VALUE
+        Returns 1 if 'arg' is a mortal player object, 0 otherwise.
+
+SEE ALSO
+        query_admin, query_wizard
+
+
