@@ -1,32 +1,152 @@
-Objects must come from an object directory.
+Introduction
+============
 
-Valid object directories are:
+  In order to be able to compile objects 'in-place' 
+  (that is, without replacing those objects themselves,
+  only the code inside the object gets changed), a few
+  conditions must be met.
 
-..../obj/...
-..../mon/...
-..../objects/...
-..../monsters/...
-..../daemons/...
-..../rooms/...
-..../cmds/...
+  The most important is a strict seperation of 'objects'
+  and 'inheritables'.
+
+  Objects can be called (ob->function(), call_other(ob, fun)
+  etc), and can be cloned. They can never be inherited.
+
+  An inheritable is anything that is inherited by other
+  inheritables or objects. You cannot clone inheritables or
+  call functions in them (so, ob->fun() is forbidden). 
+  Beyond that, you cannot use find_object() to find them or
+  compile_object() to compile them. A special function
+  compile_library() is provided to recompile inheritables,
+  but you should not need this in normal circumstances.
+
+  NOTE: This seperation is currently not enforced, you will
+        however get warnings about improper use of inheritables
+        and objects. Soon this seperation will get strictly
+        enforced, this is controlled by a define in the 
+        compiler_d
+
+Updating and compiling
+======================
+
+  You can use the 'update' command both on objects and
+  inheritables. It will check with /kernel/daemon/compiler_d
+  to see if something is an inheritable or an object, and
+  use the appropriate function for recompiling it.
+
+  When an inheritable gets recompiled, its 'blueprint' gets
+  destructed. When an object gets recompiled, the code inside
+  it gets replaced, but the object itself (and every reference
+  to it from other objects) will stay. All variables that
+  existed in the old version of the code and are still there in
+  the new version will be preserved. 
+
+  After an object (not an inheritable) has been recompiled, a
+  special function 'upgraded()' will be called in it (actually
+  this doesn't happen inmediately after, it happens just before
+  the object is referenced next time. You'll see this on the
+  console (Touching /path/to/my/object due to a call to <some fun>)
+
+Handling of global variables and upgrading
+==========================================
+
+  Lets say the old code for the object contained a variable 
+  'int test', and you now want to replace it with a string.
+
+  You will have to add a new 'string' type variable without
+  removing the old one. Your code should use the new variable,
+  and you should add a small conversion function to take the
+  value from the old 'int' variable, and determine what should
+  go into the new 'string' variable. This function must be
+  called from 'upgraded()'
+
+  An example:
+
+  Old code:
+
+    int verbose;
+
+    void some_fun(string message) {
+      if(verbose) {
+        write(message);
+      }
+    }
+
+  New code:
+
+    int verbose;
+    string vmsg;
+
+    void some_fun(string message) {
+      if(vmsg) {
+        write(vmsg + " : " + message);
+      }
+    }
+
+    void convert() {
+      switch(verbose) {
+        case 0 : 
+          vmsg = nil;
+          break;
+        case 1 :
+          vmsg = "debug";
+          break;
+      }
+      verbose = -1;
+    }
+
+    void upgraded() {
+      if(verbose != -1) {
+        convert();
+      }
+    }
+  
+  After having upgraded everything, you can remove the
+  'verbose' variable, the conversion function and the
+  'upgraded' function.
+  
+  Global variables in inheritables need special treatment,
+  a conversion function for it needs to be provided by the
+  inheritable, and then be called from the upgraded() function
+  in any object that inherits it.
+
+How seperation is handled
+=========================
+
+  Something is recognized as an object or inheritable based
+  on the object_name() or underlying filename.
+
+  Objects must come from an object directory.
+
+  Valid object directories are:
+
+  ..../obj/...
+  ..../mon/...
+  ..../objects/...
+  ..../monsters/...
+  ..../daemons/...
+  ..../rooms/...
+  ..../cmds/...
+
+  So.. 
+  /wiz/yourname/obj is a valid object path
+  /wiz/yourname is not.
 
 
-So.. 
-/wiz/yourname/obj is a valid object path
-/wiz/yourname is not.
+  Inheritables must come from an inheritable direcory.
 
+  Valid directories for inheritables are:
 
-Inheritables must come from an inheritable direcory.
+  ..../lib/...
+  ..../std/...
 
-Valid directories for inheritables are:
+  So..
+  /wiz/yourname/lib is a valid inheritable path
+  /wiz/yourname/obj is not.
 
-..../lib/...
-..../std/...
+  This means that you should inherit from .../std/ and .../lib/
+  and clone from .../obj/, .../mon/ and possibly .../rooms/ 
 
-So..
-/wiz/yourname/lib is a valid inheritable path
-/wiz/yourname/obj is not.
-
-This means that you should inherit from .../std/ and .../lib/
-and clone from .../obj/ and possibly .../rooms/
+  The lists of valid object and inheritable directories is
+  defined at the top of /kernel/daemons/compiler_d
 
