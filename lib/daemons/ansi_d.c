@@ -120,7 +120,7 @@ void create( void ) {
 
   restore_me();
 
-  translations = color_trans + attr_trans + terminal_trans + symbolic_trans;
+  translations = color_trans + attr_trans + terminal_trans ;
 }
 
 string strip_colors( string str ) {
@@ -131,7 +131,7 @@ string strip_colors( string str ) {
   tmp = explode( str, "%^" );
 
   for( i=0; i < sizeof( tmp ); i++ ) {
-    if( translations[tmp[i]] ) {
+    if( translations[tmp[i]] || symbolic_trans[tmp[i]] ) {
       tmp[i] = "";
     }
   }
