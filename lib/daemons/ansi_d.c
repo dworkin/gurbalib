@@ -240,7 +240,8 @@ void ansi_set_color( string name, string *symbols )
     }
   }
 
-  symbolic_trans[name] = tmp;
+  symbolic_trans[name] = parse_colors(tmp);
+  translations = color_trans + attr_trans + terminal_trans + symbolic_trans;
   out_unmod( name + " is now " + tmp + "\n" );
   save_me();
 }
