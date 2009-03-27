@@ -77,8 +77,12 @@ void chan_cmd( string chan, string cmd ) {
 	break;
       }
     if( cmd[0] == ';' || cmd[0] == ':' || cmd[0] == '!' ) {
-      CHANNEL_D->chan_emote( chan, cmd[1..] );
-      break;
+      if(cmd[1] != cmd[0]) {
+        CHANNEL_D->chan_emote( chan, cmd[1..] );
+        break;
+      } else {
+        cmd = cmd[1..];
+      }
     }
     
     CHANNEL_D->chan_say( chan, cmd );
