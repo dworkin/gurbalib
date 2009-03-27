@@ -18,17 +18,17 @@
 void main( string str ) {
   object *usr;
   int i;
-  usr = USER_D->query_users();
+  usr = players();
   
   write(MUD_NAME + " currently has " + sizeof( usr ) + " users online."); 
   write("------------------------------------------------------");
   for( i = 0; i < sizeof( usr ); i++) {
     string line;
-    line = capitalize(usr[i]->query_player()->query_title());
-    if ( SECURE_D->query_admin(usr[i]->query_player()->query_name()) > 0 ) {
+    line = capitalize(usr[i]->query_title());
+    if ( SECURE_D->query_admin(usr[i]->query_name()) > 0 ) {
       line += " %^BOLD%^%^BLUE%^(Admin)%^RESET%^";
     }
-    else if ( SECURE_D->query_wiz(usr[i]->query_player()->query_name()) > 0 ) {
+    else if ( SECURE_D->query_wiz(usr[i]->query_name()) > 0 ) {
       line += " %^CYAN%^(Wizard)%^RESET%^";
     }
     write(line + "\n");
