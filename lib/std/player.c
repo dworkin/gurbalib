@@ -852,27 +852,33 @@ void set_custom_color( string name, string * symbols ) {
   string tmp;
 
   tmp = "";
-  for( i=0, sz = sizeof( symbols); i < sz; i++ ) {
-    if( strstr( "%^", symbols[i] ) == -1 ) {
-      symbols[i] = uppercase( symbols[i] );
-      if( !ANSI_D->query_any_symbol( symbols[i] ) ) {
-        /* Each symbol must resolve to a pre-defined token */
-        write( "Symbolic color tokens must be composed of only valid base color tokens "+
+  if(!custom_colors) custom_colors = ([ ]);
+
+  if(!symbols) {
+    custom_colors[name] = nil;
+    write("Removed color symbol "+name+"\n");
+  } else {
+    for( i=0, sz = sizeof( symbols); i < sz; i++ ) {
+      if( strstr( "%^", symbols[i] ) == -1 ) {
+        symbols[i] = uppercase( symbols[i] );
+        if( !ANSI_D->query_any_symbol( symbols[i] ) ) {
+          /* Each symbol must resolve to a pre-defined token */
+          write( "Symbolic color tokens must be composed of only valid base color tokens "+
                "or pre-existing custom tokens.\n" +
                "see 'ansi show' for valid tokens" );
+          return;
+        }
+        tmp += "%^" + symbols[i] + "%^";
+      } else {
+        write( "Symbolic color tokens cannot (YET) contain custom tokens\n" );
         return;
       }
-      tmp += "%^" + symbols[i] + "%^";
-    } else {
-      write( "Symbolic color tokens cannot (YET) contain custom tokens\n" );
-      return;
     }
+ 
+    custom_colors[name] = tmp;
+    out_unmod( name + " is now " + tmp + "\n" );
   }
 
-  if(!custom_colors) custom_colors = ([ ]);
-  custom_colors[name] = tmp;
-  /* translations = color_trans + attr_trans + terminal_trans + symbolic_trans; */
-  out_unmod( name + " is now " + tmp + "\n" );
   ANSI_D->set_player_translations(custom_colors);
   save_me();
 }
