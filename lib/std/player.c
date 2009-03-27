@@ -2,6 +2,7 @@
 
 #include <channel.h> 
 #include <type.h>
+#include <limits.h>
 
 inherit obj OBJECT;
 inherit con CONTAINER;
@@ -433,8 +434,13 @@ void more( string *lines ) {
   mixed height;
 
   height = query_env( "height" );
-  if( !height )
+  if( height == nil )
     height = 23;
+  else if(stringp(height)) 
+    height = str2val(height);
+
+  if(height == -1) height = 23;
+  if(height == 0) height = INT_MAX;
 
   more_line_num = 0;
   more_lines = lines;
@@ -453,7 +459,7 @@ void more( string *lines ) {
 /* Write out the more prompt after each page */
 void more_prompt( string arg ) {
   string msg;
-  int height;
+  mixed height;
 
   if( !arg || arg == "" )
     arg = " ";
@@ -465,7 +471,13 @@ void more_prompt( string arg ) {
     break;
   }
 
-  height = (query_env( "height" ) ? query_env( "height" ) : 23);
+  height = query_env( "height" );
+
+  if(height == nil) height = 23;
+  else if(stringp(height)) height = str2val(height);
+
+  if(height == -1) height = 23;
+  else if(height == 0) height = INT_MAX;
 
   if( sizeof( more_lines ) > height + more_line_num ) {
     out_unmod( implode( more_lines[more_line_num..more_line_num+height], "\n" ) );
