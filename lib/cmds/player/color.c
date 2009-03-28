@@ -12,6 +12,8 @@
                 "value_list: value\n"+\
                 "value_list: value_list '+' value\n"+\
                 "value: TAG ? valid_value\n"
+
+string parse_error;
                 
 /*
  * If the arg[0] is a base symbol, it can't be used
@@ -19,11 +21,21 @@
  *
  */
 mixed * valid_tag_name(mixed * arg) {
-  return (!ANSI_D->query_base_symbol(arg[0])) ? arg : nil ;
+  if(ANSI_D->query_custom_symbol(arg[0])) {
+    return arg;
+  } else {
+    parse_error = "Invalid tag: "+arg[0];
+    return nil;
+  }
 }
 
 mixed * valid_value(mixed * arg) {
-  return (arg[0] == "NIL" || ANSI_D->query_any_symbol(arg[0])) ? arg : nil ;
+  if(arg[0] == "NIL" || ANSI_D->query_any_symbol(arg[0])) {
+    return  arg;
+  } else {
+    parse_error = "Invalid value: "+arg[0];
+    return nil;
+  } 
 }
 
 mixed * wrap_assign(mixed * arg) {
@@ -53,35 +65,40 @@ void main(string str) {
 
   str = uppercase(str);
 
+  parse_error = nil;
   error = catch(args = parse_string(GRAMMAR, str));
 
-  if(error) {
-    if(sscanf(error,"Bad token at offset %d",pos) == 1) {
-      write("Invalid character "+str[pos..pos]+".");
-      return;
-    } else {
-      rethrow();
+  if(parse_error) {
+    write(parse_error);
+  } else {
+    if(error) {
+      if(sscanf(error,"Bad token at offset %d",pos) == 1) {
+        write("Invalid character "+str[pos..pos]+".");
+        return;
+      } else {
+        rethrow();
+      }
     }
-  }
-  if(!arrayp(args) || !mappingp(args[0])) {
-    write("I didn't quite understand that.\n"+
+    if(!arrayp(args) || !mappingp(args[0])) {
+      write("I didn't quite understand that.\n"+
           "Try something like 'color symbol = ATTRIBUTE + COLOR'\n"+
           "                or 'color symbol = COLOR, symbol = COLOR'\n"+
           "Note that using predefined color names as symbol is not allowed\n"+
           "but using symbols as colors is allowed, ie\n"+
           " 'color room_desc = room_exit' will work\n\n"+
           "Valid color and symbol names:\n\n");
-    "/cmds/player/ansi"->main("show");
-  } else {
-    symbols = map_indices(args[0]);
+      "/cmds/player/ansi"->main("show");
+    } else {
+      symbols = map_indices(args[0]);
 
-    for(i = 0, sz = sizeof(symbols); i < sz; i++ ) {
-      /* special case, 'NIL' tag means remove this symbol.
-       * also note this is a string, not the nil value */
-      if(args[0][symbols[i]][0] == "NIL") {
-        this_player()->set_custom_color(symbols[i], nil);
-      } else {
-        this_player()->set_custom_color(symbols[i], args[0][symbols[i]]);
+      for(i = 0, sz = sizeof(symbols); i < sz; i++ ) {
+        /* special case, 'NIL' tag means remove this symbol.
+         * also note this is a string, not the nil value */
+        if(args[0][symbols[i]][0] == "NIL") {
+          this_player()->set_custom_color(symbols[i], nil);
+        } else {
+          this_player()->set_custom_color(symbols[i], args[0][symbols[i]]);
+        }
       }
     }
   }
