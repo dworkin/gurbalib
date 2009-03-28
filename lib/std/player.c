@@ -867,6 +867,13 @@ void set_custom_color( string name, string * symbols ) {
                "or pre-existing custom tokens.\n" +
                "see 'ansi show' for valid tokens" );
           return;
+        } else {
+          switch(ANSI_D->check_recursion(name, symbols[i])) {
+            case 2 : write("Loop in symbolic tag "+name+" : "+symbols[i]);
+                     return;
+            case 1 : write("Too many levels of symbolic tags for "+name);
+                     return;
+          }
         }
         tmp += "%^" + symbols[i] + "%^";
       } else {
