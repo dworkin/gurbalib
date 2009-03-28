@@ -97,7 +97,7 @@ void FTP_CMD_pass( string arg ) {
     return;
    }
   password = crypt( arg, "gurba" );
-  player = clone_object( "/std/player" );
+  player = clone_object( PLAYER_OB );
   player->set_name( name );
   player->restore_me();
   if( password != player->query_password() ) {
