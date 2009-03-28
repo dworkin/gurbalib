@@ -206,7 +206,8 @@ void tell_room( object originator, string str, varargs mixed obj...) {
       continue;
     if( originator != inventory[i] && member_array(inventory[i], obj ) == -1 ) {
       if( inventory[i]->is_living() && 
-          !inventory[i]->query_ignored(originator->query_name()) ) {
+          (!originator ||
+          !inventory[i]->query_ignored(originator->query_name())) ) {
         inventory[i]->message( capitalize( str ) );
       }
       inventory[i]->outside_message( capitalize( str ) );
