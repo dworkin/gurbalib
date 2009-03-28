@@ -1,1 +1,14 @@
-Todo
+NAME
+        article - Determine the indefinite article for
+                  a word.
+
+SYNOPSIS
+        string article( string arg )
+
+DESCRIPTION
+        Determine the indifinite article for the word provided
+        as argument
+
+RETURN VALUE
+        A string containing the indifinite article is returned
+
