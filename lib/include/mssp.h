@@ -6,7 +6,7 @@
 
 /* Required */
 #define MSSP_NAME IMUD_NAME
-#define MSSP_PLAYERS (sizeof(players())-1)
+#define MSSP_PLAYERS (sizeof(players()))
 #define MSSP_UPTIME status()[ST_STARTTIME]
 
 /* Generic */
