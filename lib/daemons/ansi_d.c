@@ -112,6 +112,9 @@ void setup( void ) {
 		   "CHAN_TEXT" : RESET,
                    "CHAN_USER" : RESET,
 
+                   "TELL_FROM" : RESET,
+                   "TELL_TO"   : RESET,
+
 		   "ROOM_NAME" : GREEN,
 		   "ROOM_DESC" : RESET,
 		   "ROOM_EXIT" : CYAN,
@@ -222,8 +225,10 @@ string color_table( void )
   msg += color_table_chunk( color_trans, 1 );
   msg += "\nAttributes:\n";
   msg += color_table_chunk( attr_trans, 1 );
+/*
   msg += "\nTerminal:\n";
   msg += color_table_chunk( terminal_trans, 0 );
+*/
   msg += "\nSymbolic:\n";
   msg += color_table_chunk( symbolic_trans, 1 );
   return msg;

@@ -65,10 +65,13 @@ void main(string str) {
   }
   if(!arrayp(args) || !mappingp(args[0])) {
     write("I didn't quite understand that.\n"+
-          "Try something like 'color SYMBOL = ATTRIBUTE + COLOR'\n"+
-          "                or 'color SYMBOL = COLOR, SYMBOL = COLOR'\n"+
-          "Note that using predefined color names as SYMBOL is not allowed."+
-          "See 'ansi show' for valid color names and symbols");
+          "Try something like 'color symbol = ATTRIBUTE + COLOR'\n"+
+          "                or 'color symbol = COLOR, symbol = COLOR'\n"+
+          "Note that using predefined color names as symbol is not allowed\n"+
+          "but using symbols as colors is allowed, ie\n"+
+          " 'color room_desc = room_exit' will work\n\n"+
+          "Valid color and symbol names:\n\n");
+    "/cmds/player/ansi"->main("show");
   } else {
     symbols = map_indices(args[0]);
 

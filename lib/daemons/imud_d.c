@@ -294,7 +294,7 @@ void rcv_tell( string origmud, mixed origuser, mixed destuser,
   user = USER_D->find_player( destuser );
   if( user && !user->query_ignored(origuser + "@" + origmud) ) {
     user->set_last_tell( origuser + "@" + origmud );
-    user->message( rest[0] + "@" + origmud + " tells you: " + rest[1] );
+    user->message( "%^PLAYER%^"+rest[0] + "@" + origmud + "%^RESET%^ tells you: %^TELL_FROM%^" + rest[1] + "%^RESET%^" );
   } else {
     write_imud_stream(
       "error", 
