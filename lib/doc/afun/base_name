@@ -1,1 +1,13 @@
-Todo
+NAME
+        base_name - return an object's path
+
+SYNOPSIS
+        void base_name( void )
+
+
+DESCRIPTION
+        returns the base, non-clone object path of this_object()
+
+SEE ALSO
+        kfun/object_name
+
