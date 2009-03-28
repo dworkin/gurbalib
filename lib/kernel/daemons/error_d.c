@@ -23,7 +23,7 @@ static void create() {
  */
 string format_runtime_error( string error, mixed **trace, int caught, int ticks, int atom ) {
   string result;
-  string progname, objname, function, str, tmp;
+  string progname, objname, function, str, tmp, args;
   int i, sz, line, len;
   object player;
 
@@ -42,6 +42,11 @@ string format_runtime_error( string error, mixed **trace, int caught, int ticks,
       function = trace[i][2];
       objname = trace[i][0];
       line = trace[i][3];
+#ifdef ERROR_SHOW_ARGUMENTS
+      if(sizeof(trace[i][5..]) != 0) 
+        args = sizeof(trace[i][5..]) + " arguments:\n      "+dump_value( trace[i][5..], ([ ]) );
+      else args = nil;
+#endif
       if( line == 0 ) {
         str = "    ";
       } else {
@@ -62,6 +67,12 @@ string format_runtime_error( string error, mixed **trace, int caught, int ticks,
           str += " (" + objname + ")";
         }
       }
+#ifdef ERROR_SHOW_ARGUMENTS
+      if(i > 1 && args) {
+        str += ", " + args;
+      }
+#endif
+
       if(i == sz - 1) {
         result = error + "\nObject: " + objname + ", program: " + progname + ", line " + line + "\n" + result ;
       }
