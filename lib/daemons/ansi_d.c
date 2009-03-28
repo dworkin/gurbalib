@@ -324,3 +324,40 @@ void set_player_translations(mapping trans) {
 }
 
 
+/*
+ * Returns 0 on no error
+ *         1 on too deep recursion
+ *         2 on self refering tag
+ */
+int check_recursion(string tag, string value) {
+  int count;
+  mapping seen;
+  object player;
+
+  player = this_player();
+
+  tag = replace_string(tag,"%^","");
+
+  while(count < MAX_RECURSION) {
+
+    count++;
+    value = replace_string(value,"%^","");
+
+    if(tag == value) {
+      return 2;
+    }
+
+    value = replace_string(value,"%^","");
+
+    if( player && player_trans[player] && player_trans[player][value]) {
+      value = player_trans[player][value];
+    } else if(symbolic_trans[value]) {
+      value = symbolic_trans[value];
+    } else {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+
