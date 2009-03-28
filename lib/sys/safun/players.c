@@ -9,7 +9,7 @@ object * players() {
 
   for( i = 0, sz = sizeof( u ); i < sz; i++ ) {
     if( player = u[i]->query_player() ) {
-      p += ({ player });
+      if ( player->query_proper_name() ) p += ({ player });
     }
   }
   return p;

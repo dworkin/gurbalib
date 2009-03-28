@@ -1,6 +1,9 @@
 inherit "/std/modules/m_autoload_string";
 #include <user.h>
 #include <limits.h>
+#include <status.h>
+#include <ports.h>
+#include <mssp.h>
 
 object player;
 
@@ -26,7 +29,7 @@ void _open(mixed * tls) {
   send_message( "Welcome to " + MUD_NAME + ".\n" );
   send_message( "Running " + LIB_NAME + " " + LIB_VERSION + ".\n" );
   send_message( "\n" );
-  send_message( "Enter your name : " );
+  send_message( "Enter your name (or 'who' for a list of players): " );
   send_message( 1 );
   timeout_handle = call_out( "login_timeout", 600 );
   player = clone_object( PLAYER_OB );
@@ -287,11 +290,80 @@ string query_player_name( void ) {
   return( player->query_name() );
 }
 
+void mssp_reply( void ) {
+  /* Change these values in /include/mssp.h */
+
+  send_message("\r\nMSSP-REPLY-START\r\n");
+
+  /* Required */
+  send_message("NAME\t" + MSSP_NAME + "\r\n"); /* Name of the MUD */
+  send_message("PLAYERS\t" + MSSP_PLAYERS + "\r\n"); /* Current number of logged in players */
+  send_message("UPTIME\t" + MSSP_UPTIME + "\r\n"); /* Unix time value of the startup time of the MUD */
+
+  /* Generic */
+  send_message("PORT\t" + MSSP_PORT + "\r\n");
+  send_message("CODEBASE\t" + MSSP_CODEBASE + "\r\n");
+  send_message("CONTACT\t" + MSSP_CONTACT + "\r\n");
+
+  /* Categorization */
+  send_message("FAMILY\t" + MSSP_FAMILY + "\r\n");
+  send_message("STATUS\t" + MSSP_STATUS + "\r\n");
+  send_message("INTERMUD\t" + MSSP_INTERMUD + "\r\n");
+
+  /* Protocols */
+  send_message("ANSI\t" + MSSP_ANSI + "\r\n");
+  send_message("MCCP\t" + MSSP_MCCP + "\r\n");
+
+  /* Commercial */
+  send_message("PAY TO PLAY\t" + MSSP_PAY_TO_PLAY + "\r\n");
+  send_message("PAY FOR PERKS\t" + MSSP_PAY_FOR_PERKS + "\r\n");
+
+  send_message("MSSP-REPLY-END\r\n");
+
+}
+
+void login_who( void ) {
+  object *usr;
+  int i, sz;
+  string out;
+  
+  usr = players();
+  sz = sizeof(usr);
+  
+  out = "\n" + MUD_NAME + " currently has " + sz + " users online.\n";
+
+  if (sz > 0) out += "------------------------------------------------------\n";
+  for( i = 0; i < sz; i++ ) {
+    out += capitalize(usr[i]->query_name());
+    if ( SECURE_D->query_admin(usr[i]->query_name()) > 0 ) {
+      out += " (Admin)";
+    }
+    else if ( SECURE_D->query_wiz(usr[i]->query_name()) > 0 ) {
+     out += " (Wizard)";
+    }
+    out += "\n";
+  }
+  if (sz > 0) out += "------------------------------------------------------\n";
+  send_message(out);
+}
+
 void input_name( string str ) {
+  if ( str == "MSSP-REQUEST" ) {
+    mssp_reply();
+    
+    str = ""; /* force login fail */
+  }
+
+  if (lowercase(str) == "who") {
+    login_who();
+    str = "";
+  }
+
   if( !str || str == "" ) {
-    send_message( "Please enter your name : " );
+    send_message( "\r\nPlease enter your name : " );
     player->input_to_object( this_object(), "input_name" );
   } else {
+  
     str = lowercase( str );
 
     if(strlen(str) > 16) {
