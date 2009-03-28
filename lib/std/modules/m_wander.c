@@ -30,6 +30,20 @@ void stop_wander( void ) {
 void wander( void ) {
   mixed *exits;
   int i;
+
+  /*
+   * It is quite normal that the 'master/blueprint' doesn't have an evvironment.
+   * however, this should never happen with a clone. Hence, error if this is a
+   * clone, ignore otherwise.
+   */
+  if(!this_object()->query_environment()) {
+    if(clone_num() != 0) {
+      error("Wandering clone without environment");
+    } else {
+      return;
+    }
+  }
+
   /* Go ahead and set up the next call_out */
   wander_callout = call_out( "wander", random(movement_maxtime - movement_mintime) + movement_mintime );
 
@@ -40,7 +54,7 @@ void wander( void ) {
     string exit;
     object exarea;
     exit = random_element( exits );
-    catch(exarea = this_object()->query_environment()->query_exit_room( exit ));
+    exarea = this_object()->query_environment()->query_exit_room( exit );
     if (exarea && exit) {
       if (!wander_area || exarea->query_in_area(wander_area)) {
         this_object()->query_environment()->body_exit( this_object(), exit );
