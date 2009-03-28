@@ -62,7 +62,9 @@ void queue_upgrade(object ob) {
        *
        */
       next = ob->next_clone();
+#ifdef DEBUG_RECOMPILE
       message("call_touch "+object_name(ob)+"\n");
+#endif
       call_touch(ob);
       ob = next;
       count++;
@@ -422,6 +424,9 @@ string include_file( string file, string path ) {
 }
 
 void recompile( object obj ) {
+#ifdef DEBUG_RECOMPILE
+  message("auto recompile inheritable: "+object_name(ob)+"\n");
+#endif
   if( obj )  destruct_object(obj);
 }
 
@@ -592,7 +597,9 @@ int runtime_rlimits( object obj, int stack, int ticks ) {
 }
 
 void remove_program( string ob, int t, int issue ) {
+#ifdef DEBUG_RECOMPILE
   message("Program "+ob + ", issue:"+issue+" ("+ctime(t)+") is no longer referenced\n" );
+#endif
 }
 
 /*
@@ -640,7 +647,9 @@ static int _touch(mixed tls, object ob, string function) {
   object * clones;
   int i;
 
+#ifdef DEBUG_RECOMPILE
   message("touching "+object_name(ob)+ " due to a call to "+function+"\n");
+#endif
 
   rlimits(MAX_DEPTH; MAX_TICKS) {
     ob->_F_upgraded();

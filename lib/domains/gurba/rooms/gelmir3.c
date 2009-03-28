@@ -11,7 +11,7 @@ void setup( void ) {
    set_exits( ([ 
 		  "east" : "/domains/gurba/rooms/gelmir4",
 		  "west" : "/domains/gurba/rooms/gelmir2",
-                  "north" : "/domains/gurba/guilds/fighter/entrance",
+                  "north" : "/domains/gurba/guilds/fighter/rooms/entrance",
 		  ]) );
    
 }

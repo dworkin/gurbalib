@@ -5,11 +5,11 @@ void setup( void ) {
   set_long( "You are standing in the magnificent atrium of the Gurba Fighter's Guild. It is a massive room covered by a tall dome; from the center of the dome a massive bronze chandelier is hung. There are weapons and armor hung on the walls. The ancient stonework is etched with the names of heroic and legendary fighters of the past. Fighters are sparring here and there, the clangs of their weapons echoing throughout the hall. To the south lies Gelmir Road, and to the north is the entrance to the guild itself." );
   set_exits( ([ 
 	       "south" : "/domains/gurba/rooms/gelmir3",
-	       "north" : "/domains/gurba/guilds/fighter/main",
+	       "north" : "/domains/gurba/guilds/fighter/rooms/main",
   ]) );
 
   set_objects( ([
-		 "/domains/gurba/guilds/fighter/master" : 1 
+		 "/domains/gurba/guilds/fighter/monsters/master" : 1 
 		 ])
 	       );
 
