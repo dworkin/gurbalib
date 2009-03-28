@@ -769,7 +769,7 @@ void receive_message( string message ) {
 	    
 				/* Targetted emote? Find the target */
 	    if( arg != "" ) {
-	       target = this_environment()->find_object( arg );
+	       target = this_environment()->present( arg );
 	    } else {
 	       target = nil;
 	    }

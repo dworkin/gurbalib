@@ -63,7 +63,7 @@ object find_object_num( string name, int num ) {
 	}
 }
 
-object find_object( string name ) {
+object present( string name ) {
 	return( find_object_num( name, 1 ) );
 }
 
