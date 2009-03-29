@@ -25,6 +25,7 @@ void start_wander( int mintime, int maxtime ) {
 
 void stop_wander( void ) {
   remove_call_out(wander_callout);
+  wander_callout = 0;
 } 
 
 void wander( void ) {
@@ -68,3 +69,8 @@ void wander( void ) {
     }
   }
 }
+
+int no_cleanup() {
+  return wander_callout != 0;
+}
+

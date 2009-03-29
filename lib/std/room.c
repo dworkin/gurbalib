@@ -294,10 +294,14 @@ string body_exit( object who, string dir ) {
 }
 
 void destruct( void ) {
+/*
   int i;
   for( i = 0; i < sizeof( inventory ); i++ ) {
     inventory[i]->destruct();
   }
+*/
+  move_or_destruct_inventory();
+
   EVENT_D->unsubscribe_event( "clean_up" );
   destruct_object( this_object() );
 }
@@ -312,7 +316,7 @@ void event_clean_up( void ) {
   for( i = 0; i < sizeof( inventory ); i++ ) {
     if( !inventory[i] )
       continue;
-    if( inventory[i]->is_player() || inventory[i]->is_possessed() )
+    if( inventory[i]->is_player() || inventory[i]->is_possessed() || inventory[i]->no_cleanup() )
       return;
   }
 

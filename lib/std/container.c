@@ -155,3 +155,24 @@ void set_objects( mapping obs ) {
   }
 }
 
+void move_or_destruct_inventory() {
+  object dst, *items;
+  int i,sz;
+
+  items = inventory - ({ nil, 0 });
+
+  dst = this_object()->query_environment();
+  sz = sizeof(items);
+
+  for(i=0;i<sz;i++) {
+    if(!dst || (items[i]->move(dst) != 1)) {
+      if(items[i]->is_player()) {
+        items[i]->move("/rooms/void");
+      } else {
+        items[i]->destruct();
+      }
+    }
+  }
+}
+
+  

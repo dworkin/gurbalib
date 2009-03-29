@@ -2,7 +2,8 @@
 #include <tlsvar.h>
 
 #undef DEBUG_COMPILER_D
-#undef STRICT_OBJECT_CHECKS
+#define STRICT_OBJECT_CHECKS
+
 
 #define INHERIT_DIRS ({ "std", "lib" })
 #define OBJECT_DIRS ({ "obj", "mon", "npc", "vendors", "objects", "monsters", "daemons", "rooms", "tmp", "cmds" })
