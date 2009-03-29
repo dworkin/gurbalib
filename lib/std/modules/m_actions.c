@@ -91,7 +91,7 @@ void do_game_command( string message ) {
 	rules = EMOTE_D->query_rules( cmd );
 	
 	if( arg != "" ) {
-	   target = this_environment()->find_object( arg );
+	   target = this_environment()->present( arg );
 	} else {
 	   target = nil;
 	}
