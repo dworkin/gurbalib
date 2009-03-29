@@ -30,7 +30,7 @@ void main( string arg ) {
       return;
    }   
   
-   ob = this_environment()->find_object( arg );
+   ob = this_environment()->present( arg );
    if( !ob ) {  
       /* Hmm. Not a real object. Maybe it's a fake one. */
 

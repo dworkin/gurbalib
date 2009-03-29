@@ -4,7 +4,7 @@ void main( string str ) {
    string page;
 
    page = this_player()->query_name() + "s page";
-   ob = this_player()->query_environment()->find_object( page );
+   ob = this_player()->query_environment()->present( page );
 
    if( ob ) {
       ob->parse(str);

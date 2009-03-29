@@ -10,7 +10,7 @@ void main( string str ) {
     return;
   }
 
-  obj = this_player()->find_object( str ); 
+  obj = this_player()->present( str ); 
   if( obj ) {
     /* Found the item */
 

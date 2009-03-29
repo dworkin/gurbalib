@@ -2,7 +2,7 @@ void main( string str ) {
   object obj;
   object worn;
 
-  obj = this_player()->find_object( lowercase( str ) );
+  obj = this_player()->present( lowercase( str ) );
   if( !obj ) {
     write( "Maybe you should get one first?" );
     return;

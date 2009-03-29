@@ -1,7 +1,7 @@
 void main( string str ) {
   object ob;
 
-  ob = this_player()->find_object( str );
+  ob = this_player()->present( str );
 
   if( !ob ) {
     write( "You can't seem to find the " + lowercase( str ) + "." );

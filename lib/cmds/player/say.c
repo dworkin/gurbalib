@@ -7,6 +7,11 @@ void main( string str ) {
  
   /* Strip trailing whitespaces */
 
+  if(!this_environment()) {
+    write("You have no environment, so theres no way to say things either.");
+    return;
+  }
+
   for( i=strlen(str)-1; i > 0; i-- ) {
     if( str[i] != ' ' )
       break;

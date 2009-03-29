@@ -9,7 +9,7 @@ void main( string str ) {
     subject = ([ ]);
     ob = ([ ]);
   }
-  ob[this_player()->query_name()] = this_environment()->find_object( "board" );
+  ob[this_player()->query_name()] = this_environment()->present( "board" );
   if( !ob[this_player()->query_name()] ) {
     write( "Try writing a message at a message board.\n" );
     return;

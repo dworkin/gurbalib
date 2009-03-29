@@ -9,7 +9,7 @@ void main( string str ) {
     subject = ([ ]);
     ob = ([ ]);
   }
-  ob[this_player()->query_name()] = "/rooms/bug_room"->find_object( "board" );
+  ob[this_player()->query_name()] = "/rooms/bug_room"->present( "board" );
   if( !ob[this_player()->query_name()] ) {
     write( "Unable to locate the bug board. Tell a wizard.\n" );
     return;

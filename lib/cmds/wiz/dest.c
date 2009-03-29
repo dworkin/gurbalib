@@ -1,7 +1,7 @@
 void main( string str ) {
    object ob;
 
-   ob = this_player()->query_environment()->find_object( str );
+   ob = this_player()->query_environment()->present( str );
    if( ob ) {
       if( ob->is_player() ) {
          this_player()->simple_action( "$N $vtry to dest a player, and $vfail miserably.\n" );
@@ -13,8 +13,8 @@ void main( string str ) {
          ob->destruct();
       }
    }
-   else if( this_player()->find_object( str ) ) {
-      ob = this_player()->find_object( str );
+   else if( this_player()->present( str ) ) {
+      ob = this_player()->present( str );
       if( ob ) {
          if( ob->is_player() ) {
             this_player()->simple_action( "$N $vtry to dest a player, and $vfail miserably.\n" );

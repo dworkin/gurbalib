@@ -18,7 +18,7 @@ void main( string str ) {
     return;
   }
 
-  ob = this_environment()->find_object( lowercase(str) );
+  ob = this_environment()->present( lowercase(str) );
   if( !ob ) {
     write( "You can't seem to find the " + lowercase(str) + "." );
     return;

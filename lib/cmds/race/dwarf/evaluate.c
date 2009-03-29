@@ -7,9 +7,14 @@ void main (string ob) {
   object obj;
 
   /*Todo: Add so that it finds the 'ob' object and stores it in the 'obj' variable.*/
-  obj = this_environment()->find_object( lowercase( ob ) );
+  obj = this_environment()->present( lowercase( ob ) );
 
-  if (!ob->is_living() && ob->query_value() ) {
+  if(!obj) {
+    write("You don't see "+ob+" here.");
+    return;
+  }
+
+  if (!obj->is_living() && obj->query_value() ) {
     
     chance = this_player()->query_skill( "evaluate" );
     roll = random(5000);

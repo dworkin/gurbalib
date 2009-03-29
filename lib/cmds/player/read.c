@@ -2,7 +2,7 @@ void main( string str ) {
   object ob;
   string *lines;
 
-  ob = this_environment()->find_object( str );
+  ob = this_environment()->present( str );
 
   if( ob ) {
     if( ob->is_readable() ) {  
@@ -15,7 +15,7 @@ void main( string str ) {
       write( "You can't read that." );
     }
   } else {
-    ob = this_environment()->find_object( "board" );
+    ob = this_environment()->present( "board" );
     if( !ob ) {
       write( "Try reading a message at a message board.\n" );
       return;

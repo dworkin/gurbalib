@@ -7,7 +7,7 @@ string *stat_names;
 object ob;
 
    if(arg != "") {
-      ob = this_player()->query_environment()->find_object( arg );
+      ob = this_player()->query_environment()->present( arg );
       if( !ob ) {
          write(arg+" is not here!\n");
          ob = nil;
@@ -16,7 +16,9 @@ object ob;
          if( !ob->is_alive() ) {
             write("You can't stat the "+arg+"!\n");
             ob = nil;
-         } 
+         } else {
+            write(object_name(ob)+" is a living???");
+         }
             
       }
    }
