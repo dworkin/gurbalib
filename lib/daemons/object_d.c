@@ -1,28 +1,27 @@
-static object *objs;
+static mapping objs;
 
 void create( void ) {
-  objs = ({ });
+  objs = ([ ]);
 }
 
 void register_object( object ob ) {
   if( !objs )
-    objs = ({ });
+    objs = ([ ]);
 
-  objs -= ({ ob });
-  objs += ({ ob });
+  objs[ob] = 1;
 }
 
 void unregister_object( object ob ) {
   if( !objs )
-    objs = ({ });
+    objs = ([ ]);
 
-  objs -= ({ ob });
+  objs[ob] = nil;
 }
 
 int query_number_objects( void ) {
-  return( sizeof( objs ) );
+  return( map_sizeof( objs ) );
 }
 
 object *query_objects( void ) {
-  return( objs );
+  return( map_indices(objs) );
 }
