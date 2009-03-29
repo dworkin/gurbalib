@@ -282,7 +282,7 @@ void chan_emote( string chan, string what ) {
     
     /* Targetted emote? Find the target */
     if( arg && arg != "" ) {
-      target = this_environment()->find_object( arg );
+      target = this_environment()->present( arg );
       if( !target ) {
 	target = USER_D->find_player( arg );
       }
