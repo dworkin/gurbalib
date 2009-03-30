@@ -66,6 +66,9 @@ mixed parse( string str ) {
   if( !result )
     return( nil );
 
+#ifdef DEBUG_PARSER
+  write("parse_string result: "+dump_value(result, ([ ])));
+#endif
   function = "";
   if( sizeof( result ) > 1 ) {
     for( i = 0; i < sizeof( result ); i ++ ) {
@@ -153,7 +156,7 @@ mixed parse( string str ) {
 void rescan_verbs( void ) {
   mixed *list;
   string verb;
-  int i;
+  int i, ofix;
   mixed info;
 
   list = get_dir( "/cmds/verb/*.c" );
@@ -188,37 +191,45 @@ void rescan_verbs( void ) {
 	for( k = 0; k < sizeof( words ); k++ ) {
 
 	  switch( words[k] ) {
-	  case "OBJ":
-	    grammar += "OBJ ";
-	    break;
-	  case "OBJA":
-	    grammar += "OBJA ";
-	    break;
-	  case "OBJI":
-	    grammar += "OBJI ";
-	    break;
-	  case "OBJE":
-	    grammar += "OBJE ";
-	    break;
-	  case "OBJC":
-	    grammar += "OBJC ";
-	    break;
-	  case "LIV":
-	    grammar += "LIV ";
-	    break;
-	  default:
-	    grammar += "'" + words[k] + "' ";
+            case "OBJ":
+              grammar += "OBJ ";
+              break;
+            case "OBJA":
+              grammar += "OBJA ";
+              break;
+            case "OBJI":
+              grammar += "OBJI ";
+              break;
+            case "OBJE":
+              grammar += "OBJE ";
+              break;
+            case "OBJC":
+              grammar += "OBJC ";
+              break;
+            case "LIV":
+              grammar += "LIV ";
+              break;
+            case "OBJX":
+              grammar += "OBJX ";
+              ofix = 1;
+              break;
+            default:
+              grammar += "'" + words[k] + "' ";
 	  }
 	}
+        if(ofix) grammar += "? fix_order ";
+        ofix = 0;
       }
     }
   }
-  grammar = grammar + "OBJ: Object ? find_direct_object \
+  grammar = grammar + "Sentence: 'remove' OBJX 'from' OBJI ? fix_order \
+OBJ: Object ? find_direct_object \
 OBJA: Object ? construct_obj_packet \
 OBJI: Object ? find_inv_object \
 OBJE: Object ? find_environment_object \
-OBJC: Object ? find_container_object \
 LIV: Object ? find_living_object \
+OBJC: Object ? find_container_object \
+OBJX: Object \
 Object: Article_List Adjective_List Noun Obj_Index \
 Article: 'the' \
 Article: 'a' \
@@ -281,7 +292,9 @@ static mixed *find_container_object( mixed *mpTree ) {
 #endif
 
   if( !last_obj ) {
+/*
     write( "Parse error: Tell Fudge!\n" );
+*/
     return( nil );
   }
 
@@ -430,6 +443,7 @@ static mixed *fix_order(mixed *mpTree) {
   mixed obj;
   int i;
   #ifdef DEBUG_PARSE
+    write(dump_value(mpTree,([]))+"\n");
     write("fix_order("
        + dump_value( mpTree[0], ([ ])) + ","
        + dump_value( mpTree[1], ([ ])) + ","

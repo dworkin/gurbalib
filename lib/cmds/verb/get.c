@@ -1,5 +1,7 @@
 mixed *query_verb_info( void ) {
-  return( ({ "", "OBJE", "LIV", "OBJC from OBJ", "OBJA" }) );
+  return( ({ "", "OBJE", "LIV", "OBJX from OBJ", "OBJA" }) );
+
+  return( ({ "", "OBJE", "LIV", "OBJX from OBJ" }) );
 }
 
 mixed can_get( void ) {
@@ -23,7 +25,7 @@ mixed can_get_liv( object liv ) {
   return( "You can't get that." );
 }
 
-mixed can_get_obj_from_obj( object target, string s, object obj ) {
+mixed can_get_obj_str_obj( object target, string s, object obj ) {
   if( s == "from" && obj->is_container() ) {
     if( obj->is_closed() ) {
       return( "It's closed." );
@@ -31,6 +33,14 @@ mixed can_get_obj_from_obj( object target, string s, object obj ) {
     return( 1 );
   }
   return( "You can't get " + target->query_id() + " from " + obj->query_id() + "." );
+}
+
+mixed can_get_str_str_obj( string target, string s, object obj ) {
+  if(target == "all" || target == "everything") {
+    return 1;
+  } else {
+    return("You don't see any "+target+" in the "+obj->query_id()+".");
+  }
 }
 
 mixed do_get( void ) {
@@ -72,25 +82,24 @@ mixed do_get_liv( object obj ) {
   write( "You get the " + obj->query_id() + ", report to Fudge." );
 }
 
-mixed do_get_obj_from_obj( object target, string s, object obj ) {
-  int    i;
-  object *inv;
-
-  if( s == "all" || s == "everything" ) {
-    inv = obj->query_inventory();
-    for( i = 0; i < sizeof( inv ); i ++ ) {
-      if( inv[i]->move( this_player() ) ) {
-	this_player()->targetted_action( "$N $vget $o from $o1.", nil, inv[i], obj );
-      } else {
-	this_player()->targetted_action( "$N $vtry to get $o from $o1, but $vfail.", nil, inv[i], obj );
-      }
-    }
+mixed do_get_obj_str_obj( object target, string s, object obj ) {
+  if( target->move( this_player() ) ) {
+    this_player()->targetted_action( "$N $vget $o from $o1.", nil, target, obj );
   } else {
-    if( target->move( this_player() ) ) {
-      this_player()->targetted_action( "$N $vget $o from $o1.", nil, target, obj );
-    } else {
-      this_player()->targetted_action( "$N $vtry to get $o from $o1, but $vfail.", nil, target, obj );
-    }
+    this_player()->targetted_action( "$N $vtry to get $o from $o1, but $vfail.", nil, target, obj );
   }
 }
 
+void do_get_str_str_obj(string target, string s, object obj) {
+  object * inv;
+  int i;
+
+  inv = obj->query_inventory();
+  for( i = 0; i < sizeof( inv ); i ++ ) {
+    if( inv[i]->move( this_player() ) ) {
+      this_player()->targetted_action( "$N $vget $o from $o1.", nil, inv[i], obj );
+    } else {
+      this_player()->targetted_action( "$N $vtry to get $o from $o1, but $vfail.", nil, inv[i], obj );
+    }
+  }
+}

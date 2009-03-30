@@ -6,7 +6,8 @@ mixed can_put( void ) {
   return( "Put what in where?" );
 }
 
-mixed can_put_obj_in_obj( object obj, string str, object target ) {
+mixed can_put_obj_str_obj( object obj, string str, object target ) {
+  write("beep");
   if( lowercase(str) != "in" )
     return( "Put what in where?" );
 
@@ -24,7 +25,7 @@ mixed can_put_obj_in_obj( object obj, string str, object target ) {
 }
 
 
-mixed do_put_obj_in_obj( object obj, string str, object target ) {
+mixed do_put_obj_str_obj( object obj, string str, object target ) {
 
   if( obj->is_worn() ) {
     this_player()->do_remove( obj );

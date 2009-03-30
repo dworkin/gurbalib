@@ -14,7 +14,7 @@ mixed can_give_obj( object obj ) {
   return( "Give " + obj->query_id() + " to who?" );
 }
 
-mixed can_give_obj_to_liv( object obj, string s, object liv ) {
+mixed can_give_obj_str_liv( object obj, string s, object liv ) {
   if( obj->is_undroppable() ) {
     this_player()->targetted_action( "$N $vare unable to give $o to $T.", liv, obj );
     return( 0 );
@@ -34,7 +34,7 @@ mixed can_give_obj_to_liv( object obj, string s, object liv ) {
 
 
 
-mixed do_give_obj_to_liv( object obj, string s, object liv ) {
+mixed do_give_obj_str_liv( object obj, string s, object liv ) {
   if( obj->is_worn() ) {
     this_player()->do_remove( obj );
     this_player()->targetted_action( obj->query_remove_message(), nil, obj );
