@@ -222,7 +222,7 @@ void rescan_verbs( void ) {
       }
     }
   }
-  grammar = grammar + "Sentence: 'remove' OBJX 'from' OBJI ? fix_order \
+  grammar = grammar + "\
 OBJ: Object ? find_direct_object \
 OBJA: Object ? construct_obj_packet \
 OBJI: Object ? find_inv_object \

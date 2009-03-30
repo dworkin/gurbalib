@@ -112,8 +112,8 @@ void setup( void ) {
 		   "CHAN_TEXT" : RESET,
                    "CHAN_USER" : RESET,
 
-                   "TELL_FROM" : RESET,
-                   "TELL_TO"   : RESET,
+                   "TELL_FROM" : MAGENTA,
+                   "TELL_TO"   : MAGENTA,
 
 		   "ROOM_NAME" : GREEN,
 		   "ROOM_DESC" : RESET,
