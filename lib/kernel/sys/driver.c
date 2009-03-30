@@ -215,10 +215,12 @@ static void clean_up() {
 object clone_object( string path ) {
   object ob;
 
-  if( ob = find_object( path ) )
-    return ::clone_object( ob );
-  else
-    return ::clone_object( compile_object( path ) );
+  ob = find_object( path );
+  if(!ob) ob = compile_object( path );
+  ob = ::clone_object( ob );
+  ob->_F_set_cloner("kernel","");
+  ob->_F_create();
+  return ob;
 }
 
 static void _restored(mixed * tls) {
@@ -434,7 +436,7 @@ object _telnet_connect(mixed * tls, int port) {
 
   object connection;
 
-  connection = clone_object( "/std/user" );
+  connection = clone_object( USER_OB );
   return( connection );
 }
 
