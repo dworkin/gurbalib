@@ -16,7 +16,11 @@ void create( void ) {
   brief_desc = "";
   ids = ({ "nondescript thing" });
   adjs = ({ });
-  OBJECT_D->register_object( this_object() );
+  if(!clone_num()) {
+    OBJECT_D->register_object( this_object() );
+  } else {
+    OBJECT_D->register_clone( this_object() );
+  }
 }
 
 int is_living( void ) {
@@ -178,7 +182,11 @@ void destruct( void ) {
   if( object_environment ) 
     object_environment->remove_object( this_object() );
 
-  OBJECT_D->unregister_object( this_object() );
+  if(clone_num() == 0) {
+    OBJECT_D->unregister_object( this_object() );
+  } else {
+    OBJECT_D->unregister_clone( this_object() );
+  }
   destruct_object( this_object() );
 }
 
