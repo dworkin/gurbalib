@@ -133,6 +133,14 @@ void do_fight( void ) {
 	   return;
 	}
      }
+  } else {
+    targets -= ({nil});
+    if(sizeof(targets) > 0) {
+      switch_to( targets[0] );
+    } else {
+      halt_fight();
+      return;
+    }
   }
 
   weapons = this_object()->query_wielded();
@@ -174,7 +182,6 @@ void do_fight( void ) {
 	  + weapons[i]->query_min_damage();
 	this_object()->message( "%^RED%^Hit for: " + damage + "%^RESET%^" );
 	this_object()->targetted_action( "$N $v" + weapons[i]->query_weapon_action() + " $T for " + damage +" damage.", target );
-	damage_target( damage );
 	if( ( query_skill( weapons[i]->query_weapon_skill() ) ) 
 	    + ( query_skill( weapons[i]->query_weapon_skill() ) / 2 ) 
 	    <= target->query_skill( "combat/defense" ) ) {
@@ -182,6 +189,7 @@ void do_fight( void ) {
 	  this_object()->message( "Learn: hit_skill, " 
 				  + query_skill( weapons[i]->query_weapon_skill() ) );
 	}
+        damage_target( damage );
 	
       } else {
 	this_object()->targetted_action( "$N $vmiss $T.", target );
@@ -196,7 +204,7 @@ void do_fight( void ) {
   }
 
   this_object()->message( "%^CYAN%^HP[" + query_hp() + "/" + query_max_hp() + "]%^RESET%^" );
-  if( target->is_dead() ) {
+  if(!target || target->is_dead() ) {
     targets -= ({ target });
     if( sizeof( targets ) > 0 )
       switch_to( targets[0] );

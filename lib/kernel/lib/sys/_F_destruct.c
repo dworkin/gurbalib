@@ -28,6 +28,7 @@ atomic private void del_clone() {
   } else {
     error("There must be a previous link when removing a clone");
   }
+  find_object(base_name())->_F_remove_clone();
 }
 
 nomask void _F_destruct() {
