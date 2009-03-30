@@ -11,5 +11,5 @@ RETURN VALUE
         Returns the next object if any, or nil
 
 SEE ALSO
-        num_clones, prev_clone
+        num_clones, prev_clone, query_cloner
 

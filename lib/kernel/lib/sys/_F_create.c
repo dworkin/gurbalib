@@ -43,6 +43,7 @@ atomic private void add_clone() {
     ptr = next->get_list( "clones" );
     ptr[LIST_PREV] = this_object();
   }
+  master->_F_add_clone();
 }
 
 nomask void _F_create() {
@@ -72,6 +73,8 @@ nomask void _F_create() {
   } else {
     secure_d = find_object(SECURE_D);
   }
+
+  if(secure_d) _owner = secure_d->owner_file(base_name());
 
   if( function_object( "create", this_object() ) ) {
     call_other(this_object(),"create");

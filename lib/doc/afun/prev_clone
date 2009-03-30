@@ -14,5 +14,5 @@ RETURN VALUE
         object. Returns nil if called on the master.
 
 SEE ALSO
-        num_clones, next_clone
+        num_clones, next_clone, query_cloner
 
