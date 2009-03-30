@@ -34,11 +34,17 @@ void die( void ) {
 
 
   obj = clone_object( "/obj/corpse" );
-  if( this_object()->is_player() ) 
+  if( this_object()->is_player() ) {
      obj->set_name( capitalize(this_object()->query_name()) );
-  else
+  } else {
      obj->set_name( "a " + this_object()->query_id() );
+  }
   obj->move( this_object()->query_environment() );
+
+  if(!this_object()->query_player()) {
+    EVENT_D->unsubscribe_event("heart_beat");
+    this_object()->destruct();
+  }
 }
 
 void receive_damage( object who, int dam, int type ) {
