@@ -294,16 +294,10 @@ string body_exit( object who, string dir ) {
 }
 
 void destruct( void ) {
-/*
-  int i;
-  for( i = 0; i < sizeof( inventory ); i++ ) {
-    inventory[i]->destruct();
-  }
-*/
   move_or_destruct_inventory();
 
   EVENT_D->unsubscribe_event( "clean_up" );
-  destruct_object( this_object() );
+  ::destruct();
 }
 
 void event_clean_up( void ) {

@@ -122,7 +122,9 @@ string owner_file(string file) {
 
   argcheck(file, 1, "string");
 
+/*
   file = normalize_path(file, previous_program()+"../");
+*/
 
   if( sizeof( ({ file }) & ROOT_OVERRIDE ) ) {
     return "root";

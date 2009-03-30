@@ -3,10 +3,15 @@
    Implementation by Cerihan - 3/14/09
 */
 
+#ifndef MAX_WANDER
+#define MAX_WANDER 20
+#endif
+
 int movement_mintime;
 int movement_maxtime;
 string wander_area;
 int wander_callout;
+int wander_count;
 
 void set_wander_area( string area ) {
   wander_area = area;
@@ -45,8 +50,13 @@ void wander( void ) {
     }
   }
 
-  /* Go ahead and set up the next call_out */
-  wander_callout = call_out( "wander", random(movement_maxtime - movement_mintime) + movement_mintime );
+  if(wander_count++ < MAX_WANDER) {
+    /* Go ahead and set up the next call_out */
+    wander_callout = call_out( "wander", random(movement_maxtime - movement_mintime) + movement_mintime );
+  } else {
+    stop_wander();
+    return;
+  }
 
   /* Get a list of exits */
   exits = map_indices(this_object()->query_environment()->query_exits());
@@ -58,7 +68,9 @@ void wander( void ) {
     exarea = this_object()->query_environment()->query_exit_room( exit );
     if (exarea && exit) {
       if (!wander_area || exarea->query_in_area(wander_area)) {
+        this_object()->query_environment()->unsubscribe_event("body_enter");
         this_object()->query_environment()->body_exit( this_object(), exit );
+        this_object()->query_environment()->subscribe_event("body_enter");
         return; /* success */
       }
     }
@@ -74,3 +86,12 @@ int no_cleanup() {
   return wander_callout != 0;
 }
 
+void event_body_enter(mixed * what) {
+
+  if(what && objectp(what[0]) && what[0]->is_player()) {
+    wander_count = 0;
+    if(!wander_callout) {
+      start_wandering();
+    }
+  }
+}

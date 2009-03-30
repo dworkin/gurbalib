@@ -4,7 +4,9 @@ void event( string name, varargs mixed args... ) {
 
   argcheck( name, 1, "string" );
 
-  obs = events[name];
+  if(!events[name]) return;
+
+  obs = map_indices(events[name]);
 
   for( i = 0; i < sizeof( obs ); i++ ) {
     if( obs[i] )

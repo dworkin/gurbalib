@@ -7,7 +7,7 @@ void create( void ) {
 void add_event( string name ) {
   if( !global_events )
     global_events = ([ ]);
-  global_events[name] = ({ });
+  global_events[name] = ([]);
 }
 
 void remove_event( string name ) {
@@ -15,12 +15,11 @@ void remove_event( string name ) {
 }
 
 void subscribe_event( string name ) {
-  global_events[name] -= ({ previous_object() });
-  global_events[name] += ({ previous_object() });
+  global_events[name][previous_object()] = 1;
 }
 
 void unsubscribe_event( string name ) {
-  global_events[name] -= ({ previous_object() });
+  global_events[name][previous_object()] = nil;
 }
 
 void dispatch_event( string name, object *obs, int i, int max_i, mixed *args ) {
@@ -43,9 +42,9 @@ void event( string name, varargs mixed args... ) {
   object *obs;
   int i;
 
-  /* Make sure that all nil objects are gone */
-  global_events[name] -= ({ nil });
-  obs = global_events[name];
+  if(!global_events[name]) return;
+
+  obs = map_indices(global_events[name]);
 
   if( !obs || sizeof(obs) == 0 )
     return;

@@ -520,7 +520,7 @@ void do_quit( string str ) {
 
   this_object()->compose_autoload_string();
   
-  objs = query_inventory();
+  objs = query_inventory() + ({ });
 
   if( is_possessing() )
     call_other( "/cmds/wiz/possess", "main", "" );
@@ -552,19 +552,8 @@ void do_quit( string str ) {
 
 /* Destruct this player */
 void destruct( void ) {
-  object *objs;
-  int i;
-
-  objs = query_inventory();
-
-  for( i=0; i < sizeof( objs ); i++ ) { 
-    if( objs[i]->move( this_object()->query_environment() ) ) {
-      objs[i]->destruct();
-    }
-  }
-  if( query_environment() )
-    query_environment()->remove_object( this_object() );
-  destruct_object( this_object() );
+  move_or_destruct_inventory();
+  ::destruct();
 }
 
 /* Alias handling */
