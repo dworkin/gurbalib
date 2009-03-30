@@ -18,6 +18,7 @@ void setup( void ) {
   add_item( "fighters", "Some intrepid young fighters are practicing their art in here. It's no small wonder the stone floors are stained with blood." );
 }
 
-void do_listen( void ) {
+int do_listen( object player ) {
   write( "To the north you hear metal clanging against metal, and the odd cry in agony. Once in a while you hear muffled laughter as well." );
+  return 1;
 }
