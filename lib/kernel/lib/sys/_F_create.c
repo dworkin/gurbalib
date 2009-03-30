@@ -50,6 +50,16 @@ nomask void _F_create() {
   object * ptr;
   object master, next;
 
+  /*
+   * Unobvious code warning!
+   *
+   * We leave here if we don't have a cloner set yet.
+   * it will be set by clone_object() (which is actually what is
+   * causing _F_create() to be called), which will call us again
+   * after the cloner has been set..
+   */
+  if(clone_num() && !_cloner) return;
+
   switch(clone_num()) {
 
     /* LWO, unhandled for now */

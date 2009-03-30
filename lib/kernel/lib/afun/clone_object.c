@@ -16,7 +16,13 @@ static object clone_object( string path ) {
   if(ed) trace = ed->format_runtime_error("Clone calltrace",::call_trace(),0,0,0);
   else trace = "No clone calltrace available\n";
 
-  cloner = _owner;
+  if(this_object()->is_player() && this_object()->query_name()) {
+    cloner = this_object()->query_name();
+  } else if(sscanf(object_name(this_object()),"/cmds/wiz/%*s") == 1 && this_user()) {
+    cloner = this_user()->query_name();
+  } else {
+    cloner = _owner;
+  }
 
   if( strlen(path) > 2 ) {
     if( path[strlen(path)-2] == '.' && path[strlen(path)-1] == 'c' )
@@ -32,6 +38,7 @@ static object clone_object( string path ) {
 
   ob = ::clone_object( ob );
   ob->_F_set_cloner(cloner,trace);
+  ob->_F_create();
   return ob;
 }
 
