@@ -91,7 +91,7 @@ void event_body_enter(mixed * what) {
   if(what && objectp(what[0]) && what[0]->is_player()) {
     wander_count = 0;
     if(!wander_callout) {
-      start_wandering();
+      start_wander(movement_mintime, movement_maxtime);
     }
   }
 }
