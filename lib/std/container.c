@@ -1,10 +1,11 @@
 #include <type.h>
 
-inherit OBJECT;
+inherit ob OBJECT;
 
 static object *inventory;
 
 void create( void ) {
+  ob::create();
   inventory = ({ });
 }
 

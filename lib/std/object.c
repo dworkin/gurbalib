@@ -12,7 +12,10 @@ string proper_name;
 static string *object_commands;
 static string detailed_desc;
 
+private int configured;
+
 void create( void ) {
+  if(configured++) return;
   brief_desc = "";
   ids = ({ "nondescript thing" });
   adjs = ({ });

@@ -1,6 +1,5 @@
 #include <type.h>
 
-inherit ob  OBJECT;
 inherit con CONTAINER;
 inherit bod BODY;
 
@@ -11,7 +10,6 @@ string living_name;
 static object possessor;
 
 void create( void ) {
-  ob::create();
   con::create();
   bod::create();
   set_gettable( 0 );

@@ -4,7 +4,6 @@
 #include <type.h>
 #include <limits.h>
 
-inherit obj OBJECT;
 inherit con CONTAINER;
 inherit bod BODY;
 inherit M_MESSAGES;
@@ -46,7 +45,6 @@ mixed query_env( string name );
 string query_title( void );
 
 void create( void ) {
-  obj::create();
   con::create();
   bod::create();
 

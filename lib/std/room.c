@@ -1,6 +1,5 @@
 #include <type.h>
 
-inherit obje OBJECT;
 inherit cont CONTAINER;
 inherit M_FAKE_OBJECT;
 
@@ -13,7 +12,6 @@ static int last_exit;
 void setup( void );
 
 void create( void ) {
-  obje::create();
   cont::create();
   add_event( "body_enter" );
   add_event( "body_leave" );
