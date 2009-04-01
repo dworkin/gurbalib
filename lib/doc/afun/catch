@@ -59,8 +59,9 @@ EXAMPLE
               if(sscanf(error,"Bad token at offset %d",pos) == 1) {
                 write("Invalid character "+str[pos..pos]+".");
                 return;
-            } else {
-              rethrow();
+              } else {
+                rethrow();
+              }
             }
 
         How catch should not be used:
