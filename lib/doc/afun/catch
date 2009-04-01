@@ -1,0 +1,88 @@
+NAME
+        catch() - execute code until an error occurs or execution
+                  completes.
+
+SYNOPSIS
+        string catch( code )
+
+        catch { code block } : { alternative code block }
+
+DESCRIPTION
+        catch can be used to handle runtime errors from lpc code.
+        It is not a real function, writing
+        result = catch(a, b); will evaluate a, b, and return nil.
+        It will not call a function catch with the arguments a and b.
+
+        In the second form, the 'alternative code block' will get
+        executed only if a runtime error occurs during the execution
+        of the code block.
+
+        When a 'caught' error occurs, it will not be logged, which
+        means that for many purposes, catch will hide errors that
+        you probably wanted to know about. A mechanism for dealing
+        with this is provided by the 'caught_error' and 'rethrow'
+        functions.
+
+        catch can be used to prevent runtime errors from stopping
+        execution, but some care should be taken when doing this.
+
+        Using catch to get rid of unexplained runtime errors is almost
+        always a sure way to run into the consequences of those errors
+        later, and end up with hard to explain behavior of your code.
+
+        Using catch to handle specific, expected errors can be quite
+        a valid use, but if you can prevent such a use by adding a simple
+        check, that is almost always a better solution.       
+
+EXAMPLE
+        How catch should be used:
+
+          The following example is based on commands that do their own
+          parsing of arguments.
+
+          The purpose of this code is to report on invalid characters
+          found on the commandline. Because parse_string throws a runtime
+          error when encountering characters that are not part of any
+          defined token, we need to wrap it with a catch to detect this 
+          situation.
+
+          We then use sscanf() on the error to see if it is the one we
+          are interested in. If so, give some useful information to the
+          end user. If it isn't the error we were expecting, rethrow it
+          so that normal runtime error handling takes over. This is the
+          proper way to use catch, it lets you do error handling in lpc
+          for a case where it makes sense, without hiding any other errors.
+
+            error = catch(args = parse_string(GRAMMAR, str));
+
+            if(error) {
+              if(sscanf(error,"Bad token at offset %d",pos) == 1) {
+                write("Invalid character "+str[pos..pos]+".");
+                return;
+            } else {
+              rethrow();
+            }
+
+        How catch should not be used:
+
+          The following is an example of code that will hide runtime
+          errors, and where the use of catch could have been prevented
+          by adding a simple check on if this_player() exists.
+
+            string name;
+
+            if(catch(name = this_player()->query_name())) {
+              return;
+            }
+
+          This code is problematic because it will return on every
+          error, not just on this_player() being nil. If query_name()
+          would be the cause of the runtime error, you'd never find
+          out.
+
+RETURN VALUE
+        A string with the error in case of a runtime error, nil otherwise.
+
+SEE ALSO
+        caught_error, rethrow
+
