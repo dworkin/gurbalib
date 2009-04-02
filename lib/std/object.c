@@ -12,6 +12,8 @@ string proper_name;
 static string *object_commands;
 static string detailed_desc;
 
+void setup();
+
 private int configured;
 
 void create( void ) {
@@ -178,6 +180,7 @@ object query_environment( void ) {
 }
 
 void set_environment( object ob ) {
+  console_msg("set_environment() : "+dump_value(ob, ([ ]) )+"\n");
   object_environment = ob;
 }
 
@@ -193,7 +196,7 @@ void destruct( void ) {
   destruct_object( this_object() );
 }
 
-int move( mixed destination ) {
+nomask int move( mixed destination ) {
   int err;
   object dest;
 
@@ -285,3 +288,10 @@ void set_detailed_desc( string desc ) {
 string query_detailed_desc( void ) {
 	return( detailed_desc );
 }
+
+void upgraded() {
+  if(clone_num() != 0) {
+    setup();
+  }
+}
+

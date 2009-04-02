@@ -876,3 +876,7 @@ void set_custom_color( string name, string * symbols ) {
   ANSI_D->set_player_translations(custom_colors);
   save_me();
 }
+
+void setup() {
+}
+

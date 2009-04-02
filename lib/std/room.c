@@ -113,6 +113,7 @@ object query_exit_room( string direction ) {
 string query_desc( varargs int brief ) {
   string text;
   int i;
+  object * inventory;
 
   if(!brief) brief = 0;
   text = "%^ROOM_NAME%^" + query_brief() + "%^RESET%^";
@@ -132,6 +133,8 @@ string query_desc( varargs int brief ) {
   text += "%^ROOM_DESC%^" + query_long() + "%^RESET%^";
 
   text += "\n";
+
+  inventory = query_inventory();
 
   if( inventory && sizeof( inventory ) > 1 ) {
     /* There is something in the room */
@@ -178,6 +181,9 @@ string query_room_command( string command ) {
 */
 void message_room( object originator, string str ) {
   int i, sz;
+  object * inventory;
+
+  inventory = query_inventory();
 
   if( !inventory && sizeof(inventory) > 0 ) {
     return;
@@ -195,7 +201,10 @@ void message_room( object originator, string str ) {
 
 void tell_room( object originator, string str, varargs mixed obj...) {
   int i;
-  
+  object * inventory;
+
+  inventory = query_inventory();
+
   if( !inventory && sizeof( inventory ) > 0 ) {
     return;
   }
@@ -218,6 +227,7 @@ string body_exit( object who, string dir ) {
   string error;
   string lname;
   string aname;  
+  object * inventory;
 
   if( !query_exit( dir ) && !query_hidden_exit( dir ) ) {
     write( "You can't go " + dir + ".\n" );
@@ -231,6 +241,8 @@ string body_exit( object who, string dir ) {
     lname = "The " + who->query_id();
     aname = "A " + who->query_id();
   }
+
+  inventory = query_inventory();
 
   /* there is a normal exit */
   if( query_exit( dir ) ) {
@@ -300,11 +312,12 @@ void destruct( void ) {
 
 void event_clean_up( void ) {
   int i;
-
+  object * inventory;
 
   if( time() - last_exit < 60 * 15 ) 
      return;
 
+  inventory = query_inventory();
   for( i = 0; i < sizeof( inventory ); i++ ) {
     if( !inventory[i] )
       continue;
@@ -314,3 +327,9 @@ void event_clean_up( void ) {
 
   destruct();
 }
+
+void upgraded() {
+  ::upgraded();
+  if(clone_num() == 0) setup();
+}
+

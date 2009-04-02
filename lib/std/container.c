@@ -3,10 +3,12 @@
 inherit ob OBJECT;
 
 static object *inventory;
+static mapping inv_map;
 
 void create( void ) {
   ob::create();
-  inventory = ({ });
+  inventory = nil;
+  inv_map = ([ ]);
 }
 
 int is_container( void ) {
@@ -21,43 +23,47 @@ void object_removed( object obj ) {
 
 }
 
-int receive_object( object obj ) {
-  obj = (object "/std/object") obj;
-  if( !inventory )
-    inventory = ({ obj });
-  else
-    inventory += ({ obj });
+int receive_object( object "/std/object" obj ) {
+  if(!inv_map) inv_map = ([ ]);
+
+  inv_map[obj] = time();
 
   object_arrived( obj );
   return 1;
 }
 
 int remove_object( object obj ) {
-  if( !inventory ) 
+  if( !inv_map ) 
     return 0;
   else 
-    inventory -= ({ obj });
+    inv_map[obj] = nil;
   object_removed( obj );
   return 1;
 }
 
-object *query_inventory( void ) {
+nomask object *query_inventory( void ) {
 
-  return( inventory );
+  if(inv_map) 
+    return( map_indices(inv_map) );
+  return ({ });
 }
 
 object find_object_num( string name, int num ) {
   int i,j;
   string *ids;
-  if(inventory)
-	for( i = 0; i < sizeof( inventory ); i ++ ) {
-		ids = inventory[i]->query_ids();
+
+  object * inv;
+  inv = query_inventory();
+
+  if(inv)
+	for( i = 0; i < sizeof( inv ); i ++ ) {
+		ids = inv[i]->query_ids();
 		if( ids ) {
 			for( j = 0; j < sizeof( ids ); j ++ ) {
 				if( lowercase( ids[j] ) == lowercase( name ) ) {
 					num--;
 					if( num == 0 ) 
-						return( inventory[i] );
+						return( inv[i] );
 				}
 			}
 		}
@@ -72,15 +78,19 @@ object find_adj_object_num( string adj, string name, int num ) {
   int i,j,k;
   string *ids;
   string *adjs;
-  for( i = 0; i < sizeof( inventory ); i ++ ) {
-    ids = inventory[i]->query_ids();
+  object *inv;
+
+  inv = query_inventory();
+
+  for( i = 0; i < sizeof( inv ); i ++ ) {
+    ids = inv[i]->query_ids();
 		if( ids ) {
 			for( j = 0; j < sizeof( ids ); j ++ ) {
 				if( lowercase( ids[j] ) == lowercase( name ) ) {
-					if( inventory[i]->is_adj( adj ) == 1 ) {
+					if( inv[i]->is_adj( adj ) == 1 ) {
 						num--;
 						if( num == 0 )
-							return( inventory[i] );
+							return( inv[i] );
 					}
 				}
 			}
@@ -97,21 +107,25 @@ object find_adjs_object_num( string *adj, string name, int num ) {
   int i,j,k;
 	string *ids;
 	string *adjs;
-	for( i = 0; i < sizeof( inventory ); i ++ ) {
-		ids = inventory[i]->query_ids();
+  object *inv;
+
+  inv = query_inventory();
+
+	for( i = 0; i < sizeof( inv ); i ++ ) {
+		ids = inv[i]->query_ids();
 		if( ids ) {
 			for( j = 0; j < sizeof( ids ); j ++ ) {
 				if( lowercase( ids[j] ) == lowercase( name ) ) {
 					int nFound;
 					nFound = 1;
 					for( k = 0; k < sizeof( adj ); k++ ) {
-						if( !inventory[i]->is_adj( adj[k] ) )
+						if( !inv[i]->is_adj( adj[k] ) )
 							nFound = 0;
 					}
 					if( nFound ) {
 						num--;
 						if( num == 0 )
-							return( inventory[i] );
+							return( inv[i] );
 					}
 				}
 			}
@@ -128,10 +142,14 @@ void set_objects( mapping obs ) {
   object ob;
   string *filename;
   string name;
-  int i;
+  int i, j;
   int num;
+  object *inv;
+
+  inv = query_inventory();
 
   filename = map_indices( obs );
+
   for( i = 0; i < sizeof( filename ); i++ ) {
     if( strstr( filename[i], "#" ) != -1 ) {
       name = filename[i][0..strstr( filename[i], "#" )-1];
@@ -146,6 +164,13 @@ void set_objects( mapping obs ) {
       ob->mudlib_setup( obs[filename[i]] );
     } else {
       num = obs[filename[i]];
+      
+      for(j = 0; j < sizeof( inv ); j++) {
+        if(inv[j]->base_name() == filename[i]) {
+          num--;
+        }
+      }
+
       while( num > 0 ) {
         ob = clone_object( name );
         ob->move( object_name( this_object() ) );
@@ -160,7 +185,7 @@ void move_or_destruct_inventory() {
   object dst, *items;
   int i,sz;
 
-  items = inventory - ({ nil, 0 });
+  items = query_inventory();
 
   dst = this_object()->query_environment();
   sz = sizeof(items);
@@ -176,4 +201,20 @@ void move_or_destruct_inventory() {
   }
 }
 
-  
+void upgraded() {
+  int i, sz;
+
+  if(inventory) {
+    inventory -= ({ 0, nil });
+
+    inv_map = ([ ]);
+
+    for(i = 0, sz = sizeof(inventory); i < sz; i++) {
+      inv_map[inventory[i]] = 1;
+    }
+    inventory = nil;
+  }
+
+  ::upgraded();
+}
+

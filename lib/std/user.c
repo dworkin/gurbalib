@@ -6,12 +6,18 @@ inherit "/std/modules/m_autoload_string";
 #include <mssp.h>
 
 object player;
+object ansid;
 
 string user_name;
 static int timeout_handle;
 object query_player( void );
 
 void create() {
+  ansid = find_object(ANSI_D);
+  if(!ansid) {
+    ansid = compile_object(ANSI_D);
+  }
+
   user_name = "";
 }
 
@@ -104,9 +110,9 @@ void put_message( string str ) {
     return;
 
   if( query_player()->query_ansi() )
-    msg = ANSI_D->parse_colors( str );
+    msg = ansid->parse_colors( str );
   else
-    msg = ANSI_D->strip_colors( str );
+    msg = ansid->strip_colors( str );
   send_message( msg );
 }
 
@@ -138,7 +144,7 @@ void wrap_message( string str ) {
   for( j = 0; j < sizeof( lines ); j++ ) {
     str = lines[j];
     msg = str;
-    if( strlen( ANSI_D->strip_colors( str ) ) > width ) {
+    if( strlen( ansid->strip_colors( str ) ) > width ) {
       sz = 0;
 
       words = explode( str, " " );
@@ -148,10 +154,10 @@ void wrap_message( string str ) {
    if( strlen( words[i] ) > 4 ) {
      if( strstr( words[i], "%^" ) != -1 ) {
        if( sz == 0 ) {
-         sz += strlen( ANSI_D->strip_colors( words[i] ) );
+         sz += strlen( ansid->strip_colors( words[i] ) );
          msg += words[i];
        } else {
-         sz += strlen( ANSI_D->strip_colors( words[i] ) ) + 1;
+         sz += strlen( ansid->strip_colors( words[i] ) ) + 1;
          msg += " " + words[i];
        }
        continue;
@@ -173,9 +179,9 @@ void wrap_message( string str ) {
       }
     }
     if( query_player()->query_ansi() )
-      msg = ANSI_D->parse_colors( msg );
+      msg = ansid->parse_colors( msg );
     else
-      msg = ANSI_D->strip_colors( msg );
+      msg = ansid->strip_colors( msg );
     send_message( msg + "\n" );
   }
 }
@@ -576,3 +582,6 @@ void receive_error(string err) {
   _receive_error(allocate(DRIVER->query_tls_size()), err);
 }
 
+void upgraded() {
+  ansid = find_object(ANSI_D);
+}
