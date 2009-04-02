@@ -52,10 +52,15 @@ int count;
 int ocount;
 int ident;
 
+int shutting_down;
+
 object compiler_d;
 object error_d;
 object secure_d;
 object syslog_d;
+
+object * users;
+object * ports;
 
 void direct_message(string str) {
   send_message(str);
@@ -239,6 +244,9 @@ static void _initialize(mixed * tls) {
   message( "Setting up call outs\n" );
   call_out( "clean_up", 60 );
   call_out( "heart_beat", 2 );
+#ifdef SYS_PERSIST
+  call_out( "save_game", DUMP_INTERVAL );
+#endif
   message( "Done.\n" );
 }
 
@@ -265,6 +273,21 @@ static void clean_up() {
   _clean_up(allocate(query_tls_size()));
 }
 
+static void _save_game(mixed * tls) {
+  users = users();
+  ports = ports();
+
+#ifdef SYS_PERSIST
+  dump_state();
+
+  call_out("save_game",DUMP_INTERVAL);
+#endif
+}
+
+static void save_game() {
+  _save_game(allocate(query_tls_size()));
+}
+
 object clone_object( string path ) {
   object ob;
 
@@ -277,8 +300,27 @@ object clone_object( string path ) {
 }
 
 static void _restored(mixed * tls) {
-  message( "DGD " + status()[ST_VERSION] + " running Gurba.\n" );
-  call_other("/daemons/telnet_d","initialize");
+  int i, sz;
+  object p;
+
+  message( status()[ST_VERSION] + " running " + LIB_NAME + " " + LIB_VERSION + ".\n");
+  
+  shutting_down = 0;
+
+  if(users) {
+    for( i = 0, sz = sizeof(users); i < sz; i++ ) {
+      p = users[i]->query_player();
+      if(p) p->do_quit("");
+      else users[i]->_F_destruct();
+    }
+  }
+
+  if(ports) {
+    for( i = 0, sz = sizeof(ports); i < sz; i++ ) {
+      ports[i]->reopen();
+    }
+  }
+
   message( "State restored.\n" );
 }
 
@@ -538,15 +580,46 @@ void _interrupt(mixed * tls) {
   for( i=0; i < sizeof( usrs ); i++ ) {
     p = usrs[i]->query_player();
     if(p) p->do_quit("");
-    else destruct_object(usrs[i]);
+    else usrs[i]->_F_destruct();
   }
-  message( "Shutting down." );
+  message( "Shutting down.\n" );
   shutdown();
 }
 
 void interrupt() {
   _interrupt(allocate(query_tls_size()));
 }
+
+
+void start_shutdown() {
+  object p;
+  int i;
+
+  users = users();
+  for( i=0; i < sizeof( users ); i++ ) {
+    p = users[i]->query_player();
+    if(p) p->do_quit("");
+    else users[i]->_F_destruct();
+  }
+  users = users();
+  ports = ports();
+  shutting_down = call_out("do_shutdown",0);
+
+#ifdef SYS_PERSIST
+  dump_state();
+  message( "State dumped.\n" ):
+#endif
+  message( "Shutting down.\n" );
+}
+
+static void _do_shutdown(mixed * tls) {
+  if(shutting_down) shutdown();
+}
+
+static void do_shutdown() {
+  _do_shutdown(allocate(query_tls_size()));
+}
+
 
 void compile_error( string file, int line, string err ) {
 

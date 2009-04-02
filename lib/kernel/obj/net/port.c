@@ -135,4 +135,13 @@ static void _receive_datagram(mixed * tls, string str, string ip, int p) {
 static void receive_datagram(string str, string ip, int p) {
   _receive_datagram(DRIVER->new_tls(), str, ip, p);
 }
+
+void reopen() {
+  if(previous_program() == DRIVER) {
+    console_msg("Reopening port "+protocol+":"+port+"\n");
+    ::open_port(protocol, port);
+  } else {
+    error("Bad call to reopen");
+  }
+}
 #endif

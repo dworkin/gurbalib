@@ -550,7 +550,7 @@ void receive_message(string str) {
 int close(varargs int force) {
   connected = 0;
   IMUDLOG( "Connection lost.\n" );
-  call_out( "reconnect", 120 );
+  call_out( "reconnect", 30 );
   return connected == 0;
 }
 

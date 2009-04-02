@@ -70,6 +70,7 @@
 #include "afun/strstr.c"
 #include "afun/replace_string.c"
 #include "afun/invert_exit.c"
+#include "afun/shutdown.c"
 
 #include "sys/_F_create.c"
 #include "sys/_F_destruct.c"

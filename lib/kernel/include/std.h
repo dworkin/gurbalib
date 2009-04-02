@@ -8,6 +8,8 @@
 #include "CONFIG"
 
 #define SYS_COLOR
+#define SYS_PERSIST
+#define DUMP_INTERVAL 3600
 
 #include <mudname.h>
 
