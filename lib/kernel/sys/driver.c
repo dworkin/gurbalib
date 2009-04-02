@@ -607,7 +607,7 @@ void start_shutdown() {
 
 #ifdef SYS_PERSIST
   dump_state();
-  message( "State dumped.\n" ):
+  message( "State dumped.\n" );
 #endif
   message( "Shutting down.\n" );
 }
