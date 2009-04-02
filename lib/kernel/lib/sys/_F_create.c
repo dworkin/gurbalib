@@ -8,6 +8,8 @@
  * Aidil@Way of the Force
  */
 
+private int configured;
+
 atomic private void add_clone() {
   object * ptr;
   object master;
@@ -60,24 +62,27 @@ nomask void _F_create() {
    */
   if(clone_num() && !_cloner) return;
 
-  switch(clone_num()) {
+  if(!configured++) {
+    switch(clone_num()) {
 
-    /* LWO, unhandled for now */
-    case -1 : 
-      break;
+      /* LWO, unhandled for now */
+      case -1 : 
+        break;
 
-    /* Blueprint, setup clonelist */
-    case 0  :
-      set_list( "clones", ({ nil, nil }) );
-      break;
+      /* Blueprint, setup clonelist */
+      case 0  :
+        set_list( "clones", ({ nil, nil }) );
+        break;
 
-    /* Clone, add to clone list */
-    default :
-      add_clone();
-      break;
+      /* Clone, add to clone list */
+      default :
+        add_clone();
+        break;
+    }
   }
 
   driver = find_object(DRIVER);
+
   if(object_name(this_object()) == SECURE_D) {
     secure_d = this_object();
   } else {

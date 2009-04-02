@@ -138,6 +138,7 @@ string owner_file(string file) {
       break;
     case "daemons" :
     case "sys"     :
+    case "cmds"    :
       return "system";
       break;
     case "wiz"     :

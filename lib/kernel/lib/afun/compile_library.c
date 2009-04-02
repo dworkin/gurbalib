@@ -1,4 +1,11 @@
+void write(string message);
+
 static int compile_library( string path, varargs string code ) {
+  object ob, tmp;
+  string ** depends;
+  int i,sz;
+  mapping queue;
+
   argcheck( path, 1, "string" );
 
   if( strlen(path) > 2 ) {
@@ -11,12 +18,30 @@ static int compile_library( string path, varargs string code ) {
   }
 
   if(path) {
-    if( ::find_object( path ) ) {
-      destruct_object( ::find_object( path ) );
-    }
+    tmp = ::find_object( path );
+    if(tmp) {
+      string ** depends;
+      int i, sz, ret;
 
-    driver->compile_object( path, code );
-    return 1;
+      depends = COMPILER_D->find_all_depending_programs((path+"#"+status(tmp)[O_INDEX]))+ ({ });
+      if( arrayp(depends) ) {
+        for( i = 0, sz = sizeof( depends[0] ); i < sz; i++ ) {
+          console_msg("calling compiler_d->add_upqueue()\n");
+          COMPILER_D->add_upqueue( depends[0][i] );
+        }
+        for( i = 0, sz = sizeof( depends[1] ); i < sz; i++ ) {
+          COMPILER_D->add_upqueue( depends[1][i] );
+        }
+      }
+
+      destruct_object( tmp );
+    }
+    if(code) ob = driver->compile_object( path, code );
+    else ob = driver->compile_object( path );
+
+    if( ob ) {
+      return 1;
+    }
   }
 }
 

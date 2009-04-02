@@ -1,0 +1,55 @@
+Rebuilding objects after you changed an inheritable
+
+  Method 1: 
+
+    > update <path to inheritable>
+
+    then if it compiled properly
+
+    > rebuild
+
+    This method is mostly suited for changes to domain
+    inheritables and things from /std.
+
+  Method 2:
+
+    > warmboot
+
+    This will rebuild everything as follows:
+
+    first /kernel/sys/driver, /kernel/lib/auto and 
+    /kernel/daemons/compiler_d are recompiled.
+
+    If this fails, the compile is rolled back and
+    nothing is updated.
+
+    second, all other objects are recompiled. Failures
+    during this phase cannot be rolled back. Recompilation
+    will stop when an object fails to compile.
+
+
+  What happens under the hood
+
+    When you use the update command, it checks with compiler_d
+    to see if you are recompiling an inheritable, and if so, it
+    requests a list of all objects that directly or indirectly
+    inherit this inheritable.
+
+    Those objects are added to a queue which is then checked by
+    the rebuild command.
+
+    The warmboot command does all of this in one go, and also
+    ensures that important objects in /kernel get recompiled in
+    the proper order.
+
+Handling include files
+
+  The update/rebuild sequence doesn't work for include files yet.
+  You will have to use the warmboot command.
+
+Testing your changes
+
+  Often, it is useful to try to recompile the code you changed
+  including a few objects that use that code. This is not
+  mandatory.
+

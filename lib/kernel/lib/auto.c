@@ -8,6 +8,7 @@
 #include <type.h>
 #include <privileges.h>
 #include <tlsvar.h>
+#include <status.h>
 
 #define LIST_PREV 0
 #define LIST_NEXT 1

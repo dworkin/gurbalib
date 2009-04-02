@@ -1,6 +1,8 @@
 inherit M_BOARD;
 
 void setup( void ) {
+  if(clone_num() == 0) return;
+  if(!query_environment()) return;
   set_id( "board" );
   set_adj( "message", "large" );
   set_long( "" );

@@ -10,14 +10,16 @@ void setup( void ) {
   set_long( "Bob is the leader of the Fighter's Guild. He is gray-haired, but this does not by any means indicate weakness. After all, to stay the leader you probably need to be pretty good at what you do." );
   set_race( "human" );
   add_block( "north" );
-  set_actions( 80, ({
-    "say Surely you seek the path of a fighter!",
+  if(clone_num() != 0) {
+    set_actions( 80, ({
+      "say Surely you seek the path of a fighter!",
       "say All you have to do is say 'join'.",
       "say Say 'join' to become a fighter.",
       "smile",
       "emote waves his sword around a bit while whistling.",
       })
-	       );
+    );
+  }
   add_pattern( "%s says: Join", "call join_guild $1" );
   add_pattern( "%s says: Leave", "call leave_guild $1" );
   add_pattern( "%s smiles.", "smile $1" );

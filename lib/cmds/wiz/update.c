@@ -10,7 +10,7 @@ void create() {
  *
  */
 static int recompile_library(string str) {
-  return compile_library(str);
+  return compile_library( str );
 }
 
 static object recompile_object(string str) {
@@ -50,7 +50,6 @@ void main( string str ) {
   object *objs;
   object *players;
   object ob;
-  object old_room;
   int i;
 
 
@@ -84,34 +83,28 @@ void main( string str ) {
 
     this_player()->write( str + "\n" ); 
 
-    ob = compile_object( str );
-
-    if( ob ) {
-      /* It compiled fine. Move'em. */
-      objs = this_environment()->query_inventory();
-      players = ({ });
-      for( i = 0; i < sizeof( objs ); i++ ) {
-	if( objs[i]->is_player() )
-	  players += ({ objs[i] });
+    objs = this_environment()->query_inventory();
+    players = ({ });
+    for( i = 0; i < sizeof( objs ); i++ ) {
+      if( objs[i]->is_player() ) {
+        players += ({ objs[i] });
+      } else {
+        objs[i]->destruct();
       }
-      
-      old_room = this_environment();
-      
-      for( i = 0; i < sizeof( players ); i++ ) {
-	players[i]->move( "/rooms/void" );
-      }
-      
-      old_room->destruct();
-
-      /* And move into the new room */
-
-      call_other( str, "???" );
-
-      for( i = 0; i < sizeof( players ); i++ ) {
-	players[i]->move( str );
-      }
-      this_player()->do_look( 0 );
     }
+      
+    for( i = 0; i < sizeof( players ); i++ ) {
+      players[i]->move( "/rooms/void" );
+    }
+      
+    ob = compile_object(str);
+
+    /* And move into the new room */
+
+    for( i = 0; i < sizeof( players ); i++ ) {
+      players[i]->move( str );
+    }
+    this_player()->do_look( 0 );
   } else if( file_exists( path + ".c" ) ) {
     this_player()->set_env( "cwf", path );
     if( compiler_d->test_inheritable( path ) ) {

@@ -12,6 +12,7 @@
  *
  */
 int count;
+int inat;
 
 static void create() {
   DRIVER->register_error_d();
@@ -161,6 +162,7 @@ void runtime_error(string error, mixed **trace, int caught, int ticks, int atom)
    * error, except for output to the console, so that is what we do to leave a trace
    * of the error.
    */
+    inat++;
     console_msg(result);
   }
 }
@@ -177,7 +179,8 @@ void compile_error( string file, int line, string err ) {
   error = format_compile_error( file, line, err );
   console_msg( error );
 
-  write_file("/logs/errors/compile", error);
+  if(!inat) write_file("/logs/errors/compile", error);
+  else console_msg("Compile error during atomic execution.\n");
 
   usr = this_user();
   if( usr ) {

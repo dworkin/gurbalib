@@ -174,7 +174,7 @@ string parse_colors( string str , varargs int curdepth ) {
 
   tmp = explode( str, "%^" );
 
-  rlimits(MAX_DEPTH; MAX_TICKS) {
+  rlimits(MAX_DEPTH; MAX_TICKS * 10000) {
     for( i=0; i < sizeof( tmp ); i++ ) {
       if( translations[tmp[i]] ) {
         tmp[i] = translations[ tmp[i] ];

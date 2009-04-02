@@ -10,6 +10,8 @@ string normalize_path(string file, string dir)
   argcheck( file, 1, "string" );
   argcheck( dir, 2, "string" );
 
+  if(!secure_d) secure_d = ::find_object(SECURE_D);
+
   if (strlen(file) == 0) {
     file = dir;
   }

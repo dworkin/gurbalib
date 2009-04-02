@@ -1,11 +1,18 @@
 /* $Id: driver.c,v 1.4 1998/02/22 13:43:51 esimonse Exp $ */
 
-/* $Log: driver.c,v $
+/*
+ * Major changes by Aidil to support an external compiler_d
+ * and error_d.
+ *
+ * Original changelog from before Gurbalib 0.41:
+ *
+ * $Log: driver.c,v $
  * Revision 1.4  1998/02/22 13:43:51  esimonse
  * Added support for editing
  *
  * Revision 1.3  1998/01/29 16:11:58  esimonse
  * Added Id and Log.
+ *
  * */
 
 #include <status.h>
@@ -14,6 +21,10 @@
 #include <trace.h>
 #include <tlsvar.h>
 #include <privileges.h>
+
+#include "/kernel/lib/afun/dump_value.c"
+
+#define PAD "                                                                       "
 
 /*
  * Used by object_type(), maps between shortnames for
@@ -27,19 +38,35 @@
   "compiler"   :"/kernel/daemon/compiler"\
 ])
 
+/*
+ * Some prototypes
+ *
+ */
 int query_tls_size();
 void set_tls_size(int size);
 mixed get_tlvar(int index);
 void set_tlvar(int index, mixed value);
 
 int tls_size;
+int count;
+int ocount;
+int ident;
 
 object compiler_d;
 object error_d;
 object secure_d;
+object syslog_d;
+
+void direct_message(string str) {
+  send_message(str);
+}
 
 void message(string str) {
-  send_message(ctime(time())[4 .. 18] + " ** " + str);
+  if(syslog_d) {
+    syslog_d->log_message(previous_object(), previous_program(), str);
+  } else {
+    direct_message(ctime(time())[4 .. 18] + " ** " + str);
+  }
 }
 
 void upgrade_done() {
@@ -72,20 +99,41 @@ void queue_upgrade(object ob) {
   }
 
   if(ob)
-    call_out("queue_upgrade",0,ob);
+    call_out("continue_queue_upgrade",0,ob);
   else
     upgrade_done();
 }
 
+/*
+ * Ensure we have a TLS after the call_out
+ *
+ */
+void _continue_queue_upgrade(mixed * tls, object ob) {
+  queue_upgrade(ob);
+}
 
+void continue_queue_upgrade(object ob) {
+  _continue_queue_upgrade(allocate(query_tls_size()), ob);
+}
+
+/*
+ * Compile an object
+ *
+ * Don't use this to compile inheritables!
+ *
+ */
 object compile_object( string path, varargs string code ) {
   mixed stuff;
-  object ob;
+  object ob, auto;
   int mark;
      
+  ocount++;
+
   set_tlvar(TLS_INCLUDES, ({ "/kernel/include/std.h" }) );
   set_tlvar(TLS_INHERITS, ({ }) );
   set_tlvar(TLS_COMPILING, path);
+
+  ident++;
 
   if(path != DRIVER && find_object(path)) mark = 1;
 
@@ -104,16 +152,21 @@ object compile_object( string path, varargs string code ) {
     ob = ::compile_object( path );
   }
 
-  if(get_tlvar(TLS_COMPILING) != AUTO && get_tlvar(TLS_COMPILING) != DRIVER) {
-    set_tlvar( TLS_INHERITS, ({ find_object( AUTO ) }) | get_tlvar( TLS_INHERITS ) );
+  if( path != DRIVER && path != AUTO ) {
+    set_tlvar(TLS_INHERITS, ( ({ find_object(AUTO) }) | get_tlvar(TLS_INHERITS) ) );
   }
 
-  set_tlvar(TLS_COMPILING, nil);
+  ident--;
+
 
   if(compiler_d) {
     compiler_d->register_includes( ob, get_tlvar(TLS_INCLUDES) );
     compiler_d->register_inherits( ob, get_tlvar(TLS_INHERITS) );
   }
+
+  set_tlvar(TLS_INCLUDES, ({ }));
+  set_tlvar(TLS_INHERITS, ({ }));
+  set_tlvar(TLS_COMPILING, nil);
 
   if(mark) {
     queue_upgrade(ob);
@@ -155,8 +208,6 @@ static void _initialize(mixed * tls) {
   call_other( SECURE_D, "???" );
   call_other( COMPILER_D, "???" );
   call_other( ERROR_D, "???" );
-  message( "Preloading...\n" );
-  compile_object( STARTING_ROOM );
 
   message( "Setting up events\n" );
   EVENT_D->add_event( "clean_up" );
@@ -183,13 +234,15 @@ static void _initialize(mixed * tls) {
   call_other( LANGUAGE_D, "???" );
   call_other( PARSE_D, "???" );
 
+  compile_object( STARTING_ROOM );
+
   message( "Setting up call outs\n" );
   call_out( "clean_up", 60 );
   call_out( "heart_beat", 2 );
   message( "Done.\n" );
 }
 
-static void initialize() {
+static initialize() {
   tls_size = DEFAULT_TLS_SIZE + 2; 
   _initialize(allocate(query_tls_size()));
 }
@@ -337,14 +390,16 @@ string path_write( string path ) {
 object call_object( string name ) {
   object ob;
 
-  if(compiler_d) {
-    name = compiler_d->allow_object(name);
-  }
+  rlimits(MAX_DEPTH; MAX_TICKS) {
+    if(compiler_d) {
+      name = compiler_d->allow_object(name);
+    }
 
-  if( ob = find_object(name) )
+    if( ob = find_object(name) )
+      return ob;
+    ob = compile_object(name);
     return ob;
-  ob = compile_object(name);
-  return ob;
+  }
 }
 
 object inherit_program( string file, string program, int priv ) {
@@ -354,6 +409,11 @@ object inherit_program( string file, string program, int priv ) {
   string old_compiling;
   mixed stuff;
   string code;
+  int c;
+
+  c = count++;
+
+  ident++;
 
   if( compiler_d ) {
     program = compiler_d->allow_inherit(program, file);
@@ -364,10 +424,10 @@ object inherit_program( string file, string program, int priv ) {
     old_includes = get_tlvar( TLS_INCLUDES );
     old_inherits = get_tlvar( TLS_INHERITS );
     old_compiling = get_tlvar( TLS_COMPILING );
+
     set_tlvar( TLS_INCLUDES, ({ "/kernel/includes/std.h" }) );
     set_tlvar( TLS_INHERITS, ({ }) );
     set_tlvar( TLS_COMPILING, program );
-
 
     if(compiler_d) {
       stuff = compiler_d->allow_compile(program, nil);
@@ -384,8 +444,12 @@ object inherit_program( string file, string program, int priv ) {
       ob = ::compile_object( program );
     }
 
-    if(  get_tlvar( TLS_COMPILING ) != AUTO ) {
+    if( get_tlvar( TLS_COMPILING ) != AUTO ) {
       set_tlvar(TLS_INHERITS, ({ find_object(AUTO) }) | get_tlvar(TLS_INHERITS) );
+    }
+
+    if( program != DRIVER && program != AUTO ) {
+      set_tlvar(TLS_INHERITS, ( ({ find_object(AUTO) }) | get_tlvar(TLS_INHERITS) ) );
     }
 
     if(compiler_d) {
@@ -400,8 +464,12 @@ object inherit_program( string file, string program, int priv ) {
 
   if(ob) {
     set_tlvar(TLS_INHERITS, get_tlvar(TLS_INHERITS) | ({ ob }) );
+
+  } else {
+    error("NO OB");
   }
 
+  ident--;
   return ob;
 }
 
@@ -426,6 +494,15 @@ string include_file( string file, string path ) {
 }
 
 void recompile( object obj ) {
+  object * stuff;
+
+  stuff = get_tlvar(TLS_INHERITS);
+
+  if(stuff) {
+    stuff -= ({ obj });
+    set_tlvar(TLS_INHERITS, stuff);
+  }
+
 #ifdef DEBUG_RECOMPILE
   message("auto recompile inheritable: "+object_name(ob)+"\n");
 #endif
@@ -578,8 +655,7 @@ static string object_type(string from, string obtype) {
 }
 
 int compile_rlimits( string objname ) {
-  if(sscanf(objname,"/kernel/%*s") == 1 || sscanf(objname,"/daemons/%*s") == 1 || sscanf(objname,"/std/%*s") == 1 ) {
-    message( "compile rlimits permitted for " + objname + "\n" );
+  if(sscanf(objname,"/kernel/%*s") == 1 || sscanf(objname,"/daemons/%*s") == 1 || sscanf(objname,"/std/%*s") == 1  || objname == "/cmds/wiz/rebuild" ) {
     return 1;
   } else {
     message( "compile rlimits denied for " + objname + "\n" );
@@ -602,6 +678,7 @@ void remove_program( string ob, int t, int issue ) {
 #ifdef DEBUG_RECOMPILE
   message("Program "+ob + ", issue:"+issue+" ("+ctime(t)+") is no longer referenced\n" );
 #endif
+  if(compiler_d) compiler_d->clear_inherits(ob, issue);
 }
 
 /*
