@@ -41,7 +41,7 @@ void die( void ) {
   }
   obj->move( this_object()->query_environment() );
 
-  if(!this_object()->query_player()) {
+  if( !this_object()->is_player() ) {
     EVENT_D->unsubscribe_event("heart_beat");
     this_object()->destruct();
   }
