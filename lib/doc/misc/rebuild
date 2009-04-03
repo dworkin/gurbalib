@@ -42,6 +42,92 @@ Rebuilding objects after you changed an inheritable
     ensures that important objects in /kernel get recompiled in
     the proper order.
 
+Dealing with changes
+
+  Just recompiling an object isn't always enough.
+
+  If your object sets some variables in the create()
+  function, and you then change create() to set those
+  variables to something else, that change will not
+  show after a recompile.
+
+  The reason for this is that a recompile does NOT call
+  create(), and it really shouldn't do so. create() is only
+  called when the object is newly created.
+
+  For normal game objects, there is a setup() function that
+  you have to define. This function is called both when the
+  object is created and when it has been recompiled.
+
+  Things like setting ids, descriptions and such things should
+  therefore be done in setup(), and not in create() at least,
+  if you want changes to such things to show after a recompile.
+
+  After an object has been recompiled, the function
+  upgraded() will be called in it and all of its clones.
+
+  This upgraded() function should take care of any
+  changes in the internal data structure of an object.
+
+  /std/object.c has an upgraded() function that will ensure
+  setup() is called in all clones of an object, but NOT in
+  the 'blueprint' of an object. If you need setup to be called
+  in the blueprint, you MUST add your own upgraded() function
+  that looks as follows:
+
+  -----------------------------------
+  void upgraded() {
+    if(clone_num() == 0) setup();
+    ::upgraded();
+  }
+  -----------------------------------
+
+  Additionally, you may want to change the internal data format
+  or global variables in your object. In that case you must
+  provide for your own upgraded() function also. Be sure to
+  do ::upgraded() there in all objects that inherit /std/object.c !
+
+  A few notes for properly writing an upgraded() function:
+
+  * It is quite possible that upgraded() gets called without
+    you expecting it. This can happen when a system library
+    is changed, and all objects depending on it are upgraded.
+
+    Your upgraded() function should make sure this is not a
+    problem for example by checking if it has to do anything.
+
+    You could easily do this by keeping a version number in a
+    variable and checking on it. A small example of this:
+
+    ---------------------
+
+    #define VERSION 3;
+
+    int version;
+
+    void upgraded() {
+      if(version != VERSION) { /* Upgrade needed */
+        .....
+        version = VERSION;
+      }
+      ::upgraded();
+    }
+
+    ----------------------
+
+    When you want upgraded() to do some work next time it gets
+    called, you have to change the number in the #define line.
+    upgraded() will be called, do its work, and ensure it wont
+    run again until the define is changed again.
+
+  * It may be a very good idea to write your setup function
+    such that it can be called repeatedly without causing probs.
+
+  * In order to handle changing the name or type of a variable,
+    you have to first add a new variable, change upgraded() to
+    move the information to the new variable, recompile, then
+    remove the old variable and recompile once more.
+
 Handling include files
 
   The update/rebuild sequence doesn't work for include files yet.
