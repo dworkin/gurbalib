@@ -15,6 +15,7 @@ void main(string str) {
             player->query_environment()->tell_room(player, capitalize(player->query_name()) + " disappears in a flurry of fluff.\n");
             player->move(this_player()->query_environment());
             player->message( "You abruptly find yourself somewhere else.\n" );
+            player->do_look(0);
             player->query_environment()->tell_room( player, capitalize(player->query_name()) + " appears in a cloud of fluff.\n" );
         } else {
             write(capitalize(str) + " is already here.\n");
