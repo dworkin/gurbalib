@@ -8,8 +8,18 @@
 #include "CONFIG"
 
 #define SYS_COLOR
+
+#ifndef SYS_PERSIST
 #define SYS_PERSIST
+#endif
+
+#ifndef WORLD_PERSIST
+#define WORLD_PERSIST 0
+#endif
+
+#ifndef DUMP_INTERVAL
 #define DUMP_INTERVAL 3600
+#endif
 
 #include <mudname.h>
 
@@ -56,6 +66,7 @@
 #define GUILD_D      "/daemons/guild_d"
 #define PARSE_D      "/daemons/parse_d"
 #define MSG_D        "/daemons/messages_d"
+#define SCHEDULE_D   "/daemons/schedule_d"
 
 #define CONNECTION      "/kernel/obj/net/connection"
 #define PORT            "/kernel/obj/net/port"

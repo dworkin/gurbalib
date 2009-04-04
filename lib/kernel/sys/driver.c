@@ -215,13 +215,16 @@ static void _initialize(mixed * tls) {
   call_other( ERROR_D, "???" );
 
   message( "Setting up events\n" );
-  EVENT_D->add_event( "clean_up" );
   EVENT_D->add_event( "player_login" );
   EVENT_D->add_event( "player_logout" );
-  EVENT_D->add_event( "heart_beat" );
   EVENT_D->add_event( "new_player" );
 
   message( "Setting up daemons\n" );
+/*
+ * SCHEDULE_D comes first as it sets up all timed events
+ * that other daemons might count on.
+ */
+  call_other( SCHEDULE_D, "???" );
   call_other( CHANNEL_D, "???" );
   call_other( TIME_D, "???" );
 #ifdef SYS_NETWORKING
@@ -256,8 +259,7 @@ static initialize() {
 }
 
 static void _heart_beat( mixed * tls ) {
-  EVENT_D->event( "heart_beat" );
-  call_out( "heart_beat", 2 );
+  call_other(SCHEDULE_D, "???");
 }
 
 static void heart_beat() {
@@ -265,8 +267,6 @@ static void heart_beat() {
 }
 
 static void _clean_up( mixed * tls ) {
-  EVENT_D->event( "clean_up" );
-  call_out( "clean_up", 60 );
 }
 
 static void clean_up() {
@@ -279,12 +279,10 @@ static void _save_game(mixed * tls) {
 
 #ifdef SYS_PERSIST
   dump_state();
-
-  call_out("save_game",DUMP_INTERVAL);
 #endif
 }
 
-static void save_game() {
+void save_game() {
   _save_game(allocate(query_tls_size()));
 }
 
