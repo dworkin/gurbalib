@@ -40,6 +40,8 @@ static void rebuild_world(object p) {
   mapping edges;
   string * users;
 
+  DRIVER->update_tls_size();
+
   p->message("Rebuilding remaining objects.");
 
   edges = COMPILER_D->query_upqueue();

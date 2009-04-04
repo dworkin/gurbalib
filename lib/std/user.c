@@ -188,7 +188,14 @@ void wrap_message( string str ) {
 
 static void _receive_message( mixed * tls, string message ) {
   rlimits(MAX_DEPTH; MAX_TICKS) {
+    if(player->query_possessing()) {
+      set_this_player(player->query_possessing());
+    } else {
+      set_this_player(player);
+    }
+
     player->receive_message( message );
+    set_this_player(nil);
   }
 }
 

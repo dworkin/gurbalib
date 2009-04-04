@@ -9,6 +9,8 @@
  *
  */
 
+#include <tlsvar.h>
+
 nomask int is_game_object() {
   return 1;
 }

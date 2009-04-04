@@ -765,6 +765,10 @@ void set_tls_size(int s) {
   }
 }
 
+void update_tls_size() {
+  set_tls_size(DEFAULT_TLS_SIZE);
+}
+
 int query_tls_size() {
     return tls_size;
 }

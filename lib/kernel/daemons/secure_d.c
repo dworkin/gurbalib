@@ -122,12 +122,8 @@ string owner_file(string file) {
 
   argcheck(file, 1, "string");
 
-/*
-  file = normalize_path(file, previous_program()+"../");
-*/
-
   if( sizeof( ({ file }) & ROOT_OVERRIDE ) ) {
-    return "root";
+    return "system";
   }
 
   parts = explode(file, "/");
@@ -140,6 +136,12 @@ string owner_file(string file) {
     case "sys"     :
     case "cmds"    :
       return "system";
+      break;
+    case "std"     :
+    case "obj"     :
+    case "game"    :
+    case "logs"    :
+      return "game";
       break;
     case "wiz"     :
     case "domains" :

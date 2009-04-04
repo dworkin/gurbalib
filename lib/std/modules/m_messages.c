@@ -207,9 +207,20 @@ string *compose_message( object who, string msg, object target, varargs mixed *o
 
 void simple_action( string msg, varargs mixed objs...) {
   string *result;
-  result = compose_message( this_player(), msg, nil, objs );
-  this_environment()->tell_room( this_object(), result[2] );
-  write( capitalize( result[0] ) );
+  object sp;
+
+  sp = this_player();
+  set_this_player(this_object());
+
+  catch {
+    result = compose_message( this_player(), msg, nil, objs );
+    this_environment()->tell_room( this_object(), result[2] );
+    write( capitalize( result[0] ) );
+    set_this_player(sp);
+  } : {
+    set_this_player(sp);
+    rethrow();
+  }
 }
 
 void targetted_action( string msg, object target, varargs mixed objs...) {
