@@ -8,6 +8,8 @@ static mapping hidden_exits;
 static mapping areas;
 static mapping room_commands;
 static int last_exit;
+static mapping wanted_objects;
+private int configured;
 
 void setup( void );
 
@@ -19,12 +21,14 @@ void create( void ) {
   add_event( "body_look_at" );
   add_event( "room_message" );
   EVENT_D->subscribe_event( "clean_up" );
+  EVENT_D->subscribe_event( "reset" );
   exits = ([]);
   hidden_exits = ([]);
   areas = ([]);
   room_commands = ([]);
   last_exit = 0;
   setup();
+  configured = 1;
 }
 
 void add_area( string str ) {
@@ -303,11 +307,24 @@ string body_exit( object who, string dir ) {
   return( nil );
 }
 
+void set_objects(mapping objs) {
+  wanted_objects = objs;
+  if(!configured) {
+    ::set_objects(objs);
+  }
+}
+
 void destruct( void ) {
   move_or_destruct_inventory();
 
   EVENT_D->unsubscribe_event( "clean_up" );
   ::destruct();
+}
+
+void event_reset( void ) {
+  if(wanted_objects) {
+    ::set_objects(wanted_objects);
+  }
 }
 
 void event_clean_up( void ) {
