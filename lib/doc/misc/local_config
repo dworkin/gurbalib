@@ -31,3 +31,18 @@ error occurs.
 
 MAX_TICKS               1000000
 
+
+When set to 0, the world will not be persistent, and clean_up and reset
+are used.
+
+WORLD_PERSIST           0
+
+The time between calls to event_clean_up
+CLEAN_UP_INTERVAL       7200
+
+The time between calls to event_reset
+RESET_INTERVAL          3600
+
+The time between state dumps
+DUMP_INTERVAL           3600
+
