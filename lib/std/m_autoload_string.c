@@ -17,7 +17,7 @@ string compose_autoload_string( void ) {
    int i;
    
    str = "";
-   inv = this_player()->query_inventory();
+   inv = this_object()->query_inventory();
    if( sizeof( inv ) ) {
       for( i=0; i < sizeof( inv ); i++ ) {
          tmp = inv[i]->query_autoload_filename();
