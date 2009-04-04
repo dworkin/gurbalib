@@ -5,9 +5,13 @@ void create( void ) {
 }
 
 void add_event( string name ) {
-  if( !global_events )
+  if( !global_events ) {
     global_events = ([ ]);
-  global_events[name] = ([]);
+  }
+
+  if( !global_events[name] ) {
+    global_events[name] = ([]);
+  }
 }
 
 void remove_event( string name ) {

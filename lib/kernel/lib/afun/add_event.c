@@ -1,6 +1,7 @@
 void add_event( string name ) {
   if( !events )
     events = ([ ]);
-  events[name] = ([ ]);
+  if( !events[name] )
+    events[name] = ([ ]);
 }
 
