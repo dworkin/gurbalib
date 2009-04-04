@@ -402,7 +402,7 @@ void message_orig( string str ) {
 void write_prompt() {
   string prompt;
 
-  if( this_player()->is_editing() ) {
+  if( this_object()->is_editing() ) {
     out( "%^GREEN%^edit> %^RESET%^" );
     return;
   }

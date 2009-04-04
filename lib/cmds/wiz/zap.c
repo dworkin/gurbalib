@@ -66,7 +66,7 @@ void main( string str ) {
   target->decrease_hp(target_damage);
 
   if (target->query_hp() < 1) {
-    target->simple_action( target->query_id() + " $vfall to the ground...dead." );
+    target->simple_action( "$N $vfall to the ground...dead." );
     target->message( "You have died." );
     target->die();
   } else {

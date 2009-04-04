@@ -24,12 +24,12 @@ void clone_autoload_objects( string str ) {
          write("rest = "+rest+"\n\n"); */
          ob = clone_object( file );
          if( ob ) {
-            ob->move( this_player()->query_environment() );
+            ob->move( this_object()->query_environment() );
             ob->setup();
             if( argument ) {
                ob->initialize_autoload( argument );
             }
-            ob->move( this_player() );
+            ob->move( this_object() );
          } 
       }
    }
@@ -44,7 +44,7 @@ void compose_autoload_string( void ) {
    int i;
    
    str = "";
-   inv = this_player()->query_inventory();
+   inv = this_object()->query_inventory();
    if( sizeof( inv ) ) {
       for( i=0; i < sizeof( inv ); i++ ) {
          tmp = inv[i]->query_autoload_filename();
@@ -55,7 +55,7 @@ void compose_autoload_string( void ) {
    }
    /* terminate autoload string */
    str = str + "*^!";
-   this_player()->set_autoload_string(str);
+   this_object()->set_autoload_string(str);
 }
 
 
