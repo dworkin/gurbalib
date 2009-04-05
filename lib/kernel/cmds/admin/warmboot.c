@@ -8,6 +8,9 @@ void main(string str) {
   }
 
   write("Performing warm boot.");
+  write("Recompiling the warmboot command..");
+  compile_object(base_name());
+
   stage = call_out("next_stage",0,0,this_player());
 }
 

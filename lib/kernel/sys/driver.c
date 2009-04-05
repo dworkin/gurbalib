@@ -307,9 +307,8 @@ static void _restored(mixed * tls) {
 
   if(users) {
     for( i = 0, sz = sizeof(users); i < sz; i++ ) {
-      p = users[i]->query_player();
-      if(p) p->do_quit("");
-      else users[i]->_F_destruct();
+      catch(users[i]->close());
+      if(users[i]) users[i]->_F_destruct();
     }
   }
 

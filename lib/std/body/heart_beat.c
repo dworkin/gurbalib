@@ -35,24 +35,31 @@ void create() {
 
 void event_heart_beat( void )
 {
-   if( this_object()->query_hp() < this_object()->query_max_hp() && this_object()->is_alive() )
-   {
-      heal_time++;
-      if( heal_time > heal_rate )
-      {
-          heal_time = 0;
-          this_object()->increase_hp( random( heal_amount ) + 1 );
-      }
-   }
-   /* Check here to see is we are in combat, if so, continue battle */
-   if( this_object()->is_fighting() )
-   {
-      this_object()->do_fight();
-   }
+ object sp;
 
-   if( !this_object()->is_player() && this_object()->is_dead() )
-   {
-      EVENT_D->unsubscribe_event("heart_beat");
-      this_object()->destruct();
-   }
+  sp = this_player();
+  set_this_player(this_object());
+
+  if( this_object()->query_hp() < this_object()->query_max_hp() && this_object()->is_alive() )
+  {
+    heal_time++;
+    if( heal_time > heal_rate )
+    {
+        heal_time = 0;
+        this_object()->increase_hp( random( heal_amount ) + 1 );
+    }
+  }
+  /* Check here to see is we are in combat, if so, continue battle */
+  if( this_object()->is_fighting() )
+  {
+    this_object()->do_fight();
+  }
+
+  set_this_player(sp);
+
+  if( !this_object()->is_player() && this_object()->is_dead() )
+  {
+     EVENT_D->unsubscribe_event("heart_beat");
+     this_object()->destruct();
+  }
 }

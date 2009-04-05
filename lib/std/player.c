@@ -416,12 +416,18 @@ void write_prompt() {
     prompt = replace_string( prompt, "%m", MUD_NAME );
     prompt = replace_string( prompt, "%w", query_env( "cwd" ) );
     prompt = replace_string( prompt, "%_", "\n" );
-    prompt = replace_string( prompt, "%l", this_environment()->file_name() );
-    if( !this_environment()->query_area() ) {
-      prompt = replace_string( prompt, "%a", "(none)" );
+    if(this_environment()) {
+      prompt = replace_string( prompt, "%l", this_environment()->file_name() );
+      if( !this_environment()->query_area() ) {
+        prompt = replace_string( prompt, "%a", "(none)" );
+      } else {
+        prompt = replace_string( prompt, "%a", this_environment()->query_area() );
+      }
     } else {
-      prompt = replace_string( prompt, "%a", this_environment()->query_area() );
+      prompt = replace_string( prompt, "%l", "(no environment)" );
+      prompt = replace_string( prompt, "%a", "(none)" );
     }
+
     prompt = replace_string( prompt, "%h", "" + query_stat( "hp" ) );
     prompt = replace_string( prompt, "%H", "" + query_stat( "max_hp" ) );
   }
