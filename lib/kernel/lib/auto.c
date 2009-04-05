@@ -71,6 +71,9 @@
 #include "afun/replace_string.c"
 #include "afun/invert_exit.c"
 #include "afun/shutdown.c"
+#include "afun/set_this_player.c"
+#include "afun/this_player.c"
+#include "afun/write.c"
 
 #include "sys/_F_create.c"
 #include "sys/_F_destruct.c"

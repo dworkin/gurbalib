@@ -195,7 +195,6 @@ static void _receive_message( mixed * tls, string message ) {
     }
 
     player->receive_message( message );
-    set_this_player(nil);
   }
 }
 

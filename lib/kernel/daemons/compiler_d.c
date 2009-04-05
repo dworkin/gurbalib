@@ -19,12 +19,14 @@
 #define INHERIT_DIRS ({ "std", "lib" })
 #define OBJECT_DIRS ({ "obj", "mon", "npc", "vendors", "objects", "monsters", "daemons", "rooms", "tmp", "cmds" })
 
+#define DATA_FORMAT 1
+
 mapping inh_list;               /* mapping for support of inherit_list */
 mapping dep_list;               /* mapping of programs directly depending on the index of the mapping */
 mapping programs;               /* mapping of all programs with their direct dependencies */
 mapping includes;               /* mapping of everything that #includes the index of the mapping */
 mapping increv;                 /* mapping of all files included by the index of the mapping */
-
+int     data_format;
 private mixed * pile;           /* pile of graph nodes, used to find edges of our inheritance graph */
 
 mapping upqueue;                /* mapping of to be upgraded programs, ([ user:({ prog, prog ... }) ]) */
@@ -80,6 +82,7 @@ static void create() {
     dep_list = ([]);
   }
 
+  data_format = DATA_FORMAT;
 
   DRIVER->register_compiler_d();
 }
@@ -457,8 +460,8 @@ void register_included_by(string what, string * list) {
 static void remove_all_included_by(string by) {
   int i;
 
-  if(mappingp(increv[by])) {
-    for(i = sizeof(increv[by]); i >=0; i--) {
+  if(arrayp(increv[by])) {
+    for(i = sizeof(increv[by])-1; i >=0; i--) {
       string *stuff;
       stuff = includes[increv[by][i]];
       if(stuff) {
@@ -671,5 +674,17 @@ void clear_upqueue() {
     default       :
       error("Bad call to clear_upqueue");
   }
+}
+
+static void clean_includes() {
+  if(data_format != DATA_FORMAT) {
+    data_format = DATA_FORMAT;
+    increv = ([ ]);
+    includes = ([ ]);
+  }
+}
+
+void upgraded() {
+  clean_includes();
 }
 

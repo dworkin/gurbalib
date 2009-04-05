@@ -212,6 +212,7 @@ void chan_send_string( string chan, string from, string str, varargs int is_emot
   users = listeners[chan];
 
   if( users ) {
+    users -= ({ nil });
     for( i = 0, sz = sizeof( users ); i < sz; i++ ) {
         if ( !users[i]->query_ignored(from) )
             users[i]->message( line );

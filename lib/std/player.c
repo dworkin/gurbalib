@@ -526,8 +526,13 @@ void do_go( string dir ) {
 
 /* Quit */
 void do_quit( string str ) {
+  object sp;
   object *objs;
   int i;
+
+  sp = this_player();
+
+  set_this_player(this_object());
 
   this_object()->compose_autoload_string();
   
@@ -558,6 +563,7 @@ void do_quit( string str ) {
   } 
   EVENT_D->event( "player_logout", player_name );
   quitting = 1;
+  set_this_player(sp);
   query_user()->quit();
 }
 

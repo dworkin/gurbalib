@@ -1,7 +1,7 @@
 void write( string str ) {
   argcheck( str, 1, "string" );
 
-  if( !this_user() )
+  if( !this_player() )
     return;
   this_player()->message( str );
   if( this_player()->is_snooped() )
