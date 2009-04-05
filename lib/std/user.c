@@ -222,6 +222,7 @@ void login_user( void ) {
       tmp_player = usr->query_player();
       usr->set_player( player );
       player = tmp_player;
+      set_this_player(player);
       usr->quit();
       write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
          "\t" + this_object()->query_name() +" reconnects\n" );

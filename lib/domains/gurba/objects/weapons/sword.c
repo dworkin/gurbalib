@@ -16,6 +16,8 @@ void setup( void ) {
   set_wield_message( "$N $vgrab $p $o. Ready!" );
   set_unwield_message( "$N $vloosen $p $vgrip on $o, and $vput it away." );
   set_weapon_action("slash");
+  set_weapon_skill( "combat/sharp/small" );
+
   set_value( 1 );
   set_size( 10 );
 }
