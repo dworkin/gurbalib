@@ -33,8 +33,10 @@ static object clone_object( string path ) {
     path = COMPILER_D->allow_object( path );
   }
 
-  if( !(ob = find_object( path ) ) )
+  if( !(ob = find_object( path ) ) ) {
     ob = compile_object( path );
+    call_other(ob,"???");
+  }
 
   ob = ::clone_object( ob );
   ob->_F_set_cloner(cloner,trace);
