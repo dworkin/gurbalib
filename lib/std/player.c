@@ -387,6 +387,9 @@ void input_to_object( object ob, string func ) {
 
 /* Send a message to the player */
 void message( string str ) {
+  if(!this_object()->query_user()) {
+    return;
+  }
   if( this_object()->is_snooped() )
     this_object()->do_snoop( str );
   this_object()->query_user()->wrap_message( str );
@@ -394,6 +397,10 @@ void message( string str ) {
 
 /* Send an almost unmodified message to the player */
 void message_orig( string str ) {
+  if(!query_user()) {
+    return;
+  }
+
   if( this_player()->is_snooped() )
     this_player()->do_snoop( str );
   query_user()->put_message( str );

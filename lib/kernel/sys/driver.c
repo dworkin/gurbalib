@@ -307,8 +307,7 @@ static void _restored(mixed * tls) {
 
   if(users) {
     for( i = 0, sz = sizeof(users); i < sz; i++ ) {
-      catch(users[i]->close());
-      if(users[i]) users[i]->_F_destruct();
+      catch(users[i]->close(0));
     }
   }
 

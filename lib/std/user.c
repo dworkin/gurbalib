@@ -57,6 +57,7 @@ static void _close( mixed * tls, int ld ) {
     
   ip = query_ip_number(this_object());
   if(!ip) ip = "<NO IP>";
+  console_msg(object_name(this_object())+": close("+ld+") called: "+ip+"\n");
   if( ld == 0 ) {
     player->set_linkdead( 1 );
     write_file( "/logs/logins", ctime( time() ) + "\t" + ip +

@@ -43,3 +43,9 @@ nomask void set_connection(object con) {
   connection->set_user(this_object());
 }
 
+void destructing() {
+  if(connection) {
+    connection->set_mode(MODE_DISCONNECT);
+  }
+}
+

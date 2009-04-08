@@ -52,7 +52,10 @@ void unregister_clone( object ob ) {
   if(clones[cloner] == nil) return;
 
   clones[cloner]--;
-  if(clones[cloner] < 0) error("Clone count going negative for "+cloner);
+  if(clones[cloner] < 0) {
+    console_msg("Clone count going negative for "+cloner+"\n");
+    clones[cloner] = 0;
+  }
 }
 
 int query_number_objects( void ) {

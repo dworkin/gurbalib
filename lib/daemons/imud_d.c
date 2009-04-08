@@ -22,6 +22,7 @@ mapping chanlist;
 int chanlist_id;
 mapping mudlist;
 int mudlist_id;
+int enabled;
 static string buffer;
 static int packet_len;
 static int errcount;
@@ -379,7 +380,8 @@ void rcv_startup_reply( string origmud, mixed origuser, mixed destuser,
 
   
   mpRouterList = rest[0];
-  connected = 0;
+
+  connected = 1;
   IMUDLOG( "Connected to I3.\n" );
 }
 
@@ -550,12 +552,14 @@ void receive_message(string str) {
 int close(varargs int force) {
   connected = 0;
   IMUDLOG( "Connection lost.\n" );
-  call_out( "reconnect", 30 );
+  if(enabled) call_out( "reconnect", 30 );
   return connected == 0;
 }
 
 void reconnect( void ) {
   string *spAddress;
+
+  if(!enabled) return;
 
   IMUDLOG( "Router: " + mpRouterList[0][1] + "\n" );
 
@@ -651,6 +655,7 @@ void create( void )
 
   password = 0;
   connected = 0;
+  enabled = 1;
 #if 0
   mpRouterList = ({ ({ "*yatmim", "149.152.218.102 23"}) });
 #else
@@ -704,6 +709,39 @@ void create( void )
 }
  
 void receive_error(string err) {
-  error(err);
+  call_out("reconnect",30);
 }
 
+int query_connected() {
+  return connected;
+}
+
+void upgraded() {
+  enabled = 1;
+  call_out("storeme",0);
+  save_me();
+}
+
+void enable_i3() {
+  enabled = 1;
+  if(!connected) reconnect();
+}
+
+void disable_i3() {
+  enabled = 0;
+
+  if(connected) {
+    disconnect();
+  }
+  if(query_connection()) {
+    destruct_object(query_connection());
+  }
+}
+
+int query_enabled() {
+  return enabled;
+}
+
+void destructing() {
+  ::destructing();
+}
