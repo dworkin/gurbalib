@@ -718,8 +718,7 @@ int query_connected() {
 
 void upgraded() {
   enabled = 1;
-  call_out("storeme",0);
-  save_me();
+  call_out("save_me",2);
 }
 
 void enable_i3() {
