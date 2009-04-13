@@ -1,5 +1,7 @@
 inherit M_CONNECTION;
 
+#include <ports.h>
+
 object "/daemons/ftp_session" prev;
 string callback;
 string read_callback;
@@ -35,7 +37,10 @@ int is_connected( void ) {
 void close( varargs int force ) {
   if( read_callback == "FTP_stor" )
     call_other( prev, "FTP_write" );
-  destruct_object(this_object());
+  if(force) {
+    connected = 0;
+    destruct_object(this_object());
+  }
 }
 
 void start_connection( string ip, int port, int type ) {
@@ -63,5 +68,11 @@ void receive_message( string str ) {
 
 void terminate() {
   disconnect();
+}
+
+void destructing() {
+  if(connected && query_connection()) {
+    query_connection()->set_mode(MODE_DISCONNECT);
+  }
 }
 

@@ -4,8 +4,6 @@
  *
  * Feb 2009, Aidil@Way of the Force
  *
- * TODO: Add TLS support when it gets added to the kernel
- *
  */
 
 #include <status.h>
@@ -16,6 +14,7 @@ private int mode;               /* connection mode */
 private int blocked;            /* connection blocked? */
 private string buffer;          /* buffered output string */
 private string protocol;        /* telnet or tcp */
+int closing;
 
 
 void set_user(object u) {
@@ -39,7 +38,7 @@ void create() {
 void set_mode(int m) {
   if (m != mode && m != MODE_NOCHANGE) {
     if (m == MODE_DISCONNECT) {
-      destruct_object(this_object());
+      close_user();
     } else if (m >= MODE_UNBLOCK) {
       if (m - MODE_UNBLOCK != blocked) {
         block_input(blocked = m - MODE_UNBLOCK);
@@ -86,12 +85,22 @@ void open() {
 }
 
 static void _close(mixed * tls, varargs int force) {
-  if(user) {
-    catch(user->close(force));
+  if(closing++) {
+    error("recursive call to close()");
   }
-  if(!force) {
-    destruct_object(this_object());
+
+  rlimits( MAX_DEPTH; MAX_TICKS ) {
+    if(user) {
+      user->close(force);
+    }
+    if(!force) {
+      call_out("remove_me",0);
+    }
   }
+}
+
+static void remove_me() {
+  destruct_object(this_object());
 }
 
 static void close(varargs int force) {
@@ -129,14 +138,20 @@ int message(string str) {
   }
 }
 
-static void message_done() {
+static void _message_done(mixed * tls) {
   if (buffer) {
     send_message(buffer);
     buffer = nil;
   } else if (user) {
     set_mode(MODE_NOCHANGE);
   }
-  if(user) user->message_done();
+  rlimits( MAX_DEPTH; MAX_TICKS ) {
+    if(user) user->message_done();
+  }
+}
+
+static void message_done() {
+  _message_done(DRIVER->new_tls());
 }
 
 static void _receive_error(mixed * tls, string err) {

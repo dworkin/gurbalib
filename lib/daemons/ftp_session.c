@@ -16,6 +16,7 @@ int filesize;
 string chunk;
 string store_file_name;
 int where;
+int closing;
 
 void FTP_connection_wait( void );
 void FTP_CMD_list( string str );
@@ -48,9 +49,7 @@ void open( void ) {
 }
 
 void close( varargs int flag ) {
-  if( connection ) {
-    connection->terminate();
-  }
+  closing = 1;
   destruct_object( this_object() );
 }
 
@@ -612,4 +611,9 @@ void login_timeout( void ) {
   }
 }
 
+void destructing() {
+  if(!closing) {
+    disconnect();
+  }
+}
  
