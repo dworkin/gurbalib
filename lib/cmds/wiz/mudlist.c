@@ -1,3 +1,4 @@
+/* vim:set ft=lpc: */
 void main( string str ) {
   mapping mudlist;
   string *muds;
@@ -5,6 +6,8 @@ void main( string str ) {
   string tmp;
   string line;
   string *lines;
+  int len, slen, mlen;
+  int count;
 
   mudlist = IMUD_D->query_mudlist();
 
@@ -15,11 +18,10 @@ void main( string str ) {
 
   muds = map_indices( mudlist );
 
-  write("Size: " + sizeof(muds) + "\n");
-
   lines = ({ "Up Mud                Address         Port  Lib            Status             " });
   lines += ({ "-----------------------------------------------------------------------------" });
 
+  count = 0;
   for( i=0; i < sizeof( muds ); i++ ) {
 
     line = "";
@@ -31,6 +33,17 @@ void main( string str ) {
     if( sizeof(mudlist[muds[i]]) < 9 ) {
        continue;
     }
+
+    if( str && strlen( str ) > 0 ) {
+      slen = strlen(str)-1;
+      mlen = strlen(muds[i])-1;
+      len = slen < mlen ? slen : mlen;
+
+      if(    "" + mudlist[muds[i]][1] != str
+          && "" + uppercase(muds[i][..len]) != uppercase(str[..len]))
+        continue;
+    }
+    count++;
 
     tmp = "U   ";
     line += tmp[..2];
@@ -52,6 +65,8 @@ void main( string str ) {
 
     lines += ({ line });
   }
+
+  lines = ({ "" + count + " of " + sizeof(muds) + " muds listed.\n" }) + lines;
 
   this_player()->more( lines );
 }
