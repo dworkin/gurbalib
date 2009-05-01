@@ -10,6 +10,7 @@
 #include <ports.h>
 
 private object user;            /* our user object */
+private int opened;
 private int mode;               /* connection mode */
 private int blocked;            /* connection blocked? */
 private string buffer;          /* buffered output string */
@@ -77,6 +78,7 @@ void set_protocol(string proto) {
 }
 
 static void _open(mixed * tls) {
+  opened = 1;
   if(user) user->open();
 }
 
@@ -97,6 +99,7 @@ static void _close(mixed * tls, varargs int force) {
       call_out("remove_me",0);
     }
   }
+  opened = 0;
 }
 
 static void remove_me() {
@@ -156,7 +159,16 @@ static void message_done() {
 
 static void _receive_error(mixed * tls, string err) {
   "/kernel/sys/driver"->message(err+" : "+ (user ? typeof(user):"<none>") + "\n") ;
-  if(user) user->receive_error(err);
+  if(user) {
+    catch {
+      user->receive_error(err);
+    } : {
+    }
+  }
+
+  if(!opened) {
+    destruct_object(this_object());
+  }
 }
 
 static void receive_error(string err) {
