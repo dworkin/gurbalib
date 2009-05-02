@@ -14,6 +14,16 @@
 inherit M_CONNECTION;
 inherit M_SAVERESTORE;
 
+#define DATA_VERSION 1
+/*
+ * Define this to use the routerlist provided by the I3 router.
+ * Note that this does not work on the *yatmim/*i4/*wpr routers,
+ * but it does for example on the WOTF test routers. Enabling this
+ * makes the client follow the I3 specification, but will break
+ * automatic switching of routers on the public I3 network.
+ */
+#undef BELIEVE_ROUTERLIST
+
 mixed *mpRouterList;
 static private mapping aServices;
 static int connected;
@@ -23,6 +33,9 @@ int chanlist_id;
 mapping mudlist;
 int mudlist_id;
 int enabled;
+static int current_router;
+int data_version;
+
 static string buffer;
 static int packet_len;
 static int errcount;
@@ -121,7 +134,7 @@ private void write_imud_stream(string sType, mixed sTargetMUD,
 /*  Use this function to send a packet to the router */
 static void send_to_router(string sType, mixed *mpMessage)
 {
-  write_imud_stream(sType, "*wpr", 0, mpMessage);
+  write_imud_stream(sType, mpRouterList[current_router][0], 0, mpMessage);
 }
 
 
@@ -381,11 +394,47 @@ void rcv_mudlist( string origmud, mixed origuser, mixed destuser,
 void rcv_startup_reply( string origmud, mixed origuser, mixed destuser, 
 			mixed rest ) {
 
-  
-  mpRouterList = rest[0];
+#ifdef BELIEVE_ROUTERLIST  
+  int i;
+  string rname;
 
-  connected = 1;
-  IMUDLOG( "I3 startup reply received.\n" );
+  rname = mpRouterList[current_router][0];
+  mpRouterList = rest[0];
+  
+#endif
+
+  if(connected) {
+    IMUDLOG( "Router requested disconnect.\n" );
+
+#ifdef BELIEVE_ROUTERLIST
+
+    current_router = -1;
+
+#endif
+
+    disconnect();
+    connected = 0;
+  } else {
+    connected = 1;
+
+#ifdef BELIEVE_ROUTERLIST
+
+    current_router = -1;
+
+    for(i = 0; i < sizeof( mpRouterList ); i++ ) {
+      if( mpRouterList[i][0] == rname ) {
+        current_router = i;
+      }
+    }
+    if( current_router < 0 ) {
+      disconnect();
+      error("Could not find the current router in the received routerlist. Maybe you have BELIEVE_ROUTERLIST defined on a router that doesn't support this properly");
+    }
+
+#endif
+
+    IMUDLOG( "I3 startup reply received.\n" );
+  }
 }
 
 void rcv_error( string origmud, mixed origuser, mixed destuser, 
@@ -407,7 +456,7 @@ void rcv_auth_mud_req(string origmud, mixed origuser, mixed destuser,
                         mixed rest ) {
   if (origmud == IMUD_NAME) {
     pingtime = time();
-    IMUDLOG("keepalive ok\n"); 
+    /* IMUDLOG("keepalive ok\n");  */
   }
 }
 
@@ -555,7 +604,7 @@ void receive_message(string str) {
 */
 int close(varargs int force) {
   connected = 0;
-  IMUDLOG( "Connection closed by server.\n" );
+  IMUDLOG( "Connection closed.\n" );
   if(enabled && !reconnect_handle) reconnect_handle = call_out( "reconnect", 30 );
   return connected == 0;
 }
@@ -563,14 +612,35 @@ int close(varargs int force) {
 void reconnect( void ) {
   string *spAddress;
 
+  int ocr;
+
   reconnect_handle = 0;
 
   if(!enabled) return;
 
-  IMUDLOG( "Router: " + mpRouterList[0][1] + "\n" );
+  if(query_connection()) {
+    DRIVER->message("reconnect called but we still have a connection object!\n");
+    destruct_object(query_connection());
+  }
+
+  ocr = current_router;
+  current_router++;
+
+  if(current_router >= sizeof(mpRouterList)) {
+    current_router = 0;
+  }
+
+  if(current_router != ocr) {
+    mudlist = ([ ]);
+    chanlist = ([ ]);
+    mudlist_id = 0;
+    chanlist_id = 0;
+  }
+
+  IMUDLOG( "Router: " + mpRouterList[current_router][1] + "\n" );
 
   if( connected == 0 ) {
-    spAddress = explode(mpRouterList[0][1], " ");
+    spAddress = explode(mpRouterList[current_router][1], " ");
     IMUDLOG( "Reconnecting to " + spAddress[0] + " " + spAddress[1] + "\n" );
     connect(spAddress[0], (int)spAddress[1]);
   }
@@ -588,10 +658,10 @@ void keepalive( void )
 {
   keepalive_handle = call_out("keepalive", 60);
 
-  IMUDLOG("keepalive\n");
+  /* IMUDLOG("keepalive\n"); */
   if(pingtime && (time() - pingtime >= 180)) {
     if(query_connection()) {
-      IMUDLOG("disconnecting\n");
+      IMUDLOG("Keepalive timeout (last keepalive received at "+ctime(pingtime)+"), disconnecting\n");
       disconnect();
     } else {
       connected = 0;
@@ -600,7 +670,7 @@ void keepalive( void )
     }
   } else {
     /* send an auth packet to ourselves once a minute to try to keep us connected. */
-    IMUDLOG("Last keepalive received at "+ctime(pingtime)+".\n");
+    /* IMUDLOG("Last keepalive received at "+ctime(pingtime)+".\n"); */
     send_to_mud("auth-mud-req", IMUD_NAME, ({0}));
   }
 }
@@ -608,10 +678,7 @@ void keepalive( void )
 void open()
 {
   pingtime = time();
-  mudlist = ([ ]);
-  chanlist = ([ ]);
-  mudlist_id = 0;
-  chanlist_id = 0;
+  DRIVER->message("mudlist_id: "+mudlist_id+"\n");
   send_to_router("startup-req-3", ({
     password, /* Password - Send 0 if you're new */
     query_mudlist_id(), /* Mudlist ID - Send 0 if you're new */
@@ -649,7 +716,7 @@ void open()
   }));
 
   sBuffer = "";
-  IMUDLOG("Connected to "+mpRouterList[0][0]+" : "+mpRouterList[0][1]+"\n");
+  IMUDLOG("Connected to "+mpRouterList[current_router][0]+" : "+mpRouterList[current_router][1]+"\n");
   if(!keepalive_handle) { 
     keepalive_handle = call_out("keepalive", 60);
   }
@@ -683,14 +750,12 @@ void create( void )
   password = 0;
   connected = 0;
   enabled = 1;
-#if 0
-  mpRouterList = ({ ({ "*yatmim", "149.152.218.102 23"}) });
-#else
-  mpRouterList = ({ ({ "*wpr", "195.242.99.94 8080" }) });
-#endif
+  mpRouterList = ({ ({ "*wpr", "195.242.99.94 8080" }), ({ "*i4", "204.209.44.3 8080" }) , ({ "*yatmim", "149.152.218.102 23" }) });
 
   mudlist = ([ ]);
   chanlist = ([ ]);
+  mudlist_id = 0;
+  chanlist_id = 0;
 
 /*
     I went ahead and included this segment to show how I set up the packet-
@@ -731,7 +796,7 @@ void create( void )
     "oob-req"         : "rcv_oob_req",
   ]);
 
-  spAddress = explode(mpRouterList[0][1], " ");
+  spAddress = explode(mpRouterList[current_router][1], " ");
   connect(spAddress[0], (int)spAddress[1]);
 }
  
@@ -744,8 +809,13 @@ int query_connected() {
 }
 
 void upgraded() {
-  enabled = 1;
-  call_out("save_me",2);
+  if(data_version != DATA_VERSION) {
+    enabled = 1;
+    mpRouterList = ({ ({ "*wpr", "195.242.99.94 8080" }), ({ "*i4", "204.209.44.3 8080" }) , ({ "*yatmim", "149.152.218.102 23" }) });
+
+    data_version = DATA_VERSION;
+    call_out("save_me",2);
+  }
 }
 
 void enable_i3() {
@@ -776,3 +846,8 @@ int query_pingtime() {
   return pingtime;
 }
 
+void close_connection() {
+  if(query_connection()) {
+    disconnect();
+  }
+}

@@ -42,6 +42,7 @@ void set_mode(int m) {
     if (m == MODE_DISCONNECT) {
       if( sizeof( users() & ({ this_object() }) ) ) {
         close_user();
+        call_out("remove_me",0);
       } else {
         destruct_object(this_object());
       }

@@ -7,6 +7,7 @@
                 "command=/start/ "+\
                 "command=/enable/ "+\
                 "command=/disable/ "+\
+                "command=/switch/ "+\
                 "arg=/[a-zA-Z0-9]/ "+\
                 "arguments: command "+\
                 "arguments: command arg"\
@@ -117,5 +118,11 @@ void main( string str ) {
         write("IMUD_D unloaded");
       }
       break;
+    case "switch" :
+      if(!find_object(IMUD_D)) {
+        write("IMUD_D is not active");
+      } else {
+        IMUD_D->close_connection();
+      }
   }
 }
