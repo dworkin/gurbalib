@@ -551,7 +551,7 @@ object _telnet_connect(mixed * tls, int port) {
 
   object connection;
 
-  connection = clone_object( USER_OB );
+  connection = clone_object( TELNET_USER_OB );
   return( connection );
 }
 
@@ -724,7 +724,7 @@ static string object_type(string from, string obtype) {
 }
 
 int compile_rlimits( string objname ) {
-  if(sscanf(objname,"/kernel/%*s") == 1 || sscanf(objname,"/daemons/%*s") == 1 || sscanf(objname,"/std/%*s") == 1  || objname == "/cmds/wiz/rebuild" ) {
+  if(sscanf(objname,"/kernel/%*s") == 1 || sscanf(objname,"/daemons/%*s") == 1 || sscanf(objname,"/sys/%*s") == 1  || sscanf(objname, "/std/%*s") == 1 || objname == "/cmds/wiz/rebuild" ) {
     return 1;
   } else {
     message( "compile rlimits denied for " + objname + "\n" );
@@ -736,6 +736,7 @@ int runtime_rlimits( object obj, int stack, int ticks ) {
   objname = explode(object_name(obj),"/");
   switch(objname[0]) {
     case "kernel"  :
+    case "sys"     :
     case "daemons" : return 1;
                      break;
     default        : message("runtime rlimits denied for "+object_name(obj)+"\n");

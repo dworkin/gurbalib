@@ -17,7 +17,7 @@ object connection( string ip, int port ) {
   object user;
 
   console_msg( "New telnet connection from " + ip + ":"+port+"\n" );
-  user = clone_object( USER_OB );
+  user = clone_object( TELNET_USER_OB );
   return( user );
 }
 

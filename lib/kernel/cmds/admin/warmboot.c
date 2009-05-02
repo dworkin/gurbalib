@@ -87,7 +87,37 @@ void next_stage(int count, object player) {
   } else if(count != LAST_STAGE) {
     stage = call_out("next_stage",0,++count,player);
   } else {
-    player->message("Done");
+    if(find_object("/obj/user")) {
+      call_out("convert_user_object",0);
+    } else {
+      player->message("Done.");
+    }
   }
+}
+
+static void convert_user_object() {
+  object ob, next;
+
+  ob = find_object("/obj/user");
+
+  if(!ob) return;
+
+  ob = ob->next_clone();
+
+  rlimits( MAX_DEPTH; -1 ) {
+    while(ob) {
+      next = ob->next_clone();
+      ob->uobj_convert();
+      ob = next;
+    }
+  }
+  destruct_object(find_object("/obj/user"));
+  destruct_object(find_object("/obj/player"));
+/*
+  ob = find_object("/std/user",1);
+  if(ob) destruct_object(ob);
+  ob = find_object("/std/player",1);
+  if(ob) destruct_object(ob);
+*/
 }
 

@@ -1,6 +1,6 @@
-#define PLAYER 0
-#define WIZ    1
-#define ADMIN  2
+#define PLAYER_L 0
+#define WIZ_L    1
+#define ADMIN_L  2
 
 /*
  * During boot, the compiler daemon will not be available yet to
@@ -37,7 +37,7 @@ void make_wizard( string name ) {
 
   name = lowercase( name );
   if( file_exists( "/data/players/" + name + ".o" ) ) {
-    privs[name] = WIZ;
+    privs[name] = WIZ_L;
     player = USER_D->find_player( name );
     if( !player ) {
       /* Player not active now, load him in and add his paths. */
@@ -63,7 +63,7 @@ void make_admin( string name ) {
 
   name = lowercase( name );
   if( file_exists( "/data/players/" + name + ".o" ) ) {
-    privs[name] = ADMIN;
+    privs[name] = ADMIN_L;
     player = USER_D->find_player( name );
     if( !player ) {
       /* Player not active now, load him in and add his paths. */
@@ -89,19 +89,19 @@ void make_admin( string name ) {
 }
 
 int query_admin( string name ) {
-  if( privs[name] == ADMIN )
+  if( privs[name] == ADMIN_L )
     return 1;
   return 0;
 }
 
 int query_wiz( string name ) {
-  if( privs[name] == ADMIN || privs[name] == WIZ )
+  if( privs[name] == ADMIN_L || privs[name] == WIZ_L )
     return 1;
   return 0;
 }
 
 int query_mortal( string name ) {
-  return privs[name] != ADMIN && privs[name] != WIZ ;
+  return privs[name] != ADMIN_L && privs[name] != WIZ_L ;
 }
 
 

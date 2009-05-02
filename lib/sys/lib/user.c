@@ -1,4 +1,17 @@
+/*
+ * Gurbalib 'user' library
+ *
+ * This should be inherited by user objects that want to interact with
+ * the game. 
+ *
+ */
+
+
+/*
+ * Why is this in here? autoloads belong to the player object...
+ */
 inherit "/std/modules/m_autoload_string";
+
 #include <user.h>
 #include <limits.h>
 #include <status.h>
@@ -245,6 +258,11 @@ void login_user( void ) {
     send_message( "\n" );
     cat_file( "/data/messages/motd" );
     player->login_player();
+    /*
+     * AH! thats why m_autoload is inherited by this program...
+     * This stuff should move into an initialisation function
+     * in the player object.. well, not for today.
+     */
     clone_autoload_objects( player->query_autoload_string() );
     player->move( STARTING_ROOM );
     player->simple_action( "$N $vlog in.\n" );
@@ -592,12 +610,4 @@ void receive_error(string err) {
 
 void upgraded() {
   ansid = find_object(ANSI_D);
-}
-
-void uobj_convert() {
-  DRIVER->message("uobj_convert in "+object_name(this_object())+"\n");
-  if(sscanf(previous_program(),"/kernel/%*s") == 1) {
-    send_message("Please reconnect!\n");
-    destruct_object(this_object());
-  }
 }

@@ -111,8 +111,17 @@
 #define RACE            "/std/race"
 #define MONSTER_RACE    "/std/monster_race" 
 
-#define USER_OB         "/obj/user"
-#define PLAYER_OB       "/obj/player"
+#define PLAYER          "/sys/lib/player"
+#define USER            "/sys/lib/user"
+
+#define USER_OB         "/sys/obj/user/telnet"
+#define PLAYER_OB       "/sys/obj/player"
+#define TELNET_USER_OB  "/sys/obj/user/telnet"
+#define SSH_USER_OB     "/sys/obj/user/ssh"
+#define HTTP_USER_OB    "/sys/obj/user/http"
+#define FTP_USER_OB     "/sys/obj/user/ftp_command"
+#define FTP_DATA_OB     "/sys/obj/user/ftp_data"
+
 #define WEAPON_OB       "/obj/weapon"
 #define ARMOR_OB        "/obj/armor"
 #define COINS_OB        "/obj/coins"
