@@ -40,7 +40,11 @@ void create() {
 void set_mode(int m) {
   if (m != mode && m != MODE_NOCHANGE) {
     if (m == MODE_DISCONNECT) {
-      close_user();
+      if( sizeof( users() & ({ this_object() }) ) ) {
+        close_user();
+      } else {
+        destruct_object(this_object());
+      }
     } else if (m >= MODE_UNBLOCK) {
       if (m - MODE_UNBLOCK != blocked) {
         block_input(blocked = m - MODE_UNBLOCK);

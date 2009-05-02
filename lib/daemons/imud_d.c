@@ -406,7 +406,7 @@ void rcv_error( string origmud, mixed origuser, mixed destuser,
 void rcv_auth_mud_req(string origmud, mixed origuser, mixed destuser,
                         mixed rest ) {
   if (origmud == IMUD_NAME) {
-    pingtime == time();
+    pingtime = time();
     IMUDLOG("keepalive ok\n"); 
   }
 }
@@ -555,7 +555,7 @@ void receive_message(string str) {
 */
 int close(varargs int force) {
   connected = 0;
-  IMUDLOG( "Connection lost.\n" );
+  IMUDLOG( "Connection closed by server.\n" );
   if(enabled && !reconnect_handle) reconnect_handle = call_out( "reconnect", 30 );
   return connected == 0;
 }
@@ -600,12 +600,14 @@ void keepalive( void )
     }
   } else {
     /* send an auth packet to ourselves once a minute to try to keep us connected. */
+    IMUDLOG("Last keepalive received at "+ctime(pingtime)+".\n");
     send_to_mud("auth-mud-req", IMUD_NAME, ({0}));
   }
 }
 
 void open()
 {
+  pingtime = time();
   mudlist = ([ ]);
   chanlist = ([ ]);
   mudlist_id = 0;
