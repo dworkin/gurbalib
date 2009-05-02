@@ -17,6 +17,7 @@ private string buffer;          /* buffered output string */
 private string protocol;        /* telnet or tcp */
 int closing;
 
+static void _receive_error(mixed * tls, string err);
 
 void set_user(object u) {
   if(previous_program() == M_CONNECTION) {
@@ -118,7 +119,11 @@ void connect(string ip, int port, varargs string proto) {
     set_protocol(proto);
 
     if(protocol) {
-      ::connect(ip,port,proto);
+      catch {
+        ::connect(ip,port,proto);
+      } : {
+        _receive_error( nil, caught_error() );
+      }
     } 
   }
 }

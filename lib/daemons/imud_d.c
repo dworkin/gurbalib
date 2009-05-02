@@ -26,6 +26,9 @@ int enabled;
 static string buffer;
 static int packet_len;
 static int errcount;
+static int pingtime;
+static int keepalive_handle;
+static int reconnect_handle;
 
 void create( void );
 
@@ -382,7 +385,7 @@ void rcv_startup_reply( string origmud, mixed origuser, mixed destuser,
   mpRouterList = rest[0];
 
   connected = 1;
-  IMUDLOG( "Connected to I3.\n" );
+  IMUDLOG( "I3 startup reply received.\n" );
 }
 
 void rcv_error( string origmud, mixed origuser, mixed destuser, 
@@ -403,7 +406,8 @@ void rcv_error( string origmud, mixed origuser, mixed destuser,
 void rcv_auth_mud_req(string origmud, mixed origuser, mixed destuser,
                         mixed rest ) {
   if (origmud == IMUD_NAME) {
-    /* IMUDLOG("keepalive ok\n"); */
+    pingtime == time();
+    IMUDLOG("keepalive ok\n"); 
   }
 }
 
@@ -552,12 +556,14 @@ void receive_message(string str) {
 int close(varargs int force) {
   connected = 0;
   IMUDLOG( "Connection lost.\n" );
-  if(enabled) call_out( "reconnect", 30 );
+  if(enabled && !reconnect_handle) reconnect_handle = call_out( "reconnect", 30 );
   return connected == 0;
 }
 
 void reconnect( void ) {
   string *spAddress;
+
+  reconnect_handle = 0;
 
   if(!enabled) return;
 
@@ -580,10 +586,22 @@ int query_chanlist_id( void ) {
 
 void keepalive( void )
 {
-  call_out("keepalive", 60);
-  /* send an auth packet to ourselves once a minute to try to keep us connected. */
-  send_to_mud("auth-mud-req", IMUD_NAME, ({0}));
-  /* IMUDLOG( "Sending keepalive.\n" ); */
+  keepalive_handle = call_out("keepalive", 60);
+
+  IMUDLOG("keepalive\n");
+  if(pingtime && (time() - pingtime >= 180)) {
+    if(query_connection()) {
+      IMUDLOG("disconnecting\n");
+      disconnect();
+    } else {
+      connected = 0;
+      IMUDLOG( "Connection lost.\n" );
+      if(enabled && !reconnect_handle) reconnect_handle = call_out( "reconnect", 30 );
+    }
+  } else {
+    /* send an auth packet to ourselves once a minute to try to keep us connected. */
+    send_to_mud("auth-mud-req", IMUD_NAME, ({0}));
+  }
 }
 
 void open()
@@ -629,7 +647,14 @@ void open()
   }));
 
   sBuffer = "";
-  call_out("keepalive", 60);
+  IMUDLOG("Connected to "+mpRouterList[0][0]+" : "+mpRouterList[0][1]+"\n");
+  if(!keepalive_handle) { 
+    keepalive_handle = call_out("keepalive", 60);
+  }
+  if(reconnect_handle) {
+    remove_call_out(reconnect_handle);
+    reconnect_handle = 0;
+  }
 }
 
 
@@ -709,7 +734,7 @@ void create( void )
 }
  
 void receive_error(string err) {
-  call_out("reconnect",30);
+  reconnect_handle = call_out("reconnect",30);
 }
 
 int query_connected() {
@@ -744,3 +769,8 @@ int query_enabled() {
 void destructing() {
   ::destructing();
 }
+
+int query_pingtime() {
+  return pingtime;
+}
+
