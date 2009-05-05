@@ -14,7 +14,9 @@
 inherit M_CONNECTION;
 inherit M_SAVERESTORE;
 
-#define DATA_VERSION 1
+#define DATA_VERSION 3
+#define MAX_ERRCOUNT 3
+
 /*
  * Define this to use the routerlist provided by the I3 router.
  * Note that this does not work on the *yatmim/*i4/*wpr routers,
@@ -33,8 +35,10 @@ int chanlist_id;
 mapping mudlist;
 int mudlist_id;
 int enabled;
-static int current_router;
+int current_router;
+int last_good_router;
 int data_version;
+string default_router;
 
 static string buffer;
 static int packet_len;
@@ -408,7 +412,12 @@ void rcv_startup_reply( string origmud, mixed origuser, mixed destuser,
 
 #ifdef BELIEVE_ROUTERLIST
 
-    current_router = -1;
+    errcount = 0;
+    current_router = 0;
+    mudlist = ([ ]);
+    chanlist = ([ ]);
+    mudlist_id = 0;
+    chanlist_id = 0;
 
 #endif
 
@@ -428,11 +437,14 @@ void rcv_startup_reply( string origmud, mixed origuser, mixed destuser,
     }
     if( current_router < 0 ) {
       disconnect();
+      current_router++;
       error("Could not find the current router in the received routerlist. Maybe you have BELIEVE_ROUTERLIST defined on a router that doesn't support this properly");
     }
 
 #endif
+    last_good_router = current_router;
 
+    save_me();
     IMUDLOG( "I3 startup reply received.\n" );
   }
 }
@@ -606,13 +618,12 @@ int close(varargs int force) {
   connected = 0;
   IMUDLOG( "Connection closed.\n" );
   if(enabled && !reconnect_handle) reconnect_handle = call_out( "reconnect", 30 );
+  event("i3_connection", "I3 onnection to "+mpRouterList[current_router][0]+" lost" );
   return connected == 0;
 }
 
 void reconnect( void ) {
   string *spAddress;
-
-  int ocr;
 
   reconnect_handle = 0;
 
@@ -623,18 +634,20 @@ void reconnect( void ) {
     destruct_object(query_connection());
   }
 
-  ocr = current_router;
-  current_router++;
+  if(errcount > MAX_ERRCOUNT) {
+    current_router++;
 
-  if(current_router >= sizeof(mpRouterList)) {
-    current_router = 0;
-  }
+    if(current_router >= sizeof(mpRouterList)) {
+      current_router = 0;
+    }
 
-  if(current_router != ocr) {
-    mudlist = ([ ]);
-    chanlist = ([ ]);
-    mudlist_id = 0;
-    chanlist_id = 0;
+    if(current_router != last_good_router) {
+      mudlist = ([ ]);
+      chanlist = ([ ]);
+      mudlist_id = 0;
+      chanlist_id = 0;
+      save_me();
+    }
   }
 
   IMUDLOG( "Router: " + mpRouterList[current_router][1] + "\n" );
@@ -678,7 +691,8 @@ void keepalive( void )
 void open()
 {
   pingtime = time();
-  DRIVER->message("mudlist_id: "+mudlist_id+"\n");
+  errcount = 0;
+
   send_to_router("startup-req-3", ({
     password, /* Password - Send 0 if you're new */
     query_mudlist_id(), /* Mudlist ID - Send 0 if you're new */
@@ -724,6 +738,9 @@ void open()
     remove_call_out(reconnect_handle);
     reconnect_handle = 0;
   }
+  event("i3_connection", "I3 connection to "+mpRouterList[current_router][0]+" ("+
+    mpRouterList[current_router][1]+") is now up." 
+  );
 }
 
 
@@ -741,12 +758,18 @@ void open()
 void create( void )
 {
   string *spAddress;
+  int old_router;
 
   if(IMUD_NAME=="GurbaLib") {
     "/kernel/sys/driver"->message("Please edit kernel/include/mudname.h and change the MUD_NAME and IMUD_NAME defines\n");
     return;
   }
 
+  add_event("i3_connection");
+
+  if(find_object(CHANNEL_D)) {
+    find_object(CHANNEL_D)->resubscribe();
+  }
   password = 0;
   connected = 0;
   enabled = 1;
@@ -769,6 +792,31 @@ void create( void )
 */
 
   restore_me();
+
+  if(!default_router) {
+    default_router = mpRouterList[0][0];
+    current_router = 0;
+    mudlist = ([ ]);
+    chanlist = ([ ]);
+    mudlist_id = 0;
+    chanlist_id = 0;
+  } else if( default_router != "*" && default_router != mpRouterList[current_router][0] ) {
+    int i,sz;
+
+    current_router = 0;
+
+    for( i = 0, sz = sizeof(mpRouterList); i < sz; i++ ) {
+      if( mpRouterList[i][0] == default_router ) {
+        current_router = i;
+        break;
+      }
+    }
+    mudlist = ([ ]);
+    chanlist = ([ ]);
+    mudlist_id = 0;
+    chanlist_id = 0;
+  }
+
 
   aServices = ([
     "tell"            : "rcv_tell",
@@ -801,6 +849,7 @@ void create( void )
 }
  
 void receive_error(string err) {
+  errcount++;
   reconnect_handle = call_out("reconnect",30);
 }
 
@@ -810,9 +859,14 @@ int query_connected() {
 
 void upgraded() {
   if(data_version != DATA_VERSION) {
-    enabled = 1;
-    mpRouterList = ({ ({ "*wpr", "195.242.99.94 8080" }), ({ "*i4", "204.209.44.3 8080" }) , ({ "*yatmim", "149.152.218.102 23" }) });
+    if(data_version < 1) {
+      enabled = 1;
+      mpRouterList = ({ ({ "*wpr", "195.242.99.94 8080" }), ({ "*i4", "204.209.44.3 8080" }) , ({ "*yatmim", "149.152.218.102 23" }) });
+    }
 
+    remove_event("i3_connect");
+    remove_event("i3_disconnect");
+    add_event("i3_connection");
     data_version = DATA_VERSION;
     call_out("save_me",2);
   }

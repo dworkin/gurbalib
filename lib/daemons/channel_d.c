@@ -3,6 +3,8 @@
 #define NOT_EMOTE   0
 #define EMOTE       (!NOT_EMOTE)
 
+#define DATA_VERSION 2
+
 inherit M_MESSAGES;
 
 mapping permanent;
@@ -10,6 +12,8 @@ mapping colors;
 mapping imud;
 mapping guilds;
 mapping history;
+int data_version;
+
 static mapping channels;
 static mapping listeners;
 
@@ -29,6 +33,12 @@ void chan_set_flag( string chan, int flag );
 void chan_imud( string chan, string name );
 void add_history(string channel, string who, string message);
 void chan_send_string( string chan, string from, string str, varargs int is_emote );
+
+void resubscribe() {
+#ifdef SYS_NETWORKING
+  IMUD_D->subscribe_event( "i3_connection" );
+#endif
+}
 
 void create( void ) {
   string *chans;
@@ -50,6 +60,7 @@ void create( void ) {
   EVENT_D->subscribe_event( "player_login" );
   EVENT_D->subscribe_event( "player_logout" );
   EVENT_D->subscribe_event( "new_player" );
+  resubscribe();
 }
 
 void restore_me( void ) {
@@ -214,8 +225,10 @@ void chan_send_string( string chan, string from, string str, varargs int is_emot
   if( users ) {
     users -= ({ nil });
     for( i = 0, sz = sizeof( users ); i < sz; i++ ) {
-        if ( !users[i]->query_ignored(from) )
-            users[i]->message( line );
+      if ( !users[i]->query_ignored(from) )
+        users[i]->message(
+          ( users[i]->query_env( "imud_timestamp" ) ? "%^CHAN_DATE%^[" + (ctime(time())[11..18]) + "]%^RESET%^" : "" )
+          + line );
     }
   }
 
@@ -492,6 +505,15 @@ void event_player_join( string *args ) {
   }
 }
 
+void event_i3_connection( string *args ) {
+  if( !channels["announce"] ) return;
+
+  chan_send_string( "announce", "imud_d",
+       args[0],
+       NOT_EMOTE
+  );
+}
+
 void add_history(string channel, string who, string message) {
   int i, sz;
   string *temp;
@@ -529,4 +551,11 @@ string get_history(string channel) {
 
 void show_history(string channel) {
     write(get_history(channel));
+}
+
+void upgraded() {
+  if(data_version == DATA_VERSION) return;
+
+  resubscribe();
+  data_version = DATA_VERSION;
 }
