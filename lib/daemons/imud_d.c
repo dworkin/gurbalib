@@ -14,7 +14,15 @@
 inherit M_CONNECTION;
 inherit M_SAVERESTORE;
 
-#define DATA_VERSION 3
+#ifndef RECONNECT_INTERVAL
+#define RECONNECT_INTERVAL 30
+#endif
+
+#ifndef KEEPALIVE_INTERVAL
+#define KEEPALIVE_INTERVAL 60
+#endif
+
+#define DATA_VERSION 4
 #define MAX_ERRCOUNT 3
 
 /*
@@ -617,9 +625,49 @@ void receive_message(string str) {
 int close(varargs int force) {
   connected = 0;
   IMUDLOG( "Connection closed.\n" );
-  if(enabled && !reconnect_handle) reconnect_handle = call_out( "reconnect", 30 );
+  if(enabled && !reconnect_handle) reconnect_handle = call_out( "reconnect", RECONNECT_INTERVAL );
   event("i3_connection", "I3 onnection to "+mpRouterList[current_router][0]+" lost" );
   return connected == 0;
+}
+
+void use_default_router() {
+  int i, sz;
+
+  current_router = 0;
+
+  if( default_router != "*" ) {
+    for( i = 0, sz = sizeof( mpRouterList ); i < sz; i++ ) {
+      if( default_router == mpRouterList[i][0] ) {
+        current_router = i;
+        break;
+      }
+    }
+  }
+
+  if(current_router != last_good_router) {
+    mudlist = ([ ]);
+    chanlist = ([ ]);
+    mudlist_id = 0;
+    chanlist_id = 0;
+  }
+
+  save_me();
+}
+
+void use_next_router() {
+  current_router++;
+
+  if(current_router >= sizeof(mpRouterList)) {
+    current_router = 0;
+  }
+
+  if(current_router != last_good_router) {
+    mudlist = ([ ]);
+    chanlist = ([ ]);
+    mudlist_id = 0;
+    chanlist_id = 0;
+  }
+  save_me();
 }
 
 void reconnect( void ) {
@@ -635,19 +683,7 @@ void reconnect( void ) {
   }
 
   if(errcount > MAX_ERRCOUNT) {
-    current_router++;
-
-    if(current_router >= sizeof(mpRouterList)) {
-      current_router = 0;
-    }
-
-    if(current_router != last_good_router) {
-      mudlist = ([ ]);
-      chanlist = ([ ]);
-      mudlist_id = 0;
-      chanlist_id = 0;
-      save_me();
-    }
+    use_next_router();
   }
 
   IMUDLOG( "Router: " + mpRouterList[current_router][1] + "\n" );
@@ -669,7 +705,7 @@ int query_chanlist_id( void ) {
 
 void keepalive( void )
 {
-  keepalive_handle = call_out("keepalive", 60);
+  keepalive_handle = call_out("keepalive", KEEPALIVE_INTERVAL);
 
   /* IMUDLOG("keepalive\n"); */
   if(pingtime && (time() - pingtime >= 180)) {
@@ -679,7 +715,7 @@ void keepalive( void )
     } else {
       connected = 0;
       IMUDLOG( "Connection lost.\n" );
-      if(enabled && !reconnect_handle) reconnect_handle = call_out( "reconnect", 30 );
+      if(enabled && !reconnect_handle) reconnect_handle = call_out( "reconnect", RECONNECT_INTERVAL );
     }
   } else {
     /* send an auth packet to ourselves once a minute to try to keep us connected. */
@@ -732,7 +768,7 @@ void open()
   sBuffer = "";
   IMUDLOG("Connected to "+mpRouterList[current_router][0]+" : "+mpRouterList[current_router][1]+"\n");
   if(!keepalive_handle) { 
-    keepalive_handle = call_out("keepalive", 60);
+    keepalive_handle = call_out("keepalive", KEEPALIVE_INTERVAL);
   }
   if(reconnect_handle) {
     remove_call_out(reconnect_handle);
@@ -773,7 +809,7 @@ void create( void )
   password = 0;
   connected = 0;
   enabled = 1;
-  mpRouterList = ({ ({ "*wpr", "195.242.99.94 8080" }), ({ "*i4", "204.209.44.3 8080" }) , ({ "*yatmim", "149.152.218.102 23" }) });
+  mpRouterList = ({ ({ "*wpr", "195.242.99.94 8080" }), ({ "*i4", "204.209.44.3 8080" }) });
 
   mudlist = ([ ]);
   chanlist = ([ ]);
@@ -800,23 +836,9 @@ void create( void )
     chanlist = ([ ]);
     mudlist_id = 0;
     chanlist_id = 0;
-  } else if( default_router != "*" && default_router != mpRouterList[current_router][0] ) {
-    int i,sz;
+  } 
 
-    current_router = 0;
-
-    for( i = 0, sz = sizeof(mpRouterList); i < sz; i++ ) {
-      if( mpRouterList[i][0] == default_router ) {
-        current_router = i;
-        break;
-      }
-    }
-    mudlist = ([ ]);
-    chanlist = ([ ]);
-    mudlist_id = 0;
-    chanlist_id = 0;
-  }
-
+  use_default_router();
 
   aServices = ([
     "tell"            : "rcv_tell",
@@ -850,7 +872,9 @@ void create( void )
  
 void receive_error(string err) {
   errcount++;
-  reconnect_handle = call_out("reconnect",30);
+  if( !reconnect_handle ) {
+    reconnect_handle = call_out("reconnect",RECONNECT_INTERVAL);
+  }
 }
 
 int query_connected() {
@@ -859,14 +883,17 @@ int query_connected() {
 
 void upgraded() {
   if(data_version != DATA_VERSION) {
-    if(data_version < 1) {
+    if(data_version < 3) {
       enabled = 1;
-      mpRouterList = ({ ({ "*wpr", "195.242.99.94 8080" }), ({ "*i4", "204.209.44.3 8080" }) , ({ "*yatmim", "149.152.218.102 23" }) });
+      mpRouterList = ({ ({ "*wpr", "195.242.99.94 8080" }), ({ "*i4", "204.209.44.3 8080" }) });
     }
 
-    remove_event("i3_connect");
-    remove_event("i3_disconnect");
-    add_event("i3_connection");
+    if(data_version < 2) {
+      remove_event("i3_connect");
+      remove_event("i3_disconnect");
+      add_event("i3_connection");
+    }
+
     data_version = DATA_VERSION;
     call_out("save_me",2);
   }
@@ -905,3 +932,35 @@ void close_connection() {
     disconnect();
   }
 }
+
+void set_default_router(string str) {
+  default_router = str;
+  if(query_connection()) {
+    disconnect();
+  }
+
+  errcount = 0;
+  use_default_router();
+}
+
+string query_default_router() {
+  return default_router;
+}
+
+string query_current_router_name() {
+  return mpRouterList[current_router][0];
+}
+
+string query_current_router_ip() {
+  return mpRouterList[current_router][1];
+}
+
+void switch_router() {
+  if(query_connection()) {
+    disconnect();
+  }
+
+  use_next_router();
+}
+
+

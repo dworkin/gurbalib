@@ -8,12 +8,29 @@
                 "command=/enable/ "+\
                 "command=/disable/ "+\
                 "command=/switch/ "+\
-                "arg=/[a-zA-Z0-9]/ "+\
+                "command=/default/ "+\
+                "arg=/[a-zA-Z0-9*]*/ "+\
                 "arguments: command "+\
                 "arguments: command arg"\
 
 void display_usage() {
-  "/cmds/player/help"->main( "intermud" );
+  write(
+    "Usage: intermud <command> [arg]\n"+
+    "\n"+
+    "  Valid commands:\n"+
+    "  - status\n"+
+    "    Shows information on the current intermud connection\n"+
+    "  - stop\n"+
+    "    Stops the current connection and unloads the intermud service\n"+
+    "  - start\n"+
+    "    Loads the intermud service and starts a connection (if enabled)\n"+
+    "  - enable\n"+
+    "    Enables intermud 3 connections\n"+
+    "  - disable\n"+
+    "    Disables intermud 3 connections\n"+
+    "  - default [name]\n"+
+    "    Displays the default router (and sets it if name is provided\n"
+  );
 }
 
 static int check_istat() {
@@ -41,9 +58,11 @@ void display_istat() {
       } else {
         r += "I3 is disabled";
       }
+      r += "Default router: " + IMUD_D->query_default_router();
       break;
     case 2    :
       r = "loaded and online";
+      r += "\nConnected to "+IMUD_D->query_current_router_name()+" ("+IMUD_D->query_current_router_ip()+")";
       break;
   }
   write( "I3 status: " + r );
@@ -84,7 +103,6 @@ void main( string str ) {
         if( IMUD_D->query_connection() ) {
           IMUD_D->query_connection()->set_mode( MODE_DISCONNECT );
         }
-        IMUD_D->close( 0 );
       }
       break;
     case "status" :
@@ -122,7 +140,18 @@ void main( string str ) {
       if(!find_object(IMUD_D)) {
         write("IMUD_D is not active");
       } else {
-        IMUD_D->close_connection();
+        IMUD_D->switch_router();
       }
+      break;
+    case "default" :
+      if(!find_object(IMUD_D)) {
+        write("IMUD_D is not active");
+      } else {
+        if(sizeof(args) > 1) {
+          IMUD_D->set_default_router(args[1]);
+        }
+        write("Default router: "+IMUD_D->query_default_router());
+      }
+      break;
   }
 }
