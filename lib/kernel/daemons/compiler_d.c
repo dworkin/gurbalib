@@ -223,7 +223,7 @@ void clear_inherits(string file, int issue) {
     for(c=0;c<sizeof(dep);c++) {
       if(inh_list[dep[c]]) {
         inh_list[dep[c]] -= ({ progname });
-        if(map_sizeof(inh_list[dep[c]]) == 0) inh_list[dep[c]] = nil;
+        if(sizeof(inh_list[dep[c]]) == 0) inh_list[dep[c]] = nil;
       }
     }
     dep_list[progname] = nil;
