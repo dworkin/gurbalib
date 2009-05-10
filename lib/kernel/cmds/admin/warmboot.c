@@ -1,6 +1,37 @@
 #define LAST_STAGE 1
 int stage;
 
+#define CHECKS ({ "validate_kernel", "validate_user", "validate_player" })
+
+static int validate_kernel() {
+  return 0;
+}
+
+static int validate_user() {
+  if( find_object( "/obj/user" ) )
+    return 222;
+}
+
+static int validate_player() {
+  if( find_object( "/obj/player" ) )
+    return 222;
+}
+
+static string validate_upgrade() {
+  int req;
+  int i, sz;
+
+  req = 0;
+
+  for( i = 0, sz = sizeof(CHECKS); i < sz; i++ ) {
+    req = call_other( this_object(), CHECKS[i] );
+ 
+    if( req ) {
+      return CHECKS[i] + " failed.\nPlease revert to revision "+req+", do a warmboot, and then try this upgrade again.";
+    }
+  }
+}
+
 void main(string str) {
   if(stage) {
     write("busy");
@@ -18,8 +49,10 @@ static int upgrade_uobj(string * files, int verbose) {
   int pos, sz;
 
   for( pos = 0, sz = sizeof( files ); pos < sz; pos++ ) {
-    if(COMPILER_D->test_inheritable(files[pos])) {
-      compile_library( files[pos] );
+    if( COMPILER_D->test_inheritable( files[pos] ) ) {
+      /* if( find_object(files[pos],1) ) { */
+        compile_library( files[pos] );
+      /* } */
     } else {
       compile_object( files[pos] );
     }
@@ -74,7 +107,12 @@ void next_stage(int count, object player) {
   stage = 0;
   switch(count) {
     case 0    :
-      error = catch( rebuild_critical(player) );
+      error = validate_upgrade();
+      if(!error) {
+        error = catch( rebuild_critical(player) );
+      } else {
+        player->message(error);
+      }
       break;
     case 1    :
       error = catch( rebuild_world(player) );

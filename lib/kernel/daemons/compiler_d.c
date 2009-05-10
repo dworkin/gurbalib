@@ -221,7 +221,10 @@ void clear_inherits(string file, int issue) {
 
     dep = dep_list[progname];
     for(c=0;c<sizeof(dep);c++) {
-      if(inh_list[dep[c]]) inh_list[dep[c]] -= ({ progname });
+      if(inh_list[dep[c]]) {
+        inh_list[dep[c]] -= ({ progname });
+        if(map_sizeof(inh_list[dep[c]]) == 0) inh_list[dep[c]] = nil;
+      }
     }
     dep_list[progname] = nil;
   }
@@ -551,7 +554,12 @@ mixed * find_all_depending_programs(string file, varargs string * skip) {
       libs |= ({ issue_to_file(list[i]) });
       obs |= find_depending_objects(list[i]);
     } else {
-      obs |= ({ issue_to_file(list[i]) });
+      string str;
+
+      str =  issue_to_file(list[i]);
+      if(find_object(str)) {
+        obs |= ({ str });
+      }
     }
   }
 
