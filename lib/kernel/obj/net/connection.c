@@ -94,7 +94,7 @@ void open() {
 
 static void _close(mixed * tls, varargs int force) {
   if(closing++) {
-    error("recursive call to close()");
+    /* error("recursive call to close()"); */
   }
 
   rlimits( MAX_DEPTH; MAX_TICKS ) {
