@@ -22,7 +22,7 @@ inherit M_SAVERESTORE;
 #define KEEPALIVE_INTERVAL 60
 #endif
 
-#define DATA_VERSION 4
+#define DATA_VERSION 5
 #define MAX_ERRCOUNT 3
 
 /*
@@ -883,8 +883,7 @@ int query_connected() {
 
 void upgraded() {
   if(data_version != DATA_VERSION) {
-    if(data_version < 3) {
-      enabled = 1;
+    if(data_version < 5) {
       mpRouterList = ({ ({ "*wpr", "195.242.99.94 8080" }), ({ "*i4", "204.209.44.3 8080" }) });
     }
 
@@ -892,6 +891,10 @@ void upgraded() {
       remove_event("i3_connect");
       remove_event("i3_disconnect");
       add_event("i3_connection");
+    }
+
+    if(data_version < 1) {
+      enabled = 1;
     }
 
     data_version = DATA_VERSION;
