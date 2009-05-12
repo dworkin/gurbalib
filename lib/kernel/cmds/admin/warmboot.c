@@ -50,9 +50,9 @@ static int upgrade_uobj(string * files, int verbose) {
 
   for( pos = 0, sz = sizeof( files ); pos < sz; pos++ ) {
     if( COMPILER_D->test_inheritable( files[pos] ) ) {
-      /* if( find_object(files[pos],1) ) { */
+      if( find_object(files[pos],1) ) { 
         compile_library( files[pos] );
-      /* } */
+      } 
     } else {
       compile_object( files[pos] );
     }
