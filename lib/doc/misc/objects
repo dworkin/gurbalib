@@ -20,12 +20,6 @@ Introduction
   compile_library() is provided to recompile inheritables,
   but you should not need this in normal circumstances.
 
-  NOTE: This seperation is currently not enforced, you will
-        however get warnings about improper use of inheritables
-        and objects. Soon this seperation will get strictly
-        enforced, this is controlled by a define in the 
-        compiler_d
-
 Updating and compiling
 ======================
 
