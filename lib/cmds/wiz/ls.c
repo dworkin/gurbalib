@@ -1,4 +1,7 @@
+/* vim:set ft=lpc: */
+
 void main( string str ) {
+  mixed width;
   mixed *files, *objects;
   string *names, timestr, dirlist;
   int *sizes, *times, long, ancient, i, j, sz, max, len, rows, time, color_len;
@@ -21,6 +24,9 @@ void main( string str ) {
     write( "Access denied.\n" );
     return;
   }
+
+  width = this_player()->query_env("width");
+  if(!intp(width) || width < 2) width = 78;
 
   
   files = get_dir( str );
@@ -62,7 +68,7 @@ void main( string str ) {
   }
   
   max += 2;
-  j = (79 + 2) / (max + 1);
+  j = (width + 1) / (max + 1);
   if (j == 0) {
     rows = sz;
   } else {
