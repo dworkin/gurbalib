@@ -18,7 +18,7 @@
 # define ST_DMEMUSED	12	/* dynamic memory in use */
 # define ST_OTABSIZE	13	/* object table size */
 # define ST_NOBJECTS	14	/* # objects in use */
-# define ST_COTABSIZE	15	/* callouts table size */
+# define ST_COTABSIZE	15	/* callout table size */
 # define ST_NCOSHORT	16	/* # short-term callouts */
 # define ST_NCOLONG	17	/* # long-term & millisecond callouts */
 # define ST_UTABSIZE	18	/* user table size */
