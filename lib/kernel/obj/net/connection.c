@@ -41,8 +41,12 @@ void set_mode(int m) {
   if (m != mode && m != MODE_NOCHANGE) {
     if (m == MODE_DISCONNECT) {
       if( sizeof( users() & ({ this_object() }) ) ) {
+#ifdef SYS_NETWORKING
         close_user();
         call_out("remove_me",0);
+#else
+        destruct_object(this_object());
+#endif
       } else {
         destruct_object(this_object());
       }

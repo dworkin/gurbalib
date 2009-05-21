@@ -60,7 +60,9 @@ object secure_d;
 object syslog_d;
 
 object * users;
+#ifdef SYS_NETWORKING
 object * ports;
+#endif
 
 void direct_message(string str) {
   send_message(str);
@@ -275,7 +277,9 @@ static void clean_up() {
 
 static void _save_game(mixed * tls) {
   users = users();
+#ifdef SYS_NETWORKING
   ports = ports();
+#endif
 
 #ifdef SYS_PERSIST
   dump_state();
@@ -311,11 +315,13 @@ static void _restored(mixed * tls) {
     }
   }
 
+#ifdef SYS_NETWORKING
   if(ports) {
     for( i = 0, sz = sizeof(ports); i < sz; i++ ) {
       ports[i]->reopen();
     }
   }
+#endif
 
   message( "State restored.\n" );
 }
@@ -598,7 +604,9 @@ void start_shutdown() {
     else users[i]->_F_destruct();
   }
   users = users();
+#ifdef SYS_NETWORKING
   ports = ports();
+#endif
   shutting_down = call_out("do_shutdown",0);
 
 #ifdef SYS_PERSIST
