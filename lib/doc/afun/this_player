@@ -1,1 +1,16 @@
-Todo
+NAME
+        this_player - get the current 'player'
+
+SYNOPSIS
+        object this_player()
+
+DESCRIPTION
+        Get the object representing the current 'player', i.e. 
+        the living object which has 'given the last command'. 
+
+RETURN VALUE
+        The object representing the current player is returned.
+
+SEE ALSO
+        this_body, this_environment
+

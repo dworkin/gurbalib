@@ -1,1 +1,18 @@
-Todo
+NAME
+        this_body - get the body controlled by the current 
+        'player'
+
+SYNOPSIS
+        object this_body()
+
+DESCRIPTION
+        Get the object representing the living controlled by 
+        the current 'player', either the same as the current
+        player, or a body being possessed by the current player.
+
+RETURN VALUE
+        The bodyobject controlled by the current player is returned.
+
+SEE ALSO
+        this_player, this_environment
+
