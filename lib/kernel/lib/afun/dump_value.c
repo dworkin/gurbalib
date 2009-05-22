@@ -3,12 +3,14 @@
  * DESCRIPTION: return a string describing a value
  */
 
-static string dump_value(mixed value, mapping seen)
+static string dump_value(mixed value, varargs mapping seen)
 {
   string str;
   int i, sz;
   mixed *indices, *values;
 
+  if(!seen)
+    seen = ([ ]);
   switch (typeof(value)) {
   case T_INT:
   case T_FLOAT:

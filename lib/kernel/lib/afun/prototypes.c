@@ -1,2 +1,2 @@
-static string dump_value(mixed value, mapping seen);
+static string dump_value(mixed value, varargs mapping seen);
 static void console_msg(string message);
