@@ -13,6 +13,7 @@ void main( string str ) {
     out = "%^BOLD%^%^CYAN%^Available channels: %^RESET%^\n";
     for( i=0, sz = sizeof( achannels ); i < sz; i++ ) {
         out += achannels[i] + "     \t"; /* very suss formatting */
+		if(strlen(achannels[i] ) < 5)  out += "\t";
         out += (member_array(achannels[i], schannels) == -1) ? 
             "%^RED%^OFF" : "%^GREEN%^ON";
         out += "%^RESET%^\n";
