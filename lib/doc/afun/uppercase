@@ -1,1 +1,15 @@
-Todo
+NAME
+        uppercase - convert a string to uppercase
+
+SYNOPSIS
+        string uppercase( string arg )
+
+DESCRIPTION
+        Converts all characters in arg to uppercase
+
+RETURN VALUE
+        A new, converted string is returned
+
+SEE ALSO
+        lowercase, capitalize
+

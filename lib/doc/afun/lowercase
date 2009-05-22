@@ -1,1 +1,15 @@
-Todo
+NAME
+        lowercase - convert a string to lowercase
+
+SYNOPSIS
+        string lowercase( string arg )
+
+DESCRIPTION
+        Converts all characters in arg to lowercase
+
+RETURN VALUE
+        A new, converted string is returned
+
+SEE ALSO
+        uppercase, capitalize
+
