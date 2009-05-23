@@ -225,6 +225,17 @@ private void handle_router_read(mixed *mpMessage)
     return;
   }
 
+  if( mpMessage[0] == "who-req" ) {
+    if( mpMessage[4] == 0 ) {
+      write_imud_stream("error", mpMessage[2], mpMessage[3],
+        ({ "bad-pkt",
+           "Broadcasted who requests are not accepted here.",
+           mpMessage }));
+      IMUDLOG("Denied broadcast who-request from "+mpMessage[3]+"@"+mpMessage[2]+"\n");
+      return;
+    }
+  }
+
 /*
   This call assumes that you've either #include'ed or inherited the
   various services into this object.  If not, you'll have to modify
