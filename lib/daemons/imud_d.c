@@ -225,15 +225,31 @@ private void handle_router_read(mixed *mpMessage)
     return;
   }
 
-  if( mpMessage[0] == "who-req" ) {
-    if( mpMessage[4] == 0 ) {
-      write_imud_stream("error", mpMessage[2], mpMessage[3],
-        ({ "bad-pkt",
-           "Broadcasted who requests are not accepted here.",
-           mpMessage }));
-      IMUDLOG("Denied broadcast who-request from "+mpMessage[3]+"@"+mpMessage[2]+"\n");
-      return;
-    }
+  switch(mpMessage[0]) {
+    case "auth-mud-req"  :
+    case "oob-req"       :
+    case "who-req"       :
+    case "ping"          :
+    case "ping-req"      :
+    case "chan-who-req"  :
+    case "chan-user-req" :
+      if( mpMessage[4] == 0 ) {
+        write_imud_stream(
+          "error", 
+          mpMessage[2], 
+          mpMessage[3],
+          ({ "bad-pkt",
+             "Broadcasted "+mpMessage[0]+" packets are not accepted here.",
+             mpMessage 
+          })
+        );
+        IMUDLOG("Denied broadcast "+mpMessage[0]+" from "+mpMessage[3]+"@"+mpMessage[2]+"\n");
+        return;
+      }
+      break;
+    default :
+      /* allow the packet to pass through */
+      break;
   }
 
 /*
