@@ -1,0 +1,61 @@
+General explanation:
+
+  Upgrading without completely restarting the game is possible since
+  svn revision 186 by doing an 'svn update' from the shell and then
+  performing a 'warmboot' in the mud.
+
+  Such upgrades take care of recompiling everything and migrating and
+  converting objects and data where needed.
+
+  Some more involved conversions only exist in specific revisions
+  and when you are below such a specific revision, you need to upgrade
+  to it first before upgrading to newer revisions.
+
+  If you intend to start your mud from scratch after an upgrade, you
+  don't need to worry about data and object conversion.
+
+How it works:
+
+  When you perform a warmboot, a number of steps are taken:
+
+  - Recompile of the warmboot command
+
+    This ensures that any checks and special procedures required for
+    the revision you are upgrading to are known and handled by the
+    warmboot command.
+
+  - Check if upgrade is possible
+
+  - Atomic recompile of critical objects
+
+    Ensures that critical kernel objects are recompiled properly, will
+    undo everything if a critical kernel object fails to compile.
+
+  - Migration/conversion of kernel data and objects
+
+  - Rebuilding remaining objects
+
+  - Any remaining migration and conversion
+
+Known mandatory revisions:
+
+  222   : Conversion of user and player objects in preparation for a
+          stack based security model.
+  226   : cleanup compiler_d data.
+
+  Note that revisions 223-225 contain a bug that prevents warmboot from working
+
+  So, if you are currently using a revision before 222:
+
+    $ svn -r222 update
+    > warmboot
+
+    $ svn -r226 update
+    > warmboot
+
+    $ svn update
+    > warmboot
+
+  Where $ indicates shell commands and > indicates mud commands.
+
+
