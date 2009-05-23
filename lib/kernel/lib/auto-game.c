@@ -20,10 +20,10 @@ nomask int is_kernel_object() {
 }
 
 #include "afun-game/variables.c"
+#include "afun-game/require_priv.c"
 #include "afun-game/this_body.c"
 #include "afun-game/this_race.c"
 #include "afun-game/this_environment.c"
 #include "afun-game/out_unmod.c"
 #include "afun-game/out.c"
 #include "afun-game/cat_file.c"
-

@@ -2,6 +2,11 @@
 #define WIZ_L    1
 #define ADMIN_L  2
 
+#define DEBUG_STACK_SECURITY
+
+#include <trace.h>
+#include <privileges.h>
+
 /*
  * During boot, the compiler daemon will not be available yet to
  * include std-kernel.h automatically. However, when this object
@@ -115,6 +120,23 @@ int query_priv( string name ) {
 
 #define ROOT_OVERRIDE ({ "/std/user.c", "/std/player.c" })
 
+int root_priv( string str ) {
+  if(
+    sscanf( str, "%*s:system:%*s" ) != 0 ||
+    sscanf( str, "%*s:kernel:%*s" ) != 0
+  ) {
+    return 1;
+  }
+}
+
+int game_priv( string str ) {
+  if(
+    sscanf( str, "%*s:game:%*s" ) != 0 
+  ) {
+    return 1;
+  }
+}
+
 string owner_file(string file) {
   string * parts;
   string tmp;
@@ -153,3 +175,89 @@ string owner_file(string file) {
   return "nobody";
 }
 
+string determine_program_privs( string progname ) {
+  return ":" + owner_file( progname ) + ":";
+}
+
+string determine_obj_privs( string objname ) {
+  string name;
+  string priv;
+  object ob;
+
+  ob = find_object( objname );
+
+  if( !ob ) {
+    return ":nobody:";
+  }
+
+  if( sscanf( objname, "/sys/obj/user/%*s" ) == 1 ) {
+    name = ob->query_name();
+    if( !name || name == "" ) {
+      priv = "nobody";
+    } else {
+      priv = name;
+      if( query_wiz( name ) ) {
+        priv += ":wiz";
+      }
+
+      if( query_admin( name ) ) {
+        priv += ":system";
+      }
+    }
+  } else {
+    priv = owner_file( objname );
+  }
+
+  return ":" + priv + ":";
+}
+
+int validate_stack( string priv ) {
+  int i, sz, deny;
+  mixed ** stack;
+  string progname;
+  string objname;
+  string ppriv;
+  string opriv;
+  mapping cache;
+
+  if(!KERNEL()) {
+    return 0;
+  }
+
+  stack = call_trace();
+  cache = ([ ]);
+
+  for( i = 0, sz = sizeof( stack ) - 2; i < sz && !deny; i++ ) {
+
+    progname = stack[i][TRACE_PROGNAME];
+    objname = stack[i][TRACE_OBJNAME];
+
+    if(cache[objname]) {
+      opriv = cache[objname];
+    } else {
+      opriv = determine_obj_privs( objname );
+      cache[objname] = opriv;
+    }
+
+    ppriv = determine_program_privs( progname );
+
+#ifdef DEBUG_STACK_SECURITY
+    console_msg("validate_stack:\n"+
+      "*** frame   : " + i + "\n"+
+      "*** require : " + priv + "\n"+
+      "*** program : " + progname + "\n"+
+      "*** privs   : " + ppriv+"\n"+
+      "*** object  : " + objname + "\n"+
+      "*** privs   : " + opriv + "\n"
+    );
+#endif
+    if( !root_priv( ppriv ) && ( sscanf( ppriv, "%*s:"+priv+":%*s" ) == 0 ) ) {
+      deny++;
+    }
+
+    if( !root_priv( opriv ) && ( sscanf( opriv, "%*s:"+priv+":%*s" ) == 0 ) ) {
+      deny++;
+    }
+  }
+  return !deny;
+}
