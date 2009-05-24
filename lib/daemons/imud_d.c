@@ -479,6 +479,7 @@ void rcv_startup_reply( string origmud, mixed origuser, mixed destuser,
 
 #endif
     last_good_router = current_router;
+    password = rest[1];
 
     save_me();
     IMUDLOG( "I3 startup reply received.\n" );
