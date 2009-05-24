@@ -25,6 +25,10 @@ string user_name;
 static int timeout_handle;
 object query_player( void );
 
+static void log_file( string file, string message, varargs int level ) {
+  "/sys/daemons/logd"->write_log( file, message, level );
+}
+
 void create() {
   ansid = find_object(ANSI_D);
   if(!ansid) {
@@ -37,7 +41,7 @@ void create() {
 void _open(mixed * tls) {
   if( SITEBAN_D->is_banned(query_ip_number(this_object())) ) {
       /* site is banned */
-      write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+      log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
          "\t" + "Banned Site\n" );
       send_message( "\nYour site is under an access restriction.\n"+
          "Please email " + ADMIN_EMAIL + " about access from your site.\n" );
@@ -56,7 +60,7 @@ void _open(mixed * tls) {
   player->initialize_cmd_path();
   player->initialize_alias();
   player->set_long( "A boring player without a description." );
-  write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+  log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
       "\t" +"opening connection\n" );
   player->input_to_object( this_object(), "input_name" );
 }
@@ -72,7 +76,7 @@ static void _close( mixed * tls, int ld ) {
   if(!ip) ip = "<NO IP>";
   if( ld == 0 ) {
     player->set_linkdead( 1 );
-    write_file( "/logs/logins", ctime( time() ) + "\t" + ip +
+    log_file( "logins", ctime( time() ) + "\t" + ip +
       "\t\t" + this_object()->query_name() +" disconnects\n" );
 
   } else {
@@ -99,10 +103,10 @@ void quit( void ) {
   LAST_D->add_entry( user_name, 0 );
   USER_D->remove_user( user_name, this_object() );
   if( query_ip_number(this_object()) ) {
-      write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+      log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
       "\t" + this_object()->query_name() +" quits\n" );
   } else {
-      write_file( "/logs/logins", ctime( time() ) + "\t" +
+      log_file( "logins", ctime( time() ) + "\t" +
       "\t\t" + this_object()->query_name() +" LD quits\n" );
   }
 
@@ -237,7 +241,7 @@ void login_user( void ) {
       player = tmp_player;
       set_this_player(player);
       usr->quit();
-      write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+      log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
          "\t" + this_object()->query_name() +" reconnects\n" );
       player->set_linkdead( 0 );
       player->set_user( this_object() );
@@ -269,7 +273,7 @@ void login_user( void ) {
     player->write_prompt();
     remove_call_out( timeout_handle );
     LAST_D->add_entry( user_name, 1 );
-    write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+    log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
          "\t" + this_object()->query_name() +" connects\n" );
      
   }
@@ -294,7 +298,7 @@ void handle_reconnect( string str ) {
       player = tmp_player;
       player->set_user( this_object() );
       usr->quit();
-      write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+      log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
          "\t" + this_object()->query_name() +" reconnects\n" );
       player->set_linkdead( 0 );
       send_message( "Other copy kicked.\n" );
@@ -411,14 +415,14 @@ void input_name( string str ) {
     user_name = str;
     if( BANISH_D->is_banished(user_name) ) {
       /* user_name is a banished name */
-      write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+      log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
          "\t" + query_name() + " <- banished name\n" );
       send_message( "\nThe name '"+user_name+"' is reserved and not available for use.\n" );
       destruct_object( player );
       destruct_object( this_object() );
     }
-    if( file_exists( "/data/players/" + str + ".o" ) ) {
-      /* Player file exists */
+    if( USER_D->player_exists( str ) ) {
+      /* Player exists */
 
       player->set_name( user_name );
       player->set_proper_name( capitalize( user_name ) );
@@ -431,7 +435,7 @@ void input_name( string str ) {
       player->set_proper_name( capitalize( user_name ) );
       if( SITEBAN_D->is_newbanned(query_ip_number(this_object())) ) {
          /* site is new character banned */
-         write_file( "/logs/logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+         log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
             "\t" + query_name() + " <- Newbanned site\n" );
          send_message( "\nThis site is under development and not yet open to players.\n"+
             "Please email woodie@altern.org about future access from your site.\n" );
@@ -481,7 +485,7 @@ void input_old_passwd( string str ) {
 
 void input_new_passwd( string str ) {
 
-  write_file( "/logs/new_players", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+  log_file( "new_players", ctime( time() ) + "\t" + query_ip_number(this_object()) +
       "\t" + query_name() + "\n" );
 
   if( !str || str == "" ) {

@@ -86,3 +86,7 @@ int valid_player_name(string str) {
   return !catch(parse_string("valid=/[a-zA-Z][a-zA-Z0-9]+/ name: valid", str));
 }
 
+int player_exists( string str ) {
+  return unguarded( "file_exists", "/data/players/"+str+".o" ) > 0;
+}
+

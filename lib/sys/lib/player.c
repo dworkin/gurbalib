@@ -66,12 +66,12 @@ void create( void ) {
 
 /* Save the player */
 void save_me( void ) {
-  save_object( "/data/players/"+player_name+".o" );
+  unguarded( "save_object", "/data/players/"+player_name+".o" );
 }
 
 /* Restore the player */
 void restore_me( void ) {
-  if( !restore_object( "/data/players/"+player_name+".o" ) ) {
+  if( !unguarded( "restore_object", "/data/players/"+player_name+".o" ) ) {
     write( "Error while restoring \"/data/players/" + player_name+".o" );
     write( "Please notify the administration.");
     return;

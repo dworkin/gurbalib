@@ -9,12 +9,12 @@ void create( void ) {
 }
 
 void restore_me( void ) {
-  restore_object( "/daemons/data/last.o" );
+  unguarded( "restore_object", "/daemons/data/last.o" );
 
 }
 
 void save_me( void ) {
-  save_object( "/daemons/data/last.o" );
+  unguarded( "save_object", "/daemons/data/last.o" );
 }
 
 void add_entry( string name, int on ) {
