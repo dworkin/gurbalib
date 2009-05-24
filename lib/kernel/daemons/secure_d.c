@@ -154,6 +154,7 @@ string owner_file(string file) {
     case "kernel"  :
       return "kernel";
       break;
+    case ""        :
     case "daemons" :
     case "sys"     :
     case "cmds"    :
@@ -163,12 +164,15 @@ string owner_file(string file) {
     case "obj"     :
     case "game"    :
     case "logs"    :
+    case "data"    :
       return "game";
       break;
     case "wiz"     :
     case "domains" :
       if(sizeof(parts) > 1) {
         return parts[1];
+      } else {
+        return "system";
       }
       break;
   }
@@ -211,11 +215,12 @@ string determine_obj_privs( string objname ) {
   return ":" + priv + ":";
 }
 
-int validate_stack( string priv ) {
+int validate_stack( string priv, varargs int unguarded ) {
   int i, sz, deny;
   mixed ** stack;
   string progname;
   string objname;
+  string funname;
   string ppriv;
   string opriv;
   mapping cache;
@@ -224,13 +229,22 @@ int validate_stack( string priv ) {
     return 0;
   }
 
+  if( priv == "*" ) {
+    return 1;
+  }
+
   stack = call_trace();
   cache = ([ ]);
 
-  for( i = 0, sz = sizeof( stack ) - 2; i < sz && !deny; i++ ) {
+  for( i = sizeof( stack ) - 4; ( i >= 0 ) && !deny && ( unguarded < 2 ); i-- ) {
 
     progname = stack[i][TRACE_PROGNAME];
     objname = stack[i][TRACE_OBJNAME];
+    funname = stack[i][TRACE_FUNCTION];
+
+    if( unguarded || ( ( funname == "unguarded" ) && ( progname == "/kernel/lib/auto-game" ) ) ) {
+      unguarded++;
+    }
 
     if(cache[objname]) {
       opriv = cache[objname];
@@ -243,14 +257,16 @@ int validate_stack( string priv ) {
 
 #ifdef DEBUG_STACK_SECURITY
     console_msg("validate_stack:\n"+
-      "*** frame   : " + i + "\n"+
-      "*** require : " + priv + "\n"+
-      "*** program : " + progname + "\n"+
-      "*** privs   : " + ppriv+"\n"+
-      "*** object  : " + objname + "\n"+
-      "*** privs   : " + opriv + "\n"
+      "*** frame    : " + i + "\n"+
+      "*** require  : " + priv + "\n"+
+      "*** program  : " + progname + "\n"+
+      "**  function : " + funname + "\n"+
+      "*** privs    : " + ppriv+"\n"+
+      "*** object   : " + objname + "\n"+
+      "*** objprivs : " + opriv + "\n"
     );
 #endif
+
     if( !root_priv( ppriv ) && ( sscanf( ppriv, "%*s:"+priv+":%*s" ) == 0 ) ) {
       deny++;
     }
@@ -261,3 +277,62 @@ int validate_stack( string priv ) {
   }
   return !deny;
 }
+
+string query_read_priv( string file ) {
+  string * parts;
+
+  parts = explode( file, "/" );
+
+#ifdef DEBUG_PRIVS
+  console_msg("query_read_priv( \""+file+"\" )\n");
+#endif
+
+  if( !sizeof( parts ) ) {
+    return "*";
+  }
+
+  /*
+   * domains dir is special. Read access to everything for
+   * everyone except for the /domains/<dom>/data dir.
+   *
+   * daemons dir is special. Read access to everything for
+   * everyone except for the /daemons/data dir.
+   *
+   */
+  switch( parts[0] ) {
+    case "kernel"  :
+      if( sizeof( parts ) > 1 && parts[1] == "data" ) {
+        return owner_file( file );
+      }
+      /* fall through, so no I didn't forget a break here */
+    case "domains" :
+      if( sizeof( parts ) > 2 && parts[2] == "data") {
+        return owner_file( file );
+      }
+      break;
+    case "data" :
+      return owner_file( file );
+      break;
+    case "daemons" :
+    case "sys" :
+      if(sizeof(parts) > 1 && parts[1] == "data") {
+        return owner_file( file );
+      }
+      break;
+    case "wiz" :
+      if(sizeof(parts) > 1) {
+        return owner_file( file );
+      }
+      break;
+  }
+
+  return "*";
+}
+
+string query_write_priv( string file ) {
+#ifdef DEBUG_PRIVS
+  console_msg("query_write_priv( \""+file+"\" )\n");
+#endif
+  return owner_file( file );
+}
+

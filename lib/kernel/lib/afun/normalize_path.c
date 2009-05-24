@@ -29,8 +29,10 @@ string normalize_path(string file, string dir)
 
     path = explode(file, "/");
 
+/*
     if( (path[0] == "data" || path[0] == "kernel") && !secure_d->query_admin( this_user()->query_name() ) )
       return("");
+*/
 
     if (sscanf(file, "%*s//") == 0 && sscanf(file, "%*s/.") == 0) {
       return file;      /* no changes */
@@ -50,8 +52,10 @@ string normalize_path(string file, string dir)
       else
         path = explode( dir + "/" + file, "/" );
 
+/*
       if( (path[0] == "data" || path[0] == "kernel") && !secure_d->query_admin( this_user()->query_name() ) )
         return("");
+*/
 
 
       if( dir[strlen(dir)-1] == '/' )
@@ -82,9 +86,11 @@ string normalize_path(string file, string dir)
     path[++j] = path[i];
   }
 
+/*
   if( (path[0] == "data" || path[0] == "kernel") && !secure_d->query_admin( this_user()->query_name() ) ) {
     return "";
   }
+*/
 
   return "/" + implode(path[.. j], "/");
 }

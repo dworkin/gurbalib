@@ -20,7 +20,7 @@ void main( string str ) {
   }
   
   str = normalize_path( str, this_player()->query_env( "cwd" ) );
-  if( !str || str == "" ) {
+  if( !valid_read( str ) ) {
     write( "Access denied.\n" );
     return;
   }

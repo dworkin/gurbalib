@@ -1,4 +1,4 @@
-nomask int file_exists (string str) {
+static int file_exists (string str) {
   mixed *val;
   int *sizes;
 
