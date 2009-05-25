@@ -655,7 +655,7 @@ int close(varargs int force) {
   connected = 0;
   IMUDLOG( "Connection closed.\n" );
   if(enabled && !reconnect_handle) reconnect_handle = call_out( "reconnect", RECONNECT_INTERVAL );
-  event("i3_connection", "I3 onnection to "+mpRouterList[current_router][0]+" lost" );
+  event("i3_connection", "I3 connection to "+mpRouterList[current_router][0]+" lost" );
   return connected == 0;
 }
 
