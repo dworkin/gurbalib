@@ -11,11 +11,11 @@ static string *days;
 
 int time;
 
-void restore_me( void );
+static void restore_me( void );
 
 void create( void ) {
 
-  restore_me();
+  unguarded( "restore_me" );
 
   months = ({ "Calninque", "Ben'ka", "Belegaer", "Mosiana", "Amaros", 
 	      "Zalbus", "Sisyana", "Rhom", "Paknos", "Alachir", "Fuindell", "Helethia", "Jaran",
@@ -28,18 +28,18 @@ void create( void ) {
   call_out( "update_time", ZOOM );
 }
 
-void save_me( void ) {
+static void save_me( void ) {
   save_object( "/daemons/data/time_d.o" );
 }
 
-void restore_me( void ) {
+static void restore_me( void ) {
   restore_object( "/daemons/data/time_d.o" );
 }
 
 void update_time( void ) {
   time++;
   if( !(time % 60) )
-    save_me();
+    unguarded( "save_me" );
   call_out( "update_time", ZOOM );
 }
 

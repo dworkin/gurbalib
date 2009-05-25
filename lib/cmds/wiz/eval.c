@@ -9,7 +9,7 @@ void main( string src, varargs mixed args...) {
   str_size = strlen(src);
   if(str_size && src[ (str_size-1)] != ';')
     src += ";";
-  err = catch(obj = compile_object("eval_ob", 
+  err = catch(obj = compile_object("/wiz/" + this_player()->query_name() + "/obj/eval_ob", 
 	      "# include <float.h>\n# include <limits.h>\n" +
 	      "# include <status.h>\n# include <trace.h>\n" +
 	      "# include <type.h>\n\n" +
