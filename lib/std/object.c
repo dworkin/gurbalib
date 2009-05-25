@@ -39,6 +39,10 @@ int is_player( void ) {
 void set_id( string str, varargs mixed args...) {
   int i;
 
+  if(sizeof(args) && typeof(args[0]) == T_ARRAY) {
+    args = args[0];
+	}
+
   ids = ({ str });
   for( i = 0; i < sizeof( args ); i++ ) {
     ids += ({ (string) args[i] });
@@ -46,27 +50,28 @@ void set_id( string str, varargs mixed args...) {
 }
 
 void add_id( string str, varargs mixed args...) {
-  int i;
-
-  if( !ids )
-    ids = ({ });
-
-  ids += ({ str });
-  for( i = 0; i < sizeof( args ); i++ ) {
-    ids += ({ (string) args[i] });
-  }
+  int size;
+    
+  ids -= ({"nondescript thing"});
+  if(sizeof(args) && typeof(args[0]) == T_ARRAY) {
+    args = args[0];
+	}
+  size = sizeof(ids);
+  /* fix args to set_id so that ids[0] preserved after adding new ids */
+  switch(size) {
+    case 0:
+      set_id(str, args);
+	  break;
+	case 1:
+	  set_id(ids[0], ({str})+args);
+	  break;
+	default:
+	  set_id(ids[0], ({str})+args+ids[1..(size-1)] );
+	}
 }
 
 void add_ids( string str, varargs mixed args...) {
-  int i;
-
-  if( !ids )
-    ids = ({ });
-
-  ids += ({ str });
-  for( i = 0; i < sizeof( args ); i++ ) {
-    ids += ({ (string) args[i] });
-  }
+  add_id(str, args);
 }
 
 string query_id( void ) {
