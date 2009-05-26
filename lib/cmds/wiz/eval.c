@@ -13,12 +13,20 @@ void main( string src, varargs mixed args...) {
 	      "# include <float.h>\n# include <limits.h>\n" +
 	      "# include <status.h>\n# include <trace.h>\n" +
 	      "# include <type.h>\n\n" +
-	      "mixed exec(object player, varargs mixed argv...) {\n" +
-		  "int ticks;\n"+
-	      "    mixed " +
+	      "private mixed exec_fun(mixed args...) {\n"+
+		  "    mixed "+
 	      "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;\n"+
+		  "args = args[0];\n"+
+		  src + "}\n"+
+		  "mixed *exec(object player, varargs mixed argv...) {\n" +
+		  "int ticks;\n"+
+		  "mixed returnval;\n"+
 		  "argv = argv[0];\n" +
-	      src + "\n}"),
+          "ticks = status()[ST_TICKS];\n"+
+	      "returnval = exec_fun(argv);\n"+
+		  "ticks = ticks - status()[ST_TICKS];\n"+
+		  "return ({ ticks, returnval });\n"+
+		  "}\n"),
 		result = obj->exec(this_player(), args) );
 
   if( obj )
@@ -27,11 +35,11 @@ void main( string src, varargs mixed args...) {
   if (err) {
     write("Error: " + err + ".\n");
   } else {
-    if(result || intp(result)) {
-      write( "Result: \n" + dump_value(result) + "\n" );
+    if(result[1] || intp(result[1])) {
+      write( "Result: \n" + dump_value(result[1]) + "\n" );
     } else {
       write( "Result: \n" + "<nil>" + "\n" );
     }
+  write("Ticks used: "+(string) result[0]+"\n");
   } 
-
 }
