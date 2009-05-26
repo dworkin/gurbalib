@@ -21,8 +21,8 @@
 #include <trace.h>
 #include <tlsvar.h>
 #include <privileges.h>
+#include <error_handling.h>
 
-#include "/kernel/lib/afun/dump_value.c"
 
 #define PAD "                                                                       "
 
@@ -63,6 +63,15 @@ object * users;
 #ifdef SYS_NETWORKING
 object * ports;
 #endif
+
+/*
+ * Include some useful functions from the auto objects
+ */
+
+#include "/kernel/lib/afun/dump_value.c"
+#include "/kernel/lib/afun/argcheck.c"
+#include "/kernel/lib/afun/normalize_path.c"
+#include "/kernel/lib/afun-game/require_priv.c"
 
 void direct_message(string str) {
   send_message(str);
@@ -330,6 +339,8 @@ static void restored() {
   _restored(allocate(query_tls_size()));
 }
 
+#if 0
+
 /*
  * NAME: normalize_path()
  * DESCRIPTION:   reduce a path to its minimal absolute form
@@ -415,20 +426,45 @@ string normalize_path(string file, string dir)
 
   return "/" + implode(path[.. j], "/");
 }
+#endif
+
 
 string path_read( string path ) {
 
   string file;
+  string priv;
+
+  if( !secure_d ) {
+    return "";
+  }
 
   file = normalize_path( path, this_user()->query_player()->query_env("cwd") );
-  return( file );
+
+  priv = secure_d->query_read_priv( file );
+  if( require_priv( priv ) ) {
+    return( file );
+  } else {
+    return "";
+  }
 }
 
 string path_write( string path ) {
   string file;
 
+  string priv;
+
+  if( !secure_d ) {
+    return "";
+  }
+
   file = normalize_path( path, this_user()->query_player()->query_env("cwd") );
-  return( file );
+
+  priv = secure_d->query_write_priv( file );
+  if( require_priv( priv ) ) {
+    return( file );
+  } else {
+    return "";
+  }
 }
 
 object call_object( string name ) {

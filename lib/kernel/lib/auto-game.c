@@ -38,6 +38,10 @@ nomask int is_kernel_object() {
 #include "afun-game/get_dir.c"
 #include "afun-game/file_exists.c"
 #include "afun-game/file_size.c"
+#include "afun-game/rename_file.c"
+#include "afun-game/remove_file.c"
+#include "afun-game/make_dir.c"
+#include "afun-game/remove_dir.c"
 #include "afun-game/unguarded.c"
 
 #include "afun-game/this_body.c"
