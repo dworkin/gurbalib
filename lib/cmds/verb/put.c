@@ -7,7 +7,6 @@ mixed can_put( void ) {
 }
 
 mixed can_put_obj_str_obj( object obj, string str, object target ) {
-  write("beep");
   if( lowercase(str) != "in" )
     return( "Put what in where?" );
 
