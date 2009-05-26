@@ -2,7 +2,9 @@
 #define WIZ_L    1
 #define ADMIN_L  2
 
-#define DEBUG_STACK_SECURITY
+/* uncomment the line below to get a lot of debug output.. */
+
+/* #define DEBUG_STACK_SECURITY */
 
 #include <trace.h>
 #include <privileges.h>
@@ -118,7 +120,7 @@ int query_priv( string name ) {
   return( privs[name] );
 }
 
-#define ROOT_OVERRIDE ({ "/std/user.c", "/std/player.c" })
+#define ROOT_OVERRIDE ({ })
 
 int root_priv( string str ) {
   if(
