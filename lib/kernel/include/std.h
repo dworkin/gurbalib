@@ -67,6 +67,7 @@
 #define PARSE_D      "/daemons/parse_d"
 #define MSG_D        "/daemons/messages_d"
 #define SCHEDULE_D   "/daemons/schedule_d"
+#define LOG_D        "/sys/daemons/logd"
 
 #define CONNECTION      "/kernel/obj/net/connection"
 #define PORT            "/kernel/obj/net/port"

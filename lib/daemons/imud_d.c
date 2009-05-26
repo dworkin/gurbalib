@@ -58,7 +58,7 @@ static int reconnect_handle;
 void create( void );
 
 void IMUDLOG( string str ) {
-  write_file( "/logs/imud", ctime( time() ) + " : " + str );
+  LOG_D->write_log( "imud", ctime( time() ) + " : " + str );
 }
 
 void save_me( void ) {
@@ -215,6 +215,12 @@ private void handle_router_read(mixed *mpMessage)
   define them in your startup-request-3 packet.
   Don't respond to broadcasts with an error.
 */
+
+  if(!mpMessage || sizeof(mpMessage) == 0 ) {
+    IMUDLOG("Empty packet!");
+    return;
+  }
+
   if(!aServices[mpMessage[0]]) {
     if( mpMessage[4] != 0) {
       write_imud_stream("error", mpMessage[2], mpMessage[3],

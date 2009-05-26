@@ -26,7 +26,7 @@ static int timeout_handle;
 object query_player( void );
 
 static void log_file( string file, string message, varargs int level ) {
-  "/sys/daemons/logd"->write_log( file, message, level );
+  LOG_D->write_log( file, message, level );
 }
 
 void create() {
