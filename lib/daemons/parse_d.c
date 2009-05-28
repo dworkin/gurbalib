@@ -26,10 +26,63 @@ int is_verb( string verb ) {
   return( 0 );
 }
 
-object query_verb_object( string verb ) {
+/* calls can_x with right number of args for grammar */
+mixed query_can(mixed obj, string function, varargs mixed args...) {
+  if(sizeof(args) && typeof(args[0]) == T_ARRAY)
+    args = args[0];
+  switch( sizeof( args ) ) {
+    case 0:
+      return call_other( obj, function );
+	  break;
+    case 1:
+      return call_other( obj, function, 
+			   args[0] );
+	  break;
+    case 2:
+      return call_other( obj, function, 
+			   args[0], args[1] );
+	  break;
+    case 3:
+      return call_other( obj, function, 
+			   args[0], args[1], args[2] );
+	  break;
+    case 4:
+      return call_other( obj, function, 
+			  args[0], args[1], args[2], args[3] );
+	  break;
+    }
+  }
 
-  return( verbs[verb] );
-}
+/* returns verb object for grammar given.  Scans objects in order of priority.
+   Items in player inventory take precedence over items in their environment. */
+object query_verb_object( string rule, varargs mixed results ) {
+  int i;
+  mixed x;
+  object *inventory_environment; /* inventory of environment we are scanning */
+  
+  rule = "can_"+rule;
+  if(!results)  results = ({ });
+/* scan player inventory */
+  inventory_environment = this_player()->query_inventory();
+  for(i = 0; i < sizeof(inventory_environment); i++) {
+    if(function_object(rule, inventory_environment[i]) ) {
+	  x = query_can(inventory_environment[i], rule, results);
+	  }
+	if(x && x == 1)
+	  return inventory_environment[i];
+	}
+
+  /* scan player environment */
+  inventory_environment = this_player()->query_environment()->query_inventory();
+  for(i = 0; i < sizeof(inventory_environment); i++) {
+    if(function_object(rule, inventory_environment[i]) ) {
+	  x = query_can(inventory_environment[i], rule, results);
+	  if(x && x == 1)
+		  return inventory_environment[i];
+	  }
+	}
+	return nil; /* no matches */
+  }
 
 string query_grammar( void ) {
   return( grammar );
@@ -39,7 +92,9 @@ mixed parse( string str ) {
   mixed *result;
   string function;
   string err;
+  object local_verb_object;
   mixed returned;
+  mixed obj;
   int i;
 
   last_obj = nil;
@@ -47,7 +102,7 @@ mixed parse( string str ) {
   err = catch(result = parse_string( grammar, str ) );
 
 #ifdef DEBUG_PARSE
-  write( "result: " + dump_value( result, ([ ]) ) );
+  write( "result: " + dump_value( result ) );
 #endif
   if( err ) {
     int pos;
@@ -67,7 +122,7 @@ mixed parse( string str ) {
     return( nil );
 
 #ifdef DEBUG_PARSER
-  write("parse_string result: "+dump_value(result, ([ ])));
+  write("parse_string result: "+dump_value(result));
 #endif
   function = "";
   if( sizeof( result ) > 1 ) {
@@ -93,32 +148,30 @@ mixed parse( string str ) {
   } else {
     function = result[0];
   }
-  
 #ifdef DEBUG_PARSE
-  write( "Function : 'can_" + function + "' in object " + verbs[result[0]] ); 
+  write("Scanning for local verbs matching grammar...");
 #endif
-
-  switch( sizeof( result ) ) {
-  case 1:
-    returned = call_other( verbs[result[0]], "can_" + function );
-    break;
-  case 2:
-    returned = call_other( verbs[result[0]], "can_" + function, 
-			   result[1] );
-    break;
-  case 3:
-    returned = call_other( verbs[result[0]], "can_" + function, 
-			   result[1], result[2] );
-    break;
-  case 4:
-    returned = call_other( verbs[result[0]], "can_" + function, 
-			   result[1], result[2], result[3] );
-    break;
-  case 5:
-    returned = call_other( verbs[result[0]], "can_" + function, 
-			   result[1], result[2], result[3], result[4] );
-    break;
-  }
+  if(sizeof(result) > 1)
+    local_verb_object = query_verb_object(function, result[1..(sizeof(result)-1)]);
+  else
+    local_verb_object = query_verb_object(function);
+  if(local_verb_object) {
+	obj = local_verb_object;
+#ifdef DEBUG_PARSE
+  write( "Function : 'can_" + function + "' in object " + dump_value(obj) ); 
+#endif
+	  returned = 1;
+    }
+  else {
+    obj = verbs[result[0]];
+#ifdef DEBUG_PARSE
+  write( "Function : 'can_" + function + "' in object " + obj ); 
+#endif
+  if(sizeof(result) > 1)
+    returned = query_can(obj, "can_" + function, result[1..(sizeof(result)-1)]);
+  else
+    returned = query_can(obj, "can_" + function);
+    }
 
   if( returned == 1 ) {
 #ifdef DEBUG_PARSE
@@ -126,22 +179,22 @@ mixed parse( string str ) {
 #endif
       switch( sizeof( result ) ) {
       case 1:
-	returned = call_other( verbs[result[0]], "do_" + function );
+	returned = call_other( obj, "do_" + function );
 	break;
       case 2:
-	returned = call_other( verbs[result[0]], "do_" + function, 
+	returned = call_other( obj, "do_" + function, 
 			       result[1] );
 	break;
       case 3:
-	returned = call_other( verbs[result[0]], "do_" + function, 
+	returned = call_other( obj, "do_" + function, 
 			       result[1], result[2] );
 	break;
       case 4:
-	returned = call_other( verbs[result[0]], "do_" + function, 
+	returned = call_other( obj, "do_" + function, 
 			       result[1], result[2], result[3] );
 	break;
       case 5:
-	returned = call_other( verbs[result[0]], "do_" + function, 
+	returned = call_other( obj, "do_" + function, 
 			       result[1], result[2], result[3], result[4] );
 	break;
       }
@@ -175,7 +228,7 @@ void rescan_verbs( void ) {
   
     info = call_other( verbs[names[i]], "query_verb_info" );
 
-    write( "Verb info: " + dump_value( info, ([]) ) );
+    write( "Verb info: " + dump_value( info ) );
 
     if( sizeof( info ) > 0 ) {
       /* Rules and aliases */
@@ -264,10 +317,10 @@ static mixed *construct_obj_packet(mixed *mpTree)
 
 #ifdef DEBUG_PARSE
   write( "construct_obj_packet(" 
-	 + dump_value( mpTree[0], ([ ])) + ","
-	 + dump_value( mpTree[1], ([ ])) + ","
-	 + dump_value( mpTree[2], ([ ])) + ","
-	 + dump_value( mpTree[3], ([ ])) + ")\n" ); 
+	 + dump_value( mpTree[0] ) + ","
+	 + dump_value( mpTree[1] ) + ","
+	 + dump_value( mpTree[2] ) + ","
+	 + dump_value( mpTree[3] ) + ")\n" ); 
 #endif
 
   res = "";
@@ -285,10 +338,10 @@ static mixed *find_container_object( mixed *mpTree ) {
 
 #ifdef DEBUG_PARSE
   write( "find_container_object(" 
-	 + dump_value( mpTree[0], ([ ])) + ","
-	 + dump_value( mpTree[1], ([ ])) + ","
-	 + dump_value( mpTree[2], ([ ])) + ","
-	 + dump_value( mpTree[3], ([ ])) + ")\n" );
+	 + dump_value( mpTree[0] ) + ","
+	 + dump_value( mpTree[1] ) + ","
+	 + dump_value( mpTree[2] ) + ","
+	 + dump_value( mpTree[3] ) + ")\n" );
 #endif
 
   if( !last_obj ) {
@@ -317,10 +370,10 @@ static mixed *find_living_object( mixed *mpTree ) {
 
 #ifdef DEBUG_PARSE
   write( "find_living_object(" 
-	 + dump_value( mpTree[0], ([ ])) + ","
-	 + dump_value( mpTree[1], ([ ])) + ","
-	 + dump_value( mpTree[2], ([ ])) + ","
-	 + dump_value( mpTree[3], ([ ])) + ")\n" ); 
+	 + dump_value( mpTree[0] ) + ","
+	 + dump_value( mpTree[1] ) + ","
+	 + dump_value( mpTree[2] ) + ","
+	 + dump_value( mpTree[3] ) + ")\n" ); 
 #endif
   
   if( sizeof( mpTree[1] ) > 0 ) {
@@ -345,10 +398,10 @@ static mixed *find_direct_object( mixed *mpTree ) {
   
 #ifdef DEBUG_PARSE
   write( "find_direct_object(" 
-	 + dump_value( mpTree[0], ([ ])) + ","
-	 + dump_value( mpTree[1], ([ ])) + ","
-	 + dump_value( mpTree[2], ([ ])) + ","
-	 + dump_value( mpTree[3], ([ ])) + ")\n" ); 
+	 + dump_value( mpTree[0] ) + ","
+	 + dump_value( mpTree[1] ) + ","
+	 + dump_value( mpTree[2] ) + ","
+	 + dump_value( mpTree[3] ) + ")\n" ); 
 #endif
   
   if( sizeof( mpTree[1] ) > 0 ) {
@@ -383,10 +436,10 @@ static mixed *find_inv_object( mixed *mpTree ) {
   
 #ifdef DEBUG_PARSE
   write( "find_inv_object(" 
-	 + dump_value( mpTree[0], ([ ])) + ","
-	 + dump_value( mpTree[1], ([ ])) + ","
-	 + dump_value( mpTree[2], ([ ])) + ","
-	 + dump_value( mpTree[3], ([ ])) + ")\n" ); 
+	 + dump_value( mpTree[0] ) + ","
+	 + dump_value( mpTree[1] ) + ","
+	 + dump_value( mpTree[2] ) + ","
+	 + dump_value( mpTree[3] ) + ")\n" ); 
 #endif
   
   if( sizeof( mpTree[1] ) > 0 ) {
@@ -409,10 +462,10 @@ static mixed *find_environment_object( mixed *mpTree ) {
   
 #ifdef DEBUG_PARSE
   write( "find_environment_object(" 
-	 + dump_value( mpTree[0], ([ ])) + ","
-	 + dump_value( mpTree[1], ([ ])) + ","
-	 + dump_value( mpTree[2], ([ ])) + ","
-	 + dump_value( mpTree[3], ([ ])) + ")\n" ); 
+	 + dump_value( mpTree[0] ) + ","
+	 + dump_value( mpTree[1] ) + ","
+	 + dump_value( mpTree[2] ) + ","
+	 + dump_value( mpTree[3] ) + ")\n" ); 
 #endif
 
   if( sizeof( mpTree[1] ) > 0 ) {
@@ -443,15 +496,15 @@ static mixed *fix_order(mixed *mpTree) {
   mixed obj;
   int i;
   #ifdef DEBUG_PARSE
-    write(dump_value(mpTree,([]))+"\n");
+    write(dump_value(mpTree)+"\n");
     write("fix_order("
-       + dump_value( mpTree[0], ([ ])) + ","
-       + dump_value( mpTree[1], ([ ])) + ","
-       + dump_value( mpTree[2], ([ ])) + ","
-       + dump_value( mpTree[3], ([ ])) + ","
-       + dump_value( mpTree[4], ([ ])) + ","
-       + dump_value( mpTree[5], ([ ])) + ","
-       + dump_value( mpTree[6], ([ ])) + ")\n" );
+       + dump_value( mpTree[0] ) + ","
+       + dump_value( mpTree[1] ) + ","
+       + dump_value( mpTree[2] ) + ","
+       + dump_value( mpTree[3] ) + ","
+       + dump_value( mpTree[4] ) + ","
+       + dump_value( mpTree[5] ) + ","
+       + dump_value( mpTree[6] ) + ")\n" );
       #endif
     last_obj = mpTree[6];
       obj = find_container_object(mpTree[1..4]);
