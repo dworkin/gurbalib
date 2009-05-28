@@ -73,7 +73,8 @@ object query_verb_object( string rule, varargs mixed results ) {
 	}
 
   /* scan player environment */
-  inventory_environment = this_player()->query_environment()->query_inventory();
+  inventory_environment = ({ this_player()->query_environment() }) +
+        this_player()->query_environment()->query_inventory();
   for(i = 0; i < sizeof(inventory_environment); i++) {
     if(function_object(rule, inventory_environment[i]) ) {
 	  x = query_can(inventory_environment[i], rule, results);
