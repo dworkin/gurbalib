@@ -44,9 +44,16 @@ nomask int is_kernel_object() {
 #include "afun-game/remove_dir.c"
 #include "afun-game/unguarded.c"
 
+/*
+ * non kernel tls access, uses a special tls var containing
+ * a map of 'user' tlsvars indexed by name.
+ */
+#include "afun-game/get_tlvar.c"
+#include "afun-game/set_tlvar.c"
 #include "afun-game/this_body.c"
 #include "afun-game/this_race.c"
 #include "afun-game/this_environment.c"
 #include "afun-game/out_unmod.c"
 #include "afun-game/out.c"
 #include "afun-game/cat_file.c"
+

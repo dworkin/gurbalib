@@ -1,7 +1,7 @@
 #ifndef TLSVAR_DOT_H
 #define TLSVAR_DOT_H
 
-#define DEFAULT_TLS_SIZE 9
+#define DEFAULT_TLS_SIZE 10
 
 #define TLS_COMPILING      1
 #define TLS_COMPTYPE       2
