@@ -1,4 +1,5 @@
 static mapping global_events;
+int eventid;
 
 void create( void ) {
   global_events = ([ ]);
@@ -27,6 +28,8 @@ void unsubscribe_event( string name ) {
 }
 
 void dispatch_event( string name, object *obs, int i, int max_i, mixed *args ) {
+  eventid++;
+
   /* First see if there are any more objects after this one */
   if ( i < max_i ) {
     /* Go ahead and dispatch for the next one to make sure all get the event
