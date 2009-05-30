@@ -1,0 +1,18 @@
+NAME
+        get_tlvar - get the value for a tls variable.
+
+SYNOPSIS
+        mixed get_tlvar( string name )
+
+DESCRIPTION
+        Returns the value for tls variable 'name'.
+
+RETURN VALUE
+        Returns a value or nil if the requested variable has not been set.
+
+NOTES
+        This afun only exists for code outside /kernel
+
+SEE ALSO
+        set_tlvar, tls
+

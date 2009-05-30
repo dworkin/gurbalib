@@ -1,0 +1,54 @@
+Thread Local Storage
+--------------------
+
+Gurbalib supports thread local storage and uses it for
+various purposes.
+
+1. How it works.
+
+  When a new thread is started, a special array is created
+  on the lpc stack. This array has a specific number of elements
+  which each have a specific use. The number of elements and their
+  use is defined in /kernel/include/tlsvar.h
+
+  This array is only available to code inside /kernel, and is used
+  there for storing temporary data that is only valid for the current
+  thread, such as the value returned by the this_player() afun. It is
+  also heavily used during compilation of objects and inheritables to
+  keep track of global data that needs to be shared between objects
+  involved in compilation.
+
+2. User TLS variables.
+
+  One of the indices in this array is defined as TLS_UVARS.
+
+  This element contains a mapping with 'user' TLS variables. Those
+  variables are accessible for code outside /kernel by means of the
+  get_tlvar and set_tlvar afuns.
+
+  The indices in this mapping are strings, and the mapping is shared
+  between all code running in the same thread.
+
+3. When and why should this be used?
+
+  Whenever you add a global variable to an object, ask yourself the
+  following questions:
+
+  1. Could it happen that this object gets used by more then one player
+     at the same time? (this is true for example for everything inside
+     /cmds/)
+
+  2. Is the value I am going to store in the global variable going to be
+     changed often?
+
+  3. Is the value in the global variable only valid for the current thread?
+     (A good hint at this is when you set it to a specific value each time
+     the object gets called)
+
+  If the answer to all 3 is yes, then a tls variable is almost always the
+  best solution.
+
+  If the answer to 3 is no, you cannot use a tls variable. Otherwise, if
+  2 out of 3 questions get a yes, consider using a tls variable.
+
+  see the get_tlvar and set_tlvar for more information.
