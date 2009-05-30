@@ -1,55 +1,43 @@
-mixed *query_verb_info( void ) {
+string *query_verb_info() {
   return( ({ "", "OBJE", "LIV", "OBJX from OBJ", "OBJA" }) );
-
-  return( ({ "", "OBJE", "LIV", "OBJX from OBJ" }) );
 }
 
-mixed can_get( void ) {
-  return( "Get what?" );
+int can_get() {
+  return 1;
 }
 
-mixed can_get_str( string str ) {
-  if( lowercase(str) == "all" || lowercase(str) == "everything" )
-    return( 1 );
-  else
-    return( "You can't seem to find the " + str + "." );
+int can_get_str( string str ) {
+  return 1;
 }
 
-mixed can_get_obj( object obj ) {
-  if( obj->is_gettable() )
-    return( 1 );
-  return( "You can't get the " + obj->query_id() + "." );
+int can_get_obj( object obj ) {
+  return 1;
 }
 
-mixed can_get_liv( object liv ) {
-  return( "You can't get that." );
+int can_get_liv( object liv ) {
+  return 1;
 }
 
-mixed can_get_obj_str_obj( object target, string s, object obj ) {
-  if( s == "from" && obj->is_container() ) {
-    if( obj->is_closed() ) {
-      return( "It's closed." );
-    }
-    return( 1 );
-  }
-  return( "You can't get " + target->query_id() + " from " + obj->query_id() + "." );
+int can_get_obj_str_obj( object target, string s, object obj ) {
+  return 1;
 }
 
-mixed can_get_str_str_obj( string target, string s, object obj ) {
-  if(target == "all" || target == "everything") {
-    return 1;
-  } else {
-    return("You don't see any "+target+" in the "+obj->query_id()+".");
-  }
+int can_get_str_str_obj( string target, string s, object obj ) {
+  return 1;
 }
 
-mixed do_get( void ) {
-  write( "You get something. Report this to a wiz." );
+void do_get() {
+  write( "Get what?" );
 }
 
-mixed do_get_str( string str ) {
+void do_get_str( string str ) {
   object *inv;
   int i;
+  
+  if( lowercase(str) != "all" && lowercase(str) != "everything" ) {
+    write( "You can't seem to find the " + str + "." );
+	return;
+	}
 
   inv = this_environment()->query_inventory();
   for( i=0; i < sizeof( inv ); i++ ) {
@@ -69,7 +57,11 @@ mixed do_get_str( string str ) {
   } 
 }
 
-mixed do_get_obj( object obj ) {
+void do_get_obj( object obj ) {
+  if( !obj->is_gettable() ) {
+    write( "You can't get the " + obj->query_id() + "." );
+	return;
+  }
   if( obj->move( this_player() ) ) {
     this_player()->targetted_action( "$N $vpick up $o.", nil, obj );
   }
@@ -78,11 +70,21 @@ mixed do_get_obj( object obj ) {
   }
 }
 
-mixed do_get_liv( object obj ) {
-  write( "You get the " + obj->query_id() + ", report to Fudge." );
+void do_get_liv( object obj ) {
+  write( "You can't get that." );
 }
 
-mixed do_get_obj_str_obj( object target, string s, object obj ) {
+void do_get_obj_str_obj( object target, string s, object obj ) {
+  if( s == "from" && obj->is_container() ) {
+    if( obj->is_closed() ) {
+      write( "It's closed." );
+	  return;
+    }
+  }
+  else {
+    write( "You can't get " + target->query_id() + " from " + obj->query_id() + "." );
+	return;
+	}
   if( target->move( this_player() ) ) {
     this_player()->targetted_action( "$N $vget $o from $o1.", nil, target, obj );
   } else {
@@ -93,6 +95,11 @@ mixed do_get_obj_str_obj( object target, string s, object obj ) {
 void do_get_str_str_obj(string target, string s, object obj) {
   object * inv;
   int i;
+  
+  if(target != "all" && target != "everything") {
+    write("You don't see any "+target+" in the "+obj->query_id()+".");
+	return;
+  }
 
   inv = obj->query_inventory();
   for( i = 0; i < sizeof( inv ); i ++ ) {

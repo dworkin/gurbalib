@@ -1,16 +1,21 @@
-mixed *query_verb_info( void ) {
+string *query_verb_info() {
   return( ({ "", "LIV" }) );
 }
 
-mixed can_attack( void ) {
-  return( "Attack who?" );
+int can_attack() {
+  return 1;
 }
 
-mixed can_attack_liv( object liv ) {
+int can_attack_liv( object liv ) {
   return( 1 );
 }
 
-mixed do_attack_liv( object liv ) {
+void do_attack() {
+  write( "Attack who?" );
+  return;
+  }
+
+void do_attack_liv( object liv ) {
   this_player()->targetted_action( "$N $vattack $t.", liv );
   this_player()->attack( liv );
 }

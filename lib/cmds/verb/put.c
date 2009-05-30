@@ -1,31 +1,40 @@
-mixed *query_verb_info( void ) {
+string *query_verb_info() {
   return( ({ "", "OBJI in OBJ" }) );
 }
 
-mixed can_put( void ) {
-  return( "Put what in where?" );
+int can_put() {
+  return 1;
 }
 
-mixed can_put_obj_str_obj( object obj, string str, object target ) {
-  if( lowercase(str) != "in" )
-    return( "Put what in where?" );
+int can_put_obj_str_obj( object obj, string str, object target ) {
+  return 1;
+}
 
-  if( !target->is_container() )
-    return( "You can't put anything in there." );
+void do_put() {
+  write( "Put what in where?" );
+  }
 
-  if( target->is_closed() )
-    return( "It's not open." );
+void do_put_obj_str_obj( object obj, string str, object target ) {
+  if( lowercase(str) != "in" ) {
+    write( "Put what in where?" );
+	return;
+	}
+
+  if( !target->is_container() ) {
+    write( "You can't put anything in there." );
+	return;
+	}
+
+  if( target->is_closed() ) {
+    write( "It's not open." );
+	return;
+	}
 
   if( obj->is_undroppable() ) {
     this_player()->targetted_action( "$N $vare unable to drop $p $o.", nil, obj );
-    return( 0 );
+    return;
   }
-  return( 1 );
-}
-
-
-mixed do_put_obj_str_obj( object obj, string str, object target ) {
-
+  
   if( obj->is_worn() ) {
     this_player()->do_remove( obj );
     this_player()->targetted_action( obj->query_remove_message(), nil, obj );

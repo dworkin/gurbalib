@@ -1,40 +1,46 @@
-mixed *query_verb_info( void ) {
+string *query_verb_info() {
   return( ({ "", "OBJI", "OBJI to LIV" }) );
 }
 
-mixed can_give( void ) {
-  return( "Give what to who?" );
+int can_give() {
+  return 1;
 }
 
-mixed can_give_obj( object obj ) {
-  if( obj->is_undroppable() ) {
-    this_player()->targetted_action( "$N $vare unable to give away $o.", nil, obj );
-    return( 0 );
+int can_give_obj( object obj ) {
+  return 1;
+}
+
+int can_give_obj_str_liv( object obj, string s, object liv ) {
+   return( 1 );
+}
+
+void do_give() {
+  write( "Give what to who?" );
   }
-  return( "Give " + obj->query_id() + " to who?" );
-}
 
-mixed can_give_obj_str_liv( object obj, string s, object liv ) {
+void do_give_obj(object obj) {
+  if( obj->is_undroppable() ) {
+this_player()->targetted_action( "$N $vare unable to give away $o.", nil, obj );
+  return;
+  }
+  write( "Give " + obj->query_id() + " to who?" );
+  }
+
+void do_give_obj_str_liv( object obj, string s, object liv ) {
   if( obj->is_undroppable() ) {
     this_player()->targetted_action( "$N $vare unable to give $o to $T.", liv, obj );
-    return( 0 );
+    return;
   }
 
   /* Should check if the target has room in it's inventory.*/
+  if( !liv->is_container() )
+    return;
 
-  if( !liv->is_container() ) {
-    return( 0 );
-  }
+  if( liv == this_player() ) {
+    write( "What's the point of giving something to yourself?" );
+    return;
+	}
 
-  if( liv == this_player() )
-    return( "What's the point of giving something to yourself?" );
-
-  return( 1 );
-}
-
-
-
-mixed do_give_obj_str_liv( object obj, string s, object liv ) {
   if( obj->is_worn() ) {
     this_player()->do_remove( obj );
     this_player()->targetted_action( obj->query_remove_message(), nil, obj );

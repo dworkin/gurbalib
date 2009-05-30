@@ -740,9 +740,6 @@ void receive_message( string message ) {
       if( !flag ) {
 	 result = PARSE_D->parse( cmd + " " + arg );
 	 if( result ) {
-	    if( typeof( result ) == T_STRING ) {
-	       write( result );
-	    }
 	    flag = 1;
 	 }
       }

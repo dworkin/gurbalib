@@ -292,11 +292,8 @@ string body_exit( object who, string dir ) {
   }
   
   if( who->is_player() || who->is_possessed() ) {
-     mixed desc;
-     desc = PARSE_D->parse( "look" );
-     if( typeof( desc ) == T_STRING ) {
-	write( desc );
-     }
+    PARSE_D->parse( "look" );
+
   }
   event( "body_enter", who );
   who->query_environment()->tell_room( who, aname + " enters.\n" );

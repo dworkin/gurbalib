@@ -1,48 +1,32 @@
-mixed *query_verb_info( void ) {
-  return( ({ "", "STR", "OBJ", "at OBJ", "LIV", "at LIV", "OBJA" }) );
+string *query_verb_info() {
+  return( ({ "", "STR", "OBJ", "at OBJ", "LIV", "at LIV", "OBJA", "in OBJ" }) );
 }
 
-mixed can_look( void ) {
+int can_look() {
   return( 1 );
 }
 
-mixed can_look_str( string str ) {
-  if( member_array( str, this_environment()->query_items() ) != -1 )
-    return( 1 );
-  return( "Look at what?" );
-
+int can_look_str( string str ) {
+  return 1;
 }
 
-mixed can_look_obj( object obj ) {
+int can_look_obj( object obj ) {
   return( 1 );
 }
 
-mixed can_look_liv( object obj ) {
+int can_look_liv( object obj ) {
   return( 1 );
 }
 
-mixed can_look_str_obj( string str, object obj ) {
-  if( str == "at" )
-    return( 1 );
-  if( str == "in" ) {
-    if( obj->is_container() )
-      return( 1 );
-    else
-      return( "You can't look in the " + obj->query_id() );
-  }
-  return( "Huh?" );
+int can_look_str_obj( string str, object obj ) {
+  return 1;
 }
 
-mixed can_look_str_liv( string str, object obj ) {
-  if( str == "at" )
-    return( 1 );
-  if( str == "in" ) {
-    return( "Pervert..." );
-  }
-  return( "Huh?" );
+int can_look_str_liv( string str, object obj ) {
+  return 1;
 }
 
-mixed do_look( void ) {
+void do_look() {
   this_environment()->event( "body_look", this_player() );
   if( this_player()->is_player() == 1 ) {
     if( this_player()->query_env( "show_location" ) ) 
@@ -51,12 +35,16 @@ mixed do_look( void ) {
   write( this_environment()->query_desc() );
 }
 
-mixed do_look_str( string str ) {
+void do_look_str( string str ) {
+  if( member_array( str, this_environment()->query_items() ) == -1 ) {
+    write("Look at what?" );
+	return;
+	}
   this_environment()->tell_room( this_player(), capitalize( this_player()->query_name() ) + " looks at the " + lowercase(str) + ".\n" );
   write( this_environment()->query_item( str ) );
 }
 
-mixed do_look_obj( object obj ) {
+void do_look_obj( object obj ) {
   int i;
   int flag;
   object *objs;
@@ -80,7 +68,7 @@ mixed do_look_obj( object obj ) {
   }
 }
 
-mixed do_look_liv( object obj ) {
+void do_look_liv( object obj ) {
   int i;
   int flag;
   object *objs;
@@ -116,11 +104,31 @@ mixed do_look_liv( object obj ) {
   }
 }
 
-mixed do_look_str_liv( object obj ) {
+void do_look_str_obj( string str, object obj ) {
+  if( str != "at" && str != "in" ) {
+    write("Huh?");
+	return;
+	}
+  if(str == "in" && !obj->is_container() ) {
+      write( "You can't look in the " + obj->query_id() );
+	  return;
+	  }
+  }
+
+void do_look_str_liv( string str, object obj ) {
   int i;
   int flag;
   object *objs;
-
+  
+  if( str != "at" ) {
+    write("Huh?");
+	return;
+	}
+  if( str == "in" ) {
+    write( "Pervert..." );
+	return;
+  }
+  
   this_environment()->tell_room( this_player(), capitalize( this_player()->query_name() ) + " looks at " + capitalize( obj->query_id() ) + ".\n" );
   write( obj->query_long() );
   write( capitalize( obj->query_gender_pronoun()) + " is " + obj->query_gender_string() + ".\n" );

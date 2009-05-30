@@ -1,29 +1,31 @@
-mixed *query_verb_info( void ) {
+string *query_verb_info() {
   return( ({ "", "OBJI", "OBJA" }) );
 }
 
-mixed can_drop( void ) {
-  return( "Drop what?" );
+int can_drop() {
+  return 1;
 }
 
-mixed can_drop_str( string str ) {
-  if( lowercase(str) == "all" || lowercase(str) == "everything" )
-    return( 1 );
-  else
-    return( "You can't seem to find the " + str + "." );
+int can_drop_str( string str ) {
+  return 1;
 }
 
-mixed can_drop_obj( object obj ) {
-  if( obj->is_undroppable() ) {
-    this_player()->targetted_action( "$N $vare unable to drop $o.", nil, obj ); 
-    return( 0 );
-  }
+int can_drop_obj( object obj ) {
   return( 1 );
 }
 
-mixed do_drop_str( string str ) {
+void do_drop() {
+  write( "Drop what?" );
+  }
+
+void do_drop_str( string str ) {
   object *inv;
   int i;
+  
+  if( lowercase(str) != "all" && lowercase(str) != "everything" ) {
+    write( "You can't seem to find the " + str + "." );
+	return;
+	}
 
   inv = this_player()->query_inventory();
   for( i=0; i < sizeof( inv ); i++ ) {
@@ -39,7 +41,7 @@ mixed do_drop_str( string str ) {
 
     if( inv[i]->is_undroppable() ) {
       this_player()->targetted_action( "$N $vare unable to drop $o.", nil, inv[i] ); 
-      return(0);
+      continue;
     }
     if( inv[i]->move( this_environment() ) ) {
       this_player()->targetted_action( "$N $vdrop $o.", nil, inv[i] );
@@ -50,7 +52,11 @@ mixed do_drop_str( string str ) {
   }
 } 
 
-mixed do_drop_obj( object obj ) {
+void do_drop_obj( object obj ) {
+  if( obj->is_undroppable() ) {
+    this_player()->targetted_action( "$N $vare unable to drop $o.", nil, obj ); 
+    return;
+  }
   if( obj->is_worn() ) {
     this_player()->do_remove( obj );
     this_player()->targetted_action( obj->query_remove_message(), nil, obj );

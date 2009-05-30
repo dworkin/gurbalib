@@ -1,12 +1,12 @@
-mixed *query_verb_info( void ) {
+string *query_verb_info() {
   return( ({ "" }) );
 }
 
-mixed can_listen( void ) {
+int can_listen() {
   return( 1 );
 }
 
-mixed do_listen( void ) {
+void do_listen() {
   if( !this_environment()->do_listen( this_player() ) )
     write( "You hear nothing special." );
 }

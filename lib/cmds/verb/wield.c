@@ -1,35 +1,43 @@
-mixed *query_verb_info( void ) {
+string *query_verb_info() {
   return( ({ "", "OBJI" }) );
 }
 
-mixed can_wield( void ) {
-  return( "Wield what?" );
+int can_wield() {
+  return 1;
 }
 
-mixed can_wield_obj( object obj ) {
+int can_wield_obj( object obj ) {
+  return 1;
+}
+
+void do_wield() {
+  write( "Wield what?" );
+  }
+
+void do_wield_obj( object obj ) {
   object *wielded;
 
   if( !obj->is_wieldable() ) {
-    return( "You can't wield that." );
+    write( "You can't wield that." );
+	return;
   }
   if( obj->query_wielded() == 1 ) {
-    return( "You're already wielding the " + obj->query_id() + "." );
+    write( "You're already wielding the " + obj->query_id() + "." );
+	return;
   }
 
   wielded = this_player()->query_wielded();
   if( obj->query_wield_type() == "single" ) {
     if( sizeof( wielded ) >= 2 ) {
-      return( "Your hands are full." );
+      write( "Your hands are full." );
+	  return;
     }
   } else {
     if( sizeof( wielded ) != 0 ) {
-      return( "You're already wielding something else." );
+      write( "You're already wielding something else." );
+	  return;
     }
   }
-  return( 1 );
-}
-
-mixed do_wield_obj( object obj ) {
   this_player()->targetted_action( obj->query_wield_message(), nil, obj );
   this_player()->do_wield( obj );
 }

@@ -1,31 +1,35 @@
-mixed *query_verb_info( void ) {
+string *query_verb_info() {
   return( ({ "", "OBJ", "OBJA" }) );
 }
 
-mixed can_open( void ) {
-  return( "Open what?" );
+int can_open() {
+  return 1;
 }
 
-mixed can_open_str( string str ) {
-  if( lowercase(str) == "all" 
-      || lowercase(str) == "everything" 
-      || lowercase(str) == "all doors"
-      || lowercase(str) == "every door" 
-      )
-    return( 1 );
-  else
-    return( "You can't seem to find the " + str + "." );
+int can_open_str( string str ) {
+  return 1;
 }
 
-mixed can_open_obj( object obj ) {
-  if( obj->is_openable() )
-    return( 1 );
-  return( "You can't open the " + obj->query_id() + "." );
+int can_open_obj( object obj ) {
+  return 1;
 }
 
-mixed do_open_str( string str ) {
+void do_open() {
+  write( "Open what?" );
+  }
+
+void do_open_str( string str ) {
   object *inv;
   int i;
+  
+  if( lowercase(str) != "all" 
+      && lowercase(str) != "everything" 
+      && lowercase(str) != "all doors"
+      && lowercase(str) != "every door" 
+      ) {
+    write( "You can't seem to find the " + str + "." );
+	return;
+	}
 
   if( lowercase(str) == "all" 
       || lowercase(str) == "everything" 
@@ -48,7 +52,11 @@ mixed do_open_str( string str ) {
   } 
 }
 
-mixed do_open_obj( object obj ) {
+void do_open_obj( object obj ) {
+  if( !obj->is_openable() ) {
+     write( "You can't open the " + obj->query_id() + "." );
+	 return;
+  }
   obj->do_open( this_player() );
 }
 

@@ -46,9 +46,6 @@ void do_game_command( string message ) {
     /* Check for a verb */
     result = PARSE_D->parse( cmd + " " + arg );
     if( result ) {
-      if( typeof( result ) == T_STRING ) {
-        write( result );
-      }
       flag = 1;
     }
    

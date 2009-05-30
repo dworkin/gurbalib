@@ -1,10 +1,11 @@
 #include <type.h>
 
-#undef DEBUG_PARSE
+#define DEBUG_PARSE
 
 mapping verbs;
 string *names;
 string grammar;
+object last_obj;
 
 void rescan_verbs( void );
 
@@ -72,7 +73,7 @@ object query_verb_object( string rule, varargs mixed results ) {
 	}
 
   /* scan player environment */
-  inventory_environment = ({ this_player()->query_environment() }) +
+  inventory_environment = ({ this_player()->query_environment() })+
         this_player()->query_environment()->query_inventory();
   for(i = 0; i < sizeof(inventory_environment); i++) {
     if(function_object(rule, inventory_environment[i]) ) {
@@ -88,16 +89,16 @@ string query_grammar( void ) {
   return( grammar );
 }
 
-mixed parse( string str ) {
+int parse( string str ) {
   mixed *result;
   string function;
   string err;
   object local_verb_object;
-  mixed returned;
   mixed obj;
+  int returned;
   int i;
 
-  set_tlvar("last_obj", nil);
+  last_obj = nil;
 
   err = catch(result = parse_string( grammar, str ) );
 
@@ -114,12 +115,12 @@ mixed parse( string str ) {
     if( sscanf(err,"Bad token at offset %d",pos) == 1) {
       write("Invalid character " + str[pos..pos]);
     }
-    return nil;
+    return 0;
   }
 
 
   if( !result )
-    return( nil );
+    return 0;
 
 #ifdef DEBUG_PARSER
   write("parse_string result: "+dump_value(result));
@@ -178,32 +179,26 @@ mixed parse( string str ) {
       write( "calling : " + "do_" + function ); 
 #endif
       switch( sizeof( result ) ) {
-      case 1:
-	returned = call_other( obj, "do_" + function );
+        case 1:
+	call_other( obj, "do_" + function );
 	break;
-      case 2:
-	returned = call_other( obj, "do_" + function, 
-			       result[1] );
+        case 2:
+	call_other( obj, "do_" + function, result[1] );
 	break;
-      case 3:
-	returned = call_other( obj, "do_" + function, 
-			       result[1], result[2] );
+        case 3:
+	call_other( obj, "do_" + function, result[1], result[2] );
 	break;
-      case 4:
-	returned = call_other( obj, "do_" + function, 
-			       result[1], result[2], result[3] );
+        case 4:
+	call_other( obj, "do_" + function, result[1], result[2], result[3] );
 	break;
-      case 5:
-	returned = call_other( obj, "do_" + function, 
-			       result[1], result[2], result[3], result[4] );
+        case 5:
+	call_other( obj, "do_" + function, result[1], result[2],
+	    result[3], result[4] );
 	break;
       }
   }
-  
-  if( !returned ) {
-    returned = 1;
-  }
-  return( returned );
+  if(!returned)  returned = 0;
+  return returned;
 }
 
 void rescan_verbs( void ) {
@@ -344,7 +339,7 @@ static mixed *find_container_object( mixed *mpTree ) {
 	 + dump_value( mpTree[3] ) + ")\n" );
 #endif
 
-  if( !get_tlvar("last_obj") ) {
+  if( !last_obj ) {
 /*
     write( "Parse error: Tell Fudge!\n" );
 */
@@ -352,15 +347,15 @@ static mixed *find_container_object( mixed *mpTree ) {
   }
 
   if( sizeof( mpTree[1] ) > 0 ) {
-    ob = get_tlvar("last_obj")->find_adjs_object_num( mpTree[1], mpTree[2], mpTree[3] );
+    ob = last_obj->find_adjs_object_num( mpTree[1], mpTree[2], mpTree[3] );
   } else {
-    ob = get_tlvar("last_obj")->find_object_num( mpTree[2], mpTree[3] );
+    ob = last_obj->find_object_num( mpTree[2], mpTree[3] );
   }
   if( !ob ) {
     return nil;
   }
   
-  set_tlvar("last_obj", ob);
+  last_obj = ob;
   return( ({ ob }) );
 
 }
@@ -384,7 +379,7 @@ static mixed *find_living_object( mixed *mpTree ) {
   
   if( ob ) {
     if( ob->is_living() ) {
-      set_tlvar("last_obj", ob);
+      last_obj = ob;
       return( ({ ob }) );
     }
   }
@@ -427,7 +422,7 @@ static mixed *find_direct_object( mixed *mpTree ) {
     return( nil );
   }
 
-  set_tlvar("last_obj", ob);
+  last_obj = ob;
   return( ({ ob }) );
 }
 
@@ -453,7 +448,7 @@ static mixed *find_inv_object( mixed *mpTree ) {
     return nil;
   }
 
-  set_tlvar("last_obj", ob);
+  last_obj = ob;
   return( ({ ob }) );
 }
 
@@ -477,7 +472,7 @@ static mixed *find_environment_object( mixed *mpTree ) {
     return nil;
   }
 
-  set_tlvar("last_obj", ob);
+  last_obj = ob;
   return( ({ ob }) );
 }
 
@@ -506,7 +501,7 @@ static mixed *fix_order(mixed *mpTree) {
        + dump_value( mpTree[5] ) + ","
        + dump_value( mpTree[6] ) + ")\n" );
       #endif
-    set_tlvar("last_obj", mpTree[6]);
+    last_obj = mpTree[6];
       obj = find_container_object(mpTree[1..4]);
       if(typeof(obj) == T_ARRAY)
               mpTree = ({mpTree[0]})+obj+({mpTree[5],mpTree[6]});
