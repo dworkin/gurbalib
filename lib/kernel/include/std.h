@@ -88,6 +88,7 @@
 #define M_STORAGE       "/std/modules/m_storage"
 #define M_TRIGGERS      "/std/modules/m_triggers"
 #define M_VALUABLE      "/std/modules/m_valuable"
+#define M_UNDROPPABLE   "/std/modules/m_undroppable"
 #define M_VENDOR        "/std/modules/m_vendor"
 #define M_WANDER        "/std/modules/m_wander"
 #define M_WEARABLE      "/std/modules/m_wearable"
