@@ -1,0 +1,85 @@
+Verb Parsing
+
+Verbs are parsed on Gurba with an interface very similar to that seen on recent
+versions of MudOS.  The DGD driver does not provide this functionality by
+itself, instead DGD provides a low-level parser with similar functionality to
+compiler generators such as lex.  The implementation of Gurba's verb parser
+uses the DGD parser to convert appropriate input into an array of values which
+work readily with the MudOS style of parsing.  For more details and information
+about how this works, refer to /daemons/parse_d.c.  A web search for 'mudos
+parsing' is useful when learning about the interface used on Gurba.
+
+When a player sends input to the game the input is scanned for a legal match,
+in order of precedence, to one of the following: alias, game command, verb,
+object command, emote, channel, and exit.  Verbs are parsed uniquely than the
+other commands, and the player input is modified into an array of strings and
+objects.  This is best shown with an example:
+  
+  get the small rock -> parsing -> ({ "get", </domains/gurba/small_rock#42> })
+
+The phrase 'get the small rock' has been converted into an array.  the first
+value is the verb, as a string.  'small rock' becomes the object with the
+adjective 'small' and the id 'rock'.  When the matches to id and adjectives are
+made with an object, that object is returned in place of the original string.
+If no adjective is defined in the input (eg. get rock), than adjectives are not
+checked, only the objects id's.
+
+When checking for a matching verb, the parsed players input must match one of
+the rules defined for that verb.  These are defined in the query_verb_info
+function inside each verb in /cmds/verb/.  Here is an example from
+/cmds/verb/test.c :
+
+  mixed *query_verb_info( ) {
+    return( ({ "", "OBJ", "LIV", "OBJ with LIV" }) );
+  }
+
+The array returned represents phrases which can be processed by that verb.
+The capitalized abbreviations 'OBJ' and 'LIV' refer to types of objects which
+a verb can refer to.  'OBJ' is any non-living object.  'LIV' is a living thing.
+A legal phrase for the above example would be 'test thing with me'.  The
+abbreviations for other types of objects are as follows:
+  OBJI: object in inventory, OBJE: environment object, OBJC - container object
+
+After a phrase is matched to a value from query_verb_info a function gets
+called to check if the verb can be executed, and if it can, another function
+gets called to execute the code for the verb.  Both of these functions use a
+similar naming scheme, which has a bit in common with the naming of verb rules.
+An example from /cmds/verb/test.c :
+
+  int can_test_obj_with_liv( object obj, string s, object liv ) {
+    return( 1 );
+  }
+
+  void do_test_obj_with_liv( object obj, string s, object liv ) {
+   write( "You test obj with liv: " + obj->query_id() + ", " + liv->query_id());
+  }
+
+The arguments passed to these functions are the values for each element in the
+parsed input array following the verb.  The function naming scheme reflects 
+these arguments as well; abbreviated strings can represent two types of objects,
+a living object or a lifeless one.  Each instance of an object is abbreviated,
+and underscores seperate each of the values.  The parsed input array that fits
+can_test_obj_with_liv would look like this: 
+  
+  ({"test", <an object>, "with", <this_player()>}).
+
+Another legal form for a can and do function is to use the abbreviation 'str' in
+place of a literal string.  In /cmds/verb/look.c :
+
+  int can_look_str_obj( string str, object obj )
+
+In place of string could be different legal values.  Each of these can be seen
+in the query_verb_info for the look verb.  They include 'in' and 'at'.  The
+do_look_str_obj function checks which string was used and than returns the
+appropriate result - to look at something, or to look in something.
+
+Verbs can exist in objects.  All an object needs to do is include a 'can' and 
+'do' function pair in its code, which abides by the verb rules defined for that
+verb.  A verb existing in an object can be accessed by a player with that object
+in their inventory, or when that object is a room a player is in, or when a
+player is in the same room as that object.  Verbs existing in objects will have
+their 'can'/'do' functions called instead of the verb in /cmds/verb/.  When more
+than one object verb matches a phrase, than the first one found is used.
+The order objects get scanned for a verb is:
+
+  player->inventory, player->environment, and player->environment->inventory.
