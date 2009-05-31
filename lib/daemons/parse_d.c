@@ -109,7 +109,7 @@ int parse( string str ) {
   int returned;
   int i;
 
-  set_tlvar("last_obj", nil);
+  set_otlvar("last_obj", nil);
 
   err = catch(result = parse_string( grammar, str ) );
 
@@ -350,7 +350,7 @@ static mixed *find_container_object( mixed *mpTree ) {
 	 + dump_value( mpTree[3] ) + ")\n" );
 #endif
 
-  if( !get_tlvar("last_obj") ) {
+  if( !get_otlvar("last_obj") ) {
 /*
     write( "Parse error: Tell Fudge!\n" );
 */
@@ -358,15 +358,15 @@ static mixed *find_container_object( mixed *mpTree ) {
   }
 
   if( sizeof( mpTree[1] ) > 0 ) {
-    ob = get_tlvar("last_obj")->find_adjs_object_num( mpTree[1], mpTree[2], mpTree[3] );
+    ob = get_otlvar("last_obj")->find_adjs_object_num( mpTree[1], mpTree[2], mpTree[3] );
   } else {
-    ob = get_tlvar("last_obj")->find_object_num( mpTree[2], mpTree[3] );
+    ob = get_otlvar("last_obj")->find_object_num( mpTree[2], mpTree[3] );
   }
   if( !ob ) {
     return nil;
   }
   
-  set_tlvar("last_obj", ob);
+  set_otlvar("last_obj", ob);
   return( ({ ob }) );
 
 }
@@ -390,7 +390,7 @@ static mixed *find_living_object( mixed *mpTree ) {
   
   if( ob ) {
     if( ob->is_living() ) {
-      set_tlvar("last_obj", ob);
+      set_otlvar("last_obj", ob);
       return( ({ ob }) );
     }
   }
@@ -433,7 +433,7 @@ static mixed *find_direct_object( mixed *mpTree ) {
     return( nil );
   }
 
-  set_tlvar("last_obj", ob);
+  set_otlvar("last_obj", ob);
   return( ({ ob }) );
 }
 
@@ -459,7 +459,7 @@ static mixed *find_inv_object( mixed *mpTree ) {
     return nil;
   }
 
-  set_tlvar("last_obj", ob);
+  set_otlvar("last_obj", ob);
   return( ({ ob }) );
 }
 
@@ -483,7 +483,7 @@ static mixed *find_environment_object( mixed *mpTree ) {
     return nil;
   }
 
-  set_tlvar("last_obj", ob);
+  set_otlvar("last_obj", ob);
   return( ({ ob }) );
 }
 
@@ -512,7 +512,7 @@ static mixed *fix_order(mixed *mpTree) {
        + dump_value( mpTree[5] ) + ","
        + dump_value( mpTree[6] ) + ")\n" );
       #endif
-    set_tlvar("last_obj", mpTree[6]);
+    set_otlvar("last_obj", mpTree[6]);
       obj = find_container_object(mpTree[1..4]);
       if(typeof(obj) == T_ARRAY)
               mpTree = ({mpTree[0]})+obj+({mpTree[5],mpTree[6]});

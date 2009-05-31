@@ -1,3 +1,7 @@
+#include <status.h>
+
+#define MAX_ARRAY_SIZE status()[ST_ARRAYSIZE]
+
 #define ANSI_DATA "/daemons/data/ansi_d.o"
 
 #define MAX_RECURSION 5
@@ -189,7 +193,9 @@ static string _parse_colors( string str , int curdepth, mapping cache, object pl
             tmp[i] = _parse_colors( symbolic_trans[ tmp[i] ] , curdepth+1, cache, player );
           }
         }
-        cache[tag] = tmp[i];
+        if(map_sizeof(cache) < MAX_ARRAY_SIZE/2 && tag != tmp[i]) {
+          cache[tag] = tmp[i];
+        }
       }
     }
   }
