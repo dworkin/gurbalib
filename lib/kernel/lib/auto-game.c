@@ -52,6 +52,8 @@ nomask int is_kernel_object() {
  */
 #include "afun-game/get_tlvar.c"
 #include "afun-game/set_tlvar.c"
+#include "afun-game/get_otlvar.c"
+#include "afun-game/set_otlvar.c"
 #include "afun-game/this_body.c"
 #include "afun-game/this_race.c"
 #include "afun-game/this_environment.c"

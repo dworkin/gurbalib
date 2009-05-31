@@ -1,5 +1,6 @@
 static void set_tlvar(string name, mixed value) {
   mapping vars;
+  int save;
 
   argcheck(stringp(name), 1, "string");
 
@@ -7,14 +8,15 @@ static void set_tlvar(string name, mixed value) {
 
   if(!vars) {
     vars = ([ ]);
+    save = 1;
   }
 
   vars[name] = value;
+
   /*
-   * Needed because we might have initialized the mapping.
-   * Would it make sense to use a flag indicating this so
-   * we can prevent this call_other() ?
+   * If we just initialized the mapping, save a
+   * reference on the tls
    */
-  DRIVER->set_tlvar(TLS_UVARS, vars);
+  if(save) DRIVER->set_tlvar(TLS_UVARS, vars);
 }
 
