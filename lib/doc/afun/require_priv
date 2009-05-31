@@ -1,0 +1,23 @@
+NAME
+        require_priv - test if all objects and inheritables
+                       on the stack have at least the requested
+                       privilege
+
+SYNOPSIS
+        int require_priv( string priv )
+
+DESCRIPTION
+        Check if all objects and inheritables on the stack have
+        the requested privilege or one superior (that can become
+        the requested privilege)
+
+NOTES
+        This afun only exists outside /kernel
+
+RETURN VALUE
+        Returns 1 if matched, 0 otherwise.
+
+SEE ALSO
+        valid, valid_read, valid_write
+
+

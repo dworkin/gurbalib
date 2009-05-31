@@ -1,6 +1,9 @@
 #define MODE_READ 0
 #define MODE_WRITE 1
 
+/*
+ * Test if we have read or write access to 'file'.
+ */
 nomask static string valid( string file, int mode ) {
   string priv;
 

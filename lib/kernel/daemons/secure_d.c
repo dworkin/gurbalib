@@ -122,6 +122,9 @@ int query_priv( string name ) {
 
 #define ROOT_OVERRIDE ({ })
 
+/*
+ * Do the privileges provided in str contain a root privilege?
+ */
 int root_priv( string str ) {
   if(
     sscanf( str, "%*s:system:%*s" ) != 0 ||
@@ -131,6 +134,8 @@ int root_priv( string str ) {
   }
 }
 
+/*
+ * Do the privileges provided in str include 'game' privileges?
 int game_priv( string str ) {
   if(
     sscanf( str, "%*s:game:%*s" ) != 0 
@@ -139,6 +144,10 @@ int game_priv( string str ) {
   }
 }
 
+/*
+ * Who 'owns' the file provided as argument? This is the filesystem owner
+ * of that file, and is used for things like default privileges
+ */
 string owner_file(string file) {
   string * parts;
   string tmp;
@@ -181,10 +190,16 @@ string owner_file(string file) {
   return "nobody";
 }
 
+/*
+ * Determine the privileges of an inheritable
+ */
 string determine_program_privs( string progname ) {
   return ":" + owner_file( progname ) + ":";
 }
 
+/*
+ * Determine the privileges for the object with the objectid 'objname'
+ */
 string determine_obj_privs( string objname ) {
   string name;
   string priv;
@@ -217,6 +232,16 @@ string determine_obj_privs( string objname ) {
   return ":" + priv + ":";
 }
 
+/*
+ * The stack validator, this function is what it is all about..
+ *
+ * Gets a call_stack, and loops through it to determine the 
+ * privileges of all objects and inheritables that brought us
+ * to where we are now. It then matches those privileges against
+ * the required privilege provided in the priv argument.
+ * Optionally, unguarded can be set, which will cause this function
+ * to only check the direct caller for privileges.
+ */
 int validate_stack( string priv, varargs int unguarded ) {
   int i, sz, deny;
   mixed ** stack;
@@ -280,6 +305,10 @@ int validate_stack( string priv, varargs int unguarded ) {
   return !deny;
 }
 
+/*
+ * Determine the privilege required for reading the file provided as argument.
+ * It does not check at all if that file exists!
+ */
 string query_read_priv( string file ) {
   string * parts;
 
@@ -331,6 +360,10 @@ string query_read_priv( string file ) {
   return "*";
 }
 
+/*
+ * Determine the privilege required for writing the file provided as
+ * argument.
+ */
 string query_write_priv( string file ) {
 #ifdef DEBUG_PRIVS
   console_msg("query_write_priv( \""+file+"\" )\n");
