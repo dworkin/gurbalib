@@ -1,15 +1,10 @@
 /*
  * Secondary auto object, only inherited by objects
  * outside /kernel
- *
- * Please don't do anything here yet, this is unfinished,
- * and currently only included to test the overall framework.
- *
- * Check with Aidil for more details.
- *
  */
 
 #include <tlsvar.h>
+#include <trace.h>
 
 nomask int is_game_object() {
   return 1;
@@ -43,6 +38,13 @@ nomask int is_kernel_object() {
 #include "afun-game/make_dir.c"
 #include "afun-game/remove_dir.c"
 #include "afun-game/unguarded.c"
+
+/*
+ * Protect arguments on the call_stack from being inspected
+ * by non-kernel code.
+ */
+
+#include "afun-game/call_trace.c"
 
 /*
  * non kernel tls access, uses a special tls var containing
