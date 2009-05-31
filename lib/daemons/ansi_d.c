@@ -159,27 +159,54 @@ string strip_colors( string str ) {
   return( msg );
 }
 
-string parse_colors( string str , varargs int curdepth ) {
-  object player;
+static string _parse_colors( string str , int curdepth, mapping cache, object player ) {
   string *tmp;
   string msg;
   mixed *ind, *sym;
   int i;
-  mapping cacheroot;
-  mapping cache;
 
 #ifndef SYS_COLOR
   return strip_colors( str );
 #endif
 
-  player = previous_object()->query_player();
   if(!player_trans) player_trans = ([ ]);
-
-  if(player && player->base_name() != PLAYER_OB) player = nil;
 
   tmp = explode( str, "%^" );
 
-#ifdef ENABLE_TERMINAL_CACHE
+  rlimits(MAX_DEPTH; MAX_TICKS * MAX_TICKS * 10000) {
+    for( i=0; i < sizeof( tmp ); i++ ) {
+      if( cache[tmp[i]] ) {
+        tmp[i] = cache[tmp[i]];
+      } else {
+        string tag;
+        tag = tmp[i];
+        if( translations[tmp[i]] ) {
+          tmp[i] = translations[ tmp[i] ];
+        } else if(curdepth < MAX_RECURSION) {
+          if( player && player_trans[player] && player_trans[player][tmp[i]]) {
+            tmp[i] = _parse_colors( player_trans[player][tmp[i]], curdepth+1, cache, player );
+          } else if( symbolic_trans[tmp[i]] ) {
+            tmp[i] = _parse_colors( symbolic_trans[ tmp[i] ] , curdepth+1, cache, player );
+          }
+        }
+        cache[tag] = tmp[i];
+      }
+    }
+  }
+
+  msg = implode( tmp, "" );
+  return( msg );
+}
+
+string parse_colors( string str , varargs int curdepth ) {
+  mapping cacheroot;
+  mapping cache;
+  object player;
+
+  player = previous_object()->query_player();
+  if(player && player->base_name() != PLAYER_OB) player = nil;
+
+
 /*
  * This makes use of the fact that mappings are references, hence
  * once the mappings are setup, there is no need to store them to
@@ -204,36 +231,9 @@ string parse_colors( string str , varargs int curdepth ) {
       cacheroot["base"] = cache;
     }
   }
-#endif
-
-  rlimits(MAX_DEPTH; MAX_TICKS * MAX_TICKS * 10000) {
-    for( i=0; i < sizeof( tmp ); i++ ) {
-#ifdef ENABLE_TERMINAL_CACHE
-      if( cache[tmp[i]] ) {
-        tmp[i] = cache[tmp[i]];
-      } else {
-#endif
-        string tag;
-        tag = tmp[i];
-        if( translations[tmp[i]] ) {
-          tmp[i] = translations[ tmp[i] ];
-        } else if(curdepth < MAX_RECURSION) {
-          if( player && player_trans[player] && player_trans[player][tmp[i]]) {
-            tmp[i] = parse_colors( player_trans[player][tmp[i]], curdepth+1 );
-          } else if( symbolic_trans[tmp[i]] ) {
-            tmp[i] = parse_colors( symbolic_trans[ tmp[i] ] , curdepth+1 );
-          }
-        }
-#ifdef ENABLE_TERMINAL_CACHE
-        cache[tag] = tmp[i];
-      }
-#endif
-    }
-  }
-
-  msg = implode( tmp, "" );
-  return( msg );
+  return _parse_colors( str, 0, cache, player );
 }
+
 
 string color_table_chunk( mapping m, int codes  )
 {
