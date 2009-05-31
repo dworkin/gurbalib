@@ -2,6 +2,9 @@
 
 #define MAX_RECURSION 5
 
+#define ENABLE_TERMINAL_CACHE
+#define CACHE "tcode-cache"
+
 #define BLACK "\x1b[30m"
 #define RED "\x1b[31m"
 #define GREEN "\x1b[32m"
@@ -162,6 +165,8 @@ string parse_colors( string str , varargs int curdepth ) {
   string msg;
   mixed *ind, *sym;
   int i;
+  mapping cacheroot;
+  mapping cache;
 
 #ifndef SYS_COLOR
   return strip_colors( str );
@@ -174,17 +179,55 @@ string parse_colors( string str , varargs int curdepth ) {
 
   tmp = explode( str, "%^" );
 
-  rlimits(MAX_DEPTH; MAX_TICKS * 10000) {
+#ifdef ENABLE_TERMINAL_CACHE
+/*
+ * This makes use of the fact that mappings are references, hence
+ * once the mappings are setup, there is no need to store them to
+ * the tls when things change.
+ */
+  cacheroot = get_tlvar(CACHE);
+  if(!cacheroot) {
+    cacheroot = ([ ]);
+    set_tlvar(CACHE, cacheroot);
+  }
+
+  if(player) {
+    cache = cacheroot[player];
+    if(!cache) {
+      cache = ([ ]);
+      cacheroot[player] = cache;
+    }
+  } else {
+    cache = cacheroot["base"];
+    if(!cache) {
+      cache = ([ ]);
+      cacheroot["base"] = cache;
+    }
+  }
+#endif
+
+  rlimits(MAX_DEPTH; MAX_TICKS * MAX_TICKS * 10000) {
     for( i=0; i < sizeof( tmp ); i++ ) {
-      if( translations[tmp[i]] ) {
-        tmp[i] = translations[ tmp[i] ];
-      } else if(curdepth < MAX_RECURSION) {
-        if( player && player_trans[player] && player_trans[player][tmp[i]]) {
-          tmp[i] = parse_colors( player_trans[player][tmp[i]], curdepth+1 );
-        } else if( symbolic_trans[tmp[i]] ) {
-          tmp[i] = parse_colors( symbolic_trans[ tmp[i] ] , curdepth+1 );
+#ifdef ENABLE_TERMINAL_CACHE
+      if( cache[tmp[i]] ) {
+        tmp[i] = cache[tmp[i]];
+      } else {
+#endif
+        string tag;
+        tag = tmp[i];
+        if( translations[tmp[i]] ) {
+          tmp[i] = translations[ tmp[i] ];
+        } else if(curdepth < MAX_RECURSION) {
+          if( player && player_trans[player] && player_trans[player][tmp[i]]) {
+            tmp[i] = parse_colors( player_trans[player][tmp[i]], curdepth+1 );
+          } else if( symbolic_trans[tmp[i]] ) {
+            tmp[i] = parse_colors( symbolic_trans[ tmp[i] ] , curdepth+1 );
+          }
         }
+#ifdef ENABLE_TERMINAL_CACHE
+        cache[tag] = tmp[i];
       }
+#endif
     }
   }
 

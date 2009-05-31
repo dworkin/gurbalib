@@ -154,6 +154,7 @@ void wrap_message( string str ) {
   if( width < 0 ) width = 78;
   if( width  == 0 ) width = MAX_STRING_SIZE;
 
+  rlimits( MAX_DEPTH; MAX_TICKS * MAX_TICKS ) {
   /* Split the string into lines */
   lines = explode( str, "\n" );
 
@@ -200,6 +201,7 @@ void wrap_message( string str ) {
     else
       msg = ansid->strip_colors( msg );
     send_message( msg + "\n" );
+  }
   }
 }
 
