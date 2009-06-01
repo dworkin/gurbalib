@@ -55,12 +55,12 @@ mapping symbolic_trans;
 static mapping translations; 
 static mapping player_trans;
 
-void restore_me( void ) {
-  restore_object( ANSI_DATA );
+static void restore_me( void ) {
+  unguarded( "restore_object", ANSI_DATA );
 }
 
-void save_me( void ) {
-  save_object( ANSI_DATA );
+static void save_me( void ) {
+  unguarded( "save_object", ANSI_DATA );
 }
 
 void setup( void ) {

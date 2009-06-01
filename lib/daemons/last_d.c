@@ -1,19 +1,19 @@
 mapping last;
 
-void restore_me( void );
-void save_me( void );
+static void restore_me( void );
+static void save_me( void );
 
 void create( void ) {
   last = ([ ]);
   restore_me();
 }
 
-void restore_me( void ) {
+static void restore_me( void ) {
   unguarded( "restore_object", "/daemons/data/last.o" );
 
 }
 
-void save_me( void ) {
+static void save_me( void ) {
   unguarded( "save_object", "/daemons/data/last.o" );
 }
 

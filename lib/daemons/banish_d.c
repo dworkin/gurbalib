@@ -19,12 +19,20 @@ int is_banished( string name ) {
 
 
 void banish_name (string str) {
+   if(!require_priv("wiz")) {
+     error("Illegal use of banish_d");
+   }
+
    write_file( "/data/banished/"+str, ctime( time() ) + "\tby:  "  +
       this_user()->query_name() +"\n" );
    create();
 }   
 
 void unbanish_name (string str) {
+   if(!require_priv("wiz")) {
+     error("Illegal use of banish_d");
+   }
+
    remove_file( "/data/banished/"+str);
    create();
 }   

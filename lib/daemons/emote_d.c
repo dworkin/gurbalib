@@ -1,12 +1,12 @@
 mapping emotes;
 string *adverbs;
 
-void save_me( void ) {
-  save_object( "/daemons/data/emote_d.o" );
+static void save_me( void ) {
+  unguarded( "save_object", "/daemons/data/emote_d.o" );
 }
 
-void restore_me( void ) {
-  restore_object( "/daemons/data/emote_d.o" );
+static void restore_me( void ) {
+  unguarded( "restore_object", "/daemons/data/emote_d.o" );
 }
 
 void create( void ) {

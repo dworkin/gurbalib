@@ -4,8 +4,8 @@ mapping dwarf_dic;
 mapping human_dic;
 static string transword;
 
-void restore_me( void ) {
-   restore_object( "/daemons/data/language_d.o" );
+static void restore_me( void ) {
+   unguarded( "restore_object", "/daemons/data/language_d.o" );
 }
 void create( void ) {
    catfolk_dic = ([ ]);
@@ -18,9 +18,10 @@ void create( void ) {
    human_dic += ([ "zifges" : "gefffe" ]);
    restore_me();
 }
-void save_me( void ) {
-   save_object( "/daemons/data/language_d.o" );
+static void save_me( void ) {
+   unguarded( "save_object", "/daemons/data/language_d.o" );
 }
+
 string random_word(string race) {
 	int num_words; /* Number of catfolk words in the 'english word' */
 	int k;

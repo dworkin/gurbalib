@@ -1,12 +1,12 @@
 
 mixed *did;
 
-void save_me( void ) {
-  save_object( "/daemons/data/did_d.o" );
+static void save_me( void ) {
+  unguarded( "save_object", "/daemons/data/did_d.o" );
 }
 
-void restore_me( void ) {
-  restore_object( "/daemons/data/did_d.o" );
+static void restore_me( void ) {
+  unguarded( "restore_object", "/daemons/data/did_d.o" );
 }
 
 void create( void ) {
