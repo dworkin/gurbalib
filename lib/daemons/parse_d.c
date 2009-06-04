@@ -15,15 +15,19 @@
 */
 
 mapping verbs;
+mapping object_rules;
 string *names;
-string grammar;
-
+string verb_rules; /* the grammar used by parse_string is concatenated from  */
+string grammar;    /* these strings, and an optional string in between for   */
+                   /* object defined verb rules accessable by this_player(). */
 void rescan_verbs( void );
+string scan_local_verbs();
 
 void create( void ) {
   int i;
 
   verbs = ([ ]);
+  object_rules = ([ ]);
   rescan_verbs();
 }
 
@@ -38,37 +42,42 @@ int is_verb( string verb ) {
 }
 
 /* calls can_x with right number of args for grammar */
-mixed query_can(mixed obj, string function, varargs mixed args...) {
+int query_can(mixed obj, string function, varargs mixed args...) {
+  
+  mixed x;
   if(sizeof(args) && typeof(args[0]) == T_ARRAY)
     args = args[0];
   switch( sizeof( args ) ) {
     case 0:
-      return call_other( obj, function );
+      x = call_other( obj, function );
 	  break;
     case 1:
-      return call_other( obj, function, 
+      x = call_other( obj, function, 
 			   args[0] );
 	  break;
     case 2:
-      return call_other( obj, function, 
+      x = call_other( obj, function, 
 			   args[0], args[1] );
 	  break;
     case 3:
-      return call_other( obj, function, 
+      x = call_other( obj, function, 
 			   args[0], args[1], args[2] );
 	  break;
     case 4:
-      return call_other( obj, function, 
+      x = call_other( obj, function, 
 			  args[0], args[1], args[2], args[3] );
 	  break;
     }
+  if(!x)
+    return 0;
+  return 1;
   }
 
 /* returns verb object for grammar given.  Scans objects in order of priority.
    Items in player inventory take precedence over items in their environment. */
 object query_verb_object( string rule, varargs mixed results ) {
   int i;
-  mixed x;
+  int x;
   object *inventory_environment; /* inventory of environment we are scanning */
   
   rule = "can_"+rule;
@@ -79,7 +88,7 @@ object query_verb_object( string rule, varargs mixed results ) {
     if(function_object(rule, inventory_environment[i]) ) {
 	  x = query_can(inventory_environment[i], rule, results);
 	  }
-	if(x && x == 1)
+	if(x)
 	  return inventory_environment[i];
 	}
 
@@ -89,20 +98,38 @@ object query_verb_object( string rule, varargs mixed results ) {
   for(i = 0; i < sizeof(inventory_environment); i++) {
     if(function_object(rule, inventory_environment[i]) ) {
 	  x = query_can(inventory_environment[i], rule, results);
-	  if(x && x == 1)
+	  if(x)
 		  return inventory_environment[i];
 	  }
 	}
 	return nil; /* no matches */
   }
 
-string query_grammar( void ) {
-  return( grammar );
-}
+void add_object_rules(string *rules) {
+  object prev_ob;
+  
+  prev_ob = previous_object();
+  if(typeof(object_rules[prev_ob] ) != T_MAPPING )
+    object_rules[prev_ob] = ([ ]);
+  if(typeof(object_rules[prev_ob][rules[0] ] ) != T_MAPPING )
+    object_rules[prev_ob] = ([ rules[0] : rules[1..(sizeof(rules) - 1) ] ]);
+  else
+    object_rules[prev_ob][rules[0] ] += rules[1..(sizeof(rules) - 1) ];
+  }
+
+mapping query_all_object_rules() {
+  return object_rules;
+  }
+
+mapping query_objects_rules(object obj) {
+  if(typeof(object_rules[obj]) == T_MAPPING)
+     return object_rules[obj];
+  }
 
 int parse( string str ) {
   mixed *result;
   string function;
+  string local_production_rules;
   string err;
   object local_verb_object;
   mixed obj;
@@ -110,8 +137,9 @@ int parse( string str ) {
   int i;
 
   set_otlvar("last_obj", nil);
-
-  err = catch(result = parse_string( grammar, str ) );
+  local_production_rules = scan_local_verbs();
+  err = catch(result =
+       parse_string( (verb_rules + local_production_rules + grammar), str ) );
 
 #ifdef DEBUG_PARSE
   write( "result: " + dump_value( result ) );
@@ -212,6 +240,53 @@ int parse( string str ) {
   return returned;
 }
 
+/* parses an objects verb rules into production rules. */
+string parse_verb_rules(mapping rules) {
+  int i;
+  string output;
+  string *info;
+  
+  output = "";
+  info = map_indices(rules);
+  
+  /* each verb */
+  for( i = 0; i < sizeof( info ); i++ ) {
+	int j;
+	
+	/* each rule for a verb */
+	for( j = 0; j < sizeof( rules[info[i] ] ); j++ ) {
+	  string *words;
+	  int k;
+	  int ofix;
+		  
+	  output += "Sentence: '" + info[i] + "' ";
+	  words = explode( rules[info[i] ][j], " " );
+	  /* each word for a rule */
+	  for( k = 0; k < sizeof( words ); k++ ) {
+	    switch( words[k] ) {
+            case "OBJ":
+            case "OBJA":
+            case "OBJI":
+            case "OBJE":
+            case "OBJC":
+            case "LIV":
+			  output += words[k] + " ";
+			  break;
+            case "OBJX":
+              output += "OBJX ";
+              ofix = 1;
+              break;
+            default:
+              output += "'" + words[k] + "' ";
+	      }
+	    }
+      if(ofix) output += "? fix_order ";
+	    ofix = 0;
+      }
+    }
+  return output;
+  }
+	  
 void rescan_verbs( void ) {
   mixed *list;
   string verb;
@@ -227,7 +302,7 @@ void rescan_verbs( void ) {
     verbs[names[i]] = verb;
   }
 
-  grammar = "whitespace = / / word = /[a-zA-Z]+/ number = /[0-9]+/ ";
+  verb_rules = "whitespace = / / word = /[a-zA-Z]+/ number = /[0-9]+/ ";
 
   for( i = 0; i < sizeof( names ); i++ ) {
     write( "Scanning " + names[i] + "(" + verbs[names[i]] + ")" );
@@ -244,44 +319,34 @@ void rescan_verbs( void ) {
 	string *words;
 	int k;
 
-	grammar += "Sentence: '" + names[i] + "' ";
+	verb_rules += "Sentence: '" + names[i] + "' ";
 
 	words = explode( info[j], " " );
 	for( k = 0; k < sizeof( words ); k++ ) {
 
 	  switch( words[k] ) {
             case "OBJ":
-              grammar += "OBJ ";
-              break;
             case "OBJA":
-              grammar += "OBJA ";
-              break;
             case "OBJI":
-              grammar += "OBJI ";
-              break;
             case "OBJE":
-              grammar += "OBJE ";
-              break;
             case "OBJC":
-              grammar += "OBJC ";
-              break;
             case "LIV":
-              grammar += "LIV ";
-              break;
+			  verb_rules += words[k] + " ";
+			  break;
             case "OBJX":
-              grammar += "OBJX ";
+              verb_rules += "OBJX ";
               ofix = 1;
               break;
             default:
-              grammar += "'" + words[k] + "' ";
+              verb_rules += "'" + words[k] + "' ";
 	  }
 	}
-        if(ofix) grammar += "? fix_order ";
+        if(ofix) verb_rules += "? fix_order ";
         ofix = 0;
       }
     }
   }
-  grammar = grammar + "\
+  grammar = "\
 OBJ: Object ? find_direct_object \
 OBJA: Object ? construct_obj_packet \
 OBJI: Object ? find_inv_object \
@@ -315,6 +380,32 @@ Obj_Index: Index ? define_obj_index \
 ";
 
 }
+
+string scan_local_verbs() {
+  int i;
+  string production_rules;
+  object *inventory_environment;
+  
+  production_rules = "";
+  
+  /* scan player inventory */
+  inventory_environment = this_player()->query_inventory();
+  for(i = 0; i < sizeof(inventory_environment); i++) {
+	if(typeof(object_rules[inventory_environment[i] ]) != T_MAPPING )
+	  continue;
+  production_rules += parse_verb_rules(object_rules[inventory_environment[i] ]);
+	}
+  /* scan environment and contents of environment */
+  inventory_environment = ({ this_player()->query_environment() }) +
+		this_player()->query_environment()->query_inventory();
+  for(i = 0; i < sizeof(inventory_environment); i++) {
+    if(typeof(object_rules[inventory_environment[i] ]) != T_MAPPING )
+	  continue;
+  production_rules += parse_verb_rules(object_rules[inventory_environment[i] ]);
+    }
+  return production_rules;
+  }
+
 
 static mixed *construct_obj_packet(mixed *mpTree)
 {

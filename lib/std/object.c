@@ -267,6 +267,25 @@ nomask int move( mixed destination ) {
   return( 1 );
 }
 
+nomask void add_verb_rules(string verb, varargs mixed rules) {
+  switch(typeof(rules) ) {
+    case T_NIL:
+	  PARSE_D->add_object_rules( ({verb, ""}) );
+	  break;
+	case T_STRING:
+	  PARSE_D->add_object_rules( ({verb, rules}) );
+	  break;
+	case T_ARRAY:
+	  PARSE_D->add_object_rules( ({verb}) + rules);
+	  break;
+    }
+  return;
+  }
+
+nomask mapping query_verb_rules() {
+    return PARSE_D->query_objects_rules(this_object() );
+  }
+
 void add_object_command( string command ) {
   if( !object_commands )
     object_commands = ({ });
