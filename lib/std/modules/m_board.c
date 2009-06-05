@@ -15,11 +15,11 @@ string query_board_id( void ) {
 }
 
 void save_me( void ) {
-  save_object( "/data/boards/" + query_board_id() + ".o" );
+  unguarded( "save_object", "/data/boards/" + query_board_id() + ".o" );
 }
 
 void restore_me( void ) {
-  restore_object( "/data/boards/" + query_board_id() + ".o" );
+  unguarded( "restore_object", "/data/boards/" + query_board_id() + ".o" );
 }
 
 
