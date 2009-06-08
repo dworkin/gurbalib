@@ -390,21 +390,23 @@ string scan_local_verbs() {
   
   /* scan player inventory */
   inventory_environment = this_player()->query_inventory();
+
   for(i = 0; i < sizeof(inventory_environment); i++) {
-	if(typeof(object_rules[inventory_environment[i] ]) != T_MAPPING )
-	  continue;
-  production_rules += parse_verb_rules(object_rules[inventory_environment[i] ]);
-	}
+    if(typeof(object_rules[inventory_environment[i] ]) != T_MAPPING )
+      continue;
+    production_rules += parse_verb_rules(object_rules[inventory_environment[i] ]);
+  }
+
   /* scan environment and contents of environment */
   inventory_environment = ({ this_player()->query_environment() }) +
 		this_player()->query_environment()->query_inventory();
   for(i = 0; i < sizeof(inventory_environment); i++) {
     if(typeof(object_rules[inventory_environment[i] ]) != T_MAPPING )
-	  continue;
-  production_rules += parse_verb_rules(object_rules[inventory_environment[i] ]);
-    }
-  return production_rules;
+      continue;
+    production_rules += parse_verb_rules(object_rules[inventory_environment[i] ]);
   }
+  return production_rules;
+}
 
 
 static mixed *construct_obj_packet(mixed *mpTree)
@@ -611,4 +613,12 @@ static mixed *fix_order(mixed *mpTree) {
               mpTree = ({mpTree[0],mpTree[3]})+mpTree[5..6];
       return mpTree;
 }
+
+void upgraded() {
+  if(!object_rules) {
+    object_rules = ([ ]);
+    rescan_verbs();
+  }
+}
+
 
