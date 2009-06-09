@@ -196,7 +196,7 @@ void main( string str ) {
     } else {
       this_environment()->tell_room( this_player(),"%^GREEN%^" + "The " + this_player()->query_id() + you +"%^RESET%^" + capitalize(str) + "\n" );
     }
-    write( "%^GREEN%^You" + me +"%^RESET%^"+ capitalize( str ) + "\n" );
+    this_player()->message( "%^GREEN%^You" + me +"%^RESET%^"+ capitalize( str ) + "\n", 1 );
   } else {
     write( "Say what?\n");
   }

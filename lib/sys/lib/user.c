@@ -133,7 +133,7 @@ void put_message( string str ) {
   send_message( msg );
 }
 
-void wrap_message( string str ) {
+void wrap_message( string str, varargs int chat_flag ) {
 
   string msg;
   string *words;
@@ -182,7 +182,9 @@ void wrap_message( string str ) {
      }
    }
    if( sz + strlen( words[i] ) > width ) {
-     msg += "\n  ";
+     msg += "\n";
+	 if(chat_flag)
+	   msg += "  ";
      sz = strlen( words[i] ) + 2;
      msg += words[i];
    } else {

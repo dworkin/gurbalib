@@ -386,13 +386,16 @@ void input_to_object( object ob, string func ) {
 }
 
 /* Send a message to the player */
-void message( string str ) {
+void message( string str, varargs int chat_flag ) {
   if(!this_object()->query_user()) {
     return;
   }
   if( this_object()->is_snooped() )
     this_object()->do_snoop( str );
-  this_object()->query_user()->wrap_message( str );
+  if(chat_flag)
+    this_object()->query_user()->wrap_message( str, 1 );
+  else
+    this_object()->query_user()->wrap_message( str );
 }
 
 /* Send an almost unmodified message to the player */

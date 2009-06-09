@@ -228,7 +228,7 @@ void chan_send_string( string chan, string from, string str, varargs int is_emot
       if ( !users[i]->query_ignored(from) )
         users[i]->message(
           ( users[i]->query_env( "imud_timestamp" ) ? "%^CHAN_DATE%^[" + (ctime(time())[11..18]) + "]%^RESET%^" : "" )
-          + line );
+          + line, 1 );
     }
   }
 

@@ -215,7 +215,10 @@ void tell_room( object originator, string str, varargs mixed obj...) {
       if( inventory[i]->is_living() && 
           (!originator ||
           !inventory[i]->query_ignored(originator->query_name())) ) {
-        inventory[i]->message( capitalize( str ) );
+		    if(previous_object()->base_name() == "/cmds/player/say")
+			  inventory[i]->message( capitalize( str ), 1 );
+			else
+			  inventory[i]->message( capitalize( str ) );
       }
       inventory[i]->outside_message( capitalize( str ) );
     }
