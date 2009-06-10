@@ -101,9 +101,9 @@ void set_wielding( mixed obj ) {
   }
 }
 
-void message( string str ) {
+void message( string str, varargs int chat_flag ) {
   if( is_possessed() )
-    query_possessor()->message( "%^RED%^$%^RESET%^" + str );
+    query_possessor()->message( "%^RED%^$%^RESET%^" + str, chat_flag );
 }
 
 void message_orig( string str ) {
