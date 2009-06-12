@@ -1,9 +1,11 @@
-nomask string base_name( void ) {
+nomask string base_name( varargs object obj ) {
 
-  string str,obname;
+  string str;
+  string obname;
   int clone;
-
-  obname = object_name(this_object());
+  if(!obj)
+    obj = this_object();
+  obname = object_name(obj);
   if( sscanf( obname, "%s#%d", str, clone ) ==2 )
     return str;
   return obname;
