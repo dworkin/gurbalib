@@ -1,1 +1,13 @@
-Todo
+NAME
+        str2val - Converts a string of numbers into an int value
+
+SYNOPSIS
+        int str2val( string str )
+
+DESCRIPTION
+        Converts a string of numbers into an int value.  The string
+		must only contain numbers, or -1 is returned.
+
+RETURN VALUE
+        An int value representing the number in str, or -1 if str is
+		not a number.

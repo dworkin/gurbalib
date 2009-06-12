@@ -1,1 +1,18 @@
-Todo
+NAME
+        format_idle_time - converts a time integer into a string.
+		
+SYNOPSIS
+        string format_idle_time( int time )
+
+DESCRIPTION
+        Converts a time integer into a string.  The string is
+		in form of xy, where x is int and y is a unit of time.
+		The unit in y is the largest unit formed, the number in
+		x the number of whole units formed.  Example: idle for
+		6 hours 20 minutes -> 6h.
+		
+RETURN VALUE
+        Returns a string expressing an elapsed amount of time.
+
+SEE ALSO
+        format_time

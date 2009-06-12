@@ -1,1 +1,18 @@
-Todo
+NAME
+        cat_file - message entire contents of a file to this_player()
+		
+SYNOPSIS
+        int cat_file( string filepath )
+
+DESCRIPTION
+        Message the entire contents of a file to this_player().
+		
+RETURN VALUE
+         Returns 1 for success and 0 for failure.
+
+NOTES
+        This afun only exists for code outside /kernel
+
+SEE ALSO
+        read_file
+

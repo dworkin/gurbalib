@@ -1,1 +1,8 @@
-Todo
+NAME
+        wiz_dir - return a wizards work path
+
+SYNOPSIS
+        string wiz_dir( )
+
+DESCRIPTION
+        Returns the path to a wizards work directory.

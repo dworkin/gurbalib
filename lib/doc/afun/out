@@ -1,1 +1,15 @@
-Todo
+NAME
+        out - send message to a user
+
+SYNOPSIS
+        void out( string message )
+
+DESCRIPTION
+        Send 'message' to this_player().  The message may contain
+	    color codes, as described in /doc/misc/ansi_colors.  Unlike
+		the write afun, out does not wrap the message before sending
+		to this_player().
+
+SEE ALSO
+        write, out_unmod
+

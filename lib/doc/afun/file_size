@@ -1,1 +1,11 @@
-Todo
+NAME
+        file_size - returns the size of a file
+
+SYNOPSIS
+        int file_size( string filepath )
+
+DESCRIPTION
+        Returns the size of a file, in k's.
+		
+RETURN VALUE
+        The size of file found at filepath, or 0 if no file found.

@@ -1,1 +1,12 @@
-Todo
+NAME
+        invert_exit - returns an opposing exit 
+
+SYNOPSIS
+        string invert_exit( string exit )
+
+DESCRIPTION
+        Returns an exit opposite of the exit arg, or "unknown"
+		if exit arg does not have an opposite. 
+		
+RETURN VALUE
+        opposing exit.

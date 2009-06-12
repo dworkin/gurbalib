@@ -1,1 +1,18 @@
-Todo
+NAME
+        clone_num - returns an objects clone number
+
+SYNOPSIS
+        int clone_num( varargs object obj )
+
+DESCRIPTION
+        If obj arg given, return clone number for obj.  If no obj
+		argument, return clone number for this_object().
+
+RETURN VALUE
+        An int corresponding to an objects clone number.  Clone numbers
+		exist for all cloned objects, and each objects clone number is
+		unique to that clone.
+
+SEE ALSO
+        base_name, file_name
+

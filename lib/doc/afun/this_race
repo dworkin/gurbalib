@@ -1,1 +1,16 @@
-Todo
+NAME
+        this_race - returns a users race_object
+
+SYNOPSIS
+        object this_race( )
+
+DESCRIPTION
+        If a users race_object is found return that object, or
+		else return the object that called this function.
+
+RETURN VALUE
+        A race object, or else the function which called this_race.
+
+SEE ALSO
+        this_player, this_body
+

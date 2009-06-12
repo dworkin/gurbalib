@@ -1,1 +1,15 @@
-Todo
+NAME
+        write - send a message to a user
+
+SYNOPSIS
+        void write( string message )
+
+DESCRIPTION
+        Send 'message' to this_player().  The message may contain
+	    color codes, as described in /doc/misc/ansi_colors.  Any color
+		codes in string message are translated into ansi color codes,
+		the message is wrapped, and than it is sent to this_player().
+
+SEE ALSO
+        out, out_unmod
+
