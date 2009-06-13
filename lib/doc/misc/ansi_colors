@@ -1,0 +1,30 @@
+Ansi Colors
+ 
+Ansi color codes will color text sent to a player who has an ansi compliant
+client.  Color codes are embedded within the text sent to a player; the players
+clients hide the codes and perform the coloring of text in response to the
+codes.  Color codes must be terminated with a reset color code, or subsequent
+text sent to player will remain colored.
+
+With Gurba, color codes are not used when defining colors to be sent to a
+player.  Instead, Pinkfish codes are used.  These are translated into ansi color
+codes immediately before being sent to a player.  Pinkfish codes are denoted by
+pairs of '%^' surrounding a legal color code.
+An example of the Pinkfish markup code:
+
+write("%^RED%^red%^GREEN%^green%^RESET%^");
+
+The example would be seen by player as just redgreen, in 2 colors.
+
+A list of legal color codes:
+  reset: 'RESET'
+  colors:  'BLACK', 'RED', 'GREEN', 'ORANGE', 'YELLOW', 'BLUE', 'MAGENTA',
+    'CYAN', 'WHITE'
+  bold colors:  'B_BLACK', 'B_RED', 'B_GREEN', 'B_ORANGE', 'B_YELLOW', 'B_BLUE',
+    'B_MAGENTA', 'B_CYAN', 'B_WHITE'
+  attributes:  'BOLD', 'ITALIC', 'UNDERLINE', 'FLASH', 'REVERSE'
+
+Pinkfish codes make it easy to insert colored text into communications.  Gurba
+allows this by default, and players are able to embed Pinkfish codes into their
+says, tells, etc.
+
