@@ -53,6 +53,10 @@ void event_heart_beat( void )
   if( this_object()->is_fighting() )
   {
     this_object()->do_fight();
+  } else {
+    if( function_object( "event_wander", this_object()) ) {
+      call_other( this_object(), "event_wander" );
+    }
   }
 
   set_this_player(sp);

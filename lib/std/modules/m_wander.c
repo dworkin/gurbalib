@@ -10,7 +10,8 @@
 int movement_mintime;
 int movement_maxtime;
 string wander_area;
-int wander_callout;
+int wander_enable;
+int next_move;
 int wander_count;
 
 void set_wander_area( string area ) {
@@ -25,12 +26,12 @@ void start_wander( int mintime, int maxtime ) {
   if (maxtime < mintime) movement_maxtime = mintime;
 
   /* start the call_out loop */
-  wander_callout = call_out( "wander", random(movement_maxtime - movement_mintime) + movement_mintime );
+  wander_enable = 1;
+  next_move = time() + random(movement_maxtime - movement_mintime) + movement_mintime;
 }
 
 void stop_wander( void ) {
-  remove_call_out(wander_callout);
-  wander_callout = 0;
+  wander_enable = 0;
 } 
 
 void wander( void ) {
@@ -52,7 +53,7 @@ void wander( void ) {
 
   if(wander_count++ < MAX_WANDER) {
     /* Go ahead and set up the next call_out */
-    wander_callout = call_out( "wander", random(movement_maxtime - movement_mintime) + movement_mintime );
+    next_move = time() + random(movement_maxtime - movement_mintime) + movement_mintime;
   } else {
     stop_wander();
     return;
@@ -83,15 +84,21 @@ void wander( void ) {
 }
 
 int no_cleanup() {
-  return wander_callout != 0;
+  return wander_enable != 0;
 }
 
 void event_body_enter(mixed * what) {
 
   if(what && objectp(what[0]) && what[0]->is_player()) {
     wander_count = 0;
-    if(!wander_callout) {
+    if(!wander_enable && movement_mintime ) {
       start_wander(movement_mintime, movement_maxtime);
     }
+  }
+}
+
+static void event_wander() {
+  if( wander_enable && ( time() >= next_move ) ) {
+    wander();
   }
 }
