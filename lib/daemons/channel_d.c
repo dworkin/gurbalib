@@ -550,7 +550,7 @@ string get_history(string channel) {
 }
 
 void show_history(string channel) {
-    write(get_history(channel));
+    this_player()->message(get_history(channel),1);
 }
 
 void upgraded() {
