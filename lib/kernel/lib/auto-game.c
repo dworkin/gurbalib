@@ -71,6 +71,8 @@ nomask int is_kernel_object() {
  * Some 'real' game related stuff, shouldn't this be in /sys/safun
  * instead?
  */
+#include "afun-game/random_element.c"
+#include "afun-game/invert_exit.c"
 #include "afun-game/this_body.c"
 #include "afun-game/this_race.c"
 #include "afun-game/this_environment.c"
