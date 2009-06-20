@@ -58,7 +58,7 @@ void dispatch_event( string name, object *obs, int * counters, int id, mixed *ar
   }
 
   rlimits( MAX_DEPTH; -1 ) {
-    while( (ticks_used < (2*MAX_TICKS)/3) && (i <= max_i) ) {
+    while( (ticks_used < (MAX_TICKS)/50) && (i <= max_i) ) {
       counters[0] = i + 1;
 
       rlimits( MAX_DEPTH; MAX_TICKS) {
