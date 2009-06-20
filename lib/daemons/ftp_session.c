@@ -108,7 +108,7 @@ void FTP_CMD_pass( string arg ) {
   FTPLOG( name + " logged in.\n" );
   connected = 1;
   cwd = "/";
-  priv = SECURE_D->query_priv( name );
+  priv = query_user_priv( name );
 }
 
 void FTP_CMD_retr( string str ) {

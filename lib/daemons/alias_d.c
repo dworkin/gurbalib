@@ -68,7 +68,7 @@ int is_alias( string cmd ) {
   if( player_alias[cmd] )
     return( 1 );
 
-  if( SECURE_D->query_wiz( this_player()->query_name() ) ) {
+  if( query_wizard( this_player()->query_name() ) ) {
     if( wizard_alias[cmd] )
       return( 1 );
   }
@@ -86,7 +86,7 @@ string query_alias( string cmd ) {
   if( player_alias[cmd] )
     return( player_alias[cmd] );
 
-  if( SECURE_D->query_wiz( this_player()->query_name() ) ) {
+  if( query_wizard( this_player()->query_name() ) ) {
     if( wizard_alias[cmd] )
       return( wizard_alias[cmd] );
   }

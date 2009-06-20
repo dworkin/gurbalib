@@ -296,7 +296,7 @@ void ansi_set_color( string name, string *symbols )
   mixed *ind, *sym;
   int i;
 
-  if( SECURE_D->query_admin( this_player()->query_name() ) != 1 ) {
+  if( query_admin( this_player()->query_name() ) != 1 ) {
     write( "Access denied.\n" );
     return;
   }
@@ -332,7 +332,7 @@ void ansi_remove_color( string name )
 {
   mixed *ind;
 
-  if( SECURE_D->query_admin( this_player()->query_name() ) != 1 ) {
+  if( query_admin( this_player()->query_name() ) != 1 ) {
     write( "Access denied.\n" );
     return;
   }

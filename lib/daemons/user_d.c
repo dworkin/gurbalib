@@ -75,7 +75,7 @@ object *query_wizards( void ) {
   wizards = ({ });
 
   for ( i = 0, sz = sizeof(usr); i < sz; i++ ) {
-    if (SECURE_D->query_wiz(usr[i]->query_player()->query_name()) > 0) {
+    if (query_wizard(usr[i]->query_player()->query_name()) > 0) {
       wizards += ({ usr[i]->query_player() });
     }
   }

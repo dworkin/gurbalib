@@ -43,7 +43,6 @@ nomask int is_kernel_object() {
  * Protect arguments on the call_stack from being inspected
  * by non-kernel code.
  */
-
 #include "afun-game/call_trace.c"
 
 /*
@@ -54,6 +53,24 @@ nomask int is_kernel_object() {
 #include "afun-game/set_tlvar.c"
 #include "afun-game/get_otlvar.c"
 #include "afun-game/set_otlvar.c"
+
+/*
+ * Allow game objects to query user privileges by object or name
+ */
+#include "afun-game/query_user_priv.c"
+#include "afun-game/query_mortal.c"
+#include "afun-game/query_wizard.c"
+#include "afun-game/query_admin.c"
+
+/*
+ * Some filtered lists
+ */
+#include "afun-game/players.c"
+
+/*
+ * Some 'real' game related stuff, shouldn't this be in /sys/safun
+ * instead?
+ */
 #include "afun-game/this_body.c"
 #include "afun-game/this_race.c"
 #include "afun-game/this_environment.c"

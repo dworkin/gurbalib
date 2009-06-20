@@ -72,7 +72,7 @@ static void save_me( void ) {
 }
 
 void chan_set_flag( string chan, int flag ) {
-  if( SECURE_D->query_admin( this_player()->query_name() ) != 1 ) {
+  if( query_admin( this_player()->query_name() ) != 1 ) {
       write( "Access denied.\n" );
       return;
   }
@@ -84,7 +84,7 @@ void chan_set_flag( string chan, int flag ) {
 }
 
 void chan_make_permanent( string name ) {
-  if( SECURE_D->query_admin( this_player()->query_name() ) != 1 ) {
+  if( query_admin( this_player()->query_name() ) != 1 ) {
     write( "Access denied.\n" );
     return;
   }
@@ -96,7 +96,7 @@ void chan_make_permanent( string name ) {
 
 void chan_imud( string chan, string name ) {
 
-  if( SECURE_D->query_admin( this_player()->query_name() ) != 1 ) {
+  if( query_admin( this_player()->query_name() ) != 1 ) {
     write( "Access denied.\n" );
     return;
   }
@@ -116,7 +116,7 @@ void chan_new( string name, int flags ) {
 
   name = lowercase( name );
 
-  if( SECURE_D->query_wiz( this_player()->query_name() ) != 1 ) {
+  if( query_wizard( this_player()->query_name() ) != 1 ) {
     write( "Access denied.\n" );
     return;
   }
@@ -139,7 +139,7 @@ void chan_join( string chan, object ob ) {
   }
 
   if( channels[chan] < READ_ONLY ) {
-    if( SECURE_D->query_priv( ob->query_name() ) < channels[chan] - 1 ) {
+    if( query_user_priv( ob->query_name() ) < channels[chan] - 1 ) {
       write( "No such channel.\n" );
       return;
     }
@@ -176,7 +176,7 @@ void chan_leave( string chan, object ob ) {
 
   if( channels[chan] != READ_ONLY ) {
   /* no point denying leave channel */
-/*    if( SECURE_D->query_priv( ob->query_name() ) < channels[chan] - 1 ) {
+/*    if( query_user_priv( ob->query_name() ) < channels[chan] - 1 ) {
       write( "No such channel.\n" );
       return;
     }*/
@@ -405,7 +405,7 @@ void chan_say( string chan, string what ) {
 
 void chan_set_color( string chan, string col ) {
 
-  if( SECURE_D->query_admin( this_player()->query_name() ) != 1 ) {
+  if( query_admin( this_player()->query_name() ) != 1 ) {
     write( "Access denied.\n" );
     return;
   }
@@ -418,7 +418,7 @@ void chan_set_color( string chan, string col ) {
 
 void chan_set_guild( string chan, string guild ) {
 
-  if( SECURE_D->query_admin( this_player()->query_name() ) != 1 ) {
+  if( query_admin( this_player()->query_name() ) != 1 ) {
     write( "Access denied.\n" );
     return;
   }
@@ -445,14 +445,14 @@ int query_channel( string chan ) {
       return( 1 );
     if( guilds[chan] ) {
       /* Guild channel */
-      if( SECURE_D->query_priv( this_player()->query_name() ) > 0 ) {
+      if( query_priv( this_player()->query_name() ) > 0 ) {
 	/* A wiz can subscribe to all channels */
 	return( 1 );
       } else {
 	return( this_player()->guild_member( guilds[chan] ) );
       }
     }
-    if( SECURE_D->query_priv( this_player()->query_name() ) >= channels[chan] - 1 )
+    if( query_user_priv( this_player()->query_name() ) >= channels[chan] - 1 )
       return( 1 );
     else 
       return( 0 );
