@@ -288,7 +288,7 @@ string body_exit( object who, string dir ) {
   
   
   if( error ) {
-    if( SECURE_D->query_wiz( who->query_id() ) == 1 )
+    if( query_wizard( who ) == 1 )
       return( "\nConstruction blocks your path.\n" + "Error: " + error);
     else
       return( "\nConstruction blocks your path.\n" );

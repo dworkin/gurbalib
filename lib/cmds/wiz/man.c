@@ -91,7 +91,7 @@ void main( string arg ) {
     return;
   }
 
-  if( SECURE_D->query_wiz(this_player()->query_name()) != 1) {
+  if( query_wizard( this_player() ) != 1) {
     return;
   }
 

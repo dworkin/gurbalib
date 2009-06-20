@@ -8,7 +8,7 @@
 
 void main( string str ) {
   if (str != "") {
-    if (SECURE_D->query_wiz(this_player()->query_name()) > 0 || !this_player()->is_player() ) {
+    if ( !this_player()->is_player() || query_wizard( this_player() ) ) {
       this_player()->query_environment()->tell_room( nil, capitalize(this_player()->query_name()) + " " + str) ;
     } else {
       this_player()->query_environment()->tell_room( nil, "-> " + capitalize(this_player()->query_name()) + " " + str);

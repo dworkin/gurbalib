@@ -25,10 +25,10 @@ void main( string str ) {
   for( i = 0; i < sizeof( usr ); i++) {
     string line;
     line = capitalize(usr[i]->query_title());
-    if ( SECURE_D->query_admin(usr[i]->query_name()) > 0 ) {
+    if ( query_admin( usr[i] ) ) {
       line += " %^BOLD%^%^BLUE%^(Admin)%^RESET%^";
     }
-    else if ( SECURE_D->query_wiz(usr[i]->query_name()) > 0 ) {
+    else if ( query_wizard( usr[i] ) ) {
       line += " %^CYAN%^(Wizard)%^RESET%^";
     }
     write(line + "\n");

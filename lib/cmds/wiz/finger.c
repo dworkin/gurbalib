@@ -20,7 +20,7 @@ void main( string str) {
     }
     if (found != 1 && file_exists( "/data/players/" + str + ".o")) {
       write( "%^RED%^" + capitalize(str) + " is not logged in.%^RESET%^");
-      player = clone_object( "/std/player" );
+      player = clone_object( PLAYER_OB );
       player->set_name( str );
       player->restore_me();
       found = 1;
@@ -31,9 +31,9 @@ void main( string str) {
     write( "%^BLUE%^Name:%^RESET%^ " + capitalize(player->query_name()) + ".\n");
     write( "%^BLUE%^Title:%^RESET%^ " + player->query_title() + ".\n");
     write( "%^BLUE%^Description:%^RESET%^ " + player->query_long() + "\n");
-    if (SECURE_D->query_admin(player->query_name()) == 1){ 
+    if ( query_admin(player->query_name()) == 1 ){ 
       write( "%^BLUE%^Status: %^RESET%^Administrator\n");}
-    else if (SECURE_D->query_wiz(player->query_name()) == 1) {
+    else if( query_wizard( player->query_name() ) == 1 ) {
       write( "%^BLUE%^Status: %^RESET%^Wizard\n");}
     else {
       write( "%^BLUE%^Status: %^RESET%^Player\n");};
@@ -49,7 +49,7 @@ void main( string str) {
       write( "%^BLUE%^Last login: %^RESET%^" + ctime(player->query_last_login()) );
     }
     
-    if ((player->query_name() != this_player()->query_name()) /*&& !SECURE_D->query_wiz(this_player()->query_name()) > 0*/ && cloned != 1) {
+    if ((player->query_name() != this_player()->query_name()) /*&& !query_wizard(this_player()->query_name()) > 0*/ && cloned != 1) {
       player->message( "You feel like someone is thinking about you.\n");
     }
     }

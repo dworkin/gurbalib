@@ -4,11 +4,12 @@ void main (string str){
   object *usrs;
   flag = 0;
 
-  usrs = USER_D->query_users();
+  usrs = players();
+
   if (str != "") {
     for (i = 0; i < sizeof(usrs); i++){
-      if (SECURE_D->query_wiz(usrs[i]->query_player()->query_name()) > 0) {
-	usrs[i]->query_player()->message("%^RED%^" + "" + capitalize(this_player()->query_name()) + " wizcalls: %^RESET%^" + str + "\n");
+      if ( query_wizard( usrs[i] ) ) {
+	usrs[i]->message("%^RED%^" + "" + capitalize(this_player()->query_name()) + " wizcalls: %^RESET%^" + str + "\n");
 	write_file( "/logs/wizcall", capitalize(this_player()->query_name()) + " on " + ctime(time()) + ": " + str + "\n");
       }
     }

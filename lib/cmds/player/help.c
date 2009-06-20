@@ -19,7 +19,7 @@ void main( string arg ) {
   file = normalize_path( arg, "/help/" );
   
   if( file_exists( file ) < 1 ) {
-    if( SECURE_D->query_wiz(this_player()->query_name()) == 1) {
+    if( query_wizard( this_player() ) ) {
       file = normalize_path( arg, "/help/wiz/");
       if( file_exists(file) < 1 ) {
 	write( capitalize(arg) + ": Unknown help topic." );

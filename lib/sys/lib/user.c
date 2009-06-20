@@ -374,10 +374,10 @@ void login_who( void ) {
   if (sz > 0) out += "------------------------------------------------------\n";
   for( i = 0; i < sz; i++ ) {
     out += capitalize(usr[i]->query_name());
-    if ( SECURE_D->query_admin(usr[i]->query_name()) > 0 ) {
+    if ( query_admin( usr[i] ) > 0 ) {
       out += " (Admin)";
     }
-    else if ( SECURE_D->query_wiz(usr[i]->query_name()) > 0 ) {
+    else if ( query_wizard( usr[i] ) > 0 ) {
      out += " (Wizard)";
     }
     out += "\n";
