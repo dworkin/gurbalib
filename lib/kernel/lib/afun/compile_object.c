@@ -1,4 +1,4 @@
-static object compile_object( string path, varargs string code ) {
+static object compile_object( string path, string code... ) {
   argcheck( path, 1, "string" );
 
   if( strlen(path) > 2 ) {
@@ -8,6 +8,10 @@ static object compile_object( string path, varargs string code ) {
   if(find_object(COMPILER_D)) {
     path = COMPILER_D->allow_object( path );
   }
-  return driver->compile_object( path, code );
+  if( code && sizeof( code ) ) {
+    return driver->compile_object( path, code... );
+  } else {
+    return driver->compile_object( path );
+  }
 }
 

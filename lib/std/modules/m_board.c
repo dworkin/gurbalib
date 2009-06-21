@@ -1,6 +1,8 @@
 inherit OBJECT;
 
 string board_id;
+string data_dir;
+
 mixed *msgs;
 
 void add_message( string from, string subj, string msg );
@@ -9,17 +11,54 @@ void set_board_id( string str ) {
   board_id = str;
 }
 
+void set_data_dir( string dir ) {
+  data_dir = dir;
+}
+
+string query_data_dir() {
+  return data_dir;
+}
+
 string query_board_id( void ) {
   if(board_id)
   return( board_id );
 }
 
+void default_data_dir() {
+  string * stuff;
+
+  stuff = explode(base_name(), "/");
+
+  switch(stuff[0]) {
+    case "domains" : 
+    case "wiz"     :
+      data_dir = "/" + stuff[0] + "/" + stuff[1];
+      break;
+    case "kernel"  :
+      data_dir = "/kernel";
+      break;
+    case "sys"     :
+      data_dir = "/sys";
+      break;
+    default :
+      data_dir = "";
+      break;
+  }
+  data_dir += "/data/boards";
+}
+
 void save_me( void ) {
-  unguarded( "save_object", "/data/boards/" + query_board_id() + ".o" );
+  if(!data_dir) {
+    default_data_dir();
+  }
+  unguarded( "save_object", data_dir+ "/" + query_board_id() + ".o" );
 }
 
 void restore_me( void ) {
-  unguarded( "restore_object", "/data/boards/" + query_board_id() + ".o" );
+  if(!data_dir) {
+    default_data_dir();
+  }
+  unguarded( "restore_object", data_dir + "/" + query_board_id() + ".o" );
 }
 
 

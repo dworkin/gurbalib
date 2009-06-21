@@ -15,6 +15,8 @@
 
 #include "afun/variables.c"
 #include "afun/prototypes.c"
+#include "afun/require_priv.c"
+#include "afun/unguarded.c"
 #include "afun/find_object.c"
 #include "afun/caught_error.c"
 #include "afun/rethrow.c"

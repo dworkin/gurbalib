@@ -1,6 +1,6 @@
 void write(string message);
 
-static int compile_library( string path, varargs string code ) {
+static int compile_library( string path, string code... ) {
   object ob, tmp;
   string ** depends;
   int i,sz;
@@ -36,7 +36,7 @@ static int compile_library( string path, varargs string code ) {
 
       destruct_object( tmp );
     }
-    if(code) ob = driver->compile_object( path, code );
+    if(code && sizeof( code ) ) ob = driver->compile_object( path, code... );
     else ob = driver->compile_object( path );
 
     if( ob ) {

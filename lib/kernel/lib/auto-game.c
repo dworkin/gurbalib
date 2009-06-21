@@ -5,6 +5,9 @@
 
 #include <tlsvar.h>
 #include <trace.h>
+#ifndef ENABLE_STACK_SECURITY
+#define ENABLE_STACK_SECURITY
+#endif
 
 nomask int is_game_object() {
   return 1;
@@ -22,7 +25,11 @@ nomask int is_kernel_object() {
  * used in combination with unguarded.
  */
 
-#include "afun-game/require_priv.c"
+/* Network related */
+#include "afun-game/connect.c"
+#include "afun-game/open_port.c"
+
+/* filesystem related */
 #include "afun-game/valid.c"
 #include "afun-game/valid_read.c"
 #include "afun-game/valid_write.c"
@@ -37,7 +44,10 @@ nomask int is_kernel_object() {
 #include "afun-game/remove_file.c"
 #include "afun-game/make_dir.c"
 #include "afun-game/remove_dir.c"
-#include "afun-game/unguarded.c"
+
+/* compiling objects and inheritables */
+#include "afun-game/compile_object.c"
+#include "afun-game/compile_library.c"
 
 /*
  * Protect arguments on the call_stack from being inspected

@@ -20,18 +20,59 @@
 #endif
 
 mapping privs;
+mapping domains;
 
-void restore_me( void ) {
-  restore_object( "/kernel/daemons/data/secure_d.o" );
+static int restore_me( void ) {
+  return restore_object( "/kernel/daemons/data/secure_d.o" );
 }
 
-void save_me( void ) {
+static void save_me( void ) {
   save_object( "/kernel/daemons/data/secure_d.o" );
 }
 
-void create( void ) {
+int add_domain( string name ) {
+  if( !require_priv( "system" ) ) {
+    error( "Illegal call to add_domain" );
+  }
+
+  if( !domains[name] ) {
+    domains[name] = time();
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+int remove_domain( string name ) {
+  if( !require_priv( "system" ) ) {
+    error( "Illegal call to remove_domain" );
+  }
+
+  if( domains[name] != nil ) {
+    domains[name] = nil;
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+void mkdomains() {
+  int i, sz;
+  string * names;
+
+  names = get_dir("/domains/*")[0];
+  names -= ({ ".", "..", ".svn", ".cvs" });
+  for( i = 0, sz = sizeof( names ); i < sz; i++ ) {
+    unguarded( "add_domain", names[i] );
+  }
+}
+
+static void create( void ) {
   privs =  ([]);
-  restore_me();
+  domains = ([]);
+  if(!restore_me()) {
+    mkdomains();
+  }
   DRIVER->register_secure_d();
 }
 
@@ -136,6 +177,7 @@ int root_priv( string str ) {
 
 /*
  * Do the privileges provided in str include 'game' privileges?
+ */
 int game_priv( string str ) {
   if(
     sscanf( str, "%*s:game:%*s" ) != 0 
@@ -232,6 +274,10 @@ string determine_obj_privs( string objname ) {
   return ":" + priv + ":";
 }
 
+int is_domain( string name ) {
+  return domains[name] != nil;
+}
+
 /*
  * The stack validator, this function is what it is all about..
  *
@@ -242,6 +288,17 @@ string determine_obj_privs( string objname ) {
  * Optionally, unguarded can be set, which will cause this function
  * to only check the direct caller for privileges.
  */
+
+static int validate_privilege( string spriv, string rpriv ) {
+  if( 
+    root_priv( spriv ) ||
+    ( game_priv( spriv ) && is_domain( rpriv ) ) ||
+    ( sscanf( spriv, "%*s:"+rpriv+":%*s" ) != 0 ) 
+  ) {
+    return 1;
+  }
+}
+
 int validate_stack( string priv, varargs int unguarded ) {
   int i, sz, deny;
   mixed ** stack;
@@ -269,7 +326,7 @@ int validate_stack( string priv, varargs int unguarded ) {
     objname = stack[i][TRACE_OBJNAME];
     funname = stack[i][TRACE_FUNCTION];
 
-    if( unguarded || ( ( funname == "unguarded" ) && ( progname == "/kernel/lib/auto-game" ) ) ) {
+    if( unguarded || ( ( funname == "unguarded" ) && ( sscanf( progname, "/kernel/lib/auto%*s" ) ) ) ) {
       unguarded++;
     }
 
@@ -294,11 +351,11 @@ int validate_stack( string priv, varargs int unguarded ) {
     );
 #endif
 
-    if( !root_priv( ppriv ) && ( sscanf( ppriv, "%*s:"+priv+":%*s" ) == 0 ) ) {
+    if( !validate_privilege( ppriv, priv ) ) {
       deny++;
     }
 
-    if( !root_priv( opriv ) && ( sscanf( opriv, "%*s:"+priv+":%*s" ) == 0 ) ) {
+    if( !validate_privilege( opriv, priv ) ) {
       deny++;
     }
   }
@@ -369,5 +426,13 @@ string query_write_priv( string file ) {
   console_msg("query_write_priv( \""+file+"\" )\n");
 #endif
   return owner_file( file );
+}
+
+
+static void upgraded() {
+  if(!domains) {
+    domains = ([ ]);
+    mkdomains();
+  }
 }
 
