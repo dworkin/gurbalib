@@ -68,6 +68,7 @@
 #define MSG_D        "/daemons/messages_d"
 #define SCHEDULE_D   "/daemons/schedule_d"
 #define LOG_D        "/sys/daemons/logd"
+#define CMD_ERROR_D  "/daemons/cmd_error_d"
 
 #define CONNECTION      "/kernel/obj/net/connection"
 #define PORT            "/kernel/obj/net/port"

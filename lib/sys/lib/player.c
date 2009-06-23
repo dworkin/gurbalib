@@ -853,7 +853,7 @@ void receive_message( string message ) {
       }
       
       if( !flag && cmd != "" ) {
-	 write( "What?\n" );
+	 write( CMD_ERROR_D->random_error() );
       }
       if( !quitting && input_to_func == "" && !is_editing() ) 
 			write_prompt();
