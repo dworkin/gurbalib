@@ -1,6 +1,11 @@
 /*
  * Secondary auto object, only inherited by objects
  * outside /kernel
+ *
+ * By aidil@Way of the Force
+ *
+ * This file is in the public domain.
+ *
  */
 
 #include <tlsvar.h>
@@ -23,13 +28,26 @@ nomask int is_kernel_object() {
  * Security related overrides.
  * Any afun not having an override here cannot be
  * used in combination with unguarded.
+ *
  */
 
-/* Network related */
+#ifdef SYS_NETWORKING
+
+/*
+ * Network related 
+ *
+ */
+
 #include "afun-game/connect.c"
 #include "afun-game/open_port.c"
 
-/* filesystem related */
+#endif
+
+/* 
+ * filesystem related 
+ *
+ */
+
 #include "afun-game/valid.c"
 #include "afun-game/valid_read.c"
 #include "afun-game/valid_write.c"
@@ -45,7 +63,11 @@ nomask int is_kernel_object() {
 #include "afun-game/make_dir.c"
 #include "afun-game/remove_dir.c"
 
-/* compiling objects and inheritables */
+/* 
+ * compiling objects and inheritables
+ *
+ */
+
 #include "afun-game/compile_object.c"
 #include "afun-game/compile_library.c"
 
@@ -53,12 +75,20 @@ nomask int is_kernel_object() {
  * Protect arguments on the call_stack from being inspected
  * by non-kernel code.
  */
+
 #include "afun-game/call_trace.c"
+
+/*
+ * End of security related section
+ *
+ */
 
 /*
  * non kernel tls access, uses a special tls var containing
  * a map of 'user' tlsvars indexed by name.
+ *
  */
+
 #include "afun-game/get_tlvar.c"
 #include "afun-game/set_tlvar.c"
 #include "afun-game/get_otlvar.c"
@@ -66,21 +96,46 @@ nomask int is_kernel_object() {
 
 /*
  * Allow game objects to query user privileges by object or name
+ *
  */
+
 #include "afun-game/query_user_priv.c"
 #include "afun-game/query_mortal.c"
 #include "afun-game/query_wizard.c"
 #include "afun-game/query_admin.c"
 
+#ifdef ENABLE_USER_LLISTS
+
+/*
+ * Non kernel access to kernel maintained doubly linked lists
+ *
+ */
+
+#include "afun-game/list_is_sentinel.c"
+#include "afun-game/list_next.c"
+#include "afun-game/list_sentinel.c"
+#include "afun-game/list_new.c"
+#include "afun-game/list_prepend.c"
+#include "afun-game/list_insert.c"
+#include "afun-game/list_append.c"
+#include "afun-game/list_prev.c"
+#include "afun-game/list_remove.c"
+
+#endif
+
 /*
  * Some filtered lists
+ *
  */
+
 #include "afun-game/players.c"
 
 /*
  * Some 'real' game related stuff, shouldn't this be in /sys/safun
  * instead?
+ *
  */
+
 #include "afun-game/random_element.c"
 #include "afun-game/invert_exit.c"
 #include "afun-game/this_body.c"
