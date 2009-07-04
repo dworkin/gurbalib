@@ -445,7 +445,7 @@ int query_channel( string chan ) {
       return( 1 );
     if( guilds[chan] ) {
       /* Guild channel */
-      if( query_priv( this_player()->query_name() ) > 0 ) {
+      if( query_user_priv( this_player()->query_name() ) > 0 ) {
 	/* A wiz can subscribe to all channels */
 	return( 1 );
       } else {
