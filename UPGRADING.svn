@@ -58,4 +58,28 @@ Known mandatory revisions:
 
   Where $ indicates shell commands and > indicates mud commands.
 
+Driver upgrades:
+
+  When a new version of dgd becomes available, DGD is usually very
+  quick in picking it up. You can decide to not always follow driver
+  upgrades, in fact you actively need to do something to use a new
+  version of the driver.
+
+  In the directory in which you installed Gurbalib, there is a subdirectory
+  src/
+
+  cd to this directory and type:
+
+  make clean && make install
+
+  After this, you have to shutdown and restart your mud.
+
+  If you restore a statedump after a driver upgrade, it is a very
+  good idea to do a 'warmboot' as the first thing after having
+  restarted the driver.
+
+  Also, it is a very good idea to make a backup of your statedump
+  before this restart, new versions of the driver may change the
+  statedump format in a way that cannot be restored by older versions.
+
 
