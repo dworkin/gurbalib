@@ -94,6 +94,7 @@
 #define M_WANDER        "/std/modules/m_wander"
 #define M_WEARABLE      "/std/modules/m_wearable"
 #define M_WIELDABLE     "/std/modules/m_wieldable"
+#define M_JSON          "/std/modules/m_json"
 
 #define DRIVER          "/kernel/sys/driver"
 #define AUTO            "/kernel/lib/auto"
