@@ -27,24 +27,48 @@
 
 #include <type.h>
 
-#undef DEBUG_JSON
-
-#define GRAMMAR "whitespace=/[ 	]*/\n\
+#define TOKENS "whitespace=/[ 	]*/\n\
                  beginmsg=/{/\n\
                  endmsg=/}/\n\
                  kvsep=/:/\n\
                  pairsep=/,/\n\
                  string=/\"([^\\\\\"\n]*(\\\\.)*)*\"/\n\
-                 int=/[0-9]+/\n\
-                 msg : beginmsg pairs endmsg\n\
+                 int=/[0-9]+/\n"
+
+#define RULES   "msg : jsobj\n\
+                 jsobj : beginmsg pairs endmsg ? collect_mapping\n\
                  pairs : pair\n\
                  pairs : pairs pairsep pair\n\
                  pair : key kvsep value ? wrap_kvpair\n\
                  key : ustring\n\
                  value: ustring\n\
                  value: int\n\
+                 value: jsobj\n\
                  ustring: string ? unquote_string"
 
+string tokens;
+string rules;
+
+static string query_rules() {
+  return rules;
+}
+
+static void set_rules(string r) {
+  rules = r;
+}
+
+static string query_tokens() {
+  return tokens;
+}
+
+static void set_tokens(string t) {
+  tokens = t;
+}
+
+static void create() {
+  set_rules(RULES);
+  set_tokens(TOKENS);
+}
 
 string save_json(mapping data) {
   string service;
@@ -98,30 +122,37 @@ mapping restore_json( string message ) {
   mapping result;
   mixed * parse_tree;
 
+  if( !tokens ) tokens = TOKENS;
+  if( !rules ) rules = RULES;
+
   result = ([ ]);
 
-  parse_tree = parse_string(GRAMMAR,message);
+  parse_tree = parse_string( tokens + rules, message );
 
   if( !parse_tree ) {
     error( "Bad message format" );
   }
 
-  for( count = 0, size = sizeof( parse_tree ); count < size; count++ ) {
-    if( arrayp( parse_tree[count] ) ) {
-      result[parse_tree[count][0]] = parse_tree[count][1];
-#ifdef DEBUG_JSON
-      write( "Setting " + parse_tree[count][0] + " to " + parse_tree[count][1] );
-    } else {
-      write( dump_value( parse_tree[count] ) );
-#endif
+  return parse_tree[0];
+}
+
+mixed * collect_mapping( mixed * data ) {
+  int count, size;
+
+  mapping result;
+
+  result = ([ ]);
+
+  for( count = 0, size = sizeof( data ); count < size; count++ ) {
+    if( mappingp( data[count] ) ) {
+      result += data[count];
     }
   }
-
-  return result;
+  return ({ result });
 }
 
 mixed * wrap_kvpair( mixed * data ) {
-  return ({ ({ data[0] , data[2] }) });
+  return ({ ([ data[0]:data[2] ]) });
 }
 
 mixed * unquote_string( mixed * data ) {
