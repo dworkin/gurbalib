@@ -231,33 +231,8 @@ static void _initialize(mixed * tls) {
   EVENT_D->add_event( "new_player" );
 
   message( "Setting up daemons\n" );
-/*
- * SCHEDULE_D comes first as it sets up all timed events
- * that other daemons might count on.
- */
-  call_other( SCHEDULE_D, "???" );
-  call_other( CHANNEL_D, "???" );
-  call_other( TIME_D, "???" );
-#ifdef SYS_NETWORKING
-  call_other( TELNET_D, "???" );
-  call_other( FTP_D, "???" );
-  call_other( IMUD_D, "???" ); 
-#endif
-  call_other( OBJECT_D, "???" );
-  call_other( RACE_D, "???" );
-  call_other( SKILL_D, "???" );
-  call_other( MONEY_D, "???" );
-  call_other( BANISH_D, "???" );
-  call_other( SITEBAN_D, "???" );
-  call_other( GUILD_D, "???" );
-  call_other( LANGUAGE_D, "???" );
-  call_other( PARSE_D, "???" );
+  call_other( "/sys/daemons/init_d", "???" );
 
-  compile_object( STARTING_ROOM );
-
-  message( "Setting up call outs\n" );
-  call_out( "clean_up", 60 );
-  call_out( "heart_beat", 2 );
 #ifdef SYS_PERSIST
   call_out( "save_game", DUMP_INTERVAL );
 #endif
@@ -267,21 +242,6 @@ static void _initialize(mixed * tls) {
 static initialize() {
   tls_size = DEFAULT_TLS_SIZE + 2; 
   _initialize(allocate(query_tls_size()));
-}
-
-static void _heart_beat( mixed * tls ) {
-  call_other(SCHEDULE_D, "???");
-}
-
-static void heart_beat() {
-  _heart_beat(allocate(query_tls_size()));
-}
-
-static void _clean_up( mixed * tls ) {
-}
-
-static void clean_up() {
-  _clean_up(allocate(query_tls_size()));
 }
 
 static void _save_game(mixed * tls) {
@@ -338,96 +298,6 @@ static void _restored(mixed * tls) {
 static void restored() {
   _restored(allocate(query_tls_size()));
 }
-
-#if 0
-
-/*
- * NAME: normalize_path()
- * DESCRIPTION:   reduce a path to its minimal absolute form
- */
-string normalize_path(string file, string dir)
-{
-  string *path;
-  int i, j, sz;
-
-  if (strlen(file) == 0) {
-    file = dir;
-  }
-  switch (file[0]) {
-  case '~':
-    /* ~path */
-    if(strlen(file) == 1 || file[1] == '/') {
-      file = "/wiz/" + this_user()->query_name() + file[1 ..];
-    } else {
-      file = "/wiz/" + file[1 ..];
-    }
-    /* fall through */
-  case '/':
-    /* absolute path */
-
-    path = explode(file, "/");
-
-    if( (path[0] == "data" || path[0] == "kernel") && (!secure_d || !secure_d->query_admin( this_user()->query_name() ) ) )
-      return("");
-
-    if (sscanf(file, "%*s//") == 0 && sscanf(file, "%*s/.") == 0) {
-      return file;   /* no changes */
-    }
-    break;
-
-  default:
-    /* relative path */
-    if (sscanf(file, "%*s//") == 0 && sscanf(file, "%*s/.") == 0 &&
-   sscanf(dir, "%*s/..") == 0) {
-      /*
-       * simple relative path
-       */
-
-      if( dir[strlen(dir)-1] == '/' )
-   path = explode( dir + file, "/" );
-      else
-   path = explode( dir + "/" + file, "/" );
-
-      if( (path[0] == "data" || path[0] == "kernel") && (!secure_d || !secure_d->query_admin( this_user()->query_name() ) ) )
-   return("");
-
-
-      if( dir[strlen(dir)-1] == '/' )
-   return dir + file;
-      else
-   return dir + "/" + file;
-    }
-    /* fall through */
-  case '.':
-    /*
-     * complex relative path
-     */
-    path = explode(dir + "/" + file, "/");
-    break;
-  }
-
-  for (i = 0, j = -1, sz = sizeof(path); i < sz; i++) {
-    switch (path[i]) {
-    case "..":
-      if (j >= 0) {
-   --j;
-      }
-      /* fall through */
-    case "":
-    case ".":
-      continue;
-    }
-    path[++j] = path[i];
-  }
-
-  if( (path[0] == "data" || path[0] == "kernel") && (!secure_d || !secure_d->query_admin( this_user()->query_name() ) ) ) {
-    return "";
-  }
-
-  return "/" + implode(path[.. j], "/");
-}
-#endif
-
 
 string path_read( string path ) {
 
