@@ -112,8 +112,11 @@ object query_exit_room( string direction ) {
 
 string query_desc( varargs int brief ) {
   string text;
-  int i;
+  int count;
+  int size;
   object * inventory;
+  mapping compacted_inv;
+
 
   if(!brief) brief = 0;
   text = "%^ROOM_NAME%^" + query_brief() + "%^RESET%^";
@@ -123,8 +126,8 @@ string query_desc( varargs int brief ) {
   if( !exits || map_sizeof( exits ) == 0 ) {
     text += "none ";
   } else {
-    for( i = 0; i < map_sizeof( exits ); i++ ) {
-      text += map_indices(exits)[i] + " ";
+    for( count = 0; count < map_sizeof( exits ); count++ ) {
+      text += map_indices(exits)[count] + " ";
     }
   }
 
@@ -137,29 +140,60 @@ string query_desc( varargs int brief ) {
   inventory = query_inventory();
 
   if( inventory && sizeof( inventory ) > 1 ) {
+    string desc;
+
+    compacted_inv = ([ ]);
+
     /* There is something in the room */
 
     text += "\nYou see:\n";
 
-    for( i = 0; i < sizeof( inventory ); i++ ) {
-      if( !inventory[i]->is_living() ) {
-	  text += "  %^OBJ_BRIEF%^" + capitalize( inventory[i]->query_brief() ) + "%^RESET%^\n";
+    for( count = 0; count < sizeof( inventory ); count++ ) {
+      if( !inventory[count]->is_living() ) {
+	  desc = "  %^OBJ_BRIEF%^" + capitalize( inventory[count]->query_brief() ) + "%^RESET%^";
       }
       else {
         mixed x;
         string pc;
-        if( inventory[i] == this_player() )
+        if( inventory[count] == this_player() )
           continue;
-        x = inventory[i]->query_idle();
-        pc = inventory[i]->is_player() ? "%^PLAYER%^" : "%^NPC_FRIENDLY%^";
+        x = inventory[count]->query_idle();
+        pc = inventory[count]->is_player() ? "%^PLAYER%^" : "%^NPC_FRIENDLY%^";
         if( x && x > 60 ) {
-          text += "  " + pc + capitalize( inventory[i]->query_brief() ) 
-                  + " [idle" + format_idle_time( inventory[i]->query_idle() ) + "]%^RESET%^\n";
+           desc = "  " + pc + capitalize( inventory[count]->query_brief() ) 
+                  + " [idle" + format_idle_time( inventory[count]->query_idle() ) + "]%^RESET%^";
         } else {
-          text += "  " + pc + capitalize( inventory[i]->query_brief() ) + "%^RESET%^\n";
+          desc = "  " + pc + capitalize( inventory[count]->query_brief() ) + "%^RESET%^";
         }
       }
+#ifdef LONG_ROOM_INV
+      text += desc + "\n";
     }
+#else
+      if( !compacted_inv[desc] ) {
+        compacted_inv[desc] = ({ });
+      }
+      compacted_inv[desc] += ({ inventory[count] });
+    }
+
+    if( compacted_inv && map_sizeof( compacted_inv ) ) {
+      string * keys;
+      int amount;
+
+      keys = map_indices( compacted_inv );
+
+      for( count = 0, size = sizeof( keys ); count < size; count++ ) {
+        amount = sizeof( compacted_inv[keys[count]] );
+
+        if( amount == 1 ) {
+          text += keys[count];
+        } else {
+          text += keys[count] + " [x" + amount + "]";
+        }
+        text += "\n";
+      }
+    }
+#endif
   }
   return( text );
 }
