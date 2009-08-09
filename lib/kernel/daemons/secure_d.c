@@ -83,13 +83,17 @@ void make_wizard( string name ) {
     error( "Hey! No cheating!\n" );
   }
 
+  if( !require_priv( "system" ) ) {
+    error( "Access denied" );
+  }
+
   name = lowercase( name );
   if( file_exists( "/data/players/" + name + ".o" ) ) {
     privs[name] = WIZ_L;
     player = USER_D->find_player( name );
     if( !player ) {
       /* Player not active now, load him in and add his paths. */
-      player = clone_object( "/std/player" );
+      player = clone_object( PLAYER_OB );
       player->set_name( name );
       player->restore_me();
       player->add_cmd_path( "/cmds/wiz" );
@@ -109,13 +113,17 @@ void make_wizard( string name ) {
 void make_admin( string name ) {
   object player;
 
+  if( !require_priv( "system" ) ) {
+    error( "Access denied" );
+  }
+
   name = lowercase( name );
   if( file_exists( "/data/players/" + name + ".o" ) ) {
     privs[name] = ADMIN_L;
     player = USER_D->find_player( name );
     if( !player ) {
       /* Player not active now, load him in and add his paths. */
-      player = clone_object( "/std/player" );
+      player = clone_object( PLAYER_OB );
       player->set_name( name );
       player->restore_me();
       player->add_cmd_path( "/cmds/wiz" );
