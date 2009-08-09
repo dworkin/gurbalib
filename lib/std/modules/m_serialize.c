@@ -50,10 +50,10 @@ private void test_format( string format ) {
 
 static string serialize( string format, mixed value ) {
   test_format( format );
-  return formats[format]->save_variable( value );
+  return formats[format]->save_value( value );
 }
 
 static mixed deserialize( string format, string data ) {
   test_format( format );
-  return formats[format]->restore_variable( data );
+  return formats[format]->restore_value( data );
 }

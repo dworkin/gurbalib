@@ -9,16 +9,9 @@
  * This code is in the public domain.
  *
  *
- * USAGE:
+ * Current limitations:
  *
- * string save_json(mixed data) 
- * 
- *   Turn 'data' into a JSON message
- *
- * mixed restore_json(string message)
- *
- *   Return a value containing the parsed JSON message
- *   an error will be thrown if the message is not a valid json message
+ * No unicode support (\uXXXX)
  *
  */
 
@@ -53,7 +46,7 @@
                  frac: '.' int\n\
                  ustring: string ? unquote_string"
 
-string save_json(mixed data) {
+string save_value(mixed data) {
   string service;
   string action;
   string result;
@@ -65,6 +58,13 @@ string save_json(mixed data) {
 
   switch( typeof( data ) ) {
     case T_STRING :
+      data = replace_string( data, "\"", "\\\"" );
+      data = replace_string( data, "\\", "\\\\" );
+      data = replace_string( data, "\n", "\\n" );
+      data = replace_string( data, "\t", "\\t" );
+      data = replace_string( data, "\r", "\\r" );
+      data = replace_string( data, "\f", "\\f" );
+      data = replace_string( data, "\b", "\\b" );
       result = "\"" + data + "\"";
       break;
     case T_FLOAT :
@@ -75,7 +75,7 @@ string save_json(mixed data) {
       result = "[";
       for( count = 0, size = sizeof( data ); count < size; count++ ) {
         if( count > 0 ) result += ", ";
-        result += save_json( data[count] );
+        result += save_value( data[count] );
       }
       result += "]";
       break;
@@ -84,20 +84,20 @@ string save_json(mixed data) {
       keys = map_indices( data );
       for( count = 0, size = sizeof( keys ); count < size; count++ ) {
         if( count > 0 ) result +=", ";
-        result += save_json( keys[count] );
+        result += save_value( keys[count] );
         result += ":";
-        result += save_json( data[keys[count]] );
+        result += save_value( data[keys[count]] );
       }
       result += "}";
       break;
     default :
-      error( "Unhandled value for save_json: "+dump_value( data ) );
+      error( "Unhandled value for save_value: "+dump_value( data ) );
       break;
   }
   return result;
 }
 
-mixed restore_json( string message ) {
+mixed restore_value( string message ) {
   int count;
   int size;
   mapping result;
@@ -143,6 +143,13 @@ static mixed * wrap_list( mixed * data ) {
 }
 
 static mixed * unquote_string( mixed * data ) {
+  data[0] = replace_string( data[0], "\\\"", "\"" );
+  data[0] = replace_string( data[0], "\\\\", "\\" );
+  data[0] = replace_string( data[0], "\\n", "\n" );
+  data[0] = replace_string( data[0], "\\t", "\t" );
+  data[0] = replace_string( data[0], "\\r", "\r" );
+  data[0] = replace_string( data[0], "\\f", "\f" );
+  data[0] = replace_string( data[0], "\\b", "\b" );
   return ({ data[0][1..strlen(data[0])-2] });
 }
 
