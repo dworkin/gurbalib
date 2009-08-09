@@ -23,6 +23,10 @@
  *
  */
 
+#ifndef PARSER_DIR
+#define PARSER_DIR "/daemons/serialize/"
+#endif
+
 static mapping formats;
 
 private int new_format( string format ) {
@@ -32,6 +36,7 @@ private int new_format( string format ) {
     formats = ([ ]);
   }
 
+  console_msg( "Trying to add parser "+PARSER_DIR+format+"\n");
   if( ob = find_object( PARSER_DIR + format ) ) {
     formats[format] = ob;
     return 1;
@@ -49,11 +54,13 @@ private void test_format( string format ) {
 }
 
 static string serialize( string format, mixed value ) {
+  format = lowercase( format );
   test_format( format );
   return formats[format]->save_value( value );
 }
 
 static mixed deserialize( string format, string data ) {
+  format = lowercase( format );
   test_format( format );
   return formats[format]->restore_value( data );
 }

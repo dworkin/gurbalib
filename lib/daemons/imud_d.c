@@ -12,7 +12,7 @@
 #include <ports.h>
 
 inherit M_CONNECTION;
-inherit M_SAVERESTORE;
+inherit M_SERIALIZE;
 
 #ifndef RECONNECT_INTERVAL
 #define RECONNECT_INTERVAL 30
@@ -116,7 +116,7 @@ private void write_imud_stream(string sType, mixed sTargetMUD,
   to the end.
 */
   
-  nSize = strlen(sSend = save_variable(mpPacket)) + 1;
+  nSize = strlen(sSend = serialize( "MUDMODE", mpPacket)) + 1;
 
   /*  Initialize the string so I can reference specific bytes */
   sSend = "    " + sSend + " ";
@@ -637,7 +637,7 @@ void receive_message(string str) {
           mixed data;
           string rc;
 
-          rc =catch(data = restore_variable(packet));
+          rc =catch(data = deserialize( "MUDMODE", packet));
           if(!rc) {
             errcount = 0;
             handle_router_read(data);
@@ -836,6 +836,14 @@ void create( void )
     return;
   }
 
+  /*
+   * Make sure the mudmode parser/generator is loaded
+   *
+   */
+  if( !find_object( "/daemons/serialize/mudmode" ) ) {
+    compile_object( "/daemons/serialize/mudmode" );
+  }
+
   add_event("i3_connection");
 
   if(find_object(CHANNEL_D)) {
@@ -934,6 +942,10 @@ void upgraded() {
 
     data_version = DATA_VERSION;
     call_out("save_me",2);
+  }
+
+  if( !find_object( "/daemons/serialize/mudmode" ) ) {
+    compile_object( "/daemons/serialize/mudmode" );
   }
 }
 
