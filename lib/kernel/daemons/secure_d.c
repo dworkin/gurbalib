@@ -411,7 +411,7 @@ string query_read_priv( string file ) {
       break;
     case "daemons" :
     case "sys" :
-      if(sizeof(parts) > 1 && parts[1] == "data") {
+      if((sizeof(parts) > 1 && parts[1] == "data") || (sizeof(parts) > 2 && parts[2] == "data") ) {
         return owner_file( file );
       }
       break;
