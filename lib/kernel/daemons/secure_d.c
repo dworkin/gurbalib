@@ -163,7 +163,7 @@ int query_mortal( string name ) {
 
 int query_priv( string name ) {
   if( map_sizeof(privs) == 0 )
-  	make_admin( name );
+  	unguarded( "make_admin", "name" );
   if(!privs[name])
     return 0;
   return( privs[name] );
