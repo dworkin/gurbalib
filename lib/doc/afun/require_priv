@@ -11,8 +11,6 @@ DESCRIPTION
         the requested privilege or one superior (that can become
         the requested privilege)
 
-NOTES
-        This afun only exists outside /kernel
 
 RETURN VALUE
         Returns 1 if matched, 0 otherwise.

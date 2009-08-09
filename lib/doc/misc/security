@@ -1,0 +1,80 @@
+Gurbalib's security system.
+
+Users:
+
+  A user is either a player (mortal, wizard, admin), a domain
+  or a system user. Users 'own' files.
+
+Privileges:
+
+  Each user has an associated privilege, the name of each
+  privilege is identical to the name of the user it belongs to.
+
+Objects and inheritables:
+
+  The system differentiates between object and program privileges.
+  Programs get their privilege based on the owner of the file they
+  are compiled from.
+
+  Objects get the privilege of the program from which they are
+  constructed.
+  
+  User objects are special in this, they get the privilege of
+  the user logged into them, and if this is an admin user, they
+  also get the system privilege.
+
+  The privilege of an admin user is in no way different from that
+  of any other wizard. The extra system privilege assigned to their
+  user object makes it possible for them to perform admin restricted
+  actions. As a result of this, programs running with the privilege
+  of an admin do not have any special privileges.
+
+Validation of privileges:
+
+  Validation of privileges is done with the afun
+
+  int require_priv( string privilege )
+
+  This function will call the security daemon which will then verify
+  all objects and programs it finds on the stack to see if they have
+  the required privilege.
+
+  If an object or program fails this check, require_priv will return
+  0 to indicate that the required privilege is not met.
+
+  If all objects have the required privilege (or the system or kernel
+  privilege), require_priv will return 1 to indicate the required
+  privilege is met.
+
+  It is possible to restrict this check to the program and object calling
+  the function containing the require_priv() check by using unguarded(),
+  see 'man unguarded' for usage. The use of unguarded() should be
+  exceptional.
+
+File system privileges
+
+  File system read and write access is determined by the security daemon.
+
+  Everyone can read all files outside the following directories:
+
+    /data
+    /daemons/data
+    /domains/*/data
+    /kernel/data
+    /kernel/daemons/data
+    /sys/data
+    /sys/daemons/data
+    /wiz/*
+   
+  For files in the mentioned directories (and those directories themselves)
+  owner or system or kernel privileges are required.
+
+  Kernel and system can write everywhere, all other privileges can only write
+  to files and directories they own.
+
+Other privileges
+
+  require_priv() is used in various places, not just for filesystem security.
+
+  require_priv() is a somewhat expensive afun, use with care.
+
