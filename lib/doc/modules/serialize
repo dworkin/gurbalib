@@ -1,0 +1,26 @@
+NAME
+       m_serialize
+
+SYNOPSIS
+       inherit M_SERIALIZE;
+
+       string serialize( string format, mixed data );
+
+       mixed deserialize( string format, string str );
+
+DESCRIPTION
+       The serialization module provides a function
+       that can be used to serialize LPC values to
+       a string representation that can then be sent
+       on a network connection or written to a file.
+       It also provides a function to reverse this.
+
+       The format refers to one of the parsers/generators
+       in /daemons/serialize. The parser/generator must
+       be loaded before it can be used. This module will 
+       not attempt to compile or load the appropriate
+       parser/generator.
+
+ERRORS
+       This module will throw an error when there is no
+       parser/generator loaded for the requested format.
