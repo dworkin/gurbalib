@@ -3,10 +3,13 @@ void main( string file ) {
   string *lines;
   string name;
   int i;
-
+if (file=="")
+{
+write("You should provide an argument.\nSyntax: cat <file>.");
+return;
+}
   if( !file || file == "" ) 
     file = this_player()->query_env( "cwf" );
-
   if( !file || file == "" ) {
     write( "Please specify a filename." );
     return;
@@ -23,4 +26,8 @@ void main( string file ) {
       out( lines[i] + "\n" );
     }
   }
+else
+{
+write("That file doesn't exist.");
+}
 }
