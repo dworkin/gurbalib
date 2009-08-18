@@ -7,8 +7,17 @@ enhanced by the Gurbalib resurrection project.
 The error handling and dynamic/in-place recompilation
 support was ported from Way of the Force.
 
+The security system was built from scratch for Gurbalib,
+but is inspired by the MudOS stack based security system
+as used by many mudos native libs.
+
+The multi-level auto object support and auto assembling of
+the 'simulated afun' object was built from scratch for
+Gurbalib.
+
 Many ideas for this kernel come from Dworkin's kernel
-library and discussions on the DGD mailinglist.
+library, the Way of the Force kernel  and discussions on 
+the DGD mailinglist.
 
 Main contributors:
 Fudge, Aidil, Cerihan

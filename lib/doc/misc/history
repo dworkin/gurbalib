@@ -1,0 +1,43 @@
+Gurbalib was started in the second half of the 90s by
+Fudge as a way to learn about lpc and mudlib coding.
+
+Much of the original code of Gurbalib upto and including
+version 0.40 was done by Fudge, with a few bits of code
+by Jason Cone (intermud daemon and conversion daemon) and
+Greg Lewis (mudmode implementation)
+
+After 1999 public development mostly stopped, and version
+0.40 was the last official public release by Fudge.
+
+From then to 2009, a number of private derivates existed,
+one of which was used to start the Gurbalib resurrection
+project, this was a derivate by Nullinfinite (Chris). It 
+was first reduced to a 'pure' port of Gurbalib to dgd 1.2
+with type checking 2. Most of this was done by Nullinfinite.
+
+During this time, Cerihan and me (Aidil) were playing with
+our own private derivate, which was based on the version
+from Nullinfinite. Once he was done with stripping down his
+version to a 'pure' port to dgd 1.2, the projects were merged
+and the Gurbalib resurrection project made its first public
+release.
+
+As of this writing, there have been over 310 new revisions,
+much of the kernel has been reimplemented and extended, and
+the lib had many bugfixes and a number of small extensions.
+
+Many more people got involved, and Gurbalib now contains code
+from a large number of people. Currently there are 4 people
+with commit rights to the public repository:
+
+Aidil
+Cerihan
+Nullinfinite
+Quixadhal
+
+Much of the original design is still in place, and people
+familiar with Lima should easily recognize its influence on
+Gurbalib's design still.
+
+Aidil, August 2009
+
