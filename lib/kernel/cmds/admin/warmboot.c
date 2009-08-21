@@ -1,3 +1,5 @@
+#include <type.h>
+
 #define LAST_STAGE 1
 int stage;
 
@@ -45,10 +47,30 @@ void main(string str) {
   stage = call_out("next_stage",0,0,this_player());
 }
 
+private int virtual_object(mixed ob) {
+  if( typeof( ob ) == T_OBJECT ) {
+    ob = file_name( ob );
+  }
+  switch( ob ) {
+    case "/sys/lib/auto.c" :
+      return 1;
+    default :
+      return 0;
+  }
+}
 static int upgrade_uobj(string * files, int verbose) {
   int pos, sz;
 
   for( pos = 0, sz = sizeof( files ); pos < sz; pos++ ) {
+    if( !virtual_object( files[pos] ) && !file_exists( files[pos] ) ) {
+      if( find_object( files[pos] ) ) {
+        this_player()->message("Warning: "+files[pos]+" is loaded but there is no source for it, cannot recompile.");
+      } else {
+        this_player()->message("Ignoring "+files[pos]);
+      }
+      continue;
+    }
+
     if( COMPILER_D->test_inheritable( files[pos] ) ) {
       if( find_object(files[pos],1) ) { 
         compile_library( files[pos] );

@@ -4,7 +4,7 @@
 
 /* uncomment the line below to get a lot of debug output.. */
 
-/* #define DEBUG_STACK_SECURITY */
+/* #define DEBUG_STACK_SECURITY  */
 
 #include <trace.h>
 #include <privileges.h>
@@ -218,10 +218,10 @@ string owner_file(string file) {
     case ""        :
     case "daemons" :
     case "sys"     :
+    case "std"     :
     case "cmds"    :
       return "system";
       break;
-    case "std"     :
     case "obj"     :
     case "game"    :
     case "logs"    :
