@@ -62,6 +62,7 @@ nomask int is_kernel_object() {
 #include "afun-game/remove_file.c"
 #include "afun-game/make_dir.c"
 #include "afun-game/remove_dir.c"
+#include "afun-game/copy.c"
 
 /* 
  * compiling objects and inheritables

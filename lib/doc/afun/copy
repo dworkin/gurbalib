@@ -1,0 +1,14 @@
+NAME
+        copy - copy a file
+		
+SYNOPSIS
+        void( string source, string destination )
+
+DESCRIPTION
+         Copies the source file to the destination.
+         If destination is a directory, a file will be
+         created based on the name of the source file.
+		
+SEE ALSO
+        read_file, write_file
+

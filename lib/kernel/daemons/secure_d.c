@@ -76,6 +76,19 @@ static void create( void ) {
   DRIVER->register_secure_d();
 }
 
+static void create_homedir(string wiz) {
+  string path;
+
+  path = "/wiz/"+wiz+"/";
+
+  if( file_exists( path ) == 0 ) {
+    make_dir( path );
+    make_dir( path + "rooms/" );
+    copy( "/data/skel/rooms/workroom.c", path + "rooms/workroom.c" );
+  }
+}
+
+
 void make_wizard( string name ) {
   object player;
 
@@ -103,6 +116,7 @@ void make_wizard( string name ) {
       player->add_cmd_path( "/cmds/wiz" );
       player->save_me();
     }
+    unguarded( "create_homedir", name );
     write( capitalize( name ) + " has been made a wizard." );
     save_me();
   } else {
@@ -137,6 +151,7 @@ void make_admin( string name ) {
       player->add_channel("dgd");
       player->save_me();
     }
+    unguarded( "create_homedir", name );
     write( capitalize( name ) + " has been made an admin." );
     save_me();
   } else {

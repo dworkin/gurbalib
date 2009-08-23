@@ -52,6 +52,7 @@
 #include "afun/normalize_path.c"
 #include "afun/owner_file.c"
 #include "afun/owner_object.c"
+#include "afun/copy.c"
 #include "afun/dir_size.c"
 #include "afun/file_size.c"
 #include "afun/base_name.c"
