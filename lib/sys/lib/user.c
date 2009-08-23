@@ -47,12 +47,11 @@ void _open(mixed * tls) {
          "Please email " + ADMIN_EMAIL + " about access from your site.\n" );
       destruct_object( this_object() );
   }
-  /* cat_file( "/data/messages/login" ); */
-  send_message( "\n" );
   send_message( "Welcome to " + MUD_NAME + ".\n" );
   send_message( "Running " + LIB_NAME + " " + LIB_VERSION + ".\n" );
   send_message( "\n" );
-  send_message( "Enter your name (or 'who' for a list of players): " );
+  send_message( TELNET_D->query_banner() );
+  send_message( "\nEnter your name (or 'who' for a list of players): " );
   send_message( 1 );
   timeout_handle = call_out( "login_timeout", 600 );
   player = clone_object( PLAYER_OB );
@@ -261,9 +260,7 @@ void login_user( void ) {
     USER_D->add_user( user_name, this_object() );
     player->set_brief( capitalize( user_name ) + player->query_title() );
     send_message( "\n" );
-    cat_file( "/data/messages/login" );
-    send_message( "\n" );
-    cat_file( "/data/messages/motd" );
+    send_message( TELNET_D->query_motd() );
     player->login_player();
     /*
      * AH! thats why m_autoload is inherited by this program...

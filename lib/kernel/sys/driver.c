@@ -463,7 +463,7 @@ object _telnet_connect(mixed * tls, int port) {
 
   object connection;
 
-  connection = clone_object( TELNET_USER_OB );
+  connection = TELNET_D->connection( "<unknown>", port );
   return( connection );
 }
 
