@@ -13,6 +13,12 @@ static void copy( string src, string dst) {
     dst += "/" + parts[ sizeof( parts ) -1 ];
   }
 
+  if( file_exists( dst ) > 0 ) {
+    remove_file( dst );
+  } else if( file_exists( dst ) < 0 ) {
+    error( "Cannot create destination file" );
+  }
+
   do {
     buf = read_file( src, pos, BUFSZ );
     write_file( dst, buf, pos );

@@ -16,7 +16,7 @@ void main( string str ) {
   }
 
   file = normalize_path( str, this_player()->query_env( "cwd" ) );
-  if( !file || file == "" ) {
+  if( !file || file == "" || !valid_read( file ) ) {
     write( file + ": Permission denied." );
     return;
   }
@@ -35,7 +35,7 @@ void main( string str ) {
   file_name = parts[ sizeof( parts ) - 1 ];
 
   dest = normalize_path( where, this_player()->query_env( "cwd" ) );
-  if( !dest || dest == "" ) {
+  if( !dest || dest == "" || !valid_write( dest ) ) {
     write( dest + ": Permission denied." );
     return;
   }
@@ -53,11 +53,5 @@ void main( string str ) {
     return;
   }
 
-  if( file_exists( dest ) > 0 ) {
-    remove_file( dest );
-  }
-
-  in = read_file( file );
-  write_file( dest, in );
-
+  copy( file, dest );
 }
