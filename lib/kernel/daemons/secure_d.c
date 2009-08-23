@@ -76,8 +76,12 @@ static void create( void ) {
   DRIVER->register_secure_d();
 }
 
-static void create_homedir(string wiz) {
+void create_homedir(string wiz) {
   string path;
+
+  if( !require_priv( "system" ) ) {
+    error( "Access denied" );
+  }
 
   path = "/wiz/"+wiz+"/";
 
