@@ -1,3 +1,7 @@
+/*
+ * An 'advanced' skill command, by Fudge, Sorressean and Aidil
+ *
+ */
 #undef DEBUG_SKILLS
 
 static void DBM( string str ) {
@@ -9,6 +13,11 @@ static void DBM( string str ) {
 private void show_skills( string * skills ) {
   string line;
   int i;
+
+  if( sizeof( skills ) == 0 ) {
+    write( "No skills to display." );
+    return;
+  }
 
   for( i = 0; i < sizeof( skills ); i++ ) {
     line = skills[i] + "                                     ";
@@ -30,26 +39,26 @@ void main( string str ) {
    * If so, we just populate the skills list with the game skills 
    * rather than player skills and show it as normal.
    */
+
   if( str == "full" ) {
+    /* all game skills */
     DBM( "Showing all existing skills." );
     skills = SKILL_D->query_skills();
+    /*
+     * emty our input string, else the remainder of this function will 
+     * try to use it as a filter
+     */
     str = "";
   } else if( ( str == "" ) || ( !str ) ) {
+    /* All skills of this_player() */
     skills = this_player()->query_skills();
-    if( sizeof( skills ) == 0 ) {
-      write( "You are unskilled." );
-      return;
-    }
   } else if( sscanf( str, "full %s", str ) == 0 ) {
+    /* Filtered list of skills of this_player() */
     skills = this_player()->query_skills();
     DBM( "Filtering all of your skills using " + str + "." );
   } else {
+    /* Filtered list of all game skills */
     skills=SKILL_D->query_skills();
-  }
-
-  if( sizeof( skills ) == 0 ) {
-    write( "You are unskilled." );
-    return;
   }
 
   if( str && str != "" ) {
