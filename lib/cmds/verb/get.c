@@ -102,6 +102,11 @@ void do_get_str_str_obj(string target, string s, object obj) {
   }
 
   inv = obj->query_inventory();
+  if( !inv || ( sizeof( inv) == 0 ) ) {
+    write( "There is nothing in the "+obj->query_id()+"." );
+    return;
+  }
+
   for( i = 0; i < sizeof( inv ); i ++ ) {
     if( inv[i]->move( this_player() ) ) {
       this_player()->targetted_action( "$N $vget $o from $o1.", nil, inv[i], obj );

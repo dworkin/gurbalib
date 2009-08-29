@@ -132,7 +132,11 @@ void main( string str ) {
             break;
         }
       }
+    } else {
+      write( "Cannot compile " + path + ", it is neither object or inheritable (see 'man objects')" );
+      return;
     }
+
     if( ob ) {
       write( "Compilation successful.\n" );
     }
