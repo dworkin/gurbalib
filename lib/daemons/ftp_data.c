@@ -1,3 +1,5 @@
+#ifndef DISABLE_FTP
+
 inherit M_CONNECTION;
 
 #include <ports.h>
@@ -76,3 +78,4 @@ void destructing() {
   }
 }
 
+#endif

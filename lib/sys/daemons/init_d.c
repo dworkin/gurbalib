@@ -25,7 +25,9 @@ private string * default_init() {
 #ifdef SYS_NETWORKING
   objects += ({
     TELNET_D,
+#ifndef DISABLE_FTP
     FTP_D,
+#endif
     IMUD_D
   });
 #endif

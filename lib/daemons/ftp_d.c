@@ -2,6 +2,7 @@
 
 inherit M_PORT;
 
+#ifndef DISABLE_FTP
 void initialize( void ) {
   open_port( "tcp", FTP_PORT );
 }
@@ -18,3 +19,4 @@ static object connection( string ip, int port ) {
 void create() {
   initialize();
 }
+#endif

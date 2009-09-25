@@ -1,5 +1,7 @@
 #define CHUNK_SIZE 8192
 
+#ifndef DISABLE_FTP
+
 inherit M_CONNECTION;
 
 int timeout_handle;
@@ -546,7 +548,6 @@ void FTP_stor( string str ) {
   write_file( store_file_name, str );
 }
 
-
 void receive_message( string message ) {
   string cmd, arg;
   string func;
@@ -607,7 +608,6 @@ void receive_message( string message ) {
   return;
 }
 
-
 void login_timeout( void ) {
   if( !connected ) {
     send_message( "220 Timed out.\n" );
@@ -621,4 +621,4 @@ void destructing() {
     disconnect();
   }
 }
- 
+#endif 
