@@ -360,6 +360,11 @@ void FTP_CMD_list( string str ) {
 }
 
 void FTP_connection_wait( void ) {
+  if( !connection ) {
+    send_message( "425 Can't open data connection\n" );
+    return;
+  }
+
   if( connection->is_connected() == 0 ) {
     call_out( "FTP_connection_wait", 1 );
     return;
