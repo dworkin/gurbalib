@@ -19,7 +19,8 @@ private string * default_init() {
   objects = ({
     SCHEDULE_D,
     CHANNEL_D,
-    TIME_D
+    TIME_D,
+    USER_D
   });
 
 #ifdef SYS_NETWORKING

@@ -6,7 +6,6 @@ inherit M_CONNECTION;
 
 int timeout_handle;
 string name;
-string password;
 private mapping cmds;
 int connected;
 string cwd;
@@ -71,24 +70,24 @@ void FTP_CMD_user( string arg ) {
   }
   name = arg;
 
+#ifndef DISABLE_ANON_FTP
   if(name == "ftp" || name == "anonymous" ) {
     send_message("331 Guest login ok, send your complete e-mail address as password.\n");
     return;
   }
+#endif
 
   send_message("331 Password required for " + arg + ".\n");
   return;
 }
 
 void FTP_CMD_pass( string arg ) {
-
-  object player;
-
   if( !name || name == "" ) {
     send_message( "530 Login with USER first.\n" );
     return;
   }
 
+#ifndef DISABLE_ANON_FTP
   if( name == "ftp" || name == "anonymous" ) {
     send_message("230 guest login ok, access restrictions apply.\n");
     connected = 1;
@@ -96,12 +95,10 @@ void FTP_CMD_pass( string arg ) {
     cwd = "/pub";
     FTPLOG("Anomymous login (" + arg + ")\n" );
     return;
-   }
-  password = crypt( arg, "gurba" );
-  player = clone_object( PLAYER_OB );
-  player->set_name( name );
-  player->restore_me();
-  if( password != player->query_password() ) {
+  }
+#endif
+
+  if( !USER_D->login( name, arg ) ) {
     send_message( "530 Login incorrect.\n" );
     disconnect();
     return;

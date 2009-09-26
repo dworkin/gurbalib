@@ -49,6 +49,8 @@ DUMP_INTERVAL           3600
 If the following is defined, all FTP functionality will be disabled
 DISABLE_FTP
 
+If the following is defined, anonymous FTP will be disabled
+DISABLE_ANON_FTP
 
 If the following is defined, room descriptions will show each object
 individually instead of collating objects with identical short descs.

@@ -44,7 +44,7 @@
 #define LANGUAGE_D   "/daemons/language_d"
 #define ANSI_D       "/daemons/ansi_d"
 #define ALIAS_D      "/daemons/alias_d"
-#define USER_D       "/daemons/user_d"
+#define USER_D       "/sys/daemons/user_d"
 #define DID_D        "/daemons/did_d"
 #define LAST_D       "/daemons/last_d"
 #define EVENT_D      "/daemons/event_d"

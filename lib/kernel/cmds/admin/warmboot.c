@@ -1,6 +1,6 @@
 #include <type.h>
 
-#define LAST_STAGE 1
+#define LAST_STAGE 3
 int stage;
 
 #define CHECKS ({ "validate_kernel", "validate_user", "validate_player" })
@@ -58,6 +58,19 @@ private int virtual_object(mixed ob) {
       return 0;
   }
 }
+
+static string post_kernel_upgrade( object p ) {
+  if( find_object( "/daemons/user_d" ) ) {
+    destruct_object( find_object( "/daemons/user_d" ) );
+  }
+}
+
+static string post_world_upgrade( object p ) {
+  if( !find_object( USER_D ) ) {
+    call_other( USER_D, "???" );
+  }
+}
+
 static int upgrade_uobj(string * files, int verbose) {
   int pos, sz;
 
@@ -128,57 +141,41 @@ void next_stage(int count, object player) {
   string error;
 
   stage = 0;
-  switch(count) {
+  switch( count ) {
     case 0    :
       error = validate_upgrade();
-      if(!error) {
-        error = catch( rebuild_critical(player) );
+      if( !error ) {
+        error = catch( rebuild_critical( player ) );
       } else {
-        player->message(error);
+        player->message( error );
       }
       break;
     case 1    :
-      error = catch( rebuild_world(player) );
+      error = post_kernel_upgrade( player );
+      if( error ) {
+        player->message( error );
+      }
+      break;
+    case 2    :
+      error = catch( rebuild_world( player ) );
+      break;
+    case 3    :
+      error = post_world_upgrade( player );
+      if( error ) {
+        player->message( error );
+      }
       break;
   }
 
   if(error) {
     player->message("Something went wrong, aborting.");
+    if( caught_error() ) {
+      player->tell( caught_error( 1 ) );
+    }
     rethrow();
   } else if(count != LAST_STAGE) {
     stage = call_out("next_stage",0,++count,player);
   } else {
-    if(find_object("/obj/user")) {
-      call_out("convert_user_object",0);
-    } else {
-      player->message("Done.");
-    }
+    player->message("Done.");
   }
 }
-
-static void convert_user_object() {
-  object ob, next;
-
-  ob = find_object("/obj/user");
-
-  if(!ob) return;
-
-  ob = ob->next_clone();
-
-  rlimits( MAX_DEPTH; -1 ) {
-    while(ob) {
-      next = ob->next_clone();
-      ob->uobj_convert();
-      ob = next;
-    }
-  }
-  destruct_object(find_object("/obj/user"));
-  destruct_object(find_object("/obj/player"));
-/*
-  ob = find_object("/std/user",1);
-  if(ob) destruct_object(ob);
-  ob = find_object("/std/player",1);
-  if(ob) destruct_object(ob);
-*/
-}
-

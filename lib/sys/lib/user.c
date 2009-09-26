@@ -102,7 +102,7 @@ void quit( void ) {
   
   player->save_me();
   LAST_D->add_entry( user_name, 0 );
-  USER_D->remove_user( user_name, this_object() );
+  USER_D->user_offline( user_name, this_object() );
   if( query_ip_number(this_object()) ) {
       log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
       "\t" + this_object()->query_name() +" quits\n" );
@@ -247,7 +247,7 @@ void login_user( void ) {
          "\t" + this_object()->query_name() +" reconnects\n" );
       player->set_linkdead( 0 );
       player->set_user( this_object() );
-      USER_D->add_user( user_name, this_object() );
+      USER_D->user_online( user_name, this_object() );
       player->write_prompt();
       remove_call_out( timeout_handle );
     } else {
@@ -256,7 +256,7 @@ void login_user( void ) {
     }
   } else {
     player->set_name( user_name );
-    USER_D->add_user( user_name, this_object() );
+    USER_D->user_online( user_name, this_object() );
     player->set_brief( capitalize( user_name ) + player->query_title() );
     send_message( "\n" );
     send_message( TELNET_D->query_motd() );
@@ -302,7 +302,7 @@ void handle_reconnect( string str ) {
          "\t" + this_object()->query_name() +" reconnects\n" );
       player->set_linkdead( 0 );
       send_message( "Other copy kicked.\n" );
-      USER_D->add_user( user_name, this_object() );
+      USER_D->user_online( user_name, this_object() );
       player->write_prompt();
       remove_call_out( timeout_handle );
     }
@@ -473,8 +473,7 @@ void input_old_passwd( string str ) {
     send_message( 0 );
     player->input_to_object( this_object(), "input_old_passwd" );
   }
-  if( crypt( str, "gurba" ) == player->query_password() ) {
-    /* Passwords match */
+  if( USER_D->login( user_name, str ) ) {
     login_user();
   } else {
     send_message( "\nPasswords don't match!\n" );
@@ -493,7 +492,8 @@ void input_new_passwd( string str ) {
     send_message( 0 );
     player->input_to_object( this_object(), "input_new_passwd" );
   } else {
-    player->set_password( crypt(str, "gurba" ) );
+    console_msg( "Adding user "+user_name+" with password "+str + "\n" );
+    USER_D->new_user( user_name, str );
     send_message( "\nEnter password again : " );
     send_message( 0 );
     player->input_to_object( this_object(), "input_check_passwd" );
@@ -506,11 +506,11 @@ void input_check_passwd( string str ) {
     send_message( 0 );
     player->input_to_object( this_object(), "input_check_passwd" );
   } else {
-    if( crypt( str, "gurba" ) == player->query_password() ) {
+    if( USER_D->login( user_name, str ) ) {
       send_message( "\nEnter your gender (male/female) : " );
       send_message( 1 );
       player->input_to_object( this_object(), "input_get_gender" );
-     } else {
+    } else {
       send_message( "\nThe passwords don't match.\n" );
       send_message( "Enter your password : " );
       send_message( 0 );
