@@ -2,7 +2,9 @@
  * Gurbalib 'user' library
  *
  * This should be inherited by user objects that want to interact with
- * the game. 
+ * the game.
+ * 
+ * Thingol, 9/26/2009. Fixed wrap_message() to wrap to the correct length.
  *
  */
 
@@ -48,7 +50,7 @@ void _open(mixed * tls) {
       destruct_object( this_object() );
   }
   send_message( "Welcome to " + MUD_NAME + ".\n" );
-  send_message( "Running " + LIB_NAME + " " + LIB_VERSION + ".\n" );
+  send_message( "Running " + LIB_NAME + " " + LIB_VERSION + " on "+ status()[ST_VERSION] +".\n" );
   send_message( "\n" );
   send_message( TELNET_D->query_banner() );
   send_message( "\nEnter your name (or 'who' for a list of players): " );
@@ -132,8 +134,8 @@ void put_message( string str ) {
   send_message( msg );
 }
 
-void wrap_message( string str, varargs int chat_flag ) {
 
+void wrap_message(string str, varargs int chat_flag) {
   string msg;
   string *words;
   string *lines;
@@ -141,68 +143,65 @@ void wrap_message( string str, varargs int chat_flag ) {
   int i,j;
   int sz;
 
-  if( !str || str == "" )
+  if(!str || str == "")
     return;
 
   width = -1;
   /* Get the width from the player */
-  if( player ) {
-    	catch (width = str2val((string)player->query_env( "width" )));
-  }
+  if(player)
+    catch (width = str2val((string)player->query_env( "width" )));
 
-  if( width < 0 ) width = 78;
+  if( width < 0 ) width = DEFAULT_WIDTH;
   if( width  == 0 ) width = MAX_STRING_SIZE;
 
   rlimits( MAX_DEPTH; MAX_TICKS * MAX_TICKS ) {
-  /* Split the string into lines */
-  lines = explode( str, "\n" );
+    /* Split the string into lines */
+    lines = explode( str, "\n" );
 
-  /* Parse each line */
-  for( j = 0; j < sizeof( lines ); j++ ) {
-    str = lines[j];
-    msg = str;
-    if( strlen( ansid->strip_colors( str ) ) > width ) {
-      sz = 0;
+    /* Parse each line */
+    for( j = 0; j < sizeof( lines ); j++ ) {
+      str = lines[j];
+      msg = str;
+      if(strlen( ansid->strip_colors( str ) ) > width) {
+        int adding;
+        string word_todo;
 
-      words = explode( str, " " );
-      msg = "";
+        sz = 0;
+        words = explode( str, " " );
+        msg = "";
 
-      for( i = 0; i < sizeof( words ); i++ ) {
-   if( strlen( words[i] ) > 4 ) {
-     if( strstr( words[i], "%^" ) != -1 ) {
-       if( sz == 0 ) {
-         sz += strlen( ansid->strip_colors( words[i] ) );
-         msg += words[i];
-       } else {
-         sz += strlen( ansid->strip_colors( words[i] ) ) + 1;
-         msg += " " + words[i];
-       }
-       continue;
-     }
-   }
-   if( sz + strlen( words[i] ) > width ) {
-     msg += "\n";
-	 if(chat_flag)
-	   msg += "  ";
-     sz = strlen( words[i] ) + 2;
-     msg += words[i];
-   } else {
-     if( sz == 0 ) {
-       msg += words[i];
-       sz += strlen( words[i] );
-     } else {
-       msg += " " + words[i];
-       sz += strlen( words[i] ) + 1;
-     }
-   }
+        for( i = 0; i < sizeof( words ); i++ ) {
+          word_todo = nil;
+          if( strlen( words[i] ) > 4 && ( strstr(words[i], "%^" ) !=-1 ) ) {
+            word_todo = ansid->strip_colors( words[i] );
+          }
+          /* word_todo is the word stripped from ansi codes */
+          word_todo = !word_todo ? words[i] : word_todo; 					
+   					
+          if(sz + strlen(word_todo) + adding > width) {
+            msg += "\n";
+     					
+            if(chat_flag) {
+              msg += "  ";
+            }
+
+            sz = strlen(word_todo) + 2;  /* add length of word without ansi codes */
+            msg += words[i];  /* add word with ansi codes */
+          } else {
+            msg += (adding ? " " : "") + words[i];
+            sz += strlen(word_todo) + adding;
+          }
+          /* determine how many spaces will be added next run */
+          adding = sz == 0 ? 0 : 1;
+        }
       }
+      if( query_player()->query_ansi() )
+        msg = ansid->parse_colors( msg );
+      else
+        msg = ansid->strip_colors( msg );
+      			
+      send_message( msg + "\n" );
     }
-    if( query_player()->query_ansi() )
-      msg = ansid->parse_colors( msg );
-    else
-      msg = ansid->strip_colors( msg );
-    send_message( msg + "\n" );
-  }
   }
 }
 

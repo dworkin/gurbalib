@@ -46,7 +46,15 @@ RESET_INTERVAL          3600
 The time between state dumps
 DUMP_INTERVAL           3600
 
+If the following is defined, all FTP functionality will be disabled
+DISABLE_FTP
+
 
 If the following is defined, room descriptions will show each object
 individually instead of collating objects with identical short descs.
 LONG_ROOM_INV
+
+Default terminal width
+DEFAULT_WIDTH           80
+
+
