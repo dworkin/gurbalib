@@ -44,10 +44,10 @@ void write_log( string log, string message, varargs int level ) {
       basedir = "/logs/";
       break;
     default : 
-      if( unguarded( "file_exists", "/wiz/" + user ) == -1 ) {
-        basedir = "/wiz/" + user + "/logs/";
-      } else if( unguarded( "file_exists", "/domains/" + user ) == -1 ) {
-        basedir = "/domains/" + user + "/logs/";
+      if( unguarded( "file_exists", WIZ_DIR + user ) == -1 ) {
+        basedir = WIZ_DIR + user + "/logs/";
+      } else if( unguarded( "file_exists", DOMAINS_DIR + user ) == -1 ) {
+        basedir = DOMAINS_DIR + user + "/logs/";
       } else {
         basedir = "/logs/nobody/";
       }

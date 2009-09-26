@@ -19,9 +19,9 @@ string normalize_path(string file, string dir)
   case '~':
     /* ~path */
     if(strlen(file) == 1 || file[1] == '/') {
-      file = "/wiz/" + this_user()->query_name() + file[1 ..];
+      file = WIZ_DIR + this_user()->query_name() + file[1 ..];
     } else {
-      file = "/wiz/" + file[1 ..];
+      file = WIZ_DIR + file[1 ..];
     }
     /* fall through */
   case '/':

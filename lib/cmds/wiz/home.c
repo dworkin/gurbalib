@@ -6,17 +6,17 @@ void main( string str ) {
 
   name = this_player()->query_name();
 
-  filename = "/wiz/" + name + "/rooms/workroom";
+  filename = WIZ_DIR + name + "/rooms/workroom";
 
   if( !file_exists( filename + ".c" ) ) {
-    filename = "/wiz/" + name + "/workroom";
+    filename = WIZ_DIR + name + "/workroom";
 
     if( file_exists( filename + ".c" ) ) {
-      if( file_exists( "/wiz/" + name + "/rooms" ) == 0 ) {
-        write("Please create a /wiz/"+name+"/rooms directory and "+
+      if( file_exists( WIZ_DIR + name + "/rooms" ) == 0 ) {
+        write("Please create a " + WIZ_DIR + name + "/rooms directory and "+
               "move your workroom into it.");
       } else {
-        write("Please move your workroom into /wiz/"+name+"/rooms/");
+        write("Please move your workroom into " + WIZ_DIR + name + "/rooms/");
       }
     }
   }
@@ -28,8 +28,8 @@ void main( string str ) {
 
   env = this_player()->query_environment();
 
-  error = catch( this_player()->move( filename ) );
-
+  /*error = catch( this_player()->move( filename ) );*/
+	this_player()->move(filename);
   if( !error ) {
     this_player()->simple_action( "$N $vgo home." );
     this_player()->do_look( 0 );

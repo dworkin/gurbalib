@@ -133,6 +133,13 @@
 #define SIGN_OB         "/obj/sign"
 #define MONSTER_OB      "/obj/monster"
 
+#ifndef WIZ_DIR
+#define WIZ_DIR "/wiz/"
+#endif
+
+#ifndef DOMAINS_DIR
+#define DOMAINS_DIR "/domains/"
+#endif
 
 #ifndef MAX_DEPTH
 #define MAX_DEPTH       256

@@ -26,7 +26,7 @@ void main( string str ) {
   }
 
   width = this_player()->query_env("width");
-  if(!intp(width) || width < 2) width = 78;
+  if(!intp(width) || width < 2) width = DEFAULT_WIDTH;
 
   
   files = get_dir( str );
