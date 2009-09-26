@@ -1,4 +1,9 @@
 void main( string str ) {
+  if( !require_priv( "system" ) ) {
+    write("You must be admin to do that.");
+    return;
+  }
+
   if( !str || str == "" ) {
     write("You must provide the name of a skill to add.");
     return;

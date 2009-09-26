@@ -69,7 +69,7 @@ void event_heart_beat( void ) {
     }
   } else  /* Player routines */ {
     if(this_object()->query_idle() < 60)  /* A player ages when not idle */
-    player_age += 1;
+    player_age += HEART_BEAT_INTERVAL;
   }
 }
 

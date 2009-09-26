@@ -40,6 +40,11 @@ void main(string str) {
     return;
   }
 
+  if( !require_priv( "system" ) ) {
+    write("You need admin permissions to do that.");
+    return;
+  }
+
   write("Performing warm boot.");
   write("Recompiling the warmboot command..");
   compile_object(base_name());
@@ -67,7 +72,7 @@ static string post_kernel_upgrade( object p ) {
 
 static string post_world_upgrade( object p ) {
   if( !find_object( USER_D ) ) {
-    call_other( USER_D, "???" );
+    call_other( USER_D, "upgraded" );
   }
 }
 

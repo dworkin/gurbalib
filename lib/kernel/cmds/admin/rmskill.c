@@ -1,4 +1,9 @@
 void main(string skill) {
+  if( !require_priv( "system" ) ) {
+    write("You must be admin to do that.");
+    return;
+  }
+
   if( ( !skill ) || ( skill == "" ) ) {
     write( "You must provide the skill you want to remove as an argument." );
     return;

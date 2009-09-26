@@ -8,6 +8,11 @@
  */
 
 void main(string str) {
+  if( !require_priv( "system" ) ) {
+    write("You must be admin to do that.");
+    return;
+  }
+
   DRIVER->save_game();
   write("Writing statedump");
   call_out("done",0);

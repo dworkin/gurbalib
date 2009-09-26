@@ -72,6 +72,11 @@ void main( string str ) {
   mixed * args;
   string error;
 
+  if( !require_priv( "system" ) ) {
+    write("You must be admin to do that.");
+    return;
+  }
+
   if( !str ) {
     display_usage();
     return;

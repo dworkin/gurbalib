@@ -21,6 +21,18 @@
 #define DUMP_INTERVAL 3600
 #endif
 
+#ifndef CLEAN_UP_INTERVAL
+#define CLEAN_UP_INTERVAL 7200
+#endif
+
+#ifndef RESET_INTERVAL
+#define RESET_INTERVAL 3600
+#endif
+
+#ifndef HEART_BEAT_INTERVAL
+#define HEART_BEAT_INTERVAL 2
+#endif
+
 #include <mudname.h>
 
 #define LIB_NAME  "GurbaLib"

@@ -3,18 +3,6 @@ static int clean_up_handle;
 static int reset_handle;
 static int save_game_handle;
 
-#ifndef CLEAN_UP_INTERVAL
-#define CLEAN_UP_INTERVAL 7200
-#endif
-
-#ifndef RESET_INTERVAL
-#define RESET_INTERVAL 3600
-#endif
-
-#ifndef DUMP_INTERVAL
-#define DUMP_INTERVAL 3600
-#endif
-
 static void setup() {
   EVENT_D->add_event( "heart_beat" );
 
@@ -45,7 +33,7 @@ static void setup() {
 }
 
 static void heart_beat() {
-  heart_beat_handle = call_out( "heart_beat", 2 );
+  heart_beat_handle = call_out( "heart_beat", HEART_BEAT_INTERVAL );
   EVENT_D->event( "heart_beat" );
 }
 

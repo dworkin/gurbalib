@@ -46,6 +46,9 @@ RESET_INTERVAL          3600
 The time between state dumps
 DUMP_INTERVAL           3600
 
+The time between heart beats
+HEART_BEAT_INTERVAL     2
+
 If the following is defined, all FTP functionality will be disabled
 DISABLE_FTP
 

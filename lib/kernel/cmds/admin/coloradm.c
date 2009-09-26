@@ -51,6 +51,11 @@ void main(string str) {
   string * values;
   int i, sz, pos;
 
+  if( !require_priv( "system" ) ) {
+    write("You must be admin to do that.");
+    return;
+  }
+
   str = uppercase(str);
 
   error = catch(args = parse_string(GRAMMAR, str));

@@ -35,16 +35,17 @@ void main( string str ) {
     return;
   }
 
+  if( !require_priv( "system" ) ) {
+    write("You must be admin to do that.");
+    return;
+  }
+
   if( lock ) {
     write( lock->query_name() + " is currently using this command." );
     return;
   }
 
-  if( SECURE_D->query_admin( this_player()->query_name() ) == 1 ) {
-    lock = this_player();
-    name = str;
-    confirm_remove();
-  } else {
-    write( "You need admin priveleges to remove users.\n" );
-  } 
+  lock = this_player();
+  name = str;
+  confirm_remove();
 }
