@@ -9,15 +9,16 @@
 #define ENABLE_TERMINAL_CACHE
 #define CACHE "tcode-cache"
 
-#define BLACK "\x1b[30m"
-#define RED "\x1b[31m"
-#define GREEN "\x1b[32m"
-#define ORANGE "\x1b[33m"
-#define YELLOW BOLD + ORANGE
-#define BLUE "\x1b[34m"
-#define MAGENTA "\x1b[35m"
-#define CYAN "\x1b[36m"
-#define WHITE "\x1b[37m"
+#define BLACK 		BOLD_OFF + "\x1b[30m"
+#define RED 		BOLD_OFF + "\x1b[31m"
+#define GREEN 		BOLD_OFF + "\x1b[32m"
+#define ORANGE 		BOLD_OFF + "\x1b[33m"
+#define YELLOW 		BOLD + "\x1b[33m"
+#define BLUE 		BOLD_OFF + "\x1b[34m"
+#define MAGENTA 	BOLD_OFF + "\x1b[35m"
+#define CYAN 		BOLD_OFF + "\x1b[36m"
+#define WHITE 		BOLD_OFF + "\x1b[37m"
+#define GREY 		BOLD + "\x1b[30m"
 
 #define B_BLACK "\x1b[40m"
 #define B_RED "\x1b[41m"
@@ -35,6 +36,14 @@
 #define UNDERLINE "\x1b[4m"
 #define FLASH "\x1b[5m"
 #define REVERSE "\x1b[7m"
+#define BOLD_OFF	"\x1b[22m"	
+
+#define HRED 		BOLD + "\x1b[31m"
+#define HGREEN		BOLD + "\x1b[32m"
+#define HBLUE		BOLD + "\x1b[34m"
+#define HMAGENTA	BOLD + "\x1b[35m"
+#define HCYAN		BOLD + "\x1b[36m"
+#define HWHITE		BOLD + "\x1b[37m"
 
 #define CURS_UP "\x1b[A"
 #define CURS_DOWN "\x1b[B"
@@ -70,70 +79,78 @@ void setup( void ) {
     player_trans = ([ ]);
 
   color_trans = ([
-		   "BLACK" : BLACK,
-		   "RED" : RED,
-		   "GREEN" : GREEN,
-		   "ORANGE" : ORANGE,
-		   "YELLOW" : YELLOW,
-		   "BLUE" : BLUE,
-		   "MAGENTA" : MAGENTA,
-		   "CYAN" : CYAN,
-		   "WHITE" : WHITE,
-		   "B_BLACK" : B_BLACK,
-		   "B_RED" : B_RED,
-		   "B_GREEN" : B_GREEN,
-		   "B_ORANGE" : B_ORANGE,
-		   "B_YELLOW" : B_YELLOW,
-		   "B_BLUE" : B_BLUE,
-		   "B_MAGENTA" : B_MAGENTA,
-		   "B_CYAN" : B_CYAN,
-		   "B_WHITE" : B_WHITE,
-		  ]);
+    "BLACK" : BLACK,
+    "GREY" : GREY,
+    "RED" : RED,
+    "GREEN" : GREEN,
+    "ORANGE" : ORANGE,
+    "YELLOW" : YELLOW,
+    "BLUE" : BLUE,
+    "MAGENTA" : MAGENTA,
+    "CYAN" : CYAN,
+    "WHITE" : WHITE,
+    "B_BLACK" : B_BLACK,
+    "B_RED" : B_RED,
+    "B_GREEN" : B_GREEN,
+    "B_ORANGE" : B_ORANGE,
+    "B_YELLOW" : B_YELLOW,
+    "B_BLUE" : B_BLUE,
+    "B_MAGENTA" : B_MAGENTA,
+    "B_CYAN" : B_CYAN,
+    "B_WHITE" : B_WHITE,
+    "HRED" : HRED,
+    "HGREEN" : HGREEN,
+    "HBLUE" : HBLUE,
+    "HMAGENTA" : HMAGENTA,
+    "HCYAN" : HCYAN,
+    "HWHITE" : HWHITE,
+  ]);
   
   attr_trans = ([
-		   "RESET" : RESET,
-		   "BOLD" : BOLD,
-		   "ITALIC" : ITALIC,
-		   "UNDERLINE" : UNDERLINE,
-		   "FLASH" : FLASH,
-		   "REVERSE" : REVERSE,
-		  ]);
+    "RESET" : RESET,
+    "BOLD" : BOLD,
+    "BOLD_OFF" : BOLD_OFF,
+    "ITALIC" : ITALIC,
+    "UNDERLINE" : UNDERLINE,
+    "FLASH" : FLASH,
+    "REVERSE" : REVERSE,
+  ]);
 
   terminal_trans = ([
-		   "CURS_UP" : CURS_UP,
-		   "CURS_DOWN" : CURS_DOWN,
-		   "CURS_RIGHT" : CURS_RIGHT,
-		   "CURS_LEFT" : CURS_LEFT,
+    "CURS_UP" : CURS_UP,
+    "CURS_DOWN" : CURS_DOWN,
+    "CURS_RIGHT" : CURS_RIGHT,
+    "CURS_LEFT" : CURS_LEFT,
 
-		   "CLEARLINE" : CLEARLINE,
-		   "INITTERM" : INITTERM,
-		   "ENDTERM" : ENDTERM,
-		   "SAVE" : SAVE,
-		   "RESTORE" : RESTORE,
-		   "HOME" : HOME,
-		  ]);
+    "CLEARLINE" : CLEARLINE,
+    "INITTERM" : INITTERM,
+    "ENDTERM" : ENDTERM,
+    "SAVE" : SAVE,
+    "RESTORE" : RESTORE,
+    "HOME" : HOME,
+  ]);
 
-  tmp            = ([
-		   "CHAN_NAME" : BLUE,
-		   "CHAN_DATE" : CYAN,
-		   "CHAN_TEXT" : RESET,
-                   "CHAN_USER" : RESET,
+  tmp = ([
+    "CHAN_NAME" : BLUE,
+    "CHAN_DATE" : CYAN,
+    "CHAN_TEXT" : RESET,
+    "CHAN_USER" : RESET,
 
-                   "TELL_FROM" : MAGENTA,
-                   "TELL_TO"   : MAGENTA,
+    "TELL_FROM" : MAGENTA,
+    "TELL_TO"   : MAGENTA,
 
-		   "ROOM_NAME" : GREEN,
-		   "ROOM_DESC" : RESET,
-		   "ROOM_EXIT" : CYAN,
+    "ROOM_NAME" : GREEN,
+    "ROOM_DESC" : RESET,
+    "ROOM_EXIT" : CYAN,
 
-		   "OBJ_ID" : WHITE,
-		   "OBJ_ADJ" : WHITE,
-		   "OBJ_BRIEF" : WHITE,
+    "OBJ_ID" : WHITE,
+    "OBJ_ADJ" : WHITE,
+    "OBJ_BRIEF" : WHITE,
 
-		   "NPC_FRIENDLY" : GREEN,
-		   "PLAYER" : YELLOW,
-		   "NPC_HOSTILE" : RED,
-		  ]);
+    "NPC_FRIENDLY" : GREEN,
+    "PLAYER" : YELLOW,
+    "NPC_HOSTILE" : RED,
+  ]);
 
   restore_me();
 
@@ -410,3 +427,6 @@ int check_recursion(string tag, string value) {
 }
 
 
+void upgraded() {
+  setup();
+}
