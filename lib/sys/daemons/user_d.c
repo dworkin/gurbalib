@@ -225,7 +225,7 @@ void user_online( string name, object user ) {
 
 void user_offline( string name, object user ) {
   users[name] = nil;
-  logout( name );
+  unguarded( "logout", name );
 }
 
 object *query_users( void ) {
