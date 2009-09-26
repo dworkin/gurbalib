@@ -47,12 +47,25 @@ static void cleanup() {
 }
 
 static void create() {
+  object * u;
+  int i,sz;
+
   cache = ([ ]);
   pool = ({ });
   restore_me();
 
   if( !data_version ) {
     call_out( "convert_users", 0 );
+  }
+
+  users = ([ ]);
+
+  u = users();
+
+  for( i = 0, sz = sizeof( u ); i < sz; i++ ) {
+    if( u[i]->query_name() && u[i]<-USER ) {
+      users[u[i]->query_name()] = u[i];
+    }
   }
 
   call_out( "clean_cache", CACHE_INTERVAL );
