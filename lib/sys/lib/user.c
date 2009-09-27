@@ -492,7 +492,6 @@ void input_new_passwd( string str ) {
     send_message( 0 );
     player->input_to_object( this_object(), "input_new_passwd" );
   } else {
-    console_msg( "Adding user "+user_name+" with password "+str + "\n" );
     USER_D->new_user( user_name, str );
     send_message( "\nEnter password again : " );
     send_message( 0 );

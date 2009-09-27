@@ -155,8 +155,6 @@ int user_exists( string name ) {
 static int _new_user( string name, string secret ) {
   object ob;
 
-  console_msg( "user_d: adding user "+name+"\n");
-
   if( sizeof( pool ) ) {
     ob = pool[0];
     pool = pool[1..];
