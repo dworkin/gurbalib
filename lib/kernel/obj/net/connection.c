@@ -17,6 +17,12 @@ private string buffer;          /* buffered output string */
 private string protocol;        /* telnet or tcp */
 int closing;
 
+static void DEBUG( string str ) {
+#ifdef DEBUG_CONNECTION
+  LOG_D->write_log( "network", ctime( time() )[4..] + " : " + dump_value( this_object() ) + " : " + str + "\n" );
+#endif
+}
+
 static void _receive_error(mixed * tls, string err);
 
 void set_user(object u) {
@@ -35,6 +41,7 @@ void create() {
   user = nil;
   blocked = 0;
   mode = MODE_ECHO;
+  DEBUG( "Created new connection object" );
 }
 
 void set_mode(int m) {
@@ -92,6 +99,7 @@ void set_protocol(string proto) {
 static void _open(mixed * tls) {
   opened = 1;
   if(user) user->open();
+  DEBUG( "Connection established" );
 }
 
 void open() {
@@ -102,6 +110,8 @@ static void _close(mixed * tls, varargs int force) {
   if(closing++) {
     /* error("recursive call to close()"); */
   }
+
+  DEBUG( "Connection closed" );
 
   rlimits( MAX_DEPTH; MAX_TICKS ) {
     if(user) {
@@ -130,6 +140,7 @@ void connect(string ip, int port, varargs string proto) {
     set_protocol(proto);
 
     if(protocol) {
+      DEBUG( "Making outbound " + protocol + " connection to : " + ip + ", " + port );
       catch {
         ::connect(ip,port,proto);
       } : {
@@ -174,6 +185,7 @@ static void message_done() {
 }
 
 static void _receive_error(mixed * tls, string err) {
+  DEBUG( err );
   if(user) {
     catch {
       user->receive_error(err);
@@ -205,4 +217,8 @@ static void _receive_message(mixed * tls, string str) {
 
 static void receive_message(string str) {
   _receive_message(DRIVER->new_tls(), str);
+}
+
+static void destructing() {
+  DEBUG( "Destructing connection object" );
 }
