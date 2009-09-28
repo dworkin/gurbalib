@@ -39,10 +39,8 @@ int is_connected( void ) {
 void close( varargs int force ) {
   if( read_callback == "FTP_stor" )
     call_other( prev, "FTP_write" );
-  if(force) {
     connected = 0;
     destruct_object(this_object());
-  }
 }
 
 void start_connection( string ip, int port, int type ) {

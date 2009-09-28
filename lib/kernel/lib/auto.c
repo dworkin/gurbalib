@@ -72,6 +72,8 @@
 #include "afun/strstr.c"
 #include "afun/replace_string.c"
 #include "afun/shutdown.c"
+#include "afun/this_user.c"
+#include "afun/this_connection.c"
 #include "afun/set_this_player.c"
 #include "afun/this_player.c"
 #include "afun/write.c"
