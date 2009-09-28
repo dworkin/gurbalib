@@ -184,6 +184,12 @@ void FTP_CMD_stor( string arg ) {
     send_message( "553 No such directory to STOR into. (" + dir + ")\n" );
     return;
   }
+
+  if(!connection) {
+    send_message( "426 Connection closed, transfer aborted" );
+    return;
+  }
+
   if( file_exists( store_file_name ) )
     remove_file( store_file_name );
 
