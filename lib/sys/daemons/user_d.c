@@ -41,6 +41,9 @@ static void cleanup() {
 
   while( c ) {
     n = c->next_clone();
+    if( pool ) {
+      pool -= ({ c });
+    }
     destruct_object( c );
     c = n;
   }
@@ -235,7 +238,6 @@ string *query_user_names( void ) {
 }
 
 object find_user( string name ) {
-
   string *names;
   int i, sz;
   int found;
