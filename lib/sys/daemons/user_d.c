@@ -5,6 +5,8 @@
 static mapping users;
 static mapping cache;
 static object * pool;
+static object spare;
+
 int data_version;
 
 int logout( string name );
@@ -41,8 +43,8 @@ static void cleanup() {
 
   while( c ) {
     n = c->next_clone();
-    if( pool ) {
-      pool -= ({ c });
+    if( c == spare ) {
+      spare = nil;
     }
     destruct_object( c );
     c = n;
@@ -54,7 +56,6 @@ static void create() {
   int i,sz;
 
   cache = ([ ]);
-  pool = ({ });
   restore_me();
 
   if( !data_version ) {
@@ -84,19 +85,19 @@ static object get_data_ob( string name ) {
     return ob;
   }
 
-  if( !sizeof( pool ) ) {
-    pool += ({ clone_object( AUTH_DATA ) });
+  if( spare ) {
+    ob = spare;
+    spare = nil;
+  } else {
+    ob = clone_object( AUTH_DATA );
   }
-
-  ob = pool[0];
-  pool = pool[1..];
 
   if( ob->load( name ) ) {
     cache[name] = ob;
     return ob;
   } else {
-    if( sizeof( pool ) < 10 ) {
-      pool += ({ ob });
+    if( !spare ) {
+      spare = ob;
     } else {
       destruct_object( ob );
     }
@@ -126,8 +127,8 @@ int logout( string name ) {
   ob = cache[name];
 
   if( ob ) {
-    if( sizeof( pool ) < 10 ) {
-      pool += ({ ob });
+    if( !spare ) {
+      spare = ob;
     } else {
       destruct_object( ob );
     }
@@ -158,9 +159,9 @@ int user_exists( string name ) {
 static int _new_user( string name, string secret ) {
   object ob;
 
-  if( sizeof( pool ) ) {
-    ob = pool[0];
-    pool = pool[1..];
+  if( spare ) {
+    ob = spare;
+    spare = nil;
   } else {
     ob = clone_object( AUTH_DATA );
   }
@@ -189,6 +190,15 @@ void delete_user( string name ) {
     if( p ) {
       destruct_object( p );
     }
+  }
+
+  if( cache[name] ) {
+    if( !spare ) {
+      spare = cache[name];
+    } else {
+      destruct_object( cache[name] );
+    }
+    cache[name] = nil;
   }
 
   unguarded( "remove_file", AUTH_DATA_DIR + name[0..0] + "/" + name + ".o" );
@@ -309,6 +319,17 @@ int player_exists( string str ) {
 void upgraded() {
   object * u;
   int i,sz;
+
+  if( pool ) {
+    for( i = 0, sz = sizeof( pool ); i < sz; i++ ) {
+      if( i == 0 ) {
+        spare = pool[i];
+      } else if( objectp( pool[i] ) ) {
+        destruct_object( pool[i] );
+      }
+    }
+    pool = nil;
+  }
 
   if(!users) {
     users = ([ ]);
