@@ -369,6 +369,10 @@ object inherit_program( string file, string program, int priv ) {
     program = compiler_d->allow_inherit(program, file);
   }
 
+  if( !program ) {
+    return nil;
+  }
+
   if( !(ob = find_object( program )) ) {
 
     old_includes = get_tlvar( TLS_INCLUDES );

@@ -12,9 +12,7 @@
 #include <tlsvar.h>
 #include <status.h>
 
-#undef DEBUG_COMPILER_D
-#define STRICT_OBJECT_CHECKS
-
+#define DEBUG_COMPILER_D
 
 #define INHERIT_DIRS ({ "std", "lib" })
 #define OBJECT_DIRS ({ "obj", "mon", "npc", "vendors", "objects", "monsters", "daemons", "rooms", "tmp", "cmds" })
@@ -625,22 +623,40 @@ string allow_inherit(string path, string file) {
   }
 
   if( !test_inheritable( path ) ) {
-#ifndef STRICT_OBJECT_CHECKS
-    console_msg("WARNING: inheriting a program that is not in an inheritable dir : " + path + "\n" );
-#else
     error(path + " is not inheritable");
-#endif
+  }
+
+  if( sscanf( path, AUTO+"%*s" ) != 1 ) {
+    switch( explode( path, "/" )[0] ) {
+      case "kernel" :
+        if(
+          file &&
+          sscanf( file, "/kernel/%*s" ) != 1 && 
+          sscanf( file, "/sys/%*s" ) != 1 
+        ) {
+          error( "permission denied" );
+        }
+      case "sys" :
+        if( 
+          path != "/sys/lib/auto" && 
+          file && 
+          owner_file( file ) != "system" && 
+          owner_file( file ) != "kernel" 
+        ) {
+          return nil;
+        }
+        break;
+
+      default :
+        break;
+    }
   }
   return path;
 }
 
 string allow_object(string path) {
   if( test_inheritable( path ) || !test_object( path ) ) {
-#ifndef STRICT_OBJECT_CHECKS
-    console_msg("WARNING: " + path + " is used as an object, but doesn't come from an object dir!\n" );
-#else
     error(path + " is not an object");
-#endif
   }
   return path;
 }
@@ -696,3 +712,31 @@ void upgraded() {
   clean_includes();
 }
 
+void rebuild_depending( string str ) {
+  string * stuff;
+  string on;
+  int i,sz;
+
+  stuff = find_depending_objects( str );
+
+  if( stuff ) {
+    rlimits( MAX_DEPTH; -1 ) {
+    for( i = 0, sz = sizeof( stuff ); i < sz; i++ ) {
+      sscanf( stuff[i], "%s.c", on );
+      if( file_exists( stuff[i] ) && find_object( on ) ) {
+        compile_object( on );
+      }
+    }
+    }
+  }
+}
+
+void remove_library( string file ) {
+  object ob;
+
+  ob = find_object( file, 1 );
+
+  if( ob ) {
+    destruct_object( ob );
+  }
+}
