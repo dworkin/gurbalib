@@ -68,6 +68,7 @@
 #include "afun/subscribe_event.c"
 #include "afun/unsubscribe_event.c"
 #include "afun/event.c"
+#include "afun/rexplode.c"
 #include "afun/str2val.c"
 #include "afun/strstr.c"
 #include "afun/replace_string.c"
