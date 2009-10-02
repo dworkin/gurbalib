@@ -9,6 +9,7 @@
 #include <privileges.h>
 #include <tlsvar.h>
 #include <status.h>
+#include <trace.h>
 
 #define LIST_PREV 0
 #define LIST_NEXT 1
@@ -18,6 +19,7 @@
 #include "afun/require_priv.c"
 #include "afun/unguarded.c"
 #include "afun/find_object.c"
+#include "afun/this_program.c"
 #include "afun/caught_error.c"
 #include "afun/rethrow.c"
 #include "afun/intp.c"
@@ -71,6 +73,7 @@
 #include "afun/rexplode.c"
 #include "afun/str2val.c"
 #include "afun/strstr.c"
+#include "afun/strcmp.c"
 #include "afun/replace_string.c"
 #include "afun/shutdown.c"
 #include "afun/this_user.c"

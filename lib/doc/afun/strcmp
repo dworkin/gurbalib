@@ -1,0 +1,15 @@
+NAME
+        strcmp - compare two strings lexicographically
+
+SYNOPSIS
+        int strcmp( string one, sting two )
+
+DESCRIPTION
+        Compares two strings lexicographicaly.
+RETURN VALUE
+        0 when strings are equal, 1 when string one is
+        larger then strin two, -1 if string one is smaller
+        then string two.
+
+SEE ALSO
+        strstr, replace_string

@@ -1,0 +1,12 @@
+NAME
+	this_program - return the current program
+
+SYNOPSIS
+	string this_program()
+
+
+DESCRIPTION
+	Return the name of the current program.
+
+SEE ALSO
+	kfun/previous_object, kfun/call_trace
