@@ -19,16 +19,28 @@ static void save_me( void ) {
 
 void add_entry( string name, int on ) {
   string ip;
+  object usr;
+ 
+  if((usr = USER_D->find_user(name))) {
+    ip = query_ip_number(usr);
+  } 
+
+  if( !ip ) {
+    ip = "<LD>";
+  }
 
   if( on ) {
-    last[name] = "[%^CYAN%^" + ctime( time() ) + "%^RESET%^] %^GREEN%^" + capitalize( name ) + "%^RESET%^ logs on from %^BOLD%^" + query_ip_number( USER_D->find_user( name ) ) + "%^RESET%^\n";
+    last[name] = "[%^CYAN%^" + ctime( time() ) + "%^RESET%^] %^GREEN%^" +
+      capitalize( name ) + "%^RESET%^ logs on from %^BOLD%^" +
+      ip + "%^RESET%^\n";
   } else {
-    ip = query_ip_number( USER_D->find_user( name ) );
-    if(!ip) ip = "<LD>";
-    last[name] = "[%^CYAN%^" + ctime( time() ) + "%^RESET%^] %^GREEN%^" + capitalize( name ) + "%^RESET%^ logged off from %^BOLD%^" + ip + "%^RESET%^\n";
-  } 
+    last[name] = "[%^CYAN%^" + ctime( time() ) + "%^RESET%^] %^GREEN%^" +
+    capitalize( name ) + "%^RESET%^ logged off from %^BOLD%^" +
+    ip + "%^RESET%^\n";
+  }
   save_me();
 }
+
 
 string query_entry( string name ) {
   return( last[name] );
