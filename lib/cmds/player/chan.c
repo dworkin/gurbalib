@@ -6,12 +6,26 @@
 
 void chan_cmd( string chan, string cmd );
 
+void usage() {
+  string cmds;
+
+  cmds = "join (or on), leave (or off), hist, quit, who, list";
+  if(query_wizard( this_player() ) ) {
+    cmds += ", new";
+  }
+  if(query_admin( this_player() ) ) {
+    cmds += ", wiz, admin, delete";
+  }
+
+  write( "Usage: chan <channel> </command>\n Command can be "+cmds+"\nYou can also just use <channel> /command");
+}
+
 void main( string str ) {
   string chan;
   string cmd;
 
   if( str == "" ) {
-    write( "Usage: chan <channel> </command>\n Command can be join (or on), leave (or off), quit, new, admin, wiz, hist, permanent, who, list, info, or delete.\n" );
+    usage();
     return;
   }
   if( sscanf( str, "%s %s", chan, cmd ) != 2 ) {
@@ -62,6 +76,9 @@ void chan_cmd( string chan, string cmd ) {
     break;
   case "/info":
     /*this_player()->message(CHANNEL_D->query_debug());*/
+    break;
+  case "/help":
+    usage();
     break;
   default:
     if( strlen( cmd ) > 8 )
