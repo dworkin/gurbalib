@@ -1,0 +1,15 @@
+NAME
+    previous_function - retrieve the name of the function that called
+
+SYNOPSIS
+    string previous_function()
+
+DESCRIPTION
+    This enables code to determine the name of the function in previous_object
+    that called the code.
+    
+RETURN VALUE
+    The name of the calling function.
+
+SEE ALSO
+    kfun/previous_object, kfun/previous_program, kfun/call_trace
