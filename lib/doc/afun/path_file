@@ -5,17 +5,18 @@ SYNOPSIS
         string *path_file(string str)
 
 DESCRIPTION
-        The function takes argument str, assume that it is an absolute
-        path, and split it into the directory path and the filename.
+        The function takes argument str, assume that it is a file path,
+        and split it into the directory path and the filename.
         
 RETURN VALUE
         An array with 2 members, where the first member is the directory
         path, and the second the filename. If the function can't determine
-        either, the return value will be "". Do take note of the fact that
-        the function doesn't check existence.
+        either, the value will be "". Do take note of the fact that the
+        function doesn't check existence.
         
 EXAMPLES
         str = "/obj/sword.c"; return = ({ "/obj", "sword.c" });
         str = "obj/sword"; return = ({ "obj", "sword" });
-        str = "nothing.c"; return = ({ "", "" });
+        str = "nothing.c"; return = ({ "", "nothing.c" });
+        str = ""; return = ({ "", "" })
 
