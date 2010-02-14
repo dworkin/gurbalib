@@ -72,7 +72,7 @@ private string give_padding (int n, string pad) {
   string padding;
   if (n <= 0) {return ("");}
   padding = pad;
-  for (; strlen (padding) < n; padding += padding);
+  for (; strlen(ANSI_D->strip_colors (padding)) < n; padding += padding);
   return (padding [.. n - 1]);
 }
 
@@ -87,7 +87,7 @@ private string align (string this, int width, int precision, mapping options,
   if (options [">"]) {this = upper_case (this);}
   if (options ["="]) {this = capitalize (this);}
   if (options ["&"]) {this = rot_13 (this);}
-  sz = strlen (this);
+  sz = strlen(ANSI_D->strip_colors (this));
   if (options ["-"]) {this += give_padding (width - sz, padding);}
   else {
     if (options ["|"]) {
@@ -96,10 +96,10 @@ private string align (string this, int width, int precision, mapping options,
     }
     else {this = give_padding (width - sz, padding) + this;}
   }
-  return ((precision <= 0) || strlen (this) < precision
+  return ((precision <= 0) || strlen(ANSI_D->strip_colors (this)) < precision
               ? this
               : options ["_"]
-                   ? this [strlen (this) - precision ..]
+                   ? this [strlen(ANSI_D->strip_colors (this)) - precision ..]
                    : this [.. precision - 1]);
 }
 
@@ -136,13 +136,13 @@ private string numerical (int n, int base, int width, int precision,
   if (precision <= 0) {precision = options ["T"];}
 # endif
   if (precision > 0) {
-    digits = give_padding (precision - strlen (digits), "0") + digits;
+    digits = give_padding (precision - strlen(ANSI_D->strip_colors (digits)), "0") + digits;
   }
   if (options ["0"] && !options ["-"]) {
-    digits = give_padding (width - strlen (digits + sign + header), "0") +
+    digits = give_padding (width - strlen(ANSI_D->strip_colors (digits + sign + header)), "0") +
              digits;
   }
-  sz = strlen (this = sign + header + digits);
+  sz = strlen(ANSI_D->strip_colors (this = sign + header + digits));
   if (options ["X"]) {this = upper_case (this);}
   if (options ["-"]) {this += give_padding (width - sz, padding);}
   else {this = give_padding (width - sz, padding) + this;}
@@ -152,7 +152,7 @@ private string numerical (int n, int base, int width, int precision,
 
 private string round_off (string arg) {
   int i;
-  i = strlen (arg) - 1;
+  i = strlen(ANSI_D->strip_colors (arg)) - 1;
   if (arg [i] != '9') {arg [i] += 1; return (arg);}
   if (i == 0) {return ("10");}
   return (round_off (arg [.. i - 1]) + "0");
@@ -197,9 +197,9 @@ private string do_float (float x, int width, int precision,
   for (i_res = ""; i_x >= 1.0; i_x = i_x / 10.0) {
     i_res = (string) (int) floor (fmod (i_x, 10.0)) + i_res;
   }
-  if (!strlen (i_res)) {i_res = "0";}
+  if (!strlen(ANSI_D->strip_colors (i_res))) {i_res = "0";}
   if ((exponent & 4) && precision != -2) {
-    precision -= strlen (i_res);
+    precision -= strlen(ANSI_D->strip_colors (i_res));
   } /* Now precision should be the number of digits after the period. */
 
   /* Build string for fractional part. */
@@ -211,14 +211,14 @@ private string do_float (float x, int width, int precision,
 
   if (precision == -2) {f_res = (options ["#"] ? "." : "");}
   else {
-    if (strlen (f_res) == precision) {
+    if (strlen(ANSI_D->strip_colors (f_res)) == precision) {
       f_res = "." + f_res;
     }
     else {
-      if (strlen (f_res) > precision) {
+      if (strlen(ANSI_D->strip_colors (f_res)) > precision) {
         if (f_res [precision] > '4') { /* Round off away from zero. */
           f_res = round_off (f_res [.. precision - 1]);
-          if (precision != strlen (f_res)) {  /* Overflow to integer part. */
+          if (precision != strlen(ANSI_D->strip_colors (f_res))) {  /* Overflow to integer part. */
             i_res = round_off (i_res);
             if ((exponent & 1) && i_res == "10") {
               /* Overflow to exponent */
@@ -232,12 +232,12 @@ private string do_float (float x, int width, int precision,
         else {f_res = "." + f_res [.. precision - 1];}
       }
       else {
-        f_res = "." + f_res + give_padding (precision - strlen (f_res), "0");
+        f_res = "." + f_res + give_padding (precision - strlen(ANSI_D->strip_colors (f_res)), "0");
       }
     }
   }
-  if ((exponent & 4) && strlen (f_res)) { /* Strip trailing 0's and period. */
-    for (i = strlen (f_res); f_res [-- i] == '0';);
+  if ((exponent & 4) && strlen(ANSI_D->strip_colors (f_res))) { /* Strip trailing 0's and period. */
+    for (i = strlen(ANSI_D->strip_colors (f_res)); f_res [-- i] == '0';);
     if (i) {f_res = f_res [.. i];}
     else {f_res = (options ["#"] ? "." : "");}
   }
@@ -253,7 +253,7 @@ private string do_float (float x, int width, int precision,
   else {e_res = "";}
 
   /* Add padding and sign. */
-  if ((sz = strlen (result = i_res + f_res + e_res)) < width) {
+  if ((sz = strlen(ANSI_D->strip_colors (result = i_res + f_res + e_res))) < width) {
     string pads;
     if (options ["0"]) {padding = "0";}
     pads = give_padding (width - sz, padding);
@@ -277,7 +277,7 @@ private string * make_chunks (string format) {
   string   option;
   result = ({ });
   i = j = 0;
-  sz = strlen (format);
+  sz = strlen(ANSI_D->strip_colors (format));
   while (i < sz) {
     if (CONV_CHAR [format [i]]) { /* Encountered a '%' or '@' */
       option = format [i .. i];
@@ -424,7 +424,7 @@ NOTE      case 2: if (!width) {width = -2;} /* Reserved for future use? */
           Case "%n":
             TYPECHECK (array, args [j], j + 2);
             if (!sizeof (args [j])) {error ("No space for %n conversion");}
-            args [j] [0] = strlen (result);
+            args [j] [0] = strlen(ANSI_D->strip_colors (result));
           Case "%O":
             TYPECHECK (object, args [j], j + 2);
             result += align (object_name (args [j]), width, precision,
@@ -577,7 +577,7 @@ NOTE      case "%S":
   } 
 # ifdef __CLOSE_TO_C__
   out [0] = result;
-  return (strlen (result));
+  return (strlen(ANSI_D->strip_colors (result)));
 # else
   return (result);
 # endif
