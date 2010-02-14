@@ -42,11 +42,14 @@ read var
 
 echo "Compiling driver.."
 
-cd src
+cd contrib/DGD/src
 
 make && make install || exit
 
-cd ..
+cd ../doc/kfun/
+cp * ../../../../lib/doc/kfun/
+
+cd ../../../../
 
 TD=`pwd`
 TD=${TD//\//\\\/}

@@ -1,0 +1,7 @@
+To add this package to Gurbalib:
+
+copy sprintf.c and the sprintf directory to /sys/safun
+
+reboot or perform a warmboot.
+
+

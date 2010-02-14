@@ -1,0 +1,16 @@
+This is my sprintf() package. It imitates all C's sprintf possibilities
+(as long as it make sense in LPC) and several other flags and conversion
+characters. As a bonus, it has the posibilities of strftime as well.
+
+A manual of all its possibilities is included.
+
+I'm reachable at the following addresses:
+abigail@xs4all.nl (if it bounces, try abigail@hacktic.nl)
+abigail@The Pattern (epsilon.me.chalmers.se 6047)
+abigail@Tmi-2 (tmi.ccs.neu.edu 5555)
+
+and by ordinairy mail:
+Haijo Schipper
+Isebrandtsheerd 179
+NL-9767 LP  GRONINGEN
+The Netherlands.

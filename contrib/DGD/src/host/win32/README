@@ -1,0 +1,6 @@
+To compile DGD on Win32, you'll need Visual C++ 6.0 or later, with a recent
+platform SDK update.
+
+On my NT4 system, DGD has to be explicitly linked with a library called
+NAFXCW.LIB.  But using VC++ 6.0 on XP, this library is (apparently) linked
+with implicitly; you may have to remove it from the project configuration.

@@ -1,4 +1,8 @@
-#ifdef __NETWORK_PACKAGE__
+/*
+ * check for 1.4 with network extensions, or 1.2/1.3 with network
+ * package
+ */
+#if defined(__NETWORK_EXTENSIONS__) || defined(__NETWORK_PACKAGE__)
 #ifndef SYS_NETWORKING
 #define SYS_NETWORKING
 #endif

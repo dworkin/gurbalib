@@ -1,0 +1,19 @@
+This directory contains additional software
+that can be used with Gurbalib.
+
+The packages in this directory come with their
+own license, please read the documentation
+included in those packages.
+
+A few general notes:
+
+DGD contains the gamedriver, which uses the AGPL
+license. Please note that this license does not
+affect the mudlib. You have to publish changes you
+make to the driver if you let others connect to it,
+but you do not have to publish your mudlib, it is
+not affected by the AGPL license.
+
+The Sprintf package uses the GPL license. It is not
+entirely clear to me how this would affect the license
+of the mudlib, use your own judgement.

@@ -1,0 +1,1753 @@
+DGD 1.0.a0
+
+Differences with LPmud 3.1.2:
+
+Language:
+
+ - No keywords "protected", "public" and "status".
+ - Mappings, as in the mappings package that I made for LPmud, with one
+   difference: there is no m_delete(), and the normal way to remove an
+   index/value pair from a mapping is to set the value to 0.
+ - Typechecking is more strict.  As in LPmud 3.1.2, functions are not
+   typechecked if they have no declared type, but it is possible to enforce
+   typechecking in all objects.
+ - call_other() does not require a cast.  If the type is not clear from the
+   context, a cast is recommended.
+ - Types such as int**, string***** are possible.
+ - Initializers are not supported.
+ - Indexing out of range is not allowed on arrays and strings.  Negative
+   indices can be used to offset from the end of the array/string (-1 last,
+   -2 last but one, etc).
+ - Indexed string assignments such as foo = "bar"; foo[0] = 'B'; are possible.
+ - The zero size array and zero size mapping are not globally shared, and
+   comparisions such as array == ({ }) will fail.
+ - It is illegal to declare any functions, function prototypes or variables
+   before inheriting.
+ - Inheritance is completely different.  There are two kinds of inheritance,
+   virtual and labeled.
+   Virtual inheritance is the default.  If A is inherited by B and C, and D
+   inherits B and C, then the variables of A are in D only once.  It is illegal
+   to inherit two different functions with the same name, unless function F1 is
+   inherited in the object that defines function F2, or if at least one of
+   F1 and F2 is private.  It is illegal to inherit two different variables
+   with the same name, unless at least one of them is private.  It is
+   illegal to redeclare a non-private variable.  Private functions are
+   private in the program that defines them, and cannot be used from inherited
+   objects.  Private functions do not mask inherited functions, except in
+   the program in which they are defined.  It is illegal to inherit two
+   different instances from an object.
+   Labeled inheritance uses the syntax inherit label "file"; Functions in
+   labeled inherited objects can be accessed with  label::function();
+   Variables in labeled inherited objects cannot be accessed from the
+   current program at all.  Functions and variables need not be unique
+   between labeled inherited objects.  It is possible to inherit the same
+   object with labeled inheritance twice; the different instances will not
+   share their variables.
+ - There is an object that is automatically (virtually) inherited in all other
+   objects, called the auto object for short.  The auto object is shared
+   even between virtual inherits and labeled inherits.
+ - Predefined functions are called kfuns (kernel functions); the kfuns and
+   the non-private functions declared in the auto object together are called
+   efuns.  Kfuns are assumed to be static functions inherited in the auto
+   object, with the added limitation that they cannot be called with
+   this_object()->kfun().  All static functions declared in the auto object
+   share this limitation.
+ - There is no class_specifier inherit "file"; This did not work in LPmud 3.1.2
+   anyhow.
+ - Function prototypes are always inherited together with the function.
+ - Function calls are typechecked if the called function is typechecked.  It
+   is illegal to call a non-varargs function with the wrong number of
+   arguments from a typechecked function, even if the called function is
+   not typechecked itself.
+ - Kfuns are not treated differently from other inherited functions, so
+   destruct(this_object(), this_object()); will not cause a compile-time
+   error in an untypechecked function.
+ - Inherited functions may be redeclared with a different prototype.  If
+   an inherited function is redeclared with a prototype only, and the function
+   itself is not declared in the same program, then all calls to the function
+   from that program will call an undefined function, which will result in a
+   runtime error.
+ - If object A declares function F, and B has only a prototype for function
+   F, calls to F from B will call function F in A if A and B are inherited
+   in the same object.
+ - It is illegal to inherit a function and a prototype for the same function
+   if the prototypes do not match.
+ - A call to an undeclared function from an untypechecked function implicitly
+   declares a prototype for the undeclared function that matches anything.
+ - this_object()->function(); can be used to call static functions, but not
+   private ones.
+ - foo->bar(gnu); is merely an alias for call_other(foo, bar, gnu);  It is
+   therefore possible to redefine call_other() entirely.
+ - lock(expr); will evaluate expr without regard of execution cost, and with
+   extra space on the function call stack.  It can only be used by the auto
+   object to ensure that execution does not halt inside a critical function.
+ - Any kfun can be redefined, just as ordinary inherited functions can.
+   catch() and lock() are not considered to be kfuns (they are not true
+   functions because catch(foo, bar) does not "call catch with two arguments").
+
+Compiler:
+
+ - The built-in preprocessor conforms to the ANSI standard, except for the
+   following:
+    - No trigraphs.
+    - Successive string constants are not concatenated (use the + operator
+      instead).
+    - The suffixes U and L are not allowed on integer constants.
+    - No floating point constants.
+ - There is a standard include file which is included automatically.
+ - All #pragma directives are ignored.
+ - All integer constants may be in decimal (starting with 1-9), octal (starting
+   with 0), hexadecimal (starting with 0x) or a character constant 'x'.  The
+   only escaped characters that are translated into something else in
+   character constants and string constants are \t and \n.
+ - The compiler is two-pass.  In the first pass, the function is typechecked
+   and a parse tree is constructed.  Constant folding and removal of dead
+   code is done.  In the second pass, code for a virtual stackmachine is
+   generated.  Jumps to jumps are optimized.  Optionally, the second pass
+   may generate C code (not yet implemented).
+
+Interpreter:
+
+ - The interpreter has only 32 instructions.  Kfuns are not part of the
+   interpreter proper.
+ - Objects are pure programs.  They do not have inventories, environments,
+   are not alive, do not have actions (all of this can be simulated).
+ - Pathnames without a leading slash are considered to be relative to the
+   directory of the current object (i.e. /foo for the object compiled from
+   /foo/bar.c).
+ - create() is called if a function in an object is called for the first
+   time.  It is not called if an object is loaded because it is inherited.
+   If it is desired that reset(0) is called instead, add the following to
+   the auto object:
+
+	void reset(int arg) { }
+
+	nomask void create()
+	{
+	    reset(0);
+	}
+
+ - reset() is never called by the driver.  Both reset on reference and reset
+   after a fixed period are easily simulated.
+ - clean_up() is never called by the driver.
+ - Text typed by a user is passed on by calling receive_message(text) in the
+   interactive object.  The kfun send_message(text) can be used in interactive
+   objects to send text back to the user.
+ - There is no "master object" as in LPmud 3.1.2, but a "driver object"
+   instead (there is nothing masterly about it in DGD).  It is used only to
+   translate pathnames for #include and inherit, and to supply the object
+   that is used for interactive connections.  It does not inherit the
+   auto object, unless this is done explicitly.
+ - There is no shadowing.
+ - The default state of an object is swapped out.  Strings and arrays are
+   only shared inside objects.  If an array is exported from one object to
+   another, it will become a different array as soon as the object is swapped
+   out (this is guaranteed never to happen during execution).
+ - Self-referential datastructures will be deallocated when no more outside
+   references exist, because they do not belong in any object.
+
+Kfuns: DGD has about half of the kfuns of LPmud 3.1.2:
+ - No kfuns such as environment(), this_player(), add_action().  Simulate them
+   if you want them.
+ - There is no exec(), heart_beat(), wizlist() (simulate them).
+ - No parse_command().  It cannot be simulated, so people might want to port
+   it to DGD, but it will never become part of "pure" DGD.
+ - No alist kfuns.  I prefer mappings, even if alists are more powerful.
+ - All file kfuns are unprotected.  To get either native or compat mode
+   security, make the proper redefinitions in the auto object.
+ - The built-in editor uses a temporary file and is very close to ex.
+ - call_other() is typechecked if the called function is typechecked.  Calling
+   a function that does not exist results in an error if the call has
+   arguments (I still have to think about this).
+ - There are no optional flag arguments to any kfun.
+
+DGD 1.0.a1
+
+ - ALLOCA() and AFREE() have replaced some instances of ALLOC() and FREE(),
+   and be used to allocate memory with alloca(), if available on the host.
+ - Mappings are now partially hashed.  If a mapping grows by assigning to
+   an index/value that doesn't exist yet, the index/value pair is stored in
+   a hash table.  Mappings are converted to sorted arrays of index/value
+   pairs when swapped out.
+ - Fixed some bugs in the compiler, interpreter and kfuns.
+ - Changed the way line numbers are stored.  The interpreter no longer
+   maintains the current line number at runtime.
+ - Added int-only versions of some kfuns to speed up integer arithmetic in
+   typechecked programs. Typechecked functions are now typechecked at runtime
+   as well, to ensure that integer arguments are really integers.
+
+DGD 1.0.a2
+
+ - Better dead code removal.
+ - Mixed return values are cast to int if needed.
+ - Lvalues as function arguments are now handled properly.
+ - Fixed a problem with (exp1, exp2) in aggregates and function arguments.
+ - More untypechecked expressions are optimized.
+ - String constants are marked as such.
+ - Driver object has been enabled.
+ - It is now illegal to call any function with too many arguments, even if the
+   function has class vararg.
+ - I removed the error on call_other() to a non-existing function.
+ - When an object is cloned, or a function is called in it for the first time,
+   create() in the object will be called.  
+ - Added config file which is read on startup.
+ - All ANSI escape sequences are now recognized in string constants and
+   character constants.  Fixed a bug with #arg in macros.
+ - Created proper main loop that reads input and calls receive_message() for
+   the associated objects.
+ - Created (single user) comm package.  DGD now works as a regular game driver.
+ - Overview of functions called by the gamedriver (can be static):
+   In the driver object:
+    * void initialize()
+	Initialize the mudlib.  Called once at program startup.
+    * string path_ed_read(object, string)
+	Path translation for editor read.
+    * string path_ed_write(object, string)
+	Path translation for editor write.
+    * string path_object(object, string)
+	Object path translation (for find_object, clone_object, etc).
+    * string path_inherit(string, string)
+	Inherit file name translation.
+    * string path_include(string, string)
+	Include file name translation.
+    * object compile_object(string)
+	Called if the given argument could not be compiled.  The driver
+	object can return an object that will be renamed to the wanted
+	object.  The returned object may be a clone, and will remain
+	a clone (i.e. may not itself be cloned), even with the new name.
+	Modelled after "virtual objects" in MudOS, the American LPmud brand.
+    * object connect()
+    * void log_error(string, string, string, int)
+	Log a runtime error.
+    * string compile_log(string)
+	Return the name of the file to which compile time errormessages
+	should be appended.
+   In the user object:
+    * void open()
+	LPmud: login
+    * void close()
+	Called if the user connection to the mud is closed.
+    * void receive_message(string)
+	Called for user input.
+   In an object that uses the editor() kfun:
+    * void receive_message(string)
+	Called for editor output.
+ - Overview of the kfuns added:
+    * varargs mixed call_other(mixed, string, ...);
+    * object this_object();
+    * varargs object previous_object(int);
+	Return the previous object n+1 steps back in the call_other chain.
+    * object clone_object(string);
+    * void destruct_object(object);
+	LPmud: destruct()
+    * string object_name(object);
+	LPmud: file_name()
+    * object find_object(string);
+    * string function_object(string, object);
+	LPmud: function_exists()
+    * object this_user();
+	LPmud: this_player(1);
+    * string query_ip_number(object);
+    * object *users();
+    * int strlen(string);
+    * mixed *allocate(int);
+    * int sizeof(mixed *);
+    * mixed *map_indices(mapping);
+	LPmud + mappings: m_indices()
+    * mixed *map_values(mapping);
+	LPmud + mappings: m_values()
+    * int map_sizeof(mapping);
+	LPmud + mappings: m_sizeof()
+    * int intp(mixed);
+    * int stringp(mixed);
+    * int objectp(mixed);
+    * int arrayp(mixed);
+	LPmud: pointerp()
+    * int mappingp(mixed);
+    * void error(string);
+	Cause an error.
+    * void send_message(string);
+	Send a message to the current object (should be interactive user),
+	messages from the user will call receive_message() in the object.
+    * int time();
+    * varargs void call_out(string, int, ...);
+    * int remove_call_out(string);
+    * void shutdown();
+
+    * void editor(string);
+	Handle an editor command, such as "e file", "%s/foo/bar/g", "x".
+	If no editor instance exists for the current object, it will be
+	created; editor output will call receive_message() in the object.
+    * string query_editor(object);
+	Return the editor status of the object ("command", "input" or 0).
+    * void save_object(string);
+	LPmud: save_object() without .o tagged on.
+    * int restore_object(string);
+	LPmud: restore_object() without .o tagged on.
+    * varargs string read_file(string, int, int);
+	LPmud: read_bytes()
+    * int rename_file(string, string);
+	LPmud: rename() (limited, will not rename directories if the
+	       host doesn't support this)
+    * int remove_file(string);
+	LPmud: rm()
+    * varargs void write_file(string, string, int);
+	LPmud: write_bytes(), will append if third argument is omitted.
+    * int make_dir(string);
+	LPmud: mkdir()
+    * int remove_dir(string);
+	LPmud: rmdir()
+    * mixed **get_dir(string);
+	Get file info using get_dir(file), directory info using
+	get_dir(dir + "/" + pattern), the pattern can have ? * [a-z].
+	The return value has this form:
+	    ({ ({ names }), ({ mod times }), ({ sizes }) })
+	This is almost compatible with MudOS, except that directories have
+	size -2 (non-existing files and special files are not included).
+
+    * varargs string crypt(string, string);
+    * string ctime(int);
+    * string *explode(string, string);
+    * string implode(string*, string);
+    * int random(int);
+    * varargs int sscanf(string, string, ...);
+	As in LPmud, but also handles %*s (skip assignment), %s%d and %%.
+
+DGD 1.0.a3
+
+ - Replaced objkey with separate fields in both objects and values.  Structure
+   alignment on sun4 systems caused the size of a value to be 12 bytes, where
+   it should have been 8.  It should now be 8 bytes on any host (as long as
+   uindex is an unsigned short, and pointers use 4 bytes).
+ - Redeclaring an inherited function with different parameters is now allowed
+   (runtime typechecking will handle calls from inherited objects to the new
+   function), but the return type still has to match.
+ - Fixed a bug with the return type of an implicit prototype, which should
+   read as mixed, when used.
+ - Some checks to see if the result of path_file() was NULL were missing.
+ - Removed time_interval from the configuration parameters.  If I'm going to
+   support call_out intervals of less then a second, I'll do it in a different
+   way.
+ - The simulated rename() erroneously removed the destination if it existed.
+ - Some checks for destructed this_object() in kfuns removed.  Either the
+   error is caused from path_object(), or there was not real reason to block
+   the kfun (file I/O).  Doing a call_other() from a destructed object is still
+   illegal.
+ - Special files are no longer excluded from a get_dir() listing.
+ - Fixed some bugs in the compiler, where functions from different inherited
+   objects were confused.
+ - The type of the objcnt field in the value struct has been changed into
+   Int, to save space on hosts that have 64-bit longs.
+ - Replaced all variables called "index" by "idx".  index() is a function like
+   strchr() on some systems.  Sigh.
+ - Fixed a bad bug in integer comparisions.
+ - The call_outs configuration parameter now specifies the maximum number of
+   call_outs in all objects together, rather than per object.
+ - The maximum execution cost is now set to the appropriate value at runtime
+   (25% for call_outs), rather than once at initialisation.
+ - call_out() and remove_call_out() now work.  The gamedriver is fully
+   functional for a single user.
+ - DGD now automatically generates a file called "limits.h" in the first
+   include directory, which describes the sizes of datatypes and resources.
+ - Fixed a problem with dumping function call traces of destructed objects.
+ - Fixed several bugs in get_dir() and path_resolve().
+ - Fixed a bug which occurred if a variable was defined with a name that had
+   been used in an inherited object.
+ - Destructing a destructed object gives an error, rather than a fatal error.
+ - call_other() from a destructed object no longer results in an error, but
+   is simply ignored, like in LPmud.
+
+DGD 1.0.a4
+
+ - TCP/IP support added.
+ - Reduced the amount of runtime stack checking, by computing in advance (an
+   estimate of) the maximum stack depth of a function, which is checked when
+   the function is called.  This takes two bytes extra per function.
+ - Indexed string assignments will not make a copy of the string, if the string
+   is not a constant and has reference count 1.
+ - Fixed several bugs in the interpreted code generator.
+ - Added LPC->C code generator.
+ - Cleaned up Makefiles and including files a little bit (still far from
+   perfect).
+
+DGD 1.0.a5
+
+ - Removed some redundant code from restore_string().
+ - this_user() was not always 0 in call_outs.
+ - call_other() to a function with the wrong number of arguments does not cause
+   an error, even if the function is typechecked.  This was already so for
+   version 1.0.a3, but slipped from the log.
+ - Fixed some typecasting errors in str_range() and arr_range().
+ - Instances of an object on the stack were not properly wiped out when the
+   object was destructed.
+ - Fixed a bug in the C code generator, which didn't remove errorcontexts
+   properly.
+ - catch() within lock() no longer turns off the lock.  If used by the driver
+   object, code within catch() will run with the execution cost reset.
+   initialize() in the driver object will no longer be called with a lock.
+ - Fixed a bug in remove_call_out, which could instead remove a similar
+   call_out in an object that was already destructed.
+ - It is now possible to redefine an inherited typechecked function as
+   untypechecked.
+ - Fixed a bad bug which caused the wrong inherited object to be used as the
+   program in a function call.
+ - map_sort() will now remove index/value pairs with the value set to 0.
+ - Check exec cost if a creator function is about to be called.  This prevents
+   half-initialized objects due to exec cost problems.
+ - Fixed a bug in the < <= > >= operators on strings.
+ - Max exec cost in call_outs is now 1/2 instead of 1/4.
+ - Fixed a bad memory leak in array.c .
+ - Exchanged the place in the array returned by get_dir() of the file sizes
+   and the file mod times; it is now ({ names, sizes, times }).  It used to be
+   different for compatibility with MudOS, but their doc turned out to be
+   faulty. :)
+ - Changed comm.c to handle INTR and DEL in telnet.
+ - Fixed a bug in restore_object(), which would get stuck in an infinite loop
+   when restoring an object without saveable variables.
+ - Swapping enabled.
+ - Fixed a bug that caused a bad program index in a function call to be
+   generated.
+ - Fixed a problem having to do with a full input buffer in comm.c .
+ - Fixed a bug in save_object and restore_object, where the offset of variables
+   in inherited objects was not properly calculated.
+ - Fixed a memory leak in the generation of prototypes by calling undefined
+   functions (only in untypechecked objects).
+ - String hash table sizes are now powers of two.  They used to be primes,
+   which is fairly pointless in this implementation.
+ - Divided allocated memory into 'static' and 'dynamic' memory.  Static memory
+   is used for things which need to be kept when everything is swapped out,
+   and dynamic memory is used for the rest.
+ - Fixed a bug with escape sequences in the preprocessor, and a related bug in
+   the parser.
+ - this_user() is now set during the call to open() in the user object.
+ - Fixed bugs in the C code generated for catch() and ?:.
+ - Inheritance with a label no longer specifies that a different type of
+   inheritance is required (!).  Functions may now be inherited more than once,
+   as long as the inheriting object redefines them.  A label can still be used
+   to specify which inherited instance of a function is to be called.
+ - Negative indexing has been removed.  Sorry, but I added them without
+   considering the arr[0 .. x-1], with x = 0 problem.  (If only indices
+   started at 1 instead of 0...)
+ - Fixed a memory leak in mappings with destructed objects for indices/values.
+ - Fixed a bug with destructed objects as arguments to call_outs.
+ - Fixed a cleanup problem in case an object could not be compiled.
+ - New kfuns:
+    * get_exec_cost()
+	Return the allowed execution cost that is remaining.
+    * varargs int *status(object)
+	Return status information.  The 'fields' of the returned array are
+	described in the automatically generated include file "status.h".
+    * void swapout()
+	Swap out all objects.
+
+DGD 1.0.a6
+
+ - Fixed a problem in kfun/debug.c in case RUSAGE was defined, but DEBUG was
+   not.
+ - Included size of tables in O_PROGSIZE, as given by the status() kfun.
+ - Fixed an overflow problem in integer case ranges.
+ - Renamed config option "reserved_stack" to "reserved_cstack", and added
+   "reserved_vstack".
+ - Both the renaming of and the renaming to the auto object and the driver
+   object is now illegal.
+ - Repeated call_others to the same function are now faster on average.
+ - The control blocks of precompiled objects are swapped out no longer.
+ - Fixed a bug in the editor substitute command, which could mess up if
+   substitutions occurred and didn't occur on alternate lines.
+ - Fixed a possible memory leak in restore_array and restore_mapping, in
+   case the save file was faulty.
+ - Fixed a bug with global integer variables as lvalue arguments to sscanf()
+   in typechecked functions.
+ - Improved some compiler error messages.
+ - A new prototype for an inherited function won't replace the inherited
+   function anymore, if the prototypes are identical.
+ - Function calls with too few or too many arguments no longer cause runtime
+   errors.  It caught a lot of errors, but also broke some code which
+   shouldn't have.
+ - Fixed a bug in inheritance, which could fail if two inherited objects
+   defined the same function, and a third was unloaded.
+ - Fixed a bug in calls to functions for which an undefined prototype was
+   inherited, but which were redefined.
+ - Changed _time, _ctime, _opendir, _readdir, _closedir and _alarm into
+   P{_*} to make it work on HP systems.
+ - Telnet GA is now only sent after a (possibly empty) prompt, and not
+   after any finished output.
+ - Made BEL, BS, HT, LF, VT, FF and CR host-independent.  Moved the adding
+   of CR before LF back into comm.c (was in host/unix/connect.c in version
+   1.0.a5).
+ - State dumps:
+   swapout() and shutdown() now take a numeric argument.  If non-zero,
+   a state dump is created on the file specified by the dump_file config
+   parameter.  A state dump file can be used on startup (by specifying it
+   as the 2nd argument) to restore from.  After a successful restore,
+   driver->restored() is called, rather than driver->initialize().  User
+   objects and editor objects are not restored as such, and the driver
+   object should deal with them in restored().  This can be done by
+   registering those objects, just before the state dump occurs.
+ - Ellipsis can now be used to declare a function with arbitrary numbers
+   of arguments.  Example:
+
+	varargs string sprintf(string format, mixed args...);
+
+   args will have type mixed*, and will be an array with the additional
+   arguments.  Ellipsis can also be used in a call, to push all elements
+   of an array on the stack as arguments:
+
+	call_other("/some/thing", "foo", array_with_arguments...);
+
+ - Replaced time_t with long everywhere to make things portable.  If a time_t
+   doesn't fit in a long on a particular host, it will have to be truncated.
+ - Speeded up remove_call_out().  Removing a short-term call_out is now
+   reasonably fast.
+ - Added find_call_out().  I previously left it out because I considered
+   using it bad programming practice.  I still think so, but it might be
+   useful in some rare cases, and the current implementation is fairly fast.
+ - All of x[y .. z], x[y ..], x[.. y] and x[..] are now possible, with the
+   obvious meanings.
+ - The swapfile and editor tmpfiles are now removed on a shutdown.
+ - Fixed a bug in the compiler, which would not always cast the result of
+   a function call to int when this was needed.
+ - Errors inside a catch are now logged on stderr as well.
+ - Fixed a problem which occurred when a catch was used in a conditional
+   context in LPC->C code.
+ - Fixed a problem in the compiler, which could produce a bad symbol table
+   for the auto object (which fortunately isn't normally used).
+ - If a clash between inherited functions occurs, only the clashing functions
+   will be listed, rather than all functions that are inherited more than
+   once.
+ - Better removal of unused call_out slots in objects.
+ - sscanf("foobar","foo%s") will result in an error.
+ - New kfun: call_trace().  It returns the call trace as an array (see the
+   doc for specifics).
+ - driver->log_error() is now called (locked) with two arguments, the error
+   string and a flag which indicates if the error is caught.  It should make
+   use of call_trace().  The driver itself no longer logs runtime errors.
+ - If an object is inherited that itself inherits an object that has been
+   destructed, call driver->recompile(obj).  The driver object must destruct
+   the object to force it to be recompiled, if this is desired.
+ - A missing #endif would not always give an error.
+ - Using a void value when typechecking now gives the error "void value not
+   ignored" always.
+ - Added mapping - array and mapping & array.
+ - Functions with a declared non-void type must return a value.
+ - Variables could erroneously be redeclared as private in the same object.
+ - Redeclaration of an inherited function or variable will now give the
+   inherited object in the errormessage.
+
+DGD 1.0.a7
+
+ - Fixed a bug with saving large numbers in arrays and mappings.
+ - Improved memory allocation in case sizeof(long) > 4.  Also improved
+   efficiency for the case that DEBUG is not defined.
+ - String hash tables are no longer cleared before being deleted.  Some hash
+   tables used by the compiler which were previously statically allocated are
+   now dynamically allocated.
+ - The >> and << operators now shift unsigned values, so the result is
+   identical on all hosts.
+ - Fixed a memory leak in i_index() and i_index_lvalue().
+ - Comm.c can now deal with ^Z as well.
+ - Cleaned up the inheritance logic in control.c, and removed some bugs.
+ - Fixed several bugs in the restoring of object names.
+ - Fixed some code in switch_str(), which would only work properly for the
+   auto object and driver object.
+ - Replaced longs by Ints in the editor, to save space on hosts with
+   sizeof(long) > 4.
+ - Fixed a bug in c_tst() and c_not().
+ - Changed the alarm/timeout interface.  co_call() now calls P_timeout()
+   to determine if an alarm timed out; co_timeout() has been removed.
+ - main() is now in local.c, and should call dgd_main(argc, argv).
+ - All occurrances of fprintf(stderr, ...) replaced with P_message(...) .
+ - path_object() (call_other, clone_object, find_object) from the auto
+   object will no longer call the driver object to translate the path.
+ - Fixed yet another problem in the C code generated for catch().
+ - Added function name comments to generated C code.
+ - The class specifier private no longer implies static, for variables.
+   This means that private variables can be saved with save_object(), and
+   restored with restore_object().  To get the old behaviour, use both
+   static and private.
+ - A new kfun is added, dump_state().  swapout() and shutdown() no longer
+   do a state dump through a flag argument; dump_state() should be used
+   instead.  dump_state(1) will create an incremental dump on top of an
+   old one.
+ - Fixed a possible memory leak in sscanf().
+ - Fixed a bug in src/host/unix/connect.c which could hang the driver.
+ - Made IAC GA optional.  The client must request it with IAC DONT TELOPT_SGA,
+   which the driver will respond to with IAC WONT TELOPT_SGA.  I badly
+   underestimated the number of faulty clients, and even plain telnets could
+   not handle it.
+ - Editor marks and secondary buffers were not cleared in between edits.
+ - In the editor, changing a line into nothing could cause a crash.
+ - Added a float type.  Fairly useless for muds, but not for other
+   applications.  Everything has been adapted (save_object, sscanf), but
+   apart from floatp no kfuns have been added yet.  Four new builtin kfuns,
+   ADD1, ADD1_INT, SUB1, SUB1_INT have been added.
+   The float type has 1 sign bit, 11 exponent bits and 36 mantissa bits.
+   The format is basically a truncated IEEE double, with a few alterations:
+   exponent 0x7fff is illegal, and there is no gradual underflow.
+ - Fixed various minor bugs in the compiler.  Also made runtime typechecking
+   more strict, and improved optimisation.
+ - The dataspace of destructed objects that are not freed for some reason
+   is now deleted right away.
+ - The object argument has been removed from driver->path_ed_read(),
+   driver->path_ed_write() and driver->path_object().
+ - intp(), floatp(), stringp(), objectp(), arrayp() and mappingp() have
+   been replaced with a single kfun, typeof().
+ - The swapfile is not created before sectors are actually written to it.
+ - A float.h file is now created on startup.
+ - Added 2nd swapout measure for last five minutes.
+ - Renamed config parameter swap_sector to sector_size.
+ - Added some kfuns: fabs(), floor(), ceil(), fmod(), frexp(), ldexp(), modf().
+ - Floats (both global and local) are initialized to 0.0, rather than integer 0.
+ - Added time of compilation to control block struct.
+ - Callouts have been changed: call_out() now returns an integer > 0, which
+   must be given as an argument to remove_call_out() to remove it.  The kfun
+   find_call_out() no longer exists.  status(obj) gives a list of all callouts
+   in an object.
+ - Renamed port_number to telnet_port, added binary_port (dummy, for now).
+ - Reorganized status() and limits.h .
+ - Fixed several bugs in the handling of callouts, which could result in random
+   memory trashing.
+ - Fixed some bugs in control.c for sizeof(int) == 2.
+ - Fixed a bug in the swapping of large mappings.
+ - Some more editor bugs fixed.
+ - In the editor, use of | is restricted to inside global commands.
+ - editor() no longer sends output to receive_message() in the editor object,
+   but returns it as a string.
+ - The optimizer has been made a separate part of the compiler.
+ - dump_state() changed again: it will now sync the swapfile, append some
+   tables at the end, and move it to a dump file.  Afterwards, the driver will
+   read from the dump file to reconstruct the swap file at low priority.
+   Incremental dumps no longer exist.
+ - The swapfile was not always created before a dump was made, resulting in
+   a fatal error.
+ - float.h and float.c have been renamed to xfloat.h and xfloat.c, respectively.
+ - The maximum stack depth of a function call with one argument was not
+   computed correctly.
+ - Multiple inheritance of the same file in different ways could, in some
+   cases, lead to invalid fcall and variable offsets.
+ - Fixed a bug that caused spurious stack overflow errors.
+ - Fixed a problem with expressions of the form (a) ? (b, c) : d.
+ - Dead code is now silently thrown away, instead of resulting in a
+   "statement not reached" error.
+ - Changed #include "float.h" to #include "xfloat.h" in generated C code.
+ - Fixed a bug in the optimizer which mangled sscanf() assigned value checks.
+ - The replies to DO TELOPT_SGA and DONT TELOPT_SGA were accidentally reversed.
+ - Lexical errors were repeated for each rescanning of the input.
+ - Some improvements in the typechecking for mixed... .
+ - Enabled binary port.
+ - Fixed a bug with # define foo "gnu.h" \n # include foo
+ - Some bugs in binary connections fixed.
+ - Fixed a bad bug in comm.c which could hang the driver.
+ - Fixed a newly introduced lexical scanner problem.
+ - get_dir("/a/b") returned "a/b" as the name of the file, instead of "b".
+ - Oops, several private variables with the same name would each be saved with
+   save_object().  Private for variables made to imply static again.
+ - Filename matching in get_dir() made more efficient (thank you, Aedil).
+ - Fixed a bug in && and || used as standalone expressions.
+ - Dump files now include a kfun table.  This enables the driver to restore
+   a dump file that was made by a driver version with fewer kfuns.  As long
+   as no kfuns are removed and the interpreter itself is not changed, dump
+   files can be used with future driver versions.
+ - Let (x, 0) match any type but float in situations where 0 would.
+ - The command line restore file argument is taken to be relative to the
+   current directory at the time, rather than relative to the mudlib directory.
+ - Makefiles brought up to date.
+ - (int) 0.0 yielded a wrong value.
+ - Max execution cost is no longer halved during a callout.
+
+DGD 1.0.8
+
+ - Fixed a problem with catch(x, y) and lock(x, y).
+ - Fixed file descriptor leak in swap.c.
+ - Fixed a bug in swap.c which could cause confusion between sectors just
+   after a state dump.
+ - Removed "*** State dumped." message after a state dump.
+ - Fixed a bug in the editor which could result in an infinite loop.
+ - Changed the default return value of float functions to 0.0.
+ - SunOS 4.x appears to have a problem: sometimes an alarm will interrupt
+   a read or write on a file, even though this is supposed to be impossible
+   and SV_INTERRUPT is not set.  As a workaround, a new timeout handler is
+   provided that doesn't use alarms.
+ - Fixed a bug in the C code generated for ++ and -- of non-integer variables.
+ - Using memcmp() in str_cmp() was unwise, because the lexical ordering of
+   characters may differ per host, and on a NeXT memcmp() is buggy.  Replaced
+   with explicit code that compares unsigned characters.  This may invalidate
+   old dump files for hosts with signed character compare in memcmp() !
+ - If the swap file cannot be renamed to the dump file, attempt to copy it
+   instead.
+ - Cleaned up host.h a bit.  GENERIC_* no longer uses alloca() to make it
+   more generic.
+ - Fixed a bug in the editor which in extremely rare cases might wipe out
+   a line.
+ - Added newline-in-input optimisation as per Dark's networking package.
+ - Made it impossible for the editor to read a directory.
+ - A file can only be removed or renamed if the host system permits write
+   access.
+ - Avoided some typecast warnings.
+ - Fixed the following bug:  int i, string s; i = 2; s = s + i;
+   This used to give the integer value 2 to s.  Now s gets the value "02".
+   As a corollary, casting from int/float to string and from string to
+   int/float is now possible.
+ - Fixed a bug which occurred if a function for which an implicit undefined
+   prototype was created was defined as private in the same object.
+ - Fixed a bug that prevented restoring a state dump made by a driver with
+   fewer builtin kfuns.  Unfortunately, the bugfix affects state dumps too,
+   and old state dumps can no longer be used. (!)
+ - Added a summand operator to transparently compute expressions of the form
+
+    x1[a .. b] + x2[.. c] + x3[d ..] + x4 + .. + xn[..]
+
+   without intermediate results, as suggested by Aedil.
+ - Discarded the 'a' in the version number; DGD is beyond the alpha stage.
+ - call_trace() now also includes the function arguments.  It is the
+   responsibility of the mudlib programmer to make sure that this doesn't
+   cause security problems (this also applies to status(obj)[O_CALLOUTS]).
+ - Fixed a bug which in some cases prevented proper removal of unreachable code.
+ - Fixed an optimisation which was skipped in conjunction with the summand
+   operator.
+ - Fixed a bug which caused <digits>. to be rejected as a valid floating point
+   constant.
+
+DGD 1.0.9
+
+ - call_trace() could give incorrect arguments for varargs functions.
+ - Fixed a bug which could occur for strval[i] = intval.
+ - Attempt to use telnet linemode.  This makes *BSD telnet usable, let's hope
+   nothing else breaks.
+ - Fixed a bug in code generated for switch statements which only have a
+   default entry with break statement.
+ - Fixed an overflow problem in the array/mapping sort compare function.
+ - DGD will now compile without warnings using gcc 2.4.5 -ansi -pedantic.
+ - Fixed a bug in telnet subnegotiations.
+ - Fixed some other ANSI C pointer problems.
+ - The driver can now call static functions in the auto object.
+ - Found a crasher in str.c::str_put() that had eluded me for quite a while.
+ - Undid the static function patch (dumpfile incompatibility and other
+   problems).
+ - Made state dumps for which the whole swapfile was copied in one go more
+   efficient.
+ - 'make a.out' will now always relink a.out.  This fixes a dependency problem.
+ - Global commands in the editor would crash with a bad regular expression.
+ - Widened the size limits for arrays and mappings somewhat.
+ - The precompiler will accept an optional 3rd argument, the output file.
+   This file will be removed if an error occurs during precompiling (fixing
+   another dependency problem).
+ - Turned off type errors for ?: .  In case of a type conflict, the result
+   type is mixed.
+ - Extended status() array with some limits, also in status.h (needed for
+   continuous muds).
+ - Added array | array (A + (B - A)) and array ^ array ((A - B) + (B - A)).
+ - String and array reference counts are now 4 bytes, instead of 2.
+ - Fixed a bug that could remove code with a case label inside.
+ - Translate std include file to a local filename before using it.
+ - Removed spurious path_file() from path_object().
+ - Added path_unfile() to translate a filename in host format back to DGD
+   format.
+ - Fixed a problem regarding mapping aggregates with identical indices;
+   calling error() from within qsort() might leave the mapping in an
+   inconsistant state.
+ - Changed YYDEPTH into YYMAXDEPTH in config.h; this should work for a wider
+   range of yaccs.
+
+DGD 1.1
+
+ - Fixed a bug that caused precompiled kfun calls to be wrong if kfuns were
+   added since the last state dump.
+ - The type of (expr1 ? void : expr2) and (expr1 ? expr2 : void) is now always
+   void.
+ - Fixed another bug in switch statements with only a default label inside.
+ - Made sure that mappings are compacted before the size is checked.
+ - Fixed a bug that might occur while restoring object filenames in a state
+   dump.
+ - DUMPFILE COMPATIBILITY ABANDONED.  All following pre-1.1 versions won't be
+   dumpfile compatible with 1.0.9 and probably not with eachother, either.
+   I'll make a dumpfile converter for 1.0.9->1.1.
+ - The evaluation order of array and mapping aggregates is now left to right,
+   because this is more intuitive.  From now on I'll consider the evalution
+   order of aggregates and function arguments to be fixed, rather than
+   undefined.
+ - Added list of directly inherited objects to the control block.
+ - Won't cause a fatal error on too small dynamic chunk anymore (just allocate
+   the larger chunk).
+ - Some Mac compatibility fixes.
+ - Added T_RESERVED type for add-on packages.
+ - Fixed character initializer tables.
+ - Added keyword "atomic".
+ - Got rid of C_LOCAL.
+ - More Mac compatibility fixes.
+ - Merged fcontrol.h with comp/control.h.
+ - Removed "atomic" again.  One way or another, multitasking will wreak
+   havoc with DGD's concept of data being local to objects (which is very
+   important for efficient swapping).  Maybe in 2.0.
+ - Reduced memory usage, at the cost of slightly slower string and array
+   deletes.
+ - Speeded up swapping of objects with a tangle of arrays and mappings.
+ - Arrays that are shared between objects are now made unique in each object
+   immediately after execution has completed, rather than at the moment when
+   one of the objects is swapped out.
+ - Fixed some remaining ANSI C incompatible prototypes <-> function
+   declarations in the editor.
+ - Fixed some bugs in the array exporting code.
+ - And some more.
+ - And some in the memory reduction changes as well.
+ - get_dir(foo) will always treat foo as a pattern, even if there is a file
+   with that name.
+ - Generate a compile-time error for functions larger than 64K.  Programs can
+   now be larger than 64K.
+ - Compile-time checking for too many string constants or function calls.
+   The number of arrays and string values in an object can be larger than
+   65535.  Replaced longs by Uints in swapping functions.  Extended ref
+   counts to Uint for swapped-out data.
+ - Binary connections don't buffer anymore.  send_message() returns 1 if the
+   write succeeded (always 1 for telnet connections), and 0 if the write
+   failed.
+ - Fixed a bug in the compiler that was exposed by the changes in the code
+   generator.
+ - Inheriting a renamed clone could cause trouble.
+ - send_message() now returns the number of bytes written (1 for echo on/off)
+   or 0 in case of an error.
+ - Fixed a bug introduced in get_dir() in the latest rewrite.
+ - Temporarily disabled new export code to track down bugs.
+ - Fixed a tiny destructive bug in the swapping code, recently introduced.
+ - 0.0 == 0 was 0, is now 1 (!0.0 already was that).  For all other value
+   combinations, integers and floats remain different.
+ - Re-enabled export code.
+ - Allow any binary port value (telnet port remains >= 1024).
+ - Function_object() won't find a static function in a different object anymore
+   (because it cannot be called).
+ - Smarter selection of objects for swapping.
+ - Rebuilt the main loop so continuous exec cost errors during callouts don't
+   result in user command starvation.
+ - Ignore NUL characters in telnet input.
+ - Fixed another array exporting bug.
+ - foo() = bar; could crash the system.
+ - An incomplete recovery from a syntax error during compilation of a switch
+   statement could result in a crash.
+ - Discarded I_PUSH_FLOAT2 and I_CALL_AFUNC in favor of I_CALL_IKFUNC and
+   I_CALL_IDFUNC (needed for object upgrading).
+ - Change of the version numbering scheme: rather than 1.0.9.24, the current
+   version is 1.0.10.  The next major release is still 1.1.
+ - Made value stack and call stack dynamically expandible.
+ - Fixed several stack depth miscalculation bugs.
+ - Added a cleanup function to the error context, used mainly to clean up
+   the value stack in case of an error.
+ - (int) "12a" now results in an error, as does (float) of the same.
+ - Renamed "exec cost" to "ticks".
+ - Replaced lock() with the following language construct:
+
+    rlimits (stack; ticks) {
+	/* statements */
+    }
+
+   This will execute code with reduced or increased stack depth and ticks.
+   There are two new driver calls to handle it: at compile time, for each
+   rlimits construct, driver->compile_rlimits(objectname) is called.  If this
+   function returns non-zero, the rlimits is allowed without futher ado.  If
+   it returns 0, then at runtime there will be an additional check,
+   driver->runtime_rlimits(obj, stack, ticks).  If zero is returned from this
+   function, an error results.  This allows fast execution of rlimits
+   constructs in trusted code.  For precompiled code, the return value is
+   always assumed to be 1 (!).
+   By default, there are no resource limits.  Also, driver->log_error() is
+   called without resource limits.
+   -1 can be used in rlimits to signify that a resource should be unlimited.
+ - Removed call_stack, value_stack, reserved_cstack, reserved_vstack and
+   exec_cost from the config file.
+ - Replaced max execution cost with remaining stack depth and remaining ticks
+   in the array returned by status().
+ - Removed kfun get_exec_cost().
+ - Replaced driver->compile_log() with driver->compile_error(file, line, err).
+   By default, DGD now writes nothing to stderr at all.
+ - Renamed driver->log_error() to driver->runtime_error().
+ - Fixed a bug in the new error cleanup code.
+ - Fixed some rlimits bugs in the C code generator.
+ - Fixed a nasty bug in the code generated for sscanf().
+ - And another one, and another one in the error cleanup code as well.
+ - Made it possible to use ( ) in inherit string expressions.
+ - Fixed a bug in the C code generator; no check was made to see if the stack
+   had been reallocated after a kfun- or function call.
+ - Fixed a memory leak in get_dir(), also introduced in the latest rewrite.
+ - Renamed all p_* prototype headers to pt_* in an attempt to avoid conflicts
+   with existing library functions on some machines.
+ - Binary connections: if send_message() cannot send a string in one go, it
+   puts the remainder in a buffer which is emptied as soon as possible.  When
+   all data is sent, message_done() is called in the user object (but only if
+   the output could not be sent all at once).  Using send_message() while
+   previous output is still unfinished will flush the buffer, and prevent
+   message_done() from being called.
+   Binary connections have 64K buffers which are allocated statically, so
+   the static chunk should be large enough (70K or so).
+ - Run callouts less often if they take more than half of the available time.
+   May be useful for muds on extremely heavily loaded hosts.
+ - After runtime_error() was called, no resource limits would be set.
+ - Renamed path_ed_read() and path_ed_write() to path_read() and path_write(),
+   respectively.
+ - When the last reference to a program is removed, call
+   driver->remove_program(objname).  The call is done with rlimits -1; -1 and
+   errors will be caught and ignored.
+ - Removed driver->path_object() and driver->compile_object().
+ - Added kfun compile_object(name): compile the named object, which must not
+   already exist.
+ - clone_object() now takes a (master) object as an argument.
+ - find_object() no longer calls driver->path_object() to translate a path.
+ - call_other() now calls driver->call_object() to translate a string to an
+   object.
+ - Added list of precompiled objects to status().
+ - Increased the number of different sized large free chunks the static memory
+   manager can handle.
+ - In connect.c, calls to accept() will now only be done if the controlling
+   socket was marked for reading by select().
+ - The object free list wasn't properly maintained anymore.
+ - A cloned object erroneously didn't have its creator function called right
+   away.
+ - Replaced driver->path_inherit() by driver->inherit_program(), which must
+   return an object (which may be compiled inside the function).
+ - driver->inherit_program() was accidentally called when implicitly inheriting
+   the auto object, too.
+ - Added '^' to filename pattern matching (as in csh).
+ - Fixed a problem with precompiling objects that inherited the auto object.
+ - When restoring from a state dump, callouts in objects no longer need to
+   be patched.
+ - Added precompiled objects to the dumpfile (though nothing is done with them
+   yet on restore).
+ - 1.1 DUMPFILE FORMAT REACHED.  Up to the next major release, version 1.1,
+   the dumpfile format will not change.
+ - Made ticks a more reasonable measure.  In many cases it just reflects what
+   I think something should take -- or what I want to make expensive.
+   Currently, the editor still takes no ticks.
+ - The object table wasn't properly prepared before including it in a state
+   dump.
+ - catch { stmts } is now allowed as a statement.
+ - Fixed some bugs in the new catch code.
+ - Fixed a long-standing but never before discovered problem with destructed
+   objects as mapping indices.
+ - The driver object can inherit the auto object again, and the auto object
+   can use the rlimits statement without limitations.
+ - If an error is caught internally, the proper error handler is called again.
+ - Ported DGD to Windows 95/NT.  Left to do: starting by double-clicking a
+   config file, program icons.
+ - Disallowed #include from the config file, which would cause a crash.
+ - Precompiler brought up to date with latest change in error handling.
+ - Send IAC GA to all users with a prompt, not just the current user.
+ - Swapping in an object with more than 127 inherits might result in a crash.
+ - Precompiling still didn't work for objects with more than one level of
+   inheritance.
+ - Error recovery was incomplete in case of an error in sscanf() or in
+   user->close().
+ - Win32 version can now be started by double-clicking the config file.
+ - Fixed a nasty error context bug.
+ - Fixed a rare bug in string swapping.
+ - user->close() now takes an integer argument, 1 if the connection is closed
+   from the mudlib, 0 if it's due to linkdeath.
+ - Made statedumps more efficient.
+ - The static chunk size can now be 0, which has the effect of never causing
+   an automatic swapout, at the cost of more memory fragmentation.
+ - Made sure ctime() works, even if the host implementation cannot handle
+   "negative" times.
+ - Fixed a problem in the new statedump code, which might occur with frequent
+   statedumps.
+ - The priority queue for to be swapped-out objects now works better.
+ - Merged in Mac compatibility fixes.
+ - Discontinued support for MINIX_68K and ATARI_ST.
+ - Fixed a bug in inherited function calls with very large function tables.
+ - Fixed a bug which could result in connections being closed immediately,
+   often occurring if connections were being opened and closed at a rapid
+   rate.
+ - Process termination is now done through driver->interrupt().  This
+   function must exist and should minimally consist of
+
+    void interrupt() { shutdown(); }
+
+ - Fixed a problem with %% in a sscanf format string.
+ - Fixed a potential crash if the stack array created in call_trace() was
+   too big.
+ - call_other(obj, "foo\0bar") could be used to call the function foo.
+ - Binary connections now have output buffering in the user object, instead
+   of a 64K static buffer.  User objects that are buffering will not
+   normally be swapped out.  The input buffer size for a binary connection
+   has been increased to 8K.
+ - Made often-used objects less likely to be swapped out during a lull in
+   activity.
+ - With global typechecking, a function without declared type has type void.
+ - Fixed some bugs in new output buffer handling.
+ - During precompilation, inherit paths without a leading slash are now
+   considered to be relative to the current directory, rather than absolute.
+ - C code generated for >>= and <<= operators made more portable.
+ - Disambiguated results of division and remainder operations.
+ - No more core dumps for errors in the configuration phase.
+ - PC version: don't exit program immediately on a configuration error when
+   started without an argument.
+ - Fixed a problem in precompiled code generated for catch { }.
+ - Catch { code; } is now optionally followed by : { caught; }.
+ - Functions without declared type were accidentally untypechecked, even with
+   global typechecking enabled.
+ - Made hashtables faster in some cases.
+ - PC version: don't ask for confirmation if the program is stopped from the
+   outside and was started with an argument, making it easier to run it as
+   a service on NT.
+ - Fixed a bug that made it possible to access files outside the mudlib
+   directory on Win32.
+ - Fixed a rare problem with arrays as mapping indices.
+ - If the time was set back during callout processing, it was possible for
+   the next callout never to be started.
+ - Fixed a bad memory fragmentation problem in case a block of memory was
+   allocated that was larger than the dynamic chunk.
+ - DUMPFILE FORMAT CHANGED AGAIN.  This unfortunately became necessary because
+   of missing information for dumped precompiled objects.  When the dumpfile
+   format stabilizes again, it will be marked in this file.
+ - restore_object() now does typechecking, if global typechecking is enabled.
+ - Faster code with global typechecking.
+ - Re-introduced keyword "atomic".
+ - Extended precompiled function index from 2 to 3 bytes.
+ - Accept binary connections more quickly.
+ - Optimize generated code a little further, particularly generated C code.
+ - Fixed possibly bad code generated for breaking out of a catch.
+ - Fixed a problem with ellipsis in calls to functions without prototype.
+ - Improved dead code removal.
+ - Tweaked the last tweaks in generated C code optimization.
+ - Bugfix in C code generated for ?:.
+ - Attempt to avoid Linux bug in socket writes.
+ - Generate better C code for calls to builtin kfuns.
+ - Generate summand operators in more cases.  Also fixed a crashing bug in
+   case all operands of a summand are 0.
+ - Fixed a compiler bug which sometimes rejected x..x case label ranges.
+ - Generate summand operators in even more cases, where array aggregates
+   are now also included.
+ - Added 2nd argument to driver->remove_program(), the compile time of the
+   object.
+ - Cleaned up comm.c a bit.
+ - Made sector independent of uindex.
+ - String constants are no longer shared between control block and dataspace
+   when swapped out.
+ - Objects can be recompiled before being destructed if they are not inherited.
+   This has the effect of upgrading the object and all clones to the new
+   program.  Variables with the same name and type (private and static don't
+   matter) are preserved in the upgraded object; all other variables are
+   initialized to 0.
+ - Brought dump_function() up to date.
+ - Fixed a nasty bug in the runtime support for precompiled code.
+ - Some fixes for the order of events in the main loop, and telnet buffer
+   flushing in comm.c.
+ - Several bugs fixed in the recompiling code.
+ - And some related ones.
+ - And some more.
+ - Array swapping and exporting made faster.
+ - When an object is destructed, remove callouts immediately from the callout
+   table.
+ - Dumpfiles from different platforms are now converted at boot time.
+ - Fixed a bug in restoring the swap header.
+ - Generate a trace.h include file for call_trace() on startup.
+ - Brought precompilation up to date with latest changes.
+ - General code cleanup.
+ - Fixed a nasty crasher in endthread() with the help of Sieni@Muhveli.
+ - Fixed a problem with destructed objects as mapping indices.
+ - Optimized communications handling and get_dir().
+ - Fixed memory leak in generated C code.
+ - Made the maximum string size the same on all hosts and removed
+   MAX_ARRAY_SIZE and MAX_MAPPING_SIZE from limits.h (status()[ST_ARRAYSIZE]
+   should be used).
+ - If select() is interrupted, make sure that all socket read flags are zero.
+ - DUMPFILE FORMAT STABLE AGAIN, and it had better not change before 1.1...
+ - Added 3rd argument to runtime_error(), ticks left, and removed ST_ASTACKDEPTH
+   and ST_ATICKS.
+ - Patterns in get_dir() accidentally matched almost anything.
+ - Several mapping problems fixed.
+ - Added kfun previous_program().
+ - The start time was not restored properly.
+ - Made callouts more accurate when time() is used for timing, at the cost of
+   an extra system call for each new callout.
+ - Fixed a bug in restoring a sector map that didn't fit in one sector.
+ - Fixed an ancient bug in #if expressions.
+ - Can't use \0 in kfun file name argument anymore.
+ - Let status(obj) give updated information about objects recompiled during the
+   current thread.
+ - Make more of an effort to buffer telnet output if all of it could not be
+   sent right away, making sure that no telnet escape sequences are sent only
+   partially.
+ - Fixed a bug occurring when objects are upgraded and destructed in the
+   same thread.
+ - __FILE__ did not include a leading /.
+ - Some other upgrade-related bugs fixed.
+ - Fixed bug which would occur with foo() { return catch("bar"); }
+ - Setting a variable didn't work in the editor.
+ - Initial Mac port completed.
+ - Split up comm initialization in two parts, one for general initialization
+   and one to start listening on the ports.
+ - Fixed a bad bug in the code generated for a return out of a catch { }.
+   Unfortunately, the fix affects the code generated for all catches, making
+   older state dump files INCOMPATIBLE.  It is possible to convert an old
+   dumpfile if all objects in it are upgraded, and if the objects that perform
+   the upgrade have no catch or are precompiled.
+ - return val; was typechecked only at compile time, not at runtime.
+ - Fixed some bugs in the Mac port.
+ - Make sure all connections are closed as soon as it is known that the
+   system is shutting down, instead of waiting until after a state dump.
+ - Fixed a loss-of-variable bug in upgrading while restoring state.
+ - Enabled edit menu in Mac port.
+ - Precompiled objects now replace existing objects silently, rather than
+   causing an upgrade.  The object replaced must have the same inherit,
+   string, function definition, variable definition and function call tables.
+   NOTE: the dumpfile format was slightly changed, but state dumps that do
+   not contain precompiled objects are unaffected.
+ - Added a new status(obj) field, the "index" of the master object (the
+   object itself unless it's a clone).  This is a unique ID, and will help
+   distinguishing different issues of the same object, and linking clones
+   to a particular issue.
+ - Added third argument to driver->remove_program(), the "index" of the
+   object.
+ - Made DGD compile on SunOS 5.5, too.
+ - Fixed a bug in precompiled code generated for sscanf().
+ - Fixed a stack depth miscalculation bug in the optimizer.
+ - Removed >= 1024 limitation on telnet_port (makes no sense on non-unix
+   machines).
+ - Error messages in restore_object() were accidentally too terse.
+ - Improved some other error messages.
+ - Using more than 7 indirection stars now results in an error.
+ - Optimize `1 && a' and `0 || a' to `!!a', rather than `a'.
+ - Fixed a bug in upgrading an old clone after doing a recompile on the object
+   earlier in the same thread.
+ - Corrected some floating point rounding errors.
+ - The return value of a redirectable function was not properly checked in
+   a call from an untypechecked function.
+ - Added mapping subranges.
+ - Made dealing with destructed objects in arrays and mappings faster.
+ - Prevent the compiler from attempting to compile foo.c directories.
+ - Fixed a bug in multi-phase upgrading of an old clone.
+ - Perform swapout, state dump and shutdown immediately upon completion of
+   the thread in which they are initiated.
+ - Worked around the latest Visual C++ bugs.
+ - Changed the meaning of O_DATASIZE in status(obj): this now returns the
+   number of variables, rather than the assumed amount of space they take.
+ - Deal with the auto object possibly being upgraded while inherited.
+ - Fixed a <very> rare bug that might occur when objects are used as mapping
+   indices.
+ - Made map_sizeof() a cheaper operation.
+ - PC version: enabled the edit menu.
+
+ DGD 1.2
+
+ - Added swapfile compression.
+ - Fixed a stack depth miscalculation bug.
+ - Generate recognizable function names for precompiled functions.
+ - Speeded up a few functions highlighted by gprof.
+ - Removed some old compatibility code from the editor.
+ - Increased max string length in status() to 65535.
+ - Increased max editor output string length to 65535.
+ - Made DGD restartable.
+ - Fixed a line range bug in editor global commands.
+ - Fixed a bug/typo in object upgrading.
+ - Fixed a bug in exporting mappings.
+ - Made compression a bit faster.
+ - Fixed the exporting bug fix.
+ - Use SO_OOBINLINE on sockets if the host supports it.
+ - Clear update field in all objects after a restore.
+ - Compensated for a bug in ctime() on some unices.
+ - Removed many references to global variables.
+ - Removed some code from the upgrading procedure that was unreachable.
+ - Improved Mac edit menu.
+ - Avoid swapping in needlessly while writing partial sectors.
+ - Zero unused sector parts to make swapfiles more compressible.
+ - Sped up sector allocation and removal, and fixed a bug introduced in the
+   partial sector write patch.
+ - The wrong stack depth was passed on to driver->runtime_error() if the
+   the server used an internal catch.
+ - Added a new kfun, block_input().
+ - Fixed a leftover bug in the swapping changes that made reclaiming of freed
+   sectors unlikely, and a crash possible just after a successful state dump
+   had been made.
+ - Read_file() was returning 0 in an error situation, and also when it
+   should return "".
+ - Fixed a memory leak introduced in the global variable rewrite.
+ - Made editor code reentrant.
+ - Callouts with a delay of 0 seconds are now executed as soon as possible.
+ - Sort callouts in status(obj) by handle rather than by delay, as no actual
+   calling order for same-delay callouts can be guaranteed.
+ - Deal more efficiently with blocked connections.  Also don't close a
+   connection while there is still input to process.
+ - Optimize indexing the value returned by kernel functions: status()[i],
+   status(obj)[i], call_trace()[i].
+ - The value of integer arguments in precompiled functions would not always
+   be given correctly in call_trace().
+ - String range problems at compile time now result in a proper compile-time
+   error again.
+ - Make a = ({ "asd" }); a[0][1] |= 7; work correctly again.
+ - Fixed a severe bug in the code generator that could, under some
+   circumstances, lead to else statements also being executed when only
+   the if statement should have been.
+ - Fixed a bad bug in global float variable initialisation, reported by
+   Azhrarn@Flat Earth.
+ - In case of an error during inheritance, the name of the relevant object
+   was not properly saved.
+ - Compensate for the latest (post 5.0) Visual C++ problem.
+ - Partial parse_string implementation.  Currently only does lexical scanning,
+   and returns an array of tokens.  Only Unix makefiles have been adjusted yet.
+ - Fixed some Mac compilation problems for various compilers.
+ - Replaced some FREE,ALLOC pairs with REALLOC.
+ - Completed parse_string implementation on all platforms.
+ - Fixed a bug that prevented any restore from dump file.
+ - Fixed a bug in REALLOC.
+ - And some more.
+ - Fixed two (crashing) bugs in parse_string.
+ - And a third.
+ - New kfuns: query_ip_name(), send_datagram() (at present for Unix only).
+ - DGD ported to BeOS.
+ - Fixed a crashing bug in alternative parse tree handling.
+ - Get the precompiler to compile again (after the last kfun additions).
+ - Fixed a bug in parse_string() that prevented proper compression of the
+   shift/reduce parser, and could also lead to strings being erroneously
+   rejected.
+ - Let status() report the proper program size, even if the object is swapped
+   out and compressed.
+ - Increased max number of function parameters + local variables to 255.
+ - Fixed a stack depth miscalculation bug for untypechecked code.
+ - Generate a proper compile-time error if a string constant is indexed by
+   an integer that is out of range.
+ - Allow datagrams of length 0.
+ - Ported query_ip_name() and send_datagram() to Mac and Win32.
+ - Improved tick counting and check for overflows in parse_string().
+ - Max number of function parameters + local variables reduced to 127, the
+   interpreter cannot actually handle more than that many.
+ - Removed static variables from all over.  Only the unix versions will
+   compile at present.
+ - Code cleanup made assignments slightly faster, at the cost of somewhat slower
+   swapping.
+ - Fixed a bug that could cause wrong assignments to indexed arrays in sscanf().
+ - Avoided the nasty gethostbyname() problem on Windows 95.
+ - Fixed a compiler typechecking bug for (mixed - array).
+ - Fixed a crashing bug that occurs when an object has more callouts than
+   the maximum array size.
+ - Fixed a spurious inherited function clash in multiple inheritance.
+ - Added private inheritance.
+ - Avoided the use of gethostbyname() on BeOS for similar reasons as on Win95.
+ - Non-unix versions compile again.
+ - Fixed a float testing bug in precompiled code.
+ - Fixed a bug in array exporting, introduced in the last assignment/swapping
+   rewrite.
+ - Fixed the bug in the fix.
+ - Added the constant `nil'.  If typechecking is 0 or 1 (in the config file),
+   nil has the value 0.  If typechecking has the value 2, nil is distinct from
+   integer zero.
+   String, object, array and mapping variables are initialized to nil.  Using
+   call_other() to call a non-existant function returns nil.  Variables holding
+   an object become nil after the object has been destructed.  Indexing a
+   mapping with a non-existant index results in nil, and nil must be assigned
+   to delete an index:value pair; assigning 0 has the same effect only when
+   0 and nil are the same.
+ - allocate() now allocates an array of nil values.  New kfuns allocate_int()
+   and allocate_float() explicitly allocate arrays of those respective values.
+ - In a further bit of type matching cleanup, integer 0 and floating point 0.0
+   no longer test as equal.
+ - Merged T_NIL with T_INVALID internally.
+ - It is now possible to use varargs in a parameter list to specify that only
+   the following parameters are optional:
+
+	void foo(int a, varargs string b, object c)
+	{
+	}
+
+   In typechecking mode 2, this is the only way that varargs can be used.  It
+   is an error to call a function with too many or too few arguments, even when
+   using call_other() (typechecking mode 2 only).
+   Varargs is implied for the last parameter when using ellipsis, and need no
+   longer be specified explicitly.
+ - Changed over kfuns to the new varargs system.
+ - Removed some kfun argument count checks that have become superfluous.
+ - New variables in upgraded objects were initialized with integer 0 rather
+   than nil.
+ - Let send_message() and message_done() behave in the same way for telnet and
+   binary connections.  send_message() now never returns -1.
+ - Allow callouts with millisecond delays (floating point delay argument).
+ - Process a for loop in the same order in codegenc.c as in codegeni.c (body
+   first, then condition), to ensure that tables are generated in the same
+   order by both.
+ - Math functions implemented.
+ - New kfun millitime (was added before, but not mentioned in the log).
+ - Made behaviour of << and >> uniform on all platforms: no negative shift
+   allowed, shifts >= 32 make the result 0.
+ - Check that a switch doesn't contain more than 32767 cases, and a function
+   doesn't need more than 32767 values on the stack.
+ - Put automatic object swapping, accidentally left out in the callout rewrite,
+   back in.  NOTE: one out of every swap_fragment objects is now swapped out
+   at the end of each thread, rather than each second.  This means that to get
+   the same memory usage, the swap_fragment parameter should get a
+   considerably larger value.
+ - Simplified the automatic object swapping; too much was happening at the
+   end of each thread, especially with many objects in memory.
+ - Show which function is actually being called with too many or too few
+   arguments.
+ - Fixed a bug which could mess up the callout table when making a state dump.
+ - Fixed a bug in the configuration phase which mysteriously escaped notice
+   until now.
+ - Guard against too deep recursion in the editor.
+ - When upgrading, don't wipe out variables that change type to mixed.
+ - Make extra-sure that sockets under Windows and BeOS are non-blocking.
+ - Fix a bug in calling LPC code from the string parser.
+ - parse_string() traversed alternatives even when it didn't have to.
+ - String case labels with embedded NUL characters were not compared properly.
+ - Fixed a tricky bug in swapping out mappings with object indices that have
+   been destructed and replaced by a new version with the same object index,
+   that had eluded me for a long time.
+ - Return value of remove_call_out() was incorrect if callout didn't exist or
+   had millisecond delay.
+ - Slightly better indexing of mapping with string.
+ - Removed recursion limit on catch and rlimits.
+ - Fixed a file descriptor leak in P_readdir() for Windows.
+ - Fixed a crash in the first uncaught error.  Whoops.
+ - Last batch of changes before atomic.
+ - There is no need to use static, nomask or atomic in prototypes anymore.
+   However, if any of these are specified, they must also be present in the
+   actual function declaration.
+ - Partial implementation of atomic functions.
+ - Forbid file changes in atomically executed code.
+ - Fixed a slew of bugs in atomic functions.
+ - In case of an error in atomic code, call driver->atomic_error() with the
+   full stack trace.  Everything will be undone later, except for all use of
+   send_message() by the driver object.
+ - ctime() didn't give the proper weekday for times > 0x7fffffff.
+ - If there is no more input on a connection, make sure there is no pending
+   output before closing it.
+ - Temporarily disable compile_object(), clone_object(), destruct_object(),
+   call_out() and remove_call_out() from within atomic code, making atomic safe
+   to use.
+ - Connections with pending output that failed in a write would never get
+   closed.
+ - Newly added mixed variables would get the value of the old variable in the
+   same slot during upgrading.
+ - Adjust precompiler to latest changes in callout interface.
+ - Get DGD on BeOS to compile again.
+ - Fix a bug in name lookup which could hang the server.
+ - Use a Windows font that displays properly on foreign language systems.
+ - Only commit changes to a previous plane if there <is> a previous plane.
+ - Fixed a bug in atomic code when swapout is involved.
+ - The editor now shows characters in range 0x80 - 0x9f normally.
+ - Fixed some more bugs in the name lookup code.
+ - Encapsulate creation of values with macros, making it easier to extend the
+   value struct.
+ - String constants for string switches were generated in the wrong order.
+ - Completed callout undo (atomic functions).
+ - Fixed a reference counting bug in callout undo.
+ - Replaced many direct object references with indirect ones.
+ - Fixed yet another bug in the name lookup code.
+ - Fixed a old and very rare bug in mapping addition.
+ - New kfuns hash_crc16(), hash_md5().
+ - Fix a recently-introduced bug in clone upgrading.
+ - Fix a bug in callouts with more than 3 extra arguments, introduced with
+   callout undo.
+ - Fixed a bug in compiling an object that redefined a privately inherited
+   function.
+ - Prevent a crash when space for the restoring of a huge save file cannot be
+   allocated on the stack.
+ - Fixed two more bugs in atomic commit code.
+ - Allow the internal state machines for parse_string() to become larger than
+   before.
+ - Fixed the Windows quit/interrupt bug.
+ - Fixed a bug that was introduced into parse_string().
+ - Undid an overeager optimization in parse_string().
+ - Fixed a string accounting bug in atomic code.
+ - Fixed several hard-to-trigger bugs in object upgrading.
+ - Fixed another private inheritance bug.
+ - Completed object undo (atomic functions).
+   WARNING: before starting to use 1.1.97 with a statedump from a previous
+   version, make sure there are no un-upgraded clones left in the statedump.
+   This can be done by rebooting an additional time with the previous driver
+   version, and immediately shutting down again with a statedump.
+ - Fixed an object undo bug.
+ - Completed comm undo -- and the implementation of atomic functions.
+ - Fixed a bug in users().
+ - Made the type of a variable that holds the number of simultaneous users
+   configurable.
+ - Let the DNS thread be started only once, even for several driver process
+   runs.
+ - Fixed some more comm bugs.
+ - Fixed a bug that could lead to random stack overflow errors.
+ - Made room for another type of special object.
+ - Made maximum sizes of strings more configurable.
+ - Allow any string as an argument to error().
+ - Fixed some leftover short string holdouts.
+ - Got precompiling to work again; add global variable and function names to
+   generated C output.
+ - Make sure the error context is cleared at the proper time.
+ - Fixed another object undo bug.
+ - Completed the string accounting bug fix; the earlier fix was only partial.
+ - Fixed the above for the case of multi-level atomic calls.
+ - Fixed a restore-time bug involving upgraded objects.
+ - Fixed a bug in removing dataspaces.
+ - Allow only one simultaneous new editor instance per thread.
+ - Fixed a bug where a connection would hang if there was pending output while
+   the connection was lost.
+ - Remove the swapfile before creating it, to make sure that two drivers
+   attempting to use the same swapfile won't mess it up for both of them.
+ - Fixed yet another object undo bug.
+ - Undid some telnet input processing modifications, since any change in this
+   code will only further confuse client programs.
+ - Fixed a bug in atomic commit for exported arrays.
+ - Fixed a bug in restoring a parser state machine.
+ - Fixed a reference counting problem in the atomic array code.
+ - Fixed a bug which could cause an infinite loop in flushing socket output.
+ - The arguments of callouts were not properly committed to the base plane.
+ - Removed some global variable dependencies from swapping and exporting.
+ - Make sure that there is room for a new object when compiling.
+ - Callouts were not properly committed to planes above the base plane, either.
+ - Made the number of swap sectors to be reconstructed in the main loop
+   configurable.
+ - Exported arrays could be committed to the wrong plane.
+ - Inheritance of objects that inherit destructed objects was not always
+   checked at the right time.
+ - Make sure that a disconnected socket with pending output is closed.
+ - Fixed an object undo bug that could happen if an object was created and
+   destructed on the same discarded plane.
+ - Fixed a minor memory leak in comm.c.
+ - Runtime_error() would erroneously not be called on an error during mudlib
+   initialization.
+ - Got the precompiler to work again.
+ - Got the editor to work properly on MacOS and Windows.
+ - Changed some fatal errors into configuration errors.
+ - Do not allow a restart after a fatal error.
+ - Removed support for stand-alone compilations of editor and lexical scanner.
+ - Implemented DGD runtime extension interface.
+ - Fixed another tricky bug that could commit arrays to the wrong plane.
+ - Even trickier than I thought.
+ - Make sure the return value of an atomic function is on the proper plane.
+ - Better fix for the above.
+ - Rebuild the swapfile slowly, even if there is no socket and/or callout
+   activity.
+ - Fixed the quit/interrupt problem on BeOS.
+ - Finally fixed the DST time-jumping problem on Windows.
+ - Get the Mac version to compile with OLDROUTINENAMES=0.
+ - Some more Mac fixes.
+ - If an IP name query for an IP number failed once, it would erroneously not
+   be re-requested as long as it was still in the cache.
+ - Start with fixed window size on Windows.
+ - Fixed a bug in committing plane n, and then discarding plane n-1.
+ - Fixed a memory leak in committing a mapping that has been reduced in size.
+ - Fixed the comm code, which erroneously assumed that nothing new would be
+   sent on a connection after the connection object was destructed.
+
+DGD 1.3
+
+ - Destructed objects in arrays were not always dealt with properly after the
+   introduction of atomic functions.
+ - Replacing interpreted objects with precompiled ones at restore time failed
+   to work properly.
+ - remove_call_out() would not always return the correct remaining time.
+ - Destructing and then recompiling an object within the same thread could lead
+   to trouble.
+ - Return the correct time in the per-object list of callouts, also.
+ - Fixed a typo in dgd_ext.h.
+ - Forked off sdata.c from data.c.
+ - Fixed a hanging-connection bug in comm.c.
+ - Fixed another typo in dgd_ext.h, in the same macro.
+ - Don't allow "..." as a path component in Windows.
+ - Removed more global variables.
+ - Fixed a bug in recompiling an object that indirectly inherits a privately
+   inherited other object.
+ - Fixed a find_object() bug in atomic code.
+ - Fixed a bug that caused swap sectors to be freed at the wrong moment during
+   a restore.
+ - Inheriting an object both privately and non-privately could prevent
+   functions from being found.
+ - Under some circumstances, the call to message_done() would be delayed until
+   the next callout, or until more user input was received.
+ - Unix: make sure that a debugger won't interfere with the name lookup process.
+ - Fixed a crashing bug in the compiler for a switch that contains only a
+   default label.
+ - Arrays saved with save_object() should save object values as nil, not 0.
+ - Fixed the too-many-callouts check, which has been completely wrong since the
+   introduction of atomic functions.
+ - Fixed some more bugs in callouts, such as a possible crash when removing a
+   callout with millisecond delay.
+ - Fixed a tricky left-over version of the aforementioned bug.
+ - Fixed the above fix.
+ - Show a proper errormessage if precompiling fails.
+ - Made a minor change to the code optimizer, in preparation for light-weight
+   objects.
+ - Partial implementation of light-weight objects.
+ - More helpful errormessages when casting a string to float or int fails.
+ - %f in a sscanf format strimg would match the empty string.
+ - Fixed a bug in the pow() function.
+ - Using new_object() on a light-weight object will now return a copy.
+ - Lightweight objects can now be upgraded.
+ - DGD now has fully automatic garbage collection.  swapout() can still be
+   used to reduce memory usage after a peak, or to track down memory leaks.
+ - Fixed a bug in calculating line numbers in a stack trace.
+ - Fixed a stack depth miscalculation bug for subranges.
+ - Fixed some bugs in the extension interface.
+ - Fixed a bug in array list maintenance.
+ - Fixed a precompiled object restoring bug.
+ - Added light-weight objects to the extension interface, and fixed some bugs.
+ - Fixed a minor bug in restoring the parser state machine.
+ - The wrong data was used for save_object() and restore_object() in
+   lightweight objects.
+ - Upgrading a lightweight object went wrong if the number of variables was
+   increased or reduced.
+ - Added an optional second argument to compile_object(), a string to compile
+   the object from.
+ - The error message for using a negative delay in a callout was wrong.
+ - Whitespace in a grammar is now given precedence based on its position in
+   that grammar.  Previously, it always behaved as if it was the first token
+   rule defined.
+ - Grammars may now contain a "nomatch" token rule.
+ - The editor could erroneously allocate dynamic instead of static memory.
+ - Static creator functions were not called in clones or light-weight objects.
+ - Removed even more global variables.
+ - And yet more.
+ - Fixed a spurious pause that would occur if the first callout started after a
+   cold boot had a delay of 0.
+ - Fixed a memory leak for when an error occurred during configuration.
+ - Fixed a problem with repeatedly adding and removing callouts in atomically
+   executed code.
+ - Reversed most of the changes of 1.2.33 and 1.2.34, which are going to be
+   part of a different product line.
+ - Garbage collection made less aggressive.
+ - Fixed several bugs in error handling.
+ - A better fix for errors in atomic code, in combination with multi-level
+   catches.
+ - Fixed a bug in upgrading light-weight objects.
+ - DGD can now listen on multiple ports (currently Unix and Windows only).
+ - Fixed a config file reading bug that could occur if the server was restarted.
+ - Add arrays of telnet ports and binary ports to status().
+ - Include the server name with the version number.
+ - Fixed a bug in saving/restoring variables in an object that privately
+   inherited another.
+ - Prevent code from being erroneously optimized away in rare cases.
+ - Fixed a bug in copying light-weight objects.
+ - Fixed a memory leak in upgrading light-weight objects.
+ - Preserve the right values on the stack when new_object() is called.
+ - Fixed a memory leak when the master object of a light-weight object is
+   destructed.
+ - Avoid recursion when deleting a deep tree of arrays/mappings/LWOs.
+ - Avoid recursion while saving to swap, also.
+ - Fixed a bug in handling some regular expressions.
+ - Measure ticks differently in parse_string(), taking the innermost loop into
+   account.
+ - Fixed several bugs which could, in rare cases, cause nil to turn up in
+   mappings that had been accessed from atomically executed code.
+ - Fixed a bug in error recovery for compiling switch statements.
+ - Fixed a bug that could occur when upgrading an interpreted object to
+   precompiled.
+ - Floating point multiplication is now a little faster.
+ - Implemented hash_crc32(), hash_sha1(), asn_add(), asn_sub(), asn_mult(),
+   asn_div() and asn_mod().
+ - Fixed some bugs, and implemented asn_cmp().
+ - Fixed more bugs, and implemented asn_pow().
+ - Fixed an annoying bug in multiplication.
+ - Implemented asn_lshift(), asn_rshift(), asn_and(), asn_or() and asn_xor().
+ - Implemented tick accounting for ASN functions.
+ - Implemented encrypt() and decrypt().
+ - Fixed a bug with catch and atomic in precompiled code.
+ - Fixed a recursion problem for an error in runtime_error().
+ - Dumpfile format slightly changed; old dumpfiles are converted automatically.
+ - Better fix for the callout pause problem.
+ - Even mappings without modifications can now have a hashtable; some bugs
+   fixed for deleting mapping elements in atomic code.
+ - Fixed a bug in the above.
+ - And another one.
+ - ... and yet another.
+ - And (ugh) another.
+ - And the (hopefully) last one.
+ - Allow allocation of blocks up to 1G in size.
+ - Allow more than array_size callouts per object, for compatibility with
+   DGD/MP.
+ - Fixed a bug that could cause a crash during the atomic commit phase.
+ - Added a version string to the start of the state dump.
+ - New config file parameter: dump_interval, the expected time between two
+   statedumps.  Rebuilding the swapfile is paced to this interval.
+ - New kfun: call_touch().
+ - call_touch() now also works on light-weight objects.
+ - Light-weight objects restored from the state dump were not converted
+   properly, causing spurious driver::touch() calls.
+ - Fixed a bug in object upgrading, introduced with call_touch().
+ - New kfun: datagram_challenge(), which replaces the return-TRUE-from-open()
+   way of enabling datagram channels.  Multiple datagrams are now buffered per
+   channel.
+ - Config file change.  ({ 6047, 6048 }) for ports changed to a mapping in
+   which the address must also be specified: ([ "*":6047, "localhost":6048 ])
+ - While restoring a callout, not all appropriate fields were zeroed.
+ - Don't look for further connections when no new ones can be accepted.
+ - Prepare the name lookup thread for running again after exiting (Windows).
+ - A few more fixes to get restarting (not just on Windows) to work.
+ - Two callouts started during the same thread will now always be executed in
+   the proper order if the first has a delay N (milli)seconds larger than the
+   second, even if DGD is delayed for more than N (milli)seconds between the
+   first and the second callout (DGD/MP compatibility).
+ - Make sure that a callout handle is not truncated to 16 bits before an
+   attempt is made to remove it.
+ - Include system files before DGD files on Windows.
+ - Rather than causing an error, let the callout and precompiled object lists
+   returned by status() be nil if they would not fit in an array.
+ - The swapout callback function in the DGD extension interface is no longer
+   used.
+ - Call_touch() didn't work very well in atomic code.
+ - Moved the O_PENDIO flag into the user struct as CF_OUTPUT.
+ - O_LWOBJ is now a proper object flag.
+ - Made sure that destructing the driver object in atomic code does not lead
+   to trouble.
+ - Fixed a problem with driver->recompile() in multi-level atomic code.
+ - Input blocking didn't work properly as of the previous release, and input
+   blocking for binary connections never worked at all.
+ - Properly keep track of light-weight objects (bug introduced in last LWO
+   change).
+ - Fixed various bugs in asn_* kfuns and made the bit string functions more
+   easily usable.
+ - Added IPv6 support for unix.
+ - Got namelookup to work properly again on Windows and BeOS.
+ - IPv6 now works on Windows (XP SP1 and later).
+ - Get DGD to work on Windows machines that don't have IPv6, too.
+ - Changed default platform to DARWIN.
+ - Fixed a bug in fmod(), and changed the behaviour for integer modulus with
+   a negative second argument (the sign is now ignored).
+ - Regular expressions now work properly in a grammar string larger than 64K.
+ - Fixed 2 bugs in the code optimizer.
+ - The error "Non-numeric value in indexed string assignment" occurred in an
+   inconsistent state.
+ - Implemented object types: object "/path/to/obj" obj;
+ - Implemented <- as an instanceof operator: obj <- "/path/to/obj"
+   The second argument must be a string constant.  -> and <- have the same
+   priority.
+ - Check parameters with the called, not the calling, frame.
+ - Fixed a string reference problem during compilation.
+ - Disallow (int) " 123", but allow sscanf(" 123", "%f", f), making both
+   operations consistent for int and float.
+ - Fixed a problem in object type function argument checking that could lead
+   to a crash.
+ - And another one in a similar situation.
+ - Fixed a compile-time check for the number of arguments, wrong since the
+   introduction of object types.
+ - Don't disconnect if destructing a connection object is prevented by an error
+   in close().
+ - Perform inheritance checks only for objects compiled in
+   driver->inherit_program() itself, not in functions called therefrom.
+ - On Windows, random(n) would never be > 32767.
+ - Make swapout(), dump_state() and shutdown() local to the atomic context.
+ - Get the precompiler to work again.
+ - Fixed a prototype conversion bug in the extension interface.
+ - Fixed a bug in comparing function prototypes that include object types.
+ - Forbid having undefined private functions.
+ - Add a list of undefined functions to status(obj).
+ - the program name in the undefined functions mapping was missing a leading
+   slash.
+ - Introduced hash_string() as a replacement for crypt(), hash_md5() and
+   hash_sha1().
+ - Reverse the key & message arguments for encrypt() and decrypt(), to make
+   it easier to extend those functions in the future.
+ - Fixed a bug in the undefined function code introduced when backported from
+   DGD/MP.
+ - Fixed a code optimizer bug.
+ - Do not force structure alignment through a #define, but handle it
+   automatically.
+ - Let the ordinary errorhandler deal with errors in remove_program().
+ - Fixed a bug in the listing of undefined private functions.
+ - Fixed a bug that could lead to trouble when an object was destructed and
+   recreated immediately after a restore from statedump.
+ - Fixed a serious bug in errorhandling when accepting a new connection.
+ - find_object("/too/long/name") no longer causes an error, but returns nil.
+ - Various reference count issues corrected for light-weight objects.
+ - Properly restore object types from a statedump.
+ - Include private inheritance information in precompiled objects.
+ - Fixed some refcount problems.
+ - Let parse_string() call LPC functions in left-to-right order.
+ - Check parser-constructed arrays for imports.
+ - Speed up the exporting process a little.
+ - Finally tracked down a very old bug in array importing that could lead to
+   memory corruption.
+ - Only seek on files when needed.
+ - The sector size may now be decreased as well as increased.
+ - Line numbers were incorrect when object types were involved.
+ - Handle 64 bit time_t.
+ - Have an error occur for a bad offset in read_file/write_file.
+ - Allow a static function in the auto object to be masked by a prototype
+   declaration.
+ - Fixed a case where the callout timestamp was not updated properly.
+ - Fixed a case where code was incorrectly optimized away.
+ - Fixed a bug which could cause a crash if status(obj) was used on an object
+   immediately after recompiling it.
+ - Prevent a system time fluke from making the uptime negative.
+ - Disallow a dynamic_chunk size of 0.
+ - Various problems in the extension interface and documentation fixed.
+ - Allow multiple source arguments for compile_object(), to get around the
+   maximum string length limitation.  The object will be compiled from the
+   concatenated source strings.
+ - Improved errorhandling in the extension interface.
+ - In the driver object, replace path_include() by include_file(), which can
+   return either a path or an array of strings for the include file itself.
+ - Prevent a spurious "Mapping too large to grow" error.
+ - Initialize variables which may be used before set each time they come into
+   scope.
+ - Handle atomic status properly in precompiled code with a catch.
+ - Update the statedump format for svalues.
+ - Removed some MP changes that have no purpose here.
+ - Variables from newly inherited objects were not handled properly
+   during upgrades.
+ - Fixed a bug in object type handling in ?:.
+ - Forbid running a precompiled object with a different typechecking level than
+   it was compiled with.
+ - Fixed an editor path bug inadvertedly introduced a few patches ago.
+ - Allow multiple add-on packages to register their extra kfuns.
+ - Fixed a swapping bug that occurred with small cache sizes.
+ - Fixed a bug in restoring objects with class variables.
+ - The limit of 60 seconds delay for millisecond callouts has been removed.
+ - Instead of immediately copying the entire state dump when restoring, rebuild
+   the swap file gradually.  This allows for fast rebooting.
+ - Fixed another class variable retrieval bug, introduced in the previous
+   patch.
+ - Get swap_fragment = 0 to work.
+ - Fixed a bug in creating multiple statedumps in rapid succession.
+ - Fixed another swap_fragment = 0 bug.
+ - Don't hang in an infinite loop when a datagram challenge is met with an
+   improper response.
+ - Fixed a bug in initialized variable handling.
+ - Fixed another such bug, in the precompiler.
+ - Properly deal with just-destructed objects after a statedump.
+ - Don't report objects being swapped out with swap_fragment = 0.
+ - Fixed a bug with restoring interpreted objects that are precompiled in the
+   driver.
+ - Avoid spurious memory fragmentation warnings.
+ - Some 64 bit issues fixed.
+ - Fix the datagram challenge bug for Windows and BeOS, too.
+ - Fixed a bug that caused the swapfile to be rebuilt much too quickly after
+   a statedump.
+ - Fixed a bug in upgrading directly after a statedump.
+ - Limit the sector size to a 2 byte value.
+ - Fixed some compilation warnings under Sun Studio.
+ - More type information is saved in statedumps.
+ - Callout due time code rewritten.
+ - Get long-term integer callouts to work properly again.
+ - During an object upgrade, only change the update field if there are clones
+   and/or light-weight objects.
+ - Removed hash_md5() and hash_sha1() for newly compiled objects.  hash_string()
+   should be used instead.
+ - Allow unused kfuns to be reclaimed, using a debugger.
+ - Fix a problem with precompiled objects, when restoring interpreted versions.
+ - Automatically handle platforms with unsigned characters.
+ - Removed everything from the extension interface that won't be supported in
+   DGD/MP.
+ - Include a table of inherited variable types in the control block, for
+   faster object creation.
+ - With bugfix in the above.
+ - And another one.
+ - Fixed a crash which could occur after the creation of an object is rolled
+   back.
+ - Work around an IPv6 name lookup problem on Linux.
+ - Display IPv6 IP numbers properly.
+ - Bring non-unix platforms up to date.
+
+DGD 1.4
+
+ - The instanceof operator '<-' now returns -1 for private inheritance.
+ - Compress the table of inherited objects.
+ - Prevent inheritance table overflow.
+ - Properly restore unconverted control blocks from statedumps made by 1.3.2
+   or later.
+ - Handle more string constants in parse_string() grammars.
+ - Work around a cygwin compilation problem.
+ - Prevent a crash when attempting to read a too-large chunk from a file.
+ - Stop generating instructions I_PUSH_ZERO and I_PUSH_ONE, allowing them to
+   be recycled in the future.
+ - Kfuns now have a version number, to simplify upgrading.
+ - Allow ({ a, b }) = array; to facilitate returning multiple values from a
+   function.
+ - Generate the proper references to inherited global variables, which could
+   be wrong since 1.3.2.
+ - Removed support for platforms MacOS (pre-OSX) and BeOS.
+ - Remove character filtering for telnet connections.
+ - Code released under GNU AGPL.
