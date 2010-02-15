@@ -61,11 +61,13 @@ fi
 
 echo "BASEDIR="`pwd` >.basedir
 
-while [ -z "${MUDNAME}" ]; do
-  ask_mudname
-done
+if [ ! -f lib/kernel/include/mudname.h ]; then
+  while [ -z "${MUDNAME}" ]; do
+    ask_mudname
+  done
 
-echo "Using mudname: " ${MUDNAME}
+  echo "Using mudname: " ${MUDNAME}
+fi
 
 cat lib/kernel/include/mudname.h.default | sed -e "s/MUD_NAME  \"GurbaLib\"/MUD_NAME  \"${MUDNAME}\"/" -e "s/IMUD_NAME \"GurbaLib\"/IMUD_NAME \"${MUDNAME}\"/" >./tmpfile && mv tmpfile lib/kernel/include/mudname.h
 

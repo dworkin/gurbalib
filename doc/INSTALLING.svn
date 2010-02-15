@@ -38,6 +38,10 @@ Please check the doc/ directory for more information.
   - Use either net.dgd or mud.dgd depending on if you are
     using the network package, make sure to edit it to 
     point to the directory where your mud is installed.
+  - On DGD versions prior to 1.4 and not using the network package or the ansi
+    patches, edit lib/kernel/include/std.h and remove the
+    #define SYS_COLOR
+    line.
   
   You should now have everything you need and can start the mud
   with:

@@ -66,7 +66,7 @@ Driver upgrades:
   version of the driver.
 
   In the directory in which you installed Gurbalib, there is a subdirectory
-  src/
+  contrib/DGDsrc/
 
   cd to this directory and type:
 

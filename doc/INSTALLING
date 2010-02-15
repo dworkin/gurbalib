@@ -34,11 +34,11 @@ Please check the doc/ directory for more information.
   - cd ../../../
   - 1. Copy the DGD driver of your choice to bin/driver
     or
-    2. cd src && make clean && make && make install && cd ..
+    2. cd contrib/DGD/src && make clean && make && make install && cd ../../../
   - Use either net.dgd or mud.dgd depending on if you are
     using the network package, make sure to edit it to 
     point to the directory where your mud is installed.
-  - If not using the network package and not using the ansi
+  - On DGD versions prior to 1.4 and not using the network package or the ansi
     patches, edit lib/kernel/include/std.h and remove the
     #define SYS_COLOR
     line.
