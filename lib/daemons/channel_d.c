@@ -109,6 +109,7 @@ void chan_imud( string chan, string name ) {
   if( !imud ) 
     imud = ([ ]);
   imud[name] = chan;
+  chan_make_permanent( chan );
   save_me();
 }
 
