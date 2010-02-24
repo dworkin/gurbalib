@@ -23,7 +23,7 @@ void main( string arg ) {
       file = normalize_path( arg, "/help/wiz/");
       if( file_exists(file) < 1 ) {
 	write( capitalize(arg) + ": Unknown help topic." );
-	write_file("/logs/help", capitalize(this_player()->query_name()) + " on " + ctime(time()) + ": " + arg + "\n");
+	LOG_D->write_log("help", capitalize(this_player()->query_name()) + " on " + ctime(time()) + ": " + arg + "\n");
 	return;
       }
     } else {
