@@ -19,6 +19,7 @@ static int linkdead;		/* Are we linkdead? */
 static int quitting;		/* Are we in the process of quitting? */
 static int timestamp;		/* Last time we got input */
 static int more_line_num;	/* How far in the file we're more'ing are we */
+static object more_caller;      /* Who called more in us (so we can call it back when done */
 static string *more_lines;	/* All the lines in the file we're more'ing */
 string last_tell;               /* Who did we get a tell from last? */
 static mapping item_commands;	/* Commands that are local to worn/wielded items. */
@@ -37,6 +38,7 @@ mapping alias;			/* The players aliases */
 int last_login;			/* The last login */
 mapping guilds;			/* The guilds the player is a member of. The values are the guild title. */
 mapping custom_colors;          /* custom color symbols for this player */
+static mixed menu_data;         /* temp storage for menu system */
 
 void save_me( void );
 void restore_me( void );
@@ -450,6 +452,10 @@ void more( string *lines ) {
   string msg;
   mixed height;
 
+  if(previous_object() != this_object()) {
+    more_caller = previous_object();
+  }
+
   height = query_env( "height" );
   if( height == nil )
     height = 23;
@@ -470,6 +476,10 @@ void more( string *lines ) {
   } else {
     msg = implode( lines[more_line_num..], "\n" );
     out_unmod( msg + "\n" );
+    if(more_caller) {
+      more_caller->more_done();
+      more_caller = nil;
+    }
   }
 }
 
@@ -504,6 +514,10 @@ void more_prompt( string arg ) {
   } else {
     msg = implode( more_lines[more_line_num..], "\n" );
     out_unmod( msg + "\n" );
+    if(more_caller) {
+      more_caller->more_done();
+      more_caller = nil;
+    }
     write_prompt();
   }
 }
@@ -902,6 +916,15 @@ void set_custom_color( string name, string * symbols ) {
   ANSI_D->set_player_translations(custom_colors);
   save_me();
 }
+
+void store_menu( mixed header, mixed *menu, mixed footer, mapping actions ) {
+  menu_data = ({ header, menu, footer, actions });
+}
+
+mixed *retrieve_menu() {
+  return menu_data;
+}
+
 
 void setup() {
 }

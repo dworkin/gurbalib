@@ -150,6 +150,11 @@ void setup( void ) {
     "NPC_FRIENDLY" : GREEN,
     "PLAYER" : YELLOW,
     "NPC_HOSTILE" : RED,
+
+    "MENU_TEXT"     : CYAN,
+    "MENU_HILITE"   : GREEN,
+    "MENU_KEY"      : YELLOW,
+    "MENU_DECORATE" : HWHITE,
   ]);
 
   restore_me();
@@ -227,6 +232,7 @@ string parse_colors( string str , varargs int curdepth ) {
   object player;
 
   player = previous_object()->query_player();
+  if(!player) player = this_player();
   if(player && player->base_name() != PLAYER_OB) player = nil;
 
 
