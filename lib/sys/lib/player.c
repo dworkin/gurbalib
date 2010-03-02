@@ -494,6 +494,10 @@ void more_prompt( string arg ) {
   case 'q':
   case 'Q':
     write_prompt();
+    if(more_caller) {
+      more_caller->more_done();
+      more_caller = nil;
+    }
     return;
     break;
   }
