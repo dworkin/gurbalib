@@ -111,6 +111,7 @@
 #define M_WEARABLE      "/std/modules/m_wearable"
 #define M_WIELDABLE     "/std/modules/m_wieldable"
 #define M_SERIALIZE     "/std/modules/m_serialize"
+#define M_MENU          "/std/modules/m_menu"
 
 #define DRIVER          "/kernel/sys/driver"
 #define AUTO            "/kernel/lib/auto"
