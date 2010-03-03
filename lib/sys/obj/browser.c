@@ -41,6 +41,32 @@ static int menu_action_quit() {
   return 1;
 }
 
+private string format_file_info( string f, int size, int ts ) {
+  string result;
+  string tmp;
+
+  result = "";
+
+  switch( size ) {
+    case -2 :
+      tmp = "DIR       ";
+      break;
+    default :
+      tmp = "             " + size;
+      tmp = tmp[ strlen( tmp ) - 10 .. ];
+      break;
+  }
+
+  result += tmp + " ";
+
+  tmp = owner_file( normalize_path( f, "/" ) ) + "                ";
+  tmp = tmp[0..15];
+
+  result += tmp + " ";
+  result += ctime( ts );
+  return result;
+}
+  
 void browse(varargs string what) {
   int k, i,sz;
   mixed *menu;
@@ -48,8 +74,20 @@ void browse(varargs string what) {
   string path;
 
   if( what && strlen( what ) && valid_read( what ) ) {
-    path = normalize_path( what, "/" );
-    this_player()->set_env( "cwd", path );
+    switch( file_exists( what ) ) {
+      case 1 :
+        show_file( what );
+        return;
+        break;
+      case -1 :
+        path = normalize_path( what, "/" );
+        this_player()->set_env( "cwd", path );
+        break;
+      default :
+        write( "No such file or directory or no access." );
+        return;
+        break;
+    }
   } else {
     path = this_player()->query_env( "cwd" );
   }
@@ -64,17 +102,17 @@ void browse(varargs string what) {
   k = 1;
 
   for( i = 0, sz = sizeof( files[0] ); i < sz; i++ ) {
-    menu += ({ ({ ""+(k++), files[0][i], ""+files[1][i], make_fcall( TO, "show_file", files[0][i] ) }) });
+    menu += ({ ({ ""+(k++), files[0][i], format_file_info( path + "/" + files[0][i], files[1][i], files[2][i] ), make_fcall( TO, "show_file", files[0][i] ) }) });
   }
 
   if( path != "/" ) {
-    menu += ({ ({ "..", "..", nil, make_fcall( TO, "show_file", ".." ) }) });
+    menu += ({ ({ "..", "<previous directory>", nil, make_fcall( TO, "show_file", ".." ) }) });
   }
 
   menu += ({ ({ "q", "quit menu", nil, make_fcall( TO, "menu_action_quit" ) }) });
 
   do_menu( 
-    "A test menu",
+    "Browsing: "+path ,
     menu
   );
 }

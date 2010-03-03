@@ -926,7 +926,11 @@ void store_menu( mixed header, mixed *menu, mixed footer, mapping actions ) {
 }
 
 mixed *retrieve_menu() {
-  return menu_data;
+  if( menu_data ) {
+    return menu_data;
+  } else {
+    return ({ nil, nil, nil, nil });
+  }
 }
 
 
