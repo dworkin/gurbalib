@@ -48,7 +48,7 @@ static void clean_up() {
 
 static void reset() {
   reset_handle = 0;
-  if(WORLD_PERSIST) {
+  if(!WORLD_PERSIST) {
     reset_handle = call_out("reset", (RESET_INTERVAL/2) + random(RESET_INTERVAL) );
     EVENT_D->event( "reset" );
   }
