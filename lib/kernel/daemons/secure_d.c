@@ -280,8 +280,17 @@ string determine_obj_privs( string objname ) {
     return ":nobody:";
   }
 
-  if( sscanf( objname, "/sys/obj/user/%*s" ) == 1 ) {
-    name = ob->query_name();
+  if( sscanf( objname, "/sys/obj/user/%*s" ) == 1 || ob<-"/sys/obj/player" ) {
+    if(ob<-"/sys/obj/player") {
+      object u;
+      u = ob->query_user();
+      if(u && u->query_player() == ob) {
+        name = u->query_name();
+      }
+    } else {
+      name = ob->query_name();
+    }
+
     if( !name || name == "" ) {
       priv = "nobody";
     } else {
@@ -293,6 +302,10 @@ string determine_obj_privs( string objname ) {
       if( query_admin( name ) ) {
         priv += ":system";
       }
+    }
+
+    if( ob<-"/sys/obj/player" ) {
+      priv += ":game";
     }
   } else {
     priv = owner_file( objname );
