@@ -1199,10 +1199,22 @@ sector *fragment;
 	m_finish();
 	return FALSE;
     }
+
+    /* make sure that we can handle the swapfile size */
+    if( ((off_t) (sector) conf[SWAP_SIZE].u.num * (unsigned int) conf[SECTOR_SIZE].u.num) !=
+        ((Uuint) (sector) conf[SWAP_SIZE].u.num * (unsigned int) conf[SECTOR_SIZE].u.num)
+    ) {
+        P_message("Config error: swap file size overflow.\012");
+        m_finish();
+        return FALSE;
+    }
+
+    /* try to open the dumpfile if one was provided */
     if (dumpfile != (char *) NULL) {
 	fd = P_open(path_native(buf, dumpfile), O_RDONLY | O_BINARY, 0);
 	if (fd < 0) {
 	    P_message("Config error: cannot open restore file\012");    /* LF */
+            m_finish();
 	    return FALSE;
 	}
     }
@@ -1406,6 +1418,27 @@ unsigned short conf_array_size()
 }
 
 /*
+ * NAME:	putval()
+ * DESCRIPTION:	store a size_t as an integer or as a float approximation
+ */
+static void putval(v, n)
+value *v;
+size_t n;
+{
+    xfloat f1, f2;
+
+    if (n <= 0x7fffffffL) {
+	PUT_INTVAL(v, n);
+    } else {
+	flt_itof((Int) (n >> 31), &f1);
+	flt_ldexp(&f1, (Int) 31);
+	flt_itof((Int) (n & 0x7fffffffL), &f2);
+	flt_add(&f1, &f2);
+	PUT_FLTVAL(v, f1);
+    }
+}
+
+/*
  * NAME:	config->statusi()
  * DESCRIPTION:	return resource usage information
  */
@@ -1463,19 +1496,19 @@ register value *v;
 	break;
 
     case 9:	/* ST_SMEMSIZE */
-	PUT_INTVAL(v, m_info()->smemsize);
+	putval(v, m_info()->smemsize);
 	break;
 
     case 10:	/* ST_SMEMUSED */
-	PUT_INTVAL(v, m_info()->smemused);
+	putval(v, m_info()->smemused);
 	break;
 
     case 11:	/* ST_DMEMSIZE */
-	PUT_INTVAL(v, m_info()->dmemsize);
+	putval(v, m_info()->dmemsize);
 	break;
 
     case 12:	/* ST_DMEMUSED */
-	PUT_INTVAL(v, m_info()->dmemused);
+	putval(v, m_info()->dmemused);
 	break;
 
     case 13:	/* ST_OTABSIZE */
