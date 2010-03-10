@@ -13,32 +13,35 @@ DESCRIPTION
 
        A menu consists of an array of arrays, and looks as follows:
 
-      ({    /* start of menu */
-        ({  /* start of item */
-          string key, mixed desc, mixed opt, mixed *action
-        })
-      })
+       ({    /* start of menu */
+         ({  /* start of item */
+           string key, mixed desc, mixed opt, mixed *action
+         })
+       })
 
-      Key is what the user has to type to select this item.
+       Key is what the user has to type to select this item.
 
-      Desc is a descriptive text presented to the user as part
-      of the menu. It can be provided as a string, or as an fcall
-      array (see below)
+       Desc is a descriptive text presented to the user as part
+       of the menu. It can be provided as a string, or as an fcall
+       array (see below)
 
-      Opt is an optional extra text that is displayed to the user,
-      it can be a string or fcall array
+       Opt is an optional extra text that is displayed to the user,
+       it can be a string or fcall array
 
-      Action is what gets done when the user selected the item, it
-      is an fcall array.
+       Action is what gets done when the user selected the item, it
+       is an fcall array.
 
-      Fcall arrays are made with help of the make_fcall() function.
-      make_fcall() expects at least 2 arguments, an object and a function
-      name. Optionally you can provide more arguments.
+       Fcall arrays are made with help of the make_fcall() function.
+       make_fcall() expects at least 2 arguments, an object and a function
+       name. Optionally you can provide more arguments.
 
-      An fcall array defines the object and function that will be called
-      for getting text or performing an action. Any extra arguments provided
-      to make_fcall() will be used as arguments to the to be called function.
+       An fcall array defines the object and function that will be called
+       for getting text or performing an action. Any extra arguments provided
+       to make_fcall() will be used as arguments to the to be called function.
 
+       Please note that the internal format of the fcall array may change 
+       in the future, it might even change into something other then an array,
+       so always use make_fcall().
 ERRORS
        This module will throw an error when called with improper arguments.
 
