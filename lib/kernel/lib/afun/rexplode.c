@@ -10,11 +10,12 @@ static string * rexplode( string str, string sep ) {
   argcheck( stringp( str ), 1, "non empty string" );
   argcheck( stringp( sep ), 2, "non empty string" );
 
-  if( sep == "!" ) {
-    dummy = "?";
-  } else {
+  if( !strlen( sep ) ) {
     dummy = "!";
+  } else {
+    dummy = sep[0] != '!' ? "!" : "?";
   }
+
 
   str = dummy + str + dummy;
   result = explode( str, sep );
