@@ -13,26 +13,18 @@ static int show_file( string str ) {
 
   switch( file_exists( path ) ) {
     case 1 :
-      if( valid_read( path ) ) {
-        stuff = read_file( path );
-        this_player()->more( explode( stuff, "\n" ) );
-        return 2;
-      } else {
-        write( "Permission denied" );
-        return 0;
-      }
+      stuff = read_file( path );
+      this_player()->more( explode( stuff, "\n" ) );
+      return 2;
       break;
     case -1 :
-      if( valid_read( path ) ) {
-        browse(path);
-        return 2;
-      } else {
-        write( "Permission denied" );
-        return 0;
-      }
+      browse(path);
+      return 2;
+      break;
     default :
       write( "File not found or no access" );
       return 0;
+      break;
   }
 }
 
@@ -115,18 +107,5 @@ void browse(varargs string what) {
     "Browsing: "+path ,
     menu
   );
-}
-
-static string get_display(string str) {
-  return "Generated item "+str;
-}
-
-static int dotest( string str ) {
-  switch( str ) {
-    case "a" : write( "A: return to current menu" );
-               return 0;
-    case "b" : write( "B: exit menu" );
-               return 1;
-  }
 }
 
