@@ -28,6 +28,7 @@
 # include "comm.h"
 # include "node.h"
 # include "compile.h"
+# include <stdarg.h>
 
 static uindex dindex;		/* driver object index */
 static Uint dcount;		/* driver object count */
@@ -39,10 +40,7 @@ bool intr;			/* received an interrupt? */
  * NAME:	call_driver_object()
  * DESCRIPTION:	call a function in the driver object
  */
-bool call_driver_object(f, func, narg)
-frame *f;
-char *func;
-int narg;
+bool call_driver_object(frame *f, char *func, int narg)
 {
     object *driver;
     char *driver_name;
@@ -127,10 +125,9 @@ void endthread()
  * NAME:	errhandler()
  * DESCRIPTION:	default error handler
  */
-void errhandler(f, depth)
-frame *f;
-Int depth;
+void errhandler(frame *f, Int depth)
 {
+    UNREFERENCED_PARAMETER(depth);
     i_runtime_error(f, (Int) 0);
 }
 
@@ -139,14 +136,14 @@ Int depth;
  * NAME:	dgd_error()
  * DESCRIPTION:	error handler for the extension interface
  */
-void dgd_error(f, format, arg1, arg2, arg3, arg4, arg5, arg6)
-frame *f;
-char *format, *arg1, *arg2, *arg3, *arg4, *arg5, *arg6;
+void dgd_error(frame *f, char *format,... )
 {
+    va_list args;
     char ebuf[4 * STRINGSZ];
 
     if (format != (char *) NULL) {
-	sprintf(ebuf, format, arg1, arg2, arg3, arg4, arg5, arg6);
+        va_start(args, format);
+	vsprintf(ebuf, format, args);
 	serror(str_new(ebuf, (long) strlen(ebuf)));
     } else {
 	serror((string *) NULL);
@@ -158,12 +155,12 @@ char *format, *arg1, *arg2, *arg3, *arg4, *arg5, *arg6;
  * NAME:	dgd_main()
  * DESCRIPTION:	the main loop of DGD
  */
-int dgd_main(argc, argv)
-int argc;
-char **argv;
+int dgd_main(int argc, char **argv)
 {
     Uint rtime, timeout;
     unsigned short rmtime, mtime;
+
+    rmtime = 0;
 
     if (argc < 2 || argc > 3) {
 	P_message("Usage: dgd config_file [dump_file]\012");	/* LF */
@@ -185,8 +182,8 @@ char **argv;
 	    timeout = co_time(&mtime);
 	    if (timeout > rtime || (timeout == rtime && mtime >= rmtime)) {
 		rebuild = o_copy(timeout);
+		co_swapcount(d_swapout(fragment));
 		if (rebuild) {
-		    co_swapcount(d_swapout(fragment));
 		    rtime = timeout + 1;
 		    rmtime = mtime;
 		} else {

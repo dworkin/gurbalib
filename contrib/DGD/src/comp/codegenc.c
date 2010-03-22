@@ -28,6 +28,7 @@
 # include "control.h"
 # include "compile.h"
 # include "codegen.h"
+# include <stdarg.h>
 
 # define PUSH		0
 # define POP		1
@@ -35,10 +36,10 @@
 # define TRUTHVAL	3
 # define TOPTRUTHVAL	4
 
-static void output();
-static void cg_iexpr P((node*, int));
-static void cg_expr P((node*, int));
-static void cg_stmt P((node*));
+static void output (char *, ...);
+static void cg_iexpr (node*, int);
+static void cg_expr (node*, int);
+static void cg_stmt (node*);
 
 static bool skip;		/* no output for current code? */
 static int vars[MAX_LOCALS];	/* local variable types */
@@ -65,8 +66,7 @@ static int tmpval()
  * NAME:	local()
  * DESCRIPTION:	output a local or argument
  */
-static char *local(n)
-register int n;
+static char *local(int n)
 {
     static char buffer[16];
 
@@ -92,8 +92,7 @@ static void comma()
  * NAME:	kfun()
  * DESCRIPTION:	output a kfun call
  */
-static void kfun(func)
-char *func;
+static void kfun(char *func)
 {
     output("kf_%s(f)", func);
 }
@@ -104,17 +103,14 @@ char *func;
  */
 static void store()
 {
-    output(", store()");
+    output(", store_value(f)");
 }
 
 /*
  * NAME:	codegen->cast()
  * DESCRIPTION:	generate code for a cast
  */
-static void cg_cast(what, type, class)
-char *what;
-unsigned short type;
-string *class;
+static void cg_cast(char *what, unsigned short type, string *class)
 {
     long l;
 
@@ -132,12 +128,11 @@ string *class;
  * NAME:	codegen->lvalue()
  * DESCRIPTION:	generate code for an lvalue
  */
-static void cg_lvalue(n, type)
-register node *n, *type;
+static void cg_lvalue(node *n, node *type)
 {
-    register node *m;
-    register unsigned short t;
-    register long l;
+    node *m;
+    unsigned short t;
+    long l;
 
     t = 0;
     l = 0;
@@ -156,9 +151,9 @@ register node *n, *type;
     }
     switch (n->type) {
     case N_LOCAL:
-	output("push_lvalue(%s, %d)", local((int) n->r.number), t);
+	output("push_lvalue(f, %s, %d)", local((int) n->r.number), t);
 	if (t == T_CLASS) {
-	    output(", push_lvclass(%ld)", l);
+	    output(", push_lvclass(f, (Int) %ld)", l);
 	}
 	break;
 
@@ -175,7 +170,7 @@ register node *n, *type;
 	}
 	switch (m->type) {
 	case N_LOCAL:
-	    output("push_lvalue(%s, 0)", local((int) m->r.number));
+	    output("push_lvalue(f, %s, 0)", local((int) m->r.number));
 	    break;
 
 	case N_GLOBAL:
@@ -206,8 +201,7 @@ register node *n, *type;
  * NAME:	codegen->fetch()
  * DESCRIPTION:	generate code for a fetched lvalue
  */
-static void cg_fetch(n)
-node *n;
+static void cg_fetch(node *n)
 {
     cg_lvalue(n, (node *) NULL);
     output(", i_dup(f), ");
@@ -221,11 +215,7 @@ node *n;
  * NAME:	codegen->iasgn()
  * DESCRIPTION:	handle general integer assignment (operator) case
  */
-static void cg_iasgn(n, op, i, direct)
-register node *n;
-char *op;
-register int i;
-bool direct;
+static void cg_iasgn(node *n, char *op, int i, bool direct)
 {
     if (i < 0) {
 	/* assignment on stack */
@@ -239,7 +229,7 @@ bool direct;
 	    output(", f->sp->u.number %s tv[%d]", op, i);
 	}
     } else {
-	/* assignment to register var */
+	/* assignment to var */
 	if (catch_level != 0) {
 	    output("%s->u.number = ", local(i));
 	}
@@ -252,17 +242,14 @@ bool direct;
  * NAME:	codegen->iasgnop()
  * DESCRIPTION:	handle an integer assignment operator
  */
-static void cg_iasgnop(n, op, direct)
-register node *n;
-char *op;
-bool direct;
+static void cg_iasgnop(node *n, char *op, bool direct)
 {
     if (n->l.left->type == N_LOCAL) {
 	cg_iasgn(n->r.right, op, (int) n->l.left->r.number, direct);
     } else {
 	cg_fetch(n->l.left);
 	cg_iasgn(n->r.right, op, -1, TRUE);
-	output(", store_int()");
+	output(", store_int(f)");
     }
 }
 
@@ -270,12 +257,9 @@ bool direct;
  * NAME:	codegen->ifasgnop()
  * DESCRIPTION:	handle a function integer assignment operator
  */
-static void cg_ifasgnop(n, op, direct)
-register node *n;
-char *op;
-bool direct;
+static void cg_ifasgnop(node *n, char *op, bool direct)
 {
-    register int i;
+    int i;
 
     if (n->l.left->type == N_LOCAL) {
 	i = n->l.left->r.number;
@@ -291,12 +275,12 @@ bool direct;
 	if (n->type == N_INT) {
 	    output("f->sp->u.number = %s(f->sp->u.number, ", op);
 	    cg_iexpr(n, TRUE);
-	    output("), store_int()");
+	    output("), store_int(f)");
 	} else {
 	    i = tmpval();
 	    output("tv[%d] = %s(f->sp->u.number, ", i, op);
 	    cg_iexpr(n, TRUE);
-	    output("), f->sp->u.number = tv[%d], store_int()", op, i);
+	    output("), f->sp->u.number = tv[%d], store_int(f)", op, i);
 	}
     }
 }
@@ -305,10 +289,7 @@ bool direct;
  * NAME:	codegen->ibinop()
  * DESCRIPTION:	generate code for an integer binary operator
  */
-static void cg_ibinop(n, op, direct)
-register node *n;
-char *op;
-bool direct;
+static void cg_ibinop(node *n, char *op, bool direct)
 {
     if (!((n->l.left->flags | n->r.right->flags) & F_CONST) &&
 	n->l.left->type != N_LOCAL && n->r.right->type != N_LOCAL) {
@@ -324,11 +305,9 @@ bool direct;
  * NAME:	codegen->iexpr()
  * DESCRIPTION:	generate code for an integer expression
  */
-static void cg_iexpr(n, direct)
-register node *n;
-int direct;
+static void cg_iexpr(node *n, int direct)
 {
-    register int i;
+    int i;
 
     output("(");
     switch (n->type) {
@@ -405,7 +384,7 @@ int direct;
 	    output("++ivar%d", vars[n->l.left->r.number]);
 	} else {
 	    cg_fetch(n->l.left);
-	    output("++f->sp->u.number, store_int()");
+	    output("++f->sp->u.number, store_int(f)");
 	}
 	break;
 
@@ -426,10 +405,10 @@ int direct;
 	    comma();
 	    cg_cast("f->sp", T_INT, (string *) NULL);
 	    if (direct) {
-		output(", (f->sp++)->u.number");
+		output(", pop_number(f)");
 	    } else {
 		i = tmpval();
-		output(", tv[%d] = (f->sp++)->u.number, tv[%d]", i, i);
+		output(", tv[%d] = pop_number(f), tv[%d]", i, i);
 	    }
 	}
 	break;
@@ -593,7 +572,7 @@ int direct;
 	    output("--ivar%d", vars[n->l.left->r.number]);
 	} else {
 	    cg_fetch(n->l.left);
-	    output("--f->sp->u.number, store_int()");
+	    output("--f->sp->u.number, store_int(f)");
 	}
 	break;
 
@@ -627,7 +606,7 @@ int direct;
 	    output("ivar%d--", vars[n->l.left->r.number]);
 	} else {
 	    cg_fetch(n->l.left);
-	    output("f->sp->u.number--, store_int() + 1");
+	    output("f->sp->u.number--, store_int(f) + 1");
 	}
 	break;
 
@@ -639,7 +618,7 @@ int direct;
 	    output("ivar%d++", vars[n->l.left->r.number]);
 	} else {
 	    cg_fetch(n->l.left);
-	    output("f->sp->u.number++, store_int() - 1");
+	    output("f->sp->u.number++, store_int(f) - 1");
 	}
 	break;
     }
@@ -650,12 +629,10 @@ int direct;
  * NAME:	codegen->asgnop()
  * DESCRIPTION:	generate code for an assignment operator
  */
-static void cg_asgnop(n, op)
-register node *n;
-char *op;
+static void cg_asgnop(node *n, char *op)
 {
     if (n->l.left->type == N_LOCAL && vars[n->l.left->r.number] != 0) {
-	output("PUSH_NUMBER ivar%d, ", vars[n->l.left->r.number]);
+	output("push_number(f, ivar%d), ", vars[n->l.left->r.number]);
 	cg_expr(n->r.right, PUSH);
 	comma();
 	kfun(op);
@@ -679,10 +656,9 @@ char *op;
  * NAME:	codegen->aggr()
  * DESCRIPTION:	generate code for an aggregate
  */
-static int cg_aggr(n)
-register node *n;
+static int cg_aggr(node *n)
 {
-    register int i;
+    int i;
 
     if (n == (node *) NULL) {
 	return 0;
@@ -701,10 +677,9 @@ register node *n;
  * NAME:	codegen->map_aggr()
  * DESCRIPTION:	generate code for a mapping aggregate
  */
-static int cg_map_aggr(n)
-register node *n;
+static int cg_map_aggr(node *n)
 {
-    register int i;
+    int i;
 
     if (n == (node *) NULL) {
 	return 0;
@@ -727,10 +702,9 @@ register node *n;
  * NAME:	codegen->lval_aggr()
  * DESCRIPTION:	generate code for an lvalue aggregate
  */
-static int cg_lval_aggr(n, type)
-register node *n, *type;
+static int cg_lval_aggr(node *n, node *type)
 {
-    register int i;
+    int i;
 
     for (i = 1; n->type == N_PAIR; i++) {
 	cg_lvalue(n->l.left, (type != (node *) NULL) ? type : n->l.left);
@@ -746,10 +720,9 @@ register node *n, *type;
  * NAME:	codegen->lval_locals()
  * DESCRIPTION:	copy changed values to local integer vars
  */
-static void cg_lval_locals(n)
-register node *n;
+static void cg_lval_locals(node *n)
 {
-    register int i;
+    int i;
 
     while (n->type == N_PAIR) {
 	if (n->l.left->type == N_LOCAL && vars[i = n->l.left->r.number] != 0) {
@@ -766,8 +739,7 @@ register node *n;
  * NAME:	codegen->sumargs()
  * DESCRIPTION:	generate code for summand arguments
  */
-static int cg_sumargs(n)
-register node *n;
+static int cg_sumargs(node *n)
 {
     int i;
 
@@ -779,7 +751,7 @@ register node *n;
     }
 
     if (n->type == N_AGGR) {
-	output("PUSH_NUMBER %d", -3 - cg_aggr(n->l.left));
+	output("push_number(f, %d)", -3 - cg_aggr(n->l.left));
     } else if (n->type == N_RANGE) {
 	cg_expr(n->l.left, PUSH);
 	comma();
@@ -800,11 +772,11 @@ register node *n;
 	    kfun("ckranget");
 	} else {
 	    kfun("range");
-	    output(", PUSH_NUMBER -2");
+	    output(", push_number(f, -2)");
 	}
     } else {
 	cg_expr(n, PUSH);
-	output(", PUSH_NUMBER -2");
+	output(", push_number(f, -2)");
     }
     comma();
 
@@ -815,12 +787,10 @@ register node *n;
  * NAME:	codegen->funargs()
  * DESCRIPTION:	generate code for function arguments
  */
-static char *cg_funargs(n, lv)
-register node *n;
-bool lv;
+static char *cg_funargs(node *n, bool lv)
 {
     static char buffer[32];
-    register int i;
+    int i;
 
     if (n == (node *) NULL) {
 	return "0";
@@ -858,13 +828,11 @@ bool lv;
  * NAME:        codegen->locals()
  * DESCRIPTION: propagate values between local variables and ivars
  */
-static void cg_locals(n, vtoi)
-register node *n;
-bool vtoi;
+static void cg_locals(node *n, bool vtoi)
 {
     if (n != (node *) NULL) {
-	register node *m;
-	register int i;
+	node *m;
+	int i;
 
 	/* skip non-lvalue arguments */
 	while (n->type == N_PAIR && n->l.left->type != N_LVALUE) {
@@ -901,8 +869,7 @@ bool vtoi;
  * NAME:	codegen->binop()
  * DESCRIPTION:	generate code for a binary operator
  */
-static void cg_binop(n)
-node *n;
+static void cg_binop(node *n)
 {
     cg_expr(n->l.left, PUSH);
     comma();
@@ -914,11 +881,9 @@ node *n;
  * NAME:	codegen->expr()
  * DESCRIPTION:	generate code for an expression
  */
-static void cg_expr(n, state)
-register node *n;
-register int state;
+static void cg_expr(node *n, int state)
 {
-    register int i;
+    int i;
     long l;
     char *p;
 
@@ -959,7 +924,7 @@ register int state;
 	    i = tmpval();
 	    output("tv[%d] = ", i);
 	    cg_iexpr(n, TRUE);
-	    output(", PUSH_NUMBER tv[%d]", i);
+	    output(", push_number(f, tv[%d])", i);
 	} else {
 	    cg_iexpr(n, (state != TRUTHVAL));
 	}
@@ -1014,7 +979,7 @@ register int state;
 	if (n->l.left->type == N_AGGR) {
 	    i = cg_lval_aggr(n->l.left->l.left, n->l.left->r.right);
 	    cg_expr(n->r.right, PUSH);
-	    output(", PUSH_NUMBER %d, ", i);
+	    output(", push_number(f, %d), ", i);
 	    kfun("store_aggr");
 	    if (catch_level == 0) {
 		cg_lval_locals(n->l.left->l.left);
@@ -1024,7 +989,8 @@ register int state;
 		cg_iasgn(n->r.right, "=", (int) n->l.left->r.number,
 			 (state != PUSH && state != TRUTHVAL));
 		if (state == PUSH) {
-		    output(", PUSH_NUMBER ivar%d", vars[n->l.left->r.number]);
+		    output(", push_number(f, ivar%d)",
+			   vars[n->l.left->r.number]);
 		}
 		return;
 	    }
@@ -1207,16 +1173,19 @@ register int state;
 
     case N_INSTANCEOF:
 	cg_expr(n->l.left, PUSH);
-	output(", PUSH_NUMBER %ld, ",
+	output(", push_number(f, %ld), ",
 	       ctrl_dstring(n->r.right->l.string) & 0xffffffL);
 	kfun("instanceof");
 	break;
 
     case N_INT:
 	if (state == PUSH) {
-	    output("PUSH_NUMBER ");
+	    output("push_number(f, ");
 	}
 	cg_iexpr(n, TRUE);
+	if (state == PUSH) {
+	    output(")");
+	}
 	return;
 
     case N_LE:
@@ -1227,9 +1196,12 @@ register int state;
     case N_LOCAL:
 	if (vars[n->r.number] != 0) {
 	    if (state == PUSH) {
-		output("PUSH_NUMBER ");
+		output("push_number(f, ");
 	    }
 	    output("ivar%d", vars[n->r.number]);
+	    if (state == PUSH) {
+		output(")");
+	    }
 	    return;
 	}
 	if (state == TRUTHVAL || state == TOPTRUTHVAL) {
@@ -1312,7 +1284,7 @@ register int state;
 	    i = tmpval();
 	    output("tv[%d] = ", i);
 	    cg_iexpr(n, TRUE);
-	    output(", PUSH_NUMBER tv[%d]", i);
+	    output(", push_number(f, tv[%d])", i);
 	} else {
 	    output("!");
 	    n = n->l.left;
@@ -1444,8 +1416,8 @@ register int state;
 
     case N_SUM_EQ:
 	cg_fetch(n->l.left);
-	output("PUSH_NUMBER -2,\n");
-	output("kf_sum(f, %d), store()", cg_sumargs(n->r.right) + 1);
+	output("push_number(f, -2),\n");
+	output("kf_sum(f, %d), store_value(f)", cg_sumargs(n->r.right) + 1);
 	break;
 
     case N_TOFLOAT:
@@ -1459,7 +1431,7 @@ register int state;
 	    i = tmpval();
 	    output("tv[%d] = ", i);
 	    cg_iexpr(n, TRUE);
-	    output(", PUSH_NUMBER tv[%d]", i);
+	    output(", push_number(f, tv[%d])", i);
 	} else {
 	    output("!!");
 	    n = n->l.left;
@@ -1550,13 +1522,12 @@ register int state;
 	break;
 
     case INTVAL:
-	output(", (f->sp++)->u.number");
+	output(", pop_number(f)");
 	break;
 
     case TRUTHVAL:
 	if (n->mod == T_INT) {
-	    i = tmpval();
-	    output(", tv[%d] = (f->sp++)->u.number, tv[%d]", i, i);
+	    output(", pop_number(f)");
 	} else {
 	    output(", poptruthval(f)");
 	}
@@ -1565,7 +1536,7 @@ register int state;
     case TOPTRUTHVAL:
 	switch (n->mod) {
 	case T_INT:
-	    output(", (f->sp++)->u.number");
+	    output(", pop_number(f)");
 	    break;
 
 	case T_FLOAT:
@@ -1588,8 +1559,7 @@ static int outcount;		/* switch table element count */
  * NAME:	outint()
  * DESCRIPTION:	output an integer
  */
-static void outint(i)
-Int i;
+static void outint(Int i)
 {
     if (outcount == 8) {
 	output("\n");
@@ -1603,8 +1573,7 @@ Int i;
  * NAME:	outchar()
  * DESCRIPTION:	output a character
  */
-static void outchar(c)
-char c;
+static void outchar(char c)
 {
     if (outcount == 16) {
 	output("\n");
@@ -1618,8 +1587,7 @@ char c;
  * NAME:	codegen->startvars()
  * DESCRIPTION:	handle integer variable declarations
  */
-static void cg_startvars(n)
-register node *n;
+static void cg_startvars(node *n)
 {
     if (n != (node *) NULL) {
 	while (n->type == N_PAIR) {
@@ -1628,7 +1596,7 @@ register node *n;
 	}
 	if (n->type == N_VAR) {
 	    if (n->mod == T_INT) {
-		output("register Int ivar%d = (i_del_value(%s), ",
+		output("Int ivar%d = (i_del_value(%s), ",
 		       n->l.number + 1, local(n->l.number));
 		output("%s->type = T_INT, 0);\n", local(n->l.number));
 		vars[n->l.number] = n->l.number + 1;
@@ -1643,8 +1611,7 @@ register node *n;
  * NAME:	codegen->endvars()
  * DESCRIPTION:	remove integer variables
  */
-static void cg_endvars(n)
-register node *n;
+static void cg_endvars(node *n)
 {
     if (n != (node *) NULL) {
 	while (n->type == N_PAIR) {
@@ -1661,10 +1628,9 @@ register node *n;
  * NAME:      codegen->switch_init()
  * DESCRIPTION:       handle initializers for a switch
  */
-static node *cg_switch_init(n)
-node *n;
+static node *cg_switch_init(node *n)
 {
-    register node *m;
+    node *m;
 
     /*
      * initializers
@@ -1690,11 +1656,10 @@ node *n;
  * NAME:	codegen->switch_int()
  * DESCRIPTION:	generate single label code for a switch statement
  */
-static void cg_switch_int(n)
-register node *n;
+static void cg_switch_int(node *n)
 {
-    register node *m;
-    register int i, size;
+    node *m;
+    int i, size;
     Int *table;
 
     /*
@@ -1754,11 +1719,10 @@ register node *n;
  * NAME:	codegen->switch_range()
  * DESCRIPTION:	generate range label code for a switch statement
  */
-static void cg_switch_range(n)
-register node *n;
+static void cg_switch_range(node *n)
 {
-    register node *m;
-    register int i, size;
+    node *m;
+    int i, size;
     Int *table;
 
     /*
@@ -1823,11 +1787,10 @@ register node *n;
  * NAME:	codegen->switch_str()
  * DESCRIPTION:	generate code for a string switch statement
  */
-static void cg_switch_str(n)
-register node *n;
+static void cg_switch_str(node *n)
 {
-    register node *m;
-    register int i, size;
+    node *m;
+    int i, size;
     Int *table;
 
     /*
@@ -1859,7 +1822,7 @@ register node *n;
 	outchar(1);
     }
     do {
-	register long l;
+	long l;
 
 	switch_table[i] = i;
 	l = ctrl_dstring(m->l.left->l.string);
@@ -1898,11 +1861,10 @@ static rclink *rclist;
  * NAME:	breakout()
  * DESCRIPTION:	break out of a catch or rlimits
  */
-static void breakout(n)
-register int n;
+static void breakout(int n)
 {
-    register int c, r;
-    register rclink *link;
+    int c, r;
+    rclink *link;
 
     c = r = 0;
     link = rclist;
@@ -1933,12 +1895,11 @@ register int n;
  * NAME:	codegen->stmt()
  * DESCRIPTION:	generate code for a statement
  */
-static void cg_stmt(n)
-register node *n;
+static void cg_stmt(node *n)
 {
     rclink rcstart;
-    register node *m;
-    register int i;
+    node *m;
+    int i;
 
     while (n != (node *) NULL) {
 	if (n->type == N_PAIR) {
@@ -2145,8 +2106,7 @@ static string *funcnames[255];
  * NAME:	codegen->init()
  * DESCRIPTION:	initialize the code generator
  */
-void cg_init(inherited)
-int inherited;
+void cg_init(int inherited)
 {
     skip = inherited;
     nfuncs = 0;
@@ -2171,14 +2131,10 @@ bool cg_compiled()
  * NAME:	codegen->function()
  * DESCRIPTION:	generate code for a function
  */
-char *cg_function(fname, n, nvar, npar, depth, size)
-string *fname;
-node *n;
-int nvar, npar;
-unsigned int depth;
-unsigned short *size;
+char *cg_function(string *fname, node *n, int nvar, int npar, 
+	unsigned int depth, unsigned short *size)
 {
-    register int i;
+    int i;
     char *prog;
 
     depth += nvar;
@@ -2196,7 +2152,7 @@ unsigned short *size;
     }
     for (i = 0; i < nparam; i++) {
 	if (c_vtype(i) == T_INT) {
-	    output("register Int ivar%d = %s->u.number;\n", vars[i] = i + 1,
+	    output("Int ivar%d = %s->u.number;\n", vars[i] = i + 1,
 		   local(i));
 	} else {
 	    vars[i] = 0;
@@ -2235,8 +2191,8 @@ int cg_nfuncs()
 void cg_clear()
 {
     if (!skip && nfuncs != 0) {
-	register int i;
-	register string **f;
+	int i;
+	string **f;
 
 	output("\nstatic pcfunc functions[] = {\n");
 	for (i = nfuncs, f = funcnames; i != 0; --i, f++) {
@@ -2251,10 +2207,12 @@ void cg_clear()
  * NAME:	output()
  * DESCRIPTION:	output a formatted string
  */
-static void output(format, arg1, arg2, arg3, arg4)
-char *format, *arg1, *arg2, *arg3, *arg4;
+static void output(char *format, ...)
 {
     if (!skip) {
-	printf(format, arg1, arg2, arg3, arg4);
+	va_list args;
+
+	va_start(args, format);
+	vprintf(format, args);
     }
 }

@@ -3,6 +3,113 @@ This file lists all changes to the DGD open source release.
 All changes prior to this release on 2010-02-03 can be found
 in doc/Changelog.Dworkin
 
+2010-03-21
+
+  Stephen Spiller (aka Kalinash)
+
+  Added a Sleep() call to the Windows network extensions code
+  for the case where there are no open descriptors.  This was
+  causing 100% cpu utilization.
+
+  Fixed a spurious cast reported by Shentino.
+
+  src/parser/grammar.c
+  src/host/win32/connect.c
+
+
+  Bart van Leeuwen (aidil@wotf.org)
+
+  Merged latest changes from Felix:
+  - Allocate compression buffers on the heap, rather than on the stack.
+  - Call co_swapcount() at the right time when rebuilding, and keep casting NULL.
+  - Avoid generating integer comma-expressions with side effects.
+
+  src/object.c
+  src/sdata.c
+  src/dgd.c
+  src/comp/codegenc.c
+  src/comp/csupport.c
+  src/comp/csupport.h
+
+2010-03-19
+
+  Bart van Leeuwen (aidil@wotf.org)
+
+  Merged latest changes from Felix:
+  - Add dummy errorhandler function for extension interface.
+  - Load dataspace of destructed objects from a safer place. 
+    - but only when it actually exists
+  - Properly call add-on kfuns from precompiled code. 
+
+  Properly protoized dgd_error()
+
+  src/dgd.h
+  src/dgd.c
+  src/object.c
+  src/comp/comp.c
+  src/comp/csupport.c
+
+2010-03-19
+
+  Bart van Leeuwen (aidil@wotf.org)
+
+  DGD 1.4.2
+
+  src/version.h
+
+2010-03-18
+
+  Stephen Spiller (aka Kalinash)
+
+  Removed some extraneous casts
+
+  src/config.c
+  src/host/crypt.c
+  src/kfun/extra.c
+  src/str.c
+
+2010-03-18
+
+  Bart van Leeuwen (aidil@wotf.org)
+
+  Enabled large swapfile support for Solaris and Linux for
+  default build, added some documentation on the various
+  defines available for modifying the build.
+
+  Imported change from baseline: Cleanup extension interface
+  and document some more macros
+
+  src/host.h
+  src/dgd_ext.h
+  doc/Compiling
+  doc/Extensions
+
+2010-03-16
+
+  Stephen Spiller (aka Kalinash)
+
+  Ported the NETWORK_EXTENSIONS to the Windows project. Add this
+  define to the project options to enable it.  Also needed to
+  set the stack size to 8M from the default of 1M to allow the
+  mudlist to parse.
+
+  src/host/win32/connect.c
+  src/host/win32/dgd.vcxproj
+
+2010-03-14/2010-03-16
+
+  Stephen Spiller (aka Kalinash)
+
+  Rebuilt the Windows project file to be a console application and
+  to use Visual Studio 2010. Please see src/host/win32/README for
+  more information.
+
+  Converted K&R style function definitions to ANSI style.
+
+  Removed old P() macros.
+
+  Nearly all files.
+
 2010-03-04
 
   Bart van Leeuwen (aidil@wotf.org)
