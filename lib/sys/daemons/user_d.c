@@ -129,6 +129,7 @@ int logout( string name ) {
   if( ob ) {
     if( !spare ) {
       spare = ob;
+      cache[name] = nil;
     } else {
       destruct_object( ob );
     }
