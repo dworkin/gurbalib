@@ -154,7 +154,7 @@ int login( string name, string secret ) {
 }
 
 int user_exists( string name ) {
-  return file_exists( AUTH_DATA_DIR + name[0..0] + "/" + name + ".o" ) == 1;
+  return unguarded( "file_exists", AUTH_DATA_DIR + name[0..0] + "/" + name + ".o" ) == 1;
 }
 
 static int _new_user( string name, string secret ) {
