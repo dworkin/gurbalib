@@ -19,15 +19,15 @@ nomask static void do_menu( mixed header, mixed *menu, varargs mixed footer ) {
       error( "Error in menu item "+item+", expected an array of 4 elements, got "+sz );
     }
 
-    if(!stringp(menu[item][0])) {
+    if( !stringp( menu[item][0] ) ) {
       error( "Error in menu item "+item+", string expected in element 0" );
     }
 
-    if(!stringp(menu[item][1])) {
+    if( !stringp( menu[item][1] ) && !arrayp( menu[item][1] ) ) {
       error( "Error in menu item "+item+", string or fcall array expected in element 1" );
     }
 
-    if(menu[item][2] && !stringp(menu[item][2]) && !arrayp(menu[item][2])) {
+    if( menu[item][2] && ( !stringp( menu[item][2] ) && !arrayp( menu[item][2] ) ) ) {
       error( "Error in menu item "+item+", string, fcall array or nil expected in element 2" );
     }
 
