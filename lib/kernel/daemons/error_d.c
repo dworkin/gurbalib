@@ -106,10 +106,12 @@ static void log_runtime_error(string result, int caught) {
 
   if(caught) {
     if(player && player->query_name() && SECURE_D->query_wiz( player->query_name()) ) {
-      mixed display_caught, verbose;
+      mixed display_caught;
 
       display_caught = player->query_env("display_caught");
       if(intp(display_caught)) display_caught = (string) display_caught;
+
+      
 
       switch(display_caught) {
         case "on" :
