@@ -682,6 +682,9 @@ void add_upqueue(string file) {
   } else {
     upqueue[owner] |= ({ file });
   }
+#ifdef DEBUG_COMPILER_D
+  console_msg( "add_upqueue: " + "owner: " + owner + ", size: " + sizeof( upqueue[owner] ) + "\n" );
+#endif
 }
 
 mapping query_upqueue() {

@@ -23,6 +23,7 @@
 #include <privileges.h>
 #include <error_handling.h>
 
+#undef DEBUG_RECOMPILE
 
 #define PAD "                                                                       "
 
@@ -458,7 +459,7 @@ void recompile( object obj ) {
   }
 
 #ifdef DEBUG_RECOMPILE
-  message("auto recompile inheritable: "+object_name(ob)+"\n");
+  message("auto recompile inheritable: "+(obj ? object_name(obj):"<NIL>??")+"\n");
 #endif
   if( obj )  destruct_object(obj);
 }

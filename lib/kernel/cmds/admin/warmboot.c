@@ -78,10 +78,16 @@ static string post_world_upgrade( object p ) {
 
 static int upgrade_uobj(string * files, int verbose) {
   int pos, sz;
+  string fn, on;
 
   for( pos = 0, sz = sizeof( files ); pos < sz; pos++ ) {
-    if( !virtual_object( files[pos] ) && !file_exists( files[pos] ) ) {
-      if( find_object( files[pos] ) ) {
+    fn = files[pos];
+    if( sscanf( fn, "%s.c", on ) != 1 ) {
+      on = fn;
+    }
+
+    if( !virtual_object( fn ) && !file_exists( fn ) ) {
+      if( find_object( on ) ) {
         this_player()->message("Warning: "+files[pos]+" is loaded but there is no source for it, cannot recompile.");
       } else {
         this_player()->message("Ignoring "+files[pos]);
@@ -90,11 +96,13 @@ static int upgrade_uobj(string * files, int verbose) {
     }
 
     if( COMPILER_D->test_inheritable( files[pos] ) ) {
-      if( find_object(files[pos],1) ) { 
+      if( find_object( on, 1 ) ) { 
         compile_library( files[pos] );
       } 
-    } else {
+    } else if( find_object( on ) ) {
       compile_object( files[pos] );
+    } else {
+      write( "Warning: " + files[pos] + " not recompiled!" );
     }
   }
   return pos;
