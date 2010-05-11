@@ -364,6 +364,11 @@ void event_clean_up( void ) {
 
 void upgraded() {
   ::upgraded();
+  /*
+   * special for rooms, ::upgraded() will only call
+   * setup in clones, while blueprints of rooms are often used
+   * and will also require setup.
+   */
   if(clone_num() == 0) setup();
 }
 

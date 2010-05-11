@@ -59,6 +59,15 @@ Dealing with changes
   you have to define. This function is called both when the
   object is created and when it has been recompiled.
 
+  Note that setup() should not be used in inheritables, only
+  in 'real' objects.
+
+  Also note that setup() will be called in both the master and
+  clones of rooms (since they tend to get used in both ways) but
+  only in clones for other game objects (since they only tend to
+  be used as clones, and trying to call setup on a master without
+  environment is likely to fail for those)
+
   Things like setting ids, descriptions and such things should
   therefore be done in setup(), and not in create() at least,
   if you want changes to such things to show after a recompile.
@@ -82,12 +91,24 @@ Dealing with changes
   }
   -----------------------------------
 
-  Additionally, you may want to change the internal data format
-  or global variables in your object. In that case you must
-  provide for your own upgraded() function also. Be sure to
-  do ::upgraded() there in all objects that inherit /std/object.c !
+  Note that calling ::upgraded() is mandatory, it ensures that
+  whatever upgrade mechanisms are in place in inherited code is
+  also executed. Forgetting this may result in strange problems
+  that may occur much later when an inheritable changed.
 
-  A few notes for properly writing an upgraded() function:
+  room.c has its own upgraded() function that ensures setup() is
+  also called in the blueprint/master of a room. The example above
+  comes from room.c (at svn revision 390)
+
+More complex changes, and changes to the data in an inheritable
+  
+  You may want to convert the internal data format or global 
+  variables in your object, or make changes to data in an inheritable.
+  In that case you must provide for your own upgraded() function. 
+  Be sure to do ::upgraded() there in all objects that inherit /std/object.c
+  either directly, or indirectly (through container.c or room.c for example)
+
+A few notes for properly writing an upgraded() function:
 
   * It is quite possible that upgraded() gets called without
     you expecting it. This can happen when a system library
