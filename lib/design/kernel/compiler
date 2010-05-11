@@ -1,0 +1,15 @@
+The compiler daemon takes care of tracking inheritance and
+generating graphs used for rebuilding objects depending on
+an inheritable.
+
+Much of the actual work for a full rebuild is done by the
+warmboot command. For simple rebuilds, this is contained in
+the rebuild command.
+
+The reason for putting this into the commands instead of the
+compiler daemon is to allow the warmboot command to recompile
+itself before anything else, and allow changes to the rebuild
+process to become active before the actual rebuild.
+
+The algorithm for generating the list of dependent objects 
+was developed at Way of the Force by Aidil and Kalten.
