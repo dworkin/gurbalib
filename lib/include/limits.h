@@ -10,4 +10,4 @@
 # define INT_MIN		0x80000000	/* -2147483648 */
 # define INT_MAX		2147483647	/* max integer value */
 
-# define MAX_STRING_SIZE	262143		/* max string size (obsolete) */
+# define MAX_STRING_SIZE	65535		/* max string size (obsolete) */

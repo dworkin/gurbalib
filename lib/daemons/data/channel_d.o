@@ -1,4 +1,0 @@
-permanent ([10|"admin":3,"announce":4,"dchat":2,"dgd":2,"dstest":2,"fighter":1,"gossip":1,"icode":2,"igossip":2,"wiz":2,])
-colors ([13|"admin":"%^BLUE%^","announce":"%^CYAN%^","dchat":"%^CYAN%^","dead_souls":"%^ORANGE%^","dgd":"%^BLUE%^","fighter":"%^BLUE%^","gossip":"%^GREEN%^","icode":"%^RED%^","igossip":"%^GREEN%^","imud_code":"%^YELLOW%^","imud_gossip":"%^GREEN%^","inews":"%^RED%^","wiz":"%^RED%^",])
-imud ([9|"dchat":"dchat","dead_souls":"dead_souls","dead_test4":"dstest","dgd":"dgd","imud_code":"icode","imud_dgd":"idgd","imud_gossip":"igossip","inews":"inews","intercre":"intercre",])
-guilds ([1|"fighter":"fighter",])
