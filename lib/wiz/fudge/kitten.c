@@ -6,7 +6,7 @@ inherit M_TRIGGERS;
 void setup()
 {
   set_name("kitten");
-  set_gender(1);
+  set_gender("male");
   set_in_room_desc("An ADORABLE little kitten");
   set_long("This little ball of fuzz is the cutest thing you've EVER seen.  When you look at it it cocks it head in curiousity and emits a small mewing noise... AWW!");
   set_max_hp(3000);

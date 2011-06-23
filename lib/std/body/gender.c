@@ -1,38 +1,21 @@
-/*
-   NOTES:
-   This file should use string...not int.
 
-   Why? Because it's more readable? 
-
-   can we change this without screwin somthin up?
-
-   I would guess so, since if you don't have a gender specified, you are made male. 
-
-   Satch
-*/
-
-int  gender;
+string gender;
 
 void create() { }
 
-void set_gender( int gen )
+void set_gender( string gen )
 {
    gender = gen;
 }
 
-int query_gender( void )
-{
-   return( gender );
-}
-
-string query_gender_string( void )
+string query_gender( void )
 {
    switch( gender )
    {
-      case 1 : return("male");
-      case 2 : return("female");
+      case "male" : return("male");
+      case "female" : return("female");
 
-      default: return("Unable to determine gender");
+      default: return("unkown");
       }
    }
 
@@ -40,8 +23,8 @@ string query_gender_pronoun( void )
 {
    switch( gender )
    {
-      case 1 : return("he");
-      case 2 : return("she");
+      case "male" : return("he");
+      case "female" : return("she");
 
       default: return("it");
       }
@@ -51,8 +34,8 @@ string query_gender_possessive( void )
 {
    switch( gender )
    {
-      case 1 : return("his");
-      case 2 : return("hers");
+      case "male" : return("his");
+      case "female" : return("hers");
 
       default: return("its");
       }
@@ -62,8 +45,8 @@ string query_gender_reflexive( void )
 {
    switch( gender )
    {
-      case 1 : return("himself");
-      case 2 : return("herself");
+      case "male" : return("himself");
+      case "female" : return("herself");
 
       default: return("itself");
       }

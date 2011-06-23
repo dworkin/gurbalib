@@ -5,11 +5,11 @@ void main( string str ) {
   }
 
   if( lowercase( str ) == "female" ) {
-    this_player()->set_gender( 2 );
+    this_player()->set_gender( "female" );
     write( "You are now female.\n" );
     this_player()->save_me();
   } else if (lowercase( str ) == "male" ) {
-    this_player()->set_gender( 1 );
+    this_player()->set_gender( "male" );
     write( "You are now male.\n" );
     this_player()->save_me();
   } else {

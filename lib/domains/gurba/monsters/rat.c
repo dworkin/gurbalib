@@ -6,7 +6,8 @@ inherit M_BLOCKEXITS;
 void setup()
 {
   set_name("rat");
-  /*  set_gender(0); */ /* Leave out the gender specification, get a random one. */
+  /* Leave out the gender specification, get a random one */
+  /*  set_gender( "male" ); */ 
   add_adj( "filthy" );
   set_in_room_desc("A small filthy rat.");
   set_long("The rat smells awful.");

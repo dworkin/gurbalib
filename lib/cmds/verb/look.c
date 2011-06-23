@@ -75,16 +75,16 @@ void do_look_liv( object obj ) {
 
   this_environment()->tell_room( this_player(), capitalize( this_player()->query_name() ) + " looks at " + capitalize( obj->query_id() ) + ".\n" );
   write( obj->query_long() );
-  write( capitalize( obj->query_gender_pronoun()) + " is " + obj->query_gender_string() + ".\n" );
+  write( capitalize( obj->query_gender_pronoun()) + " is " + obj->query_gender() + ".\n" );
   write( capitalize( obj->query_gender_pronoun()) + " is " + article( obj->query_race() ) + " " + obj->query_race() + ".\n" );
   
   flag = 0;
   objs = obj->query_inventory();
   
   
-  if (obj->query_gender() == 1) {
+  if (obj->query_gender() == "male") {
     write( " \nHe is using:\n" );
-  } else if (obj->query_gender() == 2) {
+  } else if (obj->query_gender() == "female") {
     write( " \nShe is using:\n" );
   } else {
     write( " \nIt is using:\n" );
@@ -131,16 +131,16 @@ void do_look_str_liv( string str, object obj ) {
   
   this_environment()->tell_room( this_player(), capitalize( this_player()->query_name() ) + " looks at " + capitalize( obj->query_id() ) + ".\n" );
   write( obj->query_long() );
-  write( capitalize( obj->query_gender_pronoun()) + " is " + obj->query_gender_string() + ".\n" );
+  write( capitalize( obj->query_gender_pronoun()) + " is " + obj->query_gender() + ".\n" );
   write( capitalize( obj->query_gender_pronoun()) + " is " + article( obj->query_race() ) + " " + obj->query_race() + ".\n" );
   
   flag = 0;
   objs = obj->query_inventory();
   
   
-  if (obj->query_gender() == 1) {
+  if (obj->query_gender() == "male") {
     write( " \nHe is using:\n" );
-  } else if (obj->query_gender() == 2) {
+  } else if (obj->query_gender() == "female") {
     write( " \nShe is using:\n" );
   } else {
     write( " \nIt is using:\n" );

@@ -528,9 +528,9 @@ void input_get_gender( string str ) {
 
   str = lowercase( str );
   if( str == "m" || str == "male" ) {
-    player->set_gender( 1 );
+    player->set_gender( "male" );
   } else if( str == "f" || str == "female" ) {
-    player->set_gender( 2 );
+    player->set_gender( "female" );
   } else {
     send_message( "Please use 'male' or 'female'.\n" );
     send_message( "Please enter your gender (male/female) : " );

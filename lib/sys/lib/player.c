@@ -114,8 +114,8 @@ void login_player( void ) {
   }
 
   /* Gender less? Set the player to male */
-  if( !query_gender() )
-    set_gender( 1 );
+  if( query_gender() == "unkown")
+    set_gender( "male" );
 
   /* Set the proper name */
   if( !query_proper_name() ) {

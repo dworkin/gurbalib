@@ -8,7 +8,7 @@ void
 setup( void ) {
   set_name( "bob" );
   set_proper_name( "Bob" );
-  set_gender( 1 );
+  set_gender( "male" );
   set_adj( "slave" );
   set_in_room_desc( "Bob, Fudge's slave." );
   set_long( "Bob is wearing a simple robe, and his head is always bent in humbleness." );

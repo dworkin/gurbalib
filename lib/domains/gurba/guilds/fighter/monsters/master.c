@@ -4,7 +4,7 @@ void setup( void ) {
   set_guild( "fighter" );
   set_name( "bob" );
   set_proper_name( "Bob" );
-  set_gender( 1 );
+  set_gender( "male" );
   add_id( "master", "guildmaster" );
   set_in_room_desc( "Bob, the Fighter's Guildmaster" );
   set_long( "Bob is the leader of the Fighter's Guild. He is gray-haired, but this does not by any means indicate weakness. After all, to stay the leader you probably need to be pretty good at what you do." );

@@ -10,11 +10,18 @@ string living_name;
 static object possessor;
 
 void create( void ) {
+  int x;
   con::create();
   bod::create();
   set_gettable( 0 );
   living_name = nil;
-  set_gender( random( 2 ) + 1 );
+  
+  x = random( 2 ) + 1;
+  switch(x) {
+     case 1: set_gender("male");
+     case 2: set_gender("female");
+     default: set_gender("unkown");
+  }
 }
 
 void set_max_hp( int hp ) {
