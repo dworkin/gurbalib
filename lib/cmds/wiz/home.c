@@ -11,6 +11,11 @@ void main( string str ) {
   object env;
   string filename;
 
+  if (str && (str != "")) {
+     usage();
+     return;
+  }
+
   name = this_player()->query_name();
 
   filename = WIZ_DIR + name + "/rooms/workroom";
@@ -35,13 +40,13 @@ void main( string str ) {
 
   env = this_player()->query_environment();
 
-  /*error = catch( this_player()->move( filename ) );*/
-	this_player()->move(filename);
+  this_player()->simple_action( "$N $vgo home." );
+  this_player()->move(filename);
   if( !error ) {
-    this_player()->simple_action( "$N $vgo home." );
     this_player()->do_look( 0 );
   } else {
-    env->tell_room( this_player(), capitalize( this_player()->query_name() ) + " looks confused." );
+    env->tell_room( this_player(), 
+       capitalize( this_player()->query_name() ) + " looks confused." );
     write( "You can't go home.\nError: " + error );    
   }
 }
