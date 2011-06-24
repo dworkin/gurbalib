@@ -12,6 +12,11 @@ void main( string str ) {
   mapping cmds;
   int c, sz, col;
 
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
+
   cmds = ([ ]);
 
   path = this_player()->query_path();
