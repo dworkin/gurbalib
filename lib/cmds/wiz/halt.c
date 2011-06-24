@@ -9,6 +9,11 @@ void main( string str ) {
   int i;
   object *obj;
 
+  if (str && str != "") {
+     usage();
+     return;
+  }
+
   obj = this_environment()->query_inventory();
 
   for( i=0; i < sizeof( obj ); i++ ) {

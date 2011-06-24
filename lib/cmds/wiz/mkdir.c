@@ -12,6 +12,10 @@ void main( string arg ) {
     usage();
     return;
   }
+  if (sscanf(str, "-%s",str)) {
+    usage();
+    return;
+  }
 
   file = normalize_path( arg, this_player()->query_env( "cwd" ) );
   if( !file || file == "" ) {
