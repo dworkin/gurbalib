@@ -2,7 +2,7 @@
 
 void usage() {
   write("Usage: status [-h]\n");
-  write("Display various stat's about the server.\n";
+  write("Display various stat's about the server.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }

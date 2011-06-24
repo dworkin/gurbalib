@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: stats [-h] [object]\n");
-  write("Display the stat's for the specified object/person.\n";
+  write("Display the stat's for the specified object/person.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }

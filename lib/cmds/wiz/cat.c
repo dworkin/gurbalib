@@ -1,6 +1,7 @@
 void usage() {
   write("Usage: cat [-h] [file]\n");
-  write("cat allows a wizard to concatenate a file (print it to the screen).\n";
+  write("cat allows a wizard to concatenate a file " +
+    "(print it to the screen).\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }
