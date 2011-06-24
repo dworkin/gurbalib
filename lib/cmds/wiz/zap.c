@@ -1,5 +1,11 @@
-/* kill something ensuring a corpse is left behind
-     -- Arron Cusimano (mordain) 20090326 */
+void usage() {
+  write("Usage: zap [-h] PLAYER [PERCENT]\n");
+  write("Zap the given player: PLAYER, reducing their HP by PERCENT.\n");
+  write("PERCENT should be > 0 and < 100.\n");
+  write("If PERCENT is missing, we assume you want to kill your target.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
 
 void main( string str ) {
   object target;
@@ -9,15 +15,18 @@ void main( string str ) {
   int perc;
 
   if ( !str || str == "" ) {
-    write("Zap someone?");
+    usage();
     return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   }
 
   if( sscanf( str, "%s %d", who, perc ) != 2 ) {
     who = str;
     perc = 100;
   }
-
 
   if (perc <= 0) {
       write("Zapping with no power is useless.");
@@ -40,29 +49,39 @@ void main( string str ) {
   target_damage = (target_hp * perc) / 100;
 
   write(target->query_id() + " has " + target_hp + " hitpoints");
-  write(target->query_id() + " is going to receive " + target_damage + " damage");
+  write(target->query_id() + " is going to receive " + target_damage + 
+	" damage");
 
     switch(perc) {
-      case 1..20 : this_player()->targetted_action("$N $vlook slightly annoyed at $T.", target);
+      case 1..20 : this_player()->targetted_action(
+			"$N $vlook slightly annoyed at $T.", target);
                    target->message( "You feel uncomfortable.");
                    break;
-      case 21..40 : this_player()->targetted_action( "$N $vlook intensely at $T.", target);
+      case 21..40 : this_player()->targetted_action( 
+			"$N $vlook intensely at $T.", target);
                     target->message( "Your skin burns.");
                     break;
-      case 41..60 : this_player()->targetted_action( "$N $vlook angry at $T", target);
+      case 41..60 : this_player()->targetted_action( 
+			"$N $vlook angry at $T", target);
                     target->message( "You feel as if you're hit by a tree.");
                     break;
-      case 61..80 : this_player()->targetted_action( "$N $vstare at $T for a while", target);
-                    target->message( "Your head hurts, and your nose begins to bleed.");
+      case 61..80 : this_player()->targetted_action( 
+			"$N $vstare at $T for a while", target);
+                    target->message( 
+			"Your head hurts, and your nose begins to bleed.");
                     break;
-      case 81..99 : this_player()->targetted_action( "Sparks fly as $N $vstare intensely at $T", target);
-                    target->message( "Your brain starts to ooze out of your ears.");
+      case 81..99 : this_player()->targetted_action( 
+			"Sparks fly as $N $vstare intensely at $T", target);
+                    target->message( 
+			"Your brain starts to ooze out of your ears.");
                     break;
-      case 100 : this_player()->targetted_action( "$N $vgive $T the evil eye.", target);
+      case 100 : this_player()->targetted_action( 
+			"$N $vgive $T the evil eye.", target);
                  target->message("Your head explodes.");
                  break;
     }
-  /*this_player()->simple_action("$N $vgive " + target->query_id() + " a very nasty look..."); */
+  /*this_player()->simple_action("$N $vgive " + target->query_id() + 
+	" a very nasty look..."); */
   target->decrease_hp(target_damage);
 
   if (target->query_hp() < 1) {
@@ -70,8 +89,8 @@ void main( string str ) {
     target->message( "You have died." );
     target->die();
   } else {
-    write(target->query_id() + " is left with " + target->query_hp() + " hitpoints.");
+    write(target->query_id() + " is left with " + target->query_hp() + 
+	" hitpoints.");
   }
-
 }
 
