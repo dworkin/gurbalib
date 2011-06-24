@@ -8,6 +8,14 @@ void usage() {
 }
 
 void main( string str ) {
+  if( !str || str == "" ) {
+    usage();
+    return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
 
   this_player()->set_title( str );
   out( "New title: " + this_player()->query_title() + "\n" );
