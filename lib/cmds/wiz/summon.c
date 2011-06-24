@@ -14,6 +14,10 @@ void main(string str) {
         usage();
         return;
     }
+    if (sscanf(str, "-%s",str)) {
+        usage();
+        return;
+    }
     usr = USER_D->find_user( lowercase( str ) );
     if (usr) {
         if (usr->query_player()->query_environment() != this_player()->query_environment()) {
