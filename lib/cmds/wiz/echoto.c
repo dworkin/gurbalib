@@ -1,9 +1,26 @@
+void usage() {
+  write("Usage: echo [-h] [player] MSG\n");
+  write("Echo a message MSG to the player specified.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string who ) {
   object *usr;
   int i;
   int flag;
  
   string msg;
+
+  if (!who || (who == "")) {
+     usage();
+     return;
+  }
+
+  if (sscanf(who, "-%s",who)) {
+     usage();
+     return;
+  }
 
   sscanf( who, "%s %s", who, msg );
 

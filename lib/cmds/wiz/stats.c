@@ -5,13 +5,17 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
-void main( string arg )
-{
-int i,j;
-int hp, max_hp;
-string *stat_abrvs;
-string *stat_names;
-object ob;
+void main( string arg ) {
+   int i,j;
+   int hp, max_hp;
+   string *stat_abrvs;
+   string *stat_names;
+   object ob;
+
+   if ((sscanf(arg, "-%s",arg)) {
+      usage();
+      return;
+   }
 
    if(arg != "") {
       ob = this_player()->query_environment()->present( arg );
@@ -67,5 +71,4 @@ object ob;
       }
       write("\n\n\t"+"Hitpoints    :  "+hp+"/"+max_hp+"\n");
    }
-
 }   

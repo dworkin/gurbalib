@@ -11,11 +11,21 @@ void main( string msg){
 
   usr = USER_D->query_users();
 
-  if ((msg) !=  "") {
+  if (!str || (str == "")) {
+     usage();
+     return;
+  } else if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  } else {
     for (i = 0; i < sizeof(usr); i++) {
-      usr[i]->query_player()->message("\n" + "%^RED%^System Message from %^GREEN%^" + capitalize(this_player()->query_name()) + "%^RED%^ on %^WHITE%^" + ctime(time()) + "%^RED%^:%^RESET%^\n");
+      usr[i]->query_player()->message("\n" + 
+        "%^RED%^System Message from %^GREEN%^" + 
+        capitalize(this_player()->query_name()) + 
+        "%^RED%^ on %^WHITE%^" + ctime(time()) + "%^RED%^:%^RESET%^\n");
       usr[i]->query_player()->message(msg);
     }
-    write_file("/logs/sysmsg", capitalize(this_player()->query_name()) + " on " + ctime(time()) + ": " + msg + "\n");
+    write_file("/logs/sysmsg", capitalize(this_player()->query_name()) + 
+       " on " + ctime(time()) + ": " + msg + "\n");
   }
 }

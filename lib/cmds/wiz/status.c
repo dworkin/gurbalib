@@ -10,6 +10,11 @@ void usage() {
 void main( string str ) {
   mixed *stat;
 
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
+
   stat = status();
 
   write("Driver version         : "+(string)stat[ST_VERSION]+"\n");
