@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: where [-h] [player]\n");
+  write("Locates the given [player] and prints out their location.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   int i;
   object *usrs;

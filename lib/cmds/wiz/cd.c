@@ -1,3 +1,16 @@
+void usage() {
+  write("Usage: cd [-h] [dir]\n");
+  write("Change the current working directory(cwd) to [dir].\n" +
+    "If [dir] is not given, the working directory is set to the wizards\n" +
+    " home directory.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("Examples:\n");
+  write("cd /cmds         Change cwd to the /cmds directory.\n");
+  write("cd ..            Move up one directory.\n");
+  write("cd               Change cwd to /wiz/(username).\n");
+}
+
 void main( string arg ) {
   if (!arg || arg == "") {
 	arg = "/wiz/" + this_player()->query_name();

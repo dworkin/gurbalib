@@ -1,8 +1,17 @@
+void usage() {
+  write("Usage: summon [-h] [player]\n");
+  write("Find [player], print their current location, and then bring " + 
+    "them here.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main(string str) {
     object usr;
     object player;
     if (!str || str == "") {
         write("Get whom?");
+        usage();
         return;
     }
     usr = USER_D->find_user( lowercase( str ) );

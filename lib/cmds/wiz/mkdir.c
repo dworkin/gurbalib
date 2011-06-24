@@ -1,8 +1,15 @@
+void usage() {
+  write("Usage: mkdir [-h] [dir]\n");
+  write("mkdir allows you to make a directory named [dir].\n";
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string arg ) {
   string file;
 
   if( !arg || arg == "" ) {
-    write( "Please specify the name of the new dir." );
+    usage();
     return;
   }
 

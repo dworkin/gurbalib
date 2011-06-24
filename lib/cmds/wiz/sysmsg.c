@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: sysmsg [-h] [msg]\n");
+  write("Send a mesage [msg] to the system.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string msg){
   object *usr;
   int i;

@@ -1,5 +1,12 @@
 #include <status.h>
 
+void usage() {
+  write("Usage: status [-h]\n");
+  write("Display various stat's about the server.\n";
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   mixed *stat;
 
@@ -29,7 +36,5 @@ void main( string str ) {
   write("Max array/mapping size : "+(string)stat[ST_ARRAYSIZE]+"\n");
   write("Remaning stack depth   : "+(string)stat[ST_STACKDEPTH]+"\n");
   write("Remaning ticks         : "+(string)stat[ST_TICKS]+"\n");
-  
 }
-
 

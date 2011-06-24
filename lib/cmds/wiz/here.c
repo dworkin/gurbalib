@@ -1,7 +1,10 @@
-/* Just a small command to show the rooms short description and filename.
- *
- * Fudge
- */
+void usage() {
+  write("Usage: here [-h]\n");
+  write("Show the room's short descrition and filename.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 
 void main( string arg ) {
   write( this_environment()->query_brief() + ": [" + this_environment()->file_name() + "]\n" );

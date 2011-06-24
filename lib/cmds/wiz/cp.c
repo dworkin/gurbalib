@@ -1,6 +1,9 @@
-/* Command to copy a file 
- * Fudge
- */
+void usage() {
+  write("Usage: cp [-h] [file1] [file2]\n");
+  write("Copy [file1] to [file2].\n";
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
 
 void main( string str ) {
   string file;

@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: home [-h]\n");
+  write("Transport you to your \"workroom\".\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
 
   string error, name;

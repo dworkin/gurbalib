@@ -1,5 +1,15 @@
 /* vim:set ft=lpc: */
 
+void usage() {
+  write("Usage: ls [-l] [-h] [<dir> ...]\n");
+  write("ls allows a wizard to list the contents of a directory.\n");
+  write("If no directory is given, it uses the wizard's current " +
+    "working directory.\n");
+  write("Options:\n");
+  write("\t-l\tUse long listing, giving you more info\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   mixed width;
   mixed *files, *objects;
@@ -15,6 +25,7 @@ void main( string str ) {
       str = ".";
     } else if (!sscanf(str, "l %s", str) ) {
       write("Usage: ls [-l] [<file> ...]\n");
+      usage();
       return;
     }
   }

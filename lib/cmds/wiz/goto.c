@@ -2,6 +2,13 @@
 /* Fixed to handle goto'ing of room files by Fudge. */
 /* Fixed to properly setup rooms that get loaded by this command */
 
+void usage() {
+  write("Usage: goto [-h] [player]\n");
+  write("Find [player], and then transport you to them.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   object usr;
   object player;

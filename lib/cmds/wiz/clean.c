@@ -3,6 +3,13 @@
  * Fudge
  */
 
+void usage() {
+  write("Usage: [-h] clean\n");
+  write("Clear all the objects out of the current room.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string arg ) {
   object *objs;
   int i;

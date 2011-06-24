@@ -1,3 +1,11 @@
+void usage() {
+  write("Usage: cmds [-h] [-v]\n");
+  write("cmds lists the various cmds and your disposal.\n";
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("\t-v\tVertical, displays commands one per line.\n");
+}
+
 void main( string str ) {
   string *path;
   string *names;

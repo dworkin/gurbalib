@@ -1,6 +1,9 @@
-/* Simple command to show all objects in the room 
- * Fudge
- */
+void usage() {
+  write("scan [-h] [object]\n");
+  write("scan allows a wizard to show the inventory of an object/room.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
 
 void main( string arg ) {
   object *objs;
