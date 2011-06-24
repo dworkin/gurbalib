@@ -9,6 +9,11 @@ void usage() {
 void main( string str ) {
   string msg;
 
+  if (sscanf(str, "-%s",str)) {
+    usage();
+    return;
+  }
+
   if( !require_priv( "system" ) ) {
     write( "Access denied" );
     return;

@@ -7,5 +7,12 @@ void usage() {
 
 
 void main( string arg ) {
-  write( this_environment()->query_brief() + ": [" + this_environment()->file_name() + "]\n" );
+
+  if (str && str != "") {
+     usage();
+     return;
+  }
+
+  write( this_environment()->query_brief() + ": [" + 
+    this_environment()->file_name() + "]\n" );
 }

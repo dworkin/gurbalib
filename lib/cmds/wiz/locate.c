@@ -1,6 +1,18 @@
+void usage() {
+  write("Usage: locate [-h] PLAYER\n");
+  write("Locate player PLAYER.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   if( !str || str == "" ) {
-    write( "Usage: locate player-name\n" );
+    usage();
+    return;
+  }
+
+ if (sscanf(str, "-%s",str)) {
+    usage();
     return;
   }
 

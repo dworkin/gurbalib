@@ -1,6 +1,6 @@
 void usage() {
-  write("Usage: summon [-h] [player]\n");
-  write("Find [player], print their current location, and then bring " + 
+  write("Usage: summon [-h] PLAYER\n");
+  write("Find PLAYER, print their current location, and then bring " + 
     "them here.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");

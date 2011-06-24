@@ -1,6 +1,6 @@
 void usage() {
-  write("Usage: sysmsg [-h] [msg]\n");
-  write("Send a mesage [msg] to the system.\n");
+  write("Usage: sysmsg [-h] MSG\n");
+  write("Send a mesage MSG to the system.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }

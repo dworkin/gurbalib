@@ -1,6 +1,6 @@
 void usage() {
-  write("Usage: echo [-h] [mesg]\n");
-  write("Echo a message to the room.\n");
+  write("Usage: echo [-h] MSG\n");
+  write("Echo a message MSG to the room.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }
