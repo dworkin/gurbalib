@@ -4,13 +4,13 @@ void main( string str ) {
   string what; /*But what you say is important too.*/
   /* Strip trailing whitespaces */
 
-  for( i=strlen(str)-1; i > 0; i-- ) {
-    if( str[i] != ' ' )
+  for ( i=strlen(str)-1; i > 0; i-- ) {
+    if ( str[i] != ' ' )
       break;
     str = str[0..(i-1)];
   }
 
-  if(sscanf(str, "%s|%s", how, what) != 2) {
+  if (sscanf(str, "%s|%s", how, what) != 2) {
     write("usage: ssay how|what");
     return;
   }

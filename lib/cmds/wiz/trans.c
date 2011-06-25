@@ -26,7 +26,7 @@ void main (string str) {
          capitalize(player->query_name())+" suddenly appears.\n");
       player->message( "\nYou are magically transported to " + capitalize(this_player()->query_name()) +".\n");
     } else {
-      out("Look around you.\n");
+      out("That player is already here.\n");
     } 
   } else {
     out( capitalize(str) + " not found.\n");

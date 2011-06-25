@@ -23,7 +23,7 @@ void main( string str ) {
      return;
   }
 
-  if( sscanf( str, "%s %d", who, perc ) != 2 ) {
+  if (sscanf( str, "%s %d", who, perc ) != 2 ) {
     who = str;
     perc = 100;
   }

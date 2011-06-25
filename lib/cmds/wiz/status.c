@@ -10,9 +10,14 @@ void usage() {
 void main( string str ) {
   mixed *stat;
 
+  if (str && str != "") {
+    usage();
+    return;
+  }
+
   if (sscanf(str, "-%s",str)) {
-     usage();
-     return;
+    usage();
+    return;
   }
 
   stat = status();

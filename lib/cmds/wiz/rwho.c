@@ -1,6 +1,7 @@
 void usage() {
   write("Usage: rwho [-h] MUDNAME\n");
   write("Remote who, lists users on another mud.\n");
+  write("To see what other muds you can look at use the command: mudlist\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }

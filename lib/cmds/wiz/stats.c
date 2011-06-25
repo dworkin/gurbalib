@@ -12,7 +12,7 @@ void main( string arg ) {
    string *stat_names;
    object ob;
 
-   if ((sscanf(arg, "-%s",arg)) {
+   if (sscanf(arg, "-%s",arg)) {
       usage();
       return;
    }
@@ -22,21 +22,13 @@ void main( string arg ) {
       if( !ob ) {
          write(arg+" is not here!\n");
          ob = nil;
-      }
-      else {
-         if( !ob->is_alive() ) {
-            write("You can't stat the "+arg+"!\n");
-            ob = nil;
-         } else {
-            write(object_name(ob)+" is a living???");
-         }
-            
+      } else {
+            write(object_name(ob) + "(" + ob->query_name() + "):");
       }
    }
    else {
       ob = this_player();
    }
- 
 
    if(ob) {
       hp = ob->query_hp();

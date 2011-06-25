@@ -1,5 +1,5 @@
 void usage() {
-  write("Usage: date [-h]\n");
+  write("Usage: wtime [-h]\n");
   write("Show the game time.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
