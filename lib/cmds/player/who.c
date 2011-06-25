@@ -1,13 +1,12 @@
-/* void main( string str ) { */
-/*   object *usr; */
-/*   int i; */
+void usage() {
+  write("Usage: people [-h]\n");
+  write("Print out a list of who is on the system.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
 
-/*   usr = USER_D->query_users(); */
-/*   out( "Users online: " + sizeof(usr) + "\n" ); */
-/*   for( i = 0; i < sizeof( usr ); i++ ) { */
-/*     out( " " + capitalize(usr[i]->query_name()) + (usr[i]->query_player()->query_title()) + "\n" ); */
-/*   } */
-/* } */
+// XXX  merge with the wizard people command... lets reduce commands
+//      people need to use...
 
 /*
   'who' command
@@ -18,6 +17,12 @@
 void main( string str ) {
   object *usr;
   int i;
+
+  if (str && str != "") {
+     usage();
+     return;
+  }
+
   usr = players();
   
   write(MUD_NAME + " currently has " + sizeof( usr ) + " users online."); 
