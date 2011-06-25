@@ -492,7 +492,7 @@ void _interrupt(mixed * tls) {
   usrs = users();
   for( i=0; i < sizeof( usrs ); i++ ) {
     p = usrs[i]->query_player();
-    if(p) p->do_quit("");
+    if(p) p->do_quit();
     else usrs[i]->_F_destruct();
   }
   message( "Shutting down.\n" );
@@ -511,7 +511,7 @@ void start_shutdown() {
   users = users();
   for( i=0; i < sizeof( users ); i++ ) {
     p = users[i]->query_player();
-    if(p) p->do_quit("");
+    if(p) p->do_quit();
     else users[i]->_F_destruct();
   }
   users = users();

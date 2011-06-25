@@ -553,7 +553,7 @@ void do_go( string dir ) {
 }
 
 /* Quit */
-void do_quit( string str ) {
+void do_quit( void ) {
   object sp;
   object *objs;
   int i;
