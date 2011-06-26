@@ -3,6 +3,7 @@ void usage() {
   write("Whisper a message MSG to WHO\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: tell say emote\n");
 }
 
 void main( string who) {
