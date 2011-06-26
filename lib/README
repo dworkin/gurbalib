@@ -7,14 +7,14 @@ mud and see what needs to be worked on.
 
 	ChangeLog	Kept for historical reasons, for upto date info
 			on who modified what files checkout the code
-			with git.
+			with git.  XXX try to put this in git history 
+			so can clean up....
 	README		This file explaning what each dir has in it.
 	cmds		Wizard, player and monster commands.
 	daemons		Various processes that run on the mud to handle things.
 			An example is the event daemon, or the telnet daemon.
 	data		Mud specific data files..  Player files, message boards,
-			etc...
-	design		Info about the mud XXX move to doc?
+			etc...  In general all the user generated content.
 	doc		Documentation about the mud... that wizards can view
 			via man.
 	domains		The offical areas of the mud that users can adventure 
