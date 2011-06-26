@@ -1,6 +1,7 @@
 void usage() {
   write("Usage: ignore [-h] [PLAYER]\n");
-  write("Allows you to ignore a given player PLAYER.\n");
+  write("Allows you to ignore a given player PLAYER,\n);
+  write("or stop ignoring them if they are currently ignored.\n");
   write("If PLAYER is missing, show a list of who you are ignoring.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
@@ -21,7 +22,7 @@ void main( string arg ) {
         /*write(dump_value(this_player()->query_ignored_all(), ([])));*/
         return;
     }
-    if (sscanf(str, "-%s",str)) {
+    if (sscanf(arg, "-%s",arg)) {
        usage();
        return;
     }

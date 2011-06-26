@@ -9,6 +9,11 @@ void main( string who ) {
   object usr;
   string what, where;
 
+  if (!who || who == "") {
+     usage();
+     return;
+  }
+
   if (sscanf(who, "-%s",who)) {
      usage();
      return;

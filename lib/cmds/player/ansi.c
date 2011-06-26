@@ -8,7 +8,7 @@ void usage() {
   write("\tshow\tDisplay your current ANSI support settings.\n");
 }
 
-XXX Merge with color command....
+// XXX Merge with color command....
 
 void main( string str ) {
   if( str == "on" || str == "On" || str == "1" ) {
@@ -19,7 +19,7 @@ void main( string str ) {
     out( "Turning off ANSI.\n" );
   } else if( str == "show" || str == "display" ) {
 
-XXX make it so show displayes your current ansi status off, on...
+// XXX make it so show displayes your current ansi status off, on...
 
     out( ANSI_D->color_table() );
   } else {

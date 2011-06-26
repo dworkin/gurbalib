@@ -11,11 +11,11 @@ void main( string who) {
   int flag;
   string what;
 
-  if ( !str || str == "" ) {
+  if ( !who || who == "" ) {
     usage();
     return;
   }
-  if (sscanf(str, "-%s",str)) {
+  if (sscanf(who, "-%s",who)) {
      usage();
      return;
   }

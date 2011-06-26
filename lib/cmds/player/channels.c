@@ -1,11 +1,11 @@
 void usage() {
-  write("Usage: chanlist [-h]\n");
+  write("Usage: channels [-h]\n");
   write("List the available channels you can use to communicate on.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }
 
-XXX combine with wiz chanlist
+// XXX combine with wiz chanlist
 
 /* 
 Display the chat channels a player is subscribed to

@@ -22,7 +22,7 @@ void main( string arg ) {
     arg = "help";
   }
 
-  if (sscanf(str, "-%s",str)) {
+  if (sscanf(arg, "-%s",arg)) {
      usage();
      return;
   }

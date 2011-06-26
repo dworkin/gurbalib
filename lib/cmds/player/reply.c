@@ -8,7 +8,7 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
-void main( string what ) {
+void main( string str ) {
   object usr;
   string who, where;
 
@@ -28,21 +28,19 @@ void main( string what ) {
     return;
   }
 
-  if ( !what || what == "" ) {
-    write( "You will reply to " + capitalize(who) + "." );
-    return;
-  }
-
   if( sscanf( who, "%s@%s", who, where ) == 2 ) {
     /* intermud tell */
-    IMUD_D->do_tell( who, where, what );
-    write( "You tell %^PLAYER%^" + capitalize(who) + "@" + where + "%^RESET%^: %^TELL_TO%^" + what + "%^RESET%^\n" );
+    IMUD_D->do_tell( who, where, str );
+    write( "You tell %^PLAYER%^" + capitalize(who) + "@" + where + 
+      "%^RESET%^: %^TELL_TO%^" + str + "%^RESET%^\n" );
   } else {
     usr = USER_D->find_player(who);
     if( usr && !usr->query_ignored(this_player()->query_name()) ) {
-        usr->message( "%^PLAYER%^" + capitalize(this_player()->query_name()) + "%^RESET%^ tells you: %^TELL_FROM%^" + what + "%^RESET%^\n" );
+        usr->message( "%^PLAYER%^" + capitalize(this_player()->query_name()) + 
+          "%^RESET%^ tells you: %^TELL_FROM%^" + str + "%^RESET%^\n" );
         usr->set_last_tell( lowercase( this_player()->query_name() ) );
-        write( "You tell%^PLAYER%^ " + capitalize(who) + "%^RESET%^: %^TELL_TO%^" + what + "%^RESET%^\n" );
+        write( "You tell%^PLAYER%^ " + capitalize(who) + 
+          "%^RESET%^: %^TELL_TO%^" + str + "%^RESET%^\n" );
     } else {
         write( "You can't seem to reach " + who + ".\n" );
     }
