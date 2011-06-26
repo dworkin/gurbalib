@@ -1,3 +1,11 @@
+void usage() {
+  write("Usage: page [-h] CMD\n");
+  write("Ask your page to do command CMD.\n");
+  write("If no page is present, summon one.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
    object ob;
 
@@ -5,6 +13,11 @@ void main( string str ) {
 
    page = this_player()->query_name() + "s page";
    ob = this_player()->query_environment()->present( page );
+
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
 
    if( ob ) {
       ob->parse(str);

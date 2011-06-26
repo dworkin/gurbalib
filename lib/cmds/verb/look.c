@@ -1,3 +1,11 @@
+void usage() {
+  write("Usage: look [-h] [at obj] [in obj] [obj]\n");
+  write("Allows you to get more details on a given object.\n");
+  write("If no argument is given look at your suroundings.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 string *query_verb_info() {
   return( ({ "", "STR", "OBJ", "at OBJ", "LIV", "at LIV", "OBJA", "in OBJ" }) );
 }
@@ -36,6 +44,11 @@ void do_look() {
 }
 
 void do_look_str( string str ) {
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
+
   if( member_array( str, this_environment()->query_items() ) == -1 ) {
     write("Look at what?" );
 	return;
@@ -159,5 +172,4 @@ void do_look_str_liv( string str, object obj ) {
     write( "  Nothing." );
   }
 }
-
 
