@@ -1,3 +1,11 @@
+void usage() {
+  write("Usage: ignore [-h] [PLAYER]\n");
+  write("Allows you to ignore a given player PLAYER.\n");
+  write("If PLAYER is missing, show a list of who you are ignoring.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 /* Add a user to your ignore list  -- Arron Cusimano (mordain) 20090321 */
 void main( string arg ) {
     string out;
@@ -12,6 +20,10 @@ void main( string arg ) {
         write(out);
         /*write(dump_value(this_player()->query_ignored_all(), ([])));*/
         return;
+    }
+    if (sscanf(str, "-%s",str)) {
+       usage();
+       return;
     }
     if ( this_player()->query_ignored(arg) ) {
         write("Removing " + arg + "\n");

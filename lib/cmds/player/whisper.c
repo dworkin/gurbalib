@@ -1,10 +1,24 @@
-/*No error messages or anything yet.*/
+void usage() {
+  write("Usage: whisper [-h] WHO MSG\n");
+  write("Whisper a message MSG to WHO\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
 
 void main( string who) {
   object *usr;
   int i;
   int flag;
   string what;
+
+  if ( !str || str == "" ) {
+    usage();
+    return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
   
   sscanf(who, "%s %s", who, what);
   
@@ -22,6 +36,7 @@ void main( string who) {
     }
   if (!flag) {
     write("Who did you want to whisper to?\n");
+    usage();
   }
 }
 	

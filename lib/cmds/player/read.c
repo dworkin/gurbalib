@@ -1,6 +1,22 @@
+void usage() {
+  write("Usage: read [-h] THING\n");
+  write("Allows you to read readable things.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   object ob;
   string *lines;
+
+  if ( !str || str == "" ) {
+    usage();
+    return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
 
   ob = this_environment()->present( str );
 

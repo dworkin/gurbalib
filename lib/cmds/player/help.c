@@ -1,3 +1,11 @@
+void usage() {
+  write("Usage: help [-h] [TOPIC]\n");
+  write("Get more information on topic TOPIC, if it exists.\n");
+  write("Try \"help help\" for more info.");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 /* A highly advanced help command 
  * Aphex
  * :)
@@ -12,6 +20,11 @@ void main( string arg ) {
 
   if ( !arg || arg == "" ) {
     arg = "help";
+  }
+
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   }
 
   arg = lowercase(arg);

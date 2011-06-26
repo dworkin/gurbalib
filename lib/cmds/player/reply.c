@@ -1,6 +1,25 @@
+void usage() {
+  write("Usage: reply [-h] MSG\n");
+  write("Reply with message MSG to the last person that sent a tell to you.\n");
+  write("It's dangerous to rely on this command, lots of times someone will\n");
+  write("send you a tell just as your sending your MSG and it will goto " +
+    "someone else.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string what ) {
   object usr;
   string who, where;
+
+  if ( !str || str == "" ) {
+    usage();
+    return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
 
   who = this_player()->query_last_tell();
 

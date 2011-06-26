@@ -1,7 +1,21 @@
+void usage() {
+  write("Usage: list [-h]\n");
+  write("When in a storage location, allows you to see what you have in " +
+    "storage.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
+
 void main( string str ) {
   object vendor;
   object *objs;
   int i;
+
+  if ( str && str != "" ) {
+    usage();
+    return;
+  }
 
   if( this_environment()->is_storage() ) {
     write( this_environment()->query_stored_list() );
