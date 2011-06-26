@@ -1,3 +1,11 @@
+void usage() {
+  write("Usage: skills [-h] [full]\n");
+  write("List the skills you know\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("\tfull\tShow all of the skills available on the mud.\n");
+}
+
 /*
  * An 'advanced' skill command, by Fudge, Sorressean and Aidil
  *
@@ -52,6 +60,9 @@ void main( string str ) {
   } else if( ( str == "" ) || ( !str ) ) {
     /* All skills of this_player() */
     skills = this_player()->query_skills();
+  } else if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   } else if( sscanf( str, "full %s", str ) == 0 ) {
     /* Filtered list of skills of this_player() */
     skills = this_player()->query_skills();
