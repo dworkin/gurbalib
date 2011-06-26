@@ -1,9 +1,23 @@
+oid usage() {
+  write("Usage: chanlist [-h]\n");
+  write("List the available channels you can use to communicate on.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
+XXX why is there this and channels????
+
 void main( string str){
    string *channels;
    mapping ichans;
    string *lines;
    string line;
    int i;
+
+   if (str && str != "") {
+     usage();
+     return;
+   }
 
    channels = CHANNEL_D->query_channels();
 
