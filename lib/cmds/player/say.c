@@ -1,9 +1,24 @@
+void usage() {
+  write("Usage: say [-h] MSG\n");
+  write("Tell everyone in the current room MSG.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 /*Ok so it isn't the best method in the world for making sure that you get the correct conjugation, but it works.*/
 void main( string str ) {
   int i;
   string me; /*what I, the one who's talking, sees*/
   string you; /*what all the others in the room sees*/
 
+  if (!str || str == "") {
+     usage();
+     return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
  
   /* Strip trailing whitespaces */
 

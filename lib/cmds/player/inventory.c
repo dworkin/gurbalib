@@ -1,6 +1,18 @@
-void main( string arg ) {
+void usage() {
+  write("Usage: inventory [-h]\n");
+  write("Print a list of the items you currently have aquired.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
+void main( string str ) {
   object *inv;
   int i;
+
+  if (str && (str != "")) {
+    usage();
+    return;
+  }
 
   inv = this_player()->query_inventory();
 

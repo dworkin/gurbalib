@@ -5,11 +5,16 @@ void usage () {
    write("\t-h\tHelp, this usage message.\n");
 }
 
-int main( string str ) {
+void main( string str ) {
    int max_hp, hp;
    int expr;
    int ac, i, ducats, royals, crowns;
    mixed *money;
+
+   if (str && str != "") {
+      usage();
+      return;
+   }
    
    money = this_player()->query_all_coins();
    max_hp = this_player()->query_max_hp();
@@ -53,5 +58,5 @@ int main( string str ) {
          "\t\tCrowns: " + crowns ); 
    }
    
-   return 1;
+   return;
 }
