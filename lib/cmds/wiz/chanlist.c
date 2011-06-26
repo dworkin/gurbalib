@@ -1,4 +1,4 @@
-oid usage() {
+void usage() {
   write("Usage: chanlist [-h]\n");
   write("List the available channels you can use to communicate on.\n");
   write("Options:\n");
