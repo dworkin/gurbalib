@@ -1,6 +1,24 @@
+void usage() {
+  write("Usage: viewemote [-h] EMOTE\n");
+  write("Look at avialble emotes to see if EMOTE is listed, if so display " +
+    "what it does.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   string *rules;
   int i;
+
+  if (!str || str == "") {
+     usage();
+     return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
+
 
   if( EMOTE_D->is_emote( str ) ) {
 
