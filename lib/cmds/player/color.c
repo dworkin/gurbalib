@@ -1,3 +1,5 @@
+XXX merge with ansi command....
+
 #define GRAMMAR "whitespace=/[ ]+/\n"+\
                 "TAG=/[A-Z_][A-Z0-9_]*/ \n"+\
                 "TAG=/NIL/\n"+\
