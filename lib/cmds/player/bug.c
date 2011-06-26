@@ -1,8 +1,25 @@
+void usage() {
+  write("Usage: bug [-h] MSG\n");
+  write("Allows you to submit a bug (MSG) to the system.\n");
+  write("We can't fix bugs unless we know about them.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 private static mapping msg;
 private static mapping subject;
 private static mapping ob;
 
 void main( string str ) {
+
+  if ( !str || str == "" ) {
+    usage();
+    return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
 
   if( !msg ) {
     msg = ([ ]);
