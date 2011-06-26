@@ -1,3 +1,6 @@
+This file is not kept upto date.  If you really want to see who's done
+what, download the source and explore it with git. :)
+
 1998-08-10  Erlend M. Simonsen  <erlends@fudge.gurba.org>
 
 	* cmds/player/alias.c (main): Created adding, removing and listing

@@ -1,1 +1,41 @@
-README
+This mudlib is considered a learning tool, so the following file explains
+a little bit about the layout of the mud and what you'll find in the following
+directories.  If you have any questions email: sirdude (mein@cs.umn.edu)
+
+TODO items are marked with XXX so you can easily grep for XXX in the
+mud and see what needs to be worked on.
+
+	ChangeLog	Kept for historical reasons, for upto date info
+			on who modified what files checkout the code
+			with git.
+	README		This file explaning what each dir has in it.
+	cmds		Wizard, player and monster commands.
+	daemons		Various processes that run on the mud to handle things.
+			An example is the event daemon, or the telnet daemon.
+	data		Mud specific data files..  Player files, message boards,
+			etc...
+	design		Info about the mud XXX move to doc?
+	doc		Documentation about the mud... that wizards can view
+			via man.
+	domains		The offical areas of the mud that users can adventure 
+			in.
+	etc		location for config files not used... XXX nuke it?
+	help		Help topics that you can view via help. (documentation
+			for the players and wizards)
+	include		Basic header files that varous programs need to include
+			XXX maybe move to std? and put objects in std/obj?
+	kernel		XXX figure out difference between this and sys dir.
+	logs		If your a wizard this is your best friend.  It
+			holds error messages and other things that are recorded
+			by the mud.
+	obj		XXX Not sure why this is seperate from std, maybe
+			this is more standard objects vs something you build
+			on?  Maybe move this to domain like /rooms
+	pub		XXX used for ftp??? maybe should go away...
+	rooms		Currently void and bugroom  XXX move to domains.	
+	std		Standard objects for the system.  XXX figure out
+			why there is also obj in this dir...
+	sys		XXX figure out why this and kernel dir...
+	tmp		XXX not used remove it...
+	wiz		Home directories for your local wizards.
+
