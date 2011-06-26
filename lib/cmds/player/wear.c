@@ -1,6 +1,19 @@
+void usage() {
+  write("Usage: wear [-h] ITEM\n");
+  write("Puts on an item.  If you have armor its generally a good idea to " +
+    "put it on.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   object obj;
   object worn;
+
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
 
   obj = this_player()->present( lowercase( str ) );
   if( !obj ) {

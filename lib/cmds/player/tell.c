@@ -1,6 +1,18 @@
+void usage() {
+  write("Usage: tell [-h] WHO WHAT\n");
+  write("Send a message WHAT to WHO.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string who ) {
   object usr;
   string what, where;
+
+  if (sscanf(who, "-%s",who)) {
+     usage();
+     return;
+  }
 
   if(sscanf(who, "\"%s\" %s", who, what) != 2) {
     sscanf( who, "%s %s", who, what );

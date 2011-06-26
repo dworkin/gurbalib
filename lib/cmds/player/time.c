@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: time [-h]\n");
+  write("Show what time it is, in the mud.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   int day;
   string txt;
@@ -5,6 +12,11 @@ void main( string str ) {
   string *hours;
   string *years;
   string datetxt;
+
+  if (str && str != "") {
+     usage();
+     return;
+  }
 
   switch (TIME_D->query_hour()) {
   case 0 : {
