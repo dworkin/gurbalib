@@ -37,7 +37,7 @@ roughly in the 50's.
 
 On the city we only had one race to deal with, that being humans. I think
 we can use this effective stat idea to good end with the various races
-that the GurbaLIB supports. We would use the existing idea of racial
+that the mudlib supports. We would use the existing idea of racial
 stat maximums and minimums for both base and bonus stats. Actually, this
 could be quite fun. Consider a troll race for example. Perhaps we set
 its base stat maximums and minimums quite high, but NOT allow it to raise
