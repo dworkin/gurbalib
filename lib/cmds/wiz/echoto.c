@@ -1,5 +1,5 @@
 void usage() {
-  write("Usage: echo [-h] [player] MSG\n");
+  write("Usage: echoto [-h] [player] MSG\n");
   write("Echo a message MSG to the player specified.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");

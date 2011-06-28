@@ -46,7 +46,7 @@ void main( string str ) {
 	return;
       }
 
-      write( "Usage: alias <cmds> <alias>" );
+      usage();
       return;
     }
 

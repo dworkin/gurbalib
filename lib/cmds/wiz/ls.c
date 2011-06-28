@@ -24,7 +24,6 @@ void main( string str ) {
     if (str == "l") {
       str = ".";
     } else if (!sscanf(str, "l %s", str) ) {
-      write("Usage: ls [-l] [<file> ...]\n");
       usage();
       return;
     }

@@ -1,10 +1,19 @@
+void usage() {
+  write("Usage: clone [-h] [FILENAME]\n");
+  write("Bring a copy of the object FILENAME into existance.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   string path;
   object ob;
 
-
   if( !str || str == "" ) {
     str = this_player()->query_env( "cwf" );
+  } else if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   }
 
   if( !str || str == "" ) {

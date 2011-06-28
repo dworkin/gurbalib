@@ -4,7 +4,7 @@
  */
 
 void usage() {
-  write("Usage: [-h] clean\n");
+  write("Usage: clean [-h]\n");
   write("Clear all the objects out of the current room.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");

@@ -3,6 +3,7 @@ void usage() {
   write("Display the stat's for the specified object/person.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: add_base, add_bonus\n");
 }
 
 void main( string arg ) {
