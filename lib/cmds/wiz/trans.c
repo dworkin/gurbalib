@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: trans [-h] PLAYER\n");
+  write("Find PLAYER, and then transport them to you.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 /*Made by Aphex on Fri 21 Nov 97*/
 void main (string str) {
   object usr;
@@ -6,6 +13,10 @@ void main (string str) {
   if(!str || str == "") {
     write( "Usage: trans <player>" );
     return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   }
 
   usr = USER_D->find_user(str);

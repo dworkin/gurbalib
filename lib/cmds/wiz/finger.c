@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: finger [-h] PLAYER\n");
+  write("Look up information about the given player PLAYER.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str) {
   object *players;
   int i;
@@ -6,6 +13,10 @@ void main( string str) {
   int found;
   
   if (str != "") {
+    if (sscanf(str, "-%s",str)) {
+       usage();
+       return;
+     }
     
     players = USER_D->query_players();
     cloned = found = 0;

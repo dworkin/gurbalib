@@ -5,7 +5,6 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
-
 void main( string arg ) {
 
   if (str && str != "") {
@@ -16,3 +15,4 @@ void main( string arg ) {
   write( this_environment()->query_brief() + ": [" + 
     this_environment()->file_name() + "]\n" );
 }
+
