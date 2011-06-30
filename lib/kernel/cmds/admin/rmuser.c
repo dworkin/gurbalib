@@ -8,6 +8,9 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
+// XXX Fix it so it checks for valid user and tells you if your
+// removing a non existing user
+
 static void rmuser( string name ) {
   USER_D->delete_user( name );
 }

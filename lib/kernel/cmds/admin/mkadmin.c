@@ -1,6 +1,6 @@
 void usage() {
-  write("Usage: mkwiz [-h] PLAYER\n");
-  write("Make the player PLAYER a wizard.\n");
+  write("Usage: mkadmin [-h] PLAYER\n");
+  write("Make the player PLAYER an admin.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }

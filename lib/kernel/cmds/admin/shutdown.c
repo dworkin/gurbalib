@@ -6,6 +6,8 @@
 
 #define S_LOG  "/logs/shutdowns"
 
+// XXX make it so reason is sent to all players, not just put in the log?
+
 void usage() {
   write("Usage: shutdown [-h] [now|MIINUTES] REASON\n");
   write("Shutdown the server now or MINUTES minutes later.\n");
@@ -55,7 +57,7 @@ void main( string arg ) {
       return;
    }
 
-   if (sscanf(str, "-%s",str)) {
+   if (sscanf(arg, "-%s",arg)) {
      usage();
      return;
   }

@@ -3,6 +3,7 @@ void usage() {
   write("Delete the specified skill, SKILL.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: addskill, skills\n");
 }
 
 void main(string skill) {
