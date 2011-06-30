@@ -9,6 +9,7 @@ void usage() {
   write("cd /cmds         Change cwd to the /cmds directory.\n");
   write("cd ..            Move up one directory.\n");
   write("cd               Change cwd to /wiz/(username).\n");
+  write("See also: pwd, ls, browse\n");
 }
 
 void main( string arg ) {

@@ -5,6 +5,8 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
+// XXX combine with summon maybe make an alias
+
 /*Made by Aphex on Fri 21 Nov 97*/
 void main (string str) {
   object usr;
