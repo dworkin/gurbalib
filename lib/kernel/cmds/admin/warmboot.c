@@ -1,5 +1,13 @@
 #include <type.h>
 
+void usage() {
+  write("Usage: warmboot [-h]\n");
+  write("Similar to a reboot but keeps the system running.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("See also: shutdown\n");
+}
+
 #define LAST_STAGE 3
 int stage;
 
@@ -35,6 +43,11 @@ static string validate_upgrade() {
 }
 
 void main(string str) {
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
+
   if(stage) {
     write("busy");
     return;

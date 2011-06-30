@@ -1,6 +1,13 @@
 object lock;
 string name;
 
+void usage() {
+  write("Usage: rmuser [-h] USER\n");
+  write("Delete the specified user, USER.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 static void rmuser( string name ) {
   USER_D->delete_user( name );
 }
@@ -31,8 +38,13 @@ void confirm_remove( varargs string str ) {
 
 void main( string str ) {
   if( !str || str == "" ) {
-    write( "Useage: rmuser <name>\n" );
+    usage();
     return;
+  }
+
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   }
 
   if( !require_priv( "system" ) ) {

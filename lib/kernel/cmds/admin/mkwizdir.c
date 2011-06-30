@@ -1,8 +1,20 @@
+void usage() {
+  write("Usage: mkwizdir [-h] PLAYER\n");
+  write("Make the homedirectory for wizard PLAYER.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   if( !str || str == "" ) {
-    write( "Useage: mkwizdir <name>\n" );
+    usage();
     return;
   }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
+
   if( require_priv( "system" ) ) {
     SECURE_D->create_homedir( str );
   } else {
