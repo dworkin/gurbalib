@@ -14,6 +14,10 @@ void usage() {
 // XXX add it so it prompts you to remove their wizdir if wizard and or
 // admin...
 
+// XXX need to remove perms for the given user as well...
+// if you remove a wizard it should remove that usernames perms.
+// maybe add a check so you don't delete the last admin??
+
 static void rmuser( string name ) {
   USER_D->delete_user( name );
 }

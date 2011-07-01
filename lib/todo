@@ -1,0 +1,18 @@
+XXX THIS WHOLE FILE XXX
+
+Just a simple todo list.  If you grep for XXX in the code you'll
+find todo's for individual files.  This here is for
+higher level concepts and ideas that don't translate well to a given
+file currently.
+
+look into using ssh to connect by default.  telnet is dead... ;)
+
+look into a "git" interface for security and editing files.
+Need to research writeable files for wizards/admins and see what
+makes sense.
+
+finish usage on commands.  Figure out usage for verbs...
+remove/combine a lot of commands right now too many...
+
+mv cmds to players
+
