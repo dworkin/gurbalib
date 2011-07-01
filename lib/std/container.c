@@ -193,7 +193,7 @@ void move_or_destruct_inventory() {
   for(i=0;i<sz;i++) {
     if(!dst || (items[i]->move(dst) != 1)) {
       if(items[i]->is_player()) {
-        items[i]->move("/rooms/void");
+        items[i]->move("/domains/required/rooms/void");
       } else {
         items[i]->destruct();
       }

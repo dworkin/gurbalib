@@ -20,7 +20,7 @@ LINKDEAD_TIMEOUT        10*60
 
 This defines where players login:
 
-STARTING_ROOM           "/domains/gurba/rooms/square_center"
+STARTING_ROOM           "/domains/required/rooms/start"
 
 The max stack depth
 

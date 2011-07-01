@@ -9,8 +9,8 @@ void setup( void ) {
   set_long( "The room is littered with all kinds of arcane tools." +
 	    "Your not really sure what all this stuff is but someone looks " +
             "pretty busy." );
-  set_exits( ([ "out"  : "/domains/gurba/rooms/square_center",
-	        "east" : "/rooms/bug_room",
+  set_exits( ([ "out"  : "/domains/required/rooms/start",
+	        "east" : "/domains/required/rooms/bug_room",
 	      ]) );
 
   add_item( "desk", "The desk is a huge and made of mahogny. " +
@@ -21,10 +21,10 @@ void setup( void ) {
     " to do all kinds of things." );
 
   set_objects ( ([
-		  "/domains/gurba/objects/chest" : 1,
-		  "/domains/gurba/monsters/rat" : 1,
-		  "/domains/gurba/objects/weapons/short_sword" : 1,
-		  "/domains/gurba/objects/armor/buckler" : 1,
+		  "/domains/required/objects/chest" : 1,
+		  "/domains/required/monsters/rat" : 1,
+		  "/domains/required/objects/weapons/short_sword" : 1,
+		  "/domains/required/objects/armor/buckler" : 1,
   ]));
 
 }

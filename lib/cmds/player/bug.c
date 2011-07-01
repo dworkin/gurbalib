@@ -26,13 +26,15 @@ void main( string str ) {
     subject = ([ ]);
     ob = ([ ]);
   }
-  ob[this_player()->query_name()] = "/rooms/bug_room"->present( "board" );
+  ob[this_player()->query_name()] = 
+    "/domains/required/rooms/bug_room"->present( "board" );
   if( !ob[this_player()->query_name()] ) {
     write( "Unable to locate the bug board. Tell a wizard.\n" );
     return;
   } 
   if( !str || str == "" ) {
-    subject[this_player()->query_name()] = "[" + this_player()->query_environment()->file_name() + "]";
+    subject[this_player()->query_name()] = "[" + 
+      this_player()->query_environment()->file_name() + "]";
   } else {
     subject[this_player()->query_name()] = str;
   } 
@@ -50,20 +52,26 @@ void enter_line( string line ) {
     if( !msg[this_player()->query_name()] ) {
       msg[this_player()->query_name()] = line + "\n";
     } else {
-      msg[this_player()->query_name()] = msg[this_player()->query_name()] + line + "\n";
+      msg[this_player()->query_name()] = msg[this_player()->query_name()] + 
+        line + "\n";
     }
     this_player()->input_to_object( this_object(), "enter_line" );
   } else {
     if( line == "~a" ) {
       write( " \nMessage aborted.\n" );
     } else {
-      ob[this_player()->query_name()]->add_message( this_player()->query_name(), subject[this_player()->query_name()], msg[this_player()->query_name()] );
+      ob[this_player()->query_name()]->add_message( this_player()->query_name(),
+        subject[this_player()->query_name()], 
+        msg[this_player()->query_name()] );
       write( " \nBug report sendt! Thank you.\n" );
-      CHANNEL_D->chan_send_string( "wiz", capitalize(this_player()->query_name()), "sends off a bugreport.", 1 );
+      CHANNEL_D->chan_send_string( "wiz", 
+        capitalize(this_player()->query_name()), "sends off a bugreport.", 1 );
       
     }
     this_player()->set_editing( 0 );
     this_player()->write_prompt();
-    this_environment()->tell_room( this_player(), capitalize(this_player()->query_name()) + " lets Fudge know how much he sucks.\n" );
+    this_environment()->tell_room( this_player(), 
+      capitalize(this_player()->query_name()) + 
+      " lets Fudge know how much he sucks.\n" );
   }
 }

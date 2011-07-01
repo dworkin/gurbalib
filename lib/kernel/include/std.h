@@ -54,7 +54,7 @@
 #define FALSE 0
 
 #ifndef STARTING_ROOM
-#define STARTING_ROOM "/domains/gurba/rooms/square_center"
+#define STARTING_ROOM "/domains/required/rooms/start"
 #endif
 
 #define LANGUAGE_D   "/daemons/language_d"
