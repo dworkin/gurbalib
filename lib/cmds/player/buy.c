@@ -1,3 +1,12 @@
+void usage() {
+  write("Usage: buy [-h] OBJ\n");
+  write("Allows you to buy an object OBJ, " +
+    "assuming you are near a shop keeper.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("See also: sell, borrow, store\n");
+}
+
 /* Created by Fudge */
 
 void main( string str ) {
@@ -5,7 +14,11 @@ void main( string str ) {
   int i;
 
   if( !str || str == "" ) {
-    write( "Buy what?" );
+    usage();
+    return;
+  }
+  if( !str || str == "" ) {
+    usage();
     return;
   }
 

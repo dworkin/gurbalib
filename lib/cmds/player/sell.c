@@ -1,3 +1,12 @@
+void usage() {
+  write("Usage: sell [-h] OBJ\n");
+  write("Allows you to sell an object OBJ, " +
+    "assuming you are near a shop keeper.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("See also: buy, borrow, store\n");
+}
+
 /* Created by Fudge */
 
 void main( string str ) {
@@ -6,8 +15,13 @@ void main( string str ) {
   int i;
 
   if( !str || str == "" ) {
-    write( "Sell what?" );
+    usage();
     return;
+  }
+
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   }
 
   obj = this_player()->present( str ); 

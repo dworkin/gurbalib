@@ -13,22 +13,23 @@
                 "arguments: command "+\
                 "arguments: command arg"\
 
-void display_usage() {
-  write(
-    "Usage: intermud <command> [arg]\n"+
-    "\n"+
-    "  Valid commands:\n"+
-    "  - status\n"+
-    "    Shows information on the current intermud connection\n"+
-    "  - stop\n"+
-    "    Stops the current connection and unloads the intermud service\n"+
-    "  - start\n"+
-    "    Loads the intermud service and starts a connection (if enabled)\n"+
-    "  - enable\n"+
-    "    Enables intermud 3 connections\n"+
-    "  - disable\n"+
-    "    Disables intermud 3 connections\n"+
-    "  - default [name]\n"+
+void usage() {
+  write("Usage: intermud [-h] <command> [arg]\n");
+  write("An interface to the intermud connection service.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("Valid commands:\n" +
+    "  - status\n" +
+    "    Shows information on the current intermud connection\n" +
+    "  - stop\n" +
+    "    Stops the current connection and unloads the intermud service\n" +
+    "  - start\n" +
+    "    Loads the intermud service and starts a connection (if enabled)\n" +
+    "  - enable\n" +
+    "    Enables intermud 3 connections\n" +
+    "  - disable\n" +
+    "    Disables intermud 3 connections\n" +
+    "  - default [name]\n" +
     "    Displays the default router (and sets it if name is provided\n"
   );
 }
@@ -78,7 +79,7 @@ void main( string str ) {
   }
 
   if( !str ) {
-    display_usage();
+    usage();
     return;
   }
 
@@ -94,7 +95,7 @@ void main( string str ) {
   }
 
   if( !args ) {
-    display_usage();
+    usage();
     return;
   }
 

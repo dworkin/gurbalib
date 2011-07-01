@@ -12,6 +12,14 @@
                 "value_list: value\n"+\
                 "value_list: value_list '+' value\n"+\
                 "value: TAG ? valid_value\n"
+
+void usage() {
+  write("Usage: coloradm [-h] COMMANDS\n");
+  write("Allows you to modify the color table, using a grammar noted below.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write(GRAMMAR);
+}
                 
 /*
  * If the arg[0] is a base symbol, it can't be used
@@ -50,6 +58,15 @@ void main(string str) {
   string * symbols;
   string * values;
   int i, sz, pos;
+
+  if (!str || str == "") {
+     usage();
+     return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
 
   if( !require_priv( "system" ) ) {
     write("You must be admin to do that.");
