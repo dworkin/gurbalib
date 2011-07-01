@@ -3,6 +3,7 @@ void usage() {
   write("Make the player PLAYER a wizard.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: mkadmin\n");
 }
 
 void main( string str ) {

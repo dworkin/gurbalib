@@ -1,8 +1,11 @@
 void usage() {
   write("Usage: mkadmin [-h] PLAYER\n");
   write("Make the player PLAYER an admin.\n");
+  write("If you make someone an admin they are also considered a wizard.\n");
+  write("If you run mkwiz on an admin it will demote them to a wizard.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: mkwiz\n");
 }
 
 void main( string str ) {

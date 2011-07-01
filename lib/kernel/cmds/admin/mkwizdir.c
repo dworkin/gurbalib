@@ -1,6 +1,8 @@
 void usage() {
   write("Usage: mkwizdir [-h] PLAYER\n");
   write("Make the homedirectory for wizard PLAYER.\n");
+  write("By default you do not need to use this command, it gets done " +
+    "automatically.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }
