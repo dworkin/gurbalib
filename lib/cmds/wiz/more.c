@@ -1,3 +1,12 @@
+void usage() {
+  write("Usage: more [-h] [file]\n");
+  write("cat allows a wizard to concatenate a file " +
+    "(print it to the screen).\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("See also: cat, tail, browse\n");
+}
+
 /* A highly advanced more command
  * Fudge
  *
@@ -43,6 +52,11 @@ void main( string arg ) {
 
   if( arg == "" ) {
     arg = this_environment()->file_name();
+  }
+
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   }
 
   file = normalize_path( arg, this_player()->query_env( "cwd" ) );

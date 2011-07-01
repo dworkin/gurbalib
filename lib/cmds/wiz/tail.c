@@ -1,3 +1,12 @@
+void usage() {
+  write("Usage: tail [-h] [file]\n");
+  write("Show the tail end of a file " +
+    "(print it to the screen).\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("See also: more, cat, browse\n");
+}
+
 void main( string arg ) {
    string file;
    string *tmp;
@@ -8,6 +17,10 @@ void main( string arg ) {
 
    if( !arg || arg == "" ) {
       arg = this_environment()->file_name();
+   }
+   if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
    }
 
    file = normalize_path( arg, this_player()->query_env( "cwd" ) );
