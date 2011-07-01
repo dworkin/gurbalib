@@ -115,4 +115,3 @@ echo "All done."
 echo "You may want to review lib/kernel/include/std.h to change your email address or such."
 echo "To start the mud, type 'bin/driver gurba.dgd'"
 
-

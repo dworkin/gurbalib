@@ -19,7 +19,6 @@ mud and see what needs to be worked on.
 			via man.
 	domains		The offical areas of the mud that users can adventure 
 			in.
-	etc		location for config files not used... XXX nuke it?
 	help		Help topics that you can view via help. (documentation
 			for the players and wizards)
 	include		Basic header files that varous programs need to include
@@ -32,10 +31,9 @@ mud and see what needs to be worked on.
 			this is more standard objects vs something you build
 			on?  Maybe move this to domain like /rooms
 	pub		XXX used for ftp??? maybe should go away...
-	rooms		Currently void and bugroom  XXX move to domains.	
 	std		Standard objects for the system.  XXX figure out
 			why there is also obj in this dir...
 	sys		XXX figure out why this and kernel dir...
-	tmp		XXX not used remove it...
+	tmp		Temp dir
 	wiz		Home directories for your local wizards.
 

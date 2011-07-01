@@ -12,7 +12,6 @@ mkdir lib/data/banned/c
 mkdir lib/data/players
 mkdir lib/domains/gurba/data
 mkdir lib/domains/gurba/data/boards
-mkdir lib/etc
 mkdir lib/kernel/daemons/data
 mkdir lib/kernel/lib/net
 mkdir lib/sys/daemons/data
