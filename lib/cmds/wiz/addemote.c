@@ -8,7 +8,6 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
-
 void main( string str ) {
   string name;
   string fmt;

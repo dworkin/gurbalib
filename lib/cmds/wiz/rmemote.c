@@ -1,8 +1,20 @@
+void usage() {
+  write("Usage: rmemote [-h] NAME\n");
+  write("Remove an emote from the emote database.\n");
+
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
 
   if( !str || str == "" ) {
-    write( "Useage: rmemote <name>\n" );
+    usage();
     return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   }
 
   if( EMOTE_D->is_emote(str) ) {

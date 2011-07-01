@@ -1,5 +1,17 @@
+void usage() {
+  write("Usage: possess [-h] [MONSTER]\n");
+  write("Allows you to possess a monster and control it.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   object ob;
+
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
 
   if( !str || str == "" ) {
     if( this_user()->query_player()->is_possessing() ) {
