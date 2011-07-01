@@ -1,9 +1,10 @@
 void usage() {
-  write("Usage: setenv [-h] [VAR VALUE]\n");
+  write("Usage: set [-h] [VAR VALUE]\n");
   write("Set an environment varilable VAR to VALUE.\n");
   write("If no VAR VALUE pair is given print your current environment.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: unset\n");
 }
 
 void main( string str ) {

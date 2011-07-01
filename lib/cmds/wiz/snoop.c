@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: snoop [-h] PLAYER\n");
+  write("Snoop on player: PLAYER.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   if( !str || str == "" ) {
     int i;
@@ -12,6 +19,9 @@ void main( string str ) {
     } else {
       this_player()->message( "You are snooping noone." );
     }
+  } (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   } else {
     object pPlayer;
 

@@ -1,8 +1,20 @@
+void usage() {
+  write("Usage: eval [-h] STRING\n");
+  write("Evaluate the lpc code: STRING.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string src, varargs mixed args...) {
   object obj;
   string err;
   mixed result;
   int str_size;
+
+  if (src == "-h") {
+     usage();
+     return;
+  }
 
   src = replace_string( src, ".me", "this_player()" );
   src = replace_string( src, ".here", "this_environment()" );

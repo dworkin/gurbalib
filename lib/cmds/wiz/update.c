@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: update [-h] FILE\n");
+  write("Recompile the file, FILE.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 object compiler_d;
 
 void create() {
@@ -58,8 +65,13 @@ void main( string str ) {
   }
 
   if( !str || str == "" ) {
-    write( "You need to specify a filename." );
+    usage();
     return;
+  }
+
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   }
 
   path = this_player()->query_env( "cwd" );
