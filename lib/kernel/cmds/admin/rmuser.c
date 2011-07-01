@@ -11,6 +11,9 @@ void usage() {
 // XXX Fix it so it checks for valid user and tells you if your
 // removing a non existing user
 
+// XXX add it so it prompts you to remove their wizdir if wizard and or
+// admin...
+
 static void rmuser( string name ) {
   USER_D->delete_user( name );
 }

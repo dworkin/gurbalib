@@ -16,6 +16,7 @@
 void usage() {
   write("Usage: coloradm [-h] COMMANDS\n");
   write("Allows you to modify the color table, using a grammar noted below.\n");
+// XXX need to play with this and write more details... how????
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write(GRAMMAR);
