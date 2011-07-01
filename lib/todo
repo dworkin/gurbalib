@@ -16,3 +16,9 @@ can find todo's with grep -L usage in the cmds dirs...
 remove/combine a lot of commands right now too many...
 
 mv cmds command to players need to figure out if its a security issue.
+
+make it so mudlib is fudge and spud clean:
+	remove references to their names in std files/commands
+	mv files that leave it to gurba domain
+	if leave wizdirs make names unusable and or note in install
+	script 
