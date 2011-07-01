@@ -8,6 +8,7 @@ void usage() {
   write("Options:\n");
   write("\t-l\tUse long listing, giving you more info\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: pwd, cd, browse\n");
 }
 
 void main( string str ) {

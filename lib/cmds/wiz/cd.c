@@ -12,6 +12,9 @@ void usage() {
   write("See also: pwd, ls, browse\n");
 }
 
+// XXX if dir exists but you don't have permission it says 
+// Dir not found.  example cd /wiz/sirdude as mein
+
 void main( string arg ) {
   if (!arg || arg == "") {
 	arg = "/wiz/" + this_player()->query_name();

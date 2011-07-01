@@ -12,7 +12,7 @@ void main( string arg ) {
     usage();
     return;
   }
-  if (sscanf(str, "-%s",str)) {
+  if (sscanf(arg, "-%s",arg)) {
     usage();
     return;
   }

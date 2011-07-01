@@ -3,6 +3,7 @@ void usage() {
   write("An interactive way to look at files.");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: cd, ls, pwd\n");
 }
 
 void main(varargs string arg) {
