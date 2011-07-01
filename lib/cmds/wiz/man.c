@@ -1,3 +1,12 @@
+void usage() {
+  write("Usage: man [-h] [TOPIC]\n");
+  write("Get more information on topic TOPIC, if it exists.\n");
+  write("Try \"man man\" for more info.");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("See also: help, cmds\n");
+}
+
 /* A highly advanced man command 
  * Aphex
  *
@@ -80,6 +89,11 @@ void main( string arg ) {
   int i,j,found;
   int where;
   mixed width;
+
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
 
   if ( !arg ) {
     arg = "";

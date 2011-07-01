@@ -4,6 +4,7 @@ void usage() {
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("\t-v\tVertical, displays commands one per line.\n");
+  write("See also: man, help\n");
 }
 
 void main( string str ) {

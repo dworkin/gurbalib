@@ -1,3 +1,5 @@
+// XXX combine with finger??? or just trash it? :)
+
 void main( string str) {
   object *usr;
   int i;
