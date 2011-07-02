@@ -1,7 +1,7 @@
 void usage() {
   write("Usage: post [-h] SUBJECT\n");
   write("Post a message to a message board with subject SUBJECT.\n");
-  write("It will then kick you into a simple editor so you can write your " .
+  write("It will then kick you into a simple editor so you can write your " +
     "message.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");

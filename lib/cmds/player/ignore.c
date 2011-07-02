@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: ignore [-h] [PLAYER]\n");
-  write("Allows you to ignore a given player PLAYER,\n);
+  write("Allows you to ignore a given player PLAYER,\n");
   write("or stop ignoring them if they are currently ignored.\n");
   write("If PLAYER is missing, show a list of who you are ignoring.\n");
   write("Options:\n");

@@ -73,13 +73,18 @@ void main( string str ) {
   mixed * args;
   string error;
 
-  if( !require_priv( "system" ) ) {
-    write("You must be admin to do that.");
+  if( !str || str == "") {
+    usage();
     return;
   }
 
-  if( !str ) {
-    usage();
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
+
+  if( !require_priv( "system" ) ) {
+    write("You must be admin to do that.");
     return;
   }
 

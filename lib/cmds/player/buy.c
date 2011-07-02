@@ -17,7 +17,7 @@ void main( string str ) {
     usage();
     return;
   }
-  if( !str || str == "" ) {
+  if(sscanf(str, "-%s",str)) {
     usage();
     return;
   }
