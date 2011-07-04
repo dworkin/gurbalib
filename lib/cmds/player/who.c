@@ -1,12 +1,21 @@
 void usage() {
-  write("Usage: people [-h]\n");
-  write("Print out a list of who is on the system.\n");
-  write("Options:\n");
-  write("\t-h\tHelp, this usage message.\n");
+  if (query_wizard(this_player())) {
+     write("Usage: people [-h] [-l]\n");
+     write("Print out a list of who is on the system.\n");
+     write("Options:\n");
+     write("\t-h\tHelp, this usage message.\n");
+     write("\t-l\tLong listing which shows additional info.\n");
+   
+  } else {
+     write("Usage: people [-h]\n");
+     write("Print out a list of who is on the system.\n");
+     write("Options:\n");
+     write("\t-h\tHelp, this usage message.\n");
+  }
 }
 
-// XXX  merge with the wizard people command... lets reduce commands
-//      people need to use...
+// XXX Maybe just remove the -l option... if we don't add other stuff
+//   just make it the default
 
 /*
   'who' command
@@ -17,8 +26,19 @@ void usage() {
 void main( string str ) {
   object *usr;
   int i;
+  int LONG;
+  mixed idletime;
+  string idle;
 
-  if (str && str != "") {
+  LONG = 0;
+  if (sscanf(str, "-%s",str)) {
+    if (str == "l") {
+      LONG = 1;
+    } else {
+       usage();
+       return;
+    }
+  } else if (str && str != "") {
      usage();
      return;
   }
@@ -36,7 +56,19 @@ void main( string str ) {
     else if ( query_wizard( usr[i] ) ) {
       line += " %^CYAN%^(Wizard)%^RESET%^";
     }
-    write(line + "\n");
+    idletime = format_time(usr[i]->query_idle());
+    if (idletime == "")  {
+        idle = "";
+    } else {
+        idle = "  (idle " + idletime + ")";
+    }
+    line += idle;
+
+    if (LONG == 1) {
+       write(line + "\n\t" + usr[i]->query_environment()->query_brief() + "\n");
+    } else {
+       write(line + "\n");
+    }
   }
   write("------------------------------------------------------");
 }
