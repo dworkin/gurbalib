@@ -29,11 +29,11 @@ void main( string arg ) {
 
   arg = lowercase(arg);
   
-  file = normalize_path( arg, "/help/" );
+  file = normalize_path( arg, "/doc/help/" );
   
   if( file_exists( file ) < 1 ) {
     if( query_wizard( this_player() ) ) {
-      file = normalize_path( arg, "/help/wiz/");
+      file = normalize_path( arg, "/doc/help/wiz/");
       if( file_exists(file) < 1 ) {
 	write( capitalize(arg) + ": Unknown help topic." );
 	LOG_D->write_log("help", capitalize(this_player()->query_name()) + " on " + ctime(time()) + ": " + arg + "\n");

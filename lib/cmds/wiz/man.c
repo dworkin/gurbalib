@@ -90,7 +90,7 @@ void main( string arg ) {
   int where;
   mixed width;
 
-  if (sscanf(str, "-%s",str)) {
+  if (sscanf(arg, "-%s",arg)) {
      usage();
      return;
   }

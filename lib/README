@@ -16,11 +16,9 @@ mud and see what needs to be worked on.
 	data		Mud specific data files..  Player files, message boards,
 			etc...  In general all the user generated content.
 	doc		Documentation about the mud... that wizards can view
-			via man.
+			via man.  doc/help is for players via help.
 	domains		The offical areas of the mud that users can adventure 
 			in.
-	help		Help topics that you can view via help. (documentation
-			for the players and wizards)
 	include		Basic header files that varous programs need to include
 			XXX maybe move to std? and put objects in std/obj?
 	kernel		XXX figure out difference between this and sys dir.
