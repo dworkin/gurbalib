@@ -1,3 +1,11 @@
+void usage() {
+  write("Usage: mudlist [-h] [MUD]\n");
+  write("Display a list of muds connected via intermud.\n");
+  write("If you give a mudname it will only display that mud's info.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 /* vim:set ft=lpc: */
 void main( string str ) {
   mapping mudlist;
@@ -8,6 +16,11 @@ void main( string str ) {
   string *lines;
   int len, slen, mlen;
   int count;
+
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
 
   mudlist = IMUD_D->query_mudlist();
 

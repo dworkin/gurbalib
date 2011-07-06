@@ -7,11 +7,14 @@ void usage() {
   write("See also: man, help\n");
 }
 
+// XXX make sure race, verbs and guild commands show up as well...
+// might want to make emote's available as well with a flag... -e
+
 void main( string str ) {
   string *path;
   string *names;
   mapping cmds;
-  int c, sz, col;
+  int c, d, sz, col;
 
   if( str == "-v" ) {
     col = 1;
@@ -39,16 +42,16 @@ void main( string str ) {
 
     write ("Commands: " + path[c] + "\n");
 
-    for( c = 0, sz = sizeof( names ); c < sz; c += col ) {
+    for( d = 0, sz = sizeof( names ); d < sz; d += col ) {
       int colnum;
       string line;
 
       line = "";
 
       for( colnum = 0; colnum < col; colnum++ ) {
-        if( c + colnum < sz ) {
-          line += ( names[c + colnum] + 
-             ( str == "-v" ? " (" + cmds[names[c+colnum]] + ")" : "" ) +
+        if( d + colnum < sz ) {
+          line += ( names[d + colnum] + 
+             ( str == "-v" ? " (" + cmds[names[d+colnum]] + ")" : "" ) +
              "                                             " +
              "                         ")[0..(70/col)];
         }
@@ -57,4 +60,4 @@ void main( string str ) {
     }
   }
 }
-      
+

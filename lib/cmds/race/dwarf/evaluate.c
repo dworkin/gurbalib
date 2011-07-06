@@ -1,4 +1,12 @@
-void main (string ob) {
+void usage() {
+  write("Usage: evaluate [-h] [OBJ]\n");
+  write("Evaluate the specified object and print out what you think it is " +
+    "worth.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
+void main (string str) {
   int chance;
   int roll;
   int diff; /*Difference between roll and chance*/
@@ -6,8 +14,16 @@ void main (string ob) {
   int value;
   object obj;
 
-  /*Todo: Add so that it finds the 'ob' object and stores it in the 'obj' variable.*/
-  obj = this_environment()->present( lowercase( ob ) );
+  if ( !str || str == "" ) {
+    usage();
+    return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  }
+
+  obj = this_environment()->present( lowercase( str ) );
 
   if(!obj) {
     write("You don't see "+ob+" here.");
@@ -34,5 +50,4 @@ void main (string ob) {
     write( "You can't evaluate that." );
   }
 }
-    
-  
+ 

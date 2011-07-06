@@ -13,9 +13,6 @@ makes sense.
 
 finish usage on commands.  Figure out usage for verbs...
 can find todo's with grep -L usage in the cmds dirs...
-remove/combine a lot of commands right now too many...
-
-mv cmds command to players need to figure out if its a security issue.
 
 make it so mudlib is fudge and spud clean:
 	remove references to their names in std files/commands
