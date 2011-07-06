@@ -1,21 +1,9 @@
 void usage() {
-  if (query_wizard(this_player())) {
-     write("Usage: people [-h] [-l]\n");
-     write("Print out a list of who is on the system.\n");
-     write("Options:\n");
-     write("\t-h\tHelp, this usage message.\n");
-     write("\t-l\tLong listing which shows additional info.\n");
-   
-  } else {
-     write("Usage: people [-h]\n");
-     write("Print out a list of who is on the system.\n");
-     write("Options:\n");
-     write("\t-h\tHelp, this usage message.\n");
-  }
+   write("Usage: who [-h]\n");
+   write("Print out a list of who is on the system.\n");
+   write("Options:\n");
+   write("\t-h\tHelp, this usage message.\n");
 }
-
-// XXX Maybe just remove the -l option... if we don't add other stuff
-//   just make it the default
 
 /*
   'who' command
@@ -26,19 +14,16 @@ void usage() {
 void main( string str ) {
   object *usr;
   int i;
-  int LONG;
+  int long_flag;
   mixed idletime;
   string idle;
 
-  LONG = 0;
-  if (sscanf(str, "-%s",str)) {
-    if (str == "l") {
-      LONG = 1;
-    } else {
-       usage();
-       return;
-    }
-  } else if (str && str != "") {
+  if (query_wizard(this_player())) {
+     long_flag = 1;
+  } else {
+     long_flag = 0;
+  }
+  if (str && str != "") {
      usage();
      return;
   }
@@ -64,8 +49,9 @@ void main( string str ) {
     }
     line += idle;
 
-    if (LONG == 1) {
-       write(line + "\n\t" + usr[i]->query_environment()->query_brief() + "\n");
+    if (long_flag == 1) {
+       write(line + "\n\t" + usr[i]->query_name() + " is: " + 
+          usr[i]->query_environment()->query_brief() + "\n");
     } else {
        write(line + "\n");
     }
