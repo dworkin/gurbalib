@@ -1,3 +1,5 @@
+string oldpass, curpass, newpass;
+
 void usage() {
   write("Usage: passwd [-h]\n");
   write("Allows you to change your password.\n");
@@ -5,24 +7,46 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
-void main( string arg ) {
-  string oldpass,curpass, newpass;
+void input_newpass2( string str) {
+   if (str == newpass) {
+      this_player()->set_password(str);
+      write("You have changed your password.\n");
+   } else {
+	write("Password's do not match.\n");
+	return;
+   }
+}
 
+void input_newpass( string str) {
+   if (!str || str == "") {
+      write("You need to enter a password, to change it.\n");
+      return;
+   }
+}
+
+void input_curpass( string str) {
+   if (!str || str == "") {
+	write("ouchie...\n");
+   }
+   if (str == oldpass) {
+      write("New password: ");
+//      send_message( 0 );
+      this_player()->input_to_object( this_object(), "input_newpass");
+   } else {
+      write("That is not your current password.\n");
+      write("passwd = " + oldpass + "\n");
+      write("newpasswd = " + str + "\n");
+      return;
+   }
+}
+
+void main( string arg ) {
   if (arg && arg != "" ) {
      usage();
      return;
   }
 
   oldpass = this_player()->query_passwd();
-  send_message( "\nPlease enter your password : " );
-  send_message( 0 );
-
-   /// XXX get curpass
-
-   if (oldpass == curpass) {
-	// get newpass;
-	// this_player()->set_passwd(newpass);
-   } else {
-	write("That is not your old password.\n");
-   }
+  write( "\nPlease enter your password : " );
+  this_player()->input_to_object(this_object(), "input_curpass");
 }
