@@ -9,7 +9,7 @@ void usage() {
   write("Examples:\n");
   write("\tban sirdude\n");
   write("\tban -s 128.101.32.*\n");
-  write"See also: who, unban\n");
+  write("See also: who, unban\n");
 }
 
 void show_banned() {
