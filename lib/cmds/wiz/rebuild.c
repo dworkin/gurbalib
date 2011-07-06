@@ -1,3 +1,12 @@
+void usage() {
+  write("Usage: zap [-h] [-v]\n");
+  write("Rebuild the objects on the mud.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("\t-v\tenable Verbose mode.\n");
+  write("See also: warmboot, clone, update\n");
+}
+
 static int upgrade_uobj(string * files, int verbose) {
   int pos, sz;
 
@@ -19,7 +28,15 @@ void main(string str) {
 
   edges = COMPILER_D->query_upqueue();
 
-  if(str && str == "-v") verbose = 1;
+  if(str && str == "-v") {
+     verbose = 1;
+  } else if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
+  } else if (str && str != "") {
+     usage();
+     return;
+  }
   rlimits( 250; -1 ) {
     if(edges) {
       if(edges["kernel"]) {

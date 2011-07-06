@@ -3,6 +3,7 @@ void usage() {
   write("Recompile the file, FILE.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: warmboot, clone, rebuild\n");
 }
 
 object compiler_d;
