@@ -199,7 +199,7 @@ void main( string str ) {
     switch (TIME_D->query_minute()) {
     case 0..10 : txt = "It's eleven o'clock.";
       break;
-    case 11..20 : txt = "Fifteen minutes past eleven, fourty-five until noon.";
+    case 11..20 : txt = "Fifteen minutes past eleven, forty-five until noon.";
       break;
     case 21..30 : txt = "Half an hour past eleven.";
       break;

@@ -1,7 +1,7 @@
 void usage() {
   write("Usage: store [-h] OBJECT\n");
   write("If you are in a storage area, you can store your items with this " +
-     "comand.\n");
+     "command.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("See also: sell, buy, retrieve\n");

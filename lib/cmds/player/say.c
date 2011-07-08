@@ -24,7 +24,7 @@ void main( string str ) {
   /* Strip trailing whitespaces */
 
   if(!this_environment()) {
-    write("You have no environment, so theres no way to say things either.");
+    write("You have no environment, so there is no way to say things either.");
     return;
   }
 

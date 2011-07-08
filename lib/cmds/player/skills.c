@@ -53,7 +53,7 @@ void main( string str ) {
     DBM( "Showing all existing skills." );
     skills = SKILL_D->query_skills();
     /*
-     * emty our input string, else the remainder of this function will 
+     * empty our input string, else the remainder of this function will 
      * try to use it as a filter
      */
     str = "";
