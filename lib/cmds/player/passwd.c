@@ -47,6 +47,6 @@ void main( string arg ) {
   }
 
   oldpass = this_player()->query_passwd();
-  write( "\nPlease enter your password : " );
   this_player()->input_to_object(this_object(), "input_curpass");
+  write( "\nPlease enter your password : " );
 }

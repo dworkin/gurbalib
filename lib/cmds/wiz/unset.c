@@ -1,5 +1,5 @@
 void usage() {
-  write("Usage: unset [-h] [VAR]\n");
+  write("Usage: unset [-h] VAR\n");
   write("Remove an environment varilable VAR.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
