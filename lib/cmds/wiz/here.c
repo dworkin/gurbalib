@@ -5,7 +5,7 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
-void main( string arg ) {
+void main( string str ) {
 
   if (str && str != "") {
      usage();

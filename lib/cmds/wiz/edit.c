@@ -9,7 +9,7 @@ void usage() {
      "return.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
-  write("Useful commands:\n"):
+  write("Useful commands:\n");
   write("\tp\tprint line.\n");
   write("\td\tdelete line.\n");
   write("\tr FILE\tread a file named FILE.\n");

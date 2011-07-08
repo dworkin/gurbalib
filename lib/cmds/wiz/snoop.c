@@ -19,7 +19,7 @@ void main( string str ) {
     } else {
       this_player()->message( "You are snooping no one." );
     }
-  } (sscanf(str, "-%s",str)) {
+  } if (sscanf(str, "-%s",str)) {
      usage();
      return;
   } else {

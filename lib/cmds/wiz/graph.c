@@ -19,16 +19,16 @@ void main( string str ) {
 
   str = normalize_path( str, this_player()->query_env( "cwd" ) );
 
-  if( !arg || arg == "" ) {
+  if( !str || str == "" ) {
     write( "Access denied.\n" );
     return;
   }
 
- if( strlen(arg) > 1 && arg[strlen(arg)-1] == '/' ) {
-    arg = arg[..strlen(arg)-2];
+ if( strlen(str) > 1 && str[strlen(str)-1] == '/' ) {
+    str = str[..strlen(str)-2];
   }
     
-  if( file_exists( arg ) != -1 ) {
+  if( file_exists( str ) != -1 ) {
     write( "Dir not found.\n" );
     return;
   }

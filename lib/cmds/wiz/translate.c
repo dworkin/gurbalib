@@ -17,7 +17,7 @@ void main(string str) {
 
   if (sscanf(str, "-%s",str)) {
      usage();
-     return();
+     return;
   }
 	
   write(str + "\n");

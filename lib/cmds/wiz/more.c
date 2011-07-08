@@ -54,7 +54,7 @@ void main( string arg ) {
     arg = this_environment()->file_name();
   }
 
-  if (sscanf(str, "-%s",str)) {
+  if (sscanf(arg, "-%s",arg)) {
      usage();
      return;
   }

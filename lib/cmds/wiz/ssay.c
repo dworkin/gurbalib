@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: ssay [-h] WHO WHAT\n");
+  write("Say WHAT to WHO XXX.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 void main( string str ) {
   int i;
   string how; /*It's not what you say, but how you say it...*/
@@ -11,8 +18,12 @@ void main( string str ) {
   }
 
   if (sscanf(str, "%s|%s", how, what) != 2) {
-    write("usage: ssay how|what");
+    usage();
     return;
+  }
+  if (sscanf(str, "-%s",str)) {
+     usage();
+     return;
   }
 
   if (str != "") {
@@ -29,6 +40,7 @@ void main( string str ) {
     
     this_player()->query_environment()->tell_room( nil,"%^GREEN%^" + capitalize(this_player()->query_name()) + " " + how +": %^RESET%^" + capitalize(what) + "\n" );
   } else {
-    write( "Say what?\n");
+     usage();
+     return;
   }
 }
