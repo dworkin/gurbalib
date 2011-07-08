@@ -9,7 +9,7 @@
 // XXX make it so reason is sent to all players, not just put in the log?
 
 void usage() {
-  write("Usage: shutdown [-h] [now|MIINUTES] REASON\n");
+  write("Usage: shutdown [-h] [now|MINUTES] REASON\n");
   write("Shutdown the server now or MINUTES minutes later.\n");
   write("REASON is a message why the shutdown is needed.\n");
   write("Options:\n");
@@ -25,7 +25,7 @@ void do_shutdown() {
 
    for( i=0; i < sizeof( usrs ); i++ ) {
       usrs[i]->query_player()->message( "Game driver tells you: " +
-         "Shutting down immediatly!\n");
+         "Shutting down immediately!\n");
       usrs[i]->query_player()->save_me();
    }
    shutdown();

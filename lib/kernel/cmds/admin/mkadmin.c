@@ -30,7 +30,7 @@ void main( string str ) {
   }
 
   if( !require_priv( "system" ) ) {
-     write( "You need admin priveleges to make an admin.\n" );
+     write( "You need admin privileges to make an admin.\n" );
      return;
   } 
   SECURE_D->make_admin( str );

@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: mkwizdir [-h] PLAYER\n");
-  write("Make the homedirectory for wizard PLAYER.\n");
+  write("Make the home directory for wizard PLAYER.\n");
   write("By default you do not need to use this command, it gets done " +
     "automatically.\n");
   write("Options:\n");
@@ -20,6 +20,6 @@ void main( string str ) {
   if( require_priv( "system" ) ) {
     SECURE_D->create_homedir( str );
   } else {
-    write( "You need admin priveleges to make wizards.\n" );
+    write( "You need admin privileges to make wizards.\n" );
   } 
 }

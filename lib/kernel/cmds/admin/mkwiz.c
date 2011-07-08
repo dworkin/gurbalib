@@ -27,7 +27,7 @@ void main( string str ) {
   }
 
   if( !require_priv( "system" ) ) {
-    write( "You need admin priveleges to make wizards.\n" );
+    write( "You need admin privileges to make wizards.\n" );
     return;
   }
     SECURE_D->make_wizard( str );
