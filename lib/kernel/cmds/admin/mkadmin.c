@@ -19,9 +19,19 @@ void main( string str ) {
      return;
   }
 
-  if( require_priv( "system" ) ) {
-    SECURE_D->make_admin( str );
-  } else {
-    write( "You need admin priveleges to make wizards.\n" );
+  if (!USER_D->user_exists(str)) {
+     write( "No such user: " + str + ".\n" );
+     return;
+  }
+
+  if (this_player()->query_name() == str) {
+     write("You can not make yourself an admin.\n");
+     return;
+  }
+
+  if( !require_priv( "system" ) ) {
+     write( "You need admin priveleges to make an admin.\n" );
+     return;
   } 
+  SECURE_D->make_admin( str );
 }

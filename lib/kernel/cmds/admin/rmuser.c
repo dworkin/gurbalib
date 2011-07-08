@@ -1,4 +1,5 @@
 object lock;
+string name;
 
 void usage() {
   write("Usage: rmuser [-h] USER\n");
@@ -6,9 +7,6 @@ void usage() {
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }
-
-// XXX Fix it so it checks for valid user and tells you if your
-// removing a non existing user
 
 // XXX add it so it prompts you to remove their wizdir if wizard and or
 // admin...
@@ -26,9 +24,22 @@ void confirm_remove( string str ) {
     return;
   }
 
-  this_player()->input_to_object( this_object(), "confirm_remove" );
-  write( "Removing " + name + ", are you sure? (y/n)" );
-  return;
+  if (!str || str == "") {
+     this_player()->input_to_object( this_object(), "confirm_remove" );
+     write( "Removing " + name + ", are you sure? (y/n)" );
+     return;
+  }
+  switch( lowercase( str[0..0] ) ) {
+    case "y" :
+      rmuser( name );
+      write( "Ok." );
+      break;
+    default :
+      write( "Aborted." );
+      break;
+  }
+  name = nil;
+  lock = nil;
 }
 
 void main( string str ) {
@@ -46,11 +57,16 @@ void main( string str ) {
     write("You must be admin to do that.");
     return;
   }
-  str = lowercase(str);
+  name = lowercase(str);
 
   if (this_player()->query_name == str) {
       write("You may not remove yourself.\n");
       return;
+  }
+
+  if (!USER_D->user_exists(str)) {
+     write("No such user: " + str + "\n");
+     return;
   }
 
   if( lock ) {
@@ -59,6 +75,6 @@ void main( string str ) {
   }
 
   lock = this_player();
-  confirm_remove(str);
+  confirm_remove();
 }
 

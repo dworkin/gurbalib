@@ -17,9 +17,18 @@ void main( string str ) {
      return;
   }
 
-  if( require_priv( "system" ) ) {
-    SECURE_D->make_wizard( str );
-  } else {
+  if (!USER_D->user_exists(str)) {
+     write( "No such user: " + str + "\n" );
+     return;
+  }
+  if (this_player()->query_name() == str) {
+     write("You can not make yourself a wizard.\n");
+     return;
+  }
+
+  if( !require_priv( "system" ) ) {
     write( "You need admin priveleges to make wizards.\n" );
-  } 
+    return;
+  }
+    SECURE_D->make_wizard( str );
 }
