@@ -59,7 +59,7 @@ void main( string str ) {
   }
   name = lowercase(str);
 
-  if (this_player()->query_name == str) {
+  if (this_player()->query_name() == str) {
       write("You may not remove yourself.\n");
       return;
   }
@@ -75,6 +75,6 @@ void main( string str ) {
   }
 
   lock = this_player();
-  confirm_remove();
+  confirm_remove("");
 }
 

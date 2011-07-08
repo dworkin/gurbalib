@@ -47,8 +47,8 @@ void main( string str ) {
       if ( SITEBAN_D->unsiteban(str) ) {
          this_player()->simple_action( "$N $vunban "+str+"\n" );
       } else {
-         write("Failed to unban: " + str + "\n");
-         write("Try ban -h for usage.\n");
+         write("Failed to unban site: " + str + "\n");
+         write("Try unban -h for usage.\n");
       }
      return;
    }
@@ -61,6 +61,6 @@ void main( string str ) {
       this_player()->simple_action( "$N $vunban "+str+"\n" );
    } else {
       write("Failed to unban: " + str + "\n");
-      write("Try ban -h for usage.\n");
+      write("Try unban -h for usage.\n");
    }
 }
