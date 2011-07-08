@@ -4,7 +4,7 @@ void usage() {
     "assuming you are near a shop keeper.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
-  write("See also: sell, borrow, store\n");
+  write("See also: sell, retrieve, store\n");
 }
 
 /* Created by Fudge */

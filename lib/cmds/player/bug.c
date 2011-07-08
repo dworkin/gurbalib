@@ -63,9 +63,9 @@ void enter_line( string line ) {
       ob[this_player()->query_name()]->add_message( this_player()->query_name(),
         subject[this_player()->query_name()], 
         msg[this_player()->query_name()] );
-      write( " \nBug report sendt! Thank you.\n" );
+      write( " \nBug report sent! Thank you.\n" );
       CHANNEL_D->chan_send_string( "wiz", 
-        capitalize(this_player()->query_name()), "sends off a bugreport.", 1 );
+        capitalize(this_player()->query_name()), "sends off a bug report.", 1 );
       
     }
     this_player()->set_editing( 0 );

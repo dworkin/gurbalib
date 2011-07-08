@@ -1,7 +1,6 @@
 void usage() {
-  write("Usage: borrow [-h] OBJ\n");
-  write("Allows you to remove an object OBJ, " +
-    "from storage.\n");
+  write("Usage: retrieve [-h] OBJ\n");
+  write("Allows you to retrieve an object OBJ, from storage.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("See also: sell, buy, store\n");
@@ -20,8 +19,8 @@ void main( string str ) {
   }
 
   if( !this_environment()->is_storage() ) {
-    this_player()->write( "Perhaps you should try borrowing your item from a " +
-      "storage?" );
+    this_player()->write( "Perhaps you should try retrieving your item from " +
+      "a storage location?\n" );
     return;
   }
 

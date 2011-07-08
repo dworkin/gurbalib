@@ -4,7 +4,7 @@ void usage() {
      "comand.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
-  write("See also: sell, buy, borrow\n");
+  write("See also: sell, buy, retrieve\n");
 }
 
 void main( string str ) {

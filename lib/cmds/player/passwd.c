@@ -8,6 +8,10 @@ void usage() {
 }
 
 void input_newpass2( string str) {
+   if (!str || str == "") {
+      write("Empty password aborting.");
+      return;
+   }
    if (str == newpass) {
       this_player()->set_password(str);
       write("You have changed your password.\n");
@@ -22,6 +26,10 @@ void input_newpass( string str) {
       write("You need to enter a password, to change it.\n");
       return;
    }
+
+   newpass = str;
+   write("Verify new password: ");
+   this_player()->input_to_object( this_object(), "input_newpass2");
 }
 
 void input_curpass( string str) {
