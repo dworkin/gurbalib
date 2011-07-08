@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: inventory [-h]\n");
-  write("Print a list of the items you currently have aquired.\n");
+  write("Print a list of the items you currently have acquired.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }

@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: identify [-h] OBJ\n");
-  write("Closly inspect an object OBJ to see if there is any addition " +
+  write("Closely inspect an object OBJ to see if there is any addition " +
     "information.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");

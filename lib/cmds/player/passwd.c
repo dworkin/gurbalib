@@ -43,7 +43,7 @@ void input_curpass( string str) {
    } else {
       write("That is not your current password.\n");
       write("passwd = " + oldpass + "\n");
-      write("newpasswd = " + str + "\n");
+      write("new passwd = " + str + "\n");
       return;
    }
 }
