@@ -44,7 +44,7 @@ void main( string str ) {
   write("Editor table size      : "+(string)stat[ST_ETABSIZE]+"\n");
   write("Max string size        : "+(string)stat[ST_STRSIZE]+"\n");
   write("Max array/mapping size : "+(string)stat[ST_ARRAYSIZE]+"\n");
-  write("Remaning stack depth   : "+(string)stat[ST_STACKDEPTH]+"\n");
-  write("Remaning ticks         : "+(string)stat[ST_TICKS]+"\n");
+  write("Remaining stack depth   : "+(string)stat[ST_STACKDEPTH]+"\n");
+  write("Remaining ticks         : "+(string)stat[ST_TICKS]+"\n");
 }
 

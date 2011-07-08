@@ -1,6 +1,6 @@
 void usage() {
-  write("Usage: mkdir [-h] [dir]\n");
-  write("mkdir allows you to make a directory named [dir].\n");
+  write("Usage: mkdir [-h] DIR\n");
+  write("mkdir allows you to make a directory named DIR.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }

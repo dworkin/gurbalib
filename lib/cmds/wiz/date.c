@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: date [-h]\n");
-  write("Show the realworld date.\n");
+  write("Show the real world date.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }

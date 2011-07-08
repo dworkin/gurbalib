@@ -48,7 +48,7 @@ void main( string str ) {
   target_name = target->query_id();
   target_damage = (target_hp * perc) / 100;
 
-  write(target->query_id() + " has " + target_hp + " hitpoints");
+  write(target->query_id() + " has " + target_hp + " hit points");
   write(target->query_id() + " is going to receive " + target_damage + 
 	" damage");
 
@@ -90,7 +90,7 @@ void main( string str ) {
     target->die();
   } else {
     write(target->query_id() + " is left with " + target->query_hp() + 
-	" hitpoints.");
+	" hit points.");
   }
 }
 

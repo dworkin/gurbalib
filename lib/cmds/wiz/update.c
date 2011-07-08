@@ -136,7 +136,7 @@ void main( string str ) {
             if( !recompile_library(path) ) {
               write("Something went wrong. ");
             } else {
-              write("Compilation succesful.\n" );
+              write("Compilation successful.\n" );
             }
             return;
             break;

@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: viewemote [-h] EMOTE\n");
-  write("Look at avialble emotes to see if EMOTE is listed, if so display " +
+  write("Look at available emotes to see if EMOTE is listed, if so display " +
     "what it does.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");

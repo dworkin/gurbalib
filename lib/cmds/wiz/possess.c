@@ -29,7 +29,7 @@ void main( string str ) {
   }
 
   if( this_user()->query_player()->is_possessing() ) {
-    write( "You can't possess more than one beeing at a time." );
+    write( "You can't possess more than one being at a time." );
     return;
   }
 

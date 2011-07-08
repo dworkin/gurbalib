@@ -1,6 +1,6 @@
 void usage() {
-  write("Usage: graph [-h] [dir]\n");
-  write("prints dot compatable output of a graph of the directory you " +
+  write("Usage: graph [-h] DIR\n");
+  write("prints dot compatible output of a graph of the directory you " +
     "specify.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");

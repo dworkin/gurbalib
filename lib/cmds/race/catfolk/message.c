@@ -1,5 +1,5 @@
-oid usage() {
-  write("Usage: message [-h] [MSG]\n");
+void usage() {
+  write("Usage: message [-h] WORD\n");
   write("Catfolk can communicate with other catfolk without other races\n" +
     "almost even noticing. They can, however, only talk one word at a " +
     "time..\n");

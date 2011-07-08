@@ -1,5 +1,5 @@
 void usage() {
-  write("Usage: evaluate [-h] [OBJ]\n");
+  write("Usage: evaluate [-h] OBJ\n");
   write("Evaluate the specified object and print out what you think it is " +
     "worth.\n");
   write("Options:\n");
@@ -26,7 +26,7 @@ void main (string str) {
   obj = this_environment()->present( lowercase( str ) );
 
   if(!obj) {
-    write("You don't see "+ob+" here.");
+    write("You don't see " + ob + " here.");
     return;
   }
 

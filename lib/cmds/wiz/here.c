@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: here [-h]\n");
-  write("Show the room's short descrition and filename.\n");
+  write("Show the room's short description and filename.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }

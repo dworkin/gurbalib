@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: clone [-h] [FILENAME]\n");
-  write("Bring a copy of the object FILENAME into existance.\n");
+  write("Bring a copy of the object FILENAME into existence.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("See also: warmboot, rebuild, update\n");

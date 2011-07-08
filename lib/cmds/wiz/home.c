@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: home [-h]\n");
-  write("Transport you to your \"workroom\".\n");
+  write("Transport you to your \"work room\".\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }

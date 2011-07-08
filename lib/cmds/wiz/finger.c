@@ -48,8 +48,6 @@ void main( string str) {
       write( "%^BLUE%^Status: %^RESET%^Wizard\n");}
     else {
       write( "%^BLUE%^Status: %^RESET%^Player\n");};
-    if (cloned != 1 && this_player()->query_name() == "aphex") {
-      write( "%^BLUE%^Hit points: %^RESET%^" + player->query_hp() + "/" + player->query_max_hp() + "\n" );
     }
     write( "%^BLUE%^Real name: %^RESET%^" + player->query_real_name()  + "\n");
     write( "%^BLUE%^Email address: %^RESET%^" + player->query_email_address() + "\n");
@@ -62,7 +60,6 @@ void main( string str) {
     
     if ((player->query_name() != this_player()->query_name()) /*&& !query_wizard(this_player()->query_name()) > 0*/ && cloned != 1) {
       player->message( "You feel like someone is thinking about you.\n");
-    }
     }
 
     if (found != 1) {

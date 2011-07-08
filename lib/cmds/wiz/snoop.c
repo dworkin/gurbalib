@@ -17,7 +17,7 @@ void main( string str ) {
 	this_player()->message( capitalize( pSnooping[i]->query_name() ) );
       }
     } else {
-      this_player()->message( "You are snooping noone." );
+      this_player()->message( "You are snooping no one." );
     }
   } (sscanf(str, "-%s",str)) {
      usage();

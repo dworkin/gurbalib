@@ -1,7 +1,7 @@
 void usage() {
   write("Usage: look [-h] [at obj] [in obj] [obj]\n");
   write("Allows you to get more details on a given object.\n");
-  write("If no argument is given look at your suroundings.\n");
+  write("If no argument is given look at your surroundings.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }

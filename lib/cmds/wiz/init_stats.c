@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: init_stats [-h]\n");
-  write("Initalize your stats.  Not sure why you need to or would want to " +
+  write("Initialize your stats.  Not sure why you need to or would want to " +
     "do this.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
