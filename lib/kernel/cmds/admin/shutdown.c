@@ -5,13 +5,13 @@
  */
 
 #define S_LOG  "/logs/shutdowns"
-
-// XXX make it so reason is sent to all players, not just put in the log?
+string reason;
 
 void usage() {
   write("Usage: shutdown [-h] [now|MINUTES] REASON\n");
   write("Shutdown the server now or MINUTES minutes later.\n");
   write("REASON is a message why the shutdown is needed.\n");
+  write("Note: there is no way to stop a shutdown.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("See also: warmboot\n");
@@ -24,14 +24,17 @@ void do_shutdown() {
    usrs = USER_D->query_users();
 
    for( i=0; i < sizeof( usrs ); i++ ) {
+      usrs[i]->query_player()->message( "Shutdown initiated by : " +
+         this_player()->query_Name() + "\n");
       usrs[i]->query_player()->message( "Game driver tells you: " +
          "Shutting down immediately!\n");
+      usrs[i]->query_player()->message( "  Reason : " + reason + "\n");
       usrs[i]->query_player()->save_me();
    }
    shutdown();
 }
 
-void countdown( int mins ) {
+void countdown( int mins) {
    object *usrs;
    int i;
 
@@ -41,8 +44,11 @@ void countdown( int mins ) {
       do_shutdown();
    } else {
       for( i=0; i < sizeof( usrs ); i++ ) {
+         usrs[i]->query_player()->message( "Shutdown initiated by : " +
+            this_player()->query_Name() + "\n");
          usrs[i]->query_player()->message( "Game driver tells you: " +
-            "Shutting down in "+mins+" minutes!\n");
+            "Shutting down in " + mins + " minutes!\n");
+         usrs[i]->query_player()->message( "  Reason : " + reason + "\n");
       }
       call_out( "countdown", 60, mins -1 );
    }
@@ -50,7 +56,7 @@ void countdown( int mins ) {
 
 void main( string arg ) {
    object *usrs;
-   string time, reason;
+   string time;
 
    if( !arg || arg == "" ) {
       usage();
