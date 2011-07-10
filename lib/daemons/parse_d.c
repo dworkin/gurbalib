@@ -444,9 +444,6 @@ static mixed *find_container_object( mixed *mpTree ) {
 #endif
 
   if( !get_otlvar("last_obj") ) {
-/*
-    write( "Parse error: Tell Fudge!\n" );
-*/
     return( nil );
   }
 
