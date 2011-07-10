@@ -1,3 +1,10 @@
+Q: What do I do now that I have this stuff?
+   Take a look at the doc dir.  You'll need to install things
+   (read doc/INSTALLING)
+   Then startup the mud
+   Then login as someone (the first player will be an admin)   
+   You will also probably want to look at the lib/doc directory
+
 Q: When trying to start the mud, it complains about the file
    mudname.h not being there and then terminates.
 

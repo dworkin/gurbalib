@@ -1,3 +1,5 @@
+XXX another todo list....
+
 - Add linked list support to auto object
 - Mask destruct_object() to deregister objects and clones
 - Ensure a create function in the auto object gets called

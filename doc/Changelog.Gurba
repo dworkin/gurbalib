@@ -1,3 +1,7 @@
+This file is not kept upto date.  If you really want to see who's done
+what, download the source and explore it with git. :)
+
+
 DGD 1.2 experimental conversion by Nullinfinite
 
 Lib changes:
@@ -59,4 +63,147 @@ Changes by Aidil
 - Fixed a bug in the restore_variable() grammar
 - Fixed reconnection after connection loss in the intermud daemon
 - Added a small installation script
+
+
+This file is not kept upto date.  If you really want to see who's done
+what, download the source and explore it with git. :)
+
+1998-08-10  Erlend M. Simonsen  <erlends@fudge.gurba.org>
+
+	* cmds/player/alias.c (main): Created adding, removing and listing
+ 	of personal aliases.
+
+	* std/player.c: Added player aliases.
+
+	* kernel/include/std.h (USER_D): Added ALIAS_D
+
+1998-08-09  Erlend M. Simonsen  <erlends@fudge.gurba.org>
+
+	* daemons/alias_d.c: Created.
+
+	* std/player.c: Changed it so that join_guild() no longer sets the
+ 	guild title.
+
+	* std/modules/m_guild_master.c: Added subscribing to the guild
+ 	channel.  Added leaving of the guild channel.
+	Added do_dub() which will set the players correct title.
+
+	* daemons/guild_d.c: Changed the title to the title of the guild.
+
+	* daemons/channel_d.c: Added guild only channels.  Added "" as an
+ 	alias to /who. Removed a bug with imud channels.  Added real
+ 	emotes as well. Added an announce when someone joins a guild.
+
+	* cmds/player/buy.c (main): Created.
+
+	* cmds/player/sell.c (main): Created.
+
+	* std/modules/m_vendor.c: Created initial version.
+
+	* cmds/player/look.c (main): Fixed a problem with showing what a
+ 	player is using.
+
+	* std/object.c: Changed query_adj() to query_adjs().
+	Added query_adj().
+
+	* std/modules/m_triggers.c: Fixed a mapping problem.
+
+	* cmds/player/list.c (main): Added support for vendors.
+
+	* kernel/include/std.h (M_VENDOR): Added.
+
+	* cmds/player/bug.c: Created. As well as bug_room and bug_board.
+
+1998-08-08  Erlend M. Simonsen  <erlends@Gurba.fudge.org>
+
+	* cmds/player/reply.c (main): Added. 
+
+	* cmds/player/tell.c (main): use set_last_tell()
+
+	* std/player.c: Added set_last_tell() and query_last_tell()
+
+Thu Jan 22 18:12:14 1998  Erlend M. Simonsen  <erlesimo@online.no>
+
+	* race_d.c: Added support for monster races.
+
+	* look.c: Changed so monsters races are printed.
+
+Wed Jan 21 16:16:34 1998  Erlend M. Simonsen  <erlesimo@online.no>
+
+	* cmds/wiz/halt.c: Added initial version.
+
+	* skills.c: Added query_hit_skill().
+
+	* heart_beat.c: Implemented basic combat.
+
+Sun Jan 18 02:54:16 1998  Erlend M. Simonsen  <erlesimo@online.no>
+
+	* std/user.c: Since we're regularly getting new people popping by,
+ 	I logg all new characters created to /logs/new_players to make it
+ 	easier for me to keep up with them.
+
+	* std/player.c: Made you de-possess a creature before quitting.
+	
+Fri Jan 16 15:54:16 1998  Erlend M. Simonsen  <erlesimo@online.no>
+
+	* domains/gurba/monsters/rat.c (setup): Added an example of
+ 	how to use triggers.
+
+	* std/modules/m_triggers.c: Created. My triggers aren't as
+ 	advanced as the Lima ones, and won't be until I figure out how
+ 	function pointers work under DGD. 
+
+	* cmds/player/say.c (main): Changed say so that livings without a
+ 	proper_name, uses 'The' + id instead. Much better looking.
+
+	* domains/gurba/monsters/rat.c (setup): Added an example of
+ 	set_action() to the rat west of town square.
+
+	* std/modules/m_actions.c: Created.
+
+Thu Jan 15 16:38:48 1998  Erlend M. Simonsen  <erlesimo@online.no>
+
+	* cmds/wiz/possess.c (main): Added a possess command. Wiz only.
+
+	* kernel/lib/auto.c: Redirected this_player() to the possessed
+ 	creature. 
+	Redirected write() to the possessed creature.
+
+	* std/monster.c: Added support for beeing possessed. 
+
+	* std/player.c: Added support for possessing of monsters.
+
+	* std/object.c: Added a set_environment() function. Dangerous
+ 	function, so don't use it if you don't know what you're doing.
+
+	* cmds/player/list.c (main): Added a list command to show stored
+ 	items.
+
+	* domains/gurba/test_room2.c (setup): Changed the testroom to a
+ 	storage room.
+
+	* cmds/player/store.c (main): Added a store command.
+
+	* cmds/player/borrow.c (main): Added a borrow command.
+
+	* cmds/wiz/update.c (main): Added support for 'update here'.
+
+	* domains/gurba/town_square.c (setup): Moved the message board
+ 	here. Removed the message room east of town, and started on the
+ 	road leading east.
+
+	* std/modules/m_storage.c: Created a storage inherit for storage
+ 	rooms. Most important function is set_storage_size() which let's
+ 	you set the maximum number of objects that can be stored.
+
+Wed Jan 14 16:35:14 1998  root  <erlesimo@online.no>
+
+	* std/player.c: Added a timeout for linkdead players. It's set to
+ 	30 mins.  
+
+	Changed do_quit() to use this_object() instead of this_player()
+ 	due to it beeing called by a call_out().
+
+	* ChangeLog discovered and created from within XEmacs.
+
 

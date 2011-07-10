@@ -2,13 +2,9 @@ This mudlib is considered a learning tool, so the following file explains
 a little bit about the layout of the mud and what you'll find in the following
 directories.  If you have any questions email: sirdude (mein@cs.umn.edu)
 
-TODO items are marked with XXX so you can easily grep for XXX in the
+TODO items are marked with XXX so you can easily grep -r XXX in the
 mud and see what needs to be worked on.
 
-	ChangeLog	Kept for historical reasons, for upto date info
-			on who modified what files checkout the code
-			with git.  XXX try to put this in git history 
-			so can clean up....
 	README		This file explaning what each dir has in it.
 	cmds		Wizard, player and monster commands.
 	daemons		Various processes that run on the mud to handle things.
@@ -18,7 +14,9 @@ mud and see what needs to be worked on.
 	doc		Documentation about the mud... that wizards can view
 			via man.  doc/help is for players via help.
 	domains		The offical areas of the mud that users can adventure 
-			in.
+			in.  If you want a "clean" mud remove everything
+			except for the required subdirectory.  It contains
+			the void and the room you start in etc...
 	include		Basic header files that varous programs need to include
 			XXX maybe move to std? and put objects in std/obj?
 	kernel		XXX figure out difference between this and sys dir.
@@ -28,7 +26,7 @@ mud and see what needs to be worked on.
 	obj		XXX Not sure why this is seperate from std, maybe
 			this is more standard objects vs something you build
 			on?  Maybe move this to domain like /rooms
-	pub		XXX used for ftp??? maybe should go away...
+	pub		ftp directory and or a location to store sample files.
 	std		Standard objects for the system.  XXX figure out
 			why there is also obj in this dir...
 	sys		XXX figure out why this and kernel dir...

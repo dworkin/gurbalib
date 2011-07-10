@@ -24,6 +24,13 @@ Please check the doc/ directory for more information.
   If all went well, you can now connect to the telnet port 
   mentioned in the gurba.dgd config file.
 
+The first character logging in will automatically get the
+admin role, so be sure its you.
+
+There are two example wiz directories, fudge and spud.  They
+are currently banned.  If you want to use those names unban them
+first.
+
 2. Doing it yourself:
 
   - checkout or export the distribution to a directory and 

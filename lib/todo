@@ -14,6 +14,3 @@ makes sense.
 finish usage on commands.  Figure out usage for verbs...
 can find todo's with grep -L usage in the cmds dirs...
 
-make it so mudlib is fudge and spud clean:
-	if leave wizdirs make names unusable and or note in install
-	script 
