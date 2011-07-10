@@ -24,10 +24,15 @@ void main( string str ) {
   string chan;
   string cmd;
 
-  if( str == "" ) {
+  if( !str || str == "" ) {
     usage();
     return;
   }
+  if (sscanf(str, "-%s",str)) {
+    usage();
+    return;
+  }
+  
   if( sscanf( str, "%s %s", chan, cmd ) != 2 ) {
     chan = str;
     cmd = "/info";
