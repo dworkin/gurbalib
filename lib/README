@@ -6,6 +6,7 @@ TODO items are marked with XXX so you can easily grep -r XXX in the
 mud and see what needs to be worked on.
 
 	README		This file explaning what each dir has in it.
+	TODO		List of todo items not tied to a specific file.
 	cmds		Wizard, player and monster commands.
 	daemons		Various processes that run on the mud to handle things.
 			An example is the event daemon, or the telnet daemon.

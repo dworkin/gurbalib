@@ -20,7 +20,6 @@ A: You didn't use scripts/installer to configure the mud and
 
 Q: When starting the mud, I get the following output:
 
-
   Mar 10 13:00:16 ** DGD 1.2.157-NET-05 running GurbaLib v0.41.
   Mar 10 13:00:16 ** Initializing...
   Mar 10 13:00:16 ** Preloading...
