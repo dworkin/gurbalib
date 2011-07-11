@@ -18,8 +18,6 @@ mud and see what needs to be worked on.
 			in.  If you want a "clean" mud remove everything
 			except for the required subdirectory.  It contains
 			the void and the room you start in etc...
-	include		Basic header files that varous programs need to include
-			XXX maybe move to std? and put objects in std/obj?
 	kernel		XXX figure out difference between this and sys dir.
 	logs		If your a wizard this is your best friend.  It
 			holds error messages and other things that are recorded
@@ -28,8 +26,8 @@ mud and see what needs to be worked on.
 			this is more standard objects vs something you build
 			on?  Maybe move this to domain like /rooms
 	pub		ftp directory and or a location to store sample files.
-	std		Standard objects for the system.  XXX figure out
-			why there is also obj in this dir...
+	std		Standard objects and includes for the system.  
+                        XXX figure out why there is also obj in this dir...
 	sys		XXX figure out why this and kernel dir...
 	tmp		Temp dir
 	wiz		Home directories for your local wizards.
