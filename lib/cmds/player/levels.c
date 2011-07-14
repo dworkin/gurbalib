@@ -30,7 +30,7 @@ void main( string str ) {
    for(i=1;i<=20;i++) {
       exp = i * i * 2000;
       title = this_player()->query_level_title(i);
-      write(i + "\tExp: " +  exp + "\t" + title + "\n");
+      write(i + "\tExp: " +  exp + "\t" + title);
    }
 }
 
