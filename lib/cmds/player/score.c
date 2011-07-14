@@ -1,5 +1,5 @@
 void usage () {
-   if(query_wizard( this_player() ) ) {
+   if( query_wizard( this_player() ) ) {
       write("Usage: score [-h] [PLAYER]\n");
       write("Gives you basic stats about player PLAYER.\n");
       write("If no player is given give your stats.\n");
@@ -25,9 +25,14 @@ void main( string str ) {
    }
 
    if (str && str != "") {
-      obj = USER_D->find_player(str);
-      if (!obj) {
-         write("Unable to find player: " + str + "\n");
+      if (query_wizard( this_player())) {
+         obj = USER_D->find_player(str);
+         if (!obj) {
+            write("Unable to find player: " + str + "\n");
+            return;
+         }
+      } else {
+         usage();
          return;
       }
    } else {

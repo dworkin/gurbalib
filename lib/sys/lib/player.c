@@ -448,6 +448,8 @@ void write_prompt() {
 }
 
 /* More a set of lines */
+// FIX IT SO More supports COLORS like message....
+// or make a color_more for channels command....
 void more( string *lines ) {
   string msg;
   mixed height;
