@@ -1,13 +1,12 @@
 inherit ROOM;
 
 void setup( void ) {
-  set_brief( "%^MAGENTA%^Just outside of town.%^RESET%^" );
-  set_long( "You are sitting just outside of town." );
+  set_brief( "%^MAGENTA%^A large open field.%^RESET%^" );
+  set_long( "You are in a large open field.  To the north you see some " +
+     "sort of sign.  To the west you see the ancient city of gurba.");
   set_exits( ([ 
-	       "out" : "/domains/gurba/rooms/square_center",
+	       "north" : "/domains/newbie/rooms/hole_in_the_ground",
+	       "west" : "/domains/gurba/rooms/gate_east",
   ]) );
 }
 
-// XXX Make it so this meshes better with the town of gurba but
-//     still easy for someone to remove the town if they want to and
-//     start fresh
