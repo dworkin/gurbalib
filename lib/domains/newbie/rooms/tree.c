@@ -9,8 +9,8 @@ void setup( void ) {
       "south" : "/domains/required/rooms/start",
    ]) );
    set_objects( ([ 
-      "/domains/required/objects/sign" : 1,
-      "/domains/required/objects/tree" : 1,
+      "/domains/newbie/objects/sign" : 1,
+      "/domains/newbie/objects/tree" : 1,
    ]) );
    add_item("hole", "A funny hole in the ground.  You might be able to " +
       "enter it.");

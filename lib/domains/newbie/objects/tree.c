@@ -1,4 +1,4 @@
-inherit OBJ;
+inherit OBJECT;
 
 void setup( void ) {
   set_id( "tree" );

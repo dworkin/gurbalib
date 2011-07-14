@@ -15,9 +15,9 @@ void setup( void ) {
   set_weapon_skill( "combat/blunt/small" );
 
   set_wield_type( "single" );
-  set_wield_message( "$N $vwield $p $o" );
+  set_wield_message( "$N $vgrab $p $o." );
   set_unwield_message( "$N $vloosen $p $vgrip on $o, and $vput it away." );
   set_weapon_action("bash");
-  set_value( 1 );
+  set_value( 0 );
   set_size( 10 );
 }
