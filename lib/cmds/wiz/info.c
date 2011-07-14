@@ -17,7 +17,13 @@ void main( string str ) {
      usage();
      return;
   }
-
-  write( "Object_name: " + this_player()->query_environment()->file_name() + 
-    "\n" );
+  // XXX find_object isn't right need another function call that searches
+  // for an object in the current environment/player etc...
+  // Lots of functions should be using this... status for example...
+  ob = find_object(str);
+  if (ob) {
+     write( "Object_name: " + ob->file_name() + "\n");
+  } else {
+     write("Unable to find object: " + str + "\n");
+  }
 }

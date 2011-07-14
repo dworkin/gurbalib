@@ -1,27 +1,14 @@
 #include <status.h>
 
 void usage() {
-  write("Usage: status [-h]\n");
-  write("Display various stat's about the server.\n");
+  write("Usage: status [-h] [OBJ]\n");
+  write("Display various usage stat's about the object OBJ.\n");
+  write("If no object is given it displays stats for the driver.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }
 
-void main( string str ) {
-  mixed *stat;
-
-  if (str && str != "") {
-    usage();
-    return;
-  }
-
-  if (sscanf(str, "-%s",str)) {
-    usage();
-    return;
-  }
-
-  stat = status();
-
+void display_driver(mixed *stat) {
   write("Driver version         : "+(string)stat[ST_VERSION]+"\n");
   write("System Start time      : "+(string)ctime(stat[ST_STARTTIME])+"\n");
   write("System Boot time       : "+(string)ctime(stat[ST_BOOTTIME])+"\n");
@@ -46,5 +33,51 @@ void main( string str ) {
   write("Max array/mapping size : "+(string)stat[ST_ARRAYSIZE]+"\n");
   write("Remaining stack depth   : "+(string)stat[ST_STACKDEPTH]+"\n");
   write("Remaining ticks         : "+(string)stat[ST_TICKS]+"\n");
+}
+
+void display_obj(mixed *stat,object obj) {
+  int i, maxi;
+  mixed *tmp;
+
+  write("OBJ ID                 : "+(string)stat[O_INDEX]+"\n");
+  write("Compile Time           : "+(string)ctime(stat[O_COMPILETIME])+"\n");
+  write("Program Size           : "+(string)stat[O_PROGSIZE]+"\n");
+  write("Data Size              : "+(string)stat[O_DATASIZE]+"\n");
+  write("Sectors                : "+(string)stat[O_NSECTORS]+"\n");
+  write("Callout's              :\n");
+  tmp = stat[O_CALLOUTS];
+  maxi = sizeof(tmp);
+  for(i=0;i<maxi;i++) {
+    write("\t" + tmp[i] + "\n");
+  }
+  write("Undefined Functions    :  XXX (Need to implement this bit...)\n");
+  tmp = stat[O_UNDEFINED];
+//  maxi = sizeof(tmp);
+//  for(i=0;i<maxi;i++) {
+//    write("\t" + tmp[i] + "\n");
+//  }
+  write("Inherited              :" + (string)stat[O_INSTANTIATED] + "\n");
+}
+
+void main( string str ) {
+  mixed *stat;
+  object obj;
+
+  if (!str || str == "") {
+     stat = status();
+     display_driver(stat);
+  } else if (sscanf(str, "-%s",str)) {
+    usage();
+    return;
+  } else {
+    obj = find_object(str);
+    if (obj) {
+       stat = status(obj);
+       display_obj(stat,obj);
+    } else {
+       write("Unable to locate: " + str + "\n");
+       return;
+    }
+  }
 }
 

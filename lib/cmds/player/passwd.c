@@ -1,4 +1,4 @@
-string oldpass, curpass, newpass;
+string curpass, newpass;
 
 void usage() {
   write("Usage: passwd [-h]\n");
@@ -36,13 +36,12 @@ void input_curpass( string str) {
    if (!str || str == "") {
 	write("ouchie...\n");
    }
-   if (str == oldpass) {
+   if (this_player()->test(str))  {
       write("New password: ");
-//      send_message( 0 );
+      this_user()->send_message( 0 );
       this_player()->input_to_object( this_object(), "input_newpass");
    } else {
       write("That is not your current password.\n");
-      write("passwd = " + oldpass + "\n");
       write("new passwd = " + str + "\n");
       return;
    }
@@ -54,7 +53,6 @@ void main( string arg ) {
      return;
   }
 
-  oldpass = this_player()->query_passwd();
   this_player()->input_to_object(this_object(), "input_curpass");
   write( "\nPlease enter your password : " );
 }
