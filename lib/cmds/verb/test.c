@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: test [-h] OBJ]\n");
+  write("Allows you to test a given object OBJ.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 string *query_verb_info( ) {
   return( ({ "", "OBJ", "LIV", "OBJ with LIV" }) );
 }

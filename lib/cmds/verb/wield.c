@@ -1,3 +1,11 @@
+void usage() {
+  write("Usage: wield [-h] [all|OBJ]\n");
+  write("Allows you to equip a given object OBJ.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("\tall\tEquips all available objects.\n");
+}
+
 string *query_verb_info() {
   return( ({ "", "OBJI" }) );
 }

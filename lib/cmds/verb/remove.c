@@ -1,3 +1,11 @@
+void usage() {
+  write("Usage: remove [-h] [all|OBJ]\n");
+  write("Allows you to remove a given object OBJ that you are currently " +
+     "wearing.\n");
+  write("Options:\n");
+  write("\tall\tRemoves all removable objects.\n");
+}
+
 string *query_verb_info() {
   return( ({ "", "OBJI" }) );
 }

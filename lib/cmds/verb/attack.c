@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: attack [-h] OBJ\n");
+  write("OBJ offends you your going to destroy it.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 string *query_verb_info() {
   return( ({ "", "LIV" }) );
 }

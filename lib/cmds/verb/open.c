@@ -1,3 +1,12 @@
+void usage() {
+  write("Usage: open [-h] [all|OBJ]\n");
+  write("Allows you to open a given object OBJ.\n");
+  write("If no argument is given look at your surroundings.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("\tall\tOpen's all openable items.\n");
+}
+
 string *query_verb_info() {
   return( ({ "", "OBJ", "OBJA" }) );
 }

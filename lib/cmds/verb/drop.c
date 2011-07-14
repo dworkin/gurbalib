@@ -1,3 +1,11 @@
+void usage() {
+  write("Usage: drop [-h] [all|OBJ]\n");
+  write("Allows you to drop a given object OBJ.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("\tall\tDrop everything your carrying.\n");
+}
+
 string *query_verb_info() {
   return( ({ "", "OBJI", "OBJA" }) );
 }

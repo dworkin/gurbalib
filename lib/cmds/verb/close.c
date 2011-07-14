@@ -1,3 +1,11 @@
+void usage() {
+  write("Usage: close [-h] [all|OBJ]\n");
+  write("Allows you to close a given object OBJ.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("\tall\tClose all available items.\n");
+}
+
 string *query_verb_info() {
   return( ({ "", "OBJ", "OBJA" }) );
 }

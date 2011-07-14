@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: get [-h] [all|OBJ]\n");
+  write("Allows you to pick up a given object OBJ.\n");
+  write("Options:\n");
+  write("\tall\tPick's up everything you can pick up.\n");
+}
+
 string *query_verb_info() {
   return( ({ "", "OBJE", "LIV", "OBJX from OBJ", "OBJA" }) );
 }

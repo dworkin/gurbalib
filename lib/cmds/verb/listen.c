@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: listen [-h]\n");
+  write("Allows you to hear things you might not normally notice.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 string *query_verb_info() {
   return( ({ "" }) );
 }

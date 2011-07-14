@@ -1,3 +1,10 @@
+void usage() {
+  write("Usage: put [-h] OBJ1 [[at|in] OBJ2]\n");
+  write("Allows you to put OBJ1 inside OBJ2.\n");
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+}
+
 string *query_verb_info() {
   return( ({ "", "OBJI in OBJ" }) );
 }
