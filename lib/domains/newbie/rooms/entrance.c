@@ -5,9 +5,7 @@ void setup( void ) {
   set_long( "You are in a small tunnel.  It was a tight squeeze to get in 
      "here.");
   set_exits( ([ 
-	       "out" : "/domains/required/rooms/hole_in_the_ground",
+	       "out" : "/domains/required/rooms/tree",
   ]) );
-  set_objects( ([ "/domains/required/objects/weapons/stick" : 1,
-	]));
 }
 
