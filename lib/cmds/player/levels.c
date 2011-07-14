@@ -5,11 +5,8 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
-// XXX add titles to the levels...
-// and also add it to the exp increase level function...
-
 void main( string str ) {
-   string bar;
+   string bar, title;
    int i,exp,maxi;
    mixed width;
 
@@ -32,7 +29,8 @@ void main( string str ) {
 
    for(i=1;i<=20;i++) {
       exp = i * i * 2000;
-      write(i + "\tExp: " +  exp + "\n");
+      title = this_player()->query_level_title(i);
+      write(i + "\tExp: " +  exp + "\t" + title + "\n");
    }
 }
 
