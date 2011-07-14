@@ -1,6 +1,6 @@
 void usage () {
    if( query_wizard( this_player() ) ) {
-      write("Usage: score [-h] [PLAYER]\n");
+      write("Usage: score [-h] [-q] [PLAYER]\n");
       write("Gives you basic stats about player PLAYER.\n");
       write("If no player is given give your stats.\n");
       write("Options:\n");
@@ -10,16 +10,23 @@ void usage () {
       write("Gives you basic stats about your character.\n");
       write("Options:\n");
       write("\t-h\tHelp, this usage message.\n");
+      write("\t-q\tAlso display quests you have completed.\n");
    }
 }
 
 void main( string str ) {
-   int max_hp, hp, expr, level;
+   int max_hp, hp, expr, level, quest;
    int ac, i, ducats, royals, crowns;
    mixed *money;
    object obj;
 
-   if (sscanf(str, "-%s",str)) {
+   quest = 0;
+   if (str == "-q") {
+      str = "";
+      quest = 1;
+   } else if (sscanf(str, "-q %s",str)) {
+      quest = 1;
+   } else if (sscanf(str, "-%s",str)) {
      usage();
      return;
    }
@@ -74,6 +81,10 @@ void main( string str ) {
    write("\t\t\t\t\tDucats: " + ducats ); 
    write("\t\t\t\t\tRoyals: " + royals ); 
    write("\t\t\t\t\tCrowns: " + crowns ); 
+
+   if (quest) {
+      write("Quests Completed:\n");
+   }
    
    return;
 }
