@@ -83,7 +83,14 @@ void main( string str ) {
    write("\t\t\t\t\tCrowns: " + crowns ); 
 
    if (quest) {
+      string *quests;
+      int j,k;
+
       write("Quests Completed:\n");
+      k=sizeof(quests);
+      for(j=0;j<k;j++) {
+         write("\t" + quests[j] + "\n");
+      }
    }
    
    return;

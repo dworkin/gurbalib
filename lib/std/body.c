@@ -1,4 +1,5 @@
 inherit "/std/body/experience";
+inherit "/std/body/quests";
 inherit "/std/body/size";
 inherit "/std/body/money";
 inherit "/std/body/stats"; 
