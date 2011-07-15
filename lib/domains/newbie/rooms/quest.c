@@ -8,6 +8,6 @@ void setup( void ) {
 	       "north" : "/domains/newbie/rooms/fighting",
 	       "out" : "/domains/newbie/rooms/tree",
   ]) );
-  add_item("button" "A giant red BUTTON!");
+  add_item("button", "A giant red BUTTON!");
 }
 

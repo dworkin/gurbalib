@@ -87,9 +87,12 @@ void main( string str ) {
       int j,k;
 
       write("Quests Completed:\n");
-      k=sizeof(quests);
-      for(j=0;j<k;j++) {
-         write("\t" + quests[j] + "\n");
+      quests=this_player()->query_quests_completed();
+      if (quests) {
+         k=sizeof(quests);
+         for(j=0;j<k;j++) {
+            write("\t" + quests[j] + "\n");
+         }
       }
    }
    

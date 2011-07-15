@@ -3,7 +3,7 @@ string *quests;
 void create() {
 }
 
-string *query_quests_complated() {
+string *query_quests_completed() {
 	return quests;
 }
 
