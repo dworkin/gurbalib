@@ -7,7 +7,7 @@ string *query_quests_completed() {
 	return quests;
 }
 
-int set_completed_quest(string quest) {
+int add_completed_quest(string quest) {
    int x,s;
 
    s=sizeof(quests);

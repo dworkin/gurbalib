@@ -9,5 +9,19 @@ void setup( void ) {
 	       "out" : "/domains/newbie/rooms/tree",
   ]) );
   add_item("button", "A giant red BUTTON!");
+  add_room_cmmand("push", "do_push");
 }
 
+int do_push(string arg) {
+   if (arg == "button") {
+      if( this_player()->is_completed_quest("NewbieVille")) {
+          write("The button is already depressed.\n");
+      } else {
+         this_player()->add_completed_quest("NewbieVille");
+         write("Congradulations!!! You have just completed the NewbieVille " +
+           "Quest.\n");
+      }
+   } else {
+      write("Push what?");
+   }
+}
