@@ -20,5 +20,6 @@ void create( void )
   com::create();
   equipment = ([ ]);
   wielding = ({ });
+  quests = ({ });
 }
 

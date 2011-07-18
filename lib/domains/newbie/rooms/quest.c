@@ -8,8 +8,8 @@ void setup( void ) {
 	       "north" : "/domains/newbie/rooms/fighting",
 	       "out" : "/domains/newbie/rooms/tree",
   ]) );
-  add_item("button", "A giant red BUTTON!");
-  add_room_cmmand("push", "do_push");
+  add_item("button", "A giant red BUTTON!\nIt is glowing and says PRESS ME!");
+  add_room_command("push", "do_push");
 }
 
 int do_push(string arg) {

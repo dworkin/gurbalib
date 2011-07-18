@@ -17,6 +17,7 @@ int add_completed_quest(string quest) {
       }
    }
    quests += ({ quest });
+   return 1;
 }
 
 int is_completed_quest(string quest) {
