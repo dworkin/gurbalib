@@ -14,5 +14,29 @@ void setup( void ) {
    ]) );
    add_item("hole", "A funny hole in the ground.  You might be able to " +
       "enter it.");
+  add_room_command("enter", "enter_hole");
 }
 
+int enter_hole(string arg) {
+   string dest;
+
+   if (arg == "hole") {
+      if( this_player()->is_completed_quest("NewbieVille")) {
+         write("The hole is too small for you to enter it.\n");
+      } else {
+         dest = "/domains/newbie/rooms/entrance";
+         this_player()->query_environment()->tell_room( this_player(),
+            capitalize(this_player()->query_name()) + " enters the hole.\n");
+         write("You enter the hole.\n");
+         this_player()->move(dest);
+         this_player()->query_environment()->tell_room( this_player(),
+            capitalize(this_player()->query_name()) + 
+            " pops out of the hole.\n");
+      }
+      return 1;
+   } else {
+     write("Enter what?\n");  // maybe remove this line? 
+                              // So you can try other enter commands...
+     return 0;
+   }
+}
