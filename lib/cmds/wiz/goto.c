@@ -59,11 +59,12 @@ void main( string str ) {
         capitalize(this_player()->query_name()) + " disappears.\n" );
       if( !ob || !this_player()->move( ob ) ) {
 	write( "\nConstruction blocks your path.\n" );
+      } else {
+         this_player()->do_look( 0 );
       }
-      this_player()->do_look( 0 );
       this_environment()->event( "body_enter", this_player() );
       this_environment()->tell_room( this_player(), 
-        capitalize(this_player()->query_name()) + " appears.\n" );
+         capitalize(this_player()->query_name()) + " appears.\n" );
     } else {
       write( "Unable to find " + str + ".\n" );
     }
