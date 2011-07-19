@@ -13,8 +13,8 @@ void setup( void ) {
       "/domains/newbie/objects/tree" : 1,
    ]) );
    add_item("hole", "A funny hole in the ground.  You might be able to " +
-      "enter it.");
-  add_room_command("enter", "enter_hole");
+      "squeeze into it.");
+  add_room_command("squeeze", "enter_hole");
 }
 
 int enter_hole(string arg) {
@@ -32,10 +32,11 @@ int enter_hole(string arg) {
          this_player()->query_environment()->tell_room( this_player(),
             capitalize(this_player()->query_name()) + 
             " pops out of the hole.\n");
+         this_player()->do_look(0);
       }
       return 1;
    } else {
-     write("Enter what?\n");  // maybe remove this line? 
+     write("squeeze what?\n");  // maybe remove this line? 
                               // So you can try other enter commands...
      return 0;
    }

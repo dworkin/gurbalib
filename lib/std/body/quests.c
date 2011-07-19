@@ -1,6 +1,8 @@
 string *quests;
 
 void create() {
+  if( !quests )
+    quests = ({ });
 }
 
 string *query_quests_completed() {
@@ -17,8 +19,10 @@ int add_completed_quest(string quest) {
             return 0;
          }
       }
+      quests += ({ quest });
+   } else {
+      quests = ({ quest });
    }
-   quests += ({ quest });
    return 1;
 }
 

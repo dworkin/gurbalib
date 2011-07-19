@@ -5,8 +5,8 @@ void setup( void ) {
   set_long( "You are in a small tunnel.  It was a tight squeeze to get in " +
      "here.");
   set_exits( ([ 
-	       "north" : "/domains/required/rooms/entrance",
-	       "south" : "/domains/required/rooms/fighting",
+	       "north" : "/domains/newbie/rooms/entrance",
+	       "south" : "/domains/newbie/rooms/fighting",
   ]) );
 }
 
