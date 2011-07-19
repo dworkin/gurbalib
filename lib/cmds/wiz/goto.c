@@ -9,6 +9,8 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
+// XXX Make it so it supports file.c not just file 
+
 void main( string str ) {
   object usr;
   object player;
