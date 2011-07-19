@@ -2,8 +2,9 @@ inherit ROOM;
 
 void setup( void ) {
   set_brief( "%^MAGENTA%^end of the tunnel.%^RESET%^" );
-  set_long( "You are at the end of a small tunnel.  There is a large " +
-     "red button here.");
+  set_long( "You are at the end of a small tunnel.  The room is brightly " +
+     "colored and everything in the room direct's your attention " +
+     "towards a large red button.");
   set_exits( ([ 
 	       "north" : "/domains/newbie/rooms/fighting",
 	       "out" : "/domains/newbie/rooms/tree",
