@@ -10,10 +10,12 @@ string *query_quests_completed() {
 int add_completed_quest(string quest) {
    int x,s;
 
-   s=sizeof(quests);
-   for(x=0;x<s;x++) {
-      if (quest == quests[x]) {
-         return 0;
+   if (quests) {
+      s=sizeof(quests);
+      for(x=0;x<s;x++) {
+         if (quest == quests[x]) {
+            return 0;
+         }
       }
    }
    quests += ({ quest });
@@ -23,10 +25,12 @@ int add_completed_quest(string quest) {
 int is_completed_quest(string quest) {
    int x,s;
 
-   s=sizeof(quests);
-   for(x=0;x<s;x++) {
-      if (quest == quests[x]) {
-         return 1;
+   if (quests) {
+      s=sizeof(quests);
+      for(x=0;x<s;x++) {
+         if (quest == quests[x]) {
+            return 1;
+         }
       }
    }
    return 0;
