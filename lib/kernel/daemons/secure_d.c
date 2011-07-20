@@ -92,6 +92,30 @@ void create_homedir(string wiz) {
   }
 }
 
+void delete_homedir(string wiz) {
+  string path;
+
+  if( !require_priv( "system" ) ) {
+    error( "Access denied" );
+  }
+
+  path = "/wiz/"+wiz+"/";
+
+  if( file_exists( path ) == 0 ) {
+    error("No such directory: " + path + "\n");
+  } else {
+     // do the work here XXX  
+  }
+}
+
+void delete_priv(string wiz) {
+  if( !require_priv( "system" ) ) {
+    error( "Access denied" );
+  }
+
+  // XXX  Need to do a lot of stuff here...
+  // look below for ideas on what needs to be done.
+}
 
 void make_wizard( string name ) {
   object player;
