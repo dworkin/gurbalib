@@ -143,13 +143,6 @@
 #define FTP_USER_OB     "/sys/obj/user/ftp_command"
 #define FTP_DATA_OB     "/sys/obj/user/ftp_data"
 
-#define WEAPON_OB       "/obj/weapon"
-#define ARMOR_OB        "/obj/armor"
-#define COINS_OB        "/obj/coins"
-#define DOOR_OB         "/obj/door"
-#define SIGN_OB         "/obj/sign"
-#define MONSTER_OB      "/obj/monster"
-
 #ifndef WIZ_DIR
 #define WIZ_DIR "/wiz/"
 #endif
