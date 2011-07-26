@@ -679,7 +679,13 @@ int guild_member( string guild ) {
 }
 
 string *query_guilds( void ) {
-  return( map_indices( guilds ) );
+  string *blah;
+
+  if (guilds) {
+     blah =  map_indices( guilds );
+  }
+
+  return blah;
 }
 
 /* Process input from the player */
