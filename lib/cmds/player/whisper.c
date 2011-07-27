@@ -3,7 +3,11 @@ void usage() {
   write("Whisper a message MSG to WHO\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
-  write("See also: tell say emote\n");
+  if (query_wizard( this_player() )) {
+     write("See also: tell say ssay emote\n");
+  } else {
+     write("See also: tell say emote\n");
+  }
 }
 
 void main( string who) {
@@ -23,7 +27,9 @@ void main( string who) {
   
   sscanf(who, "%s %s", who, what);
   
-  what = capitalize(what);
+  if (what && what != "") {
+     what = capitalize(what);
+  }
 
   usr = USER_D->query_users();
   flag = 0;
@@ -37,7 +43,6 @@ void main( string who) {
     }
   if (!flag) {
     write("Who did you want to whisper to?\n");
-    usage();
   }
 }
-	
+

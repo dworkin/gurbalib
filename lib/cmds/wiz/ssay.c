@@ -1,8 +1,11 @@
 void usage() {
-  write("Usage: ssay [-h] WHO WHAT\n");
-  write("Say WHAT to WHO XXX.\n");
+  write("Usage: ssay [-h] HOW|WHAT\n");
+  write("Say WHAT to WHO. But do it HOW.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: say tell whisper emote\n");
+  write("Example:\n);
+  write("\tssay sleepily|Hiya\n");
 }
 
 void main( string str ) {
@@ -38,7 +41,9 @@ void main( string str ) {
       what += ".";
     }
     
-    this_player()->query_environment()->tell_room( nil,"%^GREEN%^" + capitalize(this_player()->query_name()) + " " + how +": %^RESET%^" + capitalize(what) + "\n" );
+    this_player()->query_environment()->tell_room( nil,"%^GREEN%^" + 
+       capitalize(this_player()->query_name()) + " " + how +
+       ": %^RESET%^" + capitalize(what) + "\n" );
   } else {
      usage();
      return;

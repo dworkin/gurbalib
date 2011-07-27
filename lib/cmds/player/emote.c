@@ -7,7 +7,11 @@ void usage() {
   write("\t If you type \"emote does a flip\" the output will look like " +
     "this:\n");
   write("\t PLAYER does a flip\n");
-  write("See also: say tell whisper\n");
+  if (query_wizard( this_player() )) {
+     write("See also: say ssay tell whisper\n");
+  } else {
+     write("See also: say tell whisper\n");
+  }
 }
 
 void main( string str ) {

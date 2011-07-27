@@ -3,7 +3,11 @@ void usage() {
   write("Tell everyone in the current room MSG.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
-  write("See also: tell whisper emote\n");
+  if (query_wizard( this_player() )) {
+     write("See also: ssay tell whisper emote\n");
+  } else {
+     write("See also: tell whisper emote\n");
+  }
 }
 
 /*Ok so it isn't the best method in the world for making sure that you get the correct conjugation, but it works.*/

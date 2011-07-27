@@ -3,7 +3,11 @@ void usage() {
   write("Send a message WHAT to WHO.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
-  write("See also: say emote whisper\n");
+  if (query_wizard( this_player() )) {
+     write("See also: say ssay emote whisper\n");
+  } else {
+     write("See also: say emote whisper\n");
+  }
 }
 
 void main( string who ) {

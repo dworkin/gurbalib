@@ -9,7 +9,7 @@ void usage() {
   write("See also: man, help\n");
 }
 
-// XXX make sure verbs show up as well...
+// XXX not sure on verbs vs cmds might want to merge them...
 // might want to make emote's available as well with a flag... -e
 
 void show_cmds( string dir) {
