@@ -8,7 +8,6 @@ void usage() {
 
 void main( string str ) {
   if( !str || str == "" ) {
-    write( "Usage: rwho mudname\n" );
     usage();
     return;
   }

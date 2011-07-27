@@ -69,6 +69,9 @@ void main( string str ) {
    for ( c = sizeof( path ) - 1; c >= 0; c-- ) {
       show_cmds(path[c]);
    } 
+
+   show_cmds("/cmds/verb");
+
    race = "/cmds/race/" + this_player()->query_race();
    if (file_exists(race) == -1) {
 	show_cmds(race);

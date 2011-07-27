@@ -1,5 +1,5 @@
 void usage() {
-  write("Usage: zap [-h] [-v]\n");
+  write("Usage: rebuild [-h] [-v]\n");
   write("Rebuild the objects on the mud.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
