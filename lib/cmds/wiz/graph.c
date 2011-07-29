@@ -7,6 +7,7 @@ void usage() {
 }
 
 void main( string str ) {
+  int i;
 
   if( !str || str == "" ) {
     usage();
@@ -37,10 +38,16 @@ void main( string str ) {
      I don't think we need both... it's odd... */
   files = get_dir( str );
   if( !files ) {
-    write( "No such dir.\n" );
+    write( "Dir:" + str + " is empty.\n");
     return;
   }
 
   /* do the work here... */
   /* XXX */ 
+  i = sizeof(files);
+  while(i>0) {
+     i--;
+     write("Looking at : " + str + "/" + files[i] + "\n");
+  }
 }
+
