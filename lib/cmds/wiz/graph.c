@@ -7,14 +7,17 @@ void usage() {
 }
 
 void print_node(string room, string dir) {
-   mapping *exits;
-   string *keys, filepath;
+   mapping exits;
+   string *keys, filepath, tmp;
    int i,maxi,len;
    object obj;
 
-   obj = find_object(dir + "/" + room);
+   dir = dir + "/";
+   obj = find_object(dir + room);
 
-// XXX maybe need to do more work here to load the room?
+   if (!obj) {
+       obj = compile_object(dir + room);
+   }
 
    if (obj) {
       len = strlen(dir);
@@ -23,22 +26,21 @@ void print_node(string room, string dir) {
       if (exits) {
          maxi = sizeof(keys);
          for(i=0;i<maxi;i++) {
-            if (0) {  // XXX check to see if front matches dir if so cut it ...
-               filepath = exits[keys[i]];
-            } else {
-               filepath = exits[keys[i]];
-            }
-            write("\t" + room + " -> " + filepath + "[label = \"" + 
-               i+ "\"];\n");
+	    tmp = exits[keys[i]] + ".c";
+	    filepath = replace_string(tmp,dir,"");
+            write("\t\"" + room + "\" -> \"" + filepath + 
+               "\" [label = \"" + keys[i] + "\"];\n");
          }
       }
    } else {
-      write("# Failed to load " + $dir + "/" + room + "\n");
+      write("# Failed to load " + dir + room + "\n");
    }
 }
 
 void main( string str ) {
-  int i;
+  int i, size;
+  string *files;
+  mixed *dirent;
 
   if( !str || str == "" ) {
     usage();
@@ -65,23 +67,24 @@ void main( string str ) {
     return;
   }
 
-  /* Look at ls it does this and then does str + "/*"
-     I don't think we need both... it's odd... */
-  files = get_dir( str );
-  if( !files ) {
+  dirent = get_dir( str + "/*.c" );
+
+  if( !dirent ) {
     write( "Dir:" + str + " is empty.\n");
     return;
   }
+  files = dirent[0];
 
   /* do the work here... */
-  i = sizeof(files);
-  while(i>0) {
-     i--;
-     write("# Looking at : " + str + "/" + files[i] + "\n");
-     write("digraph G {\n");
+  size = sizeof(files);
+  write("# Looking at : " + str + "/" + files[i] + "\n");
+  write("# Use dot -Tpng thisfile.dot -o thisfile.png
+  write("digraph G {\n");
+
+  for(i=0;i < size; i++) {;
      print_node(files[i],str);
-     write("}\n");
-     write("# End: str\n");
   }
+  write("}\n");
+  write("# End: str\n");
 }
 
