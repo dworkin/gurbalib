@@ -28,7 +28,8 @@ void print_node(string room, string dir) {
             } else {
                filepath = exits[keys[i]];
             }
-            write("\t" + keys[i] + " -> " + filepath + ";\n");
+            write("\t" + room + " -> " + filepath + "[label = \"" + 
+               i+ "\"];\n");
          }
       }
    } else {
