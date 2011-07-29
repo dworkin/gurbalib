@@ -78,7 +78,7 @@ void main( string str ) {
   /* do the work here... */
   size = sizeof(files);
   write("# Looking at : " + str + "/" + files[i] + "\n");
-  write("# Use dot -Tpng thisfile.dot -o thisfile.png
+  write("# Use dot -Tpng thisfile.dot -o thisfile.png\n");
   write("digraph G {\n");
 
   for(i=0;i < size; i++) {;
