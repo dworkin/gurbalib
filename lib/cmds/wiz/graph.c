@@ -77,11 +77,12 @@ void main( string str ) {
 
   /* do the work here... */
   size = sizeof(files);
-  write("# Looking at : " + str + "/" + files[i] + "\n");
   write("# Use dot -Tpng thisfile.dot -o thisfile.png\n");
+  write("# Graph of : " + str + "\n");
   write("digraph G {\n");
 
   for(i=0;i < size; i++) {;
+     write("\t# " + files[i] + "\n");
      print_node(files[i],str);
   }
   write("}\n");
