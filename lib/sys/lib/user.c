@@ -357,6 +357,8 @@ void mssp_reply( void ) {
 
 }
 
+// XXX Need to fix this so a user that hasn't eneterd a password yet
+// doesn't show up in the list....
 void login_who( void ) {
   object *usr;
   int i, sz;
@@ -387,6 +389,12 @@ void input_name( string str ) {
     mssp_reply();
     
     str = ""; /* force login fail */
+  }
+
+  if (lowercase(str) == "quit") {
+    write("Goodbye!!!\n");
+    destruct_object( player );
+    destruct_object( this_object() );
   }
 
   if (lowercase(str) == "who") {
