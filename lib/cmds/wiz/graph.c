@@ -1,10 +1,12 @@
 void usage() {
   write("Usage: graph [-h] DIR\n");
   write("prints dot compatible output of a graph of the directory you " +
-    "specify.\n");
+    "specify to /tmp/(wizardname).dot.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }
+
+string filename;
 
 void print_node(string room, string dir) {
    mapping exits;
@@ -28,12 +30,12 @@ void print_node(string room, string dir) {
          for(i=0;i<maxi;i++) {
 	    tmp = exits[keys[i]] + ".c";
 	    filepath = replace_string(tmp,dir,"");
-            write("\t\"" + room + "\" -> \"" + filepath + 
+            write_file(filename,"\t\"" + room + "\" -> \"" + filepath + 
                "\" [label = \"" + keys[i] + "\"];\n");
          }
       }
    } else {
-      write("# Failed to load " + dir + room + "\n");
+      write_file(filename,"# Failed to load " + dir + room + "\n");
    }
 }
 
@@ -58,6 +60,8 @@ void main( string str ) {
     return;
   }
 
+  filename="/tmp/" + this_player()->query_name() + ".dot";
+
  if( strlen(str) > 1 && str[strlen(str)-1] == '/' ) {
     str = str[..strlen(str)-2];
   }
@@ -77,15 +81,14 @@ void main( string str ) {
 
   /* do the work here... */
   size = sizeof(files);
-  write("# Use dot -Tpng thisfile.dot -o thisfile.png\n");
-  write("# Graph of : " + str + "\n");
-  write("digraph G {\n");
+  write_file(filename,"# Use dot -Tpng thisfile.dot -o thisfile.png\n");
+  write_file(filename,"# Graph of : " + str + "\n");
+  write_file(filename,"digraph G {\n");
 
   for(i=0;i < size; i++) {;
-     write("\t# " + files[i] + "\n");
      print_node(files[i],str);
   }
-  write("}\n");
-  write("# End: str\n");
+  write_file(filename,"}\n");
+  write_file(filename,"# End: str\n");
 }
 

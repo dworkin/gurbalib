@@ -156,7 +156,7 @@
 #endif
 
 #ifndef MAX_TICKS
-#define MAX_TICKS       1000000
+#define MAX_TICKS       6000000
 #endif
 
 #ifndef DEFAULT_WIDTH
