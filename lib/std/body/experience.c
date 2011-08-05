@@ -42,7 +42,11 @@ string query_level_title(int level) {
 	 return "the Great.\n";
          break;
       case 9:
-	 return "the Baron.\n";
+         if (this_player()->query_race == "male") {
+	    return "the Baron.\n";
+         } else {
+	    return "the Baroness.\n";
+         }
          break;
       case 10:
 	 return "the Titan.\n";
@@ -54,16 +58,20 @@ string query_level_title(int level) {
 	 return "the Famous.\n";
          break;
       case 13:
-	 return "the level 13.\n";
+	 return "the Awe-inspiring.\n";
          break;
       case 14:
-	 return "the level 14.\n";
+	 return "the Battle Hardened.\n";
          break;
       case 15:
-	 return "the level 15.\n";
+	 return "the More than Adequate.\n";
          break;
-      case 16: // XXX Check for male/female
-	 return "the Grand Baron.\n";
+      case 16:
+         if (this_player()->query_race == "male") {
+	    return "the Grand Baron.\n";
+         } else {
+	    return "the Grand Baroness.\n";
+         }
          break;
       case 17:
 	 return "the Great Titan.\n";
