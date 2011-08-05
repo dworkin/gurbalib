@@ -9,8 +9,6 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
-// XXX Make it so it supports file.c not just file 
-
 void main( string str ) {
   object usr;
   object player;
@@ -39,13 +37,13 @@ void main( string str ) {
       out( "Going somewhere?\n");
     }
   } else {
-
-    if( file_exists( normalize_path( str, this_player()->query_env( "cwd" ) ) +
-      ".c" ) > 0 ) {
-      object ob;
-      string file;
-
-      file = normalize_path( str, this_player()->query_env( "cwd" ) ) + ".c";
+    string file;
+    object ob;
+    file = normalize_path(str, this_player()->query_env( "cwd" ));
+    if ( file_exists( file + ".c")) {
+       file = file + ".c";
+    } 
+    if( file_exists( file) ) {
       if(!(ob = find_object( file ) ) ) {
         catch {
           ob = compile_object( file );
