@@ -3,6 +3,7 @@ void usage() {
   write("Transport you to your \"work room\".\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: goto, summon, where\n");
 }
 
 void main( string str ) {

@@ -7,6 +7,7 @@ void usage() {
   write("Find PLAYER, and then transport you to them.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: home, summon, where\n");
 }
 
 void main( string str ) {

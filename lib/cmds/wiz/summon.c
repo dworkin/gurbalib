@@ -4,7 +4,7 @@ void usage() {
     "them here.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
-  write("See also: trans, goto\n");
+  write("See also: trans, goto, home, where\n");
 }
 
 void main(string str) {

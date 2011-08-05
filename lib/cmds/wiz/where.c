@@ -4,6 +4,7 @@ void usage() {
   write("If [player] is omitted it prints out everyones location.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: goto, home, summon\n");
 }
 
 void main( string str ) {
