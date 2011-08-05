@@ -81,9 +81,10 @@ void main( string str ) {
 
   /* do the work here... */
   size = sizeof(files);
-  write_file(filename,"# Use dot -Tpng thisfile.dot -o thisfile.png\n");
+  write_file(filename,"# Use neato -Tpng thisfile.dot -o thisfile.png\n");
   write_file(filename,"# Graph of : " + str + "\n");
   write_file(filename,"digraph G {\n");
+  write_file(filename,"\toverlap = scale;\n");
 
   for(i=0;i < size; i++) {;
      print_node(files[i],str);
