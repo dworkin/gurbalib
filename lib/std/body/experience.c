@@ -27,31 +27,31 @@ string query_level_title(int level) {
 	 return "is getting the hang of things.\n";
          break;
       case 4:
-	 return "the mediocher.\n";
+	 return "the mediocre.\n";
          break;
       case 5:
-	 return "the adverage.\n";
+	 return "the Sub-average.\n";
          break;
       case 6:
-	 return "the level 6.\n";
+	 return "the Average.\n";
          break;
       case 7:
-	 return "the level 7.\n";
+	 return "the Strong.\n";
          break;
       case 8:
-	 return "the level 8.\n";
+	 return "the Great.\n";
          break;
       case 9:
-	 return "the level 9.\n";
+	 return "the Baron.\n";
          break;
       case 10:
-	 return "the level 10.\n";
+	 return "the Titan.\n";
          break;
       case 11:
-	 return "the level 11.\n";
+	 return "the Conquerer.\n";
          break;
       case 12:
-	 return "the level 12.\n";
+	 return "the Famous.\n";
          break;
       case 13:
 	 return "the level 13.\n";
@@ -62,27 +62,27 @@ string query_level_title(int level) {
       case 15:
 	 return "the level 15.\n";
          break;
-      case 16:
-	 return "the level 16.\n";
+      case 16: // XXX Check for male/female
+	 return "the Grand Baron.\n";
          break;
       case 17:
-	 return "the level 17.\n";
+	 return "the Great Titan.\n";
          break;
       case 18:
-	 return "the level 18.\n";
+	 return "the Mighty Conquerer.\n";
          break;
       case 19:
-	 return "the Mighty";
+	 return "the High and Mighty.";
          break;
       default:
-	 return "the Grand Wizard";
+	 return "the Grand Wizard!!!";
          break;
    }
 }
 
 void increase_level() {
    level += 1;
-   write("Congragulations, you just achieved level: " + level + "\n");
+   write("Congratulations, you just achieved level: " + level + "\n");
    this_player()->set_title(query_level_title(level));
 }
 
@@ -96,7 +96,7 @@ void increase_expr( int expr ) {
    }
    if (ready_for_next_level()) {
 	increase_level();
-	write("Congragulations, you just went up a level...\n");
+	write("Congratulations, you just went up a level...\n");
 	level += 1;
    }
 }
