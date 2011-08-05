@@ -19,8 +19,9 @@ int do_push(string arg) {
           write("The button is already depressed.\n");
       } else {
          this_player()->add_completed_quest("NewbieVille");
+         this_player()->increase_expr(200);
          write("Congradulations!!! You have just completed the NewbieVille " +
-           "Quest.\n");
+           "Quest which earns you 200 exp!\n");
       }
    } else {
       write("Push what?");
