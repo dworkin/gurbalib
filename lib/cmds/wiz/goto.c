@@ -53,6 +53,10 @@ void main( string str ) {
           write("Could not load "+str);
         }
       }
+      if (ob == this_environment()) {
+         write("You are already there.\n");
+         return;
+      }
 
       this_environment()->event( "body_leave", this_player() );
       this_environment()->tell_room( this_player(), 

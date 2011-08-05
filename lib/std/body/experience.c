@@ -42,7 +42,7 @@ string query_level_title(int level) {
 	 return "the Great.\n";
          break;
       case 9:
-         if (this_player()->query_race == "male") {
+         if (this_player()->query_race() == "male") {
 	    return "the Baron.\n";
          } else {
 	    return "the Baroness.\n";
@@ -67,7 +67,7 @@ string query_level_title(int level) {
 	 return "the More than Adequate.\n";
          break;
       case 16:
-         if (this_player()->query_race == "male") {
+         if (this_player()->query_race() == "male") {
 	    return "the Grand Baron.\n";
          } else {
 	    return "the Grand Baroness.\n";
