@@ -7,6 +7,8 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
+// XXX Needs work... still isn't working right...
+// I think it might be a security issue at this point
 void input_newpass2( string str) {
    if (!str || str == "") {
       write("Empty password aborting.");
