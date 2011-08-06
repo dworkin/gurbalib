@@ -1,6 +1,8 @@
 inherit WEAPON;
 inherit M_VALUABLE;
 
+// XXX Need to set short or figure out whats going on with this object
+
 void setup( void ) {
   set_id( "stick" );
   set_adj( "short" );
