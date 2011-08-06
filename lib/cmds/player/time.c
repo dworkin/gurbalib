@@ -3,6 +3,10 @@ void usage() {
   write("Show what time it is, in the mud.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+
+  if (query_wizard(this_player()) {
+     write("See also: date, wtime,status\n");
+  }
 }
 
 void main( string str ) {

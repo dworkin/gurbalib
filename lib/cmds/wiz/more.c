@@ -4,7 +4,7 @@ void usage() {
     "(print it to the screen).\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
-  write("See also: cat, tail, browse\n");
+  write("See also: browse, cat, tail\n");
 }
 
 /* A highly advanced more command

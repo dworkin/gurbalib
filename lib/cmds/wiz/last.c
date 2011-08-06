@@ -4,6 +4,7 @@ void usage() {
   write("If no player is given show last for everyone.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: who\n");
 }
 
 void main( string str ) {
