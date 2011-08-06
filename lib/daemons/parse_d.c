@@ -117,8 +117,8 @@ void add_object_rules(string *rules) {
     object_rules[prev_ob][rules[0] ] += rules[1..(sizeof(rules) - 1) ];
   }
 
-mapping query_all_object_rules() {
-  return object_rules;
+  mapping query_all_object_rules() {
+     return object_rules;
   }
 
 mapping query_objects_rules(object obj) {
@@ -157,9 +157,7 @@ int parse( string str ) {
     return 0;
   }
 
-
-  if( !result )
-    return 0;
+  if( !result ) return 0;
 
 #ifdef DEBUG_PARSER
   write("parse_string result: "+dump_value(result));
@@ -168,50 +166,47 @@ int parse( string str ) {
   if( sizeof( result ) > 1 ) {
     for( i = 0; i < sizeof( result ); i ++ ) {
       switch( typeof( result[i] ) ) {
-      case T_OBJECT:
-	if( result[i]->is_living() )
-
-	  function += "liv ";
-	else
-	  function += "obj ";
+        case T_OBJECT:
+          if( result[i]->is_living() ) function += "liv ";
+	  else function += "obj ";
 	break;
-      case T_STRING:
-        if( i == 0 )
-         function += lowercase(result[i]) + " ";
-               else
-                function += "str ";
+        case T_STRING:
+          if( i == 0 ) function += lowercase(result[i]) + " ";
+          else function += "str ";
         break;
-
       }
     }
     function = implode( explode( function, " " ), "_" );
   } else {
     function = result[0];
   }
+
 #ifdef DEBUG_PARSE
   write("Scanning for local verbs matching grammar...");
 #endif
-  if(sizeof(result) > 1)
-    local_verb_object = query_verb_object(function, result[1..(sizeof(result)-1)]);
-  else
-    local_verb_object = query_verb_object(function);
+
+  if(sizeof(result) > 1) local_verb_object = 
+    query_verb_object(function, result[1..(sizeof(result)-1)]);
+  else local_verb_object = query_verb_object(function);
+
   if(local_verb_object) {
-	obj = local_verb_object;
+    obj = local_verb_object;
+
 #ifdef DEBUG_PARSE
-  write( "Function : 'can_" + function + "' in object " + dump_value(obj) ); 
+    write( "Function : 'can_" + function + "' in object " + dump_value(obj) ); 
 #endif
-	  returned = 1;
-    }
-  else {
+    returned = 1;
+  } else {
     obj = verbs[result[0]];
+
 #ifdef DEBUG_PARSE
-  write( "Function : 'can_" + function + "' in object " + obj ); 
+    write( "Function : 'can_" + function + "' in object " + obj ); 
 #endif
-  if(sizeof(result) > 1)
-    returned = query_can(obj, "can_" + function, result[1..(sizeof(result)-1)]);
-  else
-    returned = query_can(obj, "can_" + function);
-    }
+
+    if(sizeof(result) > 1) returned = 
+      query_can(obj, "can_" + function, result[1..(sizeof(result)-1)]);
+    else returned = query_can(obj, "can_" + function);
+  }
 
   if( returned == 1 ) {
 #ifdef DEBUG_PARSE
@@ -219,24 +214,25 @@ int parse( string str ) {
 #endif
       switch( sizeof( result ) ) {
         case 1:
-	call_other( obj, "do_" + function );
+          call_other( obj, "do_" + function );
 	break;
         case 2:
-	call_other( obj, "do_" + function, result[1] );
+          call_other( obj, "do_" + function, result[1] );
 	break;
         case 3:
-	call_other( obj, "do_" + function, result[1], result[2] );
+          call_other( obj, "do_" + function, result[1], result[2] );
 	break;
         case 4:
-	call_other( obj, "do_" + function, result[1], result[2], result[3] );
+          call_other( obj, "do_" + function, result[1], result[2], result[3] );
 	break;
         case 5:
-	call_other( obj, "do_" + function, result[1], result[2],
+          call_other( obj, "do_" + function, result[1], result[2],
 	    result[3], result[4] );
 	break;
       }
   }
   if(!returned)  returned = 0;
+
   return returned;
 }
 
@@ -264,28 +260,30 @@ string parse_verb_rules(mapping rules) {
 	  /* each word for a rule */
 	  for( k = 0; k < sizeof( words ); k++ ) {
 	    switch( words[k] ) {
-            case "OBJ":
-            case "OBJA":
-            case "OBJI":
-            case "OBJE":
-            case "OBJC":
-            case "LIV":
-			  output += words[k] + " ";
-			  break;
-            case "OBJX":
-              output += "OBJX ";
-              ofix = 1;
-              break;
-            default:
-              output += "'" + words[k] + "' ";
-	      }
+              case "OBJ":
+              case "OBJA":
+              case "OBJI":
+              case "OBJE":
+              case "OBJC":
+              case "LIV":
+                output += words[k] + " ";
+                break;
+              case "OBJX":
+                output += "OBJX ";
+                ofix = 1;
+                break;
+              default:
+                output += "'" + words[k] + "' ";
 	    }
-      if(ofix) output += "? fix_order ";
-	    ofix = 0;
-      }
-    }
-  return output;
+	  }
+
+          if(ofix) output += "? fix_order ";
+          ofix = 0;
+        }
   }
+
+  return output;
+}
 	  
 void rescan_verbs( void ) {
   mixed *list;
@@ -331,8 +329,8 @@ void rescan_verbs( void ) {
             case "OBJE":
             case "OBJC":
             case "LIV":
-			  verb_rules += words[k] + " ";
-			  break;
+              verb_rules += words[k] + " ";
+              break;
             case "OBJX":
               verb_rules += "OBJX ";
               ofix = 1;
@@ -394,7 +392,8 @@ string scan_local_verbs() {
   for(i = 0; i < sizeof(inventory_environment); i++) {
     if(typeof(object_rules[inventory_environment[i] ]) != T_MAPPING )
       continue;
-    production_rules += parse_verb_rules(object_rules[inventory_environment[i] ]);
+    production_rules += parse_verb_rules(
+      object_rules[inventory_environment[i] ]);
   }
 
   /* scan environment and contents of environment */
@@ -403,14 +402,14 @@ string scan_local_verbs() {
   for(i = 0; i < sizeof(inventory_environment); i++) {
     if(typeof(object_rules[inventory_environment[i] ]) != T_MAPPING )
       continue;
-    production_rules += parse_verb_rules(object_rules[inventory_environment[i] ]);
+    production_rules += parse_verb_rules(
+      object_rules[inventory_environment[i] ]);
   }
   return production_rules;
 }
 
 
-static mixed *construct_obj_packet(mixed *mpTree)
-{
+static mixed *construct_obj_packet(mixed *mpTree) {
   string res;
   int i;
 
@@ -424,8 +423,9 @@ static mixed *construct_obj_packet(mixed *mpTree)
 
   res = "";
 
-  for( i = 0; i < sizeof( mpTree[1] ); i++ )
+  for( i = 0; i < sizeof( mpTree[1] ); i++ ) {
     res += mpTree[1][i] + " ";
+  }
 
   res += mpTree[2];
 
@@ -448,7 +448,8 @@ static mixed *find_container_object( mixed *mpTree ) {
   }
 
   if( sizeof( mpTree[1] ) > 0 ) {
-    ob = get_otlvar("last_obj")->find_adjs_object_num( mpTree[1], mpTree[2], mpTree[3] );
+    ob = get_otlvar("last_obj")->find_adjs_object_num( mpTree[1], 
+      mpTree[2], mpTree[3] );
   } else {
     ob = get_otlvar("last_obj")->find_object_num( mpTree[2], mpTree[3] );
   }
@@ -473,7 +474,8 @@ static mixed *find_living_object( mixed *mpTree ) {
 #endif
   
   if( sizeof( mpTree[1] ) > 0 ) {
-    ob = this_environment()->find_adjs_object_num( mpTree[1], mpTree[2], mpTree[3] );
+    ob = this_environment()->find_adjs_object_num( mpTree[1], 
+      mpTree[2], mpTree[3] );
   } else {
     ob = this_environment()->find_object_num( mpTree[2], mpTree[3] );
   }
@@ -486,7 +488,6 @@ static mixed *find_living_object( mixed *mpTree ) {
   }
 
   return( nil );
-
 }
 
 static mixed *find_direct_object( mixed *mpTree ) {
@@ -502,9 +503,11 @@ static mixed *find_direct_object( mixed *mpTree ) {
   
   if( sizeof( mpTree[1] ) > 0 ) {
     /* With adjective */
-    ob = this_environment()->find_adjs_object_num( mpTree[1], mpTree[2], mpTree[3] );
+    ob = this_environment()->find_adjs_object_num( mpTree[1], 
+      mpTree[2], mpTree[3] );
     if( !ob ) {
-      ob = this_player()->find_adjs_object_num( mpTree[1], mpTree[2], mpTree[3] );
+      ob = this_player()->find_adjs_object_num( mpTree[1], mpTree[2], 
+        mpTree[3] );
       if( !ob ) {
 	return nil;
       }
@@ -565,7 +568,8 @@ static mixed *find_environment_object( mixed *mpTree ) {
 #endif
 
   if( sizeof( mpTree[1] ) > 0 ) {
-    ob = this_environment()->find_adjs_object_num( mpTree[1], mpTree[2], mpTree[3] );
+    ob = this_environment()->find_adjs_object_num( mpTree[1], mpTree[2], 
+      mpTree[3] );
   } else {
     ob = this_environment()->find_object_num( mpTree[2], mpTree[3] );
   }
