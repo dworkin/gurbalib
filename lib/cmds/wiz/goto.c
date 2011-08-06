@@ -3,8 +3,9 @@
 /* Fixed to properly setup rooms that get loaded by this command */
 
 void usage() {
-  write("Usage: goto [-h] PLAYER\n");
+  write("Usage: goto [-h] PLAYER|ROOM\n");
   write("Find PLAYER, and then transport you to them.\n");
+  write("or goto the specified ROOM.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("See also: home, summon, where\n");

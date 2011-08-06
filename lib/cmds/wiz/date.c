@@ -3,6 +3,7 @@ void usage() {
   write("Show the real world date.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: time, status\n");
 }
 
 void main( string str ) {

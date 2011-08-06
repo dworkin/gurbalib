@@ -5,6 +5,7 @@ void usage() {
   write("If PERCENT is missing, we assume you want to kill your target.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: dest\n");
 }
 
 void main( string str ) {
