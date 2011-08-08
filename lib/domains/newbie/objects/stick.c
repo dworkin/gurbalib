@@ -1,7 +1,4 @@
 inherit WEAPON;
-inherit M_VALUABLE;
-
-// XXX Need to set short or figure out whats going on with this object
 
 void setup( void ) {
   set_id( "stick" );
@@ -12,7 +9,7 @@ void setup( void ) {
 
   set_min_damage( 1 );
   set_max_damage( 3 );
-  set_hit_bonus( 0 );
+  set_hit_bonus( 1 );
 
   set_weapon_skill( "combat/blunt/small" );
 
@@ -20,6 +17,6 @@ void setup( void ) {
   set_wield_message( "$N $vgrab $p $o." );
   set_unwield_message( "$N $vloosen $p $vgrip on $o, and $vput it away." );
   set_weapon_action("bash");
-  set_value( 0 );
+  set_value( 1 );
   set_size( 10 );
 }

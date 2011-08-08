@@ -1,6 +1,7 @@
 inherit ob OBJECT;
 inherit M_WIELDABLE;
 inherit M_GETTABLE;
+inherit M_VALUABLE;
 
 int max_damage;
 int min_damage;

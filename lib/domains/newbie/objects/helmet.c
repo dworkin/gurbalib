@@ -1,5 +1,4 @@
 inherit ARMOR;
-inherit M_VALUABLE;
 
 void setup( void ) {
   set_id( "helmet" );
