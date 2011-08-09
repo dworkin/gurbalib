@@ -23,9 +23,6 @@ Work on install script so it's smoother/smarter.
 
 Fix:
 	You grab your the stick (wield it)
-	after remove helmet have problems..
-		It looks like do_remove shouldn't set to 0 or need more checks
-		later for 0....
 	break branch has some security stuff happening so stick isn't 
 		created right.
 	/std/corpse is not an object when dying????
