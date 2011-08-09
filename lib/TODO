@@ -25,4 +25,3 @@ Fix:
 	You grab your the stick (wield it)
 	break branch has some security stuff happening so stick isn't 
 		created right.
-	/std/corpse is not an object when dying????
