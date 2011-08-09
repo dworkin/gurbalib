@@ -1,3 +1,7 @@
+void usage () {
+	write("XXXX");
+}
+
 void main( string str ) {
    object ob;
    string tmp;

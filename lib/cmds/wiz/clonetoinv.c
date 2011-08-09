@@ -1,3 +1,8 @@
+// XXX Merge with clone?
+void usage() {
+   write("XXX");
+}
+
 void main( string str) {
   string path;
   object ob;

@@ -1,4 +1,7 @@
 // XXX merge with ansi command....
+void usage() {
+  write("XXX");
+}
 
 #define GRAMMAR "whitespace=/[ ]+/\n"+\
                 "TAG=/[A-Z_][A-Z0-9_]*/ \n"+\
