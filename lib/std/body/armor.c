@@ -14,7 +14,7 @@ void do_remove( object ob ) {
   if( !equipment ) {
     equipment = ([ ]);
   }
-  equipment[ob->query_slot()] = 0;
+  equipment[ob->query_slot()] = nil;
   ob->set_worn( 0 );
 }
 
