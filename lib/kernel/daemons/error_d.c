@@ -75,7 +75,9 @@ string format_runtime_error( string error, mixed **trace, int caught, int ticks,
 #endif
 
       if(i == sz - 1) {
-        result = error + "\nObject: " + objname + ", program: " + progname + ", line " + line + "\n" + result ;
+        result = error + "\n" + ctime(time()) + ":" + 
+           "Object: " + objname + ", program: " +
+           progname + ", line " + line + "\n" + result ;
       }
       result += ( str + "\n" );
     }
@@ -170,7 +172,8 @@ void runtime_error(string error, mixed **trace, int caught, int ticks, int atom)
 }
     
 string format_compile_error( string file, int line, string err ) {
-  return file + ", " + (string) line + ": " + err + "\n";
+  return ctime(time()) + ":" + this_player()->query_name() + ":" + file + 
+     ", " + (string) line + ": " + err + "\n";
 }
 
 void compile_error( string file, int line, string err ) {
