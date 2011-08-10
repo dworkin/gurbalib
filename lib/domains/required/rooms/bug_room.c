@@ -7,6 +7,8 @@ void setup( void ) {
     "players. " );
   add_item( "chair", "The chair is really worn down, and has a big 'dent' " +
     "in it which looks like a perfect match for someone's butt." );
-  set_objects( ([ "/obj/bug_board" : 1,
+  set_objects( ([ "/domains/required/objects/bug_board" : 1,
+  ]) );
+  set_exits( ([ "out"  : "/domains/required/rooms/start",
   ]) );
 }

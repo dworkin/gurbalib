@@ -2,6 +2,7 @@ mapping races;
 string *names;
 mapping monster_races;
 string *monster_names;
+#define RACEDIR "/domains/required/objects/races/"
 
 void create( void ) {
   mixed *list;
@@ -11,22 +12,22 @@ void create( void ) {
 
   races = ([ ]);
 
-  list = get_dir( "/obj/races/*.c" );
+  list = get_dir( RACEDIR + "*.c" );
   names = list[0];
 
   for( i = 0; i < sizeof( names ); i++ ) {
     names[i] = names[i][.. (strlen( names[i] )-3)];
-    race = clone_object( "/obj/races/" + names[i] );
+    race = clone_object( RACEDIR + names[i] );
     races[names[i]] = race;
   }
   
   monster_races= ([ ]);
-  list = get_dir( "/obj/races/monsters/*.c" );
+  list = get_dir( RACEDIR + "monsters/*.c" );
   monster_names = list[0];
   
   for( i = 0; i < sizeof( monster_names ); i++ ) {
     monster_names[i] = monster_names[i][.. (strlen( monster_names[i] )-3)];
-    race = clone_object( "/obj/races/monsters/" + monster_names[i] );
+    race = clone_object( RACEDIR + "monsters/" + monster_names[i] );
     monster_races[monster_names[i]] = race;
   }
 }
