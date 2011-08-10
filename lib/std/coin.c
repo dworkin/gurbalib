@@ -9,23 +9,15 @@ string currency;
 
 void create( void ) {
   ::create( );
-  set_id( "sign" );
-  set_long( "Your average wooden sign." );
-  set_in_room_desc( "A wooden sign is standing here." );
-  set_gettable( 0 );
-}
-
-void set_message( string message ) {
-  text = message;
-}
-
-int can_read( object who ) {
-  return( 1 );
-}
-
-int do_read( object who ) {
-  write( text );
-  return( 1 );
+  set_id( "coin" );
+  if (amount > 1) {
+    set_long( "Some coins." );
+    set_in_room_desc( amount + " coins." );
+  } else {
+    set_long( "A coin." );
+    set_in_room_desc( "A coin." );
+  }
+  set_gettable( 1 );
 }
 
 void set_currency(string str) {
@@ -54,6 +46,7 @@ void set_amount( int amt ) {
     set_long( "Lots of " + currency + "s. About 100." );
   } else {
     set_in_room_desc( "A huge pile of " + currency + "s" );
-    set_long( "A huge pile of " + currency + "s. More than you'd care to count." );
+    set_long( "A huge pile of " + currency + 
+       "s. More than you'd care to count." );
   }
 }
