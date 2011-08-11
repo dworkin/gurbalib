@@ -18,5 +18,3 @@ Work on install script so it's smoother/smarter.
 
 Fix:
 	You grab your the stick (wield it)
-	break branch has some security stuff happening so stick isn't 
-		created right.
