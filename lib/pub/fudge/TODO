@@ -1,7 +1,5 @@
 XXX Fudge's current TODO list:
 Emote adverbs
-Combat which takes into account hitbonuses and armor.
-Armor not just clothes
 ALMOST DONE - Shopkeepers
 Clans
 passwd command
@@ -43,7 +41,6 @@ Better coin system
 support for getting 2nd or 3rd sword in a room or inv
 Weight of objects
 Chests ( put in / get from / look in )
-XP / Levels
 Bank
 String generation improvements
 Levers
