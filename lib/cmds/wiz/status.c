@@ -41,6 +41,7 @@ void display_obj(mixed *stat,object obj) {
   mixed *tmp;
 
   write("OBJ ID                 : "+(string)stat[O_INDEX]+"\n");
+  write("Filename               : "+ obj->file_name() + "\n");
   write("Compile Time           : "+(string)ctime(stat[O_COMPILETIME])+"\n");
   write("Program Size           : "+(string)stat[O_PROGSIZE]+"\n");
   write("Data Size              : "+(string)stat[O_DATASIZE]+"\n");
@@ -71,7 +72,12 @@ void main( string str ) {
     usage();
     return;
   } else {
-    obj = find_object(str);
+    obj = this_player()->query_environment()->present( str );
+
+    if (!obj) {
+      obj = this_player()->present( str );
+    }
+
     if (obj) {
        stat = status(obj);
        display_obj(stat,obj);
