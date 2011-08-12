@@ -6,7 +6,7 @@ When this file doesn't exist, no error will occur, the defaults
 will be used. When an option is not defined in this file, the
 default for that option will be used.
 
-Useful defines you can put in /include/local_config.h and their 
+Useful defines you can put in /std/include/local_config.h and their 
 default values:
 
 To define your email address:

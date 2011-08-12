@@ -8,7 +8,7 @@
 
   Do NOT enable this here!!!
 
-  Add it to /include/local_config.h instead, else you 
+  Add it to /std/include/local_config.h instead, else you 
   will spam every gurbalib user with this.
 
   #define DEBUG_PARSE
