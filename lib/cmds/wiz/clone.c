@@ -1,55 +1,102 @@
 void usage() {
-  write("Usage: clone [-h] [FILENAME]\n");
+  write("Usage: clone [-h] FILENAME [WHO]\n");
   write("Bring a copy of the object FILENAME into existence.\n");
+  write("If who is specified give it to WHO or move it to their location.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("See also: warmboot, rebuild, update\n");
 }
 
-void main( string str ) {
+object get_who(string who) {
+   return USER_D->find_user(who);
+}
+
+string get_what(string str) {
   string path;
-  object ob;
+
+  path = this_player()->query_env( "cwd" );
+
+  if ( strlen(str) > 2 ) {
+    if ( str[strlen(str)-2] == '.' && str[strlen(str)-1] == 'c' ) {
+      // were good do nothing...
+    } else {
+     str = str + ".c";
+    }
+  }
+
+  path = normalize_path( str, path );
+
+  return path;
+}
+
+void main( string str ) {
+  string who, what;
+  object ob, player;
 
   if( !str || str == "" ) {
-    str = this_player()->query_env( "cwf" );
+     str = this_player()->query_env( "cwf" );
+     if (!str) {
+        usage();
+        return;
+     }
   } else if (sscanf(str, "-%s",str)) {
      usage();
      return;
   }
 
-  if( !str || str == "" ) {
-    write( "Please specify a file to clone." );
+  if (sscanf(str, "%s %s",what,who)) {
+     player = get_who(who);
+     what = get_what(what);
+  } else {
+     what = get_what(str);
+  }
+
+  if( !what || what == "" ) {
+    write( "Access denied or file does not exist.\n" );
     return;
   }
 
-  path = this_player()->query_env( "cwd" );
-
-  if( strlen(str) > 2 ) {
-    if( str[strlen(str)-2] == '.' 
-	&& str[strlen(str)-1] == 'c' )
-      str = str[..strlen(str)-3];
-  }
-
-  path = normalize_path( str, path );
-
-  if( !path || path == "" ) {
-    write( "Access denied.\n" );
-    return;
-  }
-
-  if( file_exists( path + ".c" ) ) {
-    ob = clone_object( path );
-    this_player()->set_env( "cwf", path );
+  if( file_exists( what ) ) {
+    ob = clone_object( what );
+    this_player()->set_env( "cwf", what );
     if( ob ) {
-      ob->move( this_player()->query_environment() );
-      ob->setup();
-      this_player()->simple_action( "$N $vclap $p hands and " + article( ob->query_id() ) + " " + ob->query_id() + " appears.\n" );
 
-      if( ob->is_gettable() ) {
-	ob->move( this_player() );
+      ob->setup();
+      this_player()->simple_action( "$N $vclap $p hands.\n");
+
+      if (player) {
+        write("You clone: " + article( ob->query_id() ) + " " +
+          ob->query_id() + " and send it to " + player->query_name() + "\n");
+        if (player->query_environment() != this_environment()) {
+	    player->query_environment()->tell_room(player,
+              article(ob->query_id()) + " " + ob->query_id() +
+              " appears out of thin air.\n");
+        } else {
+	    this_player()->query_environment()->tell_room(player,
+              article(ob->query_id()) + " " + ob->query_id() +
+              " appears out of thin air.\n");
+        }
+
+        if (ob->is_gettable()) {
+          ob->move( player->query_player() );
+        } else {
+          ob->move( player->query_environment() );
+        }
       } else {
-	ob->move( this_environment() );
+        write("You clone: " + article( ob->query_id() ) + " " +
+          ob->query_id() + "\n");
+        this_player()->query_environment()->tell_room(this_player(),
+           capitalize(article(ob->query_id())) + " " + ob->query_id() +
+           " appears out of thin air.\n");
+        if( ob->is_gettable() ) {
+          ob->move( this_player() );
+        } else {
+          ob->move( this_environment() );
+        }
       }
+
+    } else {
+      write("Unable to clone object : " + what + "\n");
     }
   } else {
     write( "File not found.\n" );
