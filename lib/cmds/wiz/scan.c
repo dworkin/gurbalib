@@ -4,6 +4,7 @@ void usage() {
   write("If OBJ is specified list the inventory of object OBJ\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("See also: status\n");
 }
 
 void main( string str ) {
