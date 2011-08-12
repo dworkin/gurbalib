@@ -29,26 +29,28 @@ void halt_fight( void ) {
   targets = ({ });
 }
 
+// XXX Need to work on this.... should move player to void...
+// and drop money?  I think this should be in body and or living not combat...
 void die( void ) {
   object obj;
 
-
   obj = clone_object( "/domains/required/objects/corpse" );
   if( this_object()->is_player() ) {
-     obj->set_name( capitalize(this_object()->query_name()) );
-  } else {
-     obj->set_name( "a " + this_object()->query_id() );
-  }
-  obj->move( this_object()->query_environment() );
+    obj->set_name( capitalize(this_object()->query_name()) );
+    obj->move( this_object()->query_environment() );
 
-  if( !this_object()->is_player() ) {
+    this_object()->move( "/domains/required/rooms/void" );
     EVENT_D->unsubscribe_event("heart_beat");
     this_object()->destruct();
+  } else {
+    obj->set_name( "a " + this_object()->query_id() );
+    obj->move( this_object()->query_environment() );
   }
 }
 
 void receive_damage( object who, int dam, int type ) {
-  this_object()->message( "%^RED%^You took " + dam + " damage from " + who->query_id() + ".%^RESET%^" );
+  this_object()->message( "%^RED%^You took " + dam + " damage from " + 
+    who->query_id() + ".%^RESET%^" );
   this_object()->decrease_hp( dam );
   if( is_dead() ) {
     this_object()->simple_action( "$N $vfall to the ground...dead." );
