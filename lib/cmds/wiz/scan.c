@@ -1,12 +1,13 @@
 void usage() {
-  write("scan [-h]\n");
+  write("scan [-h] [OBJ]\n");
   write("Print a list of objects in the current room.\n");
-// XXX make it so it supports [OBJ]
+  write("If OBJ is specified list the inventory of object OBJ\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }
 
 void main( string str ) {
+  object where;
   object *objs;
   int i;
 
@@ -15,8 +16,23 @@ void main( string str ) {
      return;
   }
 
-  write( "Scanning \"" + object_name( this_environment() ) + "\":" );
-  objs = this_environment()->query_inventory();
+  if (str) {
+    where = this_player()->query_environment()->present( str );
+
+    if (!where) {
+      where = this_player()->present( str );
+    }
+  } else {
+    where = this_environment();
+  }
+
+  if (!where) {
+    write("Cannot find: " + str + "\n");
+    return;
+  }
+
+  write( "Scanning \"" + object_name( where ) + "\":" );
+  objs = where->query_inventory();
   for( i = 0; i < sizeof( objs ); i ++ ) {
     write( "\"" + object_name(objs[i]) + "\"" );
   }
