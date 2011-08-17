@@ -172,8 +172,18 @@ void runtime_error(string error, mixed **trace, int caught, int ticks, int atom)
 }
     
 string format_compile_error( string file, int line, string err ) {
+  object player;
+
+  if(this_user()) {
+    player = this_user()->query_player();
+  }
+  if (player) {
   return ctime(time()) + ":" + this_player()->query_name() + ":" + file + 
      ", " + (string) line + ": " + err + "\n";
+  } else {
+  return ctime(time()) + ": DRIVER :" + file + 
+     ", " + (string) line + ": " + err + "\n";
+  }
 }
 
 void compile_error( string file, int line, string err ) {
