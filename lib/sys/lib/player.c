@@ -45,6 +45,7 @@ void restore_me( void );
 void set_env( string name, mixed value );
 mixed query_env( string name );
 string query_title( void );
+string query_name( void );
 
 void create( void ) {
   con::create();
@@ -140,7 +141,7 @@ void login_player( void ) {
     }
   }
   initialize_race();
-  set_brief(  capitalize( user_name ) + query_title() ); 
+  set_brief( capitalize( query_name() ) + query_title() ); 
   set_hit_skill( "combat/unarmed" );
   ANSI_D->set_player_translations( custom_colors );
 }
@@ -233,20 +234,20 @@ void set_user( object usr ) {
 
 void set_title( string t ) {
   title = t;
-  set_brief(  capitalize( user_name ) + query_title() );
+  set_brief(  capitalize( query_name() ) + query_title() );
 }
 
 string query_title( void ) {
   string t;
 
   t = title;
-  if( ! player_name ) {
+  if( ! query_name() ) {
     return "";
   }
 
-  if( !t || t == "" )
-    t = "$N the title less";
-  return( replace_string( t, "$N", capitalize( player_name ) ) );
+  if( !t || t == "" ) t = " the title less";
+
+  return( t );
 }
 
 string query_title_string( void ) {
@@ -255,10 +256,10 @@ string query_title_string( void ) {
 
 void set_linkdead( int flag ) {
   if( flag == 1 ) {
-    set_brief(  capitalize( user_name ) + query_title() + " [link-dead]" );
+    set_brief(  capitalize( query_name() ) + query_title() + " [link-dead]" );
     linkdead = call_out( "do_quit", LINKDEAD_TIMEOUT, nil );
   } else {
-    set_brief(  capitalize( user_name ) + query_title() );
+    set_brief(  capitalize( query_name() ) + query_title() );
     if( linkdead )
       remove_call_out( linkdead );
     linkdead = 0;
@@ -267,9 +268,9 @@ void set_linkdead( int flag ) {
 
 void set_editing( int flag ) {
   if( flag == 1 )
-    set_brief(  capitalize( user_name ) + query_title() + " [editing]" );
+    set_brief(  capitalize( query_name() ) + query_title() + " [editing]" );
   else 
-    set_brief(  capitalize( user_name ) + query_title() );
+    set_brief(  capitalize( query_name() ) + query_title() );
 }
 
 int query_linkdead( void ) {

@@ -37,7 +37,7 @@ void create() {
     ansid = compile_object(ANSI_D);
   }
 
-  user_name = "";
+  user_name = "Guest";
 }
 
 void _open(mixed * tls) {
