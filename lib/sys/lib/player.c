@@ -53,7 +53,7 @@ void create( void ) {
   board_read = ([ ]);
   channels = ({ "gossip", "announce" });
   ignored = ({ });
-  title = "$N the nondescript";
+  title = "the nondescript";
   long_desc = "";
   set_brief( "A nondescript player" );
   timestamp = time();
@@ -139,8 +139,8 @@ void login_player( void ) {
       channels[i] = nil;
     }
   }
-  initialize_race();    /* Load up this players race */
-  set_brief( query_title() ); /* Set the brief description */
+  initialize_race();
+  set_brief(  capitalize( user_name ) + query_title() ); 
   set_hit_skill( "combat/unarmed" );
   ANSI_D->set_player_translations( custom_colors );
 }
@@ -233,7 +233,7 @@ void set_user( object usr ) {
 
 void set_title( string t ) {
   title = t;
-  set_brief( query_title() );
+  set_brief(  capitalize( user_name ) + query_title() );
 }
 
 string query_title( void ) {
@@ -255,10 +255,10 @@ string query_title_string( void ) {
 
 void set_linkdead( int flag ) {
   if( flag == 1 ) {
-    set_brief( query_title() + " [link-dead]" );
+    set_brief(  capitalize( user_name ) + query_title() + " [link-dead]" );
     linkdead = call_out( "do_quit", LINKDEAD_TIMEOUT, nil );
   } else {
-    set_brief( query_title() );
+    set_brief(  capitalize( user_name ) + query_title() );
     if( linkdead )
       remove_call_out( linkdead );
     linkdead = 0;
@@ -267,9 +267,9 @@ void set_linkdead( int flag ) {
 
 void set_editing( int flag ) {
   if( flag == 1 )
-    set_brief( query_title() + " [editing]" );
+    set_brief(  capitalize( user_name ) + query_title() + " [editing]" );
   else 
-    set_brief( query_title() );
+    set_brief(  capitalize( user_name ) + query_title() );
 }
 
 int query_linkdead( void ) {

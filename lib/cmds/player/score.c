@@ -53,7 +53,7 @@ void main( string str ) {
    ac     = obj->query_defense();
    level  = obj->query_level();
 
-   write( "[ " + obj->query_name() + " ]" + "\n" );
+   write( "[ " + obj->query_name() + " ] " + obj->query_title() + "\n" );
    write( "Strength    :  " + obj->query_stat("str") +
 	"\t\t" + "Hit points  :   " + hp + "/" + max_hp + "\n" );
    write( "Intelligence:  " + obj->query_stat("int") +
