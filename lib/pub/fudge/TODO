@@ -6,13 +6,8 @@ passwd command
 .here:fudge in eval
 force system
 Weather
-Nuke player
-Economy
-Spells daemon
-Magic system
+Magic system/Religion systems
 mail system
-Religion system
-Prayer daemon
 m_aggressive
 m_guild_trainer
 m_knockable
@@ -37,7 +32,6 @@ Different death messages
 PK announcing
 PK death announcing
 Combat styles
-Better coin system
 support for getting 2nd or 3rd sword in a room or inv
 Weight of objects
 Chests ( put in / get from / look in )
