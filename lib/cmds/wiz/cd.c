@@ -12,8 +12,7 @@ void usage() {
   write("See also: pwd, ls, browse\n");
 }
 
-// XXX if dir exists but you don't have permission it says 
-// Dir not found.  example cd /wiz/sirdude as mein
+#define MODE_READ 0
 
 void main( string arg ) {
   if (!arg || arg == "") {
@@ -32,8 +31,13 @@ void main( string arg ) {
   }
     
   if( file_exists( arg ) != -1 ) {
-    write( "Dir not found.\n" );
+    write( "Dir not found: " + file_exists(arg) + "\n" );
     return;
+  }
+
+  if( !valid(arg, MODE_READ) ) {
+     write( "Access denied.\n");
+     return;
   }
 
   this_player()->set_env( "cwd", arg );
