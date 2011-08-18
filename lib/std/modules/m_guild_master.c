@@ -21,7 +21,7 @@ int do_block( object who ) {
 }
 
 void do_dub( object who ) {
-  who->set_title( "the newest member." );
+  who->set_title( "$N the newest member." );
 }
 
 void join_guild( string who ) {
@@ -68,7 +68,7 @@ void leave_guild( string who ) {
     player->leave_guild( guild );
     this_object()->do_leave( player );
     CHANNEL_D->chan_leave( query_guild(), player );
-    player->set_title( "the guildless." );
+    player->set_title( "$N the guildless." );
     
   } else {
     this_object()->do_keep( player );
