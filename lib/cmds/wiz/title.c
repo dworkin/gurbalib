@@ -12,7 +12,8 @@ void usage() {
 
 void main( string str ) {
   if( !str || str == "" ) {
-    write("Your current title is: " + this_player()->query_title() + "\n");
+    write("Your current title is: " + this_player()->query_title_string() + 
+       "\n");
     return;
   }
   if (sscanf(str, "-%s",str)) {
