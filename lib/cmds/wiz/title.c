@@ -3,8 +3,11 @@
 void usage() {
   write("Usage: title [-h] [string]\n");
   write("Title allows you to set your title to string.\n");
+  write("You can use $N as a variable for your username.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("Example:\n");
+  write("\ttitle %N is the coolest kid on the block!\n");
 }
 
 void main( string str ) {

@@ -37,7 +37,7 @@ void main( string str ) {
   write("------------------------------------------------------");
   for( i = 0; i < sizeof( usr ); i++) {
     string line;
-    line = capitalize(usr[i]->query_name()) + " " + usr[i]->query_title();
+    line = usr[i]->query_title();
     if ( query_admin( usr[i] ) ) {
       line += " %^BOLD%^%^BLUE%^(Admin)%^RESET%^";
     }
@@ -53,7 +53,7 @@ void main( string str ) {
     line += idle;
 
     if (long_flag == 1) {
-       write(line + "\n\t" + usr[i]->query_name() + " Location: " + 
+       write(line + "\n\t" + usr[i]->query_name() + "'s Location: " + 
           usr[i]->query_environment()->query_brief() + "\n");
     } else {
        write(line + "\n");
