@@ -1,12 +1,11 @@
 void usage() {
   write("Usage: I [-h] MSG\n");
-  write("Record a did MSG message, whatever that is....\n");
+  write("Allows a wizard to record a message, MSG in the did log....\n");
+  write("Use it to explain what you have been working on.\n");
+  write("All wizards will see whats changed since they last logged in.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }
-
-// XXX Figure out what this is used for... it stores an entry in 
-//     daemons/data/did_d.o   what the heck is it though????
 
 void main( string str ) {
   if (!str || str == "") {
