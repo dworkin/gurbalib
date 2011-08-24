@@ -35,16 +35,18 @@ void input_newpass( string str) {
 }
 
 void input_curpass( string str) {
+   curpass = this_player()->query_password();
    if (!str || str == "") {
 	write("ouchie...\n");
    }
-   if (this_player()->test(str))  {
+   if (str == curpass) {
       write("New password: ");
       this_user()->send_message( 0 );
       this_player()->input_to_object( this_object(), "input_newpass");
    } else {
       write("That is not your current password.\n");
       write("new passwd = " + str + "\n");
+      write("old passwd = " + curpass  + "\n");
       return;
    }
 }
