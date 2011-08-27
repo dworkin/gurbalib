@@ -444,10 +444,12 @@ void input_name( string str ) {
       player->set_proper_name( capitalize( user_name ) );
       if( SITEBAN_D->is_newbanned(query_ip_number(this_object())) ) {
          /* site is new character banned */
-         log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+         log_file( "logins", ctime( time() ) + "\t" + 
+            query_ip_number(this_object()) +
             "\t" + query_name() + " <- Newbanned site\n" );
-         send_message( "\nThis site is under development and not yet open to players.\n"+
-            "Please email woodie@altern.org about future access from your site.\n" );
+         send_message( "\nThis site is under development and not yet open " +
+            "to players.\nPlease email " + ADMIN_EMAIL  + 
+            " about future access from your site.\n" );
          destruct_object( player );
          destruct_object( this_object() );
       }
@@ -531,8 +533,8 @@ void verify_new_passwd( string str ) {
         query_ip_number(this_object()) + "\t" + query_name() + "\n" );
 
 // XXX do the work here....
-     this_player()->set_pass(str);
-     this_player()->save_me();
+
+     USER_D->this_player()->set_pass(str);
 
      send_message( 1 );
      }
