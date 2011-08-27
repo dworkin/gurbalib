@@ -297,13 +297,6 @@ string query_Name( void )
 {
 	return capitalize( player_name );
 }
-void set_password( string passwd ) {
-  password = passwd;
-}
-
-string query_password( void ) {
-  return password;
-}
 
 void set_real_name( string str ) {
 	real_name = str;

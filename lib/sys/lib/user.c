@@ -24,6 +24,7 @@ object player;
 object ansid;
 
 string user_name;
+string newpass;
 static int timeout_handle;
 object query_player( void );
 
@@ -490,16 +491,63 @@ void input_old_passwd( string str ) {
   }
 }
 
-void input_new_passwd( string str ) {
+void change_passwd( string str) {
+  if( !str || str == "" ) {
+    send_message( "\nPlease enter your password : " );
+    send_message( 0 );
+    player->input_to_object( this_object(), "change_passwd" );
+  } else {
+    if (USER_D->login(this_player()->query_name(),str)) {
+      send_message( "\nPlease enter your new password : " );
+      player->input_to_object( this_object(), "change_new_passwd" );
+    } else {
+      send_message( "\nPasswords don't match!\n" );
+      send_message( 1 );
+    }
+  }
+}
 
-  log_file( "new_players", ctime( time() ) + "\t" + query_ip_number(this_object()) +
-      "\t" + query_name() + "\n" );
+void change_new_passwd( string str ) {
+  if( !str || str == "" ) {
+     send_message( "\nPlease enter your new password: " );
+     player->input_to_object( this_object(), "change_new_passwd" );
+  } else {
+     newpass = str;
+     send_message( "\nPassword again: " );
+     player->input_to_object( this_object(), "verify_new_passwd" );
+  }
+}
+
+void verify_new_passwd( string str ) {
+  if( !str || str == "" ) {
+     send_message( "\nPassword Again: " );
+     player->input_to_object( this_object(), "verify_new_passwd" );
+  } else {
+     if (str != newpass) {
+        send_message( "\nPassword Again: " );
+        player->input_to_object( this_object(), "verify_new_passwd" );
+     } else {
+     log_file( "change_passwd", ctime( time() ) + "\t" + 
+        query_ip_number(this_object()) + "\t" + query_name() + "\n" );
+
+// XXX do the work here....
+     this_player()->set_pass(str);
+     this_player()->save_me();
+
+     send_message( 1 );
+     }
+  }
+}
+
+void input_new_passwd( string str ) {
 
   if( !str || str == "" ) {
     send_message( "\nPlease enter your password : " );
     send_message( 0 );
     player->input_to_object( this_object(), "input_new_passwd" );
   } else {
+    log_file( "new_players", ctime( time() ) + "\t" + 
+       query_ip_number(this_object()) + "\t" + query_name() + "\n" );
     USER_D->new_user( user_name, str );
     send_message( "\nEnter password again : " );
     send_message( 0 );

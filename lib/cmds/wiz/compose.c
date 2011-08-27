@@ -24,5 +24,3 @@ void main( string str ) {
    this_player()->set_autoload_string(str);
 }
 
-
-
