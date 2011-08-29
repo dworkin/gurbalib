@@ -1,10 +1,13 @@
 void usage() {
-  write("Usage: rsay [-h] MSG\n");
+  write("Usage: dsay [-h] MSG\n");
   write("Tell the current room MSG in \'dwarven\'.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("See also: say, tell, whisper, rsay, translate\n");
 }
+
+// XXX This should be moved to player command and check attribute and
+// or wiz for it...
 
 void main(string str) {
   object *usr;

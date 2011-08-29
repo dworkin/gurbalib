@@ -6,6 +6,9 @@ void usage() {
   write("See also: say, tell, whisper, translate\n");
 }
 
+// XXX this should be moved to player and combined with the catfolk 
+// message cmd...
+
 void main(string str) {
   object *usr;
   int i, k;
