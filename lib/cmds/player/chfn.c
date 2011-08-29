@@ -7,12 +7,16 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
+void show_chfn() {
+   write("Email: " + this_player()->query_email_address() + "\n");
+   write("Real Name: " + this_player()->query_real_name() + "\n");
+}
+
 void main( string str ) {
   string cmd, what;
 
-  if (str || str == "") {
-     write("Email: " + this_player()->query_email_address() + "\n");
-     write("Real Name: " + this_player()->query_real_name() + "\n");
+  if (!str || str == "") {
+     show_chfn();
      return;
   }
 
@@ -20,16 +24,16 @@ void main( string str ) {
      usage();
      return;
   }
-// XXX figure out why this check isn't working right...
-// XXX also make it so the command logs changes... so we can look up old info.
-  if( sscanf( str, "%s %s", cmd, what ) != 2 ) {
+  if( sscanf(str, "%s %s", cmd, what) != 2 ) {
      usage();
      return;
   }
   if (cmd == "email") {
      this_player()->set_email_address(what);
+     show_chfn();
   } else if (cmd == "real") {
      this_player()->set_real_name(what);
+     show_chfn();
   } else {
      usage();
   }
