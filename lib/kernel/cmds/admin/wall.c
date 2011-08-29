@@ -8,6 +8,8 @@ void usage() {
 }
 
 void main( string str ) {
+  object *users;
+  int i,max;
 
   if (!str || str == "") {
      usage();
@@ -18,6 +20,16 @@ void main( string str ) {
      return;
   }
 
-  // XXX Do the wall here...
+  if( !require_priv( "system" ) ) {
+     write("You need admin permissions to do that.");
+     return;
+   }
+
+  users = USER_D->query_users();
+  max = sizeof(users);
+  for (i = 0; i < max; i++) {
+     users[i]->query_player()->message("WALL from " + 
+        capitalize(this_player()->query_name()) + ": " + str + "\n");
+  }
 } 
 

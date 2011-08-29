@@ -19,11 +19,11 @@ void usage() {
 
 void do_shutdown() {
    object *usrs;
-   int i;
+   int i, max;
 
    usrs = USER_D->query_users();
-
-   for( i=0; i < sizeof( usrs ); i++ ) {
+   max = sizeof(usrs);
+   for( i=0; i < max; i++ ) {
       usrs[i]->query_player()->message( "Shutdown initiated by : " +
          this_player()->query_Name() + "\n");
       usrs[i]->query_player()->message( "Game driver tells you: " +
