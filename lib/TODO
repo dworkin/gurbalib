@@ -21,3 +21,7 @@ Fix:
 
 	Make m_aggressive or something similar...
 		not sure I like the m_  syntax.....
+
+	move race and guild commands to player and have a "skill" 
+		the the command depends on.
+
