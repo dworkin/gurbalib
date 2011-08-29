@@ -1,9 +1,0 @@
-
-Usage:
-	tell <person> <what>
-
-This command is used to deliver private messages to other players. Nobody else
-than the recipient will see even a trace of that message. 
-
-See also:
-	help say, help whisper

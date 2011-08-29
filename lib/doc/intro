@@ -1,5 +1,7 @@
 Introduction to GurbaLib development
 
+help   : Documentation available to players through the help command
+
 afun   : Documentation on functions defined in /kernel/lib/afun
 kfun   : Documentation on functions provided by the driver
 

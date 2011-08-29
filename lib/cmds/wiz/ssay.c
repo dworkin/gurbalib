@@ -1,11 +1,15 @@
 void usage() {
   write("Usage: ssay [-h] HOW|WHAT\n");
-  write("Say WHAT to WHO. But do it HOW.\n");
+  write("Ssay is short for SuperSay, it will allow you to
+  write("say WHAT to WHO. But do it HOW.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("See also: say tell whisper emote\n");
-  write("Example:\n);
-  write("\tssay sleepily|Hiya\n");
+  write("Examples:\n);
+  write("\t> ssay sleepily drones|Hiya\n");
+  write("\tAphex sleepily drones: Hiya\n");
+  write("\t> ssay kicks Dran in the pants and says|Muahhahahaha!\n");
+  write("\tAphex kicks Dran in the pants and says: Muahhahahaha!\n");
 }
 
 void main( string str ) {
