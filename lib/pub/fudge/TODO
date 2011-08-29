@@ -2,9 +2,7 @@ XXX Fudge's current TODO list:
 Emote adverbs
 ALMOST DONE - Shopkeepers
 Clans
-passwd command
 .here:fudge in eval
-force system
 Weather
 Magic system/Religion systems
 mail system
@@ -28,7 +26,6 @@ tracking of objects
 auto dest/update of all instances of an object
 Endurance/Stamina
 Different combat messages based on current weapon
-Different death messages
 PK announcing
 PK death announcing
 Combat styles
@@ -36,7 +33,6 @@ support for getting 2nd or 3rd sword in a room or inv
 Weight of objects
 Chests ( put in / get from / look in )
 Bank
-String generation improvements
 Levers
 Party system (invite, follow, say, report)
 Port commands to verbs
