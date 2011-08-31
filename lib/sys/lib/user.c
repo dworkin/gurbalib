@@ -8,7 +8,6 @@
  *
  */
 
-
 /*
  * Why is this in here? autoloads belong to the player object...
  */
@@ -499,7 +498,7 @@ void change_passwd( string str) {
     send_message( 0 );
     player->input_to_object( this_object(), "change_passwd" );
   } else {
-    if (USER_D->login(this_player()->query_name(),str)) {
+     if (USER_D->login(this_player()->query_name(),str)) {
       send_message( "\nPlease enter your new password : " );
       player->input_to_object( this_object(), "change_new_passwd" );
     } else {
@@ -521,20 +520,19 @@ void change_new_passwd( string str ) {
 }
 
 void verify_new_passwd( string str ) {
+  object obj;
+
   if( !str || str == "" ) {
-     send_message( "\nPassword Again: " );
+     send_message( "\nPassword again: " );
      player->input_to_object( this_object(), "verify_new_passwd" );
   } else {
      if (str != newpass) {
-        send_message( "\nPassword Again: " );
-        player->input_to_object( this_object(), "verify_new_passwd" );
+        send_message( "\nPassword's do not match, aborting." );
      } else {
      log_file( "change_passwd", ctime( time() ) + "\t" + 
         query_ip_number(this_object()) + "\t" + query_name() + "\n" );
 
-// XXX do the work here....
-
-     USER_D->this_player()->set_pass(str);
+     USER_D->set_password(this_player()->query_name(), str);
 
      send_message( 1 );
      }

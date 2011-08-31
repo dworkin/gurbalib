@@ -41,6 +41,10 @@ void add_entry( string name, int on ) {
   save_me();
 }
 
+int remove_entry(string str) {
+   last[str] = nil;
+   save_me();
+}
 
 string query_entry( string name ) {
   return( last[name] );

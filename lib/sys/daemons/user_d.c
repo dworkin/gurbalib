@@ -139,6 +139,20 @@ int logout( string name ) {
   }
 }
 
+int set_password(string name, string secret) {
+  object data;
+
+  secure();
+
+  data = get_data_ob( name );
+
+  if( !data ) {
+    return 0;
+  }
+  data->set_pass( secret );
+  save_me();
+}
+
 int login( string name, string secret ) {
   object data;
 
@@ -201,6 +215,8 @@ void delete_user( string name ) {
     }
     cache[name] = nil;
   }
+
+  LAST_D->remove_entry(name);
 
   unguarded( "remove_file", AUTH_DATA_DIR + name[0..0] + "/" + name + ".o" );
   unguarded( "remove_file", "/data/players/" + name + ".o" );
@@ -290,7 +306,6 @@ object *query_players( void ) {
   }
   return players;
 }
-
 
 object *query_wizards( void ) {
   object *usr;
