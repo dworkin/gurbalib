@@ -99,12 +99,16 @@ void delete_homedir(string wiz) {
     error( "Access denied" );
   }
 
-  path = "/wiz/"+wiz+"/";
+  path = "/wiz/" + wiz + "/";
 
   if( file_exists( path ) == 0 ) {
     error("No such directory: " + path + "\n");
   } else {
-     // do the work here XXX  
+     if (remove_dir(path)) {
+        write("Ok.\n");
+     } else {
+        write("Failed to remove: " + path + "\n");
+     }
   }
 }
 
