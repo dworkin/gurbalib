@@ -1,18 +1,46 @@
 void usage() {}  // This is a dumy function...
 		// instead edit /docs/help/help
 
-/* A highly advanced help command 
- * Aphex
- * :)
- */
+void show_file(string filename) {
+  string *tmp;
+  string *lines;
+  int i, len, where;
+  mixed width;
+
+  width = this_player()->query_env("width");
+  if(!intp(width) || width < 2) width = DEFAULT_WIDTH;
+
+  tmp = explode( read_file( filename ), "\n" );
+  lines = ({ });
+  write("Help for " + capitalize(filename) + ".\n");
+  for( i = 0; i < strlen("Help for " + filename + "."); i++){
+    out("-");
+  }
+  write("\n");
+  for( i = 0; i < sizeof( tmp ); i++ ) {
+    if( strlen( tmp[i] ) > width ) {
+      /* Big line. Break it up. */
+      where = 0;
+      len = strlen( tmp[i]);
+      while( where < len ) {
+	if( where + width < len ) {
+	  lines += ({ tmp[i][where..(where+width-1)] });
+	  where += width;
+	} else {
+	  lines += ({ tmp[i][where..] });
+	  where = len;
+	}
+      }
+    } else {
+      lines += ({ tmp[i] });
+    }
+  }
+  
+  this_player()->more( lines );
+}
 
 void main( string arg ) {
   string file;
-  string *tmp;
-  string *lines;
-  int i;
-  int where;
-
   if ( !arg || arg == "" ) {
     arg = "help";
   }
@@ -30,40 +58,17 @@ void main( string arg ) {
       file = normalize_path( arg, "/doc/help/wiz/");
       if( file_exists(file) < 1 ) {
 	write( capitalize(arg) + ": Unknown help topic." );
-	LOG_D->write_log("help", capitalize(this_player()->query_name()) + " on " + ctime(time()) + ": " + arg + "\n");
+	LOG_D->write_log("help", capitalize(this_player()->query_name()) + 
+           " on " + ctime(time()) + ": " + arg + "\n");
 	return;
       }
     } else {
       write( capitalize(arg) + ": Unknown help topic." );
-      write_file("/logs/help", capitalize(this_player()->query_name()) + " on " + ctime(time()) + ": " + arg + "\n");
+      write_file("/logs/help", capitalize(this_player()->query_name()) + 
+         " on " + ctime(time()) + ": " + arg + "\n");
       return;
     }
   }
-  
-  tmp = explode( read_file( file ), "\n" );
-  lines = ({ });
-  write("Help for " + capitalize(arg) + ".\n");
-  for( i = 0; i < strlen("Help for " + arg + "."); i++){
-    out("-");
-  }
-  write("\n");
-  for( i = 0; i < sizeof( tmp ); i++ ) {
-    if( strlen( tmp[i] ) > 79 ) {
-      /* Big line. Break it up. */
-      where = 0;
-      while( where < strlen( tmp[i] ) ) {
-	if( where + 79 < strlen( tmp[i] ) ) {
-	  lines += ({ tmp[i][where..where+78] });
-	  where += 79;
-	} else {
-	  lines += ({ tmp[i][where..] });
-	  where = strlen(tmp[i]);
-	}
-      }
-    } else {
-      lines += ({ tmp[i] }) ;
-    }
-  }
-  
-  this_player()->more( lines );
+
+  show_file(file);
 }

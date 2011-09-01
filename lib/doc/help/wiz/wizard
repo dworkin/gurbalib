@@ -1,4 +1,15 @@
-You're a wizard. Wow. That means you got the wizard commands available to you.
-Most important are 'cd' and 'ls'. They let you change directories and view
-their contents. To see the other wizard commands, cd to /cmds/wiz and type
-ls. Have fun.
+You're a wizard now. 
+That means you have a ton of additional commands available to you now
+and you can start creating areas on the mud.  Use the cmds command
+to see what extra stuff you can do and use the -h argument to get detailed 
+info on various commands.  You should start exploring the documenation
+in /doc, as well as look at lots of sample code in /domains
+
+Some basic wizard commands you should get familar with:
+	cd, ls, cat, more, edit, clone, update, goto
+
+When your having problems don't forget to look at the logs:
+cd /logs or cd /logs/errors and poke around....
+
+You can also read up on the following additional wizard help files:
+	language_d
