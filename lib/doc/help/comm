@@ -1,6 +1,10 @@
 There are various commands on the mud to help you communicate
-with other players.
+with other players: Say, tell, whisper, emote to name just a few....
 
-Say, tell, whisper, emote to name just a few....
+Try them out, most of them work in the following way:
+Say hi!		(will tell everyone in the current room hi)
+tell sirdude hi  (will tell the player sirdude hi)
+To see the basics of how to use a command use the -h option.
+example: say -h
 
-See also: help say, help say-modifiers
+for more indepth information try: help say or help say-modifiers

@@ -1,2 +1,21 @@
-If anyone wants to write a newbie help file, just upload a new file called
-'newbie' into the /help/ directory. 
+Welcome to our lpmud.  I'm sure you'll want to get started so just a couple
+of basics to get you going.
+
+First off use the cmds command to see what types of things you can do.
+Each command has a -h flag for help.  Example try: score -h
+
+There are commands for talking to other players: say, tell, whisper
+Some of them only work on people that are in the same room as you.
+
+There are commands that are used to move around: look, go (direction),
+Lots of commands have simple aliases as well, example:
+n (north), s (south), l (look)
+
+There are commands for combat: attack, hp, score, wear, wield
+
+Start by going north, look around, read signs and have fun....
+
+when you get tired type quit to exit the game, rest up and come back and
+visit us again soon.
+
+Read the other help topics for more indepth information.
