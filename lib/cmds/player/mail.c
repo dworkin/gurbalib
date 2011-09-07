@@ -6,10 +6,24 @@ string *body;
 // XXX make it so admin can email ALL and it will send an email to all players.
 
 void usage() {
-  if (query_admin( this_player() ) {
-     write("Usage: mail [-h] [PLAYER1 [PLAYER2] [...]]\n");
+  if (query_admin( this_player() ) {  // Give the 'all' syntax to admin's
+     write("Usage: mail [-h] [all|PLAYER1 [PLAYER2] [...]]\n");
      write("Send a mud mail to the players specified.\n");
      write("You may also use all to send a mudmail to all players.\n");
+     write("If no player is given check your mail to see if you have " +
+        "any incomming messages.\n");
+     write("Inside of the mail command you have the following options.\n");
+     write("\td #\tDelete message #\n");
+     write("\tm PLAYER\tSend a  message to PLAYER\n");
+     write("\tm all\tSend a  message to all players\n");
+     write("\tl \tView your mail.\n");
+     write("\tq \tQuit.\n");
+     write("Options:\n");
+     write("\t-h\tHelp, this usage message.\n");
+     write("See also: say, tell, whisper, emote\n");
+  } else {
+     write("Usage: mail [-h] [PLAYER1] [PLAYER2]]\n");
+     write("Send a mud mail to the players specified.\n");
      write("If no player is given check your mail to see if you have " +
         "any incomming messages.\n");
      write("Inside of the mail command you have the following options.\n");
@@ -20,14 +34,6 @@ void usage() {
      write("Options:\n");
      write("\t-h\tHelp, this usage message.\n");
      write("See also: say, tell, whisper, emote\n");
-  } else {
-     write("Usage: mail [-h] [PLAYER]\n");
-     write("Send a mud mail to the players specified.\n");
-     write("If no player is given check your mail to see if you have " +
-        "any incomming messages.\n");
-     write("Options:\n");
-     write("\t-h\tHelp, this usage message.\n");
-     write("See also: say, tell, whisper, emote\n");
   }
 }
 
@@ -35,7 +41,6 @@ void view_mailbox(string str) {
    mixed *messages;
    int x, max;
    string cmd, what;
-
 
    if (!str || str == "") {
    } else if (str == "q" || str == "quit") {
