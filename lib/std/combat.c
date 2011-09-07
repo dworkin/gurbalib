@@ -97,10 +97,6 @@ int query_defense( void ) {
   return( me );
 }
 
-void switch_to( object who ) {
-  target = who;
-}
-
 int do_swing( int me ) {
   int opponent;
   int me_roll;
@@ -110,7 +106,9 @@ int do_swing( int me ) {
 
   opponent = target->query_defense();
   opponent_roll = random( opponent + 1 );
-  this_object()->message( "Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" + me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" + opponent + "%^RESET%^]" );
+  this_object()->message( "Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" + 
+     me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" + 
+     opponent + "%^RESET%^]" );
   if( me_roll > opponent_roll ) {
     return( 1 );
   } 
@@ -118,106 +116,107 @@ int do_swing( int me ) {
   return( 0 );
 }
 
+object get_target(object targ) {
+   int i, max;
+
+   if (targ) {
+      if (targ->is_dead()) {
+        targets -= ({ targ });
+        if (sizeof(targets) == 0) fighting = 0;
+      } else if (targ->query_environment() == 
+         this_object()->query_environment()) {
+         return targ;
+      }
+   }
+   max = sizeof(targets);
+   for(i=0;i<max;i++) {
+      if (targets[i]->query_environment() == 
+         this_object()->query_environment()) {
+         return targets[i];
+      }
+   }
+   return nil;
+}
+
+void attack_with(string skill, object weapon, object target) {
+   int me, tmp, damage;
+
+   if (!weapon) {
+      me = (query_skill( "combat/unarmed" ) / 50) + 
+        this_object()->query_statbonus("str");
+   } else {
+      me = (query_skill( weapon->query_weapon_skill() ) / 50 ) 
+	 + this_object()->query_statbonus("str") 
+	 + weapon->query_hit_bonus();
+   }
+   if( do_swing( me ) == 1 ) {
+      if (!weapon) {
+         damage = random( 3 ) + this_object()->query_statbonus("str");
+         tmp = query_skill( "combat/unarmed" ) +
+	    query_skill( "combat/unarmed" ) / 2;
+         if (tmp <= target->query_skill( "combat/defense" ) ) {
+	    learn_skill( query_hit_skill() );
+	    this_object()->message( "Learn: hit_skill, " + 
+               query_skill( "combat/unarmed" ) );
+         }
+      } else {
+	 damage = this_object()->query_statbonus("str") + 
+	    random( ( weapon->query_max_damage() - 
+            weapon->query_min_damage() ) )  +
+	    weapon->query_min_damage();
+         tmp = query_skill( weapon->query_weapon_skill() ) +
+            query_skill( weapon->query_weapon_skill() ) / 2;
+         if (tmp <= target->query_skill( "combat/defense" ) ) {
+	    learn_skill( weapon->query_weapon_skill() );
+	    this_object()->message( "Learn: hit_skill, " +
+	       query_skill( weapon->query_weapon_skill() ) );
+         }
+      }
+
+      damage_target( damage );
+   } else {
+      this_object()->targetted_action( "$N $vmiss $T.", target );
+
+      if (!weapon) {
+         tmp = query_skill( "combat/unarmed" ) +
+	    query_skill( "combat/unarmed" ) / 2;
+      } else {
+         tmp = query_skill( weapon->query_weapon_skill() ) +
+            query_skill( weapon->query_weapon_skill() ) / 2;
+      }
+      if( target->query_skill( "combat/defense" ) <= tmp) {
+	  target->learn_skill( "combat/defense" );
+	  target->message( "Learn: defense, " + 
+             query_skill( "combat/defense" ) );
+      }
+   }
+}
+
 void do_fight( void ) {
-  int me;
   int i;
   object *weapons;
-  int damage;
   
-  if( target ) {
-     
-     if( target->query_environment() != this_object()->query_environment() || target->is_dead() ) {
-	targets -= ({ target });
-	if( sizeof( targets ) > 0 )
-	   switch_to( targets[0] );
-	else {
-	   halt_fight();
-	   return;
-	}
+  target = get_target(target);
+
+  if (target) {
+     weapons = this_object()->query_wielded();
+
+     if( sizeof( weapons ) == 0 ) {
+        attack_with("combat/unarmed",nil,target);
+     } else {
+        for( i = 0; i < sizeof( weapons ); i++ ) {
+           if( !weapons[i]->query_offensive() ) continue;
+           attack_with(weapons[i]->query_weapon_skill(),weapons[i],target);
+        }
      }
-  } else {
-    targets -= ({nil});
-    if(sizeof(targets) > 0) {
-      switch_to( targets[0] );
-    } else {
-      halt_fight();
-      return;
-    }
-  }
 
-  weapons = this_object()->query_wielded();
-  if( sizeof( weapons ) == 0 ) {
-    me = (query_skill( "combat/unarmed" ) / 50) + this_object()->query_statbonus("str");
-
-    if( do_swing( me ) == 1 ) {
-      damage = random( 3 ) + this_object()->query_statbonus("str");
-/*      this_object()->message( "%^RED%^Hit for: " + damage + "%^RESET%^" ); */
-      this_object()->targetted_action( "$N $vhit $T for " + damage +" damage.", target );
-      damage_target( damage );
-      if( ( query_skill( "combat/unarmed" ) ) 
-	  + ( query_skill( "combat/unarmed" ) / 2 ) 
-	  <= target->query_skill( "combat/defense" ) ) {
-	learn_skill( query_hit_skill() );
-	this_object()->message( "Learn: hit_skill, " + query_skill( "combat/unarmed" ) );
-      }
-      
-    } else {
-      this_object()->targetted_action( "$N $vmiss $T.", target );
-      if( target->query_skill( "combat/defense" ) 
-	  <= query_skill( "combat/unarmed" )
-	  + query_skill( "combat/unarmed" ) / 2 ) {
-	target->learn_skill( "combat/defense" );
-      }
-    }
-  } else {
-    for( i = 0; i < sizeof( weapons ); i++ ) {
-      if( !weapons[i]->query_offensive() )
-	continue;
-      me = (query_skill( weapons[i]->query_weapon_skill() ) / 50 ) 
-	 + this_object()->query_statbonus("str") 
-	 + weapons[i]->query_hit_bonus();
-      
-      if( do_swing( me ) == 1 ) {
-	damage = this_object()->query_statbonus("str")
-	  + random( ( weapons[i]->query_max_damage() 
-		      - weapons[i]->query_min_damage() ) ) 
-	  + weapons[i]->query_min_damage();
-	this_object()->message( "%^RED%^Hit for: " + damage + "%^RESET%^" );
-	this_object()->targetted_action( "$N $v" + weapons[i]->query_weapon_action() + " $T for " + damage +" damage.", target );
-	if( ( query_skill( weapons[i]->query_weapon_skill() ) ) 
-	    + ( query_skill( weapons[i]->query_weapon_skill() ) / 2 ) 
-	    <= target->query_skill( "combat/defense" ) ) {
-	  learn_skill( weapons[i]->query_weapon_skill() );
-	  this_object()->message( "Learn: hit_skill, " 
-				  + query_skill( weapons[i]->query_weapon_skill() ) );
-	}
-        damage_target( damage );
-	
-      } else {
-	this_object()->targetted_action( "$N $vmiss $T.", target );
-	if( target->query_skill( "combat/defense" ) 
-	    <= query_skill( weapons[i]->query_weapon_skill() ) 
-	    + query_skill( weapons[i]->query_weapon_skill() ) / 2 ) {
-	  target->learn_skill( "combat/defense" );
-	  target->message( "Learn: defense, " + query_skill( "combat/defense" ) );
-	}
-      }
-    }
-  }
-
-  this_object()->message( "%^CYAN%^HP[" + query_hp() + "/" + query_max_hp() + "]%^RESET%^" );
-  if(!target || target->is_dead() ) {
-    targets -= ({ target });
-    if( sizeof( targets ) > 0 )
-      switch_to( targets[0] );
-    else
-      halt_fight();
+     this_object()->message( "%^CYAN%^HP[" + query_hp() + "/" + 
+        query_max_hp() + "]%^RESET%^" );
   }
 }
 
 void attacked_by( object who ) {
-  if( !targets )
-    targets = ({ });
+  if( !targets ) targets = ({ });
   targets += ({ who });
   target = who;
   fighting = 1;
@@ -235,5 +234,4 @@ void attack( object who ) {
   who->attacked_by( this_object() );
   do_fight();
 }
-
 
