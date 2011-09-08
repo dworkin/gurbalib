@@ -1,7 +1,6 @@
 Important commands:
 
   mkwiz <name>                : promote a player to wizard
-  mkwizdir <name>             : create a wizard directory
   mkadmin <name>              : promote a player to admin
   rmuser <name>               : remove the named player (and force it offline)
   shutdown <delay> <reason>   : shutdown the mud
