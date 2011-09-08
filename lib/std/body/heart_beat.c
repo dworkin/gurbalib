@@ -52,7 +52,7 @@ void event_heart_beat( void ) {
     }
   }
   /* Check here to see is we are in combat, if so, continue battle */
-  if( this_object()->is_fighting() ) {
+  if( this_object()->is_fighting() > 0) {
     this_object()->do_fight();
   } else {
     if( function_object( "event_wander", this_object()) ) {

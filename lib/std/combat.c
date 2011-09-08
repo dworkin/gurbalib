@@ -15,6 +15,8 @@ void learn_skill( string skill );
 int query_hp();
 int query_max_hp();
 
+#define FIGHTING_TIMEOUT 300
+
 void create( void ) {
   targets = ({ });
   fighting = 0;
@@ -125,15 +127,29 @@ object get_target(object targ) {
         if (sizeof(targets) == 0) fighting = 0;
       } else if (targ->query_environment() == 
          this_object()->query_environment()) {
+         fighting = FIGHTING_TIMEOUT;
          return targ;
       }
    }
    max = sizeof(targets);
    for(i=0;i<max;i++) {
-      if (targets[i]->query_environment() == 
-         this_object()->query_environment()) {
+      if (targets[i] && targets[i]->is_dead()) {
+         targets -= ({ targets[i] });
+         if (sizeof(targets) == 0) {
+            fighting = 0;
+            i = max;
+         }
+      }
+      if (targets[i] && (targets[i]->query_environment() == 
+         this_object()->query_environment())) {
+         fighting = FIGHTING_TIMEOUT;
          return targets[i];
       }
+   }
+   fighting = fighting -1;
+   if (fighting < 1) {
+      targets = ({ });
+      write("You give up fighting your attacker.\n");
    }
    return nil;
 }
@@ -219,7 +235,7 @@ void attacked_by( object who ) {
   if( !targets ) targets = ({ });
   targets += ({ who });
   target = who;
-  fighting = 1;
+  fighting = FIGHTING_TIMEOUT;
 }
 
 void attack( object who ) {
@@ -229,7 +245,7 @@ void attack( object who ) {
      return;
             
   targets += ({ who });
-  fighting = 1;
+  fighting = FIGHTING_TIMEOUT;
   target = who;
   who->attacked_by( this_object() );
   do_fight();
