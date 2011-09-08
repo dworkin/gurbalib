@@ -55,7 +55,7 @@ int break_branch(string str) {
          write("You break a branch off of the tree.\n");
          obj = clone_object("/domains/newbie/objects/stick.c");
 	 obj->move(this_player());
-         obj->setup(); // XXX why is this needed???
+         obj->setup();
       }
    } else {
       write("Break what?\n");
