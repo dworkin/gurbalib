@@ -12,6 +12,9 @@ void usage() {
 // XXX not sure on verbs vs cmds might want to merge them...
 // might want to make emote's available as well with a flag... -e
 
+// Make it so instead of just writeing stuff to the screen pipe it
+// into more...
+
 void show_cmds( string dir) {
    string *names;
    mapping cmds;
