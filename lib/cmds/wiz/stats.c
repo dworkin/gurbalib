@@ -8,7 +8,7 @@ void usage() {
 
 void main( string arg ) {
    int i,j;
-   int hp, max_hp;
+   int stat, max_stat;
    string *stat_abrvs;
    string *stat_names;
    object ob;
@@ -32,17 +32,10 @@ void main( string arg ) {
    }
 
    if(ob) {
-      hp = ob->query_hp();
-      max_hp = ob->query_max_hp();
-      stat_abrvs = ({ "str", "con", "end", "dex", "agl", "aim", 
-                     "int", "wis", "per", "cha", "luc", "spr", "god" });
+      stat_abrvs = ({ "str", "dex", "con", "int", "wis", "cha" });
 
-      stat_names = ({"strength    ", "constitution", "endurance   ",
-                     "dexterity   ", "agility     ", "aim         ",
-                     "intelligence", "wisdom      ", "perception  ",
-                     "charisma    ", "luck        ", "spirituality",
-                     "god bonus   " });
-   
+      stat_names = ({"strength    ", "dexterity   ", "constitution",
+                     "intelligence", "wisdom      ", "charisma    ", });
       j = 0;
    
       write("                        stat   base   bonus \n");
@@ -62,6 +55,14 @@ void main( string arg ) {
          }
 
       }
-      write("\n\n\t"+"Hitpoints    :  "+hp+"/"+max_hp+"\n");
+      stat = ob->query_hp();
+      max_stat = ob->query_max_hp();
+      write("\n\t"+"Hitpoints    :  " + stat + "/" + max_stat + "\n");
+      stat = ob->query_mana();
+      max_stat = ob->query_max_mana();
+      write("\t"+"Mana         :  " + stat + "/" + max_stat + "\n");
+      stat = ob->query_end();
+      max_stat = ob->query_max_end();
+      write("\t"+"Endourance   :  " + stat + "/" + max_stat + "\n");
    }
 }   

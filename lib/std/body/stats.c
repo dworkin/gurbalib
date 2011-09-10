@@ -294,10 +294,19 @@ void  initialize_bonus_stats()
  
 void initialize_stat_dependant_variables()
 {
-   int con, hp;
-   con = this_object()->query_base_stat("con"); 
-   hp = 20 + con; 
-   this_object()->set_max_hp( hp );
+   int tmp, stat;
+
+   tmp = this_object()->query_base_stat("con"); 
+   stat = 20 + tmp; 
+   this_object()->set_max_hp( stat );
+
+   tmp = this_object()->query_base_stat("wiz"); 
+   stat = 20 + tmp; 
+   this_object()->set_max_mana( stat );
+
+   tmp = this_object()->query_base_stat("str"); 
+   stat = 20 + tmp; 
+   this_object()->set_max_mana( stat );
 }
  
 void initialize_stats( ) 
