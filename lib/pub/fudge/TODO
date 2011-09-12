@@ -4,8 +4,6 @@ ALMOST DONE - Shopkeepers
 Clans
 .here:fudge in eval
 Weather
-Magic system/Religion systems
-mail system
 m_aggressive
 m_guild_trainer
 m_knockable
@@ -24,7 +22,6 @@ portals
 tracking of most used rooms
 tracking of objects
 auto dest/update of all instances of an object
-Endurance/Stamina
 Different combat messages based on current weapon
 PK announcing
 PK death announcing
@@ -35,4 +32,3 @@ Chests ( put in / get from / look in )
 Bank
 Levers
 Party system (invite, follow, say, report)
-Port commands to verbs
