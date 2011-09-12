@@ -300,13 +300,14 @@ void initialize_stat_dependant_variables()
    stat = 20 + tmp; 
    this_object()->set_max_hp( stat );
 
-   tmp = this_object()->query_base_stat("wiz"); 
+   tmp = this_object()->query_base_stat("wis"); 
    stat = 20 + tmp; 
    this_object()->set_max_mana( stat );
 
-   tmp = this_object()->query_base_stat("str"); 
+   tmp = this_object()->query_base_stat("con") + 
+      this_object()->query_base_stat("dex"); 
    stat = 20 + tmp; 
-   this_object()->set_max_mana( stat );
+   this_object()->set_max_end( stat );
 }
  
 void initialize_stats( ) 

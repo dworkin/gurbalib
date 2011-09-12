@@ -17,6 +17,8 @@ int query_max_hp();
 
 #define FIGHTING_TIMEOUT 300
 
+// XXX Need to use endurance in combat.....
+
 void create( void ) {
   targets = ({ });
   fighting = 0;

@@ -90,6 +90,12 @@ string query_level_title(int level) {
 
 void increase_level() {
    level += 1;
+   this_player()->set_max_hp( (level * 
+       this_player()->query_base_stat("str") ) + 20 );
+   this_player()->set_max_mana( (level * 
+       this_player()->query_base_stat("wis") ) + 20 );
+   this_player()->set_max_end( (level * 
+       this_player()->query_base_stat("con") ) + 20 );
    write("Congratulations, you just achieved level: " + level + "\n");
    this_player()->set_title(query_level_title(level));
 }

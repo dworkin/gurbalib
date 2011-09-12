@@ -44,11 +44,16 @@ void event_heart_beat( void ) {
   sp = this_player();
   set_this_player(this_object());
 
-  if( this_object()->query_hp() < this_object()->query_max_hp() && this_object()->is_alive() ) {
+  if( this_object()->is_alive()) {
     heal_time++;
     if( heal_time > heal_rate ) {
         heal_time = 0;
-        this_object()->increase_hp( random( heal_amount ) + 1 );
+        if (this_object()->query_hp() < this_object()->query_max_hp())
+            this_object()->increase_hp( random( heal_amount ) + 1 );
+        if (this_object()->query_mana() < this_object()->query_max_mana())
+            this_object()->increase_mana( random( heal_amount ) + 1 );
+        if (this_object()->query_end() < this_object()->query_max_end())
+            this_object()->increase_end( random( 2 * heal_amount ) + 1 );
     }
   }
   /* Check here to see is we are in combat, if so, continue battle */

@@ -15,8 +15,8 @@ void usage () {
 }
 
 void main( string str ) {
-   int max_hp, hp, expr, level, quest;
-   int max_mana, mana, max_end, end;
+   int mh, h, expr, level, quest;
+   int mm, m, me, e;
    int ac, i, ducats, royals, crowns;
    mixed *money;
    object obj;
@@ -48,23 +48,23 @@ void main( string str ) {
    }
    
    money = obj->query_all_coins();
-   max_hp = obj->query_max_hp();
-   hp     = obj->query_hp();
-   max_mana = obj->query_max_mana();
-   mana     = obj->query_mana();
-   max_end = obj->query_max_end();
-   end     = obj->query_end();
+   mh = obj->query_max_hp();
+   h     = obj->query_hp();
+   mm = obj->query_max_mana();
+   m     = obj->query_mana();
+   me = obj->query_max_end();
+   e     = obj->query_end();
    expr   = obj->query_expr();
    ac     = obj->query_defense();
    level  = obj->query_level();
 
    write( "[ " + obj->query_name() + " ] " + obj->query_title() + "\n" );
    write( "Strength    :  " + obj->query_stat("str") +
-	"\t\t" + "Hit points  :   " + hp + "/" + max_hp + "\n" );
+	"\t\t" + "Hit points  :   " + h + "/" + mh + "\n" );
    write( "Intelligence:  " + obj->query_stat("int") +
-	"\t\t" + "Endurance   :   " + hp + "/" + max_end + "\n" );
+	"\t\t" + "Endurance   :   " + e + "/" + me + "\n" );
    write( "Wisdom      :  " + obj->query_stat("wis") +
-	"\t\t" + "Mana        :   " + mana + "/" + mana + "\n" );
+	"\t\t" + "Mana        :   " + m + "/" + mm + "\n" );
    write( "Dexterity   :  " + obj->query_stat("dex") +
 	"\t\t" + "Armor class :   " + ac + "\n" );
    write("Constitution:  " + obj->query_stat("con") +
