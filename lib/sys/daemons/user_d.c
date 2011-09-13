@@ -357,3 +357,61 @@ void upgraded() {
     }
   }
 }
+
+void print_finger_info(object player, object player2, int cloned) {
+    player->message( "%^BLUE%^Name:%^RESET%^ " + 
+       capitalize(player2->query_name()) + "\n");
+    player->message( "%^BLUE%^Title:%^RESET%^ " + player2->query_title() + 
+       "\n");
+    if ( query_admin(player2->query_name()) == 1 ) {
+      player->message("%^BLUE%^Status: %^RESET%^Administrator\n");
+    } else if( query_wizard( player2->query_name() ) == 1 ) {
+      player->message("%^BLUE%^Status: %^RESET%^Wizard\n");
+    } else {
+      player->message("%^BLUE%^Status: %^RESET%^Player\n");
+    }
+
+   if (query_wizard(player)) {
+      player->message("%^BLUE%^Description:%^RESET%^ " + 
+         player2->query_long() + "\n");
+   }
+
+   if (query_admin(player)) {
+      player->message("%^BLUE%^Real name: %^RESET%^" + 
+         player2->query_real_name()  + "\n");
+      player->message("%^BLUE%^Email address: %^RESET%^" +
+         player2->query_email_address() + "\n");
+   }
+
+  if (cloned == 1) {
+     player->message("%^BLUE%^Last login: %^RESET%^" + 
+        ctime(player2->query_last_login()));
+  } else {
+     player->message("%^BLUE%^Last login: %^RESET%^Now\n");
+     if (player2->query_idle() > 60) {
+        player->message("%^BLUE%^Idle: %^RESET%^" + 
+           format_time(player2->query_idle()) + "\n");
+     }
+  }
+}
+
+// Player is requesting finger information on player: name
+// So lets tell them....  return 0 if not found. 1 if telling player info...
+void finger(object player, string name) {
+   object obj;
+
+   obj = find_player(name);
+   if (!obj) {
+      obj = get_data_ob(name);
+      if (obj) {
+         obj = clone_object( PLAYER_OB );
+         obj->set_name( name );
+         obj->restore_me();
+
+         print_finger_info(player,obj, 1);
+         destruct_object( obj );
+      }
+   } else {
+      print_finger_info(player,obj, 0);
+   }
+}
