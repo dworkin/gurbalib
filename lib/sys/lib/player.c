@@ -318,6 +318,10 @@ void initialize_cmd_path( void ) {
 	cmd_path = ({ "/cmds/player" });
 }
 
+void remove_cmd_path( string path ) {
+	cmd_path -= ({ path });
+}
+
 /* Add a path to the command path */
 void add_cmd_path( string path ) { 
 	cmd_path -= ({ path });

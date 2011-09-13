@@ -112,19 +112,48 @@ void delete_homedir(string wiz) {
   }
 }
 
-void delete_priv(string wiz) {
+void make_mortal(string name) {
+  object player;
+
+  if( previous_object()->base_name() != "/kernel/cmds/admin/promote" ) {
+    error( "Hey! No cheating!\n" );
+  }
+
   if( !require_priv( "system" ) ) {
     error( "Access denied" );
   }
 
-  // XXX  Need to do a lot of stuff here...
-  // look below for ideas on what needs to be done.
+  name = lowercase( name );
+  if( file_exists( "/data/players/" + name + ".o" ) ) {
+    privs[name] = PLAYER_L;
+    player = USER_D->find_player( name );
+    if( !player ) {
+      /* Player not active now, load him in and add his paths. */
+      player = clone_object( PLAYER_OB );
+      player->set_name( name );
+      player->restore_me();
+      player->remove_channel("dgd");
+      player->remove_cmd_path( "/kernel/cmds/admin" );
+      player->remove_cmd_path( "/cmds/wiz" );
+      player->save_me();
+      destruct_object( player );
+    } else {
+      player->remove_channel("dgd");
+      player->remove_cmd_path( "/kernel/cmds/admin" );
+      player->remove_cmd_path( "/cmds/wiz" );
+      player->save_me();
+    }
+    write( capitalize( name ) + " has been made a mortal." );
+    save_me();
+  } else {
+    write( "No such player.\n" );
+  }
 }
 
 void make_wizard( string name ) {
   object player;
 
-  if( previous_object()->base_name() != "/kernel/cmds/admin/mkwiz" ) {
+  if( previous_object()->base_name() != "/kernel/cmds/admin/promote" ) {
     error( "Hey! No cheating!\n" );
   }
 
@@ -141,10 +170,14 @@ void make_wizard( string name ) {
       player = clone_object( PLAYER_OB );
       player->set_name( name );
       player->restore_me();
+      player->remove_channel("dgd");
+      player->remove_cmd_path( "/kernel/cmds/admin" );
       player->add_cmd_path( "/cmds/wiz" );
       player->save_me();
       destruct_object( player );
     } else {
+      player->remove_channel("dgd");
+      player->remove_cmd_path( "/kernel/cmds/admin" );
       player->add_cmd_path( "/cmds/wiz" );
       player->save_me();
     }
@@ -158,6 +191,10 @@ void make_wizard( string name ) {
 
 void make_admin( string name ) {
   object player;
+
+  if( previous_object()->base_name() != "/kernel/cmds/admin/promote" ) {
+    error( "Hey! No cheating!\n" );
+  }
 
   if( !require_priv( "system" ) ) {
     error( "Access denied" );
