@@ -4,18 +4,18 @@ string name;
 void usage() {
   write("Usage: rmuser [-h] USER\n");
   write("Delete the specified user, USER.\n");
+  write("If they are a wizard or admin it will prompt you to remove their " +
+     "wiz dir.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }
-
-// XXX add it so it prompts you to remove their wizdir if wizard and or
-// admin...
 
 static void rmuser( string name ) {
   USER_D->delete_user( name );
 }
 
 void confirm_remove( string str ) {
+  string dirname;
   if( !lock || previous_object() != lock ) {
     return;
   }
@@ -29,6 +29,10 @@ void confirm_remove( string str ) {
     case "y" :
       rmuser( name );
       write( "Ok." );
+      dirname = "/wiz/" + name;
+      if ( file_exists( dirname ) == -1) {
+         write("You may also want to remove their wiz dir: " + dirname + "\n");
+      }
       break;
     default :
       write( "Aborted." );
