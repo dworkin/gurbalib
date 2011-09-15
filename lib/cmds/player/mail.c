@@ -6,7 +6,7 @@ string *body;
 // XXX make it so admin can email ALL and it will send an email to all players.
 
 void usage() {
-  if (query_admin( this_player() ) {  // Give the 'all' syntax to admin's
+  if (query_admin( this_player() ) ) {  // Give the 'all' syntax to admin's
      write("Usage: mail [-h] [all|PLAYER1 [PLAYER2] [...]]\n");
      write("Send a mud mail to the players specified.\n");
      write("You may also use all to send a mudmail to all players.\n");
@@ -48,7 +48,7 @@ void view_mailbox(string str) {
       if (sscanf(str,"%s %s",cmd, what) != 2) {
          write("Commands: d # (delete message) m player (mail player)  " +
             "l (list inbox) q (quit)\n");
-         input_to("view_mailbox");
+         this_player()->input_to_object(this_object(), "view_mailbox");
          return;
       }
       if (cmd == "d" || cmd == "del" || cmd == "delete") {
@@ -57,7 +57,7 @@ void view_mailbox(string str) {
       if (cmd == "m" || cmd == "mail") {
         to = explode(what, " ");
         write("Subject: ");
-        input_to("get_subject");
+        this_player()->input_to_object(this_object(), "get_subject");
       }
    }
 
@@ -65,8 +65,8 @@ void view_mailbox(string str) {
    max = sizeof(messages);
 
    for (x=0;x<max;x++) {
-       write(x + "\t" + messages[x]->query_subject() + "(" +
-          messages[x]->query_from() + ")\n";
+   //    write(x + "\t" + messages[x]->query_subject() + "(" +
+   //       messages[x]->query_from() + ")\n";
    }
    if (max < 1) {
       write("You have no mail!\n");
@@ -74,13 +74,13 @@ void view_mailbox(string str) {
 
    write("Commands: d # (delete message) m player (mail player)  " +
       "l (list inbox) q (quit)\n");
-   input_to("view_mailbox");
+   this_player()->input_to_object(this_object(), "view_mailbox");
 }
 
-void get_subject() {
+void get_subject(string str) {
    if (!str || str == "") {
       write("Subject: ");
-      input_to("get_subject");
+      this_player()->input_to_object(this_object(), "get_subject");
    }
 
 }
@@ -95,7 +95,7 @@ void main( string str ) {
    }
 
    if (str == "all") {
-      if (query_admin( this_player() ) {
+      if (query_admin( this_player() ) ) {
 
 // XXX need to set to to all valid users...
 
@@ -112,5 +112,5 @@ void main( string str ) {
    }
 
    write("Subject: ");
-   input_to("get_subject");
+   this_player()->input_to_object(this_object(), "get_subject");
 }
