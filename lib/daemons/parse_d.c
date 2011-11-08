@@ -3,11 +3,7 @@
 /*
   You can do the following define to enable debug output
   from the parser daemon.
-
- *
-
   Do NOT enable this here!!!
-
   Add it to /std/include/local_config.h instead, else you 
   will spam every gurbalib user with this.
 
@@ -43,10 +39,9 @@ int is_verb( string verb ) {
 
 /* calls can_x with right number of args for grammar */
 int query_can(mixed obj, string function, varargs mixed args...) {
-  
   mixed x;
-  if(sizeof(args) && typeof(args[0]) == T_ARRAY)
-    args = args[0];
+
+  if(sizeof(args) && typeof(args[0]) == T_ARRAY) args = args[0];
   switch( sizeof( args ) ) {
     case 0:
       x = call_other( obj, function );
@@ -67,11 +62,10 @@ int query_can(mixed obj, string function, varargs mixed args...) {
       x = call_other( obj, function, 
 			  args[0], args[1], args[2], args[3] );
 	  break;
-    }
-  if(!x)
-    return 0;
-  return 1;
   }
+  if(!x) return 0;
+  return 1;
+}
 
 /* returns verb object for grammar given.  Scans objects in order of priority.
    Items in player inventory take precedence over items in their environment. */
@@ -98,12 +92,11 @@ object query_verb_object( string rule, varargs mixed results ) {
   for(i = 0; i < sizeof(inventory_environment); i++) {
     if(function_object(rule, inventory_environment[i]) ) {
 	  x = query_can(inventory_environment[i], rule, results);
-	  if(x)
-		  return inventory_environment[i];
-	  }
-	}
-	return nil; /* no matches */
+	  if(x) return inventory_environment[i];
+    }
   }
+  return nil; /* no matches */
+}
 
 void add_object_rules(string *rules) {
   object prev_ob;
@@ -115,16 +108,16 @@ void add_object_rules(string *rules) {
     object_rules[prev_ob] = ([ rules[0] : rules[1..(sizeof(rules) - 1) ] ]);
   else
     object_rules[prev_ob][rules[0] ] += rules[1..(sizeof(rules) - 1) ];
-  }
+}
 
-  mapping query_all_object_rules() {
-     return object_rules;
-  }
+mapping query_all_object_rules() {
+  return object_rules;
+}
 
 mapping query_objects_rules(object obj) {
   if(typeof(object_rules[obj]) == T_MAPPING)
      return object_rules[obj];
-  }
+}
 
 int parse( string str ) {
   mixed *result;
@@ -376,7 +369,6 @@ Index: number \
 Index: \
 Obj_Index: Index ? define_obj_index \
 ";
-
 }
 
 string scan_local_verbs() {
@@ -407,7 +399,6 @@ string scan_local_verbs() {
   }
   return production_rules;
 }
-
 
 static mixed *construct_obj_packet(mixed *mpTree) {
   string res;
@@ -459,7 +450,6 @@ static mixed *find_container_object( mixed *mpTree ) {
   
   set_otlvar("last_obj", ob);
   return( ({ ob }) );
-
 }
 
 static mixed *find_living_object( mixed *mpTree ) {
