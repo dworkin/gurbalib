@@ -190,8 +190,9 @@ void attack_with(string skill, object weapon, object target) {
 	       query_skill( weapon->query_weapon_skill() ) );
          }
 
-         this_object()->targetted_action( "$N $vhit $T with a " + 
-            weapon->query_name(), target );
+         this_object()->targetted_action( "$N " + 
+            weapon->query_weapon_action() + " $T with a " + 
+            weapon->query_id() + ".", target );
       }
 
       damage_target( damage );
