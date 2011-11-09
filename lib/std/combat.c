@@ -66,6 +66,7 @@ void receive_damage( object who, int dam, int type ) {
 
 void damage_target( int dam ) {
   int target_hp;
+
   target_hp = target->query_hp();
   /* award expr for damage inflicted to target */
   if(dam > target_hp) {
@@ -78,8 +79,7 @@ void damage_target( int dam ) {
 }
 
 int query_defense( void ) {
-  int me;
-  int i;
+  int me, i;
   object *armor;
 
   me = random( query_skill( "combat/defense" ) / 50 );
@@ -102,21 +102,18 @@ int query_defense( void ) {
 }
 
 int do_swing( int me ) {
-  int opponent;
-  int me_roll;
-  int opponent_roll;
+  int opponent, me_roll, opponent_roll;
 
   me_roll = random( me + 1 );
 
   opponent = target->query_defense();
   opponent_roll = random( opponent + 1 );
+
   this_object()->message( "Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" + 
      me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" + 
      opponent + "%^RESET%^]" );
-  if( me_roll > opponent_roll ) {
-    return( 1 );
-  } 
 
+  if( me_roll > opponent_roll ) return( 1 );
   return( 0 );
 }
 
@@ -177,6 +174,9 @@ void attack_with(string skill, object weapon, object target) {
 	    this_object()->message( "Learn: hit_skill, " + 
                query_skill( "combat/unarmed" ) );
          }
+
+         this_object()->targetted_action( "$N $vhit $T.", target );
+
       } else {
 	 damage = this_object()->query_statbonus("str") + 
 	    random( ( weapon->query_max_damage() - 
@@ -189,6 +189,9 @@ void attack_with(string skill, object weapon, object target) {
 	    this_object()->message( "Learn: hit_skill, " +
 	       query_skill( weapon->query_weapon_skill() ) );
          }
+
+         this_object()->targetted_action( "$N $vhit $T with a " + 
+            weapon->query_name(), target );
       }
 
       damage_target( damage );
@@ -241,10 +244,8 @@ void attacked_by( object who ) {
 }
 
 void attack( object who ) {
-  if( !targets )
-     targets = ({ });
-  if( who->query_hp() < 1 )
-     return;
+  if( !targets ) targets = ({ });
+  if( who->query_hp() < 1 ) return;
             
   targets += ({ who });
   fighting = FIGHTING_TIMEOUT;
