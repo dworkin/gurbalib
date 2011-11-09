@@ -1,19 +1,25 @@
 int col;
 
 void usage() {
-  write("Usage: cmds [-h] [-v]\n");
-  write("cmds lists the various cmds and your disposal.\n");
+  string flags;
+
+  flags = "player|verb";
+
+  if (query_wizard(this_player())) flags += "|wiz";
+  if (query_admin(this_player())) flags += "|admin";
+
+  write("Usage: cmds [-h] [-v] [" + flags + "]\n");
+  write("cmds lists the various cmds at your disposal.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("\t-v\tVertical, displays commands one per line.\n");
+  write("If you specify a subsection like player it will only list " +
+    "player commands, instead of all commands you have avaliable.\n");
   write("See also: man, help\n");
 }
 
 // XXX not sure on verbs vs cmds might want to merge them...
 // might want to make emote's available as well with a flag... -e
-
-// Make it so instead of just writeing stuff to the screen pipe it
-// into more...
 
 void show_cmds( string dir) {
    string *names;
@@ -62,7 +68,32 @@ void main( string str ) {
    } else {
       col = 4;
       if (str && str != "") {
-         usage();
+	 switch(str) {
+            case "player":
+                show_cmds("/cmds/player");
+		break;
+            case "verb":
+   	        show_cmds("/cmds/verb");
+		break;
+            case "wiz":
+            case "wizard":
+		if (query_wizard(this_player())) {
+                   show_cmds("/cmds/wiz");
+                } else {
+                   usage();
+                }
+		break;
+            case "admin":
+		if (query_admin(this_player())) {
+                   show_cmds("/kernel/cmds/admin");
+                } else {
+                   usage();
+                }
+		break;
+            default:
+               usage();
+               break;
+	 }
          return;
       }
    }
