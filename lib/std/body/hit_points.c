@@ -102,6 +102,43 @@ int query_end( void ) {
   return( cur_end );
 }
 
+string query_status( void ) {
+  int x,max, t;
+
+  max = this_object()->query_max_hp();
+  x = this_object()->query_hp();
+
+  if (x == max) return "in peak physical condition.";
+  if (max < 5) {
+    if (x < max/2) return "nocking on deaths door.";
+    return "wounded.";
+  } else {
+    t = max / 5;
+    x = x / t;
+
+    switch (x) {
+      case 5:
+        return "in peak physical condition.";
+        break;
+      case 4:
+        return "bairly scratched.";
+        break;
+      case 3:
+        return "lightly wounded.";
+        break;
+      case 2:
+        return "wounded.";
+        break;
+      case 1:
+        return "is in really bad shape.";
+        break;
+      default:
+        return "nocking on deaths door.";
+        break;
+    }
+  }
+}
+
 int is_alive( void ) {
   if( cur_hp > 0 )
     return( 1 );
