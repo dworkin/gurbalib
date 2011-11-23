@@ -7,6 +7,8 @@ static int will_buy;
 static int will_sell;
 static int restock_delay;
 
+// XXX Need to check and subtract/add money....
+
 int is_vendor( void ) {
   return( 1 );
 }

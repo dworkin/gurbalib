@@ -20,7 +20,7 @@ Fix:
 	You grab your the stick (wield it)
 
 	Make m_aggressive or something similar...
-		not sure I like the m_  syntax.....
+		not sure I like the m_  syntax and or system
 
 	move race and guild commands to player and have a "skill" 
 		the the command depends on.
@@ -28,3 +28,30 @@ Fix:
         Make it so there are logs only admins can view? 
 
 Add players age to score.....
+
+
+Emote adverbs
+Clans
+.here:fudge in eval
+m_guild_trainer
+m_knockable
+m_lightable
+m_lockable
+m_switchable
+m_throwable
+m_trainer
+m_edible
+m_writable
+keys
+ladders/stairs, portals
+tracking of most used rooms
+tracking of objects
+auto dest/update of all instances of an object
+PK system (announcing, death announcing)
+Combat styles
+support for getting 2nd or 3rd sword in a room or inv
+Weight of objects
+Chests ( put in / get from / look in )
+Bank
+Levers
+Party system (invite, follow, say, report)
