@@ -55,7 +55,8 @@ void do_sell( object player, string what ) {
 
       if( obj->query_id() == what && found != 1 ) {
 	/* Found the object */
-	this_object()->other_action( this_object(), "$N $vgive $t $o", player, obj );
+	this_object()->other_action( this_object(), 
+          "$N $vgive $t $o", player, obj );
 	obj->move( player );
 	stored_items[objs[i]] = stored_items[objs[i]] - 1;
 	found = 1;
@@ -123,12 +124,15 @@ string query_list( void ) {
 
       if( !obj->query_proper_name() ) {
 	if( !obj->query_adj() || obj->query_adj() == "" ) {
-	  str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_id() + ", " + obj->query_value() + " crowns\n";
+	  str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_id() + ", " + 
+            obj->query_value() + " crowns\n";
 	} else {
-	  str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_adj() + " " + obj->query_id() + ", " + obj->query_value() + " crowns\n";
+	  str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_adj() + " " + 
+            obj->query_id() + ", " + obj->query_value() + " crowns\n";
 	}
       } else {
-	str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_proper_name() + ", " + objs->query_value() + " crowns\n";
+	str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_proper_name() + 
+          ", " + objs->query_value() + " crowns\n";
       }
       obj->query_environment()->remove_object( obj );
       obj->destruct();
@@ -138,7 +142,9 @@ string query_list( void ) {
 }
 
 void do_list( object player ) {
-  write( "%^BLUE%^=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%^RESET%^\n\n" );
+  write( "%^BLUE%^=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
+    "-=-=-=-=-=-=-=-=-=-=-=-%^RESET%^\n\n" );
   write( query_list() );
-  write( "%^BLUE%^\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-%^RESET%^\n" );
+  write( "%^BLUE%^\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
+    "-=-=-=-=-=-=-=-=-=-=-=-=-%^RESET%^\n" );
 }
