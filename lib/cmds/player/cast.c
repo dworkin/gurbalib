@@ -1,3 +1,5 @@
+#define SPELL_DIR "/cmds/spells"
+
 void usage() {
   write("Usage: cast [-h] [spell [target]]\n");
   write("Allows you to cast a spell.  If you do not give a spell, it will " +
