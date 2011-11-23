@@ -19,12 +19,12 @@ void cure(object thisp, object target) {
   if (thisp == target) {
     write("You concentrate and heal yourself for " + x + " hp.\n");
     this_object()->targetted_action("A soft glow envlopes $N, " +
-      "as they cure their wounds.");
+      "as they cure their wounds.\n");
   } else {
     write("You lay your hands on " + target->query_name() +
       " healing them for " + x + " hp.\n");
     this_object()->targetted_action("A soft glow envlopes " + 
-      target->query_name() "as $N cures their wounds.");
+      target->query_name() "as $N cures their wounds.\n");
   }
   target->increase_hp(x);
 }
@@ -39,7 +39,7 @@ void do_spell(object thisp, string target) {
   if (!target || target == "") {
     tar = thisp;
   } else {
-    tar = this_environment()->present(who);
+    tar = this_environment()->present(target);
   }
   if (tar) {
      if (tar == thisp) {
