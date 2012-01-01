@@ -14,7 +14,7 @@ void usage() {
 void cure(object thisp, object target) {
   int x;
 
-  x = rand(5) + 1;
+  x = random(5) + 1;
   thisp->decrease_mana(COST);
   if (thisp == target) {
     write("You concentrate and heal yourself for " + x + " hp.\n");
@@ -24,7 +24,7 @@ void cure(object thisp, object target) {
     write("You lay your hands on " + target->query_name() +
       " healing them for " + x + " hp.\n");
     this_object()->targetted_action("A soft glow envlopes " + 
-      target->query_name() "as $N cures their wounds.\n");
+      target->query_name() + "as $N cures their wounds.\n");
   }
   target->increase_hp(x);
 }
@@ -44,7 +44,7 @@ void do_spell(object thisp, string target) {
   if (tar) {
      if (tar == thisp) {
 	cure(thisp,tar);
-     } else if (thisp->query_skill(cure) > 50) {
+     } else if (thisp->query_skill("cure") > 50) {
 	cure(thisp,tar);
      } else {
        write("You are not skilled enough at cure to cast it on others.\n");

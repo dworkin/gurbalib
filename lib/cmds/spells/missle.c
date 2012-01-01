@@ -12,16 +12,14 @@ void usage() {
 void missle(object thisp, object target) {
   int x;
 
-  x = rand(5) + 1;
+  x = random(5) + 1;
   thisp->decrease_mana(COST);
   write("You shoot a magick missle out your hands at " + target->query_name() +
       " damaging them for " + x + " hp.\n");
   this_object()->targetted_action("A soft glow shoots from $N's hands and " +
-      "hits " + target->query_name() ".\n");
-  }
+      "hits " + target->query_name() + ".\n");
   target->decrease_hp(x);
 }
-
 
 void do_spell(object thisp, string target) {
   object tar;
