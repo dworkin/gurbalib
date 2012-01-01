@@ -357,8 +357,6 @@ void mssp_reply( void ) {
 
 }
 
-// XXX Need to fix this so a user that hasn't eneterd a password yet
-// doesn't show up in the list....
 void login_who( void ) {
   object *usr;
   int i, sz;
@@ -374,9 +372,8 @@ void login_who( void ) {
     out += capitalize(usr[i]->query_name());
     if ( query_admin( usr[i] ) > 0 ) {
       out += " (Admin)";
-    }
-    else if ( query_wizard( usr[i] ) > 0 ) {
-     out += " (Wizard)";
+    } else if ( query_wizard( usr[i] ) > 0 ) {
+      out += " (Wizard)";
     }
     out += "\n";
   }
@@ -669,3 +666,4 @@ void receive_error(string err) {
 void upgraded() {
   ansid = find_object(ANSI_D);
 }
+

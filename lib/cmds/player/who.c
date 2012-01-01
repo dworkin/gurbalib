@@ -53,8 +53,12 @@ void main( string str ) {
     line += idle;
 
     if (long_flag == 1) {
-       write(line + "\n\t" + usr[i]->query_name() + "'s Location: " + 
-          usr[i]->query_environment()->query_brief() + "\n");
+       if (usr[i]->query_environment()) {
+          write(line + "\n\t" + usr[i]->query_name() + "'s Location: " + 
+             usr[i]->query_environment()->query_brief() + "\n");
+       } else {
+          write(line + "\n\t" + usr[i]->query_name() + "\n");
+       }
     } else {
        write(line + "\n");
     }
