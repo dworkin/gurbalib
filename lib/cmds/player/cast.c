@@ -9,37 +9,52 @@ void usage() {
 }
 
 void list_spells() {
-   // XXX Need to do this...
-   write("No spells available at this time.\n");
+  string *files;
+  int i, x;
+  string name;
+
+  files = get_dir( SPELL_DIR + "/*.c" )[0];
+
+  write("Available spells:\n");
+  for ( i = sizeof( files ) -1; i >= 0; i--) {
+     x = strlen(files[i]) - 3;
+     name = files[i][..x];
+     write("\t" + name  + "\n");
+  }
 }
 
 string find_spell(string spellname) {
-   // XXX Need to figure this out
-   return "";
+   string str;
+
+   str  = SPELL_DIR + "/" +  spellname;
+   if (file_exists(str + ".c")) {
+     return str;
+   }
+   return nil;
 }
 
 void cast_spell(string spell, string who) {
    string spellpath;
-   obj target;
+   object target;
 
-   spellpath = find_spell(spellname);
+   spellpath = find_spell(spell);
 
    if (!spellpath) {
-      write("You do not have spell: " + spellname + "\n");
+      write("You do not have spell: " + spell + "\n");
       write("Try one of these:\n");
       list_spells();
       return;
   }
   if (who && who != "") {
-     target = ????
+     target = this_environment()->present(who);
      if (!target || target->query_environment() != 
-        thisplayer()->query_environment()) {
+        this_player()->query_environment()) {
         write("Unable to locate: who\n");
         return;
      }
-     call_other(spellpath,main,this_player(), target);
+     call_other(spellpath,"main",this_player(), target);
   } else {
-     call_other(spellpath,main,this_player(), nil);
+     call_other(spellpath,"main",this_player(), nil);
   }
 }
 
