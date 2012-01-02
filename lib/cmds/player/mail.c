@@ -3,8 +3,6 @@ string *to;
 string msgdate;
 string *body;
 
-// XXX make it so admin can email ALL and it will send an email to all players.
-
 void usage() {
   if (query_admin( this_player() ) ) {  // Give the 'all' syntax to admin's
      write("Usage: mail [-h] [all|PLAYER1 [PLAYER2] [...]]\n");
@@ -85,7 +83,14 @@ void get_subject(string str) {
 
 }
 
+string *get_all_users() {
+// XXX Need to do this...
+}
+
 void main( string str ) {
+   int x, max, error;
+
+   error = 0;
    if (!str || str == "") {
 	view_mailbox("");
    }
@@ -96,9 +101,7 @@ void main( string str ) {
 
    if (str == "all") {
       if (query_admin( this_player() ) ) {
-
-// XXX need to set to to all valid users...
-
+        to = get_all_users();
       } else {
          write("You are not an admin you may not send an email to everyone.\n");
 	 return;
@@ -108,9 +111,22 @@ void main( string str ) {
       if (!to) {
          to[0] = str;
       }
-      // XXX Check to see if memebers of to are valid users...
+      x = 0; 
+      max = sizeof(to);
+      while(x< max) {
+        if (USER_D->player_exists(to[x])) {
+           x = x + 1;
+        } else {
+            write("invalid user: to[x], removing...\n");
+            error = 1;
+        }
+      }
+   }
+   if (error) {
+      // XXX do you want to contiune???
    }
 
    write("Subject: ");
    this_player()->input_to_object(this_object(), "get_subject");
 }
+
