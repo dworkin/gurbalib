@@ -118,6 +118,7 @@ void main( string str ) {
            x = x + 1;
         } else {
             write("invalid user: to[x], removing...\n");
+// XXX need to actually remove the name
             error = 1;
         }
       }
