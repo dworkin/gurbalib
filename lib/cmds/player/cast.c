@@ -1,6 +1,17 @@
 #define SPELL_DIR "/cmds/spells"
+string find_spell(string spellname);
 
-void usage() {
+void usage(string str) {
+  object target;
+  string spellpath;
+
+  if (str != "") {
+     spellpath = find_spell(str);
+     if (spellpath) {
+        call_other(spellpath,"usage");
+        return;
+     }
+  }
   write("Usage: cast [-h] [spell [target]]\n");
   write("Allows you to cast a spell.  If you do not give a spell, it will " +
     "list the spells you have access to.\n");
@@ -65,8 +76,11 @@ void main( string str ) {
     list_spells();
     return;
   }
-  if (sscanf(str, "-%s",str)) {
-     usage();
+  if (sscanf(str, "-h %s",str)) {
+     usage(str);
+     return;
+  } else if (sscanf(str, "-%s",str)) {
+     usage("");
      return;
   }
 
