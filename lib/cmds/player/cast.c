@@ -56,17 +56,7 @@ void cast_spell(string spell, string who) {
       list_spells();
       return;
   }
-  if (who && who != "") {
-     target = this_environment()->present(who);
-     if (!target || target->query_environment() != 
-        this_player()->query_environment()) {
-        write("Unable to locate: who\n");
-        return;
-     }
-     call_other(spellpath,"do_spell",this_player(), target);
-  } else {
-     call_other(spellpath,"do_spell",this_player(), nil);
-  }
+  call_other(spellpath,"do_spell",this_player(), who);
 }
 
 void main( string str ) {
