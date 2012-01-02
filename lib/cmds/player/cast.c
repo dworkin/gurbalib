@@ -52,9 +52,9 @@ void cast_spell(string spell, string who) {
         write("Unable to locate: who\n");
         return;
      }
-     call_other(spellpath,"main",this_player(), target);
+     call_other(spellpath,"do_spell",this_player(), target);
   } else {
-     call_other(spellpath,"main",this_player(), nil);
+     call_other(spellpath,"do_spell",this_player(), nil);
   }
 }
 
