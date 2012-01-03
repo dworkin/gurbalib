@@ -55,3 +55,5 @@ Chests ( put in / get from / look in )
 Bank
 Levers
 Party system (invite, follow, say, report)
+
+cleanup .gitignore files
