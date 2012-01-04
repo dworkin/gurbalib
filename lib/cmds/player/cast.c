@@ -19,6 +19,18 @@ void usage(string str) {
   write("\t-h\tHelp, this usage message.\n");
 }
 
+int has_spell(string spellname) {
+   string skill;
+
+   if (query_admin(this_player()) || query_wizard(this_player())) {
+      return 1;
+   }
+   if (this_player()->query_skill("spell/" + spellname)) {
+      return 1;
+   }
+   return 0;
+}
+
 void list_spells() {
   string *files;
   int i, x;
@@ -30,7 +42,9 @@ void list_spells() {
   for ( i = sizeof( files ) -1; i >= 0; i--) {
      x = strlen(files[i]) - 3;
      name = files[i][..x];
-     write("\t" + name  + "\n");
+     if (has_spell(name)) {
+        write("\t" + name  + "\n");
+     }
   }
 }
 
@@ -50,9 +64,8 @@ void cast_spell(string spell, string who) {
 
    spellpath = find_spell(spell);
 
-   if (!spellpath) {
-      write("You do not have spell: " + spell + "\n");
-      write("Try one of these:\n");
+   if (!spellpath || !has_spell(spell)) {
+      write("You do not have the spell: " + spell + "\n");
       list_spells();
       return;
   }

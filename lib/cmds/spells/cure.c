@@ -1,4 +1,5 @@
 #define COST 10
+#define SKILLREQUIRED 15
 
 void usage() {
   write("Usage: cast cure [-h] [TARGET]\n");
@@ -6,7 +7,7 @@ void usage() {
   write("If no target is given you heal yourself.\n");
   write("This spell requires " + COST + " mana.\n");
   write("This spell heals 1-5 hit points on TARGET.\n");
-  write("You need to have a certain skill level before " +
+  write("You need to have a skill level of " + SKILLREQUIRED + " before " +
     "you can cast this spell on other players.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
@@ -42,15 +43,19 @@ void do_spell(object thisp, string target) {
   } else {
     tar = this_environment()->present(target);
   }
-  if (tar) {
-     if (tar == thisp) {
-	cure(thisp,tar);
-     } else if (thisp->query_skill("cure") > 50) {
-	cure(thisp,tar);
-     } else {
-       write("You are not skilled enough at cure to cast it on others.\n");
-     }
+  if (thisp->query_mana() < COST) {
+     write("You do not have enough mana to cast that.\n");
   } else {
-     write("You want to cast cure on who?\n");
+     if (tar) {
+        if (tar == thisp) {
+   	   cure(thisp,tar);
+        } else if (thisp->query_skill("spell/cure") >= SKILLREQUIRED) {
+   	   cure(thisp,tar);
+        } else {
+           write("You are not skilled enough at cure to cast it on others.\n");
+        }
+     } else {
+        write("You want to cast cure on who?\n");
+     }
   }
 }
