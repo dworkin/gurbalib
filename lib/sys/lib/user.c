@@ -524,14 +524,15 @@ void verify_new_passwd( string str ) {
      player->input_to_object( this_object(), "verify_new_passwd" );
   } else {
      if (str != newpass) {
-        send_message( "\nPassword's do not match, aborting." );
+        send_message( "\nPassword's do not match, aborting.\n" );
      } else {
-     log_file( "change_passwd", ctime( time() ) + "\t" + 
+        log_file( "change_passwd", ctime( time() ) + "\t" + 
         query_ip_number(this_object()) + "\t" + query_name() + "\n" );
 
-     USER_D->set_password(this_player()->query_name(), str);
+        USER_D->set_password(this_player()->query_name(), str);
 
-     send_message( 1 );
+        send_message( 1 );
+        send_message( "\nPassword successfully changed.\n" );
      }
   }
 }
