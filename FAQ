@@ -4,6 +4,7 @@ Q: What do I do now that I have this stuff?
    Then startup the mud
    Then login as someone (the first player will be an admin)   
    You will also probably want to look at the lib/doc directory
+# XXX Need to use new create_data_dirs.pl and update the instructions...
 
 Q: When trying to start the mud, it complains about the file
    mudname.h not being there and then terminates.
