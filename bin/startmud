@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ROOT=/Users/mein/gurbalib/bin
-LOG=$ROOT/../lib/logs/gurba-driver.log
+ROOT=/Users/mein/gurbalib
+LOG=$ROOT/lib/logs/gurba-driver.log
 
 rm -rf $LOG
-$ROOT/bin/driver gurba.dgd >& $LOG
+$ROOT/bin/driver $ROOT/gurba.dgd >& $LOG

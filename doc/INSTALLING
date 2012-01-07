@@ -45,6 +45,7 @@ cd to your libdir and preform the following actions:
 	cd ..
 	cp bin/driver ../../bin/
 	cd ../..
+        cp mud.dgd.examp mud.dgd
 	edit mud.dgd
 		change the directory entry to where you installed things.
 		Look it over and change other things if you want.
@@ -63,8 +64,7 @@ admin role, so be sure its you.
 
 XXX  Need to see if the below stuff fits in....
 
-	Need to mv mud.dgd and cp it to proper location...
-	
+	Need to test script second....
 
     2. cd contrib/DGD/src && make clean && make && make install && cd ../../../
   - Use either net.dgd or mud.dgd depending on if you are
