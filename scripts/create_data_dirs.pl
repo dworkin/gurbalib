@@ -53,5 +53,7 @@ makedir("lib/sys/daemons/data/users/y");
 makedir("lib/sys/daemons/data/users/z");
 makedir("lib/sys/data");
 makedir("lib/tmp");
+makedir("lib/logs");
+makedir("lib/logs/errors");
 makedir("tmp");
 

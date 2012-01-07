@@ -4,4 +4,4 @@ ROOT=/Users/mein/gurbalib
 LOG=$ROOT/lib/logs/gurba-driver.log
 
 rm -rf $LOG
-$ROOT/bin/driver $ROOT/gurba.dgd >& $LOG
+$ROOT/bin/driver $ROOT/mud.dgd >& $LOG
