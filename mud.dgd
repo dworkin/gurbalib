@@ -3,6 +3,8 @@ binary_port = 4001;
 directory	= "/gurbalib/lib/";/* base directory (MUST be absolute) */
 users		= 40;			/* max # of users */
 editors		= 40;			/* max # of editor sessions */
+ports		= 16;			/* max # of open ports 
+						(for network extensions) */
 ed_tmpfile	= "../tmp/ed";		/* proto editor tmpfile */
 swap_file	= "../tmp/swap";	/* swap file */
 swap_size	= 2048;			/* # sectors in swap file */
@@ -16,11 +18,14 @@ dump_interval = 3600;
 
 typechecking	= 2;			/* highest level of typechecking */
 include_file	= "/kernel/include/std.h";	/* standard include file */
-include_dirs	= ({ "/include", "/kernel/include", "~/include" }); /* directories to search */
+
+/* directories to search */
+include_dirs	= ({ "/kernel/include", "/std/include", "~/include" }); 
+
 auto_object	= "/kernel/lib/auto";	/* auto inherited object */
 driver_object	= "/kernel/sys/driver";	/* driver object */
 create		= "_F_create";		/* name of create function */
 
 array_size	= 4000;			/* max array size */
 objects		= 500;			/* max # of objects */
-call_outs	= 100;			/* max # of call_outs */
+call_outs	= k00;			/* max # of call_outs */

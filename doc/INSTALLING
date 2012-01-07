@@ -1,46 +1,71 @@
-Brief installation instructions
--------------------------------
+There are two ways to do this.  Using an install script that
+uses the packaged version of dgd or downloading the latest version and
+compiling it yourself.  Both are outlined here.  If you want the latest
+and greatest version of dgd jump down to LATEST and start there.
 
-Please check the doc/ directory for more information.
+Brief installation instructions using the script
+-------------------------------------------------------------
+CD to your libdir and type the following:
+	perl scripts/create_data_dirs.pl
+		This creates empty directories that are not stored in the
+		repository.
+	scripts/installer	(answer the questions)
+  		This will compile the driver, write a configuration
+		file and update an include file to reflect the name
+		of your mud.
 
-1. Using the installer script:
+	  Review gurba.dgd and change the telnet port number if so desired.
+		You will also need to set the directory
 
-  checkout or export the distribution into a directory
-  then cd to this directory and type:
+	  bin/startmud
 
-    scripts/installer
-
-  This will compile the driver, write a configuration
-  file and update an include file to reflect the name
-  of your mud.
-
-  Review gurba.dgd and change the telnet port
-  number if so desired.
-
-  Now, type 
-
-    bin/driver gurba.dgd
-
-  If all went well, you can now connect to the telnet port 
-  mentioned in the gurba.dgd config file.
+	  If all went well, you can now connect to the telnet port 
+		mentioned in the gurba.dgd config file.
 
 The first character logging in will automatically get the
 admin role, so be sure its you.
 
-There are two example wiz directories, fudge and spud.  They
-are currently banned.  If you want to use those names unban them
-first.
+Getting the LATEST version of dgd and installing
+---------------------------------------------------------------------
+cd to your libdir and preform the following actions:
+	perl scripts/create_data_dirs.pl
+		This creates empty directories that are not stored in the
+		repository.
+	mkdir src
+	cd src
 
-2. Doing it yourself:
+	Download the latest driver from: 
+			http://sourceforge.net/projects/dgd-osr/files/
+	gzip -d dgd-*.tar.gz
+	tar xvfz dgd-*.tar
+		extract the tar file.
+	cd dgd/src
+	make
+	make install
+	cd ..
+	cp bin/driver ../../bin/
+	cd ../..
+	edit mud.dgd
+		change the directory entry to where you installed things.
+		Look it over and change other things if you want.
+	cd lib/kernel/include
+	cp mudname.h.default mudname.h
+	edit the mudname.h file and change the mudname
+	cd ../../../
+        edit bin/startmud and set ROOT	
+	bin/startmud
 
-  - checkout or export the distribution to a directory and 
-    cd to this directory.
-  - cd lib/kernel/include
-  - cp mudname.h.default mudname.h
-  - edit the mudname.h file and change the mudname
-  - cd ../../../
-  - 1. Copy the DGD driver of your choice to bin/driver
-    or
+	If all went well, you can now connect to the telnet port 
+		mentioned in the gurba.dgd config file.
+
+The first character logging in will automatically get the
+admin role, so be sure its you.
+
+XXX  Need to see if the below stuff fits in....
+
+	Need to mv mud.dgd and cp it to proper location...
+	
+
     2. cd contrib/DGD/src && make clean && make && make install && cd ../../../
   - Use either net.dgd or mud.dgd depending on if you are
     using the network package, make sure to edit it to 
@@ -60,4 +85,3 @@ first.
 The first character logging in will automatically get the
 admin role, so be sure its you.
 
-Aidil@Way of the Force
