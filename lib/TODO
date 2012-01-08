@@ -12,9 +12,7 @@ Need to research writeable files for wizards/admins and see what
 makes sense.
 
 Work on install script so it's smoother/smarter.
-	remove empty dirs from git since there is a script to create them.
 	update instructions for how to get started....
-	will need to create wiz dir since its empty by default now...
 
 Fix:
 	You grab your the stick (wield it)

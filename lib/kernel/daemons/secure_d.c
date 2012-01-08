@@ -116,7 +116,8 @@ void make_mortal(string name) {
   object player;
 
   if( previous_object()->base_name() != "/kernel/cmds/admin/promote" ) {
-    error( "Hey! No cheating!\n" );
+    error( "Hey! No cheating!\n" + previous_object()->base_name() + 
+	" != /kernel/cmds/admin/promote\n");
   }
 
   if( !require_priv( "system" ) ) {
@@ -154,7 +155,8 @@ void make_wizard( string name ) {
   object player;
 
   if( previous_object()->base_name() != "/kernel/cmds/admin/promote" ) {
-    error( "Hey! No cheating!\n" );
+    error( "Hey! No cheating!\n" + previous_object()->base_name() + 
+	" != /kernel/cmds/admin/promote\n");
   }
 
   if( !require_priv( "system" ) ) {
@@ -192,8 +194,10 @@ void make_wizard( string name ) {
 void make_admin( string name ) {
   object player;
 
-  if( previous_object()->base_name() != "/kernel/cmds/admin/promote" ) {
-    error( "Hey! No cheating!\n" );
+  if( (previous_object()->base_name() != "/kernel/cmds/admin/promote") &&
+      (previous_object()->base_name() != "/kernel/daemons/secure_d") ) {
+    error( "Hey! No cheating!\n" + previous_object()->base_name() + 
+	" != /kernel/cmds/admin/promote\n");
   }
 
   if( !require_priv( "system" ) ) {
