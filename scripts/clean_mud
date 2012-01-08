@@ -1,13 +1,12 @@
 #!/usr/bin/perl -w
+my ($word);
 
 sub makedir {
    my ($infile) = @_;
 
-   if (!-d $infile) {
-      mkdir($infile);
+   if (-d $infile) {
+      system("rm -rf $infile");
    }
-   # Use this to test things and make sure .gitignores are used properly
-   # system("touch $infile/blah");
 }
 
 if (!-f "scripts/create_data_dirs.pl") {
@@ -17,9 +16,15 @@ if (!-f "scripts/create_data_dirs.pl") {
    exit 1;
 }
 
-makedir("bin");
-makedir("contrib/DGD/bin");
-makedir("contrib/DGD/tmp");
+print "WARNING: You are about to remove all user data on your mud, are you sure you want to continue? (Y/n)";
+chomp($word = <STDIN>);
+
+if ($word eq "y" || $word eq "Y") {
+} else {
+   print "Aborting.\n";
+   exit 1;
+}
+
 makedir("lib/data/banished");
 makedir("lib/data/banned");
 makedir("lib/data/banned/a");
@@ -65,3 +70,4 @@ makedir("lib/logs/errors");
 makedir("tmp");
 makedir("wiz");
 
+print "You should run scripts/create_data_dirs.pl to recreate your data directories.\n";
