@@ -1,4 +1,5 @@
 int col;
+string *lines;
 
 void usage() {
   string flags;
@@ -36,7 +37,7 @@ void show_cmds( string dir) {
 
    names = map_indices( cmds );
 
-   write ("Commands: " + dir + "\n");
+   lines += ({ "Commands: " + dir + "\n" });
 
    for( d = 0, sz = sizeof( names ); d < sz; d += col ) {
       int colnum;
@@ -52,8 +53,9 @@ void show_cmds( string dir) {
                "                         ")[0..(70/col)];
           }
       }
-      write( line );
+      lines += ({ line });
    }
+
 }
 
 void main( string str ) {
@@ -62,6 +64,8 @@ void main( string str ) {
    string race;
    string guild;
    string *guilds;
+
+   lines = ({ });
 
    if( str == "-v" ) {
       col = 1;
@@ -89,11 +93,31 @@ void main( string str ) {
                 } else {
                    usage();
                 }
-		break;
+	       break;
+            case "race":
+               race = "/cmds/race/" + this_player()->query_race();
+               if (file_exists(race) == -1) {
+                  show_cmds(race);
+               }
+               break;
+            case "guild":
+               guilds = this_player()->query_guilds();
+
+               if (guilds) {
+                  cmax = sizeof(guilds);
+                  for (c=0;c<cmax;c++) {
+                     guild= "/cmds/guild/" + guilds[c];
+                     if (file_exists(guild) == -1) {
+                         show_cmds(guild);
+                     }
+                  }
+               }
+               break;
             default:
                usage();
                break;
 	 }
+         this_player()->more(lines);
          return;
       }
    }
@@ -121,5 +145,7 @@ void main( string str ) {
          }
       }
    }
+
+   this_player()->more(lines);
 }
 

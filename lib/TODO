@@ -27,7 +27,6 @@ Fix:
 
 Add players age to score.....
 
-
 Emote adverbs
 Clans
 .here:fudge in eval
@@ -54,10 +53,11 @@ Bank
 Levers
 Party system (invite, follow, say, report)
 
-cleanup .gitignore files
-
 restructure doc and doc/help directory
 	help/wiz seems odd as well...?
 	Need to write intro wiz documentation
 	maybe a newbie admin doc as well...
+
+Come up with some standards for combat/exp skills
+make -h work for verbs
 

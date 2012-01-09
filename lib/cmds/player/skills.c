@@ -20,6 +20,7 @@ static void DBM( string str ) {
 
 private void show_skills( string * skills ) {
   string line;
+  string *lines;
   int i;
 
   if( sizeof( skills ) == 0 ) {
@@ -27,11 +28,13 @@ private void show_skills( string * skills ) {
     return;
   }
 
+  lines = ({ });
   for( i = 0; i < sizeof( skills ); i++ ) {
     line = skills[i] + "                                     ";
     line = line[0..30] + ": " + this_player()->query_skill( skills[i] );
-    write( line );
+    lines += ({ line });
   }
+  this_player()->more(lines);
 }
 
 static int filter_skill( string skill, string str ) {
