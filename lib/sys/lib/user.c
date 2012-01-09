@@ -258,7 +258,7 @@ void login_user( void ) {
     player->set_name( user_name );
     USER_D->user_online( user_name, this_object() );
     player->set_brief( capitalize( user_name ) + player->query_title() );
-    send_message( "\n" );
+    send_message( "\n\n" );
     send_message( TELNET_D->query_motd() );
     player->login_player();
     /*
@@ -273,9 +273,10 @@ void login_user( void ) {
     player->write_prompt();
     remove_call_out( timeout_handle );
     LAST_D->add_entry( user_name, 1 );
-    log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
-         "\t" + this_object()->query_name() +" connects\n" );
-     
+
+    log_file( "logins", ctime( time() ) + "\t" + 
+       query_ip_number(this_object()) + "\t" + 
+       this_object()->query_name() +" connects\n" );
   }
 }
 
@@ -298,8 +299,11 @@ void handle_reconnect( string str ) {
       player = tmp_player;
       player->set_user( this_object() );
       usr->quit();
-      log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+
+      log_file( "logins", ctime( time() ) + "\t" + 
+         query_ip_number(this_object()) +
          "\t" + this_object()->query_name() +" reconnects\n" );
+
       player->set_linkdead( 0 );
       send_message( "Other copy kicked.\n" );
       USER_D->user_online( user_name, this_object() );
@@ -330,10 +334,12 @@ void mssp_reply( void ) {
 
   send_message("\r\nMSSP-REPLY-START\r\n");
 
-  /* Required */
-  send_message("NAME\t" + MSSP_NAME + "\r\n"); /* Name of the MUD */
-  send_message("PLAYERS\t" + MSSP_PLAYERS + "\r\n"); /* Current number of logged in players */
-  send_message("UPTIME\t" + MSSP_UPTIME + "\r\n"); /* Unix time value of the startup time of the MUD */
+  /* These are Required */
+  send_message("NAME\t" + MSSP_NAME + "\r\n");       /* Name of the MUD */
+  /* Current number of logged in players */
+  send_message("PLAYERS\t" + MSSP_PLAYERS + "\r\n");
+  /* Unix time value of the startup time of the MUD */
+  send_message("UPTIME\t" + MSSP_UPTIME + "\r\n");
 
   /* Generic */
   send_message("PORT\t" + MSSP_PORT + "\r\n");
@@ -354,7 +360,6 @@ void mssp_reply( void ) {
   send_message("PAY FOR PERKS\t" + MSSP_PAY_FOR_PERKS + "\r\n");
 
   send_message("MSSP-REPLY-END\r\n");
-
 }
 
 void login_who( void ) {
@@ -412,7 +417,8 @@ void input_name( string str ) {
       return;
     }
     if( !USER_D->valid_player_name( str )) {
-      send_message("A name must start with a letter, and can contain letters and numbers.\n");
+      send_message("A name must start with a letter, and can contain " +
+         "letters and numbers.\n");
       input_name("");
       return;
     }
@@ -420,9 +426,11 @@ void input_name( string str ) {
     user_name = str;
     if( BANISH_D->is_banished(user_name) ) {
       /* user_name is a banished name */
-      log_file( "logins", ctime( time() ) + "\t" + query_ip_number(this_object()) +
+      log_file( "logins", ctime( time() ) + "\t" + 
+         query_ip_number(this_object()) +
          "\t" + query_name() + " <- banished name\n" );
-      send_message( "\nThe name '"+user_name+"' is reserved and not available for use.\n" );
+      send_message( "\nThe name '" + user_name +
+         "' is reserved and not available for use.\n" );
       destruct_object( player );
       destruct_object( this_object() );
     }
@@ -657,7 +665,8 @@ object query_player( void ) {
 }
 
 static void _receive_error(mixed * tls, string err) {
-  console_msg("Network error in user object: "+object_name(this_object())+" : "+err+"\n");
+  console_msg("Network error in user object: " + object_name(this_object()) +
+     " : "+err+"\n");
 }
 
 void receive_error(string err) {
