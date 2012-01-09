@@ -18,8 +18,10 @@ if (!-f "scripts/create_data_dirs.pl") {
 }
 
 makedir("bin");
+makedir("tmp");
 makedir("contrib/DGD/bin");
 makedir("contrib/DGD/tmp");
+# Everything after here is in the actual mudlib
 makedir("lib/data/banished");
 makedir("lib/data/banned");
 makedir("lib/data/banned/a");
@@ -62,6 +64,5 @@ makedir("lib/sys/data");
 makedir("lib/tmp");
 makedir("lib/logs");
 makedir("lib/logs/errors");
-makedir("tmp");
-makedir("wiz");
+makedir("lib/wiz");
 
