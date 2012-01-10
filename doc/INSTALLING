@@ -1,10 +1,6 @@
 There are two ways to do this.  I like using the latest and greatest
 version of DGD so I'm giving you the instructions for the "manual"
-way of doing things.  There is also an install script if you
-want to try that, jump down to the line:
-Brief installation instructions using the script
-
-
+way of doing things.  
 
 Getting the LATEST version of dgd and installing
 ---------------------------------------------------------------------
@@ -48,9 +44,12 @@ admin role, so be sure its you.
 Now jump down to:
 OTHER THINGS:
 
-
 Brief installation instructions using the script
 -------------------------------------------------------------
+This script is dated so it may or may not work...  If your
+not having any luck with the above try this method of getting things
+going, or drop me an email.  (my address is in the README file)
+
 CD to your gurbalib dir and type the following:
 	perl scripts/create_data_dirs.pl
 		This creates empty directories that are not stored in the
