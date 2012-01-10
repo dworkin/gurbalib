@@ -2,9 +2,9 @@ There are two ways to do this.  I like using the latest and greatest
 version of DGD so I'm giving you the instructions for the "manual"
 way of doing things.  
 
-Getting the LATEST version of dgd and installing
+Getting the LATEST version of DGD and installing
 ---------------------------------------------------------------------
-cd to your gurbalib dir and preform the following actions:
+cd to your gurbalib dir and perform the following actions:
 	perl scripts/create_data_dirs.pl
 		This creates empty directories that are not stored in the
 		repository.
@@ -14,7 +14,7 @@ cd to your gurbalib dir and preform the following actions:
 	Download the latest driver from: 
 			http://sourceforge.net/projects/dgd-osr/files/
 	gzip -d dgd-*.tar.gz
-		uncompress the tarfile
+		uncompress the tar file
 	tar xvf dgd-*.tar
 		extract the tar file.
 	cd dgd/src
@@ -78,7 +78,7 @@ You may want to edit the following files as well:
 lib/data/messages/login
 lib/data/messages/motd
 
-If you want a squeeky clean mud you can also nuke the files in
+If you want a squeaky clean mud you can also remove the files in
 lib/domains/gurba and lib/domains/newbie  (I would keep them around for
 	a little while though since they are at the least example code)
 
