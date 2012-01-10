@@ -1,0 +1,32 @@
+Welcome to Sirdude's(aka Kent Mein) branch of the Gurbalib.
+
+I played on various muds in my college years and am a UNIX Sys Admin.  
+I've been playing lots of minecraft with my kids lately and want them
+to get into unix and programming.  So I started tinkering with muds
+again.  I downloaded DGD and went in pursute of a mudlib.
+
+If your reading this you probably have had a similar quest and have
+found that the stuff that is out there is old, sparse, not fully
+funtional and or some mixture of the above.
+
+All the documentation I found stated if you want to get a mud running
+quickly with DGD go with gurba at this point.  It's basically ready to
+run.
+
+So I grabed what I could and gave it a shot.  After a couple of
+months of playing with things, I think I have a pretty good handle of
+where things are at.  I don't like everything about the mudlib but
+its a great start and something to move forward with.
+
+My goals are to simplify things, and make a consistent, well documented,
+funtional mudlib that anyone can use as a base for a mud.
+
+If your just getting started with the gurbalib take a look at
+doc/INSTALLING and the other documents in doc, then look at
+the documentation in lib/doc and basically everything in lib since
+that is the important stuff.
+
+Feel free to email me with comments/suggestions/questions:
+
+				Kent Mein
+				mein@cs.umn.edu
