@@ -1,37 +1,14 @@
-There are two ways to do this.  Using an install script that
-uses the packaged version of dgd or downloading the latest version and
-compiling it yourself.  Both are outlined here.  If you want the latest
-and greatest version of dgd jump down to LATEST and start there.
-
+There are two ways to do this.  I like using the latest and greatest
+version of DGD so I'm giving you the instructions for the "manual"
+way of doing things.  There is also an install script if you
+want to try that, jump down to the line:
 Brief installation instructions using the script
--------------------------------------------------------------
-CD to your libdir and type the following:
-	perl scripts/create_data_dirs.pl
-		This creates empty directories that are not stored in the
-		repository.
-	scripts/installer	(answer the questions)
-  		This will compile the driver, write a configuration
-		file and update an include file to reflect the name
-		of your mud.
 
-	  Review gurba.dgd and change the telnet port number if so desired.
-		You will also need to set the directory
 
-	  bin/startmud
-
-	  If all went well, you can now connect to the telnet port 
-		mentioned in the mud.dgd config file.
-		(4000 by default)
-
-The first character logging in will automatically get the
-admin role, so be sure its you.
-
-Jump down to: OTHER THINGS 
-	for a few more misc tips.....
 
 Getting the LATEST version of dgd and installing
 ---------------------------------------------------------------------
-cd to your libdir and preform the following actions:
+cd to your gurbalib dir and preform the following actions:
 	perl scripts/create_data_dirs.pl
 		This creates empty directories that are not stored in the
 		repository.
@@ -41,7 +18,8 @@ cd to your libdir and preform the following actions:
 	Download the latest driver from: 
 			http://sourceforge.net/projects/dgd-osr/files/
 	gzip -d dgd-*.tar.gz
-	tar xvfz dgd-*.tar
+		uncompress the tarfile
+	tar xvf dgd-*.tar
 		extract the tar file.
 	cd dgd/src
 	make
@@ -67,23 +45,29 @@ cd to your libdir and preform the following actions:
 The first character logging in will automatically get the
 admin role, so be sure its you.
 
-XXX  Need to see if the below stuff fits in....
+Now jump down to:
+OTHER THINGS:
 
-	Need to test script second....
 
-    2. cd contrib/DGD/src && make clean && make && make install && cd ../../../
-  - Use either net.dgd or mud.dgd depending on if you are
-    using the network package, make sure to edit it to 
-    point to the directory where your mud is installed.
-  - On DGD versions prior to 1.4 and not using the network package or the ansi
-    patches, edit lib/kernel/include/std.h and remove the
-    #define SYS_COLOR
-    line.
-  
-  You should now have everything you need and can start the mud
-  with:
+Brief installation instructions using the script
+-------------------------------------------------------------
+CD to your gurbalib dir and type the following:
+	perl scripts/create_data_dirs.pl
+		This creates empty directories that are not stored in the
+		repository.
+	scripts/installer	(answer the questions)
+  		This will compile the driver, write a configuration
+		file and update an include file to reflect the name
+		of your mud.
 
-    bin/driver <yourconfigfile>
+	  Review gurba.dgd and change the telnet port number if so desired.
+		You will also need to set the directory
+
+	  bin/startmud
+
+	  If all went well, you can now connect to the telnet port 
+		mentioned in the mud.dgd config file.
+		(4000 by default)
 
 The first character logging in will automatically get the
 admin role, so be sure its you.
