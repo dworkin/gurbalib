@@ -1,6 +1,4 @@
-/* Definition of the dwarf race */
-/* Note : The racial MAX stats are WITHOUT the bonus. */
-
+/* Definition of the half-giant race */
 inherit RACE;
 
 void create( void ) {
@@ -12,6 +10,7 @@ void create( void ) {
    base_stat_minimum["wis"] = 3;
    base_stat_minimum["cha"] = 3;
 
+   /* Note : The racial MAX stats are WITHOUT the bonus. */
    base_stat_maximum = ([ ]);
    base_stat_maximum["str"] = 33;
    base_stat_maximum["con"] = 33;
@@ -21,6 +20,12 @@ void create( void ) {
    base_stat_maximum["cha"] = 33;
 
    set_race_short_desc( "Gnomes are the brainy brothers of the dwarves.." );
-   set_race_long_desc( "Half giants. The crossbreed between man and giant. The result is a\ncreature that looks human, except that it is twice the size. Because of this,\nthey make excellent fighters, little less so thinkers. Their size means they \nconsume food and drink at four times the human rate, and they need specially \ntailored equipment and armor. Despite all this, they're extremely strong, and\nstories go of incidents where a frail half-giant has survived where the\nstrongest humans have fallen." );
-
+   set_race_long_desc( "Half giants. The crossbreed between man and giant. " +
+      "The result is a\ncreature that looks human, except that it is twice " +
+      "the size. Because of this,\nthey make excellent fighters, little " +
+      "less so thinkers. Their size means they \nconsume food and drink at " +
+      "four times the human rate, and they need specially \ntailored " +
+      "equipment and armor. Despite all this, they're extremely strong, " +
+      "and\nstories go of incidents where a frail half-giant has survived " +
+      "where the\nstrongest humans have fallen." );
 }

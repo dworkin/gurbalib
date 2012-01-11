@@ -1,9 +1,8 @@
 /* Definition of the rat race */
-
 inherit MONSTER_RACE;
 
-void create( void ) 
-{
+void create( void ) {
+   ::create();
    base_stat_minimum = ([ ]);
    base_stat_minimum["str"] = 2;
    base_stat_minimum["con"] = 2;
