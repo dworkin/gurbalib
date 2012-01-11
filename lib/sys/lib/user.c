@@ -652,6 +652,9 @@ void input_get_race( string str ) {
 
   player->set_race( lowercase(str) );
 
+  player->set_hp( player->query_max_hp());
+  player->set_mana( player->query_max_mana());
+  player->set_end( player->query_max_end());
   player->save_me();
   login_user();
 }
