@@ -117,7 +117,6 @@
 #define AUTO            "/kernel/lib/auto"
 
 #define ROOM            "/std/room"
-#define OUTDOOR_ROOM    "/std/outdoor_room"
 #define OBJECT          "/std/object"
 #define CONTAINER       "/std/container"
 #define BODY            "/std/body"

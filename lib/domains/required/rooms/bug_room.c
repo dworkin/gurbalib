@@ -1,14 +1,19 @@
-inherit "/std/room";
+inherit ROOM;
 
 void setup( void ) {
+  add_area( "required" );
+
   set_brief( "%^YELLOW%^Bug room%^RESET%^" );
   set_long( "The room contains a huge and fluffy chair, since wizards " +
     "spend a lot of time in this room reading the bugreports from the " +
     "players. " );
+
   add_item( "chair", "The chair is really worn down, and has a big 'dent' " +
     "in it which looks like a perfect match for someone's butt." );
+
   set_objects( ([ "/domains/required/objects/bug_board" : 1,
   ]) );
+
   set_exits( ([ "out"  : "/domains/required/rooms/start",
   ]) );
 }

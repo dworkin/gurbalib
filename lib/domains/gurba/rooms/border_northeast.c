@@ -1,4 +1,4 @@
-inherit OUTDOOR_ROOM;
+inherit ROOM;
 
 void setup( void ) {
    add_area( "Gurba" );

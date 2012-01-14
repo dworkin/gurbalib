@@ -12,4 +12,4 @@ When your having problems don't forget to look at the logs:
 cd /logs or cd /logs/errors and poke around....
 
 You can also read up on the following additional wizard help files:
-	language_d
+	language_d coding room_code monster_code object_code

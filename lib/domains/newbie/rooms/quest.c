@@ -1,14 +1,18 @@
 inherit ROOM;
 
 void setup( void ) {
+  add_area( "newbie" );
+
   set_brief( "%^MAGENTA%^end of the tunnel.%^RESET%^" );
   set_long( "You are at the end of a small tunnel.  The room is brightly " +
      "colored and everything in the room direct's your attention " +
      "towards a large red button.");
+
   set_exits( ([ 
 	       "north" : "/domains/newbie/rooms/fighting",
 	       "out" : "/domains/newbie/rooms/tree",
   ]) );
+
   add_item("button", "A giant red BUTTON!\nIt is glowing and says PRESS ME!");
   add_room_command("push", "do_push");
 }

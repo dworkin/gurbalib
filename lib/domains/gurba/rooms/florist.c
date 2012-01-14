@@ -1,4 +1,3 @@
-
 inherit ROOM;
 
 void setup( void ) {

@@ -8,6 +8,7 @@ static mapping hidden_exits;
 static mapping areas;
 static mapping room_commands;
 static int last_exit;
+static int weather;
 
 void setup( void );
 
@@ -25,6 +26,14 @@ void create( void ) {
   room_commands = ([]);
   last_exit = 0;
   setup();
+}
+
+void set_weather( int flag ) {
+   weather = flag;
+}
+
+int query_weather( void ) {
+   return ( weather );
 }
 
 void add_area( string str ) {

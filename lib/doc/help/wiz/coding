@@ -4,8 +4,21 @@ similar to C.
 Everything in the mud is an object.  The main base objects are:
 	OBJECT, MONSTER, ROOM, and PLAYER
 
-objects you create will inierit one of these base classes or another
-subclass.  Then you'll set various properties and or add functions
-to the objects to make them function properly.
+objects you create will inherit one of these base classes or another
+class baised off of one of these, and then define a function "setup"
+Then you'll set various properties and or add functions to the objects 
+to make them do all kinds of nifty things.
 
+You probably want to start with rooms, get the hang of them then move to
+monsters and then work on objects after that.
+
+There are lots of great examples in /domains.  Start simple and work
+your way up to more complex objects.  You can also look at your workroom for
+a basic room.
+
+You can read the following documents to learn the basics of these objects:
+	room_code monster_code object_code
+
+If you really want to know how it all works take a look at the code behind
+these objects, they can all be found in /std
 

@@ -1,0 +1,20 @@
+A minimal room object looks like this:
+inherit ROOM;	
+
+void setup( void ) {
+  set_brief( "%^MAGENTA%^The void%^RESET%^" );
+  set_long( "If you're in here unintentionally, something bugged out. " +
+    "Report what you did to the staff." );
+  set_exits( ([ 
+               "out" : STARTING_ROOM,
+  ]) );
+}
+
+Lets step through this file and then we can talk about other things you can do
+as well.
+
+inherit ROOM;    This line inherits our base class ROOM (which is defined
+as /std/room.c in /kernel/include/std.h
+This class handles all of our room specific code and makes it easy to create a
+simple room, you just create a setup fuction that changes a couple of things
+and you have a working room.
