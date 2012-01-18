@@ -2,11 +2,13 @@ A minimal room object looks like this:
 inherit ROOM;	
 
 void setup( void ) {
+  add_area( "required" );
   set_brief( "%^MAGENTA%^The void%^RESET%^" );
   set_long( "If you're in here unintentionally, something bugged out. " +
     "Report what you did to the staff." );
   set_exits( ([ 
                "out" : STARTING_ROOM,
+	       "north" : "/domains/required/rooms/void.c"
   ]) );
 }
 
@@ -16,5 +18,68 @@ as well.
 inherit ROOM;    This line inherits our base class ROOM (which is defined
 as /std/room.c in /kernel/include/std.h
 This class handles all of our room specific code and makes it easy to create a
-simple room, you just create a setup fuction that changes a couple of things
+simple room, you just create a setup function that changes a couple of things
 and you have a working room.
+
+Next we have our setup function.  At a minimum you'll want to call the
+4 functions we have shown in our example.  There are other things you
+can do as well though.  We'll cover the 4 required functions and then 
+after that we'll talk about other options.
+
+void add_area(string *area );
+	This function basically labels this room as part of the given area.
+	That way you can limit wandering monsters to specific areas and
+	other nifty tricks.  You could also for example make an object 
+	that only functions in a given area.
+
+void set_brief(string *desc );
+	Set the short description of the room.
+	Sometimes you can only see the short description of the room so
+	you will want to make it descriptive so that users will know where 
+	they are.
+
+void set_long(string *desc );
+	This is a more detailed description of the room.  You'll want to
+	make this interesting.
+
+void set_exists( mapping *ex );
+	Allows you to create a one to one mapping of directions to rooms.
+	You can use additional functions below to add additional exits on
+	certain conditions, or to make hidden exits.  The mapping has
+	the following format:
+	([
+		DIRECTION1 : ROOM1,
+		DIRECTION2 : ROOM2,
+		...
+	])
+	You in general want to standardize your DIRECTIONS so that the
+	mud is consistant, standard directions are:
+		north, south, east, west, northeast, northwest, southeast,
+		southwest, up, down, in, out
+	You can use others but its good to update this document and come to
+	an agreement on what they will be called.
+
+void set_hidden_exits( mapping *ex );
+	Similar to set_exists but these exits will not be shown by a normal
+	look.
+
+void add_exit( string direction, string filepath );
+	Allows you to add an entry to your existings exits.
+	You may have some code where someone creates a new exit to a room
+	this function would be used in that case.  Maybe they trigger a
+	cave in which opens up a new cavern to the east.
+
+void add_hidden_exit(string direction, string filepath );
+	Simlar to add_exit but adds a hidden exit.
+
+void remove_exit( string direction );
+	Allows you to remove the exit in a given direction.
+	The exact opposite of add_exit and can be used in similar situations.
+
+void remove_hidden_exit(string direction );
+	Similar to remove_exit but removes a hidden exit.
+
+int query_in_area( string area );
+	Tells you if the room is a part of the area you specify.
+	It returns 1 if it is, 0 if not.
+
