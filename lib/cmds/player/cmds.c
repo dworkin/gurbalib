@@ -37,7 +37,7 @@ void show_cmds( string dir) {
 
    names = map_indices( cmds );
 
-   lines += ({ "Commands: " + dir + "\n" });
+   lines += ({ "Commands: " + dir });
 
    for( d = 0, sz = sizeof( names ); d < sz; d += col ) {
       int colnum;
