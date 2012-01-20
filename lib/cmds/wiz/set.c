@@ -6,6 +6,7 @@ void usage() {
   write("\tstart\t\tyour starting room.\n");
   write("\theight\t\theight of your screen.\n");
   write("\twidth\t\twidth of your screen.\n");
+  write("\thidden\t\tSet to 1 if you want to hide your login from users.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("See also: unset\n");

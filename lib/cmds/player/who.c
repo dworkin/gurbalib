@@ -20,6 +20,7 @@ void main( string str ) {
   int long_flag;
   mixed idletime;
   string idle;
+  int hidden;
 
   if (query_wizard(this_player())) {
      long_flag = 1;
@@ -37,13 +38,21 @@ void main( string str ) {
   write("------------------------------------------------------");
   for( i = 0; i < sizeof( usr ); i++) {
     string line;
+
     line = usr[i]->query_title();
+
+    if ( usr[i]->query_env( "hidden" ) == 1) { 
+       hidden = 1;
+       line += " %^BOLD%^%^RED%^(hidden)%^RESET%^";
+    } else hidden = 0;
+
     if ( query_admin( usr[i] ) ) {
       line += " %^BOLD%^%^BLUE%^(Admin)%^RESET%^";
     }
     else if ( query_wizard( usr[i] ) ) {
       line += " %^CYAN%^(Wizard)%^RESET%^";
     }
+
     idletime = format_time(usr[i]->query_idle());
     if (idletime == "")  {
         idle = "";
@@ -60,7 +69,7 @@ void main( string str ) {
           write(line + "\n\t" + usr[i]->query_name() + "\n");
        }
     } else {
-       write(line + "\n");
+       if (!hidden) write(line + "\n");
     }
   }
   write("------------------------------------------------------");
