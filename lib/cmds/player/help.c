@@ -3,6 +3,7 @@ void usage() {}  // This is a dumy function...
 
 void show_file(string filename) {
   string *tmp;
+  string blah;
   string *lines;
   int i, len, where;
   mixed width;
@@ -10,13 +11,14 @@ void show_file(string filename) {
   width = this_player()->query_env("width");
   if(!intp(width) || width < 2) width = DEFAULT_WIDTH;
 
-  tmp = explode( read_file( filename ), "\n" );
-  lines = ({ });
-  write("Help for " + capitalize(filename) + ".\n");
+  lines = ({ "Help for " + capitalize(filename) + "." });
+  blah = "";
   for( i = 0; i < strlen("Help for " + filename + "."); i++){
-    out("-");
+    blah += "-";
   }
-  write("\n");
+  lines += ({ blah });
+
+  tmp = explode( read_file( filename ), "\n" );
   for( i = 0; i < sizeof( tmp ); i++ ) {
     if( strlen( tmp[i] ) > width ) {
       /* Big line. Break it up. */
