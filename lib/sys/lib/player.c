@@ -39,6 +39,7 @@ int last_login;			/* The last login */
 mapping guilds;			/* The guilds the player is a member of. The values are the guild title. */
 mapping custom_colors;          /* custom color symbols for this player */
 static mixed menu_data;         /* temp storage for menu system */
+int muzzle;			/* if 0 we are allowed to shout. */
 
 void save_me( void );
 void restore_me( void );
@@ -46,6 +47,8 @@ void set_env( string name, mixed value );
 mixed query_env( string name );
 string query_title( void );
 string query_name( void );
+int query_muzzle();
+int toggle_muzzle();
 
 void create( void ) {
   con::create();
@@ -938,6 +941,16 @@ mixed *retrieve_menu() {
   }
 }
 
+int query_muzzle() {
+   return muzzle;
+}
+
+int toggle_muzzle() {
+   if (muzzle) muzzle = 0;
+   else muzzle = 1;
+
+   return muzzle;
+}
 
 void setup() {
 }

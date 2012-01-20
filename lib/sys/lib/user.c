@@ -226,6 +226,7 @@ void login_user( void ) {
   int i;
   int flag;
   object tmp_player;
+  string start;
   
   send_message( 1 );
 
@@ -267,7 +268,14 @@ void login_user( void ) {
      * in the player object.. well, not for today.
      */
     clone_autoload_objects( player->query_autoload_string() );
-    player->move( STARTING_ROOM );
+
+    start = player->query_env("start");
+    if (start && (file_exists(start))) {
+       player->move( start );
+    } else {
+       player->move( STARTING_ROOM );
+    }
+
     player->simple_action( "$N $vlog in.\n" );
     player->do_look( 0 );
     player->write_prompt();

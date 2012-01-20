@@ -2,6 +2,10 @@ void usage() {
   write("Usage: set [-h] [VAR VALUE]\n");
   write("Set an environment variable VAR to VALUE.\n");
   write("If no VAR VALUE pair is given print your current environment.\n");
+  write("Some variables you can set:\n");
+  write("\tstart\t\tyour starting room.\n");
+  write("\theight\t\theight of your screen.\n");
+  write("\twidth\t\twidth of your screen.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("See also: unset\n");

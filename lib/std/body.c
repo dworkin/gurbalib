@@ -13,8 +13,6 @@ inherit "/std/body/gender";
 inherit "/std/body/race";
 inherit "/std/body/snoop"; /* Added by Fudge */
 
-int muzzle;
-
 void create( void )
 {
   hp::create();
@@ -23,15 +21,3 @@ void create( void )
   equipment = ([ ]);
   wielding = ({ });
 }
-
-int query_muzzle() {
-   return muzzle;
-}
-
-int toggle_muzzle() {
-   if (muzzle) muzzle = 0;
-   else muzzle = 1;
-
-   return muzzle;
-}
-
