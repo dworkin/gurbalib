@@ -459,13 +459,12 @@ void more( string *lines ) {
   }
 
   height = query_env( "height" );
-  if( height == nil )
-    height = 23;
-  else if(stringp(height)) 
-    height = str2val(height);
+  if( height == nil ) height = 23;
+  else if(stringp(height)) height = str2val(height);
 
   if(height == -1) height = 23;
   if(height == 0) height = INT_MAX;
+  if(height > 1) height = height -1;
 
   more_line_num = 0;
   more_lines = lines;
@@ -511,6 +510,7 @@ void more_prompt( string arg ) {
 
   if(height == -1) height = 23;
   else if(height == 0) height = INT_MAX;
+  if (height > 1) height = height -1;
 
   if( sizeof( more_lines ) > height + more_line_num ) {
     out_unmod( implode( more_lines[more_line_num..more_line_num+height], "\n" ) );
