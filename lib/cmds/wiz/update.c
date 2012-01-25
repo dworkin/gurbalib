@@ -107,7 +107,7 @@ void main( string str ) {
     }
       
     for( i = 0; i < sizeof( players ); i++ ) {
-      players[i]->move( "/domains/required/rooms/void" );
+      players[i]->move( VOID );
     }
       
     ob = compile_object(str);

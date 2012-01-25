@@ -56,6 +56,7 @@
 #ifndef STARTING_ROOM
 #define STARTING_ROOM "/domains/required/rooms/start"
 #endif
+#define VOID "/domains/required/rooms/void"
 
 #define LANGUAGE_D   "/daemons/language_d"
 #define ANSI_D       "/daemons/ansi_d"

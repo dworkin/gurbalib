@@ -225,6 +225,7 @@ void login_user( void ) {
   object usr;
   int i;
   int flag;
+  int done;
   object tmp_player;
   string start;
   
@@ -270,11 +271,13 @@ void login_user( void ) {
     clone_autoload_objects( player->query_autoload_string() );
 
     start = player->query_env("start");
-    if (start && (file_exists(start))) {
-       player->move( start );
-    } else {
-       player->move( STARTING_ROOM );
+    done = 0;
+    if (start) {
+       done = player->move( start );
+       if (!done) send_message("Invalid room env(start)\n");
     }
+    if (!done) done = player->move( STARTING_ROOM );
+    if (!done) player->move ( VOID );
 
     player->simple_action( "$N $vlog in.\n" );
     player->do_look( 0 );

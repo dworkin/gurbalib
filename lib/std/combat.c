@@ -43,7 +43,7 @@ void die( void ) {
     obj->set_name( capitalize(this_object()->query_name()) );
     obj->move( this_object()->query_environment() );
 
-    this_object()->move( "/domains/required/rooms/void" );
+    this_object()->move( VOID );
     EVENT_D->unsubscribe_event("heart_beat");
     this_object()->destruct();
   } else {
