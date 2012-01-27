@@ -1,6 +1,5 @@
 #include <type.h>
 inherit "/std/body/size"; /* satch */
-/* inherit "/std/modules/m_autoload_filename"; */
 
 static string brief_desc;
 string  long_desc;
@@ -11,10 +10,9 @@ static int object_size;
 string proper_name;
 static string *object_commands;
 static string detailed_desc;
+private int configured;
 
 void setup();
-
-private int configured;
 
 void create( void ) {
   if(configured++) return;
@@ -41,7 +39,7 @@ void set_id( string str, varargs mixed args...) {
 
   if(sizeof(args) && typeof(args[0]) == T_ARRAY) {
     args = args[0];
-	}
+  }
 
   ids = ({ str });
   for( i = 0; i < sizeof( args ); i++ ) {
@@ -55,7 +53,7 @@ void add_id( string str, varargs mixed args...) {
   ids -= ({"nondescript thing"});
   if(sizeof(args) && typeof(args[0]) == T_ARRAY) {
     args = args[0];
-	}
+  }
   size = sizeof(ids);
   /* fix args to set_id so that ids[0] preserved after adding new ids */
   switch(size) {
@@ -67,7 +65,7 @@ void add_id( string str, varargs mixed args...) {
 	  break;
 	default:
 	  set_id(ids[0], ({str})+args+ids[1..(size-1)] );
-	}
+  }
 }
 
 void add_ids( string str, varargs mixed args...) {
@@ -103,8 +101,7 @@ void set_adj( string str, varargs mixed args...) {
 void add_adj( string str, varargs mixed args...) {
   int i;
 
-  if( !adjs )
-    adjs = ({ });
+  if( !adjs ) adjs = ({ });
   adjs += ({ str });
   for( i = 0; i < sizeof( args ); i++ ) {
     adjs += ({ (string) args[i] });
@@ -116,16 +113,15 @@ string *query_adjs( void ) {
 }
 
 string query_adj( void ) {
-  if( sizeof( adjs ) == 0 )
-    return( "" );
+  if( sizeof( adjs ) == 0 ) return( "" );
   return( adjs[0] );
 }
 
 int is_adj( string adj ) {
   int i;
+
   for( i = 0; i < sizeof( adjs ); i++ ) {
-    if( adjs[i] == adj )
-      return( 1 );
+    if( adjs[i] == adj ) return( 1 );
   }
   return( 0 );
 }
@@ -169,16 +165,6 @@ void set_proper_name( string name ) {
 string query_proper_name( void ) {
   return( proper_name );
 }
-/*
-
-void set_size( int sz ) {
-  object_size = sz;
-}
-
-int query_size( void ) {
-  return( object_size );
-}
-*/
 
 object query_environment( void ) {
   return( object_environment );
@@ -212,19 +198,13 @@ nomask int move( mixed destination ) {
     if( destination[strlen( destination )-2..] == ".c" )
       destination = destination[..strlen(destination)-3];
     dest = find_object( destination );
-    if( !dest )
-      dest = compile_object( destination );
+    if( !dest ) dest = compile_object( destination );
   } else {
     dest = destination;
   }
 
-  if( !dest ) {
-    return( 0 );
-  }
-
-  if( object_environment == dest ) {
-    return( 0 );
-  }
+  if( !dest ) return( 0 );
+  if( object_environment == dest ) return( 0 );
 
   err = dest->receive_object( this_object() );
 
@@ -245,8 +225,8 @@ nomask int move( mixed destination ) {
 	}
       }
     }
+
     object_environment->remove_object( this_object() );
-    
   }
 
   object_environment = dest;
@@ -262,7 +242,6 @@ nomask int move( mixed destination ) {
       }
     }
   }
-  
   
   return( 1 );
 }
@@ -280,11 +259,11 @@ nomask void add_verb_rules(string verb, varargs mixed rules) {
 	  break;
     }
   return;
-  }
+}
 
 nomask mapping query_verb_rules() {
     return PARSE_D->query_objects_rules(this_object() );
-  }
+}
 
 void add_object_command( string command ) {
   if( !object_commands )
