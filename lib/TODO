@@ -56,3 +56,7 @@ restructure doc and doc/help directory
 Come up with some standards for combat/exp skills
 make -h work for verbs
 
+
+Need to make an interface for global aliases like n = north
+	n -h doesn't work...
+	make an alias drink = eat
