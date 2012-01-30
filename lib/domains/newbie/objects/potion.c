@@ -1,11 +1,14 @@
 inherit OBJECT;
-// inherit M_EATABLE;
-// XXX Needs work....
 
 void setup( void ) {
   set_id( "potion" );
-  set_short("potion of healing");
-  set_long( "A red potion in a fancy bottle.\n");
+  set_adj("small", "healing", "red");
+  set_long( "A small fancy bottle, with a faintly glowing red liquid in it.  " +
+     "A lable on the bottle says ode de Healing.\n");
+
+  // WHy doesn't this work??? XXX
+  set_brief( "A small red potion");
+
   set_edable(1);
 }
 

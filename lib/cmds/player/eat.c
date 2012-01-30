@@ -8,7 +8,7 @@ void usage() {
 void main( string str ) {
   object obj;
 
-  if (str && str != "") {
+  if (!str && str != "") {
      usage();
      return;
   }
