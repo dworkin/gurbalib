@@ -188,11 +188,11 @@ void destruct( void ) {
 }
 
 nomask int move( mixed destination ) {
-  int err;
+  mixed err;
   object dest;
 
-  if( !destination )
-    return( 0 );
+  if( !destination ) return( 0 );
+
   if( typeof( destination ) == T_STRING ) {
     /* Remove trailing .c */
     if( destination[strlen( destination )-2..] == ".c" )
@@ -208,8 +208,9 @@ nomask int move( mixed destination ) {
 
   err = dest->receive_object( this_object() );
 
-  if( !err || err != 1) {
-    write( "Error in move:" + err + "\n" );
+  if( !err || (err != 1)) {
+    if (err) write( "Error in move:" + err + "\n" );
+    else write( "Error in move.\n" );
     return( 0 );
   }
 
