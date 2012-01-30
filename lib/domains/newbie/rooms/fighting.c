@@ -14,7 +14,7 @@ void setup( void ) {
 
   set_exits( ([ 
 	       "north" : "/domains/newbie/rooms/equipment",
-	       "south" : "/domains/newbie/rooms/quest",
+	       "south" : "/domains/newbie/rooms/drinkme",
   ]) );
 }
 

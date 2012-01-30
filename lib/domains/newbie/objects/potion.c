@@ -1,7 +1,6 @@
 inherit OBJECT;
-inherit M_EATABLE;
-
-// XXX Need to finish this and actually put it in a room...
+// inherit M_EATABLE;
+// XXX Needs work....
 
 void setup( void ) {
   set_id( "potion" );

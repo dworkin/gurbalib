@@ -9,7 +9,7 @@ void setup( void ) {
      "towards a large red button.");
 
   set_exits( ([ 
-	       "north" : "/domains/newbie/rooms/fighting",
+	       "north" : "/domains/newbie/rooms/drinkme",
 	       "out" : "/domains/newbie/rooms/tree",
   ]) );
 
