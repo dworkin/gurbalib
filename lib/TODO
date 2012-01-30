@@ -58,7 +58,3 @@ restructure doc and doc/help directory
 Come up with some standards for combat/exp skills
 make -h work for verbs
 
-If you set wizards environment varilabe start to an object things get mucked up
-example set start /domains/required/object/corpse.c
-	Should dump you in the void not mess up your char...
-
