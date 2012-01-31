@@ -56,10 +56,9 @@ restructure doc and doc/help directory
 Come up with some standards for combat/exp skills
 make -h work for verbs
 
-
 Need to make an interface for global aliases like n = north
-	n -h doesn't work...
-	make an alias drink = eat
+	or figure out what it is if it already exists???
+
 
 Why sys/obj/user/telnet.c  it just inherits /sys/lib/user right now ???
 	if you look at kernel/include/std.h it defines:
@@ -68,3 +67,13 @@ kernel/include/std.h:#define SSH_USER_OB     "/sys/obj/user/ssh"
 kernel/include/std.h:#define HTTP_USER_OB    "/sys/obj/user/http"
 kernel/include/std.h:#define FTP_USER_OB     "/sys/obj/user/ftp_command"
 	so it should maybe be more modular???
+
+make it so that /data/players/sirdude.o and
+sys/daemons/data/users/s/sirdude.o are more similar...
+Also need to figure out a maildir for users:
+data/mail/s/sirdude.o   or something similar...
+(maybe also a data/mail/s/sirdude.hdr file as well, can be computed from 
+	the first though.)
+something like a function that returns players/s/sirdude.o given sirdude
+that we can add to a prefix....  
+
