@@ -8,3 +8,5 @@
 #define LEG    "leg"
 #define WAIST  "waist"
 #define FINGER "finger"
+
+// XXX This file is not used yet...  Need to use it or remove it.
