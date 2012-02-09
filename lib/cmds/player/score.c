@@ -20,6 +20,7 @@ void main( string str ) {
    int ac, i, ducats, royals, crowns;
    mixed *money;
    object obj;
+   string age;
 
    quest = 0;
    if (str == "-q") {
@@ -57,6 +58,7 @@ void main( string str ) {
    expr   = obj->query_expr();
    ac     = obj->query_defense();
    level  = obj->query_level();
+   age = obj->query_age();
 
    write( "[ " + obj->query_name() + " ] " + obj->query_title() + "\n" );
    write( "Strength    :  " + obj->query_stat("str") +
@@ -72,7 +74,7 @@ void main( string str ) {
    write("Charisma    :  " + obj->query_stat("cha") +
 	"\t\t" + "Experience  :   " + expr + "\n" );
    write("\t\t\t\t" + "Armor class :   " + ac + "\n" );
-   write("\t\t\t\t" + "Money:\n" );
+   write("Age:" + age + "\t" + "Money:\n" );
 
    for( i = 0; i < sizeof( money ); i++ ) {
       switch( money[i][0] ) {

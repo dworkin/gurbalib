@@ -3,12 +3,17 @@ static int heal_amount;
 static int heal_time;
 int player_age;
 
+#define YEAR 31536000
+#define DAY 86400
+#define MIN 60
+
 int    is_fighting( void );
 void   do_fight( void );
 int    is_alive();
 int    is_dead();
 int    add_stat( string statname, int amt );
 int    query_stat( string statname );
+string query_age();
 
 
 void set_heal_rate( int rate ) {
@@ -78,7 +83,38 @@ void event_heart_beat( void ) {
   }
 }
 
+string query_age() {
+   string ret;
+   int years, days, mins, secs;
 
-nomask int query_age(varargs int raw) {
-  return player_age;
+   secs = player_age;
+   ret = " ";
+   while(secs > YEAR) {
+      years += 1;
+      secs -= YEAR;
+   }
+   while(secs > DAY) {
+      days += 1;
+      secs -= DAY;
+   }
+   while(secs > MIN) {
+      mins += 1;
+      secs -= MIN;
+   }
+
+   if (years > 0) {
+      ret += years + " years ";
+   }
+   if (days > 0) {
+      ret += days + " days ";
+   }
+   if (mins > 0) {
+      ret += mins + " mins ";
+   }
+   if (secs > 0) {
+      ret += secs + " secs ";
+   }
+
+   return ret;
 }
+

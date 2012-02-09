@@ -370,6 +370,7 @@ void print_finger_info(object player, object player2, int cloned) {
     } else {
       player->message("%^BLUE%^Status: %^RESET%^Player\n");
     }
+    player->message( "%^BLUE%^Age:%^RESET%^ " + player2->query_age() + "\n");
 
    if (query_wizard(player)) {
       player->message("%^BLUE%^Description:%^RESET%^ " + 
