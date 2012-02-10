@@ -9,6 +9,8 @@ void usage() {
   write("See also: date, time, scan\n");
 }
 
+// XXX Has a bunch of experimental stuff in it that needs to be cleaned up.
+
 void display_driver(mixed *stat) {
   write("Driver version         : "+(string)stat[ST_VERSION]+"\n");
   write("System Start time      : "+(string)ctime(stat[ST_STARTTIME])+"\n");
@@ -39,6 +41,7 @@ void display_driver(mixed *stat) {
 void display_obj(mixed *stat,object obj) {
   int i, maxi;
   mixed *tmp;
+  string *incs;
 
   write("OBJ ID                 : "+(string)stat[O_INDEX]+"\n");
   write("Filename               : "+ obj->file_name() + "\n");
@@ -48,17 +51,37 @@ void display_obj(mixed *stat,object obj) {
   write("Sectors                : "+(string)stat[O_NSECTORS]+"\n");
   write("Callout's              :\n");
   tmp = stat[O_CALLOUTS];
-  maxi = sizeof(tmp);
-  for(i=0;i<maxi;i++) {
-    write("\t" + tmp[i] + "\n");
+  if (tmp) {
+     maxi = sizeof(tmp);
+     for(i=0;i<maxi;i++) {
+        write("\t" + tmp[i] + "\n");
+     }
   }
   write("Undefined Functions    :  XXX (Need to implement this bit...)\n");
   tmp = stat[O_UNDEFINED];
-//  maxi = sizeof(tmp);
-//  for(i=0;i<maxi;i++) {
-//    write("\t" + tmp[i] + "\n");
-//  }
-  write("Inherited              :" + (string)stat[O_INSTANTIATED] + "\n");
+  if (tmp) {
+     maxi = sizeof(tmp);
+     for(i=0;i<maxi;i++) {
+        write("\t" + tmp[i] + "\n");
+     }
+  }
+  write("Inherited              :" + (string)stat[O_INHERITED] + "\n");
+  write("Instantiated           :" + (string)stat[O_INSTANTIATED] + "\n");
+  tmp = DRIVER->find_all_depending_programs(obj->file_name());
+  if (tmp) {
+     maxi = sizeof(tmp);
+     for(i=0;i<maxi;i++) {
+        write("\t" + tmp[i] + "\n");
+     }
+  }
+  incs = COMPILER_D->query_includes(obj->file_name());
+  if (incs) {
+     maxi = sizeof(incs);
+     for(i=0;i<maxi;i++) {
+        write("\t" + incs[i] + "\n");
+     }
+  }
+  write("Owner: " + owner_file( obj->file_name() ) + "\n");
 }
 
 void main( string str ) {
@@ -76,6 +99,25 @@ void main( string str ) {
 
     if (!obj) {
       obj = this_player()->present( str );
+    }
+
+    if (!obj) {
+       obj = USER_D->find_user( str );
+    }
+    
+    str = normalize_path(str, this_player()->query_env( "cwd" ));
+
+    if ( file_exists ( str ) ) {
+       if (!obj) {
+          obj = find_object( str );
+       }
+       if (!obj) {
+          obj = compile_object( str );
+          if (obj) {
+             obj->setup();
+             obj->setup_mudlib();
+          }
+       }
     }
 
     if (obj) {
