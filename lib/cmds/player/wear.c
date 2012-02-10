@@ -9,6 +9,7 @@ void usage() {
 void main( string str ) {
   object obj;
   object worn;
+  string slot;
 
   if (sscanf(str, "-%s",str)) {
      usage();
@@ -25,7 +26,13 @@ void main( string str ) {
     return;
   }
 
-  worn = this_player()->query_slot( obj->query_slot() );
+  slot = obj->query_slot();
+  if (!this_player()->query_valid_slot( slot )) {
+     write("You can not wear that.\n");
+     return;
+  }
+
+  worn = this_player()->query_slot( slot );
   if( worn ) {
     write("You're already wearing a " + worn->query_id() + "." );
     return;

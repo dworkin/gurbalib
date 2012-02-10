@@ -45,6 +45,29 @@ string query_slot( void ) {
   return( slot );
 }
 
+int query_valid_slot( string str ) {
+   str = lowercase( str );
+
+   switch( str ) {
+      case "torso":
+      case "head":
+      case "hands":
+      case "feet":
+      case "arm":
+      case "neck":
+      case "body":
+      case "legs":
+      case "waist":
+      case "finger":
+         return 1;
+         break;
+      default:
+         break;
+    }
+
+    return 0;
+}
+
 void set_slot( string str ) {
   str = lowercase( str );
 
