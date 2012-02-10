@@ -3,7 +3,15 @@ void usage() {
   write("Evaluate the lpc code: STRING.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
+  write("\t.me  is shorthand for this_player()\n");
+  write("\t.here  is shorthand for this_environment()\n");
+  write("Examples:\n");
+  write("\teval write(\"My hp: \" + this_player()->query_hp() + \"\\n\");\n");
+  write("\teval .here->tell_room(.me,\"Hi\\n\");\n");
 }
+
+// XXX how do you do  write(find_player("sirdude")->query_hp() + "\n");
+// or something similar....
 
 void main( string src, varargs mixed args...) {
   object obj;
