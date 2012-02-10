@@ -14,8 +14,17 @@ makes sense.
 Fix:
 	You grab your the stick (wield it)
 
+COMBAT
 	Make m_aggressive or something similar...
 		not sure I like the m_  syntax and or system
+	figure out scheme when you die?
+		clone corpse, drop everything, move to void?
+		if make it back to body before timeout or someone loots
+		you get everything. (Need to figure out looting as well
+			then...)
+		have empty bodys decompse faster than bodys that still have
+		something in them.  Could just put "exp on the body
+		 like demon souls..."
 
 	move race and guild commands to player and have a "skill" 
 		the the command depends on.
