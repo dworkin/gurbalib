@@ -36,7 +36,7 @@ void main( string str ) {
   if (str != "") {
      str = capitalize(str);
 
-     usr = USER_D->query_users();
+     usr = USER_D->query_players();
      for ( i = 0; i < sizeof (usr); i++) {
     	if (((usr[i]->query_environment() == this_environment()) && 
            usr[i]->query_race() == "catfolk" )) {

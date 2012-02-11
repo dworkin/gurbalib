@@ -21,15 +21,15 @@ void do_shutdown() {
    object *usrs;
    int i, max;
 
-   usrs = USER_D->query_users();
+   usrs = USER_D->query_players();
    max = sizeof(usrs);
    for( i=0; i < max; i++ ) {
-      usrs[i]->query_player()->message( "Shutdown initiated by : " +
+      usrs[i]->message( "Shutdown initiated by : " +
          this_player()->query_Name() + "\n");
-      usrs[i]->query_player()->message( "Game driver tells you: " +
+      usrs[i]->message( "Game driver tells you: " +
          "Shutting down immediately!\n");
-      usrs[i]->query_player()->message( "  Reason : " + reason + "\n");
-      usrs[i]->query_player()->save_me();
+      usrs[i]->message( "  Reason : " + reason + "\n");
+      usrs[i]->save_me();
    }
    shutdown();
 }
@@ -38,17 +38,17 @@ void countdown( int mins) {
    object *usrs;
    int i;
 
-   usrs = USER_D->query_users();
+   usrs = USER_D->query_players();
 
    if( mins == 0 ) {
       do_shutdown();
    } else {
       for( i=0; i < sizeof( usrs ); i++ ) {
-         usrs[i]->query_player()->message( "Shutdown initiated by : " +
+         usrs[i]->message( "Shutdown initiated by : " +
             this_player()->query_Name() + "\n");
-         usrs[i]->query_player()->message( "Game driver tells you: " +
+         usrs[i]->message( "Game driver tells you: " +
             "Shutting down in " + mins + " minutes!\n");
-         usrs[i]->query_player()->message( "  Reason : " + reason + "\n");
+         usrs[i]->message( "  Reason : " + reason + "\n");
       }
       call_out( "countdown", 60, mins -1 );
    }

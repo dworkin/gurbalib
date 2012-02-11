@@ -79,8 +79,8 @@ follow_fudge( void ) {
 void 
 parse( string str ) {
   if( str == "status" ) {
-    respond( "say There are " + sizeof( USER_D->query_users() ) + " players here." );
-    respond( "say Of these " + sizeof( USER_D->query_users() ) + " players, " + sizeof( USER_D->query_wizards() ) + " are wizards." );
+    respond( "say There are " + sizeof( USER_D->query_players() ) + " players here." );
+    respond( "say Of these " + sizeof( USER_D->query_players() ) + " players, " + sizeof( USER_D->query_wizards() ) + " are wizards." );
   } else {
     respond( str );
   }

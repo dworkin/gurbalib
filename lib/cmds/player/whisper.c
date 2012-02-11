@@ -31,13 +31,17 @@ void main( string who) {
      what = capitalize(what);
   }
 
-  usr = USER_D->query_users();
+  usr = USER_D->query_players();
   flag = 0;
     for ( i = 0; i < sizeof (usr); i++) {
-      if ((usr[i]->query_player()->query_environment() == this_environment()) && (usr[i]->query_player()->query_name() == who)) {
-	usr[i]->query_player()->message( capitalize(this_player()->query_name()) + " whispers to you: " + what + "\n");
+      if ((usr[i]->query_environment() == this_environment()) && 
+        (usr[i]->query_name() == who)) {
+	usr[i]->message( capitalize(this_player()->query_name()) + 
+           " whispers to you: " + what + "\n");
 	write( "You whisper to " + capitalize(who) + ": " + what + "\n");
-	this_player()->query_environment()->tell_room(this_player(), capitalize(this_player()->query_name()) + " whispers something to " + capitalize(who) + ".\n", usr[i]->query_player());
+	this_player()->query_environment()->tell_room(this_player(), 
+          capitalize(this_player()->query_name()) + 
+          " whispers something to " + capitalize(who) + ".\n", usr[i]);
 	flag = 1;
       }
     }

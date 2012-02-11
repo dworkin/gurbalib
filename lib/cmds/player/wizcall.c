@@ -21,7 +21,7 @@ void main (string str){
      return;
   }
 
-  usrs = players();
+  usrs = USER_D->query_wizards();
 
   if (str != "") {
     for (i = 0; i < sizeof(usrs); i++){

@@ -13,12 +13,12 @@ void main( string str ) {
   object usr;
 
   if (!str || (str == "")) {
-    usrs = USER_D->query_users();
+    usrs = USER_D->query_players();
 
     for( i = 0; i < sizeof( usrs ); i++ ) {
       write( capitalize( usrs[i]->query_name() ) + " "
-	   + usrs[i]->query_player()->query_environment()->query_brief() + " "
-	   + usrs[i]->query_player()->query_environment()->base_name() + "\n"
+	   + usrs[i]->query_environment()->query_brief() + " "
+	   + usrs[i]->query_environment()->base_name() + "\n"
 	   );
     }
   } else {
@@ -29,6 +29,7 @@ void main( string str ) {
 	   + usr->query_player()->query_environment()->query_brief() + " "
 	   + usr->query_player()->query_environment()->base_name() + "\n"
 	   );
+// XXX why do I need usr->query_player()  shouldn't...
      } else {
         write("Who are you looking for?  I can't find: " + str + "!\n");
      }

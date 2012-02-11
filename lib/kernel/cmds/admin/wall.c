@@ -25,8 +25,10 @@ void main( string str ) {
 
       max = sizeof(users);
       for (i = 0; i < max; i++) {
-         users[i]->query_player()->message("WALL from " + 
+         users[i]->message("WALL from " + 
             capitalize(this_player()->query_name()) + ": " + str + "\n");
+//         users[i]->query_player()->message("WALL from " + 
+//            capitalize(this_player()->query_name()) + ": " + str + "\n");
       }
 
       return;
@@ -42,10 +44,10 @@ void main( string str ) {
      return;
    }
 
-  users = USER_D->query_users();
+  users = USER_D->query_players();
   max = sizeof(users);
   for (i = 0; i < max; i++) {
-     users[i]->query_player()->message("WALL from " + 
+     users[i]->message("WALL from " + 
         capitalize(this_player()->query_name()) + ": " + str + "\n");
   }
 } 
