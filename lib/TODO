@@ -87,3 +87,7 @@ figureout why query_users, query_players, users()  do we need all of them?
 	query_users() you need to do ->query_player()  why
 	find_user(string str)  you also need to do a ->query_player() odd...
 
+Also look at query_Name vs query_name and friends... seems like there
+are a few overlaps that are not needed...
+
+
