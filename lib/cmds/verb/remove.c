@@ -4,6 +4,7 @@ void usage() {
      "wearing.\n");
   write("Options:\n");
   write("\tall\tRemoves all removable objects.\n");
+  write("See also: wear, wield\n");
 }
 
 string *query_verb_info() {

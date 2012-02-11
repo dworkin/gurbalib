@@ -4,6 +4,7 @@ void usage() {
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("\tall\tEquips all available objects.\n");
+  write("See also: wear, remove.\n");
 }
 
 string *query_verb_info() {
