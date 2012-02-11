@@ -6,7 +6,7 @@ void usage() {
   write("If no object is given it displays stats for the driver.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
-  write("See also: date, time, scan\n");
+  write("See also: date, time, wtime, scan\n");
 }
 
 // XXX Has a bunch of experimental stuff in it that needs to be cleaned up.
