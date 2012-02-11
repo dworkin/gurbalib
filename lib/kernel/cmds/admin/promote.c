@@ -14,8 +14,28 @@ void usage() {
   write("\tpromote sirdude player\tMake sirdude a normal player\n");
 }
 
+void display_level( string str) {
+
+   if(USER_D->query_admin(str)) {
+      write("User: " + str + " is currently a admin\n");
+      return;
+   }
+   if(USER_D->query_wizard(str)) {
+      write("User: " + str + " is currently a wiz\n");
+      return;
+   }
+   if(USER_D->user_exists(str)) {
+      write("User: " + str + " is currently a player\n");
+      return;
+   }
+
+   write("Who are you trying to promote?\n");
+   usage();
+}
+
 void main( string str ) {
   string who, what;
+  int numargs;
 
   if( !str || str == "" ) {
     usage();
@@ -27,7 +47,7 @@ void main( string str ) {
      return;
   }
   if (sscanf(str, "%s %s", who, what) != 2) {
-     usage();
+     display_level(str);
      return;
   }
   if (!USER_D->user_exists(who)) {
