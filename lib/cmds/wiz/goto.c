@@ -13,7 +13,6 @@ void usage() {
 
 void main( string str ) {
   object usr;
-  object player;
 
   if (!str || str == "") {
      usage();
@@ -30,8 +29,10 @@ void main( string str ) {
       usr->query_player()->query_environment()){  
       this_player()->query_environment()->tell_room( this_player(), 
         capitalize(this_player()->query_name()) + " disappears.\n");
-      player = usr->query_player();
-      this_player()->move(player->query_environment()->base_name());
+
+// XXX Shouldn't need query_player()
+      this_player()->move(usr->query_player()->query_environment()->base_name());
+
       this_player()->query_environment()->tell_room( this_player(), 
         capitalize(this_player()->query_name()) + " appears from nowhere.\n");
       this_player()->do_look(0);

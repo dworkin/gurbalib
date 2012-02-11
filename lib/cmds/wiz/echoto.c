@@ -24,11 +24,11 @@ void main( string who ) {
 
   sscanf( who, "%s %s", who, msg );
 
-  usr = users();
+  usr = USER_D->query_players();
   flag = 0;
   for( i = 0; i < sizeof( usr ); i++) {
     if( usr[i]->query_name() == who ) {
-      usr[i]->query_player()->message( "\n" + msg + "\n");
+      usr[i]->message( "\n" + msg + "\n");
       write( "You echo to " + who + ": '" + msg + "'\n");
       flag = 1;
     }

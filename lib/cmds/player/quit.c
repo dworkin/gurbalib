@@ -11,6 +11,6 @@ void main( string str ) {
      return;
   }
 
-  this_user()->query_player()->do_quit();
+   this_player()->do_quit();
 }
 
