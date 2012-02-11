@@ -15,6 +15,23 @@ void main( string str ) {
      usage();
      return;
   }
+  if (sscanf(str, "-w %s",str)) {
+     if( !require_priv( "system" ) ) {
+        write("You need admin permissions to do that.");
+        return;
+      }
+
+      users = USER_D->query_wizards();
+
+      max = sizeof(users);
+      for (i = 0; i < max; i++) {
+         users[i]->query_player()->message("WALL from " + 
+            capitalize(this_player()->query_name()) + ": " + str + "\n");
+      }
+
+      return;
+  }
+
   if (sscanf(str, "-%s",str)) {
      usage();
      return;
