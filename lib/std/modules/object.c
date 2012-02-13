@@ -120,16 +120,6 @@ void set_proper_name( string name ) {
 string query_proper_name( void ) {
   return( proper_name );
 }
-/*
-
-void set_size( int sz ) {
-  object_size = sz;
-}
-
-int query_size( void ) {
-  return( object_size );
-}
-*/
 
 object query_environment( void ) {
   return( object_environment );
