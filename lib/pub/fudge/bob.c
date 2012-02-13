@@ -31,7 +31,7 @@ void follow_fudge( void ) {
   }
 
   if( nFudgeHere == 0 ) {
-    fudge = USER_D->find_user( "fudge" );
+    fudge = USER_D->find_player( "fudge" );
     if( !fudge ) {
       /* Fudge has left the building */
       remove_call_out( nFollow );

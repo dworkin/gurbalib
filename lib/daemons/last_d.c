@@ -21,7 +21,7 @@ void add_entry( string name, int on ) {
   string ip;
   object usr;
  
-  if((usr = USER_D->find_user(name))) {
+  if((usr = USER_D->find_player(name))) {
     ip = query_ip_number(usr);
   } 
 

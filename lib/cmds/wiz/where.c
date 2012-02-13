@@ -24,12 +24,11 @@ void main( string str ) {
   } else {
      if (sscanf(str, "-%s",str)) {
         usage();
-     } else if (usr = USER_D->find_user(str) ) {
+     } else if (usr = USER_D->find_player(str) ) {
         write( capitalize( usr->query_name() ) + " "
-	   + usr->query_player()->query_environment()->query_brief() + " "
-	   + usr->query_player()->query_environment()->base_name() + "\n"
+	   + usr->query_environment()->query_brief() + " "
+	   + usr->query_environment()->base_name() + "\n"
 	   );
-// XXX why do I need usr->query_player()  shouldn't...
      } else {
         write("Who are you looking for?  I can't find: " + str + "!\n");
      }

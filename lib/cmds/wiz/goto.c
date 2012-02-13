@@ -23,15 +23,14 @@ void main( string str ) {
     return;
   }
   
-  usr = USER_D->find_user(str);
+  usr = USER_D->find_player(str);
   if (usr){
     if (this_player()->query_environment() != 
-      usr->query_player()->query_environment()){  
+      usr->query_environment()){  
       this_player()->query_environment()->tell_room( this_player(), 
         capitalize(this_player()->query_name()) + " disappears.\n");
 
-// XXX Shouldn't need query_player()
-      this_player()->move(usr->query_player()->query_environment()->base_name());
+      this_player()->move(usr->query_environment()->base_name());
 
       this_player()->query_environment()->tell_room( this_player(), 
         capitalize(this_player()->query_name()) + " appears from nowhere.\n");

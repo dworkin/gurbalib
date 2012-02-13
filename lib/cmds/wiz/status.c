@@ -102,7 +102,7 @@ void main( string str ) {
     }
 
     if (!obj) {
-       obj = USER_D->find_user( str );
+       obj = USER_D->find_player( str );
     }
     
     str = normalize_path(str, this_player()->query_env( "cwd" ));

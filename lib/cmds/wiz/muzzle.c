@@ -16,15 +16,15 @@ void main( string str ) {
   } else {
      if (sscanf(str, "-%s",str)) {
         usage();
-     } else if (usr = USER_D->find_user(str) ) {
-	val = usr->query_player()->toggle_muzzle();
+     } else if (usr = USER_D->find_player(str) ) {
+	val = usr->toggle_muzzle();
         if (val) {
 	   write(capitalize(str) + " muzzled.\n");
-	   usr->query_player()->message( "You have been muzzled by:" +
+	   usr->message( "You have been muzzled by:" +
               capitalize(this_player()->query_name()) + "\n");
         } else {
 	   write(capitalize(str) + " unmuzzled.\n");
-	   usr->query_player()->message( "You have been unmuzzled by:" +
+	   usr->message( "You have been unmuzzled by:" +
               capitalize(this_player()->query_name()) + "\n");
         }
      } else {

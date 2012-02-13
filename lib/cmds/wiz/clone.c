@@ -7,10 +7,6 @@ void usage() {
   write("See also: warmboot, rebuild, update\n");
 }
 
-object get_who(string who) {
-   return USER_D->find_user(who);
-}
-
 string get_what(string str) {
   string path;
 
@@ -45,7 +41,7 @@ void main( string str ) {
   }
 
   if (sscanf(str, "%s %s",what,who)) {
-     player = get_who(who);
+     player = USER_D->find_player(who);
      what = get_what(what);
   } else {
      what = get_what(str);
@@ -78,7 +74,7 @@ void main( string str ) {
         }
 
         if (ob->is_gettable()) {
-          ob->move( player->query_player() );
+          ob->move( player );
         } else {
           ob->move( player->query_environment() );
         }
