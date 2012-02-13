@@ -336,10 +336,6 @@ string query_name( void ) {
   return(user_name);
 }
 
-string query_player_name( void ) {
-  return( player->query_name() );
-}
-
 void mssp_reply( void ) {
   /* Change these values in /include/mssp.h */
 
