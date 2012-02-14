@@ -62,7 +62,7 @@ void main( string str ) {
 
       if (player) {
         write("You clone: " + article( ob->query_id() ) + " " +
-          ob->query_id() + " and send it to " + player->query_name() + "\n");
+          ob->query_id() + " and send it to " + player->query_Name() + "\n");
         if (player->query_environment() != this_environment()) {
 	    player->query_environment()->tell_room(player,
               article(ob->query_id()) + " " + ob->query_id() +

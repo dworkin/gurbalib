@@ -21,11 +21,11 @@ void main( string msg){
     for (i = 0; i < sizeof(usr); i++) {
       usr[i]->message("\n" + 
         "%^RED%^System Message from %^GREEN%^" + 
-        capitalize(this_player()->query_name()) + 
+        this_player()->query_Name() + 
         "%^RED%^ on %^WHITE%^" + ctime(time()) + "%^RED%^:%^RESET%^\n");
       usr[i]->message("\"" + msg + "\"");
     }
-    write_file("/logs/sysmsg", capitalize(this_player()->query_name()) + 
+    write_file("/logs/sysmsg", this_player()->query_Name() + 
        " on " + ctime(time()) + ": \"" + msg + "\"\n");
   }
 }

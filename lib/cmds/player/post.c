@@ -65,6 +65,6 @@ void enter_line( string line ) {
     this_player()->set_editing( 0 );
     this_player()->write_prompt();
     this_environment()->tell_room( this_player(), 
-      capitalize(this_player()->query_name()) + " posts a new message.\n" );
+      this_player()->query_Name() + " posts a new message.\n" );
   }
 }

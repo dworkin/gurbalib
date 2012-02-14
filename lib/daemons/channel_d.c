@@ -206,7 +206,7 @@ void chan_who( string chan ) {
 
   users = listeners[chan];
   for( i = 0, sz = sizeof( users ); i < sz; i ++ ) {
-    write( "  " + capitalize( users[i]->query_name() ) + "\n" );
+    write( "  " + users[i]->query_Name() + "\n" );
   }
 }
 
@@ -350,9 +350,9 @@ void chan_emote( string chan, string what ) {
     }
   } else {
     if( arg && arg != "" )
-      what = capitalize( this_player()->query_name() ) + " " + cmd + " " + arg;
+      what = this_player()->query_Name() + " " + cmd + " " + arg;
     else
-      what = capitalize( this_player()->query_name() ) + " " + cmd;
+      what = this_player()->query_Name() + " " + cmd;
   }
   
 #ifdef SYS_NETWORKING
@@ -360,7 +360,7 @@ void chan_emote( string chan, string what ) {
   for( i = 0, sz = sizeof( ichans ); i < sz; i++ ) {
     if( imud[ichans[i]] == chan ) {
 
-       what = replace_string( what, capitalize( this_player()->query_name() ), "$N" );
+       what = replace_string( what, this_player()->query_Name(), "$N" );
     
       /* Found an intermud channel */
       IMUD_D->do_channel_e( ichans[i], what );

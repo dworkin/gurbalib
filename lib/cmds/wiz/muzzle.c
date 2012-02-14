@@ -21,11 +21,11 @@ void main( string str ) {
         if (val) {
 	   write(capitalize(str) + " muzzled.\n");
 	   usr->message( "You have been muzzled by:" +
-              capitalize(this_player()->query_name()) + "\n");
+              this_player()->query_Name() + "\n");
         } else {
 	   write(capitalize(str) + " unmuzzled.\n");
 	   usr->message( "You have been unmuzzled by:" +
-              capitalize(this_player()->query_name()) + "\n");
+              this_player()->query_Name() + "\n");
         }
      } else {
         write("Who are you looking for?  I can't find: " + str + "!\n");

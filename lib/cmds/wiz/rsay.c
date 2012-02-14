@@ -44,13 +44,13 @@ void main(string str) {
 	if ((usr[i]->query_environment() == this_player()->query_environment())
            && (usr[i]->query_race() == "catfolk") && 
            (usr[i] != this_player()) ) {
-	   usr[i]->message( capitalize(this_player()->query_name()) + 
+	   usr[i]->message( this_player()->query_Name() + 
               " says in cattongue: " + str + "\n");
 	}
 	if ((usr[i]->query_environment() == this_player()->query_environment())
            && (usr[i]->query_race() != "catfolk") && 
            (usr[i] != this_player()) ) {
-	   usr[i]->out( capitalize(this_player()->query_name()) + " says:");
+	   usr[i]->out( this_player()->query_Name() + " says:");
 	   for (k = 0; k < sizeof (words); k++) {
 	      tmp = usr[i]->catfolk_to_english(words[k]);
 	      usr[i]->out( " " + tmp );

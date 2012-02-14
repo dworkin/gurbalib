@@ -11,6 +11,7 @@ private static mapping subject;
 private static mapping ob;
 
 void main( string str ) {
+   string player_name;
 
   if ( !str || str == "" ) {
     usage();
@@ -26,19 +27,20 @@ void main( string str ) {
     subject = ([ ]);
     ob = ([ ]);
   }
+  player_name = this_player()->query_Name();
 
-  ob[this_player()->query_name()] = 
+  ob[player_name] = 
     "/domains/required/rooms/bug_room"->present( "board" );
-  if( !ob[this_player()->query_name()] ) {
+  if( !ob[player_name] ) {
     write( "Unable to locate the bug board. Tell a wizard.\n" );
     return;
   } 
 
   if( !str || str == "" ) {
-    subject[this_player()->query_name()] = "[" + 
+    subject[player_name] = "[" + 
       this_player()->query_environment()->file_name() + "]";
   } else {
-    subject[this_player()->query_name()] = str;
+    subject[player_name] = str;
   } 
 
   write( " \nPlease enter your text below.\n" +
@@ -47,15 +49,18 @@ void main( string str ) {
      "--------------------\n");
   this_player()->input_to_object( this_object(), "enter_line" );
   this_player()->set_editing( 1 );
-  msg[this_player()->query_name()] = "";
+  msg[player_name] = "";
 }
 
 void enter_line( string line ) {
+  string player_name;
+
+  player_name = this_player()->query_Name();
   if( line != "." && line != "**" && line != "~a" ) {
-    if( !msg[this_player()->query_name()] ) {
-      msg[this_player()->query_name()] = line + "\n";
+    if( !msg[player_name] ) {
+      msg[player_name] = line + "\n";
     } else {
-      msg[this_player()->query_name()] = msg[this_player()->query_name()] + 
+      msg[player_name] = msg[player_name] + 
         line + "\n";
     }
     this_player()->input_to_object( this_object(), "enter_line" );
@@ -63,20 +68,18 @@ void enter_line( string line ) {
     if( line == "~a" ) {
       write( " \nMessage aborted.\n" );
     } else {
-      ob[this_player()->query_name()]->add_message( 
-        this_player()->query_name(),
-        subject[this_player()->query_name()], 
-        msg[this_player()->query_name()] );
+      ob[player_name]->add_message( player_name,
+        subject[player_name], 
+        msg[player_name] );
       write( " \nBug report sent! Thank you.\n" );
       CHANNEL_D->chan_send_string( "wiz", 
-        capitalize(this_player()->query_name()), 
+        player_name, 
         "sends off a bug report.", 1 );
       
     }
     this_player()->set_editing( 0 );
     this_player()->write_prompt();
-    this_environment()->tell_room( this_player(), 
-      capitalize(this_player()->query_name()) + 
+    this_environment()->tell_room( this_player(), player_name + 
       " lets us all know how much the mud sucks.\n" );
   }
 }

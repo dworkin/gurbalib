@@ -23,7 +23,7 @@ void main (string str) {
    if (this_player()->query_muzzle()) {
       write("A magical muzzle has been placed on you, you can not shout.\n");
       this_player()->query_environment()->tell_room( this_player(),
-         capitalize(this_player()->query_name()) + " tries to shout but " +
+         this_player()->query_Name() + " tries to shout but " +
          "the words will not come out.\n" );
       return;
    }
@@ -32,7 +32,7 @@ void main (string str) {
 
    for (i = 0; i < sizeof(usrs); i++) {
       usrs[i]->message("%^RED%^" + "" + 
-         capitalize(this_player()->query_name()) + " shouts: %^RESET%^" + 
+         this_player()->query_Name() + " shouts: %^RESET%^" + 
          str + "\n");
    }
 }

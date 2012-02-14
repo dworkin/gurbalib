@@ -26,13 +26,15 @@ void main(string str) {
             write( "We're summoning " + str + ", who is currently here: " + 
                usr->query_environment()->file_name() );
             usr->message( "%^RED%^" + 
-               capitalize(this_player()->query_name()) + 
+               this_player()->query_Name() + 
                " requests your presence.%^RESET%^" );
-            usr->query_environment()->tell_room(usr, capitalize(usr->query_name()) + " disappears in a flurry of fluff.\n");
+            usr->query_environment()->tell_room(usr, usr->query_Name() + 
+               " disappears in a flurry of fluff.\n");
             usr->move(this_player()->query_environment());
             usr->message( "You abruptly find yourself somewhere else.\n" );
             usr->do_look(0);
-            usr->query_environment()->tell_room( usr, capitalize(usr->query_name()) + " appears in a cloud of fluff.\n" );
+            usr->query_environment()->tell_room( usr, usr->query_Name() + 
+               " appears in a cloud of fluff.\n" );
         } else {
             write(capitalize(str) + " is already here.\n");
         }

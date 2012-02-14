@@ -36,11 +36,11 @@ void main( string who) {
     for ( i = 0; i < sizeof (usr); i++) {
       if ((usr[i]->query_environment() == this_environment()) && 
         (usr[i]->query_name() == who)) {
-	usr[i]->message( capitalize(this_player()->query_name()) + 
+	usr[i]->message( this_player()->query_Name() + 
            " whispers to you: " + what + "\n");
 	write( "You whisper to " + capitalize(who) + ": " + what + "\n");
 	this_player()->query_environment()->tell_room(this_player(), 
-          capitalize(this_player()->query_name()) + 
+          this_player()->query_Name() + 
           " whispers something to " + capitalize(who) + ".\n", usr[i]);
 	flag = 1;
       }

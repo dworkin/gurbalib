@@ -28,12 +28,12 @@ void main( string str ) {
     if (this_player()->query_environment() != 
       usr->query_environment()){  
       this_player()->query_environment()->tell_room( this_player(), 
-        capitalize(this_player()->query_name()) + " disappears.\n");
+        this_player()->query_Name() + " disappears.\n");
 
       this_player()->move(usr->query_environment()->base_name());
 
       this_player()->query_environment()->tell_room( this_player(), 
-        capitalize(this_player()->query_name()) + " appears from nowhere.\n");
+        this_player()->query_Name() + " appears from nowhere.\n");
       this_player()->do_look(0);
     } else { 
       out( "Going somewhere?\n");
@@ -62,7 +62,7 @@ void main( string str ) {
 
       this_environment()->event( "body_leave", this_player() );
       this_environment()->tell_room( this_player(), 
-        capitalize(this_player()->query_name()) + " disappears.\n" );
+        this_player()->query_Name() + " disappears.\n" );
       if( !ob || !this_player()->move( ob ) ) {
 	write( "\nConstruction blocks your path.\n" );
       } else {
@@ -70,7 +70,7 @@ void main( string str ) {
       }
       this_environment()->event( "body_enter", this_player() );
       this_environment()->tell_room( this_player(), 
-         capitalize(this_player()->query_name()) + " appears.\n" );
+         this_player()->query_Name() + " appears.\n" );
     } else {
       write( "Unable to find " + str + ".\n" );
     }

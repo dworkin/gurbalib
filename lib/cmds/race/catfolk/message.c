@@ -40,12 +40,12 @@ void main( string str ) {
      for ( i = 0; i < sizeof (usr); i++) {
     	if (((usr[i]->query_environment() == this_environment()) && 
            usr[i]->query_race() == "catfolk" )) {
-	   usr[i]->message( capitalize(this_player()->query_name()) + 
+	   usr[i]->message( this_player()->query_Name() + 
               " secretly tells you: " + str + "\n");
 	   write( "You secretly communicate: " + str + "\n");
 	} else if (usr[i]->query_environment() == this_environment() ) {
-	   usr[i]->message( capitalize(this_player()->query_name() + 
-              "'s ears twitch briefly.\n"));
+	   usr[i]->message( this_player()->query_Name() + 
+              "'s ears twitch briefly.\n");
 	}
      }
   }

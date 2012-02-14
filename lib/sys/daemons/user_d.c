@@ -360,7 +360,7 @@ void upgraded() {
 
 void print_finger_info(object player, object player2, int cloned) {
     player->message( "%^BLUE%^Name:%^RESET%^ " + 
-       capitalize(player2->query_name()) + "\n");
+       player2->query_Name() + "\n");
     player->message( "%^BLUE%^Title:%^RESET%^ " + player2->query_title() + 
        "\n");
     if ( query_admin(player2->query_name()) == 1 ) {

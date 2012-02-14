@@ -381,7 +381,7 @@ void login_who( void ) {
 
   if (sz > 0) out += "------------------------------------------------------\n";
   for( i = 0; i < sz; i++ ) {
-    out += capitalize(usr[i]->query_name());
+    out += usr[i]->query_Name();
     if ( query_admin( usr[i] ) > 0 ) {
       out += " (Admin)";
     } else if ( query_wizard( usr[i] ) > 0 ) {

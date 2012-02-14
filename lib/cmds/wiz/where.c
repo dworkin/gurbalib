@@ -16,7 +16,7 @@ void main( string str ) {
     usrs = USER_D->query_players();
 
     for( i = 0; i < sizeof( usrs ); i++ ) {
-      write( capitalize( usrs[i]->query_name() ) + " "
+      write( usrs[i]->query_Name() + " "
 	   + usrs[i]->query_environment()->query_brief() + " "
 	   + usrs[i]->query_environment()->base_name() + "\n"
 	   );
@@ -25,7 +25,7 @@ void main( string str ) {
      if (sscanf(str, "-%s",str)) {
         usage();
      } else if (usr = USER_D->find_player(str) ) {
-        write( capitalize( usr->query_name() ) + " "
+        write( usr->query_Name() + " "
 	   + usr->query_environment()->query_brief() + " "
 	   + usr->query_environment()->base_name() + "\n"
 	   );

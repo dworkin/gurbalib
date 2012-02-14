@@ -47,7 +47,7 @@ void main( string str ) {
     this_player()->do_look( 0 );
   } else {
     env->tell_room( this_player(), 
-       capitalize( this_player()->query_name() ) + " looks confused." );
+       this_player()->query_Name() + " looks confused." );
     write( "You can't go home.\nError: " + error );    
   }
 }

@@ -25,7 +25,7 @@ void do_pick(string arg) {
       write("As you reach for the flower, a giant bunny rabbit appears, " +
          "blocking your way.\n");
       this_player()->query_environment()->tell_room(this_player(),
-         capitalize(this_player()->query_name()) + 
+         this_player()->query_Name() + 
          " reaches for the flower in the center of the room.\n" +
          "All of a sudden a giant bunny rabbit appears blocking their path.\n");
       

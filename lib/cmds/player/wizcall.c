@@ -26,8 +26,10 @@ void main (string str){
   if (str != "") {
     for (i = 0; i < sizeof(usrs); i++){
       if ( query_wizard( usrs[i] ) ) {
-	usrs[i]->message("%^RED%^" + "" + capitalize(this_player()->query_name()) + " wizcalls: %^RESET%^" + str + "\n");
-	write_file( "/logs/wizcall", capitalize(this_player()->query_name()) + " on " + ctime(time()) + ": " + str + "\n");
+	usrs[i]->message("%^RED%^" + "" + this_player()->query_Name() + 
+           " wizcalls: %^RESET%^" + str + "\n");
+	write_file( "/logs/wizcall", this_player()->query_Name() + " on " + 
+           ctime(time()) + ": " + str + "\n");
       }
     }
   } else {

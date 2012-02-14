@@ -26,7 +26,7 @@ void main( string str ) {
       max = sizeof(users);
       for (i = 0; i < max; i++) {
          users[i]->message("WALL from " + 
-            capitalize(this_player()->query_name()) + ": " + str + "\n");
+            this_player()->query_Name() + ": " + str + "\n");
       }
 
       return;
@@ -46,7 +46,7 @@ void main( string str ) {
   max = sizeof(users);
   for (i = 0; i < max; i++) {
      users[i]->message("WALL from " + 
-        capitalize(this_player()->query_name()) + ": " + str + "\n");
+        this_player()->query_Name() + ": " + str + "\n");
   }
 } 
 

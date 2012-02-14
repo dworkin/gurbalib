@@ -175,20 +175,20 @@ static void send_to_all(string sType, mixed *mpMessage)
 
 void do_channel_m( string chan, string what ) {
  
-  send_to_all( "channel-m",({ chan, capitalize(this_player()->query_name()),
+  send_to_all( "channel-m",({ chan, this_player()->query_Name(),
 				 what }) );
 }
 
 void do_channel_e( string chan, string what ) {
  
-  send_to_all( "channel-e",({ chan, capitalize(this_player()->query_name()),
+  send_to_all( "channel-e",({ chan, this_player()->query_Name(),
 				 what }) );
 }
 
 void do_tell( string who, string where, string what ) {
   string s;
 
-  if (catch(s = capitalize(this_player()->query_name()))) 
+  if (catch(s = this_player()->query_Name())) 
     s = object_name(this_object()); /* if not a player sending the tell, identify ourself */
 
   send_to_user( "tell", where, who, ({ s, what }) );
@@ -287,7 +287,7 @@ void rcv_locate_req( string origmud, mixed origuser, mixed destuser,
   u = USER_D->find_player( lowercase( rest[0] ) );
   if( u ) {
     send_to_user( "locate-reply", origmud, origuser, 
-	  ({ IMUD_NAME, capitalize( u->query_name() ), u->query_idle(), 0 }) );
+	  ({ IMUD_NAME, u->query_Name(), u->query_idle(), 0 }) );
   }
 }
 
@@ -322,7 +322,7 @@ void rcv_who_req( string origmud, mixed origuser, mixed destuser,
   
   for( i = 0; i < sizeof( p ); i++ ) {
     msg += ({ ({
-             capitalize( p[i]->query_player()->query_name() ), 
+             p[i]->query_player()->query_Name(), 
 	     p[i]->query_player()->query_idle(), 
 	     p[i]->query_player()->query_title() 
 	   }) });

@@ -22,7 +22,7 @@ void add_entry( string str ) {
     write( "Sorry, only true wizards may add to the did log.\n" );
     return;
   }
-  str = capitalize( this_user()->query_name() ) + " " + str;
+  str = this_user()->query_Name() + " " + str;
   did += ({ ({ time(), str }) });
   save_me();
 

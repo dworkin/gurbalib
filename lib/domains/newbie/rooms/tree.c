@@ -33,11 +33,11 @@ int enter_hole(string arg) {
       } else {
          dest = "/domains/newbie/rooms/entrance";
          this_player()->query_environment()->tell_room( this_player(),
-            capitalize(this_player()->query_name()) + " enters the hole.\n");
+            this_player()->query_Name() + " enters the hole.\n");
          write("You enter the hole.\n");
          this_player()->move(dest);
          this_player()->query_environment()->tell_room( this_player(),
-            capitalize(this_player()->query_name()) + 
+            this_player()->query_Name() + 
             " pops out of the hole.\n");
          this_player()->do_look(0);
       }
@@ -56,7 +56,7 @@ int break_branch(string str) {
          write("There are no branches left on the tree that you can reach.\n");
       } else {
          this_player()->query_environment()->tell_room( this_player(),
-            capitalize(this_player()->query_name()) + 
+            this_player()->query_Name() + 
             " breaks a branch off of the tree.\n");
          write("You break a branch off of the tree.\n");
          obj = clone_object("/domains/newbie/objects/stick.c");

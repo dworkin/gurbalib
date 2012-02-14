@@ -36,7 +36,7 @@ void main( string str ) {
   } else {
     usr = USER_D->find_player(who);
     if( usr && !usr->query_ignored(this_player()->query_name()) ) {
-        usr->message( "%^PLAYER%^" + capitalize(this_player()->query_name()) + 
+        usr->message( "%^PLAYER%^" + this_player()->query_Name() + 
           "%^RESET%^ tells you: %^TELL_FROM%^" + str + "%^RESET%^\n" );
         usr->set_last_tell( lowercase( this_player()->query_name() ) );
         write( "You tell%^PLAYER%^ " + capitalize(who) + 

@@ -60,13 +60,13 @@ void main( string arg ) {
       file = normalize_path( arg, "/doc/help/wiz/");
       if( file_exists(file) < 1 ) {
 	write( capitalize(arg) + ": Unknown help topic." );
-	LOG_D->write_log("help", capitalize(this_player()->query_name()) + 
+	LOG_D->write_log("help", this_player()->query_Name() + 
            " on " + ctime(time()) + ": " + arg + "\n");
 	return;
       }
     } else {
       write( capitalize(arg) + ": Unknown help topic." );
-      write_file("/logs/help", capitalize(this_player()->query_name()) + 
+      write_file("/logs/help", this_player()->query_Name() + 
          " on " + ctime(time()) + ": " + arg + "\n");
       return;
     }

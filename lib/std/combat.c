@@ -40,7 +40,7 @@ void die( void ) {
 
   obj = clone_object( "/domains/required/objects/corpse" );
   if( this_object()->is_player() ) {
-    obj->set_name( capitalize(this_object()->query_name()) );
+    obj->set_name( this_object()->query_Name() );
     obj->move( this_object()->query_environment() );
 
     this_object()->move( VOID );

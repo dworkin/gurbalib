@@ -53,7 +53,8 @@ void do_look_str( string str ) {
     write("Look at what?" );
 	return;
 	}
-  this_environment()->tell_room( this_player(), capitalize( this_player()->query_name() ) + " looks at the " + lowercase(str) + ".\n" );
+  this_environment()->tell_room( this_player(), this_player()->query_Name() + 
+     " looks at the " + lowercase(str) + ".\n" );
   write( this_environment()->query_item( str ) );
 }
 
@@ -62,7 +63,8 @@ void do_look_obj( object obj ) {
   int flag;
   object *objs;
   this_environment()->event( "body_look_at", this_player(), obj );
-  this_environment()->tell_room( this_player(), capitalize( this_player()->query_name() ) + " looks at the " + obj->query_id() + ".\n" );
+  this_environment()->tell_room( this_player(), this_player()->query_Name() + 
+     " looks at the " + obj->query_id() + ".\n" );
   write( obj->query_long() );
   if( obj->is_closed() ) {
     write( "It is closed." );
@@ -86,7 +88,8 @@ void do_look_liv( object obj ) {
   int flag;
   object *objs;
 
-  this_environment()->tell_room( this_player(), capitalize( this_player()->query_name() ) + " looks at " + capitalize( obj->query_id() ) + ".\n" );
+  this_environment()->tell_room( this_player(), this_player()->query_Name() + 
+     " looks at " + capitalize( obj->query_id() ) + ".\n" );
   write( obj->query_long() );
   write( "A " + obj->query_gender() + " " + obj->query_race() + 
     " who is " + obj->query_status() + "\n");
@@ -142,7 +145,8 @@ void do_look_str_liv( string str, object obj ) {
 	return;
   }
   
-  this_environment()->tell_room( this_player(), capitalize( this_player()->query_name() ) + " looks at " + capitalize( obj->query_id() ) + ".\n" );
+  this_environment()->tell_room( this_player(), this_player()->query_Name() + 
+     " looks at " + capitalize( obj->query_id() ) + ".\n" );
   write( obj->query_long() );
   write( "A " + obj->query_gender() + " " + obj->query_race() + 
     " who is " + obj->query_status() + "\n");

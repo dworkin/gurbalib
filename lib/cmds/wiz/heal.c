@@ -25,10 +25,10 @@ void main( string str ) {
   max_hp = obj->query_max_hp();
   obj->set_hp(max_hp);
   this_player()->query_environment()->tell_room(this_player(),
-    capitalize(this_player()->query_name()) + " waves their hands in odd " +
+    this_player()->query_Name() + " waves their hands in odd " +
     "funny gestures.\n" +
-    capitalize(obj->query_name()) + " is completely healed!\n");
-  write("You wave your hands and heal " + capitalize(obj->query_name()) +
+    obj->query_Name() + " is completely healed!\n");
+  write("You wave your hands and heal " + obj->query_Name() +
     ".\n");
 }
 
