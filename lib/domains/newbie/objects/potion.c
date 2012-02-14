@@ -1,4 +1,5 @@
 inherit OBJECT;
+inherit M_GETTABLE;
 
 void setup( void ) {
   set_id( "potion" );
@@ -9,7 +10,8 @@ void setup( void ) {
   // WHy doesn't this work??? XXX
   set_brief( "A small red potion");
 
-  set_edable(1);
+  set_edable( 1 );
+  set_gettable( 1 );
 }
 
 int do_eat( void ) {
