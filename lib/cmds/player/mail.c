@@ -4,35 +4,49 @@ string msgdate;
 string *body;
 
 void usage() {
-  if (query_admin( this_player() ) ) {  // Give the 'all' syntax to admin's
-     write("Usage: mail [-h] [all|PLAYER1 [PLAYER2] [...]]\n");
-     write("Send a mud mail to the players specified.\n");
-     write("You may also use all to send a mudmail to all players.\n");
-     write("If no player is given check your mail to see if you have " +
-        "any incomming messages.\n");
-     write("Inside of the mail command you have the following options.\n");
-     write("\td #\tDelete message #\n");
-     write("\tm PLAYER\tSend a  message to PLAYER\n");
-     write("\tm all\tSend a  message to all players\n");
-     write("\tl \tView your mail.\n");
-     write("\tq \tQuit.\n");
-     write("Options:\n");
-     write("\t-h\tHelp, this usage message.\n");
-     write("See also: say, tell, whisper, emote\n");
-  } else {
-     write("Usage: mail [-h] [PLAYER1] [PLAYER2]]\n");
-     write("Send a mud mail to the players specified.\n");
-     write("If no player is given check your mail to see if you have " +
-        "any incomming messages.\n");
-     write("Inside of the mail command you have the following options.\n");
-     write("\td #\tDelete message #\n");
-     write("\tm PLAYER\tSend a  message to PLAYER\n");
-     write("\tl \tView your mail.\n");
-     write("\tq \tQuit.\n");
-     write("Options:\n");
-     write("\t-h\tHelp, this usage message.\n");
-     write("See also: say, tell, whisper, emote\n");
-  }
+   string usage;
+   string all;
+
+   if (query_admin( this_player() ) ) {  
+      usage = "Usage: mail [-h] [all|PLAYER1 [PLAYER2] [...]]\n";
+      all = "\tm all\tSend a message to all players\n";
+   } else {
+       usage = "Usage: mail [-h] [PLAYER1] [PLAYER2]]\n";
+   }
+  
+   write(usage);
+   write("Send a mud mail to the players specified.\n");
+   write("You may also use all to send a mudmail to all players.\n");
+   write("If no player is given check your mail to see if you have " +
+      "any incomming messages.\n");
+   write("Inside of the mail command you have the following options.\n");
+   write("\td #\tDelete message #\n");
+   write("\tm PLAYER\tSend a message to PLAYER\n");
+   if (all) write(all);
+   write("\tl \tView your mail.\n");
+   write("\tq \tQuit.\n");
+   write("Options:\n");
+   write("\t-h\tHelp, this usage message.\n");
+   write("See also: say, tell, whisper, emote\n");
+}
+
+void delete_message(string str) {
+   int x;
+
+   if (sscanf(str,"%d",x)) {
+
+// XXX do the work here...
+
+   } else {
+      write("You need to enter a message number to delete.\n");
+      this_player()->input_to_object(this_object(), "view_mailbox");
+   }
+}
+
+void show_menu() {
+   write("Commands: d # (delete message) m player (mail player)  " +
+      "l (list inbox) q (quit)\n");
+   this_player()->input_to_object(this_object(), "view_mailbox");
 }
 
 void view_mailbox(string str) {
@@ -42,15 +56,20 @@ void view_mailbox(string str) {
 
    if (!str || str == "") {
    } else if (str == "q" || str == "quit") {
+       return;
+   } else if (str == "d" || str == "del" || str == "delete") {
+      write("What message # do you want to delete:");
+      this_player()->input_to_object(this_object(), "delete_message");
+   } else if (str == "m" || str == "mail") {
+      write("Who do you want to send a message to: ");
+      this_player()->input_to_object(this_object(), "send_message");
    } else {
       if (sscanf(str,"%s %s",cmd, what) != 2) {
-         write("Commands: d # (delete message) m player (mail player)  " +
-            "l (list inbox) q (quit)\n");
-         this_player()->input_to_object(this_object(), "view_mailbox");
+	 show_menu();
          return;
       }
       if (cmd == "d" || cmd == "del" || cmd == "delete") {
-         // MAIL_D->delete_message(this_player()->query_name(), what);
+         delete_message(what);
       }
       if (cmd == "m" || cmd == "mail") {
         to = explode(what, " ");
@@ -60,19 +79,18 @@ void view_mailbox(string str) {
    }
 
    // messages = MAIL_D->get_messages(this_player()->query_name());
-   max = sizeof(messages);
+   if (messages) max = sizeof(messages);
+   else max = 0;
 
    for (x=0;x<max;x++) {
-   //    write(x + "\t" + messages[x]->query_subject() + "(" +
-   //       messages[x]->query_from() + ")\n";
+       write(x + "\t" + messages[x]->query_subject() + "(" +
+          messages[x]->query_from() + ")\n");
    }
    if (max < 1) {
       write("You have no mail!\n");
    }
 
-   write("Commands: d # (delete message) m player (mail player)  " +
-      "l (list inbox) q (quit)\n");
-   this_player()->input_to_object(this_object(), "view_mailbox");
+   show_menu();
 }
 
 void get_subject(string str) {
@@ -81,10 +99,6 @@ void get_subject(string str) {
       this_player()->input_to_object(this_object(), "get_subject");
    }
 
-}
-
-string *get_all_users() {
-// XXX Need to do this...
 }
 
 void main( string str ) {
@@ -101,7 +115,7 @@ void main( string str ) {
 
    if (str == "all") {
       if (query_admin( this_player() ) ) {
-        to = get_all_users();
+        to = USER_D->list_all_users();
       } else {
          write("You are not an admin you may not send an email to everyone.\n");
 	 return;
