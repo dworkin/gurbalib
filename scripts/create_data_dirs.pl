@@ -28,6 +28,7 @@ makedir("lib/data/banned/a");
 makedir("lib/data/banned/b");
 makedir("lib/data/banned/c");
 makedir("lib/data/players");
+makedir("lib/data/mail");
 makedir("lib/domains/gurba/data");
 makedir("lib/domains/gurba/data/boards");
 makedir("lib/kernel/daemons/data");
