@@ -1,6 +1,6 @@
 #define AUTH_DATA "/sys/daemons/auth_data"
 #define CACHE_INTERVAL 300
-#define AUTH_DATA_DIR "/sys/daemons/data/users/"
+#define AUTH_DATA_DIR "/sys/daemons/data/users"
 
 static mapping users;
 static mapping cache;
@@ -168,7 +168,7 @@ int login( string name, string secret ) {
 }
 
 int user_exists( string name ) {
-  return unguarded( "file_exists", AUTH_DATA_DIR + name[0..0] + "/" + name + ".o" ) == 1;
+  return unguarded( "file_exists", AUTH_DATA_DIR + "/" + name + ".o" ) == 1;
 }
 
 static int _new_user( string name, string secret ) {
@@ -218,7 +218,7 @@ void delete_user( string name ) {
 
   LAST_D->remove_entry(name);
 
-  unguarded( "remove_file", AUTH_DATA_DIR + name[0..0] + "/" + name + ".o" );
+  unguarded( "remove_file", AUTH_DATA_DIR + "/" + name + ".o" );
   unguarded( "remove_file", "/data/players/" + name + ".o" );
 }
 

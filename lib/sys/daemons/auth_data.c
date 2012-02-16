@@ -1,4 +1,4 @@
-#define AUTH_DATA_DIR "/sys/daemons/data/users/"
+#define AUTH_DATA_DIR "/sys/daemons/data/users"
 
 string name;
 string password;
@@ -10,7 +10,7 @@ static void secure() {
 }
 
 static void save_me() {
-  unguarded( "save_object", AUTH_DATA_DIR + name[0..0] + "/" + name + ".o" );
+  unguarded( "save_object", AUTH_DATA_DIR + "/" + name + ".o" );
 }
 
 int load( string str ) {
@@ -18,7 +18,7 @@ int load( string str ) {
 
   secure();
 
-  file = AUTH_DATA_DIR + str[0..0] + "/" + str + ".o";
+  file = AUTH_DATA_DIR + "/" + str + ".o";
 
   return unguarded( "restore_object", file ); 
 }

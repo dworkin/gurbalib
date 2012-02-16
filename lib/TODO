@@ -65,7 +65,6 @@ make -h work for verbs
 Need to make an interface for global aliases like n = north
 	or figure out what it is if it already exists???
 
-
 Why sys/obj/user/telnet.c  it just inherits /sys/lib/user right now ???
 	if you look at kernel/include/std.h it defines:
 kernel/include/std.h:#define TELNET_USER_OB  "/sys/obj/user/telnet"
@@ -74,14 +73,10 @@ kernel/include/std.h:#define HTTP_USER_OB    "/sys/obj/user/http"
 kernel/include/std.h:#define FTP_USER_OB     "/sys/obj/user/ftp_command"
 	so it should maybe be more modular???
 
-make it so that /data/players/sirdude.o and
-sys/daemons/data/users/s/sirdude.o are more similar...
-Also need to figure out a maildir for users:
-data/mail/s/sirdude.o   or something similar...
-(maybe also a data/mail/s/sirdude.hdr file as well, can be computed from 
+need to figure out a maildir for users:
+data/mail/sirdude.o   or something similar...
+(maybe also a data/mail/sirdude.hdr file as well, can be computed from 
 	the first though.)
-something like a function that returns players/s/sirdude.o given sirdude
-that we can add to a prefix....  
 
 figureout why query_users, query_players, users()  do we need all of them?
 	query_users() you need to do ->query_player()  why
@@ -89,5 +84,4 @@ figureout why query_users, query_players, users()  do we need all of them?
 
 Also look at query_Name vs query_name and friends... seems like there
 are a few overlaps that are not needed...
-
 
