@@ -332,6 +332,24 @@ int player_exists( string str ) {
   return unguarded( "file_exists", "/data/players/"+str+".o" ) > 0;
 }
 
+string *list_all_users() {
+   string *names;
+   string *files;
+   string name;
+   int x, i;
+
+   names = ({ });
+   files = get_dir( "/data/players/*.o" )[0];
+
+   for (i = sizeof(files) -1; i >= 0; i--) {
+      x=strlen(files[i]) -3;
+      name = files[i][..x];
+      names += ({name});
+   }
+
+   return names;
+}
+
 void upgraded() {
   object * u;
   int i,sz;
