@@ -35,7 +35,7 @@ void delete_message(string str) {
 
    if (sscanf(str,"%d",x)) {
 
-// XXX do the work here...
+// XXX do the work here... delete(x);
 
    } else {
       write("You need to enter a message number to delete.\n");
@@ -47,6 +47,67 @@ void show_menu() {
    write("Commands: d # (delete message) m player (mail player)  " +
       "l (list inbox) q (quit)\n");
    this_player()->input_to_object(this_object(), "view_mailbox");
+}
+
+void get_subject(string str) {
+   if (!str || str == "") {
+      write("Subject: ");
+      this_player()->input_to_object(this_object(), "get_subject");
+   } 
+
+// XXX do stuff here...
+}
+
+void continue_mail(string str) {
+   if (!str || str == "") {
+      write("Do you want to continue? (Y|N):");
+   }
+   if (str == "y" || str == "Y") {
+	get_subject("");
+   } else {
+      show_menu();
+   }
+}
+
+void verify_to(string str) {
+   int x, max, error;
+
+   if (!str || str == "") {
+      write("To: ");
+      this_player()->input_to_object(this_object(), "verify_to");
+   } else {
+      error = 0;
+      if (str == "all") {
+         if (query_admin( this_player() ) ) {
+           to = USER_D->list_all_users();
+         } else {
+            write("You are not an admin you may not send an " +
+               "email to everyone.\n");
+            return;
+         }
+      } else {
+         verify_to(str);
+         x = 0; 
+         max = sizeof(to);
+         while(x< max) {
+           if (USER_D->player_exists(to[x])) {
+              x = x + 1;
+           } else {
+               write("invalid user: to[x], removing...\n");
+	       to[x] = "";
+               error = 1;
+           }
+         }
+      }
+      if (error) {
+         write("You had some invalid users.\nSending mail to : ");
+         x=0;
+         while(x<max) {
+            write(to[x] + " ");
+         }
+         continue_mail("");
+      }
+   }
 }
 
 void view_mailbox(string str) {
@@ -72,9 +133,7 @@ void view_mailbox(string str) {
          delete_message(what);
       }
       if (cmd == "m" || cmd == "mail") {
-        to = explode(what, " ");
-        write("Subject: ");
-        this_player()->input_to_object(this_object(), "get_subject");
+        verify_to(what);
       }
    }
 
@@ -93,55 +152,16 @@ void view_mailbox(string str) {
    show_menu();
 }
 
-void get_subject(string str) {
-   if (!str || str == "") {
-      write("Subject: ");
-      this_player()->input_to_object(this_object(), "get_subject");
-   }
-
-}
-
 void main( string str ) {
-   int x, max, error;
-
-   error = 0;
    if (!str || str == "") {
-	view_mailbox("");
-   }
-   if (sscanf(str, "-%s",str)) {
-      usage();
-      return;
-   }
-
-   if (str == "all") {
-      if (query_admin( this_player() ) ) {
-        to = USER_D->list_all_users();
-      } else {
-         write("You are not an admin you may not send an email to everyone.\n");
-	 return;
-      }
+	show_menu();
    } else {
-      to = explode(str, " ");
-      if (!to) {
-         to[0] = str;
+      if (sscanf(str, "-%s",str)) {
+         usage();
+         return;
       }
-      x = 0; 
-      max = sizeof(to);
-      while(x< max) {
-        if (USER_D->player_exists(to[x])) {
-           x = x + 1;
-        } else {
-            write("invalid user: to[x], removing...\n");
-// XXX need to actually remove the name
-            error = 1;
-        }
-      }
-   }
-   if (error) {
-      // XXX do you want to contiune???
-   }
 
-   write("Subject: ");
-   this_player()->input_to_object(this_object(), "get_subject");
+      verify_to(str);
+   }
 }
 
