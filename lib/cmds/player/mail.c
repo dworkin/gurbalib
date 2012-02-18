@@ -49,13 +49,30 @@ void show_menu() {
    this_player()->input_to_object(this_object(), "view_mailbox");
 }
 
+void send_message(string str) {
+   if (!str || str == "") {
+      write("Send Message? (Y|N):");
+   }
+   if (str == "y" || str == "Y") {
+      // Send the message.
+   } else if (str == "n" || str == "N") {
+      show_menu();
+   } else {
+      send_message("");
+   }
+}
+
 void get_subject(string str) {
    if (!str || str == "") {
       write("Subject: ");
       this_player()->input_to_object(this_object(), "get_subject");
    } 
 
-// XXX do stuff here...
+   subject = str;
+
+// XXX  body = editor results?
+
+   send_message("");
 }
 
 void continue_mail(string str) {
@@ -117,13 +134,15 @@ void view_mailbox(string str) {
 
    if (!str || str == "") {
    } else if (str == "q" || str == "quit") {
+       write("Thank you for using mudmail!\n");
        return;
    } else if (str == "d" || str == "del" || str == "delete") {
       write("What message # do you want to delete:");
       this_player()->input_to_object(this_object(), "delete_message");
+   } else if (str == "l" || str == "list" || str == "list inbox") {
+      view_mailbox("");
    } else if (str == "m" || str == "mail") {
-      write("Who do you want to send a message to: ");
-      this_player()->input_to_object(this_object(), "send_message");
+      verify_to("");
    } else {
       if (sscanf(str,"%s %s",cmd, what) != 2) {
 	 show_menu();
