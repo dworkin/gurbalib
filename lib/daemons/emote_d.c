@@ -1,5 +1,4 @@
 mapping emotes;
-string *adverbs;
 
 static void save_me( void ) {
   unguarded( "save_object", "/daemons/data/emote_d.o" );
@@ -11,19 +10,7 @@ static void restore_me( void ) {
 
 void create( void ) {
   emotes = ([ ]);
-  adverbs = ({ });
   restore_me();
-}
-
-void add_addverb( string str ) {
-  adverbs -= ({ str });
-  adverbs += ({ str });
-  save_me();
-}
-
-void remove_addverb( string str ) {
-  adverbs -= ({ str });
-  save_me();
 }
 
 void add_emote( string name, string rule, string fmt ) {
@@ -60,3 +47,4 @@ void remove_emote( string name ) {
   emotes[name] = nil;
   save_me();
 }
+
