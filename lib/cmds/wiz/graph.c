@@ -39,6 +39,22 @@ void print_node(string room, string dir) {
    }
 }
 
+// XXX Need to replace the above function with this one...
+void print_nodes_step(string *files, int i) {
+   int size;
+
+   size = sizeof(files);
+   if (i >= size) {
+      // Were done.
+   } else {
+      while((i <size) && (status()[ST_TICKS] < TIMEOUT)) {
+// XXX         # printout the node
+         i += 1;
+      }
+      call_out("print_nodes_step", 0, files, i);
+   }
+}
+
 void main( string str ) {
   int i, size;
   string *files;
