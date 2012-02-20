@@ -1,3 +1,5 @@
+#define TIMEOUT 2000
+
 void usage() {
   write("Usage: graph [-h] DIR\n");
   write("prints dot compatible output of a graph of the directory you " +
