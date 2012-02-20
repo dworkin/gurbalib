@@ -41,8 +41,7 @@ void print_node(string room, string dir) {
    }
 }
 
-// XXX Need to replace the above function with this one...
-void print_nodes_step(string *files, int i) {
+void print_nodes_step(string *files, string str, int i) {
    int size;
 
    size = sizeof(files);
@@ -50,10 +49,10 @@ void print_nodes_step(string *files, int i) {
       // Were done.
    } else {
       while((i <size) && (status()[ST_TICKS] < TIMEOUT)) {
-// XXX         # printout the node
+         print_node(files[i],dir);
          i += 1;
       }
-      call_out("print_nodes_step", 0, files, i);
+      call_out("print_nodes_step", 0, files, str, i);
    }
 }
 
@@ -83,7 +82,7 @@ void main( string str ) {
  if( strlen(str) > 1 && str[strlen(str)-1] == '/' ) {
     str = str[..strlen(str)-2];
   }
-    
+
   if( file_exists( str ) != -1 ) {
     write( "Dir not found.\n" );
     return;
@@ -104,8 +103,8 @@ void main( string str ) {
   write_file(filename,"digraph G {\n");
   write_file(filename,"\toverlap = scale;\n");
 
-  for(i=0;i < size; i++) {;
-     print_node(files[i],str);
+  print_node(files,str,0);
+     print_nodes_step(files,str,0);
   }
   write_file(filename,"}\n");
   write_file(filename,"# End: str\n");
