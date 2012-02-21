@@ -10,7 +10,18 @@ void usage() {
   write("\tYou will see You blink.\n");
   write("\t everyone else will see Sirdude blink. (If your name is sirdude)\n");
 
-// XXX Need to flesh out help here.... what are the special symbols...
+  write("Options:\n");
+  write("\t-h\tHelp, this usage message.\n");
+  write("\t$N\tUpper case name of the player emoting\n");
+  write("\t$n\tLower case name of the player emoting\n");
+  write("\t$v(verb)\tDefines (verb) as a verb and the parser will " +
+     "change output.\n");
+  write("\t$T\tUpper case name of target.\n");
+  write("\t$t\tLower case name of target.\n");
+  write("\t$O\tUpper case name of object.\n");
+  write("\t$o\tLower case name of object.\n");
+  write("\t$s()\t\n");
+  write("\t$p\tPossesive\n");
 
   write("Examples:\n");
   write("\taddemote blink $N blink.\n");
