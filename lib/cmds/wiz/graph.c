@@ -1,3 +1,6 @@
+#include <std.h>
+#include <status.h>
+
 #define TIMEOUT 2000
 
 void usage() {
@@ -42,22 +45,29 @@ void print_node(string room, string dir) {
 }
 
 void print_nodes_step(string *files, string str, int i) {
-   int size;
+   int size, ticks;
 
    size = sizeof(files);
    if (i >= size) {
-      // Were done.
+      write_file(filename,"}\n");
+      write_file(filename,"# End: size = " + size + " Dir = " + str + "\n");
    } else {
-      while((i <size) && (status()[ST_TICKS] < TIMEOUT)) {
-         print_node(files[i],dir);
-         i += 1;
+      ticks = MAX_TICKS - status()[ST_TICKS];
+      while((i < size) && (ticks < TIMEOUT)) {
+         print_node(files[i],str);
+         ticks = MAX_TICKS - status()[ST_TICKS];
+         i = i + 1;
       }
-      call_out("print_nodes_step", 0, files, str, i);
+      if (i >= size) {
+         write_file(filename,"}\n");
+         write_file(filename,"# End: size = " + size + " Dir = " + str + "\n");
+      } else {
+         call_out("print_nodes_step", 0, files, str, i);
+      }
    }
 }
 
 void main( string str ) {
-  int i, size;
   string *files;
   mixed *dirent;
 
@@ -97,16 +107,11 @@ void main( string str ) {
   files = dirent[0];
 
   /* do the work here... */
-  size = sizeof(files);
   write_file(filename,"# Use neato -Tpng thisfile.dot -o thisfile.png\n");
   write_file(filename,"# Graph of : " + str + "\n");
   write_file(filename,"digraph G {\n");
   write_file(filename,"\toverlap = scale;\n");
 
-  print_node(files,str,0);
-     print_nodes_step(files,str,0);
-  }
-  write_file(filename,"}\n");
-  write_file(filename,"# End: str\n");
+  print_nodes_step(files,str,0);
 }
 
