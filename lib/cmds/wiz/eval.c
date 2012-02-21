@@ -8,6 +8,7 @@ void usage() {
   write("Examples:\n");
   write("\teval write(\"My hp: \" + this_player()->query_hp() + \"\\n\");\n");
   write("\teval .here->tell_room(.me,\"Hi\\n\");\n");
+  write("\teval return 5 + 5;\n");
 }
 
 // XXX how do you do  write(find_player("sirdude")->query_hp() + "\n");
