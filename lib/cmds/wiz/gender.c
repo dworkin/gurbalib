@@ -1,6 +1,6 @@
 void usage() {
   write("Usage: gender [-h] [male|female]\n");
-  write("Title allows you to change your gender.\n");
+  write("Allows you to set your gender.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
 }
