@@ -1,37 +1,42 @@
 void usage() {
-  write("Usage: emoteadm -h\n");
-  write("Usage: emoteadm show [EMOTE]    show the entrys for EMOTE\n");
-  write("\tIf EMOTE is missing show all emotes registered.\n");
-  write("Usage: emoteadm del EMOTE     delete the entrys for EMOTE\n");
-  write("Usage: emoteadm add NAME [RULE] FORMAT\n");
-  write("Add an emote to the emote database.\n");
-  write("NAME is the thing players will type for the emote.\n");
-  write("RULE if provided is one of the following: LIV|STR|OBJ\n");
-  write("It only applies if the target of your emote is of that type.\n");
-  write("For emotes without a target, you do not provide a rule.\n");
-  write("Format defines what the emote will do.\n");
-  write("Example: if you do add blink $N blink.\n");
-  write("\tYou will see You blink.\n");
-  write("\tEveryone else will see Sirdude blink. (If your name is sirdude)\n");
+  string *lines;
+  lines = ({ });
 
-  write("Options:\n");
-  write("\t-h\tHelp, this usage message.\n");
-  write("\t$N\tUpper case name of the player emoting\n");
-  write("\t$n\tLower case name of the player emoting\n");
-  write("\t$v(verb)\tDefines (verb) as a verb and the parser will " +
-     "change output.\n");
-  write("\t$T\tUpper case name of target.\n");
-  write("\t$t\tLower case name of target.\n");
-  write("\t$O\tUpper case name of object.\n");
-  write("\t$o\tLower case name of object.\n");
-  write("\t$s()\tXXX Need to figure out what this is\n");
-  write("\t$p\tPossesive\n");
+  lines += ({"Usage: emoteadm -h"});
+  lines += ({"Usage: emoteadm show [EMOTE]    show the entrys for EMOTE"});
+  lines += ({"\tIf EMOTE is missing show all emotes registered."});
+  lines += ({"Usage: emoteadm del EMOTE     delete the entrys for EMOTE"});
+  lines += ({"Usage: emoteadm add NAME [RULE] FORMAT"});
+  lines += ({"Add an emote to the emote database."});
+  lines += ({"NAME is the thing players will type for the emote."});
+  lines += ({"RULE if provided is one of the following: LIV|STR|OBJ"});
+  lines += ({"It only applies if the target of your emote is of that type."});
+  lines += ({"For emotes without a target, you do not provide a rule."});
+  lines += ({"Format defines what the emote will do."});
+  lines += ({"Example: if you do add blink $N blink."});
+  lines += ({"\tYou will see You blink."});
+  lines += ({"\tEveryone else will see Sirdude blink. " +
+     "(If your name is sirdude)\n"});
 
-  write("Examples:\n");
-  write("\temoteadm add blink $N blink.\n");
-  write("\temoteadm add LIV $N $vblink at $t\n");
-  write("Options:\n");
-  write("\t-h\tHelp, this usage message.\n");
+  lines += ({"Options:"});
+  lines += ({"\t-h\tHelp, this usage message."});
+  lines += ({"\t$N\tUpper case name of the player emoting"});
+  lines += ({"\t$n\tLower case name of the player emoting"});
+  lines += ({"\t$vVERB\tDefines VERB as a verb and the parser will " +
+     "change output."});
+  lines += ({"\t$T\tUpper case name of target."});
+  lines += ({"\t$t\tLower case name of target."});
+  lines += ({"\t$O\tUpper case name of object."});
+  lines += ({"\t$o\tLower case name of object."});
+  lines += ({"\t$s()\tXXX Need to figure out what this is"});
+  lines += ({"\t$p\tPossesive"});
+
+  lines += ({"Examples:"});
+  lines += ({"\temoteadm add blink $N blink."});
+  lines += ({"\temoteadm add LIV $N $vblink at $t"});
+  lines += ({"Options:"});
+  lines += ({"\t-h\tHelp, this usage message."});
+  this_player()->more(lines);
 }
 
 void delete_emote(string str) {
