@@ -132,14 +132,14 @@ string english_to_racial(string language, string arg) {
 
 string *query_languages() {
 	string *langs;
-	langs = ([]);
-	langs += (["catfolk"]);
-	langs += (["dwarven"]);
+	langs = ({ });
+	langs += ({ "catfolk" });
+	langs += ({ "dwarven" });
 
 	return langs;
 }
 
-string *valid_language(string str) {
+int valid_language(string str) {
    switch(str) {
       case "catfolk":
       case "dwarven":
