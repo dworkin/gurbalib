@@ -6,6 +6,9 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
+// moved this from fighters guild specific command.  Need to convert it to
+// a skill and give the skill to fighters...
+
 void main( string str ) {
    object ob;
 
