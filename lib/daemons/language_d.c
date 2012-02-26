@@ -7,17 +7,21 @@ static string transword;
 static void restore_me( void ) {
    unguarded( "restore_object", "/daemons/data/language_d.o" );
 }
+
 void create( void ) {
    catfolk_dic = ([ ]);
    human_dic = ([ ]);
    dwarf_dic = ([ ]);
+
+   /* Ok so I hate making up words... :) */
+   /* These are just so that the mappings have something in them */
    catfolk_dic += ([ "zifges" : "gesbfe" ]); 
-      /* Ok so I hate making up words... :) */
-			/* These are just so that the mappings have something in them */
    dwarf_dic += ([ "zifges" : "gesfbe" ]);
    human_dic += ([ "zifges" : "gefffe" ]);
+
    restore_me();
 }
+
 static void save_me( void ) {
    unguarded( "save_object", "/daemons/data/language_d.o" );
 }
@@ -73,6 +77,7 @@ string random_word(string race) {
 		return race; /*DEBUG ALERT!!!!*/
 	}
 }
+
 string add_racial(string language, string englishword) {
    englishword = lowercase(englishword);
    write(language);
@@ -91,7 +96,8 @@ string add_racial(string language, string englishword) {
          return transword;
       }
    }
-}  
+}
+
 /*This here is the main function. It must be called for each word to be
   translated. If the word doesn't exist in the dictionary, then
   add_catfolk() will automatically be called from here. This function will
@@ -124,3 +130,23 @@ string english_to_racial(string language, string arg) {
    /* We return it at the same time :) */
 }
 
+string *query_languages() {
+	string *langs;
+	langs = ([]);
+	langs += (["catfolk"]);
+	langs += (["dwarven"]);
+
+	return langs;
+}
+
+string *valid_language(string str) {
+   switch(str) {
+      case "catfolk":
+      case "dwarven":
+         return 1;
+         break;
+      default:
+         return 0;
+         break;
+   }
+}

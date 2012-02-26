@@ -1,13 +1,23 @@
 void usage() {
-  write("Usage: rsay [-h] MSG\n");
-  write("Tell the current room MSG in \'catfolk\'.\n");
-  write("Options:\n");
-  write("\t-h\tHelp, this usage message.\n");
-  write("See also: say, tell, whisper, translate\n");
+   int x, max;
+   string *langs;
+
+   write("Usage: rsay [-h] [LANGUAGE] MSG\n");
+   write("Tell the current room MSG in a specific language.\n");
+   write("If no LANGUAGE is given, it uses your current race.\n");
+   write("Valid LANGUAGES are: ");
+
+   langs = LANGUAGE_D->query_languages();
+   max=sizeof(langs);
+   for(x=0;x<max;x++) write("\t" + langs[x] + "\n");
+ 
+   write("Options:\n");
+   write("\t-h\tHelp, this usage message.\n");
+   write("See also: say, tell, whisper, translate\n");
 }
 
-// XXX this should be moved to player and combined with the catfolk 
-// message cmd...
+// XXX Need to fix this so it uses LANGUAGE as an argument and works...
+// off of skills/race....
 
 void main(string str) {
   object *usr;
