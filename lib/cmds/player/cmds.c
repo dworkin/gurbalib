@@ -61,6 +61,9 @@ void show_cmds( string dir) {
 void main( string str ) {
    string *path;
    int c, cmax;
+   string race;
+   string guild;
+   string *guilds;
 
    lines = ({ });
 
@@ -91,6 +94,25 @@ void main( string str ) {
                    usage();
                 }
 	       break;
+            case "race":
+               race = "/cmds/race/" + this_player()->query_race();
+               if (file_exists(race) == -1) {
+                  show_cmds(race);
+               }
+               break;
+            case "guild":
+               guilds = this_player()->query_guilds();
+
+               if (guilds) {
+                  cmax = sizeof(guilds);
+                  for (c=0;c<cmax;c++) {
+                     guild= "/cmds/guild/" + guilds[c];
+                     if (file_exists(guild) == -1) {
+                         show_cmds(guild);
+                     }
+                  }
+               }
+               break;
             default:
                usage();
                break;
@@ -107,6 +129,22 @@ void main( string str ) {
    } 
 
    show_cmds("/cmds/verb");
+
+   race = "/cmds/race/" + this_player()->query_race();
+   if (file_exists(race) == -1) {
+	show_cmds(race);
+   }
+   guilds = this_player()->query_guilds();
+
+   if (guilds) {
+         cmax = sizeof(guilds);
+         for (c=0;c<cmax;c++) {
+         guild= "/cmds/guild/" + guilds[c];
+         if (file_exists(guild) == -1) {
+             show_cmds(guild);
+         }
+      }
+   }
 
    this_player()->more(lines);
 }
