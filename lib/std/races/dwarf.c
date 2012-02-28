@@ -37,5 +37,11 @@ void create( void ) {
       "are long and far between. Instead most of them can resist magic\n" +
       "to a certain degree. Dwarves get along nice with trolls and orcs, " +
       "and they   \nshare the elves' distrust of one another. " );
+
+// XXX Need to fix code so can do this... also races currently seem overly
+// complex why this and lib/domains/required/objects/races/dwarf.c
+// I'm sure it has to do with cloning but really do we need 2 files for this?
+//    set_skill("language/dwarven",100);
+//    set_skill("value",50);
 }
 
