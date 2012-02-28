@@ -1,5 +1,5 @@
 void usage() {
-  write("Usage: evaluate [-h] OBJ\n");
+  write("Usage: value [-h] OBJ\n");
   write("Evaluate the specified object and print out what you think it is " +
     "worth.\n");
   write("Options:\n");
