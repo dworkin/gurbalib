@@ -25,28 +25,22 @@ COMBAT
 
         Make it so there are logs only admins can view? 
 
-Emote adverbs
+Party system (invite, follow, say, report)
 Clans
-m_guild_trainer
-m_knockable
+m_guild_trainer, m_trainer
 m_lightable
-m_lockable
-m_switchable
+m_lockable, keys
+m_switchable, Levers
 m_throwable
-m_trainer
 m_writable
-keys
 ladders/stairs, portals
-tracking of most used rooms
-tracking of objects
+tracking of most used rooms, objects
 auto dest/update of all instances of an object
 PK system (announcing, death announcing)
 Combat styles
 support for getting 2nd or 3rd sword in a room or inv
 Weight of objects
 Bank
-Levers
-Party system (invite, follow, say, report)
 
 restructure doc and doc/help directory
 	help/wiz seems odd as well...?
