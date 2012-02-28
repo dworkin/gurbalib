@@ -5,8 +5,9 @@ directories.  If you have any questions email: sirdude (mein@cs.umn.edu)
 TODO items are marked with XXX so you can easily grep -r XXX in the
 mud and see what needs to be worked on.
 
-If you do not have the mud up and running yet, look at ../FAQ for
-how to get things going...
+If you do not have the mud up and running yet, look at ../doc/INSTALLING
+and the other documentation.  (if you do not do this, some of these 
+directories may not exist yet.)
 
 	README		This file explaning what each dir has in it.
 	TODO		List of todo items not tied to a specific file.
