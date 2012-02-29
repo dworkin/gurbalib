@@ -23,8 +23,9 @@ void main(string str) {
   object *usr;
   int i, k;
   string *words;
-  string race;
   string tmp;
+  string rest;
+
 
   if (!str || str == "") {
      usage();
@@ -34,6 +35,22 @@ void main(string str) {
      usage();
      return;
   }
+
+  race = "";
+
+  if (sscanf(str,"%s %s",first,rest) == 2) {
+     if (LANGUAGE_D->valid_language(first)) {
+        race = first;
+        str = rest;
+     }
+  }
+
+  if (race == "") {
+     race = this_player()->query_race();
+     if (!LANGUAGE_D->valid_language(race)) race = "";
+  }
+
+// XXX Need to check race != "" and go from there...
 
   for( i=strlen(str)-1; i > 0; i-- ) {
   if( str[i] != ' ' )
