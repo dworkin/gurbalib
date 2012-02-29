@@ -1,0 +1,12 @@
+bin/*
+lib/data/players/*
+lib/doc/lpc/*
+lib/kernel/daemons/data/*
+lib/sys/daemons/data/*
+lib/sys/data/*
+lib/wiz/*
+src/*
+tmp/*
+dump
+dump.old
+mud.dgd
