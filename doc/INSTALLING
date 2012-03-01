@@ -1,13 +1,10 @@
-There are two ways to do this.  I like using the latest and greatest
-version of DGD so I'm giving you the instructions for the "manual"
-way of doing things.  
-
 Getting the LATEST version of DGD and installing
 ---------------------------------------------------------------------
 cd to your gurbalib dir and perform the following actions:
 	perl scripts/create_data_dirs.pl
 		This creates empty directories that are not stored in the
-		repository.
+		repository.  If you do not have perl on your system you can
+                just read the script and figure out what directorys to create.
 	mkdir src
 	cd src
 
@@ -46,37 +43,6 @@ cd to your gurbalib dir and perform the following actions:
 
 The first character logging in will automatically get the
 admin role, so be sure its you.
-
-Now jump down to:
-OTHER THINGS:
-
-Brief installation instructions using the script
--------------------------------------------------------------
-This script is dated so it may or may not work...  If your
-not having any luck with the above try this method of getting things
-going, or drop me an email.  (my address is in the README file)
-
-CD to your gurbalib dir and type the following:
-	perl scripts/create_data_dirs.pl
-		This creates empty directories that are not stored in the
-		repository.
-	scripts/installer	(answer the questions)
-  		This will compile the driver, write a configuration
-		file and update an include file to reflect the name
-		of your mud.
-
-	  Review gurba.dgd and change the telnet port number if so desired.
-		You will also need to set the directory
-
-	  bin/startmud
-
-	  If all went well, you can now connect to the telnet port 
-		mentioned in the mud.dgd config file.
-		(4000 by default)
-
-The first character logging in will automatically get the
-admin role, so be sure its you.
-
 
 OTHER THINGS:
 -----------------------------------------------------------------------
