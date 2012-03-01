@@ -181,12 +181,12 @@ string *compose_message( object who, string msg, object target, varargs mixed *o
    break;
       }
       if( punc ) {
-   us[strlen(us)-1] = punc;
-   them[strlen(them)-1] = punc;
-   others[strlen(others)-1] = punc;
-   us += " ";
-   them += " ";
-   others += " ";
+         us[strlen(us)-1] = punc;
+         them[strlen(them)-1] = punc;
+         others[strlen(others)-1] = punc;
+         us += " ";
+         them += " ";
+         others += " ";
       }
     } else {
       us += words[i] + " ";

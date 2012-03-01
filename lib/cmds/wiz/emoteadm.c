@@ -28,11 +28,11 @@ void usage() {
   lines += ({"\t$t\tLower case name of target."});
   lines += ({"\t$O\tUpper case name of object."});
   lines += ({"\t$o\tLower case name of object."});
-  lines += ({"\t$s()\tXXX Need to figure out what this is"});
+  lines += ({"\t$sSTR\tConvert STR to plural form."});
   lines += ({"\t$p\tPossesive"});
 
   lines += ({"Examples:"});
-  lines += ({"\temoteadm add blink $N blink."});
+  lines += ({"\temoteadm add blink $N $sblink."});
   lines += ({"\temoteadm add LIV $N $vblink at $t"});
   lines += ({"Options:"});
   lines += ({"\t-h\tHelp, this usage message."});
