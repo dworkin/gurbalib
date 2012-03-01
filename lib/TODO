@@ -48,7 +48,6 @@ restructure doc and doc/help directory
 	maybe a newbie admin doc as well...
 
 Come up with some standards for combat/exp skills
-make -h work for verbs
 
 Need to make an interface for global aliases like n = north
 	or figure out what it is if it already exists???

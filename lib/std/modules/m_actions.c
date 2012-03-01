@@ -43,8 +43,14 @@ void do_game_command( string message ) {
    
     flag = 0;
    
+    if (PARSE_D->is_verb(cmd) && (arg == "-h" || sscanf(arg, "-h %s", arg))) {
+       PARSE_D->call_help(cmd);
+       flag = 1;
+    }
+
     /* Check for a verb */
-    result = PARSE_D->parse( cmd + " " + arg );
+    if (!flag) result = PARSE_D->parse( cmd + " " +  arg );
+
     if( result ) {
       flag = 1;
     }

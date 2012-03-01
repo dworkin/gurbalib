@@ -31,10 +31,21 @@ string *query_verbs( void ) {
   return( names );
 }
 
+// XXX Why is this here and verb_d as well?  Seems bad that its in both places.
 int is_verb( string verb ) {
   if( member_array( verb, map_indices( verbs ) ) != -1 )
     return( 1 );
   return( 0 );
+}
+
+int call_help(string verb) {
+   mixed obj, x;
+
+   obj = verbs[verb];
+   x = call_other(obj,"usage");
+
+  if(!x) return 0;
+  return 1;
 }
 
 /* calls can_x with right number of args for grammar */
@@ -119,7 +130,7 @@ mapping query_objects_rules(object obj) {
      return object_rules[obj];
 }
 
-int parse( string str ) {
+int parse(string str) {
   mixed *result;
   string function;
   string local_production_rules;
