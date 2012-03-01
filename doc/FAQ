@@ -9,15 +9,8 @@ Q: What do I do now that I have this stuff?
 Q: When trying to start the mud, it complains about the file
    mudname.h not being there and then terminates.
 
-A: You didn't use scripts/installer to configure the mud and
-   install the driver. Please do so as it will ensure this
-   file gets created properly.
-
-   Alternatively:
-
-   cd lib/kernel/include
-   copy the file mudname.h.default to mudname.h and edit it
-   to contain the name of your mud.
+A: You didn't follow the directions for  configuring the mud and
+   installing the driver. read and follow doc/INSTALLING
 
 Q: When starting the mud, I get the following output:
 
@@ -38,10 +31,6 @@ Q: When starting the mud, I get the following output:
 A: The file lib/kernel/include/mudname.h does not define the
    IMUD_NAME macro, probably because you created an empty file
    there or removed that macro. 
-
-   You should use scripts/installer to ensure the mudname.h
-   file is created properly or do what is described above to
-   create it yourself.
 
 Q: I changed the Makefile to build the driver with -O or -O2
    and now it crashes.
