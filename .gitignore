@@ -5,6 +5,7 @@ lib/kernel/daemons/data/*
 lib/sys/daemons/data/*
 lib/sys/data/*
 lib/wiz/*
+lib/logs/*
 src/*
 tmp/*
 dump
