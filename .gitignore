@@ -11,3 +11,13 @@ tmp/*
 dump
 dump.old
 mud.dgd
+lib/daemons/data/last.o
+lib/daemons/data/time_d.o
+lib/kernel/include/float.h
+lib/kernel/include/kfun.h
+lib/kernel/include/limits.h
+lib/kernel/include/mudname.h
+lib/kernel/include/status.h
+lib/kernel/include/trace.h
+lib/kernel/include/type.h
+
