@@ -24,10 +24,13 @@ void main (string str) {
      return;
   }
 
-  obj = this_environment()->present( lowercase( str ) );
+  str = lowercase( str );
+
+  obj = this_player()->present( str );
+  if (!obj) obj = this_environment()->present( str );
 
   if(!obj) {
-    write("You don't see " + ob + " here.");
+    write("You don't see " + str + " here.");
     return;
   }
 
@@ -46,7 +49,7 @@ void main (string str) {
     } else {
       value = obj->query_value();
     }
-    write("You estimate that the value is about " + value + "gold pieces.\n");
+    write("You estimate that the value is about " + value + " gold pieces.\n");
   } else {
     write( "You can't evaluate that." );
   }
