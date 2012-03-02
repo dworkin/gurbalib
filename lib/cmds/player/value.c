@@ -6,9 +6,6 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
 }
 
-// XXX moved this from dwarven race specific command need to use skills instead
-// and give dwarves the skill by default....
-
 void main (string str) {
   int chance;
   int roll;
@@ -21,6 +18,7 @@ void main (string str) {
     usage();
     return;
   }
+
   if (sscanf(str, "-%s",str)) {
      usage();
      return;
@@ -35,7 +33,7 @@ void main (string str) {
 
   if (!obj->is_living() && obj->query_value() ) {
     
-    chance = this_player()->query_skill( "evaluate" );
+    chance = this_player()->query_skill( "value" );
     roll = random(5000);
     if (roll > chance) {
       diff = roll - chance;
