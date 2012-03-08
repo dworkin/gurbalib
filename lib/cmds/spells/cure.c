@@ -20,12 +20,12 @@ void cure(object thisp, object target) {
   thisp->decrease_mana(COST);
   if (thisp == target) {
     write("You concentrate and heal yourself for " + x + " hp.\n");
-    this_object()->targetted_action("A soft glow envlopes $N, " +
+    this_object()->targetted_action("A soft glow envelopes $N, " +
       "as they cure their wounds.\n");
   } else {
     write("You lay your hands on " + target->query_name() +
       " healing them for " + x + " hp.\n");
-    this_object()->targetted_action("A soft glow envlopes " + 
+    this_object()->targetted_action("A soft glow envelopes " + 
       target->query_name() + "as $N cures their wounds.\n");
   }
   target->increase_hp(x);
