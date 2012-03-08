@@ -81,7 +81,8 @@ void display_obj(mixed *stat,object obj) {
         write("\t" + incs[i] + "\n");
      }
   }
-  write("Owner: " + owner_file( obj->file_name() ) + "\n");
+  write("File Owner: " + owner_file( obj->file_name() ) + "\n");
+  write("Object Owner: " + owner_object( obj ) + "\n");
 }
 
 void main( string str ) {
