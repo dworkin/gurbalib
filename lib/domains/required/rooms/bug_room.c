@@ -5,7 +5,7 @@ void setup( void ) {
 
   set_brief( "%^YELLOW%^Bug room%^RESET%^" );
   set_long( "The room contains a huge and fluffy chair, since wizards " +
-    "spend a lot of time in this room reading the bugreports from the " +
+    "spend a lot of time in this room reading the bug reports from the " +
     "players. " );
 
   add_item( "chair", "The chair is really worn down, and has a big 'dent' " +

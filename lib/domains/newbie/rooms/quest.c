@@ -5,7 +5,7 @@ void setup( void ) {
 
   set_brief( "%^MAGENTA%^end of the tunnel.%^RESET%^" );
   set_long( "You are at the end of a small tunnel.  The room is brightly " +
-     "colored and everything in the room direct's your attention " +
+     "colored and everything in the room directs your attention " +
      "towards a large red button.");
 
   set_exits( ([ 
@@ -24,7 +24,7 @@ int do_push(string arg) {
       } else {
          this_player()->add_completed_quest("NewbieVille");
          this_player()->increase_expr(200);
-         write("Congradulations!!! You have just completed the NewbieVille " +
+         write("Congratulations!!! You have just completed the NewbieVille " +
            "Quest which earns you 200 exp!\n");
       }
    } else {

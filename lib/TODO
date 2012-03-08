@@ -19,7 +19,7 @@ COMBAT
 		if make it back to body before timeout or someone loots
 		you get everything. (Need to figure out looting as well
 			then...)
-		have empty bodys decompse faster than bodys that still have
+		have empty bodies decompose faster than bodies that still have
 		something in them.  Could just put "exp on the body
 		 like demon souls..."
 
@@ -60,7 +60,7 @@ kernel/include/std.h:#define HTTP_USER_OB    "/sys/obj/user/http"
 kernel/include/std.h:#define FTP_USER_OB     "/sys/obj/user/ftp_command"
 	so it should maybe be more modular???
 
-figureout why query_users, query_players, users()  do we need all of them?
+figure out why query_users, query_players, users()  do we need all of them?
 	query_users() you need to do ->query_player()  why
 	find_user(string str)  you also need to do a ->query_player() odd...
 

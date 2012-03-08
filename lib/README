@@ -9,7 +9,7 @@ If you do not have the mud up and running yet, look at ../doc/INSTALLING
 and the other documentation.  (if you do not do this, some of these 
 directories may not exist yet.)
 
-	README		This file explaning what each dir has in it.
+	README		This file explaining what each dir has in it.
 	TODO		List of todo items not tied to a specific file.
 	cmds		Wizard, player and monster commands.
 	daemons		Various processes that run on the mud to handle things.
@@ -18,14 +18,14 @@ directories may not exist yet.)
 			etc...  In general all the user generated content.
 	doc		Documentation about the mud... that wizards can view
 			via man.  doc/help is for players via help.
-	domains		The offical areas of the mud that users can adventure 
+	domains		The official areas of the mud that users can adventure 
 			in.  If you want a "clean" mud remove everything
 			except for the required subdirectory.  It contains
 			the void and the room you start in etc...
 	kernel		XXX figure out difference between this and sys dir.
-	logs		If your a wizard this is your best friend.  It
-			holds error messages and other things that are recorded
-			by the mud.
+	logs		If you are a wizard this directory is your best 
+			friend.  It holds error messages and other things 
+			that are recorded by the mud.
 	pub		ftp directory and or a location to store sample files.
 	std		Standard inheritables and includes for the system.  
 			Note you can not clone things from this directory.
@@ -33,5 +33,6 @@ directories may not exist yet.)
 				/domains/required/
 	sys		XXX figure out why this and kernel dir...
 	tmp		Temp dir
-	wiz		Home directories for your local wizards.
+	wiz		Home directories for our local wizards.
+
 

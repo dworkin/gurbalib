@@ -15,7 +15,7 @@ void usage() {
   write("\t-h\tHelp, this usage message.\n");
   write("\t-v\tVertical, displays commands one per line.\n");
   write("If you specify a subsection like player it will only list " +
-    "player commands, instead of all commands you have avaliable.\n");
+    "player commands, instead of all commands you have available.\n");
   write("See also: man, help\n");
 }
 

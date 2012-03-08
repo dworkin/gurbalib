@@ -18,7 +18,7 @@ void usage() {
    write("Send a mud mail to the players specified.\n");
    write("You may also use all to send a mudmail to all players.\n");
    write("If no player is given check your mail to see if you have " +
-      "any incomming messages.\n");
+      "any incoming messages.\n");
    write("Inside of the mail command you have the following options.\n");
    write("\td #\tDelete message #\n");
    write("\tm PLAYER\tSend a message to PLAYER\n");

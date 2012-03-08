@@ -4,7 +4,7 @@ inherit RACE;
 void create( void ) {
    ::create();
 
-   set_race_short_desc( "Humans are cursed with beeing average " +
+   set_race_short_desc( "Humans are cursed with being average " +
       "in all aspects." );
    set_race_long_desc( "Humans are predominant in the lands. They, as a " +
       "race, have most of\nthe power in the realm. Since they are so, all " +

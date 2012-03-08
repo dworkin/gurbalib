@@ -8,7 +8,7 @@ void setup( void ) {
      "here.  There is a large flower in the middle of the room.");
 
   add_item( "flower", "A Large flower sits in the middle of the room.  " +
-     "Perhapse you should pick it.");
+     "Perhaps you should pick it.");
 
   add_room_command("pick", "do_pick");
 
