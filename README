@@ -5,7 +5,7 @@ I've been playing lots of minecraft with my kids lately and want them
 to get into UNIX and programming.  So I started tinkering with muds
 again.  I downloaded DGD and went in pursuit of a mudlib.
 
-If your reading this you probably have had a similar quest and have
+If you are reading this you probably have had a similar quest and have
 found that the stuff that is out there is old, sparse, not fully
 functional and or some mixture of the above.
 
@@ -21,7 +21,7 @@ its a great start and something to move forward with.
 My goals are to simplify things, and make a consistent, well documented,
 functional mudlib that anyone can use as a base for a mud.
 
-If your just getting started with the Gurbalib take a look at
+If you're just getting started with the Gurbalib take a look at
 doc/INSTALLING and the other documents in doc, then look at
 the documentation in lib/doc and basically everything in lib since
 that is the important stuff.
