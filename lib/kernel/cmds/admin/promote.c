@@ -1,8 +1,8 @@
 void usage() {
   write("Usage: promote [-h] PLAYER [player|wiz|admin]\n");
-  write("Promote is kind of a missnomer, this command is used to change,\n");
+  write("Promote is kind of a misnomer, this command is used to change,\n");
   write("the level of a given player, to the level you specify.\n");
-  write("We hope that you will be promoting rather than demoteing players.\n");
+  write("We hope that you will be promoting rather than demoting players.\n");
   write("If a wiz directory does not exist it will be created.\n");
   write("Promoting a wizard or admin to a player will not remove their " +
      "wiz dir.\n");
