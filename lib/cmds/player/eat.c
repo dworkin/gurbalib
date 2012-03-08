@@ -24,7 +24,7 @@ void main( string str ) {
      return;
   }
   
-  if ( !obj->is_edable() ) {
+  if ( !obj->is_eatable() ) {
      write(" You can not consume that.\n");
      return;
   }

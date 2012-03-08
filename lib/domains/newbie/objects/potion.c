@@ -6,11 +6,8 @@ void setup( void ) {
   set_adj("small", "healing", "red");
   set_long( "A small fancy bottle, with a faintly glowing red liquid in it.  " +
      "A label on the bottle says ode de Healing.\n");
-
-  // Why doesn't this work??? XXX
-  set_brief( "A small red potion");
-
-  set_edable( 1 );
+  set_in_room_desc( "A small red potion.");
+  set_eatable( 1 );
   set_gettable( 1 );
 }
 

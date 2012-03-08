@@ -11,7 +11,7 @@ string proper_name;
 static string *object_commands;
 static string detailed_desc;
 private int configured;
-static int edable;
+static int eatable;
 
 void setup();
 
@@ -280,12 +280,12 @@ void remove_object_command( string command ) {
   
 }
 
-void set_edable( int value ) {
-   edable = value;
+void set_eatable( int value ) {
+   eatable = value;
 }
 
-int is_edable() {
-   return edable;
+int is_eatable() {
+   return eatable;
 }
 
 string *query_object_commands( void ) {
