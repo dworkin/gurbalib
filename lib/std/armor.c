@@ -2,7 +2,8 @@ inherit ob   OBJECT;
 inherit wear M_WEARABLE;
 inherit      M_GETTABLE;
 inherit      M_VALUABLE;
-inherit      ARMOR_CLASS;
+
+int armor_class;
 
 void setup( void );
 
@@ -12,4 +13,14 @@ void create( void ) {
   add_ids( "armor", "armour" );
 }
 
+int is_armor( void ) {
+  return( 1 );
+}
 
+void set_ac( int ac ) {
+  armor_class = ac;
+}
+
+int query_ac( void ) {
+  return( armor_class );
+}

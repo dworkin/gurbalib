@@ -1,7 +1,7 @@
 inherit ob   OBJECT;
 inherit wear M_WIELDABLE;
 inherit      M_GETTABLE;
-inherit      ARMOR_CLASS;
+inherit      ARMOR;
 
 void setup( void );
 

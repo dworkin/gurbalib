@@ -127,7 +127,6 @@
 #define COINS           "/std/coin"
 #define SIGN            "/std/sign"
 #define DOOR            "/std/door"
-#define ARMOR_CLASS     "/std/armor_class"
 #define SHIELD          "/std/shield"
 #define RACE            "/std/race"
 #define MONSTER_RACE    "/std/monster_race" 
