@@ -1,5 +1,4 @@
 inherit SHIELD;
-inherit M_VALUABLE;
 
 void setup( void ) {
   set_id( "shield" );
