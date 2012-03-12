@@ -48,39 +48,6 @@ void delete_emote(string str) {
     }
 }
 
-void show_emote(string str) {
-   string *rules;
-   int i;
-   string line;
-
-   if (!str || str == "") {
-      rules = EMOTE_D->query_emotes( );
-
-      line = "";
-
-      for( i = 0; i < sizeof( rules ); i++ ) {
-         line += rules[i] + ", ";
-      }
-      write(line + "\n");
-      write( " \nTotal: " + sizeof(rules) + "\n" );
-
-      return;
-   }
-
-   if( EMOTE_D->is_emote( str ) ) {
-
-      rules = EMOTE_D->query_rules( str );
-
-      while( sizeof( rules ) > 0 ) {
-         write( rules[0] + " : \"" + EMOTE_D->query_emote( str, rules[0] ) + 
-            "\"\n" );
-         rules -= ({ rules[0] });
-      }
-   } else {
-      write( "No such emote. \n" );
-   }
-}
-
 void add_emote(string str) {
    string name, tmp;
    string rule, fmt;
@@ -118,7 +85,7 @@ void main( string str ) {
    }
 
    if (str == "show") {
-      show_emote("");
+      EMOTE_D->show_emote("");
       return;
    }
 
@@ -128,7 +95,7 @@ void main( string str ) {
    }
 
    if (name == "show") {
-      show_emote(fmt);
+      EMOTE_D->show_emote(fmt);
       return;
    } else if (name == "del" || name == "delete" || name == "rm" || 
       name == "remove") {
