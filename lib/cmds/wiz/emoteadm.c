@@ -34,15 +34,13 @@ void usage() {
   lines += ({"Examples:"});
   lines += ({"\temoteadm add blink $N $sblink."});
   lines += ({"\temoteadm add LIV $N $vblink at $t"});
-  lines += ({"Options:"});
-  lines += ({"\t-h\tHelp, this usage message."});
   this_player()->more(lines);
 }
 
 void delete_emote(string str) {
    if ( EMOTE_D->is_emote(str) ) {
       EMOTE_D->remove_emote( str );
-      write( "Emote removed.\n" );
+      write( "Emote " + str + " removed.\n" );
     } else {
       write( "No such emote.\n" );
     }
@@ -68,7 +66,7 @@ void add_emote(string str) {
    }
 
    EMOTE_D->add_emote( name, rule, fmt );
-   write( "Emote added.\n" );
+   write( "Emote " + name + " added.\n" );
 }
 
 void main( string str ) {
