@@ -7,6 +7,9 @@ void usage() {
   write("\theight\t\theight of your screen.\n");
   write("\twidth\t\twidth of your screen.\n");
   write("\thidden\t\tSet to 1 if you want to hide your login from users.\n");
+  write("\tsave_on_quit\tSet to 1 if you want to start where you last " +
+     "quit.\n");
+  write("\tquit_message\tSet your quit message.  Example: $N $vquit.\n");
   write("Options:\n");
   write("\t-h\tHelp, this usage message.\n");
   write("See also: unset\n");

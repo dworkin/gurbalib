@@ -558,6 +558,7 @@ void do_go( string dir ) {
 void do_quit( void ) {
   object sp;
   object *objs;
+  string quitcmd;
   int i;
 
   sp = this_player();
@@ -583,7 +584,16 @@ void do_quit( void ) {
     }
   }
 
-  this_object()->simple_action( "$N $vquit." );
+  if (this_player()->query_env("save_on_quit")) {
+     this_player()->set_env("start", 
+        this_player()->query_environment()->file_name());
+  }
+
+  quitcmd = this_player()->query_env("quit_message");
+  if (!quitcmd || quitcmd == "") {
+     quitcmd = "$N $vquit.";
+  }
+  this_object()->simple_action( quitcmd );
   for( i = 0; i < sizeof( channels ); i++ ) {
     if( CHANNEL_D->query_channel( channels[i] ) ) {
       CHANNEL_D->chan_leave( channels[i], this_object() );
