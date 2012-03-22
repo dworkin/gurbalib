@@ -131,3 +131,43 @@ string expand_alias( string cmd ) {
     return( cmd + " " + arg );
   }
 }
+
+string *show_alias(string type, string str) {
+   string *rules, *aliases;
+   int i;
+   string line;
+
+   rules = ({ });
+   if (!str || str == "") {
+      if (!type || type == "" || type == "player") {
+         rules += ({ "Player aliases:\n" });
+         aliases = map_indices( player_alias );
+         for ( i = 0; i < sizeof (aliases); i++) {
+            line += aliases[i] + ", ";
+         }
+         rules += ({ line });
+      }
+      if (!type || type == "" || type == "wizard") {
+         rules += ({ "Wizard aliases:\n" });
+         aliases = map_indices( wizard_alias );
+         for ( i = 0; i < sizeof (aliases); i++) {
+            line += aliases[i] + ", ";
+         }
+         rules += ({ line });
+         return rules;
+      }
+   }
+
+   if (type == "" || type == "player") {
+      if (player_alias[str]) {
+         rules += ({ "Player alias: " + str + " : " + player_alias[str] + "\n"});
+      }
+   }
+
+   if (type == "" || type == "wizard") {
+      if (wizard_alias[str]) {
+         rules += ({ "Wizard alias: " + str + " : " + wizard_alias[str] + "\n"});
+      }
+   }
+}
+
