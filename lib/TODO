@@ -79,4 +79,3 @@ Run indent
 	daemons/channel_d.c
 	kernel std
 	did kernel/cmds/admin
-	cmds/wiz

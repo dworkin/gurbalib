@@ -1,38 +1,38 @@
 void usage() {
-  write("Usage: mkdir [-h] DIR\n");
-  write("mkdir allows you to make a directory named DIR.\n");
-  write("Options:\n");
-  write("\t-h\tHelp, this usage message.\n");
+   write("Usage: mkdir [-h] DIR\n");
+   write("mkdir allows you to make a directory named DIR.\n");
+   write("Options:\n");
+   write("\t-h\tHelp, this usage message.\n");
 }
 
-void main( string arg ) {
-  string file;
+void main(string arg) {
+   string file;
 
-  if( !arg || arg == "" ) {
-    usage();
-    return;
-  }
-  if (sscanf(arg, "-%s",arg)) {
-    usage();
-    return;
-  }
+   if (!arg || arg == "") {
+      usage();
+      return;
+   }
+   if (sscanf(arg, "-%s", arg)) {
+      usage();
+      return;
+   }
 
-  file = normalize_path( arg, this_player()->query_env( "cwd" ) );
-  if( !file || file == "" ) {
-    write( "Permission denied.\n" );
-    return;
-  }
-  
-  if( !file_exists( file ) ) {
-    if( !make_dir( file ) ) {
-      write( "Unable to create directory.\n" );
+   file = normalize_path(arg, this_player()->query_env("cwd"));
+   if (!file || file == "") {
+      write("Permission denied.\n");
       return;
-    } else {
-      write( "Directory created.\n" );
-      return;
-    }
-  } else {
-    write( "File or dir already exists.\n" );
-  }
+   }
+
+   if (!file_exists(file)) {
+      if (!make_dir(file)) {
+	 write("Unable to create directory.\n");
+	 return;
+      } else {
+	 write("Directory created.\n");
+	 return;
+      }
+   } else {
+      write("File or dir already exists.\n");
+   }
 
 }

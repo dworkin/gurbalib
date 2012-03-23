@@ -1,173 +1,171 @@
 void usage() {
-  write("Usage: man [-h] [TOPIC]\n");
-  write("Get more information on topic TOPIC, if it exists.\n");
-  write("Try \"man man\" for more info.");
-  write("Options:\n");
-  write("\t-h\tHelp, this usage message.\n");
-  write("See also: help, cmds\n");
+   write("Usage: man [-h] [TOPIC]\n");
+   write("Get more information on topic TOPIC, if it exists.\n");
+   write("Try \"man man\" for more info.");
+   write("Options:\n");
+   write("\t-h\tHelp, this usage message.\n");
+   write("See also: help, cmds\n");
 }
 
 /* A highly advanced man command 
- * Aphex
- *
- * Improved by Aidil
- * :)
+ * By Aphex,  Improved by Aidil :)
  */
-
 #define BASEDIR "/doc/"
 
-static string * topics;
+static string *topics;
 
-static string * build_dir(string str) {
-  string *dir;
-  string *result;
-  int pos;
+static string *build_dir(string str) {
+   string *dir;
+   string *result;
+   int pos;
 
-  result = ({ });
+   result = ( { } );
 
-  dir = get_dir(str + "*")[0];
-  dir -= ({ ".svn" });
-  for(pos = 0; pos < sizeof(dir); pos++) {
-    if(file_exists(str + dir[pos]) == -1) {
-      result += ({ str + dir[pos] });
-      result += build_dir(str + dir[pos]);
-    }
-  }
-  return result;
+   dir = get_dir(str + "*")[0];
+   dir -= ( { ".svn" } );
+   for (pos = 0; pos < sizeof(dir); pos++) {
+      if (file_exists(str + dir[pos]) == -1) {
+	 result += ( { str + dir[pos] } );
+	 result += build_dir(str + dir[pos]);
+      }
+   }
+   return result;
 }
-  
+
 void rebuild_topics() {
-  topics = build_dir(BASEDIR);
+   topics = build_dir(BASEDIR);
 }
 
 void create() {
-  rebuild_topics();
+   rebuild_topics();
 }
 
 static string *dir_index(string what) {
-  string *res;
-  string *dir;
-  string line;
-  mixed width;
-  int ncollumns;
-  int i;
-  int j;
-  int sz;
+   string *res;
+   string *dir;
+   string line;
+   mixed width;
+   int ncollumns;
+   int i;
+   int j;
+   int sz;
 
-  dir = get_dir(what+"/*")[0];
-  if(!dir) return ({ });
+   dir = get_dir(what + "/*")[0];
+   if (!dir)
+      return ( { } );
 
-  width = this_player()->query_env("width");
-  if(!intp(width) || width < 2) width = 78;
-  else width--;
-  ncollumns = width/19;
+   width = this_player()->query_env("width");
+   if (!intp(width) || width < 2)
+      width = 78;
+   else
+      width--;
+   ncollumns = width / 19;
 
-  dir -= ({ ".svn" });
-  res = ({ });
+   dir -= ( { ".svn" } );
+   res = ( { } );
 
-  for(i=0,sz=sizeof(dir);i<sz;i+=ncollumns) {
-    line = "";
-    for(j=0;j<ncollumns;j++) {
-      if(i+j < sz) {
-        if(file_exists(what+dir[i+j]) == -1) {
-          line += (dir[i+j]+"/                     ")[0..18];
-        } else {
-          line += (dir[i+j]+"                              ")[0..18];
-        }
+   for (i = 0, sz = sizeof(dir); i < sz; i += ncollumns) {
+      line = "";
+      for (j = 0; j < ncollumns; j++) {
+	 if (i + j < sz) {
+	    if (file_exists(what + dir[i + j]) == -1) {
+	       line += (dir[i + j] + "/                     ")[0. .18];
+	    } else {
+	       line += (dir[i + j] + "                              ")[0. .18];
+	    }
+	 }
       }
-    }
-    res += ({ line });
-  }
-  return res;
+      res += ( { line } );
+   }
+   return res;
 }
 
-void main( string arg ) {
-  string file;
-  string *tmp;
-  string *lines;
-  string header;
-  int i,j,found;
-  int where;
-  mixed width;
+void main(string arg) {
+   string file, header;
+   string *tmp;
+   string *lines;
+   int i, j, found, where;
+   mixed width;
 
-  if (sscanf(arg, "-%s",arg)) {
-     usage();
-     return;
-  }
+   if (sscanf(arg, "-%s", arg)) {
+      usage();
+      return;
+   }
 
-  if ( !arg ) {
-    arg = "";
-  }
+   if (!arg) {
+      arg = "";
+   }
 
-  if(arg == "--reindex") {
-    rebuild_topics();
-    write ( dump_value(topics, ([])) +"\n");
-    return;
-  }
+   if (arg == "--reindex") {
+      rebuild_topics();
+      write(dump_value(topics, ([])) + "\n");
+      return;
+   }
 
-  if( query_wizard( this_player() ) != 1) {
-    return;
-  }
+   if (query_wizard(this_player()) != 1) {
+      return;
+   }
 
-  arg = lowercase(arg);
-  
-  file = normalize_path( arg, BASEDIR );
-  
-  if( file_exists( file ) == 0 ) {
-    for(j=0;j<sizeof(topics);j++) {
-      file = normalize_path( arg, topics[j]);
-      if( file_exists(file) != 0 ) {
-        found++;
-        break;
+   arg = lowercase(arg);
+
+   file = normalize_path(arg, BASEDIR);
+
+   if (file_exists(file) == 0) {
+      for (j = 0; j < sizeof(topics); j++) {
+	 file = normalize_path(arg, topics[j]);
+	 if (file_exists(file) != 0) {
+	    found++;
+	    break;
+	 }
       }
-    }
-  } else {
-    found = 1;
-  }
+   } else {
+      found = 1;
+   }
 
-  if(!found) {
-    write( capitalize(arg) + ": Unknown man page." );
-    write_file("/logs/man", this_player()->query_Name() + " on " + 
-       ctime(time()) + ": " + arg + "\n");
-    return;
-  }
+   if (!found) {
+      write(capitalize(arg) + ": Unknown man page.");
+      write_file("/logs/man", this_player()->query_Name() + " on " +
+	 ctime(time()) + ": " + arg + "\n");
+      return;
+   }
 
-  width = this_player()->query_env("width");
-  if(!intp(width) || width < 2) width = 78;
-  else width--;
+   width = this_player()->query_env("width");
+   if (!intp(width) || width < 2)
+      width = 78;
+   else
+      width--;
 
-  if(file_exists(file) > 0) {
-    header = "Manpage for "+arg+".";
-    tmp = explode( read_file( file ), "\n" );
-  } else {
-    header = "Index for "+arg+".";
-    tmp = dir_index(file);
-  }
+   if (file_exists(file) > 0) {
+      header = "Manpage for " + arg + ".";
+      tmp = explode(read_file(file), "\n");
+   } else {
+      header = "Index for " + arg + ".";
+      tmp = dir_index(file);
+   }
 
-  lines = ({ });
-  write(header + "\n");
-  for( i = 0; i < strlen(header); i++){
-    out("-");
-  }
-  write("\n");
-  for( i = 0; i < sizeof( tmp ); i++ ) {
-    if( strlen( tmp[i] ) > width ) {
-      /* Big line. Break it up. */
-      where = 0;
-      while( where < strlen( tmp[i] ) ) {
-	if( where + width < strlen( tmp[i] ) ) {
-	  lines += ({ tmp[i][where..where+(width-1)] });
-	  where += width;
-	} else {
-	  lines += ({ tmp[i][where..] });
-	  where = strlen(tmp[i]);
-	}
+   lines = ( { } );
+   write(header + "\n");
+   for (i = 0; i < strlen(header); i++) {
+      out("-");
+   }
+   write("\n");
+   for (i = 0; i < sizeof(tmp); i++) {
+      if (strlen(tmp[i]) > width) {
+	 /* Big line. Break it up. */
+	 where = 0;
+	 while (where < strlen(tmp[i])) {
+	    if (where + width < strlen(tmp[i])) {
+	       lines += ( { tmp[i][where..where + (width - 1)] } );
+	       where += width;
+	    } else {
+	       lines += ( { tmp[i][where..] } );
+	       where = strlen(tmp[i]);
+	    }
+	 }
+      } else {
+	 lines += ( { tmp[i] } );
       }
-    } else {
-      lines += ({ tmp[i] }) ;
-    }
-  }
-  
-  
-  this_player()->more( lines );
+   }
+
+   this_player()->more(lines);
 }
