@@ -1,3 +1,4 @@
 inherit "/std/corpse";
 
-void setup() { }
+void setup() {
+}

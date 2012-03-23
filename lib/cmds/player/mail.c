@@ -7,13 +7,13 @@ void usage() {
    string usage;
    string all;
 
-   if (query_admin( this_player() ) ) {  
+   if (query_admin(this_player())) {
       usage = "Usage: mail [-h] [all|PLAYER1 [PLAYER2] [...]]\n";
       all = "\tm all\tSend a message to all players\n";
    } else {
-       usage = "Usage: mail [-h] [PLAYER1] [PLAYER2]]\n";
+      usage = "Usage: mail [-h] [PLAYER1] [PLAYER2]]\n";
    }
-  
+
    write(usage);
    write("Send a mud mail to the players specified.\n");
    write("You may also use all to send a mudmail to all players.\n");
@@ -22,7 +22,8 @@ void usage() {
    write("Inside of the mail command you have the following options.\n");
    write("\td #\tDelete message #\n");
    write("\tm PLAYER\tSend a message to PLAYER\n");
-   if (all) write(all);
+   if (all)
+      write(all);
    write("\tl \tView your mail.\n");
    write("\tq \tQuit.\n");
    write("Options:\n");
@@ -33,7 +34,7 @@ void usage() {
 void delete_message(string str) {
    int x;
 
-   if (sscanf(str,"%d",x)) {
+   if (sscanf(str, "%d", x)) {
 
 // XXX do the work here... delete(x);
 
@@ -66,7 +67,7 @@ void get_subject(string str) {
    if (!str || str == "") {
       write("Subject: ");
       this_player()->input_to_object(this_object(), "get_subject");
-   } 
+   }
 
    subject = str;
 
@@ -80,7 +81,7 @@ void continue_mail(string str) {
       write("Do you want to continue? (Y|N):");
    }
    if (str == "y" || str == "Y") {
-	get_subject("");
+      get_subject("");
    } else {
       show_menu();
    }
@@ -95,34 +96,34 @@ void verify_to(string str) {
    } else {
       error = 0;
       if (str == "all") {
-         if (query_admin( this_player() ) ) {
-           to = USER_D->list_all_users();
-         } else {
-            write("You are not an admin you may not send an " +
-               "email to everyone.\n");
-            return;
-         }
+	 if (query_admin(this_player())) {
+	    to = USER_D->list_all_users();
+	 } else {
+	    write("You are not an admin you may not send an " +
+	       "email to everyone.\n");
+	    return;
+	 }
       } else {
-         verify_to(str);
-         x = 0; 
-         max = sizeof(to);
-         while(x< max) {
-           if (USER_D->player_exists(to[x])) {
-              x = x + 1;
-           } else {
-               write("invalid user: to[x], removing...\n");
+	 verify_to(str);
+	 x = 0;
+	 max = sizeof(to);
+	 while (x < max) {
+	    if (USER_D->player_exists(to[x])) {
+	       x = x + 1;
+	    } else {
+	       write("invalid user: to[x], removing...\n");
 	       to[x] = "";
-               error = 1;
-           }
-         }
+	       error = 1;
+	    }
+	 }
       }
       if (error) {
-         write("You had some invalid users.\nSending mail to : ");
-         x=0;
-         while(x<max) {
-            write(to[x] + " ");
-         }
-         continue_mail("");
+	 write("You had some invalid users.\nSending mail to : ");
+	 x = 0;
+	 while (x < max) {
+	    write(to[x] + " ");
+	 }
+	 continue_mail("");
       }
    }
 }
@@ -134,8 +135,8 @@ void view_mailbox(string str) {
 
    if (!str || str == "") {
    } else if (str == "q" || str == "quit") {
-       write("Thank you for using mudmail!\n");
-       return;
+      write("Thank you for using mudmail!\n");
+      return;
    } else if (str == "d" || str == "del" || str == "delete") {
       write("What message # do you want to delete:");
       this_player()->input_to_object(this_object(), "delete_message");
@@ -144,25 +145,27 @@ void view_mailbox(string str) {
    } else if (str == "m" || str == "mail") {
       verify_to("");
    } else {
-      if (sscanf(str,"%s %s",cmd, what) != 2) {
+      if (sscanf(str, "%s %s", cmd, what) != 2) {
 	 show_menu();
-         return;
+	 return;
       }
       if (cmd == "d" || cmd == "del" || cmd == "delete") {
-         delete_message(what);
+	 delete_message(what);
       }
       if (cmd == "m" || cmd == "mail") {
-        verify_to(what);
+	 verify_to(what);
       }
    }
 
    // messages = MAIL_D->get_messages(this_player()->query_name());
-   if (messages) max = sizeof(messages);
-   else max = 0;
+   if (messages)
+      max = sizeof(messages);
+   else
+      max = 0;
 
-   for (x=0;x<max;x++) {
-       write(x + "\t" + messages[x]->query_subject() + "(" +
-          messages[x]->query_from() + ")\n");
+   for (x = 0; x < max; x++) {
+      write(x + "\t" + messages[x]->query_subject() + "(" +
+	 messages[x]->query_from() + ")\n");
    }
    if (max < 1) {
       write("You have no mail!\n");
@@ -171,16 +174,15 @@ void view_mailbox(string str) {
    show_menu();
 }
 
-void main( string str ) {
+void main(string str) {
    if (!str || str == "") {
-	show_menu();
+      show_menu();
    } else {
-      if (sscanf(str, "-%s",str)) {
-         usage();
-         return;
+      if (sscanf(str, "-%s", str)) {
+	 usage();
+	 return;
       }
 
       verify_to(str);
    }
 }
-

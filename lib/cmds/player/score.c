@@ -1,5 +1,5 @@
-void usage () {
-   if( query_wizard( this_player() ) ) {
+void usage() {
+   if (query_wizard(this_player())) {
       write("Usage: score [-h] [-q] [PLAYER]\n");
       write("Gives you basic stats about player PLAYER.\n");
       write("If no player is given give your stats.\n");
@@ -14,7 +14,7 @@ void usage () {
    }
 }
 
-void main( string str ) {
+void main(string str) {
    int mh, h, expr, level, quest;
    int mm, m, me, e;
    int ac, i, ducats, royals, crowns;
@@ -26,86 +26,88 @@ void main( string str ) {
    if (str == "-q") {
       str = "";
       quest = 1;
-   } else if (sscanf(str, "-q %s",str)) {
+   } else if (sscanf(str, "-q %s", str)) {
       quest = 1;
-   } else if (sscanf(str, "-%s",str)) {
-     usage();
-     return;
+   } else if (sscanf(str, "-%s", str)) {
+      usage();
+      return;
    }
 
    if (str && str != "") {
-      if (query_wizard( this_player())) {
-         obj = USER_D->find_player(str);
-         if (!obj) {
-            write("Unable to find player: " + str + "\n");
-            return;
-         }
+      if (query_wizard(this_player())) {
+	 obj = USER_D->find_player(str);
+	 if (!obj) {
+	    write("Unable to find player: " + str + "\n");
+	    return;
+	 }
       } else {
-         usage();
-         return;
+	 usage();
+	 return;
       }
    } else {
       obj = this_player();
    }
-   
+
    money = obj->query_all_coins();
    mh = obj->query_max_hp();
-   h     = obj->query_hp();
+   h = obj->query_hp();
    mm = obj->query_max_mana();
-   m     = obj->query_mana();
+   m = obj->query_mana();
    me = obj->query_max_end();
-   e     = obj->query_end();
-   expr   = obj->query_expr();
-   ac     = obj->query_defense();
-   level  = obj->query_level();
+   e = obj->query_end();
+   expr = obj->query_expr();
+   ac = obj->query_defense();
+   level = obj->query_level();
    age = obj->query_age();
 
-   write( "[ " + obj->query_name() + " ] " + obj->query_title() + "\n" );
-   write( "Strength    :  " + obj->query_stat("str") +
-	"\t\t" + "Hit points  :   " + h + "/" + mh + "\n" );
-   write( "Intelligence:  " + obj->query_stat("int") +
-	"\t\t" + "Endurance   :   " + e + "/" + me + "\n" );
-   write( "Wisdom      :  " + obj->query_stat("wis") +
-	"\t\t" + "Mana        :   " + m + "/" + mm + "\n" );
-   write( "Dexterity   :  " + obj->query_stat("dex") +
-	"\t\t" + "Armor class :   " + ac + "\n" );
+   write("[ " + obj->query_name() + " ] " + obj->query_title() + "\n");
+   write("Strength    :  " + obj->query_stat("str") +
+      "\t\t" + "Hit points  :   " + h + "/" + mh + "\n");
+   write("Intelligence:  " + obj->query_stat("int") +
+      "\t\t" + "Endurance   :   " + e + "/" + me + "\n");
+   write("Wisdom      :  " + obj->query_stat("wis") +
+      "\t\t" + "Mana        :   " + m + "/" + mm + "\n");
+   write("Dexterity   :  " + obj->query_stat("dex") +
+      "\t\t" + "Armor class :   " + ac + "\n");
    write("Constitution:  " + obj->query_stat("con") +
-	"\t\t" + "Level       :   " + level + "\n" );
+      "\t\t" + "Level       :   " + level + "\n");
    write("Charisma    :  " + obj->query_stat("cha") +
-	"\t\t" + "Experience  :   " + expr + "\n" );
-   write("\t\t\t\t" + "Armor class :   " + ac + "\n" );
-   write("Age:" + age + "\t" + "Money:\n" );
+      "\t\t" + "Experience  :   " + expr + "\n");
+   write("\t\t\t\t" + "Armor class :   " + ac + "\n");
+   write("Age:" + age + "\t" + "Money:\n");
 
-   for( i = 0; i < sizeof( money ); i++ ) {
-      switch( money[i][0] ) {
-         case "ducat" : ducats = money[i][1];
-            break;
-         case "royal" : royals = money[i][1];
-            break;
-         case "crown" : crowns = money[i][1];
-            break;
-         default:
-            break;
-         }
+   for (i = 0; i < sizeof(money); i++) {
+      switch (money[i][0]) {
+	 case "ducat":
+	    ducats = money[i][1];
+	    break;
+	 case "royal":
+	    royals = money[i][1];
+	    break;
+	 case "crown":
+	    crowns = money[i][1];
+	    break;
+	 default:
+	    break;
+      }
    }
-   write("\t\t\t\t\tDucats: " + ducats ); 
-   write("\t\t\t\t\tRoyals: " + royals ); 
-   write("\t\t\t\t\tCrowns: " + crowns ); 
+   write("\t\t\t\t\tDucats: " + ducats);
+   write("\t\t\t\t\tRoyals: " + royals);
+   write("\t\t\t\t\tCrowns: " + crowns);
 
    if (quest) {
       string *quests;
-      int j,k;
+      int j, k;
 
       write("Quests Completed:\n");
-      quests=this_player()->query_quests_completed();
+      quests = this_player()->query_quests_completed();
       if (quests) {
-         k=sizeof(quests);
-         for(j=0;j<k;j++) {
-            write("\t" + quests[j] + "\n");
-         }
+	 k = sizeof(quests);
+	 for (j = 0; j < k; j++) {
+	    write("\t" + quests[j] + "\n");
+	 }
       }
    }
-   
+
    return;
 }
-
