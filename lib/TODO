@@ -74,5 +74,4 @@ fix  You wield your the shield.
 Run indent on player and wiz commands and then rest of the lib....
 	did data dir and daemons/serialize already
 	It's not perfect need to see if I can tweek indent some more
-	to fix return (( { "" } ));  and int x; 
-					 int y;
+	to fix return (( { "" } ));  

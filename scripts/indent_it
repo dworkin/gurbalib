@@ -9,7 +9,7 @@ use warnings;
 #            -saf -saw -ncs -nsc -sob -nfca -cp33 -ss -ts8 -il1
 
 # Our options:
-my $options = "-bad -bap -nbc -bbo -hnl -br -brs -c33 -cd33 -ncdb -ce -ci3 " .
+my $options = "-nbad -bap -nbc -bbo -hnl -br -brs -c33 -cd33 -ncdb -ce -ci3 " .
 	"-cli3 -d0 -di1 -nfc1 -i3 -ip0 -l80 -npcs -npsl -sai -brf " .
 	"-saf -saw -ncs -nsc -sob -nfca -cp33 -ss -ts8 -il1 -nlp";
 
