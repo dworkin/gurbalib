@@ -72,10 +72,11 @@ Look at set_in_room_desc, set_brief, etc...  very messy right now...
 fix  You wield your the shield.
 
 Run indent 
-	did domains execpt for gurba
+	did domains except for gurba/rooms and rooms_old
 	dameons/parse_d.c has problems...
 	dameons/imud.c also needs to be done
 	daemons/ansi_d.c
 	daemons/channel_d.c
 	kernel std
+	did kernel/cmds/admin
 	cmds/wiz

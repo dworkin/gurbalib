@@ -8,13 +8,13 @@
 string reason;
 
 void usage() {
-  write("Usage: shutdown [-h] [now|MINUTES] REASON\n");
-  write("Shutdown the server now or MINUTES minutes later.\n");
-  write("REASON is a message why the shutdown is needed.\n");
-  write("Note: there is no way to stop a shutdown.\n");
-  write("Options:\n");
-  write("\t-h\tHelp, this usage message.\n");
-  write("See also: warmboot\n");
+   write("Usage: shutdown [-h] [now|MINUTES] REASON\n");
+   write("Shutdown the server now or MINUTES minutes later.\n");
+   write("REASON is a message why the shutdown is needed.\n");
+   write("Note: there is no way to stop a shutdown.\n");
+   write("Options:\n");
+   write("\t-h\tHelp, this usage message.\n");
+   write("See also: warmboot\n");
 }
 
 void do_shutdown() {
@@ -23,71 +23,70 @@ void do_shutdown() {
 
    usrs = USER_D->query_players();
    max = sizeof(usrs);
-   for( i=0; i < max; i++ ) {
-      usrs[i]->message( "Shutdown initiated by : " +
-         this_player()->query_Name() + "\n");
-      usrs[i]->message( "Game driver tells you: " +
-         "Shutting down immediately!\n");
-      usrs[i]->message( "  Reason : " + reason + "\n");
+   for (i = 0; i < max; i++) {
+      usrs[i]->message("Shutdown initiated by : " +
+	 this_player()->query_Name() + "\n");
+      usrs[i]->message("Game driver tells you: " +
+	 "Shutting down immediately!\n");
+      usrs[i]->message("  Reason : " + reason + "\n");
       usrs[i]->save_me();
    }
    shutdown();
 }
 
-void countdown( int mins) {
+void countdown(int mins) {
    object *usrs;
    int i;
 
    usrs = USER_D->query_players();
 
-   if( mins == 0 ) {
+   if (mins == 0) {
       do_shutdown();
    } else {
-      for( i=0; i < sizeof( usrs ); i++ ) {
-         usrs[i]->message( "Shutdown initiated by : " +
-            this_player()->query_Name() + "\n");
-         usrs[i]->message( "Game driver tells you: " +
-            "Shutting down in " + mins + " minutes!\n");
-         usrs[i]->message( "  Reason : " + reason + "\n");
+      for (i = 0; i < sizeof(usrs); i++) {
+	 usrs[i]->message("Shutdown initiated by : " +
+	    this_player()->query_Name() + "\n");
+	 usrs[i]->message("Game driver tells you: " +
+	    "Shutting down in " + mins + " minutes!\n");
+	 usrs[i]->message("  Reason : " + reason + "\n");
       }
-      call_out( "countdown", 60, mins -1 );
+      call_out("countdown", 60, mins - 1);
    }
 }
 
-void main( string arg ) {
+void main(string arg) {
    object *usrs;
    string time;
 
-   if( !arg || arg == "" ) {
+   if (!arg || arg == "") {
       usage();
       return;
    }
 
-   if (sscanf(arg, "-%s",arg)) {
-     usage();
-     return;
-  }
-
-   if( sscanf( arg, "%s %s", time, reason ) !=2 ) {
+   if (sscanf(arg, "-%s", arg)) {
       usage();
       return;
    }
 
-   if( !require_priv( "system" ) ) {
-     write("You need admin permissions to do that.");
-     return;
+   if (sscanf(arg, "%s %s", time, reason) != 2) {
+      usage();
+      return;
    }
 
-   if( lowercase( time ) == "now" ) {
-      write_file( S_LOG, ctime( time() ) + ": " + 
-         this_player()->query_Name() + " forced a shutdown.\n" + "REASON: "
-         + reason + "\n");
+   if (!require_priv("system")) {
+      write("You need admin permissions to do that.");
+      return;
+   }
+
+   if (lowercase(time) == "now") {
+      write_file(S_LOG, ctime(time()) + ": " +
+	 this_player()->query_Name() + " forced a shutdown.\n" + "REASON: "
+	 + reason + "\n");
       do_shutdown();
    } else {
-      write_file( S_LOG, ctime( time() ) + ": " + 
-         this_player()->query_Name() + " forced a shutdown.\n" + "REASON: " +
-         reason + "\n" );
-       countdown( str2val( time ));
+      write_file(S_LOG, ctime(time()) + ": " +
+	 this_player()->query_Name() + " forced a shutdown.\n" + "REASON: " +
+	 reason + "\n");
+      countdown(str2val(time));
    }
 }
-
