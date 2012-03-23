@@ -76,3 +76,8 @@ Run indent on wiz commands and then rest of the lib....
 	did domains execpt for gurba
 	It's not perfect need to see if I can tweek indent some more
 	to fix return (( { "" } ));  
+	it also doesn't deal well with set_exists or set_objects
+	dameons/parse_d.c has problems...
+	dameons/imud.c also needs to be done
+	daemons/ansi_d.c
+	daemons/channel_d.c

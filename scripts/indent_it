@@ -3,6 +3,10 @@
 use strict;
 use warnings;
 
+# XXX  doesn't deal well with (( { } ));  or similar statments,
+#      like set_exists(["blah" : "wee",]);
+# So you will need to clean up the code after running it.
+
 # -linux options:
 # -nbad -bap -nbc -bbo -hnl -br -brs -c33 -cd33 -ncdb -ce -ci4
 #            -cli0 -d0 -di1 -nfc1 -i8 -ip0 -l80 -lp -npcs -nprs -npsl -sai

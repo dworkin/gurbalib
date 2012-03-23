@@ -30,7 +30,7 @@ private void show_skills(string * skills) {
    lines = ( { } );
    for (i = 0; i < sizeof(skills); i++) {
       line = skills[i] + "                                     ";
-      line = line[0. .30] + ": " + this_player()->query_skill(skills[i]);
+      line = line[0..30] + ": " + this_player()->query_skill(skills[i]);
       lines += ( { line } );
    }
    this_player()->more(lines);

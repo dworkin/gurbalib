@@ -11,7 +11,8 @@ void setup(void) {
       "pretty busy.");
    set_exits(([
       "out" : "/domains/required/rooms/start", 
-      "east" : "/domains/required/rooms/bug_room",]));
+      "east" : "/domains/required/rooms/bug_room",
+   ]));
 
    add_item("desk", "The desk is a huge and made of mahogny. " +
       "It's the central piece of furniture of the room, and it is clear that " +

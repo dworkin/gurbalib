@@ -20,22 +20,22 @@ void rescan_verbs( void );
 string scan_local_verbs();
 
 void create( void ) {
-  int i;
+   int i;
 
-  verbs = ([ ]);
-  object_rules = ([ ]);
-  rescan_verbs();
+   verbs = ([ ]);
+   object_rules = ([ ]);
+   rescan_verbs();
 }
 
 string *query_verbs( void ) {
-  return( names );
+   return( names );
 }
 
 // XXX Why is this here and verb_d as well?  Seems bad that its in both places.
 int is_verb( string verb ) {
-  if( member_array( verb, map_indices( verbs ) ) != -1 )
-    return( 1 );
-  return( 0 );
+   if( member_array( verb, map_indices( verbs ) ) != -1 )
+      return 1;
+   return 0;
 }
 
 int call_help(string verb) {
@@ -56,23 +56,20 @@ int query_can(mixed obj, string function, varargs mixed args...) {
   switch( sizeof( args ) ) {
     case 0:
       x = call_other( obj, function );
-	  break;
+      break;
     case 1:
-      x = call_other( obj, function, 
-			   args[0] );
-	  break;
+      x = call_other( obj, function, args[0] );
+      break;
     case 2:
-      x = call_other( obj, function, 
-			   args[0], args[1] );
-	  break;
+      x = call_other( obj, function, args[0], args[1] );
+      break;
     case 3:
-      x = call_other( obj, function, 
-			   args[0], args[1], args[2] );
-	  break;
+      x = call_other( obj, function, args[0], args[1], args[2] );
+      break;
     case 4:
       x = call_other( obj, function, 
 			  args[0], args[1], args[2], args[3] );
-	  break;
+      break;
   }
   if(!x) return 0;
   return 1;
@@ -132,13 +129,11 @@ mapping query_objects_rules(object obj) {
 
 int parse(string str) {
   mixed *result;
-  string function;
+  string function, err;
   string local_production_rules;
-  string err;
   object local_verb_object;
   mixed obj;
-  int returned;
-  int i;
+  int i, returned;
 
   set_otlvar("last_obj", nil);
   local_production_rules = scan_local_verbs();

@@ -196,9 +196,9 @@ string save_value(mixed var) {
       case T_STRING:
 
 	 if (strlen(var) > 0) {
-	    if (var[0. .0] == "\\") {
+	    if (var[0..0] == "\\") {
 	       pref = "\\\\";
-	    } else if (var[0. .0] == "\"") {
+	    } else if (var[0..0] == "\"") {
 	       pref = "\\\"";
 	    } else {
 	       pref = "";
