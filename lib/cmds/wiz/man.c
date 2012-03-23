@@ -69,9 +69,9 @@ static string *dir_index(string what) {
       for (j = 0; j < ncollumns; j++) {
 	 if (i + j < sz) {
 	    if (file_exists(what + dir[i + j]) == -1) {
-	       line += (dir[i + j] + "/                     ")[0. .18];
+	       line += (dir[i + j] + "/                     ")[0..18];
 	    } else {
-	       line += (dir[i + j] + "                              ")[0. .18];
+	       line += (dir[i + j] + "                              ")[0..18];
 	    }
 	 }
       }
