@@ -77,5 +77,5 @@ Run indent
 	dameons/imud.c also needs to be done
 	daemons/ansi_d.c
 	daemons/channel_d.c
-	kernel std
+	kernel std/modules
 	did kernel/cmds/admin

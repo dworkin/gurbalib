@@ -1,7 +1,7 @@
 int experience;
 int level;
 
-void create( void ) {
+void create(void) {
 }
 
 int ready_for_next_level() {
@@ -19,125 +19,125 @@ string query_level_title(int level) {
    switch (level) {
       case 1:
 	 return "the uninitiated.\n";
-         break;
+	 break;
       case 2:
 	 return "the newbie.\n";
-         break;
+	 break;
       case 3:
 	 return "is getting the hang of things.\n";
-         break;
+	 break;
       case 4:
 	 return "the mediocre.\n";
-         break;
+	 break;
       case 5:
 	 return "the Sub-average.\n";
-         break;
+	 break;
       case 6:
 	 return "the Average.\n";
-         break;
+	 break;
       case 7:
 	 return "the Strong.\n";
-         break;
+	 break;
       case 8:
 	 return "the Great.\n";
-         break;
+	 break;
       case 9:
-         if (this_player()->query_race() == "male") {
+	 if (this_player()->query_race() == "male") {
 	    return "the Baron.\n";
-         } else {
+	 } else {
 	    return "the Baroness.\n";
-         }
-         break;
+	 }
+	 break;
       case 10:
 	 return "the Titan.\n";
-         break;
+	 break;
       case 11:
 	 return "the Conquerer.\n";
-         break;
+	 break;
       case 12:
 	 return "the Famous.\n";
-         break;
+	 break;
       case 13:
 	 return "the Awe-inspiring.\n";
-         break;
+	 break;
       case 14:
 	 return "the Battle Hardened.\n";
-         break;
+	 break;
       case 15:
 	 return "the More than Adequate.\n";
-         break;
+	 break;
       case 16:
-         if (this_player()->query_race() == "male") {
+	 if (this_player()->query_race() == "male") {
 	    return "the Grand Baron.\n";
-         } else {
+	 } else {
 	    return "the Grand Baroness.\n";
-         }
-         break;
+	 }
+	 break;
       case 17:
 	 return "the Great Titan.\n";
-         break;
+	 break;
       case 18:
 	 return "the Mighty Conquerer.\n";
-         break;
+	 break;
       case 19:
 	 return "the High and Mighty.";
-         break;
+	 break;
       default:
 	 return "the Grand Wizard!!!";
-         break;
+	 break;
    }
 }
 
 void increase_level() {
    level += 1;
-   this_player()->set_max_hp( (level * 
-       this_player()->query_base_stat("str") ) + 20 );
-   this_player()->set_max_mana( (level * 
-       this_player()->query_base_stat("wis") ) + 20 );
-   this_player()->set_max_end( (level * 
-       this_player()->query_base_stat("con") ) + 20 );
+   this_player()->set_max_hp((level *
+	 this_player()->query_base_stat("str")) + 20);
+   this_player()->set_max_mana((level *
+	 this_player()->query_base_stat("wis")) + 20);
+   this_player()->set_max_end((level *
+	 this_player()->query_base_stat("con")) + 20);
    write("Congratulations, you just achieved level: " + level + "\n");
    this_player()->set_title(query_level_title(level));
 }
 
-void increase_expr( int expr ) {
-   if(expr < 0 ) {
+void increase_expr(int expr) {
+   if (expr < 0) {
       expr = expr * -1;
    }
    experience += expr;
-   if( experience < 0 ) {
+   if (experience < 0) {
       experience = 0;
    }
    if (ready_for_next_level()) {
-	increase_level();
-	write("Congratulations, you just went up a level...\n");
-	level += 1;
+      increase_level();
+      write("Congratulations, you just went up a level...\n");
+      level += 1;
    }
 }
 
-void decrease_expr( int expr ) {
-   if(expr > 0 ) {
+void decrease_expr(int expr) {
+   if (expr > 0) {
       expr = expr * -1;
    }
    experience -= expr;
-   if( experience < 0 ) {
+   if (experience < 0) {
       experience = 0;
    }
 }
 
-void set_expr( int expr ) {
+void set_expr(int expr) {
    experience = expr;
-   if( experience < 0 ) {
+   if (experience < 0) {
       experience = 0;
    }
 }
 
-int query_expr( void ) {
-  return( experience );
+int query_expr(void) {
+   return (experience);
 }
 
 int query_level(void) {
-   if (level < 1) level = 1;
-   return( level );
+   if (level < 1)
+      level = 1;
+   return (level);
 }
-

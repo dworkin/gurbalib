@@ -1,7 +1,7 @@
 // we need to beef up our player races a little
 inherit MONSTER_RACE;
 
-void create( void ) {
+void create(void) {
    ::create();
    base_stat_minimum["str"] = 3;
    base_stat_minimum["con"] = 3;
@@ -19,6 +19,6 @@ void create( void ) {
 
 }
 
-int is_monster_race( void ) {
-  return( 0 );
+int is_monster_race(void) {
+   return (0);
 }

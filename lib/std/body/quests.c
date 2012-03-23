@@ -1,40 +1,40 @@
 string *quests;
 
 void create() {
-  if( !quests )
-    quests = ({ });
+   if (!quests)
+      quests = ( { } );
 }
 
 string *query_quests_completed() {
-	return quests;
+   return quests;
 }
 
 int add_completed_quest(string quest) {
-   int x,s;
+   int x, s;
 
    if (quests) {
-      s=sizeof(quests);
-      for(x=0;x<s;x++) {
-         if (quest == quests[x]) {
-            return 0;
-         }
+      s = sizeof(quests);
+      for (x = 0; x < s; x++) {
+	 if (quest == quests[x]) {
+	    return 0;
+	 }
       }
-      quests += ({ quest });
+      quests += ( { quest } );
    } else {
-      quests = ({ quest });
+      quests = ( { quest } );
    }
    return 1;
 }
 
 int is_completed_quest(string quest) {
-   int x,s;
+   int x, s;
 
    if (quests) {
-      s=sizeof(quests);
-      for(x=0;x<s;x++) {
-         if (quest == quests[x]) {
-            return 1;
-         }
+      s = sizeof(quests);
+      for (x = 0; x < s; x++) {
+	 if (quest == quests[x]) {
+	    return 1;
+	 }
       }
    }
    return 0;

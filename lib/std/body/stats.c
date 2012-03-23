@@ -3,316 +3,297 @@
 mapping base_stats;
 mapping bonus_stats;
 
-string query_valid_base_stat( string statname );
-int  query_stat( string statname );
-int  query_base_stat( string statname );
-int  query_bonus_stat( string statname );
-void trim_base_stat(string statname); 
-void trim_bonus_stat(string statname); 
-int  add_base_stat( string statname, int amt ); 
-int  add_bonus_stat( string statname, int amt ); 
-int  set_base_stat( string statname, int amt ); 
-int  set_bonus_stat( string statname, int amt );
-mixed *query_all_stats(); 
-void  initialize_base_stats(); 
-void  initialize_bonus_stats();
+string query_valid_base_stat(string statname);
+int query_stat(string statname);
+int query_base_stat(string statname);
+int query_bonus_stat(string statname);
+void trim_base_stat(string statname);
+void trim_bonus_stat(string statname);
+int add_base_stat(string statname, int amt);
+int add_bonus_stat(string statname, int amt);
+int set_base_stat(string statname, int amt);
+int set_bonus_stat(string statname, int amt);
+mixed *query_all_stats();
+void initialize_base_stats();
+void initialize_bonus_stats();
 void initialize_stat_dependant_variables();
 void initialize_stats();
 
-
-string query_valid_base_stat( string statname )
-{
-   if( base_stats[statname] )
+string query_valid_base_stat(string statname) {
+   if (base_stats[statname])
       return statname;
 }
 
-int  query_stat( string statname )
-{
+int query_stat(string statname) {
    int base, bonus;
 
-   if( !statname ) {
+   if (!statname) {
       return 0;
    }
-   if( !base_stats ) {
-      base_stats = ([ ]);
+   if (!base_stats) {
+      base_stats = ([]);
    }
-   if( !bonus_stats ) {
-      bonus_stats = ([ ]);
+   if (!bonus_stats) {
+      bonus_stats = ([]);
    }
    base = base_stats[statname] ? base_stats[statname] : 0;
    bonus = bonus_stats[statname] ? bonus_stats[statname] : 0;
-   return ( base + bonus );
+   return (base + bonus);
 }
 
-int  query_base_stat( string statname )
-{
-   if( !statname ) {
+int query_base_stat(string statname) {
+   if (!statname) {
       return 0;
    }
-   if( !base_stats ) {
-      base_stats = ([ ]);
+   if (!base_stats) {
+      base_stats = ([]);
    }
-   return base_stats[statname] ? base_stats[statname]:0;
+   return base_stats[statname] ? base_stats[statname] : 0;
 }
 
-int  query_bonus_stat( string statname )
-{
-   if( !statname ) {
+int query_bonus_stat(string statname) {
+   if (!statname) {
       return 0;
    }
-   if( !bonus_stats ) {
-      bonus_stats = ([ ]);
+   if (!bonus_stats) {
+      bonus_stats = ([]);
    }
-   return bonus_stats[statname] ? bonus_stats[statname]:0;
+   return bonus_stats[statname] ? bonus_stats[statname] : 0;
 }
 
-void trim_base_stat(string statname) 
-{
+void trim_base_stat(string statname) {
    int max, min;
    return;
-   max = this_object()->query_race_object()->query_base_stat_maximum(statname);    
-   min = this_object()->query_race_object()->query_base_stat_minimum(statname); 
-   
-   if( query_base_stat(statname) < min) {
+   max = this_object()->query_race_object()->query_base_stat_maximum(statname);
+   min = this_object()->query_race_object()->query_base_stat_minimum(statname);
+
+   if (query_base_stat(statname) < min) {
       base_stats[statname] = min;
-   }
-   else if( query_base_stat(statname) > max) {
+   } else if (query_base_stat(statname) > max) {
       base_stats[statname] = max;
    }
-}   
+}
 
-void trim_bonus_stat(string statname) 
-{
+void trim_bonus_stat(string statname) {
    int max, min;
    max = 0;
    min = 0;
    /* removed, query_bonus_stat_X functions dont exist in std/race
-   max = this_object()->query_race_object()->query_bonus_stat_maximum(statname);    
-   min = this_object()->query_race_object()->query_bonus_stat_minimum(statname);
-   */
-   if( query_bonus_stat(statname) < min) {
+      max = this_object()->query_race_object()->query_bonus_stat_maximum(statname);    
+      min = this_object()->query_race_object()->query_bonus_stat_minimum(statname);
+    */
+   if (query_bonus_stat(statname) < min) {
       bonus_stats[statname] = min;
-   }
-   else if( query_bonus_stat(statname) > max) {
+   } else if (query_bonus_stat(statname) > max) {
       bonus_stats[statname] = max;
    }
 }
 
-int  add_base_stat( string statname, int amt ) 
-{
-   if( !base_stats ) {
-      base_stats = ([ ]);
+int add_base_stat(string statname, int amt) {
+   if (!base_stats) {
+      base_stats = ([]);
    }
-   if( member_array( statname, VALID_STATS ) == -1 ) {
+   if (member_array(statname, VALID_STATS) == -1) {
       return 0;
    }
-   if( !base_stats[statname] ) {
+   if (!base_stats[statname]) {
       base_stats[statname] = amt;
-   }
-   else {
+   } else {
       base_stats[statname] += amt;
    }
-   trim_base_stat(statname); 
+   trim_base_stat(statname);
    return 1;
 }
 
-int  add_timed_bonus_stat( string statname, int amt, int time ) 
-{
-   if( !base_stats ) {
-      base_stats = ([ ]);
+int add_timed_bonus_stat(string statname, int amt, int time) {
+   if (!base_stats) {
+      base_stats = ([]);
    }
-   if( member_array( statname, VALID_STATS ) == -1 ) {
+   if (member_array(statname, VALID_STATS) == -1) {
       return 0;
    }
-   if( !base_stats[statname] ) {
+   if (!base_stats[statname]) {
       base_stats[statname] = amt;
-   }
-   else {
+   } else {
       base_stats[statname] += amt;
    }
-   trim_base_stat(statname); 
-   call_out( "add_base_stat", time, -amt );
+   trim_base_stat(statname);
+   call_out("add_base_stat", time, -amt);
    return 1;
 }
 
-int  add_bonus_stat( string statname, int amt ) 
-{
-   if( !base_stats ) {
-      bonus_stats = ([ ]);
+int add_bonus_stat(string statname, int amt) {
+   if (!base_stats) {
+      bonus_stats = ([]);
    }
-   if( member_array( statname, VALID_STATS ) == -1 ) {
+   if (member_array(statname, VALID_STATS) == -1) {
       return 0;
    }
-   if( !bonus_stats[statname] ) {
+   if (!bonus_stats[statname]) {
       bonus_stats[statname] = amt;
-   }
-   else {
+   } else {
       bonus_stats[statname] += amt;
    }
-   trim_bonus_stat(statname); 
+   trim_bonus_stat(statname);
    return 1;
 }
- 
-int  set_base_stat( string statname, int amt ) 
-{
-   if( !base_stats ) {
-      base_stats = ([ ]);
+
+int set_base_stat(string statname, int amt) {
+   if (!base_stats) {
+      base_stats = ([]);
    }
-   if( member_array( statname, VALID_STATS ) == -1 ) {
+   if (member_array(statname, VALID_STATS) == -1) {
       return 0;
    }
    base_stats[statname] = amt;
-   trim_base_stat(statname); 
+   trim_base_stat(statname);
    return 1;
 }
 
-int  set_bonus_stat( string statname, int amt ) 
-{
-   if( !bonus_stats ) {
-      bonus_stats = ([ ]);
+int set_bonus_stat(string statname, int amt) {
+   if (!bonus_stats) {
+      bonus_stats = ([]);
    }
-   if( member_array( statname, VALID_STATS ) == -1 ) {
+   if (member_array(statname, VALID_STATS) == -1) {
       return 0;
    }
    bonus_stats[statname] = amt;
-   trim_bonus_stat(statname); 
+   trim_bonus_stat(statname);
    return 1;
 }
-   
-mixed *query_all_stats()
-{
-   mixed  *ret;
+
+mixed *query_all_stats() {
+   mixed *ret;
    string *stat_names;
-   int     i;
+   int i;
 
-   stat_names = map_indices( base_stats );
-   ret = ({ });
-   for( i=0; i < sizeof( stat_names ); i++ )
-   {
-      ret += ({ ({ stat_names[i], base_stats[stat_names[i]], bonus_stats[stat_names[i]]  }) });
+   stat_names = map_indices(base_stats);
+   ret = ( {
+      });
+   for (i = 0; i < sizeof(stat_names); i++) {
+      ret += ( {
+	    ( {
+	       stat_names[i], base_stats[stat_names[i]],
+		  bonus_stats[stat_names[i]]}
+	 )}
+      );
    }
-   return( ret );
+   return (ret);
 }
 
-int query_statbonus( string name ) {
+int query_statbonus(string name) {
 
-  int stat;
-  
-  if( member_array( name, VALID_STATS ) == -1 ) {
-    return( 0 );
-  }
+   int stat;
 
-  stat = query_stat( name );
-  
-  if( stat > 1 && stat < 9 ) {
-    return( 1 );
-  } else if( stat > 8 && stat < 14 ) {
-    return( 2 );
-  } else if( stat > 13 && stat < 18 ) {
-    return( 3 );
-  } else if( stat > 17 && stat < 20 ) {
-    return( 4 );
-  } else if( stat > 29 ) {
-    return( 5 );
-  }
-  return( 0 );	
+   if (member_array(name, VALID_STATS) == -1) {
+      return (0);
+   }
+
+   stat = query_stat(name);
+
+   if (stat > 1 && stat < 9) {
+      return (1);
+   } else if (stat > 8 && stat < 14) {
+      return (2);
+   } else if (stat > 13 && stat < 18) {
+      return (3);
+   } else if (stat > 17 && stat < 20) {
+      return (4);
+   } else if (stat > 29) {
+      return (5);
+   }
+   return (0);
 }
 
-void  initialize_base_stats() 
-{
-  int *s;
-  int i;
-  int sOK;
-  int sum;
-  object race;
+void initialize_base_stats() {
+   int *s;
+   int i;
+   int sOK;
+   int sum;
+   object race;
 
-  race = this_object()->query_race_object();
+   race = this_object()->query_race_object();
 
-  sOK = FALSE;
+   sOK = FALSE;
 
-  while( !sOK ) {
-     
-     s = ({"0","0","0","0","0","0"});
-     
-     s[0] = random( race->query_base_stat_maximum( "str" ) 
-		    - race->query_base_stat_minimum( "str" ) + 1 ) 
-	+ race->query_base_stat_minimum( "str" );
-     
-     s[1] = random( race->query_base_stat_maximum( "dex" ) 
-		    - race->query_base_stat_minimum( "dex" ) + 1 ) 
-	+ race->query_base_stat_minimum( "dex" );
-     
-     s[2] = random( race->query_base_stat_maximum( "con" ) 
-		    - race->query_base_stat_minimum( "con" ) + 1 ) 
-	+ race->query_base_stat_minimum( "con" );
-     
-     s[3] = random( race->query_base_stat_maximum( "int" ) 
-		    - race->query_base_stat_minimum( "int" ) + 1 ) 
-	+ race->query_base_stat_minimum( "int" );
-     
-     s[4] = random( race->query_base_stat_maximum( "wis" ) 
-		    - race->query_base_stat_minimum( "wis" ) + 1 ) 
-	+ race->query_base_stat_minimum( "wis" );
-     
-     s[5] = random( race->query_base_stat_maximum( "cha" ) 
-		    - race->query_base_stat_minimum( "cha" ) + 1 ) 
-	+ race->query_base_stat_minimum( "cha" );
-     
-     
-     if( !race->is_monster_race() ) {
-	sum = 0;
-	for( i = 0; i < 6; i++ ) {
-	   sum += s[i];
-	}
-	
-	if( sum > 75 ) {
-	   sOK = 1;
-	}
-     } else {
-	sOK = 1;
-     }
-  }
-  
-  this_object()->set_base_stat( "str", s[0] + race->query_stat_mod( "str" ) );
-  this_object()->set_base_stat( "dex", s[1] + race->query_stat_mod( "dex" ) );
-  this_object()->set_base_stat( "con", s[2] + race->query_stat_mod( "con" ) );
-  this_object()->set_base_stat( "int", s[3] + race->query_stat_mod( "int" ) );
-  this_object()->set_base_stat( "wis", s[4] + race->query_stat_mod( "wis" ) );
-  this_object()->set_base_stat( "cha", s[5] + race->query_stat_mod( "cha" ) );
+   while (!sOK) {
+
+      s = ( { "0", "0", "0", "0", "0", "0" } );
+
+      s[0] = random(race->query_base_stat_maximum("str")
+	 - race->query_base_stat_minimum("str") + 1)
+	 + race->query_base_stat_minimum("str");
+
+      s[1] = random(race->query_base_stat_maximum("dex")
+	 - race->query_base_stat_minimum("dex") + 1)
+	 + race->query_base_stat_minimum("dex");
+
+      s[2] = random(race->query_base_stat_maximum("con")
+	 - race->query_base_stat_minimum("con") + 1)
+	 + race->query_base_stat_minimum("con");
+
+      s[3] = random(race->query_base_stat_maximum("int")
+	 - race->query_base_stat_minimum("int") + 1)
+	 + race->query_base_stat_minimum("int");
+
+      s[4] = random(race->query_base_stat_maximum("wis")
+	 - race->query_base_stat_minimum("wis") + 1)
+	 + race->query_base_stat_minimum("wis");
+
+      s[5] = random(race->query_base_stat_maximum("cha")
+	 - race->query_base_stat_minimum("cha") + 1)
+	 + race->query_base_stat_minimum("cha");
+
+      if (!race->is_monster_race()) {
+	 sum = 0;
+	 for (i = 0; i < 6; i++) {
+	    sum += s[i];
+	 }
+
+	 if (sum > 75) {
+	    sOK = 1;
+	 }
+      } else {
+	 sOK = 1;
+      }
+   }
+
+   this_object()->set_base_stat("str", s[0] + race->query_stat_mod("str"));
+   this_object()->set_base_stat("dex", s[1] + race->query_stat_mod("dex"));
+   this_object()->set_base_stat("con", s[2] + race->query_stat_mod("con"));
+   this_object()->set_base_stat("int", s[3] + race->query_stat_mod("int"));
+   this_object()->set_base_stat("wis", s[4] + race->query_stat_mod("wis"));
+   this_object()->set_base_stat("cha", s[5] + race->query_stat_mod("cha"));
 }
 
-void  initialize_bonus_stats() 
-{
-  this_object()->set_bonus_stat( "str", 0 );
-  this_object()->set_bonus_stat( "con", 0 );
-  this_object()->set_bonus_stat( "dex", 0 );
-  this_object()->set_bonus_stat( "int", 0 );
-  this_object()->set_bonus_stat( "wis", 0 );
-  this_object()->set_bonus_stat( "cha", 0 );
+void initialize_bonus_stats() {
+   this_object()->set_bonus_stat("str", 0);
+   this_object()->set_bonus_stat("con", 0);
+   this_object()->set_bonus_stat("dex", 0);
+   this_object()->set_bonus_stat("int", 0);
+   this_object()->set_bonus_stat("wis", 0);
+   this_object()->set_bonus_stat("cha", 0);
 }
- 
- 
-void initialize_stat_dependant_variables()
-{
+
+void initialize_stat_dependant_variables() {
    int tmp, stat;
 
-   tmp = this_object()->query_base_stat("con"); 
-   stat = 20 + tmp; 
-   this_object()->set_max_hp( stat );
+   tmp = this_object()->query_base_stat("con");
+   stat = 20 + tmp;
+   this_object()->set_max_hp(stat);
 
-   tmp = this_object()->query_base_stat("wis"); 
-   stat = 20 + tmp; 
-   this_object()->set_max_mana( stat );
+   tmp = this_object()->query_base_stat("wis");
+   stat = 20 + tmp;
+   this_object()->set_max_mana(stat);
 
-   tmp = this_object()->query_base_stat("con") + 
-      this_object()->query_base_stat("dex"); 
-   stat = 20 + tmp; 
-   this_object()->set_max_end( stat );
+   tmp = this_object()->query_base_stat("con") +
+      this_object()->query_base_stat("dex");
+   stat = 20 + tmp;
+   this_object()->set_max_end(stat);
 }
- 
-void initialize_stats( ) 
-{
-  this_object()->initialize_base_stats();
-  this_object()->initialize_bonus_stats(); 
-  initialize_stat_dependant_variables();
+
+void initialize_stats() {
+   this_object()->initialize_base_stats();
+   this_object()->initialize_bonus_stats();
+   initialize_stat_dependant_variables();
 }
