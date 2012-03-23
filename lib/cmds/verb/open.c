@@ -29,7 +29,6 @@ void do_open() {
 
 void do_open_str(string str) {
    object *inv;
-
    int i;
 
    if (lowercase(str) != "all"

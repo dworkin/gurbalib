@@ -28,7 +28,6 @@ void do_close() {
 
 void do_close_str(string str) {
    object *inv;
-
    int i;
 
    if (lowercase(str) != "all" && lowercase(str) != "everything"

@@ -39,7 +39,6 @@ void do_get() {
 
 void do_get_str(string str) {
    object *inv;
-
    int i;
 
    if (lowercase(str) != "all" && lowercase(str) != "everything") {
@@ -106,7 +105,6 @@ void do_get_obj_str_obj(object target, string s, object obj) {
 
 void do_get_str_str_obj(string target, string s, object obj) {
    object *inv;
-
    int i;
 
    if (target != "all" && target != "everything") {

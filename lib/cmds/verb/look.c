@@ -61,10 +61,7 @@ void do_look_str(string str) {
 }
 
 void do_look_obj(object obj) {
-   int i;
-
-   int flag;
-
+   int i, flag;
    object *objs;
 
    this_environment()->event("body_look_at", this_player(), obj);
@@ -89,10 +86,7 @@ void do_look_obj(object obj) {
 }
 
 void do_look_liv(object obj) {
-   int i;
-
-   int flag;
-
+   int i, flag;
    object *objs;
 
    this_environment()->tell_room(this_player(), this_player()->query_Name() +
@@ -140,10 +134,7 @@ void do_look_str_obj(string str, object obj) {
 }
 
 void do_look_str_liv(string str, object obj) {
-   int i;
-
-   int flag;
-
+   int i, flag;
    object *objs;
 
    if (str != "at") {

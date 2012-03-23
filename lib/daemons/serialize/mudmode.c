@@ -84,45 +84,46 @@
 /*
  * Conversion functions used by the restore_variable grammar
  */
-static int * cnvint(mixed * data) {
-  int r;
+static int *cnvint(mixed * data) {
+   int r;
 
-  sscanf(data[0],"%d",r);
-  return ({ r });
+   sscanf(data[0], "%d", r);
+   return ( { r } );
 }
 
-static float * cnvfloat(mixed * data) {
-  float r;
+static float *cnvfloat(mixed * data) {
+   float r;
 
-  sscanf(data[0],"%f",r);
-  return ({ r });
+   sscanf(data[0], "%f", r);
+   return ( { r } );
 }
 
-static object * cnvobj(mixed * data) {
-  string n;
-  int i;
+static object *cnvobj(mixed * data) {
+   string n;
+   int i;
 
-  n = "";
-  for(i=0;i<sizeof(data[0]);i++) {
-    n += data[0][i];
-  }
-  return ({ find_object(n) });
+   n = "";
+   for (i = 0; i < sizeof(data[0]); i++) {
+      n += data[0][i];
+   }
+   return ( { find_object(n) } );
 }
 
-static string * emptystring(mixed * data) {
-  return ({ "" });
+static string *emptystring(mixed * data) {
+   return ( { "" } );
 }
 
-static string * concatstring(mixed * data) {
-  int i;
+static string *concatstring(mixed * data) {
+   int i;
+   string r;
 
-  string r;
-  r = "";
+   r = "";
 
-  for(i=0;i<sizeof(data);i++) {
-    if(data[i] == "\\") i++;
-    r += data[i];
-  }
+   for (i = 0; i < sizeof(data); i++) {
+      if (data[i] == "\\")
+	 i++;
+      r += data[i];
+   }
 
 /*
  * It seems this is not needed
@@ -130,115 +131,117 @@ static string * concatstring(mixed * data) {
   r = implode(explode(r,"\\\""),"\"");
   r = implode(explode(r,"\\\\"),"\\");
 */
-  return ({ r[1..strlen(r)-2] });
+   return ( { r[1..strlen(r) - 2] } );
 }
 
-static mixed * mkemptyarray(mixed * data) {
-  return ({ ({ }) });
+static mixed *mkemptyarray(mixed * data) {
+   return ( { ( { } ) } );
 }
 
-static mixed * mkarray(mixed * data) {
-  int i;
-  mixed * stuff;
-  stuff = ({ });
-  for(i=1; i<sizeof(data) && data[i] != "})"; i += 2) {
-    stuff += ({ data[i] });
-  }
-  return ({ stuff });
+static mixed *mkarray(mixed * data) {
+   int i;
+   mixed *stuff;
+
+   stuff = ( { } );
+   for (i = 1; i < sizeof(data) && data[i] != "})"; i += 2) {
+      stuff += ( { data[i] } );
+   }
+   return ( { stuff } );
 }
 
-static mixed * mkemptymap(mixed * data) {
-  return ({ ([ ]) });
+static mixed *mkemptymap(mixed * data) {
+   return ( { ([ ]) } );
 }
 
-static mixed * mkmap(mixed * data) {
-  int i;
-  mapping stuff;
-  mixed key,val;
+static mixed *mkmap(mixed * data) {
+   int i;
+   mapping stuff;
+   mixed key, val;
 
-  stuff = ([ ]);
-  for(i=1; i<sizeof(data) && data[i] != "])"; i += 4) {
-    key = data[i];
-    val = data[i+2];
-    stuff[key] = val;
-  }
-  return ({ stuff });
+   stuff = ([]);
+   for (i = 1; i < sizeof(data) && data[i] != "])"; i += 4) {
+      key = data[i];
+      val = data[i + 2];
+      stuff[key] = val;
+   }
+   return ( { stuff } );
 }
 
 mixed restore_value(string str) {
-  mixed * result;
+   mixed *result;
 
-  result = parse_string(GRAMMAR, str);
+   result = parse_string(GRAMMAR, str);
 
-  if(!result || sizeof(result) < 1) {
-    return nil;
-  } else {
-    return result[0];
-  }
+   if (!result || sizeof(result) < 1) {
+      return nil;
+   } else {
+      return result[0];
+   }
 }
 
 string save_value(mixed var) {
-   string       result;
-   int          i, s;
-   mixed        *keys, *values;
-   string pref,post;
+   string result;
+   int i, s;
+   mixed *keys, *values;
+   string pref, post;
 
    if (!var) {
       return "0";
    }
    switch (typeof(var)) {
-      case T_INT : case T_FLOAT :
-         result = ""+var;
-         break;
-      case T_STRING :
+      case T_INT:
+      case T_FLOAT:
+	 result = "" + var;
+	 break;
+      case T_STRING:
 
-         if(strlen(var) > 0) {
-           if(var[0..0] == "\\") {
-             pref = "\\\\";
-           } else if(var[0..0] == "\"") {
-             pref = "\\\"";
-           } else {
-             pref = "";
-           }
+	 if (strlen(var) > 0) {
+	    if (var[0. .0] == "\\") {
+	       pref = "\\\\";
+	    } else if (var[0. .0] == "\"") {
+	       pref = "\\\"";
+	    } else {
+	       pref = "";
+	    }
 
-           if(var[strlen(var)-1] == '\\') {
-             post = "\\\\";
-           } else if(var[strlen(var)-1] == '\"') {
-             post = "\\\"";
-           } else {
-             post = "";
-           }
+	    if (var[strlen(var) - 1] == '\\') {
+	       post = "\\\\";
+	    } else if (var[strlen(var) - 1] == '\"') {
+	       post = "\\\"";
+	    } else {
+	       post = "";
+	    }
 
-           result = implode(explode(var, "\\"), "\\\\");
-           result = implode(explode(result, "\""), "\\\"");
-           result = "\""+pref+result+post+"\"";
-         } else {
-           result = "\"\"";
-         }
-         break;
-      case T_OBJECT :
-         result = object_name(var);
-         break;
-      case T_ARRAY :
-         result = "({";
-         for (i = 0, s = sizeof(var); i < s; i++) {
-            result += save_value(var[i]) + ",";
-         }
-         result += "})";
-         break;
-      case T_MAPPING :
-         keys = map_indices(var);
-         values = map_values(var);
-         result = "([";
-         for (i = 0, s = map_sizeof(var); i < s; i++) {
-            result += save_value(keys[i]) + ":" + save_value(values[i])
-                      + ",";
-         }
-         result += "])";
-         break;
-      default :
-         result = nil;
-         break;
+	    result = implode(explode(var, "\\"), "\\\\");
+	    result = implode(explode(result, "\""), "\\\"");
+	    result = "\"" + pref + result + post + "\"";
+	 } else {
+	    result = "\"\"";
+	 }
+	 break;
+      case T_OBJECT:
+	 result = object_name(var);
+	 break;
+      case T_ARRAY:
+	 result = "({";
+	 for (i = 0, s = sizeof(var); i < s; i++) {
+	    result += save_value(var[i]) + ",";
+	 }
+	 result += "})";
+	 break;
+      case T_MAPPING:
+	 keys = map_indices(var);
+	 values = map_values(var);
+	 result = "([";
+	 for (i = 0, s = map_sizeof(var); i < s; i++) {
+	    result += save_value(keys[i]) + ":" + save_value(values[i])
+	       + ",";
+	 }
+	 result += "])";
+	 break;
+      default:
+	 result = nil;
+	 break;
    }
    return result;
 }
