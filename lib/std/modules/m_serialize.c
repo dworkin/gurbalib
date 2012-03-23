@@ -29,38 +29,38 @@
 
 static mapping formats;
 
-private int new_format( string format ) {
-  object ob;
+private int new_format(string format) {
+   object ob;
 
-  if( !formats ) {
-    formats = ([ ]);
-  }
+   if (!formats) {
+      formats = ([]);
+   }
 
-  console_msg( "Trying to add parser "+PARSER_DIR+format+"\n");
-  if( ob = find_object( PARSER_DIR + format ) ) {
-    formats[format] = ob;
-    return 1;
-  } else {
-    return 0;
-  }
+   console_msg("Trying to add parser " + PARSER_DIR + format + "\n");
+   if (ob = find_object(PARSER_DIR + format)) {
+      formats[format] = ob;
+      return 1;
+   } else {
+      return 0;
+   }
 }
 
-private void test_format( string format ) {
-  if(!formats || !formats[format]) {
-    if( !new_format( format ) ) {
-      error( "Unknown format: "+format );
-    }
-  }
+private void test_format(string format) {
+   if (!formats || !formats[format]) {
+      if (!new_format(format)) {
+	 error("Unknown format: " + format);
+      }
+   }
 }
 
-static string serialize( string format, mixed value ) {
-  format = lowercase( format );
-  test_format( format );
-  return formats[format]->save_value( value );
+static string serialize(string format, mixed value) {
+   format = lowercase(format);
+   test_format(format);
+   return formats[format]->save_value(value);
 }
 
-static mixed deserialize( string format, string data ) {
-  format = lowercase( format );
-  test_format( format );
-  return formats[format]->restore_value( data );
+static mixed deserialize(string format, string data) {
+   format = lowercase(format);
+   test_format(format);
+   return formats[format]->restore_value(data);
 }

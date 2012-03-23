@@ -1,9 +1,9 @@
 static int gettable;
 
-int is_gettable( void ) {
-  return gettable;
+int is_gettable(void) {
+   return gettable;
 }
 
-void set_gettable( int get ) {
-  gettable = get;
+void set_gettable(int get) {
+   gettable = get;
 }
