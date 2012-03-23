@@ -1,3 +1,3 @@
 int test_safun() {
-  return 1;
+   return 1;
 }

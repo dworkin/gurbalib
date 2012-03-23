@@ -60,13 +60,11 @@ void dispatch_event(string name, object * obs, int *counters, int id,
       guard_handle = 0;
    }
 
-   rlimits(MAX_DEPTH;
-      -1) {
+   rlimits(MAX_DEPTH; -1) {
       while ((ticks_used < (MAX_TICKS) / 50) && (i <= max_i)) {
 	 counters[0] = i + 1;
 
-	 rlimits(MAX_DEPTH;
-	    MAX_TICKS) {
+	 rlimits(MAX_DEPTH; MAX_TICKS) {
 	    if (obs[i]) {
 	       if (sizeof(args) > 0)
 		  call_other(obs[i], "event_" + name, args);

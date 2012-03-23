@@ -4,7 +4,10 @@ use strict;
 use warnings;
 
 # XXX  doesn't deal well with (( { } ));  or similar statments,
-#      like set_exists(["blah" : "wee",]);
+#	like set_exists(["blah" : "wee",]);
+#	also issues with the following operators: ..  and <-
+#	rlimits(VALUE; VALUE)   the ; confuses it...
+#	the : in set_exists is also an issue...
 # So you will need to clean up the code after running it.
 
 # -linux options:
