@@ -14,15 +14,13 @@ void usage() {
    write("Usage: cmds [-h] [-v] [" + flags + "]\n");
    write("cmds lists the various cmds at your disposal.\n");
    write("Options:\n");
+   write("\t-e\tInclude emotes.\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\t-v\tVertical, displays commands one per line.\n");
    write("If you specify a subsection like player it will only list " +
       "player commands, instead of all commands you have available.\n");
    write("See also: man, help\n");
 }
-
-// XXX not sure on verbs vs cmds might want to merge them...
-// might want to make emote's available as well with a flag... -e
 
 void show_cmds(string dir) {
    string *names;
@@ -63,6 +61,11 @@ void show_cmds(string dir) {
 void main(string str) {
    string *path;
    int c, cmax;
+   mixed width;
+
+   width = this_player()->query_env("width");
+   if (!intp(width) || width < 2)
+      width = DEFAULT_WIDTH;
 
    lines = ( { } ); 
 
@@ -93,6 +96,10 @@ void main(string str) {
 		  usage();
 	       }
 	       break;
+            case "emote":
+            case "emotes":
+               lines += EMOTE_D->show_emote("",width);
+               break;
 	    default:
 	       usage();
 	       break;
@@ -109,6 +116,8 @@ void main(string str) {
    }
 
    show_cmds("/cmds/verb");
+
+   lines += EMOTE_D->show_emote("",width);
 
    this_player()->more(lines);
 }

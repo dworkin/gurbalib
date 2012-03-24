@@ -71,7 +71,7 @@ string *show_emote(string str, int width) {
          }
       }
       lines += ( {line } );
-      lines += ( { " \nTotal: " + sizeof(rules) } );
+      lines += ( { "Total emotes: " + sizeof(rules) } );
 
       return lines;
    }
