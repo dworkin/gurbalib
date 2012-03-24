@@ -75,7 +75,7 @@ void main(string str) {
    }
 
    if (name == "show") {
-      ALIAS_D->show_emote(fmt);
+      ALIAS_D->show_alias(fmt);
       return;
    } else if (name == "del" || name == "delete" || name == "rm" ||
       name == "remove") {

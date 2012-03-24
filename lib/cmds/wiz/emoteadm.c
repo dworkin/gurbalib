@@ -72,8 +72,13 @@ void add_emote(string str) {
 }
 
 void main(string str) {
-   string name;
-   string fmt;
+   string name, fmt;
+   string *lines;
+   mixed width;
+
+   width = this_player()->query_env("width");
+   if (!intp(width) || width < 2)
+      width = DEFAULT_WIDTH;
 
    if (!str || str == "") {
       usage();
@@ -85,7 +90,8 @@ void main(string str) {
    }
 
    if (str == "show") {
-      EMOTE_D->show_emote("");
+      lines = EMOTE_D->show_emote("", width);
+      this_player()->more(lines);
       return;
    }
 
@@ -95,7 +101,9 @@ void main(string str) {
    }
 
    if (name == "show") {
-      EMOTE_D->show_emote(fmt);
+      lines = EMOTE_D->show_emote(fmt, width);
+
+      this_player()->more(lines);
       return;
    } else if (name == "del" || name == "delete" || name == "rm" ||
       name == "remove") {

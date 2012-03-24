@@ -48,35 +48,45 @@ void remove_emote(string name) {
    save_me();
 }
 
-// XXX Change this so it returns an array of lines so we can more it.
-// also work it into cmds.c with -e flag....
-void show_emote(string str) {
-   string *rules;
-   int i;
+string *show_emote(string str, int width) {
+   string *rules, *lines;
+   int i, tmp;
    string line;
+
+   lines = ({ });
 
    if (!str || str == "") {
       rules = query_emotes();
 
-      line = "";
+      lines = ({ "Emotes:" });
 
+      line = "   ";
       for (i = 0; i < sizeof(rules); i++) {
-	 line += rules[i] + ", ";
+         tmp = strlen(rules[i]) + 3 + strlen(line);
+         if (tmp >= width) {
+            lines += ({ line });
+            line = "   " + rules[i];
+         } else {
+	    line += rules[i] + ", ";
+         }
       }
-      write(line + "\n");
-      write(" \nTotal: " + sizeof(rules) + "\n");
+      lines += ( {line } );
+      lines += ( { " \nTotal: " + sizeof(rules) } );
 
-      return;
+      return lines;
    }
    if (is_emote(str)) {
 
       rules = query_rules(str);
 
       while (sizeof(rules) > 0) {
-	 write(rules[0] + " : \"" + query_emote(str, rules[0]) + "\"\n");
+	 lines += 
+            ( { rules[0] + " : \"" + query_emote(str, rules[0]) + "\"" } );
 	 rules -= ( { rules[0] } );
       }
    } else {
-      write("No such emote. \n");
+      lines += ( { "No such emote. \n" } );
    }
+
+   return lines;
 }
