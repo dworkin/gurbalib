@@ -74,7 +74,4 @@ fix  You wield your the shield.
 Run indent 
 	did domains except for gurba/rooms and rooms_old
 	dameons/parse_d.c has problems...
-	dameons/imud.c also needs to be done
-	daemons/ansi_d.c
-	daemons/channel_d.c
 	kernel did kernel/cmds/admin
