@@ -1,13 +1,13 @@
 int query_mortal(mixed player) {
 
-  if(objectp(player)) {
-    if( !player<-"/sys/lib/player" ) {
-      return 0;
-    }
-    player = player->query_name();
-  } else {
-    argcheck( stringp( player ), 1, "player object or string" );
-  }
+   if (objectp(player)) {
+      if (!player <-"/sys/lib/player") {
+	 return 0;
+      }
+      player = player->query_name();
+   } else {
+      argcheck(stringp(player), 1, "player object or string");
+   }
 
-  return SECURE_D->query_mortal( player ) ;
+   return SECURE_D->query_mortal(player);
 }

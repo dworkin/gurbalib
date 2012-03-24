@@ -6,11 +6,11 @@
  * This code is in the public domain.
  */
 static mixed get_tlvar(string name) {
-  mapping vars;
+   mapping vars;
 
-  argcheck(stringp(name), 1, "string");
+   argcheck(stringp(name), 1, "string");
 
-  vars = DRIVER->get_tlvar(TLS_UVARS);
-  if(vars)
-    return vars[name];
+   vars = DRIVER->get_tlvar(TLS_UVARS);
+   if (vars)
+      return vars[name];
 }
