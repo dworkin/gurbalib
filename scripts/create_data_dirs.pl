@@ -32,7 +32,6 @@ makedir("lib/data/mail");
 makedir("lib/domains/gurba/data");
 makedir("lib/domains/gurba/data/boards");
 makedir("lib/kernel/daemons/data");
-makedir("lib/kernel/lib/net");
 makedir("lib/sys/daemons/data");
 makedir("lib/sys/daemons/data/users");
 makedir("lib/sys/data");

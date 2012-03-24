@@ -1,3 +1,3 @@
 static object this_connection() {
-  return ::this_user();
+   return::this_user();
 }

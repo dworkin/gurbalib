@@ -1,25 +1,21 @@
-/*
- * reversible explode string
- *
- */
+// reversible explode string
+static string *rexplode(string str, string sep) {
+   string dummy;
+   string *result;
 
-static string * rexplode( string str, string sep ) {
-  string dummy;
-  string * result;
+   argcheck(stringp(str), 1, "non empty string");
+   argcheck(stringp(sep), 2, "non empty string");
 
-  argcheck( stringp( str ), 1, "non empty string" );
-  argcheck( stringp( sep ), 2, "non empty string" );
+   if (!strlen(sep)) {
+      dummy = "!";
+   } else {
+      dummy = sep[0] != '!' ? "!" : "?";
+   }
 
-  if( !strlen( sep ) ) {
-    dummy = "!";
-  } else {
-    dummy = sep[0] != '!' ? "!" : "?";
-  }
-
-
-  str = dummy + str + dummy;
-  result = explode( str, sep );
-  result[0] = result[0][1..];
-  result[sizeof(result)-1] = result[sizeof(result)-1][..strlen(result[sizeof(result)-1])-2];
-  return result;
+   str = dummy + str + dummy;
+   result = explode(str, sep);
+   result[0] = result[0][1..];
+   result[sizeof(result) - 1] =
+      result[sizeof(result) - 1][..strlen(result[sizeof(result) - 1]) - 2];
+   return result;
 }

@@ -6,16 +6,16 @@
  */
 
 string caught_error(varargs mixed flag) {
-  string * lines;
-  string result;
+   string *lines;
+   string result;
 
-  result = driver->get_tlvar(TLS_CAUGHT_ERROR);
+   result = driver->get_tlvar(TLS_CAUGHT_ERROR);
 
-  if(!flag) {
-    if(result) {
-      lines = explode(result,"\n");
-      result = lines[0];
-    }
-  }
-  return result;
+   if (!flag) {
+      if (result) {
+	 lines = explode(result, "\n");
+	 result = lines[0];
+      }
+   }
+   return result;
 }

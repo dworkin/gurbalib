@@ -1,17 +1,16 @@
-void event( string name, varargs mixed args... ) {
-  object *obs;
-  int i;
+void event(string name, varargs mixed args ...) {
+   object *obs;
+   int i;
 
-  argcheck( name, 1, "string" );
+   argcheck(name, 1, "string");
 
-  if(!events[name]) return;
+   if (!events[name])
+      return;
 
-  obs = map_indices(events[name]);
+   obs = map_indices(events[name]);
 
-  for( i = 0; i < sizeof( obs ); i++ ) {
-    if( obs[i] )
-      call_other( obs[i], "event_" + name, args );
-  }
+   for (i = 0; i < sizeof(obs); i++) {
+      if (obs[i])
+	 call_other(obs[i], "event_" + name, args);
+   }
 }
-
-
