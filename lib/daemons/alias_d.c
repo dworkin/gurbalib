@@ -138,35 +138,34 @@ string *show_alias(string type, string str) {
    rules = ( { } );
    if (!str || str == "") {
       if (!type || type == "" || type == "player") {
-	 rules += ( { "Player aliases:\n" } );
+	 rules += ( { "Player aliases:" } );
 	 aliases = map_indices(player_alias);
 	 for (i = 0; i < sizeof(aliases); i++) {
-	    line += aliases[i] + ", ";
+            line = aliases[i];
+	    rules += ({ "   " + line + ": " + player_alias[line] });
 	 }
-	 rules += ( { line } );
       }
       if (!type || type == "" || type == "wizard") {
-	 rules += ( { "Wizard aliases:\n" } );
+	 rules += ( { "Wizard aliases:" } );
+	 aliases = ({ });
 	 aliases = map_indices(wizard_alias);
 	 for (i = 0; i < sizeof(aliases); i++) {
-	    line += aliases[i] + ", ";
+            line = aliases[i];
+	    rules += ( { "   " + line + ": " + wizard_alias[line] });
 	 }
-	 rules += ( { line } );
 	 return rules;
       }
    }
 
    if (type == "" || type == "player") {
       if (player_alias[str]) {
-	 rules += ( { "Player alias: " + str + " : " + player_alias[str] + 
-            "\n" } );
+	 rules += ( { "Player alias: " + str + " : " + player_alias[str] } );
       }
    }
 
    if (type == "" || type == "wizard") {
       if (wizard_alias[str]) {
-	 rules += ( { "Wizard alias: " + str + " : " + wizard_alias[str] + 
-            "\n" } );
+	 rules += ( { "Wizard alias: " + str + " : " + wizard_alias[str] } );
       }
    }
 }

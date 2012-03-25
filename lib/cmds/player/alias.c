@@ -11,16 +11,19 @@ void usage() {
 void main(string str) {
    mapping alias;
    string *aliases;
-   string cmd;
-   string arg;
+   string cmd, arg;
+   string *lines;
    int i;
 
    if (!str || str == "") {
       alias = this_player()->query_aliases();
       aliases = map_indices(alias);
 
+      lines = ({ "You have defined these aliases: " });
       if (sizeof(aliases) == 0) {
-	 write("You have no aliases.");
+	 lines += ({ "   You have no personal aliases defined." });
+         lines += ALIAS_D->show_alias("","");
+         this_player()->more(lines);
 	 return;
       }
 
@@ -29,10 +32,14 @@ void main(string str) {
 	 return;
       }
 
-      write("You have defined these aliases: ");
+      lines = ({ "You have defined these aliases: " });
       for (i = 0; i < sizeof(aliases); i++) {
-	 write("  " + aliases[i] + "='" + alias[aliases[i]] + "'");
+	 lines +=({ "  " + aliases[i] + "='" + alias[aliases[i]] + "'" });
       }
+
+      lines += ALIAS_D->show_alias("","");
+      this_player()->more(lines);
+
    } else if (sscanf(str, "-%s", str)) {
       usage();
       return;
