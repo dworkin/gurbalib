@@ -624,8 +624,7 @@ void receive_message(string str) {
 	    /*
 	     * restore the variable in the packet and send it to the user object.
 	     */
-	    rlimits(2048;
-	       -1) {
+	    rlimits(2048; -1) {
 	       mixed data;
 	       string rc;
 

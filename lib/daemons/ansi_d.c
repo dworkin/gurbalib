@@ -197,8 +197,7 @@ static string _parse_colors(string str, int curdepth, mapping cache,
 
    tmp = explode(str, "%^");
 
-   rlimits(MAX_DEPTH;
-      MAX_TICKS * MAX_TICKS * 10000) {
+   rlimits(MAX_DEPTH; MAX_TICKS * MAX_TICKS * 10000) {
       for (i = 0; i < sizeof(tmp); i++) {
 	 if (cache[tmp[i]]) {
 	    tmp[i] = cache[tmp[i]];

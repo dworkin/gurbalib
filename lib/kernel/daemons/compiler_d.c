@@ -690,8 +690,7 @@ void rebuild_depending(string str) {
    stuff = find_depending_objects(str);
 
    if (stuff) {
-      rlimits(MAX_DEPTH;
-	 -1) {
+      rlimits(MAX_DEPTH; -1) {
 	 for (i = 0, sz = sizeof(stuff); i < sz; i++) {
 	    sscanf(stuff[i], "%s.c", on);
 	    if (file_exists(stuff[i]) && find_object(on)) {

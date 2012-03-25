@@ -157,8 +157,7 @@ void wrap_message(string str, varargs int chat_flag) {
    if (width == 0)
       width = MAX_STRING_SIZE;
 
-   rlimits(MAX_DEPTH;
-      MAX_TICKS * MAX_TICKS) {
+   rlimits(MAX_DEPTH; MAX_TICKS * MAX_TICKS) {
       /* Split the string into lines */
       lines = explode(str, "\n");
 
@@ -210,8 +209,7 @@ void wrap_message(string str, varargs int chat_flag) {
 }
 
 static void _receive_message(mixed * tls, string message) {
-   rlimits(MAX_DEPTH;
-      MAX_TICKS) {
+   rlimits(MAX_DEPTH; MAX_TICKS) {
       if (player->query_possessing()) {
 	 set_this_player(player->query_possessing());
       } else {

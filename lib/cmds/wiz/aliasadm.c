@@ -52,6 +52,8 @@ void add_alias(string str) {
    write("Alias " + name + " added.\n");
 }
 
+// XXX get this working...
+
 void main(string str) {
    string name, fmt;
 
