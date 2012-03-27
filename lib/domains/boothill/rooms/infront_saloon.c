@@ -8,7 +8,7 @@ void setup(void) {
       "east.");
 
    set_exits(([
-      "north" : "/domains/boothill/rooms/infront_saloon.c", 
+      "north" : "/domains/boothill/rooms/infront_store.c", 
       "south" : "/domains/boothill/rooms/entrance.c", 
       "east" : "/domains/boothill/rooms/saloon.c", 
    ]));

@@ -12,5 +12,7 @@ void setup(void) {
       "west" : "/domains/boothill/rooms/infront_saloon.c",
    ]));
 
-   add_object("/domains/boothill/obj/piano.c",1);
+   set_objects(([
+      "/domains/boothill/obj/piano.c" : 1,
+   ]));
 }
