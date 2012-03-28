@@ -17,6 +17,10 @@ string *do_work(string file1, string file2, int flag) {
    mapping lns1, lns2;
    string tmp;
 
+   lns1 = ([]);
+   lns2 = ([]);
+
+   file1 = normalize_path(file1, this_player()->query_env("cwd"));
    lines = explode(read_file(file1), "\n");
    max = sizeof(lines);
    for(i=0; i< max; i++ ) {
@@ -25,6 +29,7 @@ string *do_work(string file1, string file2, int flag) {
       c1 = 1;
    }
 
+   file2 = normalize_path(file2, this_player()->query_env("cwd"));
    lines = explode(read_file(file2), "\n");
    max = sizeof(lines);
    for(i=0; i< max; i++ ) {
@@ -44,30 +49,32 @@ string *do_work(string file1, string file2, int flag) {
    } else {
 
       keys = map_indices(lns1);
-      max = sizeof(keys);
+      max = sizeof(keys) - 1;
+
       lines = ({ "Lines in file1 that are not in file2:" });
-      for(i=0; i<max; i++) {
-         tmp = keys[i];
-         if(!lns2[tmp]) {
+      for(i=max; i>=0; i--) {
+         tmp = keys[max-i];
+         if(tmp && !lns2[tmp]) {
             lines += ({ tmp });
          }
       }
 
-      keys = ({ "Lines in file1 that are not in file2:" });
-      if (lines == keys) {
+     if (sizeof(lines) == 1) {
          lines = ({ });
       }
 
       keys = map_indices(lns2);
-      max = sizeof(keys);
-      lines = ({ "Lines in file2 that are not in file1:" });
-      for(i=0; i<max; i++) {
-         tmp = keys[i];
-         if(!lns1[tmp]) {
+      max = sizeof(keys) -1;
+
+      lines += ({ "Lines in file2 that are not in file1:" });
+      for(i=max; i>=0; i--) {
+         tmp = keys[max-i];
+         if(tmp && !lns1[tmp]) {
             lines += ({ tmp });
          }
       }
    }
+
    return lines;
 }
 
@@ -75,6 +82,7 @@ void do_work_tofile(string outfile, string file1, string file2, int flag) {
    string *lines;
    int i, max;
 
+   outfile = normalize_path(outfile, this_player()->query_env("cwd"));
    if (!valid_write(outfile)) {
       write("Unable to write to file: " + outfile + "\n");
    } else {
@@ -102,7 +110,7 @@ void main(string str) {
       return;
    }
 
-// XXX Need to find -w and remove it if it exits...
+// XXX Need to find -w and remove it if it exits...  also need to handle it
    flag = 0;
 
    if (sscanf(str, "-o %s %s %s", outfile, file1, file2)) {
