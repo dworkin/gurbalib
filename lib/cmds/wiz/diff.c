@@ -9,10 +9,24 @@ void usage() {
    write("See also: grep\n");
 }
 
+string rm_spaces(string line) {
+   string str, tmp;
+   int x;
+
+   str = line;
+   x = strstr(str," ");
+   while(x > -1) {
+      str = replace_string(str," ","");
+      x=strstr(str," ");
+   }
+
+   return str;
+}
+
 // Return an array of differences between the files
 // if flag==1 ignore white space in a line
 string *do_work(string file1, string file2, int flag) {
-   string *lines, *keys;
+   string *lines1, *lines2, *lines, *keys;
    int i, max, c1, c2;
    mapping lns1, lns2;
    string tmp;
@@ -21,20 +35,37 @@ string *do_work(string file1, string file2, int flag) {
    lns2 = ([]);
 
    file1 = normalize_path(file1, this_player()->query_env("cwd"));
-   lines = explode(read_file(file1), "\n");
-   max = sizeof(lines);
+   if (!file1 || file1 == "") {
+      lines = ({ "No such file: $file1\n" });
+      return lines;
+   }
+   file2 = normalize_path(file2, this_player()->query_env("cwd"));
+   if (!file1 || file1 == "") {
+      lines = ({ "No such file: $file1\n" });
+      return lines;
+   }
+
+write("Looking at file: " + file1 + "\n");
+   lines1 = explode(read_file(file1), "\n");
+   max = sizeof(lines1);
    for(i=0; i< max; i++ ) {
-      tmp = lines[i];
-      lns1[tmp] = 1;
+      if (flag) 
+         tmp = rm_spaces(lines1[i]);
+      else 
+         tmp = lines1[i];
+      lns1[tmp] = i + 1;
       c1 = 1;
    }
 
    file2 = normalize_path(file2, this_player()->query_env("cwd"));
-   lines = explode(read_file(file2), "\n");
-   max = sizeof(lines);
+   lines2 = explode(read_file(file2), "\n");
+   max = sizeof(lines2);
    for(i=0; i< max; i++ ) {
-      tmp = lines[i];
-      lns2[tmp] = 1;
+      if (flag) 
+         tmp = rm_spaces(lines2[i]);
+      else 
+         tmp = lines2[i];
+      lns2[tmp] = i + 1;
       c2 = 1;
    }
 
@@ -52,10 +83,10 @@ string *do_work(string file1, string file2, int flag) {
       max = sizeof(keys) - 1;
 
       lines = ({ "Lines in file1 that are not in file2:" });
-      for(i=max; i>=0; i--) {
+      for(i=0; i<max; i++) {
          tmp = keys[max-i];
          if(tmp && !lns2[tmp]) {
-            lines += ({ tmp });
+            lines += ({ lns1[tmp] + " : " + lines1[lns1[tmp]] });
          }
       }
 
@@ -67,10 +98,10 @@ string *do_work(string file1, string file2, int flag) {
       max = sizeof(keys) -1;
 
       lines += ({ "Lines in file2 that are not in file1:" });
-      for(i=max; i>=0; i--) {
+      for(i=0; i<max; i++) {
          tmp = keys[max-i];
          if(tmp && !lns1[tmp]) {
-            lines += ({ tmp });
+            lines += ({ lns2[tmp] + " : " + lines2[lns2[tmp]] });
          }
       }
    }
@@ -110,8 +141,14 @@ void main(string str) {
       return;
    }
 
-// XXX Need to find -w and remove it if it exits...  also need to handle it
    flag = 0;
+   if (sscanf(str,"-w %s",str)) {
+      flag = 1;
+   } else if (strstr(str," -w") > -1) {
+      str = replace_string(str," -w","");
+      flag = 1;
+   }
+
 
    if (sscanf(str, "-o %s %s %s", outfile, file1, file2)) {
       do_work_tofile(outfile, file1, file2, flag);
