@@ -14,7 +14,7 @@ void set_wear_message(string str) {
 }
 
 string query_wear_message(void) {
-   return (wear_message);
+   return wear_message;
 }
 
 void set_remove_message(string str) {
@@ -22,11 +22,11 @@ void set_remove_message(string str) {
 }
 
 string query_remove_message(void) {
-   return (remove_message);
+   return remove_message;
 }
 
 int is_wearable(void) {
-   return (1);
+   return 1;
 }
 
 void set_worn(int state) {
@@ -34,15 +34,15 @@ void set_worn(int state) {
 }
 
 int query_worn(void) {
-   return (worn);
+   return worn;
 }
 
 int is_worn(void) {
-   return (worn);
+   return worn;
 }
 
 string query_slot(void) {
-   return (slot);
+   return slot;
 }
 
 int query_valid_slot(string str) {
@@ -59,6 +59,7 @@ int query_valid_slot(string str) {
       case "legs":
       case "waist":
       case "finger":
+      case "apparel":
 	 return 1;
 	 break;
       default:
@@ -97,26 +98,26 @@ void set_slot(string str) {
 string query_wear_position(void) {
    switch (slot) {
       case "torso":
-	 return ("on the upper body");
+	 return "on the upper body";
       case "head":
-	 return ("on head");
+	 return "on head";
       case "hands":
-	 return ("on hands");
+	 return "on hands";
       case "finger":
-	 return ("on one finger");
+	 return "on one finger";
       case "feet":
-	 return ("on feet");
+	 return "on feet";
       case "arm":
-	 return ("on an arm");
+	 return "on an arm";
       case "neck":
-	 return ("about the neck");
+	 return "about the neck";
       case "body":
-	 return ("about the body");
+	 return "about the body";
       case "legs":
-	 return ("on the lower body");
+	 return "on the lower body";
       case "waist":
-	 return ("about the waist");
+	 return "about the waist";
       default:
-	 return ("somewhere");
+	 return "somewhere";
    }
 }

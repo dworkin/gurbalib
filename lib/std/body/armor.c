@@ -22,9 +22,9 @@ object query_slot(string slot) {
    if (!equipment) {
       equipment = ([]);
    }
-   return (equipment[slot]);
+   return equipment[slot];
 }
 
 object *query_equipment(void) {
-   return (map_values(equipment));
+   return map_values(equipment);
 }
