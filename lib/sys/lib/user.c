@@ -456,7 +456,7 @@ void input_name(string str) {
 	 player->set_name(user_name);
 	 player->set_proper_name(capitalize(user_name));
 	 player->restore_me();
-	 send_message("Enter your password : ");
+	 send_message("Enter your password: ");
 	 send_message(0);
 	 player->input_to_object(this_object(), "input_old_passwd");
       } else {
@@ -488,7 +488,7 @@ void input_correct_name(string str) {
    }
 
    if (lowercase(str) == "y" || lowercase(str) == "yes") {
-      send_message("Enter your password : ");
+      send_message("Enter your password: ");
       send_message(0);
       player->input_to_object(this_object(), "input_new_passwd");
    } else {
@@ -500,7 +500,7 @@ void input_correct_name(string str) {
 
 void input_old_passwd(string str) {
    if (!str || str == "") {
-      send_message("\nPlease enter your password : ");
+      send_message("\nPlease enter your password: ");
       send_message(0);
       player->input_to_object(this_object(), "input_old_passwd");
    }
@@ -515,12 +515,12 @@ void input_old_passwd(string str) {
 
 void change_passwd(string str) {
    if (!str || str == "") {
-      send_message("\nPlease enter your password : ");
+      send_message("\nPlease enter your password: ");
       send_message(0);
       player->input_to_object(this_object(), "change_passwd");
    } else {
       if (USER_D->login(this_player()->query_name(), str)) {
-	 send_message("\nPlease enter your new password : ");
+	 send_message("\nPlease enter your new password: ");
 	 player->input_to_object(this_object(), "change_new_passwd");
       } else {
 	 send_message("\nPasswords don't match!\n");
@@ -564,14 +564,14 @@ void verify_new_passwd(string str) {
 void input_new_passwd(string str) {
 
    if (!str || str == "") {
-      send_message("\nPlease enter your password : ");
+      send_message("\nPlease enter your password: ");
       send_message(0);
       player->input_to_object(this_object(), "input_new_passwd");
    } else {
       log_file("new_players", ctime(time()) + "\t" +
 	 query_ip_number(this_object()) + "\t" + query_name() + "\n");
       USER_D->new_user(user_name, str);
-      send_message("\nEnter password again : ");
+      send_message("\nEnter password again: ");
       send_message(0);
       player->input_to_object(this_object(), "input_check_passwd");
    }
@@ -579,7 +579,7 @@ void input_new_passwd(string str) {
 
 void input_check_passwd(string str) {
    if (!str || str == "") {
-      send_message("\nPlease enter the password again : ");
+      send_message("\nPlease enter the password again: ");
       send_message(0);
       player->input_to_object(this_object(), "input_check_passwd");
    } else {
@@ -589,7 +589,7 @@ void input_check_passwd(string str) {
 	 player->input_to_object(this_object(), "input_get_gender");
       } else {
 	 send_message("\nThe passwords don't match.\n");
-	 send_message("Enter your password : ");
+	 send_message("Enter your password: ");
 	 send_message(0);
 	 player->input_to_object(this_object(), "input_new_passwd");
       }
