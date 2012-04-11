@@ -23,9 +23,10 @@ void usage() {
 }
 
 void delete_alias(string str) {
+
    if (ALIAS_D->is_alias(str)) {
-      ALIAS_D->remove_alias(str);
-      write("Alias " + str + " removed.\n");
+      ALIAS_D->remove_player_alias(str);
+      ALIAS_D->remove_wizard_alias(str);
    } else {
       write("No such alias.\n");
    }
@@ -56,6 +57,7 @@ void add_alias(string str) {
 
 void main(string str) {
    string name, fmt;
+   string *lines;
 
    if (!str || str == "") {
       usage();
@@ -67,7 +69,8 @@ void main(string str) {
    }
 
    if (str == "show") {
-      ALIAS_D->show_alias("", "");
+      lines = ALIAS_D->show_alias("", "");
+      this_player()->more(lines);
       return;
    }
 
@@ -77,7 +80,8 @@ void main(string str) {
    }
 
    if (name == "show") {
-      ALIAS_D->show_alias(fmt);
+      lines = ALIAS_D->show_alias("", fmt);
+      this_player()->more(lines);
       return;
    } else if (name == "del" || name == "delete" || name == "rm" ||
       name == "remove") {

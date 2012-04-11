@@ -28,13 +28,18 @@ void add_player_alias(string cmd, string alias) {
    save_me();
 }
 
-void remove_player_alias(string cmd) {
+int remove_player_alias(string cmd) {
    if (!player_alias)
       player_alias = ([]);
+
+   if (!member_map(cmd,player_alias)) {
+      return 0;
+   }
 
    player_alias[cmd] = nil;
    write("Player alias " + cmd + " removed.");
    save_me();
+   return 1;
 }
 
 void add_wizard_alias(string cmd, string alias) {
@@ -46,13 +51,17 @@ void add_wizard_alias(string cmd, string alias) {
    save_me();
 }
 
-void remove_wizard_alias(string cmd) {
+int remove_wizard_alias(string cmd) {
    if (!wizard_alias)
       wizard_alias = ([]);
 
+   if (!member_map(cmd,wizard_alias)) {
+      return 0;
+   }
    wizard_alias[cmd] = nil;
    write("Wizard alias " + cmd + " removed.");
    save_me();
+   return 1;
 }
 
 int is_alias(string cmd) {
@@ -132,9 +141,10 @@ string expand_alias(string cmd) {
 
 string *show_alias(string type, string str) {
    string *rules, *aliases;
-   int i;
+   int i, done;
    string line;
 
+   done = 0;
    rules = ( { } );
    if (!str || str == "") {
       if (!type || type == "" || type == "player") {
@@ -145,7 +155,7 @@ string *show_alias(string type, string str) {
 	    rules += ({ "   " + line + ": " + player_alias[line] });
 	 }
       }
-      if (!type || type == "" || type == "wizard") {
+      if (!type || type == "" || type == "wizard" || type == "wiz") {
 	 rules += ( { "Wizard aliases:" } );
 	 aliases = ({ });
 	 aliases = map_indices(wizard_alias);
@@ -153,19 +163,25 @@ string *show_alias(string type, string str) {
             line = aliases[i];
 	    rules += ( { "   " + line + ": " + wizard_alias[line] });
 	 }
-	 return rules;
       }
+      return rules;
    }
 
    if (type == "" || type == "player") {
       if (player_alias[str]) {
+         done = 1;
 	 rules += ( { "Player alias: " + str + " : " + player_alias[str] } );
       }
    }
 
-   if (type == "" || type == "wizard") {
+   if (type == "" || type == "wizard" || type == "wiz") {
       if (wizard_alias[str]) {
+         done = 1;
 	 rules += ( { "Wizard alias: " + str + " : " + wizard_alias[str] } );
       }
    }
+   if (!done) {
+      rules = ( { "No such alias: " + str } );
+   }
+   return rules;
 }
