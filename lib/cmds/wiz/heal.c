@@ -9,17 +9,17 @@ void main(string str) {
    int max_hp;
    object obj;
 
-   if (str && str != "") {
+   if (!str || (str == "")) {
+      obj = this_player();
+   } else if (sscanf(str, "-%s", str)) {
+      usage();
+      return;
+   } else {
       obj = this_environment()->present(str);
       if (!obj) {
 	 write("heal who?\n");
 	 return;
       }
-   } else if (sscanf(str, "-%s", str)) {
-      usage();
-      return;
-   } else {
-      obj = this_player();
    }
 
    max_hp = obj->query_max_hp();

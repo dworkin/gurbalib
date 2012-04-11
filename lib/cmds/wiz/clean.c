@@ -14,6 +14,11 @@ void main(string arg) {
    object *objs;
    int i;
 
+   if (arg && arg != "") {
+      usage();
+      return;
+   }
+
    objs = this_environment()->query_inventory();
    for (i = 0; i < sizeof(objs); i++) {
       if (!objs[i]->is_player()) {

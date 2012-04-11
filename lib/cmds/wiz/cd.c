@@ -17,6 +17,9 @@ void usage() {
 void main(string arg) {
    if (!arg || arg == "") {
       arg = "/wiz/" + this_player()->query_name();
+   } else if (sscanf(arg, "-%s", arg)) {
+      usage();
+      return;
    }
 
    arg = normalize_path(arg, this_player()->query_env("cwd"));

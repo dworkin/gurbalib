@@ -12,17 +12,10 @@ void main(string file) {
    string name;
    int i;
 
-   if (file == "") {
-      write("You should provide an argument.\n");
-      usage();
-      return;
-   }
-
-   if (!file || file == "")
-      file = this_player()->query_env("cwf");
-
    if (!file || file == "") {
-      write("Please specify a filename.");
+      file = this_player()->query_env("cwf");
+   } else if (sscanf(file, "-%s", file)) {
+      usage();
       return;
    }
 
