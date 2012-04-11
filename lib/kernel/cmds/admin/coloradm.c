@@ -54,7 +54,8 @@ mixed *collect_map(mixed * arg) {
 
 void main(string str) {
    string error;
-   string *symbols, *args, *values;
+   mixed * args;
+   string *symbols, *values;
    int i, sz, pos;
 
    if (!str || str == "") {
@@ -72,6 +73,7 @@ void main(string str) {
    }
 
    str = uppercase(str);
+write( "Looking at str: " + str + "\n");
 
    error = catch(args = parse_string(GRAMMAR, str));
 
@@ -85,8 +87,8 @@ void main(string str) {
    }
    if (!arrayp(args) || !mappingp(args[0])) {
       write("I didn't quite understand that.\n" +
-	 "Try something like 'colorsymbols SYMBOL = ATTRIBUTE + COLOR'\n" +
-	 "                or 'colorsymbols SYMBOL = COLOR, SYMBOL = COLOR'\n" +
+	 "Try something like 'coloradm SYMBOL = ATTRIBUTE + COLOR'\n" +
+	 "                or 'coloradm SYMBOL = COLOR, SYMBOL = COLOR'\n" +
 	 "Note that using predefined color names as SYMBOL is not allowed.");
    } else {
       symbols = map_indices(args[0]);
