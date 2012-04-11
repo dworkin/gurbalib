@@ -25,7 +25,7 @@ void confirm_remove(string str) {
       write("Removing " + name + ", are you sure? (y/n)");
       return;
    }
-   switch (lowercase(str[0. .0])) {
+   switch (lowercase(str[0..0])) {
       case "y":
 	 rmuser(name);
 	 write("Ok.");
