@@ -24,7 +24,7 @@ void main(string str) {
    object *usr;
    int i, k;
    string *words;
-   string tmp, rest;
+   string tmp, rest, first, race;
 
    if (!str || str == "") {
       usage();
