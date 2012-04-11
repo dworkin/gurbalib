@@ -4,7 +4,7 @@ void usage() {
    write("say WHAT to WHO. But do it HOW.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("See also: say tell whisper emote\n");
+   write("See also: say, tell, whisper, emote\n");
    write("Examples:\n");
    write("\t> ssay sleepily drones|Hiya\n");
    write("\tAphex sleepily drones: Hiya\n");

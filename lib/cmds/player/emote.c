@@ -8,9 +8,9 @@ void usage() {
       "this:\n");
    write("\t PLAYER does a flip\n");
    if (query_wizard(this_player())) {
-      write("See also: say ssay tell whisper\n");
+      write("See also: say, ssay, tell, whisper\n");
    } else {
-      write("See also: say tell whisper\n");
+      write("See also: say, tell, whisper\n");
    }
 }
 

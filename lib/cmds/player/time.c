@@ -5,7 +5,7 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
 
    if (query_wizard(this_player())) {
-      write("See also: date, wtime,status\n");
+      write("See also: date, wtime, status\n");
    }
 }
 

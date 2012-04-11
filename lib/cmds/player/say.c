@@ -4,9 +4,9 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    if (query_wizard(this_player())) {
-      write("See also: ssay tell whisper emote\n");
+      write("See also: ssay, tell, whisper, emote\n");
    } else {
-      write("See also: tell whisper emote\n");
+      write("See also: tell, whisper, emote\n");
    }
 }
 
