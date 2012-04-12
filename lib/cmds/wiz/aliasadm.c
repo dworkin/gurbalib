@@ -17,8 +17,10 @@ void usage() {
    lines += ( { "Options:" } );
    lines += ( { "\t-h\tHelp, this usage message." } );
    lines += ( { "Examples:" } );
-   lines += ( { "\taliasadm add " } );
-   lines += ( { "\taliasadm add " } );
+   lines += ( { "\taliasadm add player a attack $*" } );
+   lines += ( { "\taliasadm add wiz z update $*" } );
+   lines += ( { "\taliasadm show a" } );
+   lines += ( { "\taliasadm del a" } );
    this_player()->more(lines);
 }
 

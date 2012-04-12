@@ -1,6 +1,7 @@
 void usage() {
-   write("Usage: who [-h]\n");
+   write("Usage: who [-h] [PLAYER]\n");
    write("Print out a list of who is on the system.\n");
+   write("If PLAYER is specified, give detailed info about the player.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    if (query_wizard(this_player())) {
@@ -8,11 +9,7 @@ void usage() {
    }
 }
 
-/*
-  'who' command
-  Originally by Fudge
-  Improved by Cerihan 3/15/09
-*/
+// 'who' command Originally by Fudge Improved by Cerihan 3/15/09
 
 void main(string str) {
    object *usr;
@@ -25,8 +22,16 @@ void main(string str) {
    } else {
       long_flag = 0;
    }
+
    if (str && str != "") {
-      usage();
+      if (sscanf(str, "-%s", str)) {
+         usage();
+      }
+      if (USER_D->player_exists(str)) {
+         USER_D->finger(this_player(), str);
+      }  else {
+         write(capitalize(str) + " exists only in your dreams.\n");
+      }
       return;
    }
 
