@@ -31,7 +31,7 @@ void setup(void) {
    set_color("");
 
    set_gettable(1);
-   set_slot("apparell");
+   set_slot("apparel");
    set_wear_message("$N $vput $o on.");
    set_remove_message("$N $vtake off $o.");
 }

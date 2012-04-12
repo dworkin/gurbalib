@@ -74,7 +74,8 @@ fix  You wield your the shield.
 Need to finish up aliasesadm...
 Need to review See Also: in -h options...
 
-Finish up aparell armor type see domains/boothill/obj/bandana.c for an example.
+Finish up apparel armor type see domains/boothill/obj/bandana.c for an example.
 
-why /daemons and /kernel/daemons???
-
+why /daemons, /kernel/daemons, /sys/daemons
+    /sys, /kernel/sys, 
+   /sys/lib, /kernel/lib
