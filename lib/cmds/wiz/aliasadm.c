@@ -35,27 +35,27 @@ void delete_alias(string str) {
 }
 
 void add_alias(string str) {
-   string name, tmp, rule, fmt;
+   string type, name, fmt, tmp;
 
-   if (sscanf(str, "%s %s", name, tmp) != 2) {
+   if (sscanf(str, "%s %s", type, tmp) != 2) {
+      usage();
+      return;
+   }
+   if ((type != "wiz") && (type != "wizard") && (type !="player")) {
       usage();
       return;
    }
 
-   if (sscanf(tmp, "%s %s", rule, fmt) != 2) {
-      fmt = rule;
-      rule = "STR";
-   } else if (uppercase(rule) != "LIV" &&
-      uppercase(rule) != "STR" && uppercase(rule) != "OBJ") {
-      fmt = rule + " " + fmt;
-      rule = "";
+   if (sscanf(tmp, "%s %s", name, fmt) != 2) {
+      usage();
+      return;
    }
-
-   EMOTE_D->add_alias(name, fmt);
-   write("Alias " + name + " added.\n");
+   if (type == "player") {
+      ALIAS_D->add_player_alias(name, fmt);
+   } else {
+      ALIAS_D->add_wizard_alias(name, fmt);
+   }
 }
-
-// XXX get this working...
 
 void main(string str) {
    string name, fmt;
