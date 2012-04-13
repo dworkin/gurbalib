@@ -82,7 +82,6 @@
 #define SITEBAN_D    "/daemons/siteban_d"
 #define GUILD_D      "/daemons/guild_d"
 #define PARSE_D      "/daemons/parse_d"
-#define MSG_D        "/daemons/messages_d"
 #define SCHEDULE_D   "/daemons/schedule_d"
 #define LOG_D        "/sys/daemons/logd"
 #define CMD_ERROR_D  "/daemons/cmd_error_d"
