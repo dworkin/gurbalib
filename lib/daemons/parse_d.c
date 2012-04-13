@@ -32,7 +32,6 @@ string *query_verbs(void) {
    return (names);
 }
 
-// XXX Why is this here and verb_d as well?  Seems bad that its in both places.
 int is_verb(string verb) {
    if (member_array(verb, map_indices(verbs)) != -1)
       return 1;
