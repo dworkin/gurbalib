@@ -13,6 +13,6 @@ void setup(void) {
    ]));
 
    set_objects(([
-      "/domains/newbie/objects/table":1,
+      "/domains/newbie/obj/table":1,
    ]));
 }

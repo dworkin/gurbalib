@@ -13,8 +13,8 @@ void setup(void) {
    ]));
 
    set_objects(([
-      "/domains/newbie/objects/sign" : 1, 
-      "/domains/newbie/objects/tree" : 1,
+      "/domains/newbie/obj/sign" : 1, 
+      "/domains/newbie/obj/tree" : 1,
    ]));
 
    add_item("hole", "A funny hole in the ground.  You might be able to " +
@@ -58,7 +58,7 @@ int break_branch(string str) {
 	    this_player()->query_Name() +
 	    " breaks a branch off of the tree.\n");
 	 write("You break a branch off of the tree.\n");
-	 obj = clone_object("/domains/newbie/objects/stick.c");
+	 obj = clone_object("/domains/newbie/obj/stick.c");
 	 obj->move(this_player());
 	 obj->setup();
       }

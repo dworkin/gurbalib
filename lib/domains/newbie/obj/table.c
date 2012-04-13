@@ -5,6 +5,6 @@ void setup(void) {
    set_adj("wooden", "small");
    set_long("A small wooden end table.");
    set_objects(([
-      "/domains/newbie/objects/potion":1,
+      "/domains/newbie/obj/potion":1,
    ]));
 }
