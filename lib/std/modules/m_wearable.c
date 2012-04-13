@@ -83,6 +83,7 @@ void set_slot(string str) {
       case "legs":
       case "waist":
       case "finger":
+      case "apparel":
 	 break;
       default:
 	 if (this_player()) {
