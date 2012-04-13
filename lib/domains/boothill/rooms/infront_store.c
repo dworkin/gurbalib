@@ -1,11 +1,11 @@
 inherit ROOM;
 
 void setup(void) {
-   add_area("newbie");
+   add_area("boothill");
 
    set_brief("%^MAGENTA%^Outside the general store.%^RESET%^");
    set_long("You are on main street, infront of the general store.  Main " +
-      "runs north and south whilte the general store is to your west.  " +
+      "runs north and south while the general store is to your west.  " +
       "The road, if you can call it that, seems paticularily muddy here.");
 
    set_exits(([

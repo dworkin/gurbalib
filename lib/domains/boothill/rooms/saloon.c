@@ -1,7 +1,7 @@
 inherit ROOM;
 
 void setup(void) {
-   add_area("newbie");
+   add_area("boothill");
 
    set_brief("%^MAGENTA%^Ye old saloon.%^RESET%^");
    set_long("A large wooden bar streaches across the back of the room.  " +

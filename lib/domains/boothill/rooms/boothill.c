@@ -1,7 +1,7 @@
 inherit ROOM;
 
 void setup(void) {
-   add_area("newbie");
+   add_area("boothill");
 
    set_brief("%^MAGENTA%^Boothill.%^RESET%^");
    set_long("If your not sure what boothill is, now you know, its a " +
