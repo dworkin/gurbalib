@@ -178,12 +178,9 @@ int siteban(string str) {
       write_file("/data/banned/c/" + str,
 	 ctime(time()) + "\tnewban by:  " + this_user()->query_name() + "\n");
       flag = 1;
-   }
-
-   else {
+   } else {
       flag = 0;
    }
-   create();
    return flag;
 }
 
@@ -231,4 +228,25 @@ int unsiteban(string str) {
    }
    create();
    return flag;
+}
+
+string get_banned_info(string str) {
+   string filename, info;
+
+   if (is_a_banned(str)) {
+      filename = "/data/banned/a/";
+   } else if (is_b_banned(str)) {
+      filename = "/data/banned/b/";
+   } else if (is_c_banned(str)) {
+      filename = "/data/banned/c/";
+   } else {
+      write("Unable to find site: " + str + "\n");
+      return "";
+   }
+   info = unguarded("read_file", filename + str);
+   if (!info) {
+      return "Sorry cannot read file: " + filename + str + "\n";
+   }
+   filename = str + "\t" + info + "\n";
+   return filename;
 }

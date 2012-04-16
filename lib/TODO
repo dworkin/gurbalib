@@ -78,3 +78,5 @@ Finish up apparel armor type see domains/boothill/obj/bandana.c for an example.
 why /daemons, /kernel/daemons, /sys/daemons
     /sys, /kernel/sys, 
    /sys/lib, /kernel/lib
+/daemons/data /data /kernel/daemons/data /sys/data /sys/daemons/data
+
