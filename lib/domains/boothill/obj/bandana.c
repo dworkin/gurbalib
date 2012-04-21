@@ -34,18 +34,28 @@ void setup(void) {
    set_slot("apparel");
    set_wear_message("$N $vput $o on.");
    set_remove_message("$N $vtake off $o.");
+
+// XXX why does this command only take one arg while room_command takes 2?
+// also, it should error if you try to add an undefined function....
+   add_object_command("shake");
+// XXX Need to add call to check_label....
 }
 
 int check_label(string str) {
    write("You take a peek at the label and it states: Hand wash only.  " +
       "Shake vigiorisly to dry.");
+   this_player()->query_environment()->tell_room(this_player(),
+      this_player()->query_Name() + " takes a peek at a label on their " +
+      "bandana.\n");
    return 1;
 }
 
-int shake_scraf(string str) {
+int do_shake(string str) {
    if (str == "scarf" || str == "bandana") {
       write("You vigiorisly shake the bandana.");
-// tell_room XXX
+      this_player()->query_environment()->tell_room(this_player(),
+         this_player()->query_Name() + "vigiorisly shakes a colorful " +
+         "bandana.\n");
       write("The bandana shifts it's color.");
 
       set_color("");
