@@ -22,6 +22,7 @@ void usage() {
 
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("\tshow\tShows you the current symbols.\n");
    write(GRAMMAR);
 }
 
@@ -60,6 +61,10 @@ void main(string str) {
 
    if (!str || str == "") {
       usage();
+      return;
+   }
+   if (str == "show" || str == "display") {
+      write(ANSI_D->color_table());
       return;
    }
    if (sscanf(str, "-%s", str)) {
