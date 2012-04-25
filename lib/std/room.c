@@ -33,7 +33,7 @@ void set_weather(int flag) {
 }
 
 int query_weather(void) {
-   return (weather);
+   return weather;
 }
 
 void add_area(string str) {
@@ -75,32 +75,28 @@ void remove_hidden_exit(string direction) {
    hidden_exits[direction] = nil;
 }
 
-void set_exit_msg(string ext, string msg) {
-
-}
-
 mapping query_exits(void) {
-   return (exits);
+   return exits;
 }
 
 mapping query_hidden_exits(void) {
-   return (hidden_exits);
+   return hidden_exits;
 }
 
 string *query_exit_indices(void) {
-   return (map_indices(exits));
+   return map_indices(exits);
 }
 
 string *query_hidden_exit_indices(void) {
-   return (map_indices(hidden_exits));
+   return map_indices(hidden_exits);
 }
 
 string query_exit(string direction) {
-   return (exits[direction]);
+   return exits[direction];
 }
 
 string query_hidden_exit(string direction) {
-   return (hidden_exits[direction]);
+   return hidden_exits[direction];
 }
 
 /* Attempts to find the actual room object attached to a given exit.
@@ -144,9 +140,7 @@ string query_desc(varargs int brief) {
    }
 
    text += "]%^RESET%^\n";
-
    text += "%^ROOM_DESC%^" + query_long() + "%^RESET%^";
-
    text += "\n";
 
    inventory = query_inventory();
@@ -217,14 +211,18 @@ string query_desc(varargs int brief) {
       }
 #endif
    }
-   return (text);
+   return text;
 }
 
 void add_room_command(string command, string function) {
    if (!room_commands[command])
- room_commands += ([command:function]);
+      room_commands += ([command:function]);
    else
       room_commands[command] = function;
+}
+
+void remove_room_command(string command) {
+   room_commands[command] = nil;
 }
 
 string query_room_command(string command) {
@@ -232,8 +230,6 @@ string query_room_command(string command) {
 }
 
 /*-------------------------------------------------------------------
-  void message_room( object originator, string str );
-  
   sends a message to the room, designed specificly for non-living
   objects to communicate with the room
 */
@@ -286,14 +282,12 @@ void tell_room(object originator, string str, varargs mixed obj ...) {
 
 string body_exit(object who, string dir) {
    int i;
-   string error;
-   string lname;
-   string aname;
+   string error, lname, aname;
    object *inventory;
 
    if (!query_exit(dir) && !query_hidden_exit(dir)) {
       write("You can't go " + dir + ".\n");
-      return (nil);
+      return nil;
    }
 
    lname = who->query_proper_name();
@@ -318,7 +312,7 @@ string body_exit(object who, string dir) {
 	    if (!inventory[i]->do_block(who)) {
 	       inventory[i]->other_action(inventory[i],
 		  inventory[i]->query_block_action(), who, dir);
-	       return (nil);
+	       return nil;
 	    }
 	 }
       }
@@ -330,7 +324,7 @@ string body_exit(object who, string dir) {
    } else if (query_hidden_exit(dir)) {
       /* there is a hidden exit */
       if (query_hidden_exit(dir)[0] == '#') {
-	 return (query_hidden_exit(dir)[1..]);
+	 return query_hidden_exit(dir)[1..];
       }
       for (i = 0; i < sizeof(inventory); i++) {
 	 if (inventory[i]->is_blocking(dir)) {
@@ -338,7 +332,7 @@ string body_exit(object who, string dir) {
 	    if (inventory[i]->do_block(who)) {
 	       inventory[i]->other_action(inventory[i],
 		  inventory[i]->query_block_action(), who, dir);
-	       return (nil);
+	       return nil;
 	    }
 	 }
       }
@@ -351,9 +345,9 @@ string body_exit(object who, string dir) {
 
    if (error) {
       if (query_wizard(who) == 1)
-	 return ("\nConstruction blocks your path.\n" + "Error: " + error);
+	 return "\nConstruction blocks your path.\n" + "Error: " + error;
       else
-	 return ("\nConstruction blocks your path.\n");
+	 return "\nConstruction blocks your path.\n";
    }
 
    if (who->is_player() || who->is_possessed()) {
@@ -362,7 +356,7 @@ string body_exit(object who, string dir) {
    }
    event("body_enter", who);
    who->query_environment()->tell_room(who, aname + " enters.\n");
-   return (nil);
+   return nil;
 }
 
 void destruct(void) {
