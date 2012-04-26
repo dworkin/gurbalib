@@ -116,3 +116,22 @@ string query_age() {
 
    return ret;
 }
+
+void die(void) {
+   object obj;
+
+   obj = clone_object("/domains/required/objects/corpse");
+   if (this_object()->is_player()) {
+      obj->set_name(this_object()->query_Name());
+      obj->move(this_object()->query_environment());
+
+      this_object()->move(VOID);
+// XXX Need to figure out consiquences and how to get back to life...
+//      EVENT_D->unsubscribe_event("heart_beat");
+
+   } else {
+      obj->set_name("a " + this_object()->query_id());
+      obj->move(this_object()->query_environment());
+      this_object()->destruct();
+   }
+}

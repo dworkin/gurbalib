@@ -33,25 +33,6 @@ void halt_fight(void) {
    targets = ( { } );
 }
 
-// XXX Need to work on this.... should move player to void...
-// and drop money?  I think this should be in body and or living not combat...
-void die(void) {
-   object obj;
-
-   obj = clone_object("/domains/required/objects/corpse");
-   if (this_object()->is_player()) {
-      obj->set_name(this_object()->query_Name());
-      obj->move(this_object()->query_environment());
-
-      this_object()->move(VOID);
-      EVENT_D->unsubscribe_event("heart_beat");
-      this_object()->destruct();
-   } else {
-      obj->set_name("a " + this_object()->query_id());
-      obj->move(this_object()->query_environment());
-   }
-}
-
 void receive_damage(object who, int dam, int type) {
    this_object()->message("%^RED%^You took " + dam + " damage from " +
       who->query_id() + ".%^RESET%^");
@@ -60,7 +41,7 @@ void receive_damage(object who, int dam, int type) {
       this_object()->simple_action("$N $vfall to the ground...dead.");
       this_object()->message("You have died.");
       halt_fight();
-      die();
+      this_object()->die();
    }
 }
 
