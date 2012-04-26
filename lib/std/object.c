@@ -8,7 +8,7 @@ static string *ids;
 static string *adjs;
 static int object_size;
 string proper_name;
-static string *object_commands;
+static mapping object_commands;
 static string detailed_desc;
 private int configured;
 static int eatable;
@@ -277,16 +277,29 @@ nomask mapping query_verb_rules() {
    return PARSE_D->query_objects_rules(this_object());
 }
 
-void add_object_command(string command) {
-   if (!object_commands)
-      object_commands = ( { } );
-   object_commands += ( { command } );
+void add_object_command(string command, string function) {
+   if (!object_commands[command]) 
+      object_commands += ([command:function]);
+   else 
+      object_commands[command] = function;
 }
 
 void remove_object_command(string command) {
+   object_commands[command] = nil;
+}
+
+string query_object_command(string command) {
+   return object_commands[command];
+}
+
+string *query_object_commands(void) {
+   string *keys;
+
    if (!object_commands)
-      object_commands = ( { } );
-   object_commands -= ( { command } );
+      object_commands = ([ ]);
+   keys = map_indices(object_commands);
+
+   return keys;
 }
 
 void set_eatable(int value) {
@@ -295,12 +308,6 @@ void set_eatable(int value) {
 
 int is_eatable() {
    return eatable;
-}
-
-string *query_object_commands(void) {
-   if (!object_commands)
-      object_commands = ( { } );
-   return object_commands;
 }
 
 void set_detailed_desc(string desc) {

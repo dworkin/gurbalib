@@ -35,9 +35,7 @@ void setup(void) {
    set_wear_message("$N $vput $o on.");
    set_remove_message("$N $vtake off $o.");
 
-// XXX why does this command only take one arg while room_command takes 2?
-// also, it should error if you try to add an undefined function....
-   add_object_command("shake");
+   add_object_command("shake","do_shake");
 // XXX Need to add call to check_label....
 }
 
