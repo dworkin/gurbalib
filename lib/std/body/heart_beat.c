@@ -127,6 +127,8 @@ void die(void) {
 
       this_object()->move(VOID);
 // XXX Need to figure out consiquences and how to get back to life...
+//     drop stuff, put exp on body, if you make it back you get it back?
+//     similar to deamon souls....
 //      EVENT_D->unsubscribe_event("heart_beat");
 
    } else {
