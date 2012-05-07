@@ -1,5 +1,6 @@
 #include <type.h>
 inherit "/std/body/size";	/* satch */
+inherit "/std/modules/m_autoload_filename";
 
 static string brief_desc;
 string long_desc;
@@ -16,11 +17,18 @@ static int eatable;
 void setup();
 
 void create(void) {
+   string tmp;
+
    if (configured++)
       return;
+
    brief_desc = "";
    ids = ( { "nondescript thing" } );
    adjs = ( { } );
+
+   tmp = file_name();
+   set_autoload_filename(tmp);
+
    if (!clone_num()) {
       OBJECT_D->register_object(this_object());
    } else {
