@@ -570,18 +570,19 @@ void do_go(string dir) {
       write(error);
 }
 
-/* Quit */
 void do_quit(void) {
    object sp;
    object *objs;
    string quitcmd;
-   int i;
+   int i, autoload;
 
    sp = this_player();
 
    set_this_player(this_object());
 
+// XXX Maybe work in some logic here, so its only done if something
    this_object()->compose_autoload_string();
+   autoload = 1;
 
    objs = query_inventory() + ( { } );
 
@@ -589,12 +590,12 @@ void do_quit(void) {
       call_other("/cmds/wiz/possess", "main", "");
 
    for (i = 0; i < sizeof(objs); i++) {
-      if (objs[i]->is_undroppable()) {
-	 objs[i]->destruct();
+      if (objs[i]->is_undroppable() || autoload == 1) {
+         objs[i]->destruct();
       } else if (objs[i]->move(this_object()->query_environment())) {
-	 this_object()->targetted_action("$N $vdrop $o.", nil, objs[i]);
+         this_object()->targetted_action("$N $vdrop $o.", nil, objs[i]);
       } else {
-	 objs[i]->destruct();
+         objs[i]->destruct();
       }
    }
 
