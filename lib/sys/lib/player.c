@@ -89,7 +89,6 @@ void restore_me(void) {
       alias = ([]);
 }
 
-/* Login the player */
 void login_player(void) {
    int i;
    string *didlog;
@@ -108,12 +107,10 @@ void login_player(void) {
       }
    }
    if (!last_login) {
-      /* A new player */
       EVENT_D->event("new_player", player_name);
       last_login = time();
    } else {
       last_login = time();
-      /* Call the login event */
       EVENT_D->event("player_login", player_name);
    }
 
