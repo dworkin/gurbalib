@@ -8,11 +8,6 @@
  *
  */
 
-/*
- * Why is this in here? autoloads belong to the player object...
- */
-inherit "/std/modules/m_autoload_string";
-
 #include <user.h>
 #include <limits.h>
 #include <status.h>
@@ -267,12 +262,6 @@ void login_user(void) {
       send_message("\n\n");
       send_message(TELNET_D->query_motd());
       player->login_player();
-      /*
-       * AH! thats why m_autoload is inherited by this program...
-       * This stuff should move into an initialisation function
-       * in the player object.. well, not for today.
-       */
-      player->clone_autoload_objects();
 
       start = player->query_env("start");
       done = 0;

@@ -147,6 +147,7 @@ void login_player(void) {
    set_brief(query_title());
    set_hit_skill("combat/unarmed");
    ANSI_D->set_player_translations(custom_colors);
+   this_player()->clone_autoload_objects();
 }
 
 int query_last_login(void) {
