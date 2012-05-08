@@ -8,28 +8,35 @@ void set_autoload_string(string str) {
    autoload_string = str;
 }
 
-void clone_autoload_objects(string str) {
-   string file, argument, rest;
+void clone_autoload_objects() {
+   string file, argument, rest, str;
    object ob;
 
+   str = autoload_string;
    while (str && str != "*^!") {
-      if (sscanf(str, "%s:%s^!%s", file, argument, rest) != 3) {
+      if (sscanf(str, "%s:%s^!%s", file, argument, rest) == 3) {
+      } else if (sscanf(str, "%s:%s^!", file, argument) != 2) {
 	 write("Autoload string corrupt.\n");
 	 return;
+      } else {
+         rest = "";
       }
       str = rest;
       if (file_exists(file)) {
-	 /* write("file = "+file+"\n");
-	    write("argument = "+argument+"\n");
-	    write("rest = "+rest+"\n\n"); */
 	 ob = clone_object(file);
 	 if (ob) {
 	    ob->move(this_object()->query_environment());
 	    ob->setup();
+	    ob->move(this_object());
+            if (argument == "wield") {
+               this_player()->do_wield(ob);
+            } else if (argument == "wear") {
+               this_player()->do_wear(ob);
+            }
+// XXX this is maybe a better way to do it?
 	    if (argument) {
 	       ob->initialize_autoload(argument);
 	    }
-	    ob->move(this_object());
 	 }
       }
    }
@@ -37,18 +44,24 @@ void clone_autoload_objects(string str) {
 
 void compose_autoload_string(void) {
    object ob;
-   string str, tmp;
+   string str, tmp, action;
    object *inv;
-   int i;
+   int i, max;
 
    str = "";
    inv = this_object()->query_inventory();
-   if (sizeof(inv)) {
-      for (i = 0; i < sizeof(inv); i++) {
-	 tmp = inv[i]->query_autoload_filename();
-	 if (tmp && (tmp != "")) {
-	    str = str + tmp + "^!";
-	 }
+   max = sizeof(inv);
+   for (i = 0; i < max; i++) {
+      tmp = inv[i]->query_autoload_filename();
+      if (inv[i]->query_worn()) {
+         action = "wear";
+      } else if (inv[i]->query_wielded()) {
+         action = "wield";
+      } else {
+         action = "none";
+      }
+      if (tmp && (tmp != "")) {
+         str = str + tmp + ":" + action + "^!";
       }
    }
    /* terminate autoload string */

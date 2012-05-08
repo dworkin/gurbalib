@@ -9,53 +9,21 @@ void usage() {
 }
 
 void main(string str) {
-   string file, argument, rest;
+   string file, action, rest;
    object ob;
    object *inv;
    int i, max;
 
    if (str && str != "") {
       if (str == "save") {
-         str = "";
-         inv = this_player()->query_inventory();
-         max = sizeof(inv);
-         for (i = 0; i < max; i++) {
-            file = inv[i]->query_autoload_filename();
-            if (file && (file != "")) {
-               str = str + file + "^!";
-            }
-         }
-
-         /* terminate autoload string */
-         str = str + "*^!";
-         write("compose_autoload_string = " + str + "\n");
-         this_player()->set_autoload_string(str);
-         return;
+         this_player()->compose_autoload_string();
+         str = this_player()->query_autoload_string();
+         write("Autoload string set to: " + str + "\n");
       } else {
          usage();
          return;
       }
    }
 
-   str = this_player()->query_autoload_string();
-
-   while (str && str != "*^!") {
-      if (sscanf(str, "%s^!%s", file, rest) != 2) {
-	 write("Autoload string corrupt.\n");
-         write("Values file: " + file + "\n");
-         write("Values rest: " + rest + "\n");
-	 return;
-      }
-      str = rest;
-      if (file_exists(file)) {
-	 write("file = " + file + "\n");
-	 write("rest = " + rest + "\n\n");
-	 ob = clone_object(file);
-	 if (ob) {
-	    ob->move(this_player()->query_environment());
-	    ob->setup();
-	    ob->move(this_player());
-	 }
-      }
-   }
+   this_player()->clone_autoload_objects();
 }

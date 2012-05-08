@@ -272,7 +272,7 @@ void login_user(void) {
        * This stuff should move into an initialisation function
        * in the player object.. well, not for today.
        */
-      clone_autoload_objects(player->query_autoload_string());
+      player->clone_autoload_objects();
 
       start = player->query_env("start");
       done = 0;
