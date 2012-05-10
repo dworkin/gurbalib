@@ -38,7 +38,6 @@ void setup(void) {
 
    add_object_command("shake","do_shakeit");
 
-// XXX why doesn't this work?
    set_message("The label on the bandana reads: Hand wash only.\n" +
       "Shake vigirisly to dry.");
 }
