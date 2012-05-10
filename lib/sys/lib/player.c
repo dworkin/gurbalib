@@ -118,7 +118,6 @@ void login_player(void) {
    if (query_gender() == "unkown")
       set_gender("male");
 
-   /* Set the proper name */
    if (!query_proper_name()) {
       set_proper_name(capitalize(player_name));
    }
