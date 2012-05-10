@@ -1,4 +1,4 @@
-inherit "/std/room";
+inherit ROOM;
 
 private string myname() {
    return capitalize(owner_file(file_name()));
