@@ -20,6 +20,7 @@ int set_color(string str) {
    if (!str || str == "") 
       str = get_color();
 
+   set_adj(str);
    set_in_room_desc("A " + str + " bandana.");
    set_long("This " + str + " bandana, looks pretty stylish.  It has " +
       "a small label attached to it.");

@@ -286,6 +286,7 @@ nomask mapping query_verb_rules() {
 }
 
 void add_object_command(string command, string function) {
+   if (!object_commands) object_commands = ([ ]);
    if (!object_commands[command]) 
       object_commands += ([command:function]);
    else 

@@ -61,8 +61,6 @@ fix  You wield your the shield.
 
 Need to review See Also: in -h options...
 
-Finish up apparel armor type see domains/boothill/obj/bandana.c for an example.
-
 why /daemons, /kernel/daemons, /sys/daemons
     /sys, /kernel/sys, 
    /sys/lib, /kernel/lib

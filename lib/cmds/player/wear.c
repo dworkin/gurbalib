@@ -33,7 +33,7 @@ void main(string str) {
    }
 
    worn = this_player()->query_slot(slot);
-   if (worn) {
+   if (worn && (slot != "apparel")) {
       write("You're already wearing a " + worn->query_id() + ".");
       return;
    }
