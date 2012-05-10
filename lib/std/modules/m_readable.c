@@ -7,18 +7,18 @@ void set_message(string message) {
 }
 
 string query_message(void) {
-   return (readable_text);
+   return readable_text;
 }
 
 int is_readable(void) {
-   return (1);
+   return 1;
 }
 
 int can_read(object who) {
-   return (1);
+   return 1;
 }
 
 int do_read(object who) {
    write(readable_text);
-   return (1);
+   return 1;
 }
