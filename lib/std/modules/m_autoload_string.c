@@ -33,10 +33,6 @@ void clone_autoload_objects() {
             } else if (argument == "wear") {
                this_player()->do_wear(ob);
             }
-// XXX this is maybe a better way to do it?
-	    if (argument) {
-	       ob->initialize_autoload(argument);
-	    }
 	 }
       }
    }
