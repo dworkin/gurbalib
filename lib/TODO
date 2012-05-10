@@ -78,3 +78,5 @@ Fix it so deep inventory works with autoload.
 Maybe make an env var that enables autoload features values:
 		save,load,both
 
+Need to fix it so wearable items are wearable again... right now its
+messed up...

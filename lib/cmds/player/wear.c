@@ -27,7 +27,7 @@ void main(string str) {
    }
 
    slot = obj->query_slot();
-   if (!this_player()->query_valid_slot(slot)) {
+   if (!obj->query_valid_slot(slot)) {
       write("You can not wear that.\n");
       return;
    }
