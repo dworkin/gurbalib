@@ -31,6 +31,7 @@ void usage() {
       "    Disables intermud 3 connections\n" +
       "  - default [name]\n" +
       "    Displays the default router (and sets it if name is provided\n");
+   write("See also: channels, mudlist, rwho\n");
 }
 
 static int check_istat() {

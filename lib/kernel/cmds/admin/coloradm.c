@@ -24,6 +24,7 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
    write("\tshow\tShows you the current symbols.\n");
    write(GRAMMAR);
+   write("See also: ansi\n");
 }
 
 // If the arg[0] is a base symbol, it can't be used as a custom tag.

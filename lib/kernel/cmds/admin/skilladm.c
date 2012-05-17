@@ -5,7 +5,7 @@ void usage() {
    write("If no args are given show all skills.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("See also: skills\n");
+   write("See also: skills, aliasadm, emoteadm\n");
 }
 
 void main(string str) {

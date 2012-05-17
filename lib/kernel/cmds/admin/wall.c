@@ -5,6 +5,7 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
    write("\t-w\tRestrict the MSG to sending only to wizards, " +
       "not normal players.\n");
+   write("See Also: shout, tell\n");
 }
 
 void main(string str) {

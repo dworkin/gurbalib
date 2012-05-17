@@ -8,6 +8,7 @@ void usage() {
       "wiz dir.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("See also: ban, muzzle, forcequit, zap\n");
 }
 
 static void rmuser(string name) {
