@@ -9,10 +9,9 @@ void usage() {
    write("\teval write(\"My hp: \" + this_player()->query_hp() + \"\\n\");\n");
    write("\teval .here->tell_room(.me,\"Hi\\n\");\n");
    write("\teval return 5 + 5;\n");
+   write("\teval write(\"Sirdude's HP: \" + \n" +
+      "\t\tUSER_D->find_player(\"sirdude\")->query_hp() + \"\\n\");\n");
 }
-
-// XXX how do you do  write(find_player("sirdude")->query_hp() + "\n");
-// or something similar....
 
 void main(string src, varargs mixed args ...) {
    object obj;
