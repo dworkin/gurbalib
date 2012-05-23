@@ -14,17 +14,23 @@
                 "value: TAG ? valid_value\n"
 
 void usage() {
-   write("Usage: coloradm [-h] COMMANDS\n");
-   write("Allows you to modify the color table, " +
-      "using a grammar noted below.\n");
-
-// XXX need to play with this and write more details... how????
+   write("Usage: coloradm [-h] [SHOW|COMMAND]\n");
+   write("Allows you to modify the color table, or look at the current " +
+      "color table.\n");
+   write("COMMAND has the following SYNTAX:\n");
+   write("\tSYMBOL=COLOR\n");
+   write("\tSYMBOL=COLOR+ATTRIBUTES\n");
+   write("Use coloradm show to see your options.\n");
 
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\tshow\tShows you the current symbols.\n");
-   write(GRAMMAR);
+
    write("See also: ansi\n");
+   write("Examples:\n");
+   write("\tcoloradm ROOM_NAME=GREEN\n");
+   write("\tcoloradm ROOM_NAME=RED+REVERSE\n");
+   write("\tcoloradm ROOM_NAME=RED+REVERSE+UNDERLINE\n");
 }
 
 // If the arg[0] is a base symbol, it can't be used as a custom tag.
