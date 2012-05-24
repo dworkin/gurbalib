@@ -598,10 +598,23 @@ void do_quit(void) {
    for (i = 0; i < sizeof(objs); i++) {
       if (objs[i]->is_undroppable() || autoload == 1) {
          objs[i]->destruct();
-      } else if (objs[i]->move(this_object()->query_environment())) {
-         this_object()->targetted_action("$N $vdrop $o.", nil, objs[i]);
       } else {
-         objs[i]->destruct();
+         if (objs[i]->is_worn()) {
+            this_player()->do_remove(objs[i]);
+            this_player()->targetted_action(objs[i]->query_remove_message(),
+               nil, objs[i]);
+         }
+         if (objs[i]->is_wielded()) {
+            this_player()->do_unwield(objs[i]);
+            this_player()->targetted_action(objs[i]->query_unwield_message(),
+               nil, objs[i]);
+         }
+
+         if (objs[i]->move(this_object()->query_environment())) {
+            this_object()->targetted_action("$N $vdrop $o.", nil, objs[i]);
+         } else {
+            objs[i]->destruct();
+         }
       }
    }
 
