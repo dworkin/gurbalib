@@ -1,7 +1,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("%^BLUE%^Chez Mario%^RESET%^");
+   set_brief("Chez Mario");
    set_long("This is no five star restaurant, but it is indeed a nice " +
       "eatingplace, with a personal and charming touch to it. The place " +
       "has six tables, a small stage and a bar with a door behind it. " +

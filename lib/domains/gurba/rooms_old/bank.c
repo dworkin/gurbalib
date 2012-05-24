@@ -1,7 +1,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("%^GREEN%^First National Bank of Gurba%^RESET%^");
+   set_brief("First National Bank of Gurba");
    set_long("This is the proud bank of Gurba. Two heavily armed guards " +
       "are standing on each side of the entrance. there are two counters " +
       "with a clerk behind each. One sign above the counter says " +

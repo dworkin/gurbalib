@@ -2,7 +2,7 @@ inherit ROOM;
 
 void setup(void) {
    add_area("Gurba");
-   set_brief("%^CYAN%^Gelmir Road%^RESET%^");
+   set_brief("Gelmir Road");
    set_long("You are standing on a well travelled road, directly east of " +
       "the town square. To the north you have the entrance to the " +
       "'Thick Beard' pub. Further to the east will get you to the Fighters " +

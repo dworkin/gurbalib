@@ -3,7 +3,7 @@ inherit ROOM;
 void setup(void) {
    add_area("boothill");
 
-   set_brief("%^MAGENTA%^The general store.%^RESET%^");
+   set_brief("The general store");
    set_long("Still under contstruction.");
 
    set_exits(([

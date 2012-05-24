@@ -3,7 +3,7 @@ inherit ROOM;
 void setup(void) {
    add_area("newbie");
 
-   set_brief("%^MAGENTA%^North end of field.%^RESET%^");
+   set_brief("North end of the field");
    set_long("You are in a large open field, next to an old dead tree. " +
       " To the South you see a road leading to a city.  There is an odd " +
       "hole in a hill to the north.");

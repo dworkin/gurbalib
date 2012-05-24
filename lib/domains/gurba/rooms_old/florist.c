@@ -1,7 +1,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("%^YELLOW%^Fridas Floristeria%^RESET%^");
+   set_brief("Fridas Floristeria");
    set_long("This small hut is the flower shop. Flowers bulge out from " +
       "everywhere. Flowerpots of all colors house the dozens of different " +
       "flowers at sale here. Partly hidden behind a large specimen of " +

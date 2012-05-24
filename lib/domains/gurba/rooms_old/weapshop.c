@@ -1,7 +1,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("%^RED%^The weapon shop%^RESET%^");
+   set_brief("The weapon shop");
    set_long("This is the weapons shop here you can buy the weapons you " +
       "need for some serious monsterbashing. The shop is run by Grim the " +
       "Armsmaster, an elderly dwarf. Weaponracks are mounted on all walls " +

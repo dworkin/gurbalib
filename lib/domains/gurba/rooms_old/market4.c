@@ -2,7 +2,7 @@ inherit ROOM;
 
 void setup(void) {
    add_area("Gurba");
-   set_brief("%^MAGENTA%^Market Boulevard%^RESET%^");
+   set_brief("Market Boulevard");
    set_long("This is where Market boulevard meets Six-pence Avenue, and " +
       "ends. to the east you will reach the town square. Northwards you " +
       "will find the University of Gurba. South lies the park.");

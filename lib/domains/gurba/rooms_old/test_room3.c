@@ -1,7 +1,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("%^RED%^Test_room3%^RESET%^");
+   set_brief("Test_room3");
    set_long("You shouldn't be able to get in here without using some " +
       "dirty wizard tricks.");
 

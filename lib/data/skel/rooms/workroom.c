@@ -5,7 +5,7 @@ private string myname() {
 }
 
 void setup(void) {
-   set_brief("%^RED%^" + myname() + "'s workroom%^RESET%^");
+   set_brief(myname() + "'s workroom");
    set_long("The room is littered with all kinds of arcane tools.  " +
       "Your not really sure what all this stuff is but someone looks " +
       "pretty busy.");

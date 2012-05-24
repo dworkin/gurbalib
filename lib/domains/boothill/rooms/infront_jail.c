@@ -3,7 +3,7 @@ inherit ROOM;
 void setup(void) {
    add_area("boothill");
 
-   set_brief("%^MAGENTA%^Outside the jail.%^RESET%^");
+   set_brief("Outside the jail");
    set_long("You are on main street, infront of the town jail.  Main " +
       "runs north and south while the jail is to your east.");
 

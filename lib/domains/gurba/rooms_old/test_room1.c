@@ -1,7 +1,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("%^BLUE%^Test_room1%^RESET%^");
+   set_brief("Test_room1");
    set_long("A small and nondescript test room.");
 
    set_exits(([

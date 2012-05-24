@@ -3,7 +3,7 @@ inherit ROOM;
 void setup(void) {
    add_area("newbie");
 
-   set_brief("%^MAGENTA%^newbie arena.%^RESET%^");
+   set_brief("The newbie arena");
    set_long("You are in a small tunnel.  It was a tight squeeze to get in " +
       "here.  There is a large flower in the middle of the room.");
 

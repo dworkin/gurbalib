@@ -2,7 +2,7 @@ inherit ROOM;
 
 void setup(void) {
    add_area("Gurba");
-   set_brief("%^YELLOW%^Six-pence Avenue%^RESET%^");
+   set_brief("Six-pence Avenue");
    set_long("Six-pence Avenue continues up north towards the University. " +
       "Unfortunately, road construction prevents you from getting closer. " +
       "Southwards it meets with Market Boulevard, and then carries on " +

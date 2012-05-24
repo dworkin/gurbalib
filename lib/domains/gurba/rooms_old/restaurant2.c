@@ -1,7 +1,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("%^BLUE%^Chez Mario%^RESET%^");
+   set_brief("Chez Mario");
    set_long("This is the kitchen, the place where Mario makes all the " +
       "food. There is a stove, a sink, some shelves with different " +
       "ingredients, a book that says 'cooking made easy' and a box " +

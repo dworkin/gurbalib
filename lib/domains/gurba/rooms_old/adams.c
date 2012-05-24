@@ -1,7 +1,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("%^RED%^Adams Boutique%^RESET%^");
+   set_brief("Adams Boutique");
    set_long("Welcome to Adams. This large wooden house is the base for " +
       "Adams Business. The shop is filled with all kinds of trinkets, " +
       "devices and art. Adam is standing behind the counter smiling at " +

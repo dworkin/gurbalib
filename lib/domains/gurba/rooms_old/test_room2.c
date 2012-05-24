@@ -2,7 +2,7 @@ inherit "/std/room";
 inherit M_STORAGE;
 
 void setup(void) {
-   set_brief("%^MAGENTA%^Storage Room%^RESET%^");
+   set_brief("Storage Room");
    set_long("There is a storage at one side of the room.");
 
    set_exits(([

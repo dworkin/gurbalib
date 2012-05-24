@@ -2,7 +2,7 @@ inherit ROOM;
 
 void setup(void) {
    add_area("Gurba");
-   set_brief("%^GREEN%^Gurba Town Square%^RESET%^");
+   set_brief("Gurba Town Square");
    set_long("This is the natural meeting place in the town of Gurba. In " +
       "the center of the square is a large statue of the city's founder. " +
       "It's a breathtaking sight.  Hanging next to the statue is a " +
