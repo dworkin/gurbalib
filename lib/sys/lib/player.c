@@ -92,6 +92,7 @@ void restore_me(void) {
 void login_player(void) {
    int i;
    string *didlog;
+   mixed autoload;
 
    /* If we're a wiz, show the didlog since last login */
    if (query_user_priv(player_name) > 0) {
@@ -143,7 +144,12 @@ void login_player(void) {
    set_brief(query_title());
    set_hit_skill("combat/unarmed");
    ANSI_D->set_player_translations(custom_colors);
-   this_player()->clone_autoload_objects();
+   autoload = query_env("autoload");
+   if (autoload == nil)
+      autoload = 0;
+   if (autoload == 1) {
+      this_player()->clone_autoload_objects();
+   }
 }
 
 int query_last_login(void) {
@@ -579,9 +585,10 @@ void do_quit(void) {
 
    set_this_player(this_object());
 
-// XXX Maybe work in some logic here, so its only done if something
-   this_object()->compose_autoload_string();
-   autoload = 1;
+   if (query_env("autoload")) {
+      this_object()->compose_autoload_string();
+      autoload = 1;
+   }
 
    objs = query_inventory() + ( { } );
 
@@ -598,8 +605,8 @@ void do_quit(void) {
       }
    }
 
-   if (this_player()->query_env("save_on_quit")) {
-      this_player()->set_env("start",
+   if (query_env("save_on_quit")) {
+      set_env("start",
 	 this_player()->query_environment()->file_name());
    }
 

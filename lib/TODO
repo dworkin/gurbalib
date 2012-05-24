@@ -73,6 +73,4 @@ If you dest a wielded object your hands are full with no way to
 unwield stuff...
 
 Fix it so deep inventory works with autoload.
-Maybe make an env var that enables autoload features values:
-		save,load,both
 
