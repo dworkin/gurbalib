@@ -10,7 +10,7 @@ void usage() {
 void main(string str) {
    object where;
    object *objs;
-   int i;
+   int i, done;
 
    if (sscanf(str, "-%s", str)) {
       usage();
@@ -35,8 +35,13 @@ void main(string str) {
    write("Scanning \"" + object_name(where) + "\":");
    objs = where->query_inventory();
    if (objs) {
+      done = 0;
       for (i = 0; i < sizeof(objs); i++) {
+         done = 1;
          write("\"" + object_name(objs[i]) + "\"");
+      }
+      if (!done) {
+         write("No items in that object.\n");
       }
    } else {
       write("No items in that object.\n");
