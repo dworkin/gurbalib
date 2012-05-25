@@ -17,8 +17,7 @@ void usage() {
    write("See also: say, tell, whisper, translate\n");
 }
 
-// XXX Need to fix this so it uses LANGUAGE as an argument and works...
-// off of skills/race....
+// XXX Need to fix this so it works, and also works off of skills/race....
 
 void main(string str) {
    object *usr;
@@ -49,14 +48,19 @@ void main(string str) {
       if (!LANGUAGE_D->valid_language(race))
 	 race = "";
    }
-// XXX Need to check race != "" and go from there...
+   if (race == "") {
+      this_environment()->tell_room(this_player()->query_Name() + 
+         " makes an undescribable noise.\n");
+      write("Error, invalid race.\n");
+      return;
+   }
 
    for (i = strlen(str) - 1; i > 0; i--) {
       if (str[i] != ' ')
 	 break;
       str = str[0..(i - 1)];
    }
-   race = "catfolk";
+
    if (str != "") {
       str = lowercase(str);
 
@@ -68,20 +72,19 @@ void main(string str) {
       usr = USER_D->query_players();
       for (i = 0; i < sizeof(usr); i++) {
 	 if ((usr[i]->query_environment() == this_player()->query_environment())
-	    && (usr[i]->query_race() == "catfolk") && (usr[i] != this_player())) {
+	    && (usr[i]->query_race() == race) && (usr[i] != this_player())) {
 	    usr[i]->message(this_player()->query_Name() +
-	       " says in cattongue: " + str + "\n");
+	       " says in " + race + " tongue: " + str + "\n");
 	 }
 	 if ((usr[i]->query_environment() == this_player()->query_environment())
-	    && (usr[i]->query_race() != "catfolk") && (usr[i] != this_player())) {
+	    && (usr[i]->query_race() != race) && (usr[i] != this_player())) {
 	    usr[i]->out(this_player()->query_Name() + " says:");
 	    for (k = 0; k < sizeof(words); k++) {
-	       tmp = usr[i]->catfolk_to_english(words[k]);
-	       usr[i]->out(" " + tmp);
+	       usr[i]->out(" " + words[k]);
 	    }
 	    usr[i]->out(" \n");
 	 }
       }
-      write("You meow: " + str + "\n");
+      write("You say in " + race + ": " + str + "\n");
    }
 }
