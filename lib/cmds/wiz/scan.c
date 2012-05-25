@@ -34,7 +34,11 @@ void main(string str) {
 
    write("Scanning \"" + object_name(where) + "\":");
    objs = where->query_inventory();
-   for (i = 0; i < sizeof(objs); i++) {
-      write("\"" + object_name(objs[i]) + "\"");
+   if (objs) {
+      for (i = 0; i < sizeof(objs); i++) {
+         write("\"" + object_name(objs[i]) + "\"");
+      }
+   } else {
+      write("No items in that object.\n");
    }
 }
