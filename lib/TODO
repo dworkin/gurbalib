@@ -69,8 +69,5 @@ why /daemons, /kernel/daemons, /sys/daemons
 Still need to modify add_item_command so that it uses function names from
 add_object_command...
 
-If you dest a wielded object your hands are full with no way to
-unwield stuff...
-
 Fix it so deep inventory works with autoload.
 
