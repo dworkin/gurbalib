@@ -71,20 +71,19 @@ void main(string str) {
       }
       usr = USER_D->query_players();
       for (i = 0; i < sizeof(usr); i++) {
-	 if ((usr[i]->query_environment() == this_player()->query_environment())
-	    && (usr[i]->query_race() == race) && (usr[i] != this_player())) {
+         if (usr[i] == this_player()) {
+            write("You say in " + race + ": " + str + "\n");
+         } else if (usr[i]->query_race() == race) { 
 	    usr[i]->message(this_player()->query_Name() +
 	       " says in " + race + " tongue: " + str + "\n");
-	 }
-	 if ((usr[i]->query_environment() == this_player()->query_environment())
-	    && (usr[i]->query_race() != race) && (usr[i] != this_player())) {
-	    usr[i]->out(this_player()->query_Name() + " says:");
+	 } else {
+            tmp = "";
 	    for (k = 0; k < sizeof(words); k++) {
-	       usr[i]->out(" " + words[k]);
+               tmp = tmp + words[k] + " ";
 	    }
-	    usr[i]->out(" \n");
+	    usr[i]->message(this_player()->query_Name() + 
+               " says in " + race + " tongue: " + tmp + "\n");
 	 }
       }
-      write("You say in " + race + ": " + str + "\n");
    }
 }
