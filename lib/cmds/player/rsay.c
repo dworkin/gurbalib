@@ -17,12 +17,10 @@ void usage() {
    write("See also: say, tell, whisper, translate\n");
 }
 
-// XXX Need to fix this so it works, and also works off of skills/race....
-
 void main(string str) {
    object *usr;
-   int i, k;
-   string *words;
+   int i, k, x, kmax;
+   string *words, *words2;
    string tmp, rest, first, race;
 
    if (!str || str == "") {
@@ -35,6 +33,7 @@ void main(string str) {
    }
 
    race = "";
+   words2 = ({ });
 
    if (sscanf(str, "%s %s", first, rest) == 2) {
       if (LANGUAGE_D->valid_language(first)) {
@@ -49,8 +48,8 @@ void main(string str) {
 	 race = "";
    }
    if (race == "") {
-      this_environment()->tell_room(this_player()->query_Name() + 
-         " makes an undescribable noise.\n");
+      this_player()->query_environment()->tell_room(this_player(),
+         this_player()->query_Name() + " makes an undescribable noise.\n");
       write("Error, invalid race.\n");
       return;
    }
@@ -65,21 +64,35 @@ void main(string str) {
       str = lowercase(str);
 
       words = explode(str, " ");
-      for (k = 0; k < sizeof(words); k++) {
-	 /*Translate it to cat */
-	 words[k] = LANGUAGE_D->english_to_racial(race, words[k]);
+      kmax = sizeof(words);
+      for (k = 0; k < kmax; k++) {
+         x = random(100) + 1;
+         if (x < this_player()->query_skill("language/" + race)) {
+  	    /*Translate it to cat */
+	    words2 += ({ LANGUAGE_D->english_to_racial(race, words[k]) });
+         } else {
+            /*Mess up the word... */
+	    words2 += ({ LANGUAGE_D->random_word(race) });
+            words= words2;
+         }
       }
       usr = USER_D->query_players();
       for (i = 0; i < sizeof(usr); i++) {
          if (usr[i] == this_player()) {
             write("You say in " + race + ": " + str + "\n");
-         } else if (usr[i]->query_race() == race) { 
+         } else if ((usr[i]->query_race() == race) || 
+            USER_D->query_wizard(usr[i])) { 
 	    usr[i]->message(this_player()->query_Name() +
 	       " says in " + race + " tongue: " + str + "\n");
 	 } else {
             tmp = "";
 	    for (k = 0; k < sizeof(words); k++) {
-               tmp = tmp + words[k] + " ";
+               x = random(100) + 1;
+               if (x < usr[i]->query_skill("language/" + race)) {
+                  tmp = tmp + words[k] + " ";
+               } else {
+                  tmp = tmp + words2[k] + " ";
+               }
 	    }
 	    usr[i]->message(this_player()->query_Name() + 
                " says in " + race + " tongue: " + tmp + "\n");

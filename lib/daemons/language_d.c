@@ -158,7 +158,8 @@ string *query_languages() {
 int valid_language(string str) {
    switch (str) {
       case "catfolk":
-      case "dwarven":
+      case "dwarf":
+      case "elf":
 	 return 1;
 	 break;
       default:
