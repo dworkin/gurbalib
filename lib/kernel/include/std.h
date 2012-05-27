@@ -145,6 +145,10 @@
 #define WIZ_DIR "/wiz/"
 #endif
 
+#ifndef RACE_DIR
+#define RACE_DIR "/domains/required/objects/races/"
+#endif
+
 #ifndef DOMAINS_DIR
 #define DOMAINS_DIR "/domains/"
 #endif

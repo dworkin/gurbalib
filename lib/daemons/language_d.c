@@ -1,29 +1,64 @@
 /* See /help/wiz/language_d for some explanations */
-mapping catfolk_dic;
-mapping dwarf_dic;
-mapping human_dic;
-static string transword;
+mapping dicts;
+
+// XXX Need to make it more dynamic so if you add a new race it deals
+// with it...  Also get it working for all current races...
 
 static void restore_me(void) {
    unguarded("restore_object", "/daemons/data/language_d.o");
 }
 
-void create(void) {
-   catfolk_dic = ([]);
-   human_dic = ([]);
-   dwarf_dic = ([]);
-
-   /* Ok so I hate making up words... :) */
-   /* These are just so that the mappings have something in them */
-   catfolk_dic += (["zifges":"gesbfe"]);
-   dwarf_dic += (["zifges":"gesfbe"]);
-   human_dic += (["zifges":"gefffe"]);
-
-   restore_me();
-}
-
 static void save_me(void) {
    unguarded("save_object", "/daemons/data/language_d.o");
+}
+
+string make_word(int size) {
+    int x, t;
+    string word;
+    string letters;
+
+    word = "";
+    letters = "abcdefghijklmnopqurstuvwxyz";
+
+    for(x=0; x<size; x++) {
+       t = random(strlen(letters));
+       word += letters[t];
+    }
+    return word;
+}
+
+string *query_languages() {
+   string *langs, *files;
+   string name;
+   int i, x;
+
+   files = get_dir(RACE_DIR + "/*.c")[0];
+   langs = ( { } );
+
+   for(i=sizeof(files) - 1; i>=0; i--) {
+      x = strlen(files[i]) - 3;
+      name = files[i][..x];
+      langs += ({ name });
+   }
+
+   return langs;
+}
+
+void create(void) {
+   string *langs;
+   string str;
+   int i, x;
+
+   langs = query_languages();
+   dicts = ([]);
+   x = sizeof(langs) - 1;
+
+   for(i=x; i >= 0; i--) {
+      str = make_word(5);
+      dicts[langs[x]] = ([ "bingo" : str ]);
+   }
+   
+   restore_me();
 }
 
 string random_word(string race) {
@@ -89,31 +124,22 @@ string random_word(string race) {
       return race;
       /* Make code for returning a random Norwegian word here */
    } else {
-      return race;		/*DEBUG ALERT!!!! */
+      return make_word(8);
    }
 }
 
 string add_racial(string language, string englishword) {
+   string transword;
+
    englishword = lowercase(englishword);
-   write(language);
-   write(englishword);
-   if (language == "catfolk") {
-      if (!(catfolk_dic[englishword])) {
-	 transword = random_word(language);
-         catfolk_dic += ([englishword:transword]);
-	 return transword;
-      }
-   } else if (language == "dwarf") {
-      if (!(dwarf_dic[englishword])) {
-	 write("!(dwarf_dic[" + englishword + "])");
-	 transword = random_word(language);
-         dwarf_dic += ([englishword:transword]);
-	 return transword;
-      }
+   if (!(dicts[language][englishword])) {
+      transword = random_word(language);
+      dicts[language] += ([englishword:transword]);
+      return transword;
    }
 }
 
-/*This here is the main function. It must be called for each word to be
+/* This here is the main function. It must be called for each word to be
   translated. If the word doesn't exist in the dictionary, then
   add_catfolk() will automatically be called from here. This function will
   return the catfolk word corresponding to the english word fed into it.
@@ -121,49 +147,19 @@ string add_racial(string language, string englishword) {
 string english_to_racial(string language, string arg) {
    string englishword;
    englishword = lowercase(arg);
-   if (language == "catfolk") {
-      if (member_map(englishword, catfolk_dic)) {
-	 return catfolk_dic[englishword];
-      }
-   } else if (language == "human") {
-      if (member_map(englishword, human_dic)) {
-	 return human_dic[englishword];
-      }
-   } else if (language == "dwarf") {
-      write("In 'if language == dwarf'");
-      if (member_map(englishword, dwarf_dic)) {
-	 write("It's a member");
-	 write(englishword);
-	 write(dwarf_dic[englishword]);
-	 return dwarf_dic[lowercase(englishword)];
-      } else {
-	 write("it's not a member");
-      }
+   if (member_map(englishword, dicts[language])) {
+	 return dicts[language][englishword];
    }
    /* We didn't find it, so we must add it */
    return add_racial(language, englishword);
-   /* We return it at the same time :) */
-}
-
-string *query_languages() {
-   string *langs;
-
-   langs = ( { } );
-   langs += ( { "catfolk" } );
-   langs += ( { "dwarven" } );
-
-   return langs;
 }
 
 int valid_language(string str) {
-   switch (str) {
-      case "catfolk":
-      case "dwarf":
-      case "elf":
-	 return 1;
-	 break;
-      default:
-	 return 0;
-	 break;
+   string *langs;
+
+   langs = query_languages();
+   if (member_array(str, langs) > -1) {
+      return 1;
    }
+   return 0;
 }
