@@ -1,5 +1,6 @@
 // we need to beef up our player races a little
 inherit MONSTER_RACE;
+string language;
 
 void create(void) {
    ::create();
@@ -22,3 +23,13 @@ void create(void) {
 int is_monster_race(void) {
    return (0);
 }
+
+
+string query_language(void) {
+   return language;
+}
+
+string set_language(string str) {
+   str = language;
+}
+

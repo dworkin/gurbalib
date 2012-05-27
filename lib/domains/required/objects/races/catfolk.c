@@ -9,6 +9,6 @@ void create(void) {
       "They just showed up one day and have been around ever since.  " +
       "Catfolk tend to be smaller that humans but are extremely dexterous.");
 
-// XXX see dwarf code for why this is commented out...
-//    set_skill("language/catfolk",100);
+   set_language("catfolk");
+//   set_skill("language/catfolk",100);
 }

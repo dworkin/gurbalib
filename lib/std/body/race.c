@@ -17,7 +17,7 @@ void set_race(string name) {
 }
 
 string query_race(void) {
-   return (race);
+   return race;
 }
 
 void initialize_race(void) {

@@ -12,4 +12,6 @@ void create(void) {
       "keep continuing. Gnomes seem obsessed with investigating\n" +
       "and finding out of things they come across - often with disastrous " +
       "results.");
+   set_language("gnomish");
+//   set_skill("language/gnomish",100);
 }

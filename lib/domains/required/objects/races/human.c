@@ -12,4 +12,7 @@ void create(void) {
       "the other races fairly well, and a human has\na wide range of " +
       "adventuring options available to him or her. The downside is \n" +
       "that they do not excel in any particular fields.");
+   set_language("english");
+// no need to do this:
+// set_skill("language/engilsh",100);
 }

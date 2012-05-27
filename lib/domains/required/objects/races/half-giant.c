@@ -13,4 +13,6 @@ void create(void) {
       "equipment and armor. Despite all this, they're extremely strong, " +
       "and\nstories go of incidents where a frail half-giant has survived " +
       "where the\nstrongest humans have fallen.");
+   set_language("grunt");
+//   set_skill("language/grunt",100);
 }

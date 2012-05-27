@@ -22,6 +22,7 @@ void create(void) {
       "to a certain degree. Dwarves get along nice with trolls and orcs, " +
       "and they   \nshare the elves' distrust of one another. ");
 
+   set_language("dwarven");
 // XXX Need to fix code so can do this... 
 //    set_skill("language/dwarven",100);
 //    set_skill("value",50);

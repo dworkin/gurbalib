@@ -13,4 +13,6 @@ void create(void) {
       "can still be a decent warrior. Of some reason long \nforgotten, " +
       "elves do not get along with dwarves, trolls or orcs. They are\n" +
       "considered crude, foul, and smelly.");
+   set_language("elvish");
+//   set_skill("language/elvish",100);
 }

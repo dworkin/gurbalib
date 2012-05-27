@@ -1,9 +1,6 @@
 /* See /help/wiz/language_d for some explanations */
 mapping dicts;
 
-// XXX Need to make it more dynamic so if you add a new race it deals
-// with it...  Also get it working for all current races...
-
 static void restore_me(void) {
    unguarded("restore_object", "/daemons/data/language_d.o");
 }
