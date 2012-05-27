@@ -23,7 +23,6 @@ void create(void) {
       "and they   \nshare the elves' distrust of one another. ");
 
    set_language("dwarven");
-// XXX Need to fix code so can do this... 
-//    set_skill("language/dwarven",100);
-//    set_skill("value",50);
+   set_skill("language/dwarven",100);
+   set_skill("value",50);
 }

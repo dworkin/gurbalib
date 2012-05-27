@@ -13,5 +13,5 @@ void create(void) {
       "and finding out of things they come across - often with disastrous " +
       "results.");
    set_language("gnomish");
-//   set_skill("language/gnomish",100);
+   set_skill("language/gnomish",100);
 }

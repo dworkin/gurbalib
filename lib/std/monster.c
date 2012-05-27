@@ -2,6 +2,7 @@
 
 inherit con CONTAINER;
 inherit bod BODY;
+inherit "/std/body/skills";
 
 inherit M_GETTABLE;
 inherit M_MESSAGES;
@@ -11,6 +12,7 @@ static object possessor;
 
 void create(void) {
    int x;
+
    con::create();
    bod::create();
    set_gettable(0);
@@ -28,7 +30,7 @@ void create(void) {
 }
 
 void set_max_hp(int hp) {
-   bod::set_max_hp(hp);
+   ::set_max_hp(hp);
    set_hp(hp);
 }
 

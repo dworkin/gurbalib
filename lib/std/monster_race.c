@@ -1,6 +1,8 @@
 /* Definition of the human race */
 /* Note : The racial MAX stats are WITHOUT the bonus. */
 
+inherit "/std/body/skills";
+
 mapping base_stat_minimum;
 mapping base_stat_maximum;
 mapping stat_mod;
