@@ -117,23 +117,37 @@ string query_age() {
    return ret;
 }
 
+// XXX Need to figure out consiquences and how to get back to life...
+//     put exp on body, if you make it back you get it back?
+//     similar to deamon souls....
 void die(void) {
-   object obj;
+   object obj, *inv;
+   int i;
 
+   /* Make a corpse */
    obj = clone_object("/domains/required/objects/corpse");
    if (this_object()->is_player()) {
       obj->set_name(this_object()->query_Name());
       obj->move(this_object()->query_environment());
-
-      this_object()->move(VOID);
-// XXX Need to figure out consiquences and how to get back to life...
-//     put exp on body, if you make it back you get it back?
-//     similar to deamon souls....
-//       EVENT_D->unsubscribe_event("heart_beat");
-
    } else {
       obj->set_name("a " + this_object()->query_id());
       obj->move(this_object()->query_environment());
+   }
+
+   inv = this_object()->query_inventory();
+   for(i = sizeof(inv) - 1; i>=0; i++) {
+      if(inv[i]->query_worn()) {
+         this_object()->do_remove(inv[i]);
+      }
+      if(inv[i]->query_wielded()) {
+         this_object()->do_unwield(inv[i]);
+      }
+      inv[i]->move(obj);
+   }
+
+   if (this_object()->is_player()) {
+      this_object()->move(VOID);
+   } else {
       this_object()->destruct();
    }
 }
