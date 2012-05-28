@@ -8,7 +8,7 @@ void setup(void) {
       "waiting area.  You hear loud noises to the north.");
 
    set_exits(([
-      "north" : "/domains/newbie/rooms/equipment", 
+      "north" : "/domains/newbie/rooms/fighting", 
       "south" : "/domains/newbie/rooms/quest",
    ]));
 
