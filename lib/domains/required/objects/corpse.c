@@ -1,4 +1,4 @@
-inherit OBJECT;
+inherit CONTAINER;
 
 static string orig_name;
 

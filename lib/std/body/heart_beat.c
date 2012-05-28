@@ -124,18 +124,10 @@ void die(void) {
    object obj, *inv;
    int i;
 
-   /* Make a corpse */
    obj = clone_object("/domains/required/objects/corpse");
-   if (this_object()->is_player()) {
-      obj->set_name(this_object()->query_Name());
-      obj->move(this_object()->query_environment());
-   } else {
-      obj->set_name("a " + this_object()->query_id());
-      obj->move(this_object()->query_environment());
-   }
 
    inv = this_object()->query_inventory();
-   for(i = sizeof(inv) - 1; i>=0; i++) {
+   for(i = sizeof(inv) - 1; i>=0; i--) {
       if(inv[i]->query_worn()) {
          this_object()->do_remove(inv[i]);
       }
@@ -146,8 +138,12 @@ void die(void) {
    }
 
    if (this_object()->is_player()) {
+      obj->set_name(this_object()->query_Name());
+      obj->move(this_object()->query_environment());
       this_object()->move(VOID);
    } else {
+      obj->set_name("a " + this_object()->query_id());
+      obj->move(this_object()->query_environment());
       this_object()->destruct();
    }
 }
