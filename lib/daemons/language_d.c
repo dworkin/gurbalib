@@ -27,17 +27,22 @@ string make_word(int size) {
 string *query_languages() {
    string *langs, *files;
    string name;
+   object obj;
    int i, x;
 
-   files = get_dir(RACE_DIR + "/*.c")[0];
+   files = get_dir(RACE_DIR + "*.c")[0];
    langs = ( { } );
 
    for(i=sizeof(files) - 1; i>=0; i--) {
       x = strlen(files[i]) - 3;
-      name = files[i][..x];
-      langs += ({ name });
+      obj = find_object(RACE_DIR + files[i][0..x]);
+      if (obj) 
+         name = obj->query_language();
+      if (!name || name == "") 
+         name = "english";
+      if (member_array(name, langs) == -1)
+         langs += ({ name });
    }
-
    return langs;
 }
 
@@ -54,7 +59,6 @@ void create(void) {
       str = make_word(5);
       dicts[langs[x]] = ([ "bingo" : str ]);
    }
-   
    restore_me();
 }
 
@@ -62,6 +66,7 @@ string random_word(string race) {
    int num_words;	/* Number of catfolk words in the 'english word' */
    int k;
    string words;	/*What's gonna be returned */
+
    if (race == "catfolk") {
       words = "";
       num_words = random(3) + 1;
@@ -115,11 +120,12 @@ string random_word(string race) {
 	       break;
 	 }
       }
+
       words[strlen(words) - 1] = 0;	/*Strip the trailing space */
       return words;
    } else if (race == "dwarf") {
-      return race;
       /* Make code for returning a random Norwegian word here */
+      return race;
    } else {
       return make_word(8);
    }
@@ -155,8 +161,7 @@ int valid_language(string str) {
    string *langs;
 
    langs = query_languages();
-   if (member_array(str, langs) > -1) {
+   if (member_array(str, langs) > -1)
       return 1;
-   }
    return 0;
 }
