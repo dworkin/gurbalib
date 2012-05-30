@@ -37,9 +37,18 @@ string *query_languages() {
       obj = find_object(RACE_DIR + files[i][0..x]);
       if (obj) name = obj->query_language();
       if (!name || name == "") name = "english";
-      if (!valid_language(name)) langs += ({ name });
+      if (member_array(name, langs) == -1) langs += ({ name });
    }
    return langs;
+}
+
+int valid_language(string str) {
+   string *langs;
+
+   langs = query_languages();
+   if (member_array(str, langs) > -1)
+      return 1;
+   return 0;
 }
 
 void create(void) {
@@ -149,13 +158,4 @@ string english_to_racial(string language, string arg) {
 	 return dicts[language][englishword];
    }
    return add_racial(language, englishword);
-}
-
-int valid_language(string str) {
-   string *langs;
-
-   langs = query_languages();
-   if (member_array(str, langs) > -1)
-      return 1;
-   return 0;
 }
