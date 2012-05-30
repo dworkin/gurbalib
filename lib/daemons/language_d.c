@@ -11,8 +11,7 @@ static void save_me(void) {
 
 string make_word(int size) {
     int x, t;
-    string word;
-    string letters;
+    string word, letters;
 
     word = "";
     letters = "abcdefghijklmnopqurstuvwxyz";
@@ -36,12 +35,9 @@ string *query_languages() {
    for(i=sizeof(files) - 1; i>=0; i--) {
       x = strlen(files[i]) - 3;
       obj = find_object(RACE_DIR + files[i][0..x]);
-      if (obj) 
-         name = obj->query_language();
-      if (!name || name == "") 
-         name = "english";
-      if (member_array(name, langs) == -1)
-         langs += ({ name });
+      if (obj) name = obj->query_language();
+      if (!name || name == "") name = "english";
+      if (!valid_language(name)) langs += ({ name });
    }
    return langs;
 }
@@ -143,9 +139,8 @@ string add_racial(string language, string englishword) {
 }
 
 /* This here is the main function. It must be called for each word to be
-  translated. If the word doesn't exist in the dictionary, then
-  add_catfolk() will automatically be called from here. This function will
-  return the catfolk word corresponding to the english word fed into it.
+  translated. If the word doesn't exist in the dictionary, then it will
+  add it, then return the translation.
 */
 string english_to_racial(string language, string arg) {
    string englishword;
@@ -153,7 +148,6 @@ string english_to_racial(string language, string arg) {
    if (member_map(englishword, dicts[language])) {
 	 return dicts[language][englishword];
    }
-   /* We didn't find it, so we must add it */
    return add_racial(language, englishword);
 }
 
