@@ -61,6 +61,8 @@ void main(string str) {
    age = obj->query_age();
 
    write("[ " + obj->query_name() + " ] " + obj->query_title() + "\n");
+   write("A " + obj->query_gender() + " " + obj->query_race() + 
+      " who is " + obj->query_status() + "\n");
    write("Strength    :  " + obj->query_stat("str") +
       "\t\t" + "Hit points  :   " + h + "/" + mh + "\n");
    write("Intelligence:  " + obj->query_stat("int") +
