@@ -10,7 +10,7 @@ static int restock_delay;
 // XXX Need to check and subtract/add money....
 
 int is_vendor(void) {
-   return (1);
+   return 1;
 }
 
 void set_restock_delay(int delay) {
@@ -27,7 +27,7 @@ void set_will_buy(int will) {
 }
 
 int query_will_buy(void) {
-   return (will_buy);
+   return will_buy;
 }
 
 void set_will_sell(int will) {
@@ -35,7 +35,7 @@ void set_will_sell(int will) {
 }
 
 int query_will_sell(void) {
-   return (will_sell);
+   return will_sell;
 }
 
 void do_sell(object player, string what) {
@@ -100,8 +100,7 @@ void add_item(string name, int amount) {
 }
 
 string query_list(void) {
-   string str;
-   string num;
+   string str, num;
    string *objs;
    object obj;
    int i;
@@ -142,7 +141,7 @@ string query_list(void) {
 	 obj->destruct();
       }
    }
-   return (str);
+   return str;
 }
 
 void do_list(object player) {
