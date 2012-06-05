@@ -36,13 +36,7 @@ string *query_languages() {
       x = strlen(files[i]) - 3;
       obj = find_object(RACE_DIR + files[i][0..x]);
       if (obj) {
-// XXX remove this once you get it working...
-         obj->set_language("catfolk");
          name = obj->query_language();
-//         name = call_other(obj,query_language());
-         if (!name) name = "";
-LOG_D->write_log("debug","LOG WOo " + RACE_DIR + files[i][0..x] + ": " + 
-   name + "\n");
       } 
       if (!name || name == "") name = "english";
       if (member_array(name, langs) == -1) langs += ({ name });

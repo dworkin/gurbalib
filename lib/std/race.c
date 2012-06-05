@@ -30,6 +30,6 @@ string query_language(void) {
 }
 
 string set_language(string str) {
-   str = language;
+   language = str;
 }
 
