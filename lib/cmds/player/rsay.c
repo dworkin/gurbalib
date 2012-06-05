@@ -17,11 +17,39 @@ void usage() {
    write("See also: say, tell, whisper, translate\n");
 }
 
-void main(string str) {
+tell_them(string str, string *words, string lang, string *words2) {
    object *usr;
+   int i, imax, k, kmax, x;
+   string tmp;
+
+   usr = USER_D->query_players();
+   imax = sizeof(usr);
+   for (i = 0; i < imax; i++) {
+      if (usr[i] == this_player()) {
+         write("You say in " + lang + ": " + str + "\n");
+      } else {
+         tmp = "";
+         kmax = sizeof(words);
+	 for (k = 0; k < imax; k++) {
+             x = random(100) + 1;
+             if (usr[i]->query_language() == lang || usr[i]->query_wizard() ||
+                x < usr[i]->query_skill("language/" + lang)) {
+                tmp = tmp + words[k] + " ";
+             } else {
+                tmp = tmp + words2[k] + " ";
+             }
+	  }
+
+         usr[i]->message(this_player()->query_Name() + 
+            " says in " + lang + ": " + tmp + "\n");
+      }
+   }
+}
+
+void main(string str) {
    int i, k, x, kmax;
    string *words, *words2;
-   string tmp, rest, first, race;
+   string rest, first, lang;
 
    if (!str || str == "") {
       usage();
@@ -32,25 +60,25 @@ void main(string str) {
       return;
    }
 
-   race = "";
+   lang = "";
    words2 = ({ });
 
    if (sscanf(str, "%s %s", first, rest) == 2) {
       if (LANGUAGE_D->valid_language(first)) {
-	 race = first;
+	 lang = first;
 	 str = rest;
       }
    }
 
-   if (race == "") {
-      race = this_player()->query_race();
-      if (!LANGUAGE_D->valid_language(race))
-	 race = "";
+   if (lang == "") {
+      lang = this_player()->query_language();
+      if (!LANGUAGE_D->valid_language(lang))
+	 lang = "";
    }
-   if (race == "") {
+   if (lang == "") {
       this_player()->query_environment()->tell_room(this_player(),
-         this_player()->query_Name() + " makes an undescribable noise.\n");
-      write("Error, invalid race.\n");
+         this_player()->query_Name() + " makes an indescribable noise.\n");
+      write("You say: " + str + "\n");
       return;
    }
 
@@ -62,41 +90,25 @@ void main(string str) {
 
    if (str != "") {
       str = lowercase(str);
-
       words = explode(str, " ");
-      kmax = sizeof(words);
-      for (k = 0; k < kmax; k++) {
-         x = random(100) + 1;
-         if (x < this_player()->query_skill("language/" + race)) {
-  	    /*Translate it to cat */
-	    words2 += ({ LANGUAGE_D->english_to_racial(race, words[k]) });
-         } else {
-            /*Mess up the word... */
-	    words2 += ({ LANGUAGE_D->random_word(race) });
-            words= words2;
+
+      if (lang == "english") {
+         tell_them(str, words, lang, words);
+      } else {
+         kmax = sizeof(words);
+         for (k = 0; k < kmax; k++) {
+            x = random(100) + 1;
+            if (x < this_player()->query_skill("language/" + lang)) {
+  	       /*Translate it to cat */
+	       words2 += ({ LANGUAGE_D->english_to_racial(lang, words[k]) });
+            } else {
+               /*Mess up the word... */
+	       words2 += ({ LANGUAGE_D->random_word(lang) });
+               words= words2;
+            }
          }
-      }
-      usr = USER_D->query_players();
-      for (i = 0; i < sizeof(usr); i++) {
-         if (usr[i] == this_player()) {
-            write("You say in " + race + ": " + str + "\n");
-         } else if ((usr[i]->query_race() == race) || 
-            USER_D->query_wizard(usr[i])) { 
-	    usr[i]->message(this_player()->query_Name() +
-	       " says in " + race + " tongue: " + str + "\n");
-	 } else {
-            tmp = "";
-	    for (k = 0; k < sizeof(words); k++) {
-               x = random(100) + 1;
-               if (x < usr[i]->query_skill("language/" + race)) {
-                  tmp = tmp + words[k] + " ";
-               } else {
-                  tmp = tmp + words2[k] + " ";
-               }
-	    }
-	    usr[i]->message(this_player()->query_Name() + 
-               " says in " + race + " tongue: " + tmp + "\n");
-	 }
+
+         tell_them(str, words, lang, words2);
       }
    }
 }

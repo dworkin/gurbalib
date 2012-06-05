@@ -21,7 +21,7 @@ void create(void) {
 }
 
 int is_monster_race(void) {
-   return (0);
+   return 0;
 }
 
 
