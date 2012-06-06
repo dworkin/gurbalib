@@ -16,8 +16,8 @@ int query_hp();
 int query_max_hp();
 
 #define FIGHTING_TIMEOUT 300
-
-// XXX Need to use endurance in combat.....
+// Ammount of Endurance required to Attack
+#define ATTACK_COST 5
 
 void create(void) {
    targets = ( { } );
@@ -138,6 +138,13 @@ object get_target(object targ) {
 
 void attack_with(string skill, object weapon, object target) {
    int me, tmp, damage;
+
+   me = this_object()->query_end();
+   if (me < ATTACK_COST) {
+      write("You are too tired to attack.\n");
+   } else {
+      this_object()->decrease_end(ATTACK_COST);
+   }
 
    if (!weapon) {
       me = (query_skill("combat/unarmed") / 50) +
