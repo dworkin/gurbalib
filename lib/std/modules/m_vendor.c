@@ -102,8 +102,7 @@ void do_buy(object player, object what) {
       stored_items[name] = stored_items[name] + 1;
    }
 
-// XXX why doesn't this work, also need to get sell working with money
-   player->add_coins("Crowns", value);
+   player->add_coins("ducat", value);
 }
 
 void add_item(string name, int amount) {
