@@ -10,4 +10,6 @@ void setup(void) {
    set_slot("body");
    set_wear_message("$N $vput on $o. Man, $N $vare cool!");
    set_remove_message("$N $vtake off $o, and suddenly $vlook extremely dull.");
+   set_ac(3);
+   set_value(50);
 }

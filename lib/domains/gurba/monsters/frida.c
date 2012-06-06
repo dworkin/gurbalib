@@ -11,6 +11,7 @@ void setup(void) {
    set_race("human");
 
    set_restock_delay(7200);
+   set_will_buy(1);
 
    add_item("/domains/gurba/objects/roses", 9);
 }

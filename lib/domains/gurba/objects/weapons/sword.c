@@ -17,6 +17,6 @@ void setup(void) {
    set_weapon_action("slash");
    set_weapon_skill("combat/sharp/small");
 
-   set_value(1);
+   set_value(30);
    set_size(10);
 }

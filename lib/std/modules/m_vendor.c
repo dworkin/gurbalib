@@ -75,17 +75,35 @@ void do_sell(object player, string what) {
 
 void do_buy(object player, object what) {
    string name;
+   int value;
+
+   value = what->query_value();
+
+   if ((will_buy < 1) || (value < 1)) {
+      write(capitalize(this_object()->query_name()) + " will not buy that.\n");
+      return;
+   }
 
    name = what->base_name();
 
-   player->targetted_action("$N $vgive $t $o", this_object(), what);
+   if (!what->move(this_object())) {
+      write("You can not sell that.\n");
+      return;
+   }
 
-   what->move(this_object());
+   player->targetted_action("$N $vsell $t $o for " + value + " crowns.", 
+      this_object(), what);
    what->query_environment()->remove_object(what);
    what->destruct();
 
-   stored_items[name] = stored_items[name] + 1;
+   if (!member_map(name, stored_items)) {
+      stored_items[name] = 1;
+   } else {
+      stored_items[name] = stored_items[name] + 1;
+   }
 
+// XXX why doesn't this work, also need to get sell working with money
+   player->add_coins("Crowns", value);
 }
 
 void add_item(string name, int amount) {

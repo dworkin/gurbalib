@@ -10,4 +10,6 @@ void setup(void) {
    set_slot("torso");
    set_wear_message("$N $vput on $o, and suddenly $vlook a lot better.");
    set_remove_message("$N $vtake off $o, and suddenly $vlook dull.");
+   set_ac(1);
+   set_value(20);
 }

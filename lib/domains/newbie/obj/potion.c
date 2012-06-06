@@ -1,5 +1,6 @@
 inherit OBJECT;
 inherit M_GETTABLE;
+inherit M_VALUABLE;
 
 void setup(void) {
    set_id("potion");
@@ -9,6 +10,7 @@ void setup(void) {
    set_in_room_desc("A small red potion.");
    set_eatable(1);
    set_gettable(1);
+   set_value(10);
 }
 
 int do_eat(void) {

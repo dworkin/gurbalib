@@ -9,4 +9,5 @@ void setup(void) {
    set_slot("head");
    set_wear_message("$N $vput $o on $p head.");
    set_remove_message("$N $vtake off $o.");
+   set_value(20);
 }
