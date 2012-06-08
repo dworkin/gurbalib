@@ -85,6 +85,25 @@ int query_message_count(void) {
    return sizeof(msgs);
 }
 
+void remove_message(string str) {
+   int x,size;
+
+   if (sscanf(str,"%d",x) < 1 || x == 0) {
+      write("Usage: delete #\n");
+      return;
+   }
+
+   size = query_message_count();
+   if (size < x) {
+      write("No message : " + x + "\n");
+      return;
+   }
+
+   x = x -1;
+   msgs -= ( { x } );
+   write("Deleted message #: " + str + "\n");
+}
+
 int query_new_message_count(void) {
    check_restore();
    return (query_message_count() - this_player()->query_board_read(board_id));
@@ -141,8 +160,8 @@ string query_message_list(string who) {
       tmp = tmp[strlen(tmp) - 4..];
       from = (string) msgs[i][0] + "                                          ";
       from = from[..10];
-      subj = msgs[i][1] + "                                                   ";
-      subj = subj[..33];
+      subj = msgs[i][1] + "                                                  ";
+      subj = subj[..32];
       date = msgs[i][2] + "                                    ";
       date = date[..25];
       if (i == this_player()->query_board_read(board_id)) {

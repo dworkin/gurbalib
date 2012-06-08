@@ -23,6 +23,7 @@ void event_body_look(mixed * who) {
 
 void event_body_look_at(mixed * who) {
    if (lowercase(who[1]->query_id()) == "board") {
-      set_long(query_message_list(who[0]->query_name()));
+      set_long(query_message_list(who[0]->query_name()) + 
+         "Commands: post, read #, delete num\n");
    }
 }
