@@ -100,7 +100,7 @@ void remove_message(string str) {
    }
 
    x = x -1;
-   msgs -= ( { x } );
+   msgs -= ( { msgs[x] } );
    write("Deleted message #: " + str + "\n");
 }
 
