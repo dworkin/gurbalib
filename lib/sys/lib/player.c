@@ -55,6 +55,7 @@ void create(void) {
    con::create();
    bod::create();
 
+   player_name = "guest";
    board_read = ([]);
    channels = ( { "gossip", "announce" } );
    ignored = ( { } );

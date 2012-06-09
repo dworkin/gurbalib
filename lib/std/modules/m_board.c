@@ -21,7 +21,8 @@ string query_data_dir() {
 
 string query_board_id(void) {
    if (board_id)
-      return (board_id);
+      return board_id;
+   return "undefined_board";
 }
 
 void default_data_dir() {

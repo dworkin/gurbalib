@@ -18,18 +18,25 @@ void usage() {
 }
 
 void do_shutdown() {
-   object *usrs;
-   int i, max;
+   string *usrs;
+   object *objs;
+   int i, max, j, jmax;
 
-   usrs = USER_D->query_players();
+   usrs = OBJECT_D->query_object_owners();
    max = sizeof(usrs);
    for (i = 0; i < max; i++) {
-      usrs[i]->message("Shutdown initiated by : " +
-	 this_player()->query_Name() + "\n");
-      usrs[i]->message("Game driver tells you: " +
-	 "Shutting down immediately!\n");
-      usrs[i]->message("  Reason : " + reason + "\n");
-      usrs[i]->save_me();
+      objs = OBJECT_D->query_objects_by_owner(usrs[i]);
+      jmax = sizeof(objs);
+      for(j=0; j< jmax; j++) {
+         if (objs[j]->is_player()) {
+            objs[j]->message("Shutdown initiated by : " +
+               this_player()->query_Name() + "\n");
+            objs[j]->message("Game driver tells you: " +
+               "Shutting down immediately!\n");
+            objs[j]->message("  Reason : " + reason + "\n");
+         }
+         objs[j]->save_me();
+      }
    }
    shutdown();
 }

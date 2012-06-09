@@ -81,3 +81,6 @@ remove extranious *.o files... guild_d.o for example...
 	find out how objects decide to save themselves...
 	do we need extra .o files?
 	after figure that out update clean up scripts to clean up correctly.
+
+Look into if shutdown should call save_me like it does or this should
+	be somewhere else, or something else?
