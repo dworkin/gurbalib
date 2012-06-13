@@ -802,6 +802,30 @@ void receive_message(string message) {
       if (arg == "me")
 	 arg = this_player()->query_id();
 
+      if (!flag) {
+	 /* Check for an item command */
+	 int i;
+	 string *item_cmds;
+
+	 item_cmds = map_indices(item_commands);
+	 for (i = 0; i < sizeof(item_cmds); i++) {
+	    if (item_cmds[i] == cmd) {
+	       call_other(item_commands[item_cmds[i]], "do_" + cmd, arg);
+	       flag = 1;
+	    }
+	 }
+      }
+
+      if (!flag) {
+	 /* Check for a room command */
+	 string roomcmd_h;
+	 roomcmd_h = this_environment()->query_room_command(cmd);
+	 if (roomcmd_h) {
+	    call_other(this_environment(), roomcmd_h, arg);
+	    flag = 1;
+	 }
+      }
+
       /* Check for a command, and call the command if it's found */
       if (!flag) {
 	 for (i = 0; i < sizeof(cmd_path); i++) {
@@ -823,30 +847,6 @@ void receive_message(string message) {
       if (!flag) {
 	 result = PARSE_D->parse(cmd + " " + arg);
 	 if (result) {
-	    flag = 1;
-	 }
-      }
-
-      if (!flag) {
-	 /* Check for an item command */
-	 int i;
-	 string *item_cmds;
-
-	 item_cmds = map_indices(item_commands);
-	 for (i = 0; i < sizeof(item_cmds); i++) {
-	    if (item_cmds[i] == cmd) {
-	       call_other(item_commands[item_cmds[i]], "do_" + cmd, arg);
-	       flag = 1;
-	    }
-	 }
-      }
-
-      if (!flag) {
-	 /* Check for a room command */
-	 string roomcmd_h;
-	 roomcmd_h = this_environment()->query_room_command(cmd);
-	 if (roomcmd_h) {
-	    call_other(this_environment(), roomcmd_h, arg);
 	    flag = 1;
 	 }
       }
