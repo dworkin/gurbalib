@@ -1,3 +1,5 @@
+mapping exits;
+
 void usage() {
    write("Usage: check [-h] FILENAME\n");
    write("Check the supplied file, FILENAME.\n");
@@ -5,6 +7,19 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("See also: update, clone\n");
+}
+
+void setup_exits() {
+   exists["north"] = "south";
+   exists["south"] =  "north";
+   exists["east"] = "west";
+   exists["west"] = "east";
+   exists["up"] = "down";
+   exists["down"] = "up";
+   exists["northwest"] = "southeast";
+   exists["southeast"] = "northwest";
+   exists["northeast"] = "southwest";
+   exists["southwest"] = "northeast";
 }
 
 string get_what(string str) {
@@ -25,8 +40,15 @@ string get_what(string str) {
    return path;
 }
 
+void do_check(string str) {
+   if (is_directory(str)) {
+   } else {
+   }
+}
+
 void main(string str) {
    string *files;
+   int x, max;
 
    if (!str || str == "") {
       usage();
@@ -37,6 +59,10 @@ void main(string str) {
       return;
    }
 
-   files = explode();
-
+   files = explode(str," ");
+   if (!files) files = ([ str ]);
+   max = sizeof(files);
+   for(x=0;x<max;x++) {
+      do_check(files[x]);
+   }
 }
