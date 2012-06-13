@@ -1,0 +1,26 @@
+inherit ROOM;
+
+void setup(void) {
+   add_area("2.4.5");
+
+   set_brief("Big tree");
+   set_long("A big single tree on the plain.");
+
+   add_exit("east","/domains/2.4.5/rooms/plain7.c");
+   add_exit("west","/domains/2.4.5/rooms/giant_path.c");
+
+   add_item("tree","The branches are very high up.");
+
+   add_room_command("climb","climb");
+
+   set_objects (([
+      "/domains/2.4.5/obj/rope.c" : 1,
+   ]));
+}
+
+int climb(string arg) {
+   this_player()->query_environment()->tell_room(this_player(),
+      this_player()->query_Name() + " looks up at the tree.\n");
+   write("There are no branches low enough for you to grab ahold of.\n");
+   return 1;
+}
