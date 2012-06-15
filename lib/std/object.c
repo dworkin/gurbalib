@@ -13,6 +13,8 @@ static mapping object_commands;
 static string detailed_desc;
 private int configured;
 static int eatable;
+static int gettable;
+static int object_value;
 
 void setup();
 
@@ -332,3 +334,20 @@ void upgraded() {
       setup();
    }
 }
+
+void set_value(int val) {
+   object_value = val;
+}
+
+int query_value(void) {
+   return object_value;
+}
+
+int is_gettable(void) {
+   return gettable;
+}
+
+void set_gettable(int get) {
+   gettable = get;
+}
+

@@ -16,12 +16,13 @@ void setup(void) {
    ]));
 
    name = "/std/money.c";
-   if (!this_environment()->present(name)) {
-      ob = clone_object(name);
-      ob->set_amount(10);
-      ob->move(object_name(this_object()));
-      ob->setup();
-   }
+// XXX figure out why this doesn't work...
+//   if (!this_environment()->present(name)) {
+//      ob = clone_object(name);
+//      ob->set_amount(10);
+//      ob->move(object_name(this_object()));
+//      ob->setup();
+//   }
 }
 
 // XXX Need to add money and put it on the ground...

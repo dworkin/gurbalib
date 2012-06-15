@@ -82,3 +82,7 @@ remove extranious *.o files... guild_d.o for example...
 
 Look into if shutdown should call save_me like it does or this should
 	be somewhere else, or something else?
+
+Figure out why can't goto a room that has an object that is missing.
+Figure out why don't get shoved to void on invalid start room...
+

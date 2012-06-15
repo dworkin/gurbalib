@@ -1,7 +1,5 @@
 inherit ob OBJECT;
 inherit M_WEARABLE;
-inherit M_GETTABLE;
-inherit M_VALUABLE;
 
 int armor_class;
 

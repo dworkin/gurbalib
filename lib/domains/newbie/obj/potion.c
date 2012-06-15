@@ -1,6 +1,4 @@
 inherit OBJECT;
-inherit M_GETTABLE;
-inherit M_VALUABLE;
 
 void setup(void) {
    set_id("potion");
