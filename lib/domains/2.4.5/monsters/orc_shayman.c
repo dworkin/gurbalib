@@ -4,17 +4,28 @@ inherit M_TRIGGERS;
 inherit M_BLOCKEXITS;
 
 void setup() {
-   set_name("wolf");
-   /* Leave out the gender specification, get a random one */
-   /*  set_gender( "male" ); */
-   add_adj("scraggly");
-   set_in_room_desc("A wolf");
-   set_long("The grey wolf, running around.  It has some big dangerous teeth.");
-   set_race("wolf");
-   set_max_hp(100);
+   object obj;
+
+   set_name("shayman");
+   set_gender( "female" );
+   add_adj("orc");
+   set_in_room_desc("Orc shayman");
+   set_long("An ugly orc shayman.  This thing looks wilder than your average " +
+      "orc.");
+   set_race("orc");
+   set_max_hp(300);
+   // XXX set_level(10);
+   // XXX set_addressive(1);
+   // XXX add magic missle spell...
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);
    set_skill("combat/defense", 100);
-}
 
-// XXX get orc from orc_vall.c  Needs lots of work...
+   obj = clone_object("/domains/2.4.5/obj/gold_staff.c");
+   obj->setup();
+   obj->move(this_object());
+   obj = clone_object("/domains/2.4.5/obj/orc_slayer.c");
+   obj->setup();
+   obj->move(this_object());
+   do_wield(obj);
+}
