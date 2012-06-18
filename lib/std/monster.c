@@ -4,7 +4,6 @@ inherit con CONTAINER;
 inherit bod BODY;
 inherit "/std/body/skills";
 
-inherit M_GETTABLE;
 inherit M_MESSAGES;
 
 string living_name;
