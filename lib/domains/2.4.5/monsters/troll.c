@@ -15,6 +15,8 @@ void setup() {
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);
    set_skill("combat/defense", 100);
+   // XXX set_level(8);
+   // XXX set_aggressive(1);
 }
 
 // XXX Make the troll talk...

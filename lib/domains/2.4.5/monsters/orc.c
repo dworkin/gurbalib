@@ -11,6 +11,8 @@ void setup() {
    set_in_room_desc("A wolf");
    set_long("The grey wolf, running around.  It has some big dangerous teeth.");
    set_race("wolf");
+   // XXX set_level(5);
+   // XXX set_aggressive(1);
    set_max_hp(100);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);

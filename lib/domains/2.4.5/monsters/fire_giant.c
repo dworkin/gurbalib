@@ -14,6 +14,7 @@ void setup() {
    set_race("giant");
    set_max_hp(300);
    // XXX set_level(15);
+   // XXX set_aggressive(1);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);
    set_skill("combat/defense", 100);
