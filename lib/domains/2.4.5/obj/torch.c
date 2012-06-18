@@ -8,6 +8,6 @@ void setup(void) {
    set_gettable(1);
 
    set_value(1);
-   // XXX set_weight(10);
+   set_weight(10);
    // XXX Also need to make it lightable????
 }

@@ -8,7 +8,7 @@ void setup(void) {
    set_gettable(1);
 
    set_value(300);
-   // XXX set_weight(10);
+   set_weight(10);
 }
 
 // XXX Make it so you can break it if you try to wield it?

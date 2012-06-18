@@ -11,7 +11,7 @@ void setup(void) {
    set_value(15);
 //   add_item_command("tie",this_object());
 //   add_item_command("untie",this_object());
-//   XXX set_weight(10);
+   set_weight(10);
 }
 
 string query_in_room_desc() {

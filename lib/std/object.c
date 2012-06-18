@@ -15,6 +15,7 @@ private int configured;
 static int eatable;
 static int gettable;
 static int object_value;
+static int weight;
 
 void setup();
 
@@ -341,6 +342,14 @@ void set_value(int val) {
 
 int query_value(void) {
    return object_value;
+}
+
+void set_weight(int val) {
+   weight = val;
+}
+
+int query_weight(int val) {
+   return weight;
 }
 
 int is_gettable(void) {

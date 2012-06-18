@@ -12,4 +12,5 @@ void setup(void) {
    set_remove_message("$N $vtake off $o, and suddenly $vlook dull.");
    set_ac(1);
    set_value(20);
+   set_weight(3);
 }

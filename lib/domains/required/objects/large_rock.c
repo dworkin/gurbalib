@@ -6,4 +6,5 @@ void setup(void) {
    set_adj("large");
    set_long("A pretty boooooring grey rock.");
    set_gettable(1);
+   set_weight(10);
 }

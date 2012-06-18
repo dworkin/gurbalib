@@ -19,4 +19,5 @@ void setup(void) {
 
    set_value(30);
    set_size(10);
+   set_weight(8);
 }

@@ -8,5 +8,5 @@ void setup(void) {
 
    set_value(8);
    set_size(10);
-   // XXX set_weight(2);
+   set_weight(2);
 }

@@ -14,4 +14,5 @@ void setup(void) {
    set_unwield_message("$N $vremove $p $o.");
    set_value(20);
    set_size(10);
+   set_weight(5);
 }

@@ -10,4 +10,6 @@ void setup(void) {
    set_wear_message("$N $vput $o on $p head.");
    set_remove_message("$N $vtake off $o.");
    set_value(20);
+   set_weight(3);
+   set_size(10);
 }

@@ -19,5 +19,5 @@ void setup(void) {
    set_weapon_action("slash");
    set_value(200);
    set_size(10);
-   // XXX set_weight(10);
+   set_weight(10);
 }

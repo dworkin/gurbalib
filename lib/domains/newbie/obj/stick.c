@@ -20,4 +20,5 @@ void setup(void) {
    set_weapon_action("bash");
    set_value(1);
    set_size(10);
+   set_weight(2);
 }

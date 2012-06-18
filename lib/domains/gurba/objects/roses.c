@@ -7,4 +7,5 @@ void setup(void) {
    set_in_room_desc("Someone has left a boquet of roses here.");
    set_gettable(1);
    set_value(10);
+   set_weight(1);
 }

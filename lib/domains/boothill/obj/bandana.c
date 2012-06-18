@@ -40,6 +40,8 @@ void setup(void) {
 
    set_message("The label on the bandana reads: Hand wash only.\n" +
       "Shake vigirisly to dry.");
+   set_weight(3);
+   set_value(5);
 }
 
 int do_shakeit(string str) {
