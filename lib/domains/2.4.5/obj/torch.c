@@ -9,5 +9,5 @@ void setup(void) {
 
    set_value(1);
    // XXX set_weight(10);
-   // Also need to make it lightable????
+   // XXX Also need to make it lightable????
 }

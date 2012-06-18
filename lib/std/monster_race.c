@@ -82,7 +82,7 @@ string query_race_short_desc(void) {
    if (!race_short) {
       return ("A generic race.");
    }
-   return (race_short);
+   return race_short;
 }
 
 void set_race_long_desc(string desc) {
@@ -93,9 +93,9 @@ string query_race_long_desc(void) {
    if (!race_long) {
       return ("A generic race.");
    }
-   return (race_long);
+   return race_long;
 }
 
 int is_monster_race(void) {
-   return (1);
+   return 1;
 }
