@@ -17,6 +17,7 @@ void setup() {
    set_skill("combat/defense", 100);
 
    obj = clone_object("/domains/2.4.5/obj/crown");
+   obj->setup();
    obj->move(this_object());
    do_wear(obj);
 }
