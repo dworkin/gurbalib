@@ -17,6 +17,9 @@ void set_race(string name) {
 }
 
 string query_race(void) {
+   if (!race) {
+      return "monster";
+   }
    return race;
 }
 
