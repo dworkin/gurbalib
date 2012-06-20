@@ -3,6 +3,7 @@ inherit M_BLOCKEXITS;
 
 void setup() {
    set_name("wolf");
+   set_race("wolf");
    /* Leave out the gender specification, get a random one */
    /*  set_gender( "male" ); */
    add_adj("scraggly");

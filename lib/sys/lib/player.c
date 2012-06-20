@@ -95,6 +95,7 @@ void login_player(void) {
    int i;
    string *didlog;
    mixed autoload;
+   string race;
 
    /* If we're a wiz, show the didlog since last login */
    if (query_user_priv(player_name) > 0) {
@@ -142,7 +143,8 @@ void login_player(void) {
 	 channels[i] = nil;
       }
    }
-   initialize_race();
+   race = query_race();
+   set_race(race);
    set_brief(query_title());
    set_hit_skill("combat/unarmed");
    ANSI_D->set_player_translations(custom_colors);
