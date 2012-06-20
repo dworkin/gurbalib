@@ -1,5 +1,4 @@
 inherit OBJECT;
-inherit M_GETTABLE;
 
 void setup(void) {
    set_id("bell");

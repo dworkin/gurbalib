@@ -1,24 +1,9 @@
 /* Created by Fudge */
-
 inherit OBJECT;
-inherit M_GETTABLE;
 
 string text;
 int amount;
 string currency;
-
-void create(void) {
-   ::create();
-   set_id("coin");
-   if (amount > 1) {
-      set_long("Some coins.");
-      set_in_room_desc(amount + " coins.");
-   } else {
-      set_long("A coin.");
-      set_in_room_desc("A coin.");
-   }
-   set_gettable(1);
-}
 
 void set_currency(string str) {
    currency = str;
@@ -49,4 +34,20 @@ void set_amount(int amt) {
       set_long("A huge pile of " + currency +
 	 "s. More than you'd care to count.");
    }
+}
+
+void create(void) {
+   ::create();
+   if (!currency) set_currency("ducat");
+   if (!amount) set_amount(1);
+
+   set_id("coin");
+   if (amount > 1) {
+      set_long("Some coins.");
+      set_in_room_desc(amount + " coins.");
+   } else {
+      set_long("A coin.");
+      set_in_room_desc("A coin.");
+   }
+   set_gettable(1);
 }

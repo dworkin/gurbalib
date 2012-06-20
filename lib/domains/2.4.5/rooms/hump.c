@@ -15,14 +15,12 @@ void setup(void) {
       "/domains/2.4.5/obj/torch.c": 1,
    ]));
 
-   name = "/std/money.c";
 // XXX figure out why this doesn't work...
-//   if (!this_environment()->present(name)) {
-//      ob = clone_object(name);
-//      ob->set_amount(10);
-//      ob->move(object_name(this_object()));
-//      ob->setup();
-//   }
+   name = "/domains/required/objects/coin.c";
+   if (!present(name)) {
+      ob = clone_object(name);
+      ob->set_amount(10);
+      ob->move(object_name(this_object()));
+      ob->setup();
+   }
 }
-
-// XXX Need to add money and put it on the ground...

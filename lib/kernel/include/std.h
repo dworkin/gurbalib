@@ -121,7 +121,6 @@
 #define ARMOR           "/std/armor"
 #define WEAPON          "/std/weapon"
 #define MONSTER         "/std/monster"
-#define COINS           "/std/coin"
 #define SIGN            "/std/sign"
 #define DOOR            "/std/door"
 #define SHIELD          "/std/shield"

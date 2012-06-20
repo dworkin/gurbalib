@@ -1,7 +1,6 @@
 /* Created by Fudge */
 
 inherit OBJECT;
-inherit M_GETTABLE;
 inherit M_READABLE;
 
 void create(void) {

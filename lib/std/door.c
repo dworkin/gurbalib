@@ -1,7 +1,6 @@
 /* Created by Fudge */
 
 inherit OBJECT;
-inherit M_GETTABLE;
 inherit M_OPENABLE;
 inherit M_MESSAGES;
 inherit M_BLOCKEXITS;
