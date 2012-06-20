@@ -8,8 +8,7 @@ void setup(void) {
       "You can also buy points for a new level.  There is an opening to the " +
       "south, and some shimmering blue light in the doorway.");
    add_exit("north","/domains/2.4.5/rooms/vill_road2.c");
-   // XXX add exit to south to bugroom instead...
-
+   add_exit("south","/domains/required/rooms/bug_room.c");
 }
 
 // XXX more to add here...

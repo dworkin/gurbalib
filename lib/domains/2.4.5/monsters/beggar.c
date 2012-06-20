@@ -6,7 +6,7 @@ inherit M_BLOCKEXITS;
 void setup() {
    set_name("beggar");
    set_gender( "male" );
-   // XXX set_level(3)
+   // XXX set_level(3);
    set_in_room_desc("A beggar");
    set_long("A really filthy looking poor beggar.");
    set_race("human");

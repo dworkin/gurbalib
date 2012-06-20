@@ -13,5 +13,3 @@ void setup(void) {
       "/domains/2.4.5/monsters/dwarf.c": 1,
    ]));
 }
-
-// XXX Need to make dwarf block exits...

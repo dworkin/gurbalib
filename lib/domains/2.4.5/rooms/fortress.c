@@ -15,5 +15,3 @@ void setup(void) {
    add_exit("south","/domains/2.4.5/rooms/orc_vall.c");
 
 }
-
-// XXX call add_block("north"); on orc's....
