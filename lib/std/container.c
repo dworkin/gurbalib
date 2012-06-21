@@ -16,7 +16,15 @@ int is_container(void) {
 }
 
 void object_arrived(object obj) {
+   int amount;
+   string type;
 
+   if (obj->is_money() && this_object()->is_player()) {
+       amount = obj->query_amount();
+       type = obj->query_currency();
+       this_player()->add_money(type, amount);
+       obj->destruct();
+   }
 }
 
 void object_removed(object obj) {

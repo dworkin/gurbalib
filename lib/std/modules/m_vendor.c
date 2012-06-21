@@ -102,7 +102,7 @@ void do_buy(object player, object what) {
       stored_items[name] = stored_items[name] + 1;
    }
 
-   player->add_coins("ducat", value);
+   player->add_money("ducat", value);
 }
 
 void add_item(string name, int amount) {

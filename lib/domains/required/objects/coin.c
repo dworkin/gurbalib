@@ -5,8 +5,21 @@ string text;
 int amount;
 string currency;
 
-void set_currency(string str) {
-   currency = str;
+int set_currency(string str) {
+   if (MONEY_D->is_currency(str)) {
+      currency = str;
+      return 1;
+   }
+   return 0;
+}
+
+string query_currency() {
+   if (!currency) return "ducat";
+   return currency;
+}
+
+int query_amount() {
+   return amount;
 }
 
 void set_amount(int amt) {
@@ -42,6 +55,7 @@ void create(void) {
    if (!amount) set_amount(1);
 
    set_id("coin");
+   add_id("coins");
    if (amount > 1) {
       set_long("Some coins.");
       set_in_room_desc(amount + " coins.");
@@ -50,4 +64,8 @@ void create(void) {
       set_in_room_desc("A coin.");
    }
    set_gettable(1);
+}
+
+int is_money() {
+   return 1;
 }

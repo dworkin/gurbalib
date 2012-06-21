@@ -10,7 +10,7 @@
 mapping coins;
 
 int query_coin_type(string type);		/* Query a certain coin */
-void add_coins(string type, int amount);	/* add coins to player */
+void add_money(string type, int amount);	/* add coins to player */
 mixed *query_all_coins();			/* get a list of all coins */
 
 void create() {
@@ -42,7 +42,7 @@ int query_coin_type(string type) {
    return coins[type];
 }
 
-void add_coins(string type, int amount) {
+void add_money(string type, int amount) {
    if (!coins)
       coins = ([]);
 

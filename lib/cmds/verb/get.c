@@ -40,6 +40,7 @@ void do_get() {
 void do_get_str(string str) {
    object *inv;
    int i;
+   string name;
 
    if (lowercase(str) != "all" && lowercase(str) != "everything") {
       write("You can't seem to find the " + str + ".");
@@ -49,12 +50,17 @@ void do_get_str(string str) {
    inv = this_environment()->query_inventory();
    for (i = 0; i < sizeof(inv); i++) {
       if (inv[i]->is_gettable()) {
+         if (inv[i]->is_money()) {
+            name = inv[i]->query_id();
+         }
 	 if (inv[i]->move(this_player())) {
-	    this_player()->targetted_action("$N $vpick up $o.", nil, inv[i]);
+            if (name && (name != "")) 
+               this_player()->targetted_action("$N $vpick up some coins.", nil);
+            else 
+               this_player()->targetted_action("$N $vpick up $o.", nil, inv[i]);
 	 } else {
-	    this_player()->
-	       targetted_action("$N $vtry to pick up $o, but $vfail.", nil,
-	       inv[i]);
+	    this_player()->targetted_action(
+               "$N $vtry to pick up $o, but $vfail.", nil, inv[i]);
 	 }
       } else {
 	 if (!inv[i]->is_player()) {
@@ -66,12 +72,20 @@ void do_get_str(string str) {
 }
 
 void do_get_obj(object obj) {
+   string name;
+
    if (!obj->is_gettable()) {
       write("You can't get the " + obj->query_id() + ".");
       return;
    }
+   if (obj->is_money()) {
+      name = obj->query_id();
+   }
    if (obj->move(this_player())) {
-      this_player()->targetted_action("$N $vpick up $o.", nil, obj);
+      if (name && (name != ""))
+         this_player()->targetted_action("$N $vpick up some coins.", nil);
+      else
+         this_player()->targetted_action("$N $vpick up $o.", nil, obj);
    } else {
       this_player()->targetted_action("$N $vtry to pick up $o, but $vfail.",
 	 nil, obj);
