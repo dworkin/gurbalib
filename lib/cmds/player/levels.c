@@ -15,7 +15,7 @@ void main(string str) {
       return;
    }
 
-   write("LEVELS:");
+   write("LEVEL:   EXP     : Title");
 
    width = this_player()->query_env("width");
    maxi = intp(width);
@@ -28,9 +28,9 @@ void main(string str) {
    }
    write(bar + "\n");
 
-   for (i = 1; i <= 20; i++) {
+   for (i = 0; i < 20; i++) {
       exp = i * i * 2000;
-      title = this_player()->query_level_title(i);
-      write(i + "\tExp: " + exp + "\t" + title);
+      title = this_player()->query_level_title(i + 1);
+      write((i + 1) + "\t" + exp + "\t\t" + title);
    }
 }
