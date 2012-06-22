@@ -58,13 +58,20 @@ void event_heart_beat(void) {
 	 if (this_object()->query_end() < this_object()->query_max_end())
 	    this_object()->increase_end(random(2 * heal_amount) + 1);
       }
-   }
-   /* Check here to see is we are in combat, if so, continue battle */
-   if (this_object()->is_fighting() > 0) {
-      this_object()->do_fight();
+
+      /* Check here to see is we are in combat, if so, continue battle */
+      if (this_object()->is_fighting() > 0) {
+         this_object()->do_fight();
+      } else {
+         if (function_object("event_wander", this_object())) {
+   	    call_other(this_object(), "event_wander");
+         }
+      }
    } else {
-      if (function_object("event_wander", this_object())) {
-	 call_other(this_object(), "event_wander");
+      heal_time++;
+      if (heal_time > heal_rate) {
+         heal_time = 0;
+         write("You are dead.  You must pray to get your body back.\n");
       }
    }
 
@@ -77,7 +84,8 @@ void event_heart_beat(void) {
       }
    } else {			/* Player routines */
 
-      if (this_object()->query_idle() < 60)	/* A player ages when not idle */
+      /* A player ages when not idle */
+      if (this_object()->query_idle() < 60)
 	 player_age += HEART_BEAT_INTERVAL;
    }
 }
