@@ -17,7 +17,7 @@ void setup(void) {
    set_wield_type("single");
    set_wield_message("$N $vgrab $o.");
    set_unwield_message("$N $vloosen $p $vgrip on $o, and $vput it away.");
-   set_weapon_action("bash");
+   set_weapon_action("bashes");
    set_value(1);
    set_size(10);
    set_weight(2);
