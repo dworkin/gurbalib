@@ -74,8 +74,7 @@ void main(string str) {
    write("Constitution:  " + obj->query_stat("con") +
       "\t\t" + "Level       :   " + level + "\n");
    write("Charisma    :  " + obj->query_stat("cha") +
-      "\t\t" + "Experience  :   " + expr + "\n");
-   write("\t\t\t\t" + "Armor class :   " + ac + "\n");
+      "\t\t" + "Experience  :   " + expr + "\n\n");
    write("Age:" + age + "\t" + "Money:\n");
 
    for (i = 0; i < sizeof(money); i++) {
