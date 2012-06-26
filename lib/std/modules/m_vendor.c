@@ -7,8 +7,6 @@ static int will_buy;
 static int will_sell;
 static int restock_delay;
 
-// XXX Need to check and subtract/add money....
-
 int is_vendor(void) {
    return 1;
 }
@@ -41,8 +39,7 @@ int query_will_sell(void) {
 void do_sell(object player, string what) {
    string *objs;
    object obj;
-   int i;
-   int found;
+   int i, found, value;
 
    objs = map_indices(stored_items);
 
@@ -54,13 +51,25 @@ void do_sell(object player, string what) {
 	 obj->move(this_object());
 	 obj->setup();
 
+         /* Found the object */
 	 if (obj->query_id() == what && found != 1) {
-	    /* Found the object */
-	    this_object()->other_action(this_object(),
-	       "$N $vgive $t $o", player, obj);
-	    obj->move(player);
-	    stored_items[objs[i]] = stored_items[objs[i]] - 1;
-	    found = 1;
+            value = obj->query_value();
+
+            if (value <= player->query_total_money() ) {
+               this_object()->other_action(this_object(),
+	          "$N $vgive $t $o", player, obj);
+		value = -1 * value;
+               player->add_money("ducat", value);
+	       obj->move(player);
+	       stored_items[objs[i]] = stored_items[objs[i]] - 1;
+	       found = 1;
+               return;
+            } else {
+               write("You do not have enough money for that.\n");
+	       obj->query_environment()->remove_object(obj);
+	       obj->destruct();
+               return;
+            }
 	 } else {
 	    obj->query_environment()->remove_object(obj);
 	    obj->destruct();
@@ -91,7 +100,7 @@ void do_buy(object player, object what) {
       return;
    }
 
-   player->targetted_action("$N $vsell $t $o for " + value + " crowns.", 
+   player->targetted_action("$N $vsell $t $o for " + value + " ducats.", 
       this_object(), what);
    what->query_environment()->remove_object(what);
    what->destruct();
@@ -143,16 +152,16 @@ string query_list(void) {
 	    if (!obj->query_adj() || obj->query_adj() == "") {
 	       str +=
 		  " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_id() + ", " +
-		  obj->query_value() + " crowns\n";
+		  obj->query_value() + " ducats.\n";
 	    } else {
 	       str +=
 		  " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_adj() + " " +
-		  obj->query_id() + ", " + obj->query_value() + " crowns\n";
+		  obj->query_id() + ", " + obj->query_value() + " ducats.\n";
 	    }
 	 } else {
 	    str +=
 	       " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_proper_name() +
-	       ", " + objs->query_value() + " crowns\n";
+	       ", " + objs->query_value() + " ducats.\n";
 	 }
 	 obj->query_environment()->remove_object(obj);
 	 obj->destruct();

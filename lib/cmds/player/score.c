@@ -17,7 +17,7 @@ void usage() {
 void main(string str) {
    int mh, h, expr, level, quest;
    int mm, m, me, e;
-   int ac, i, ducats, royals, crowns;
+   int ac, i;
    mixed *money;
    object obj;
    string age;
@@ -78,23 +78,8 @@ void main(string str) {
    write("Age:" + age + "\t" + "Money:\n");
 
    for (i = 0; i < sizeof(money); i++) {
-      switch (money[i][0]) {
-	 case "ducat":
-	    ducats = money[i][1];
-	    break;
-	 case "royal":
-	    royals = money[i][1];
-	    break;
-	 case "crown":
-	    crowns = money[i][1];
-	    break;
-	 default:
-	    break;
-      }
+      write("\t\t\t\t" + capitalize(money[i][0]) + ": " + money[i][1] + "\n");
    }
-   write("\t\t\t\t\tDucats: " + ducats);
-   write("\t\t\t\t\tRoyals: " + royals);
-   write("\t\t\t\t\tCrowns: " + crowns);
 
    if (quest) {
       string *quests;

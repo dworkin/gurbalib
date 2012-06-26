@@ -1,62 +1,49 @@
-/*
-   Coded by: Satch
-   File    : /std/body/coins.c
-   Date    : 02.22.98
+int coins;
 
-   Mon Feb 23 13:00:10 CET 1998 - Fudge added query_all_coins();
-                                - Fudge added interface to MONEY_D
-*/
-
-mapping coins;
-
-int query_coin_type(string type);		/* Query a certain coin */
-void add_money(string type, int amount);	/* add coins to player */
-mixed *query_all_coins();			/* get a list of all coins */
+int add_money(string type, int amount);	// add coins to player
+mixed *query_all_coins();		// get a list of all coins
 
 void create() {
 }
 
 mixed *query_all_coins(void) {
+   string *currencies;
+   int value, i, num, worth;
    mixed *c;
-   string *ind;
-   int i;
 
-   if (!coins)
-      return ( { } );
+   c = ({ });
 
-   ind = map_indices(coins);
-   c = ( { } );
-   for (i = 0; i < sizeof(ind); i++) {
-      c += ( { ( { ind[i], coins[ind[i]] } ) } );
+   value = coins;
+
+   currencies = MONEY_D->query_currencies();
+
+   for (i = sizeof(currencies) -1; i >= 0; i--) {
+      worth = MONEY_D->query_value(currencies[i]);
+      if (value > 0) {
+         num = value / worth;
+         value = value - (num * worth);
+      } else {
+          num = 0;
+      }
+      c += ( { ( { currencies[i], num } ) } );
    }
    return (c);
 }
 
-int query_coin_type(string type) {
-   if (!coins)
-      return 0;
+int add_money(string type, int amount) {
+   int value;
 
-   if (!coins[type])
-      return 0;
+   value = MONEY_D->query_value(type);
 
-   return coins[type];
+   value = value * amount;
+   value = coins + value;
+   if (value > 0) {
+      coins = value;
+      return 1;
+   }
+   return 0;
 }
 
-void add_money(string type, int amount) {
-   if (!coins)
-      coins = ([]);
-
-   if (!coins || !amount)
-      return;
-
-   if (!MONEY_D->is_currency(type))
-      return;
-
-   if (!coins[type])
-      coins[type] = amount;
-   else
-      coins[type] += amount;
-
-   if (coins[type] < 1)
-      coins[type] = 0;
+int query_total_money() {
+   return coins;
 }
