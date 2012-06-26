@@ -18,12 +18,35 @@ int is_container(void) {
 void object_arrived(object obj) {
    int amount;
    string type;
+   object *inv;
+   int x;
 
    if (obj->is_money() && this_object()->is_player()) {
        amount = obj->query_amount();
        type = obj->query_currency();
        this_player()->add_money(type, amount);
        obj->destruct();
+   }
+
+// XXX These two sections need work???
+   if (this_object()->is_player()) {
+      inv = this_object()->query_environment()->query_inventory();
+
+      for(x=sizeof(inv); x > 0; x--) {
+         if (inv[x]->query_aggressive()) {
+            inv[x]->attack(this_object());
+         }
+      }
+   }
+
+   if (this_object()->query_aggressive()) {
+      inv = this_object()->query_environment()->query_inventory();
+
+      for(x=sizeof(inv); x > 0; x--) {
+//         if (inv[x]->is_player()) {
+ //           this_object()->attack(inv[x]);
+  //       }
+      }
    }
 }
 

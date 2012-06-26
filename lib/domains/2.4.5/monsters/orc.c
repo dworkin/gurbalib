@@ -12,7 +12,7 @@ void setup() {
    set_long("A dirty smelly orc.");
    set_race("orc");
    // XXX set_level(random(2) + 1);
-   // XXX set_aggressive(1);
+   set_aggressive(1);
    set_max_hp(100);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);
@@ -21,11 +21,11 @@ void setup() {
 
    switch(random(3)) {
       case 0:
-         obj = clone_object("/domains/required/2.4.5/obj/knife.c");
+         obj = clone_object("/domains/2.4.5/obj/knife.c");
       case 1:
-         obj = clone_object("/domains/required/2.4.5/obj/curved_knife.c");
+         obj = clone_object("/domains/2.4.5/obj/curved_knife.c");
       default:
-         obj = clone_object("/domains/required/2.4.5/obj/axe.c");
+         obj = clone_object("/domains/2.4.5/obj/axe.c");
    }
    obj->setup();
    obj->move(this_object());

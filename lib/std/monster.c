@@ -8,6 +8,7 @@ inherit M_MESSAGES;
 
 string living_name;
 static object possessor;
+static int aggressive;
 
 void create(void) {
    int x;
@@ -120,4 +121,12 @@ void message(string str, varargs int chat_flag) {
 void message_orig(string str) {
    if (is_possessed())
       query_possessor()->message_orig("%^RED%^$%^RESET%^" + str);
+}
+
+void set_aggressive(int x) {
+   aggressive = x;
+}
+
+int query_aggressive() {
+   return aggressive;
 }

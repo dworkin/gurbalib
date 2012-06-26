@@ -15,7 +15,6 @@ void setup(void) {
       "/domains/2.4.5/obj/torch.c": 1,
    ]));
 
-// XXX figure out why this doesn't work...
    name = "/domains/required/objects/coin.c";
    if (!present(name)) {
       ob = clone_object(name);

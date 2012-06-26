@@ -7,7 +7,7 @@ void setup() {
    set_name("giant");
    // XXX set_level(15):
    set_in_room_desc("A giant");
-   // XXX set_aggressive(1);
+   set_aggressive(1);
    set_long("A massive giant.");
    set_race("giant");
    set_max_hp(300);

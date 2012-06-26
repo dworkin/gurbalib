@@ -8,7 +8,7 @@ void setup(void) {
       "entrance to a small room to the north.");
 
    set_objects (([
-      "/domains/2.4.5/monster/orc.c": 2,
+      "/domains/2.4.5/monsters/orc.c": 2,
    ]));
 
    add_exit("north","/domains/2.4.5/rooms/orc_treasure.c");
