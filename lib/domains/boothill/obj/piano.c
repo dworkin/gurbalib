@@ -6,6 +6,7 @@ void setup(void) {
       "it has seen better days.  It seems to beckon you to play it.");
    set_in_room_desc("A rough looking piano.");
 
+// XXX why doesn't this work?
    add_object_command("play","do_play");
 }
 

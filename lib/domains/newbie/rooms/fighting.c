@@ -1,4 +1,5 @@
 inherit ROOM;
+#define DIR "/domains/newbie"
 
 void setup(void) {
    add_area("newbie");
@@ -13,8 +14,8 @@ void setup(void) {
    add_room_command("pick", "do_pick");
 
    set_exits(([
-      "north" : "/domains/newbie/rooms/equipment", 
-      "south" : "/domains/newbie/rooms/drinkme",
+      "north" : DIR + "/rooms/equipment", 
+      "south" : DIR + "/rooms/drinkme",
    ]));
 }
 
@@ -29,7 +30,7 @@ void do_pick(string arg) {
 	 " reaches for the flower in the center of the room.\n" +
 	 "All of a sudden a giant bunny rabbit appears blocking their path.\n");
 
-      obj = clone_object("/domains/newbie/monsters/bunny.c");
+      obj = clone_object(DIR + "/monsters/bunny.c");
       obj->setup();
       obj->move(this_player()->query_environment());
       obj->attack(this_player());

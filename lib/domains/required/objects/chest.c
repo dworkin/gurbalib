@@ -1,5 +1,6 @@
 inherit CONTAINER;
 inherit M_OPENABLE;
+#define DIR "/domains/required"
 
 void setup(void) {
    set_id("chest");
@@ -8,8 +9,8 @@ void setup(void) {
    set_open_state(0);
 
    set_objects(([
-      "/domains/required/objects/small_rock" : 1, 
-      "/domains/required/objects/large_rock" : 1,
+      DIR + "/objects/small_rock" : 1, 
+      DIR + "/objects/large_rock" : 1,
    ]));
 
 }

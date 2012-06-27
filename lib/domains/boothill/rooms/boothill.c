@@ -1,4 +1,5 @@
 inherit ROOM;
+#define DIR "/domains/boothill"
 
 void setup(void) {
    add_area("boothill");
@@ -10,25 +11,26 @@ void setup(void) {
       "freshly dug hole, just waiting for the towns next victum.");
 
    set_exits(([
-      "south" : "/domains/boothill/rooms/infront_jail.c", 
-      "down" : "/domains/boothill/roomes/hole.c",
+      "south" : DIR + "/rooms/infront_jail.c", 
+      "down" : DIR + "/rooms/hole.c",
    ]));
 
 }
 
+// XXX Need to add room command for this...
 void look_at_stone() {
    int x;
 
    x = random(5);
    switch (x) {
       case 0:
-         write("Here lies Fred, with a belly full of lead!"\n");
+         write("Here lies Fred, with a belly full of lead!\n");
          break;
       case 1:
-         write("Here lies Jake, He got hit over the head with a rake."\n");
+         write("Here lies Jake, He got hit over the head with a rake.\n");
          break;
       case 2:
-         write("Here lies Old man Tucker, He couldn't hold his liquor."\n");
+         write("Here lies Old man Tucker, He couldn't hold his liquor.\n");
          break;
       case 3:
          write("We don't know this poor feller.\n");

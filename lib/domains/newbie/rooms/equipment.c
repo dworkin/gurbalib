@@ -1,4 +1,5 @@
 inherit ROOM;
+#define DIR "/domains/newbie"
 
 void setup(void) {
    add_area("newbie");
@@ -8,7 +9,7 @@ void setup(void) {
       "here.");
 
    set_exits(([
-      "north" : "/domains/newbie/rooms/entrance", 
-      "south" : "/domains/newbie/rooms/fighting",
+      "north" : DIR + "/rooms/entrance", 
+      "south" : DIR + "/rooms/fighting",
    ]));
 }

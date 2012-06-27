@@ -1,4 +1,5 @@
 inherit ROOM;
+#define DIR "/domains/required"
 
 void setup(void) {
    add_area("required");
@@ -12,10 +13,10 @@ void setup(void) {
       "in it which looks like a perfect match for someone's butt.");
 
    set_objects(([
-      "/domains/required/objects/bug_board" : 1,
+      DIR + "/objects/bug_board" : 1,
    ]));
 
    set_exits(([
-      "out" : "/domains/required/rooms/start",
+      "out" : STARTING_ROOM, 
    ]));
 }

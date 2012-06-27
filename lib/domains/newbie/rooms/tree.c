@@ -1,4 +1,5 @@
 inherit ROOM;
+#define DIR "/domains/newbie"
 
 void setup(void) {
    add_area("newbie");
@@ -9,12 +10,12 @@ void setup(void) {
       "hole in a hill to the north.");
 
    set_exits(([
-      "south" : "/domains/required/rooms/start",
+      "south" : STARTING_ROOM,
    ]));
 
    set_objects(([
-      "/domains/newbie/obj/sign" : 1, 
-      "/domains/newbie/obj/tree" : 1,
+      DIR + "/obj/sign" : 1, 
+      DIR + "/obj/tree" : 1,
    ]));
 
    add_item("hole", "A funny hole in the ground.  You might be able to " +
@@ -31,7 +32,7 @@ int enter_hole(string arg) {
       if (this_player()->is_completed_quest("NewbieVille")) {
 	 write("The hole is too small for you to enter it.\n");
       } else {
-	 dest = "/domains/newbie/rooms/entrance";
+	 dest = DIR + "/rooms/entrance";
 	 this_player()->query_environment()->tell_room(this_player(),
 	    this_player()->query_Name() + " enters the hole.\n");
 	 write("You enter the hole.\n");
@@ -58,7 +59,7 @@ int break_branch(string str) {
 	    this_player()->query_Name() +
 	    " breaks a branch off of the tree.\n");
 	 write("You break a branch off of the tree.\n");
-	 obj = clone_object("/domains/newbie/obj/stick.c");
+	 obj = clone_object(DIR + "/obj/stick.c");
 	 obj->move(this_player());
 	 obj->setup();
       }

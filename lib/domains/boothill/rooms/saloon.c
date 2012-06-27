@@ -1,4 +1,5 @@
 inherit ROOM;
+#define DIR "/domains/boothill"
 
 void setup(void) {
    add_area("boothill");
@@ -9,10 +10,10 @@ void setup(void) {
       "a bunch of chairs pushed up against tables scattered about the room.");
 
    set_exits(([
-      "west" : "/domains/boothill/rooms/infront_saloon.c",
+      "west" : DIR + "/rooms/infront_saloon.c",
    ]));
 
    set_objects(([
-      "/domains/boothill/obj/piano.c" : 1,
+      DIR + "/obj/piano.c" : 1,
    ]));
 }

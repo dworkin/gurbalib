@@ -1,4 +1,5 @@
 inherit ROOM;
+#define DIR "/domains/boothill"
 
 void setup(void) {
    add_area("boothill");
@@ -7,7 +8,7 @@ void setup(void) {
    set_long("Still under contstruction.");
 
    set_exits(([
-      "east" : "/domains/boothill/rooms/infront_store.c", 
+      "east" : DIR + "/rooms/infront_store.c", 
    ]));
 
 }
