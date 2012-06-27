@@ -1,4 +1,5 @@
 inherit ROOM;
+#define REQDIR "/domains/required"
 
 private string myname() {
    return capitalize(owner_file(file_name()));
@@ -10,8 +11,8 @@ void setup(void) {
       "Your not really sure what all this stuff is but someone looks " +
       "pretty busy.");
    set_exits(([
-      "out" : "/domains/required/rooms/start", 
-      "east" : "/domains/required/rooms/bug_room",
+      "out" : STARTING_ROOM,
+      "east" : REQDIR + "/rooms/bug_room",
    ]));
 
    add_item("desk", "The desk is a huge and made of mahogny. " +
@@ -22,9 +23,9 @@ void setup(void) {
       " to do all kinds of things.");
 
    set_objects(([
-      "/domains/required/objects/chest" : 1, 
-      "/domains/required/monsters/rat" : 1, 
-      "/domains/required/objects/weapons/short_sword" : 1, 
-      "/domains/required/objects/armor/buckler" : 1,
+      REQDIR + "/monsters/rat" : 1, 
+      REQDIR + "/objects/chest" : 1, 
+      REQDIR + "/objects/weapons/short_sword" : 1, 
+      REQDIR + "/objects/armor/buckler" : 1,
    ]));
 }

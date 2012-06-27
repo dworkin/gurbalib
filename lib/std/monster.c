@@ -132,7 +132,7 @@ int query_aggressive() {
 }
 
 // XXX Need to do something here set hp and other stuff
-int set_level() {
+int set_level(int x) {
 
    return 1;
 }
