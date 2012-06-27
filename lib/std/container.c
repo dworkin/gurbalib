@@ -28,24 +28,25 @@ void object_arrived(object obj) {
        obj->destruct();
    }
 
-// XXX These two sections need work???
-   if (this_object()->is_player()) {
-      inv = this_object()->query_environment()->query_inventory();
+   // Player moves into room
+   if (obj->is_player()) {
+      inv = this_object()->query_inventory();
 
-      for(x=sizeof(inv); x > 0; x--) {
+      for(x=sizeof(inv) -1; x >= 0; x--) {
          if (inv[x]->query_aggressive()) {
-            inv[x]->attack(this_object());
+            inv[x]->attack(obj);
          }
       }
    }
 
-   if (this_object()->query_aggressive()) {
-      inv = this_object()->query_environment()->query_inventory();
+   // Aggressive monster moves into room
+   if (obj->query_aggressive()) {
+      inv = this_object()->query_inventory();
 
-      for(x=sizeof(inv); x > 0; x--) {
-//         if (inv[x]->is_player()) {
- //           this_object()->attack(inv[x]);
-  //       }
+      for(x=sizeof(inv) - 1; x >= 0; x--) {
+         if (inv[x]->is_player()) {
+            obj->attack(inv[x]);
+         }
       }
    }
 }
