@@ -9,6 +9,7 @@ void setup(void) {
    set_long("She has a long brown pony tail, and a daisy stuck " +
       "behind an ear.");
    set_race("human");
+   set_level(15);
 
    set_restock_delay(7200);
    set_will_buy(1);

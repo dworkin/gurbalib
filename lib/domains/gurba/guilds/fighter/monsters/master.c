@@ -11,6 +11,7 @@ void setup(void) {
       "but this does not by any means indicate weakness. After all, to " +
       "stay the leader you probably need to be pretty good at what you do.");
    set_race("human");
+   set_level(15);
    add_block("north");
    if (clone_num() != 0) {
       set_actions(80, ( {

@@ -8,6 +8,7 @@ void setup(void) {
    set_in_room_desc("Bogus, the merchant");
    set_long("He is a bit overweight, and he oozes money.");
    set_race("human");
+   set_level(14);
 
    set_restock_delay(7200);
 

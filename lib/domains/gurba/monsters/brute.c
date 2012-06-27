@@ -14,6 +14,7 @@ void setup() {
    set_long("The brute looks huge.");
    set_race("rodent");
    set_max_hp(200);
+   set_level(15);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 250);
    set_skill("combat/defense", 200);

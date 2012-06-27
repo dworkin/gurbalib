@@ -17,6 +17,7 @@ void setup() {
       "the area..");
    set_race("human");
    set_max_hp(20 + random(10));
+   set_level(8);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);
    set_skill("combat/defense", 100);

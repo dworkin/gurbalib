@@ -10,6 +10,7 @@ void setup() {
    set_long("It doesn't look like much of a challenge.");
    set_race("rodent");
    set_max_hp(7);
+   set_level(1);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 20);
    set_skill("combat/defense", 20);
