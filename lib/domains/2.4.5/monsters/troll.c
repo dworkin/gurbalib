@@ -5,8 +5,6 @@ inherit M_BLOCKEXITS;
 
 void setup() {
    set_name("troll");
-   /* Leave out the gender specification, get a random one */
-   /*  set_gender( "male" ); */
    add_adj("smelly");
    set_in_room_desc("A large smelly troll.");
    set_long("The troll looks like a messed up tree.");
