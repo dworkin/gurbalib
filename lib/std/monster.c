@@ -35,17 +35,17 @@ void set_max_hp(int hp) {
 }
 
 int is_player(void) {
-   return (0);
+   return 0;
 }
 
 int is_living(void) {
-   return (1);
+   return 1;
 }
 
 int is_possessed(void) {
    if (possessor)
-      return (1);
-   return (0);
+      return 1;
+   return 0;
 }
 
 void set_possessor(object ob) {
@@ -53,11 +53,11 @@ void set_possessor(object ob) {
 }
 
 object query_possessor(void) {
-   return (possessor);
+   return possessor;
 }
 
 int is_attackable(void) {
-   return (1);
+   return 1;
 }
 
 void set_name(string name) {
