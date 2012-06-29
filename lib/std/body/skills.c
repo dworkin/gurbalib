@@ -76,11 +76,10 @@ void learn_skill(string skill) {
    if (!skills)
       skills = ([]);
 
-   /* Should players automatically learn new skills? */
-
-   /*  if( !skills[skill] )
+   if( !skills[skill] ) {
+      skills[skill] = 1;
       return;
-    */
+   }
 
    if (random(5000) >= query_skill(skill)) {
       increase_skill(skill, 1);
