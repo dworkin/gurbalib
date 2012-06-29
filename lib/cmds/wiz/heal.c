@@ -6,8 +6,9 @@ void usage() {
 }
 
 void main(string str) {
-   int max_hp;
+   int max;
    object obj;
+   string who;
 
    if (!str || (str == "")) {
       obj = this_player();
@@ -22,10 +23,20 @@ void main(string str) {
       }
    }
 
-   max_hp = obj->query_max_hp();
-   obj->set_hp(max_hp);
+   max = obj->query_max_hp();
+   obj->set_hp(max);
+   max = obj->query_max_end();
+   obj->set_end(max);
+   max = obj->query_max_mana();
+   obj->set_mana(max);
+
+   if (obj->is_player()) {
+      who = obj->query_Name();
+   } else {
+      who = obj->query_id();
+   }
    this_player()->query_environment()->tell_room(this_player(),
       this_player()->query_Name() + " waves their hands in odd " +
-      "funny gestures.\n" + obj->query_Name() + " is completely healed!\n");
-   write("You wave your hands and heal " + obj->query_Name() + ".\n");
+      "funny gestures.\n" + who + " is completely healed!\n");
+   write("You wave your hands and heal " + who + ".\n");
 }
