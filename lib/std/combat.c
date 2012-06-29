@@ -2,19 +2,6 @@ static object *targets;
 static int fighting;
 static object target;
 
-void decrease_hp(int hp);
-int query_max_hp(void);
-int query_hp(void);
-int is_dead(void);
-string query_hit_skill(void);
-int query_skill(string skill);
-int query_max_damage(void);
-int query_min_damage(void);
-int query_damage_bonus(void);
-void learn_skill(string skill);
-int query_hp();
-int query_max_hp();
-
 #define FIGHTING_TIMEOUT 300
 // Ammount of Endurance required to Attack
 #define ATTACK_COST 5
@@ -37,33 +24,33 @@ void receive_damage(object who, int dam, int type) {
    this_object()->message("%^RED%^You took " + dam + " damage from " +
       who->query_id() + ".%^RESET%^");
    this_object()->decrease_hp(dam);
-   if (is_dead()) {
+   if (this_object()->is_dead()) {
       this_object()->simple_action("$N $vfall to the ground...dead.");
       this_object()->message("You have died.");
-      halt_fight();
+      this_object()->halt_fight();
       this_object()->die();
    }
 }
 
-void damage_target(int dam) {
+void damage_target(int dam, object who) {
    int target_hp;
 
-   target_hp = target->query_hp();
+   target_hp = this_object()->query_hp();
    /* award expr for damage inflicted to target */
    if (dam > target_hp) {
-      this_player()->increase_expr(target_hp);
+      who->increase_expr(target_hp);
    } else {
-      this_player()->increase_expr(dam);
+      who->increase_expr(dam);
    }
    /* damage target */
-   target->receive_damage(this_object(), dam, 0);
+   this_object()->receive_damage(who, dam, 0);
 }
 
 int query_defense(void) {
    int me, i;
    object *armor;
 
-   me = random(query_skill("combat/defense") / 50);
+   me = random(this_object()->query_skill("combat/defense") / 50);
    me += this_object()->query_statbonus("dex");
    armor = this_object()->query_equipment();
    for (i = 0; i < sizeof(armor); i++) {
@@ -142,27 +129,28 @@ void attack_with(string skill, object weapon, object target) {
    me = this_object()->query_end();
    if (me < ATTACK_COST) {
       write("You are too tired to attack.\n");
+      return;
    } else {
       this_object()->decrease_end(ATTACK_COST);
    }
 
    if (!weapon) {
-      me = (query_skill("combat/unarmed") / 50) +
+      me = (this_object()->query_skill("combat/unarmed") / 50) +
 	 this_object()->query_statbonus("str");
    } else {
-      me = (query_skill(weapon->query_weapon_skill()) / 50)
+      me = (this_object()->query_skill(weapon->query_weapon_skill()) / 50)
 	 + this_object()->query_statbonus("str")
 	 + weapon->query_hit_bonus();
    }
    if (do_swing(me) == 1) {
       if (!weapon) {
 	 damage = random(3) + this_object()->query_statbonus("str");
-	 tmp = query_skill("combat/unarmed") +
-	    query_skill("combat/unarmed") / 2;
+	 tmp = this_object()->query_skill("combat/unarmed") +
+	    this_object()->query_skill("combat/unarmed") / 2;
 	 if (tmp <= target->query_skill("combat/defense")) {
-	    learn_skill(query_hit_skill());
+	    this_object()->learn_skill(this_object()->query_hit_skill());
 	    this_object()->message("Learn: hit_skill, " +
-	       query_skill("combat/unarmed"));
+	       this_object()->query_skill("combat/unarmed"));
 	 }
 
 	 this_object()->targetted_action("$N $vhit $T.", target);
@@ -171,12 +159,12 @@ void attack_with(string skill, object weapon, object target) {
 	 damage = this_object()->query_statbonus("str") +
 	    random((weapon->query_max_damage() -
 	       weapon->query_min_damage())) + weapon->query_min_damage();
-	 tmp = query_skill(weapon->query_weapon_skill()) +
-	    query_skill(weapon->query_weapon_skill()) / 2;
+	 tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
+	    this_object()->query_skill(weapon->query_weapon_skill()) / 2;
 	 if (tmp <= target->query_skill("combat/defense")) {
-	    learn_skill(weapon->query_weapon_skill());
+	    this_object()->learn_skill(weapon->query_weapon_skill());
 	    this_object()->message("Learn: hit_skill, " +
-	       query_skill(weapon->query_weapon_skill()));
+	       this_object()->query_skill(weapon->query_weapon_skill()));
 	 }
 
 	 this_object()->targetted_action("$N " +
@@ -184,20 +172,21 @@ void attack_with(string skill, object weapon, object target) {
 	    weapon->query_id() + ".", target);
       }
 
-      damage_target(damage);
+      target->damage_target(damage, this_object());
    } else {
       this_object()->targetted_action("$N $vmiss $T.", target);
 
       if (!weapon) {
-	 tmp = query_skill("combat/unarmed") +
-	    query_skill("combat/unarmed") / 2;
+	 tmp = this_object()->query_skill("combat/unarmed") +
+	    this_object()->query_skill("combat/unarmed") / 2;
       } else {
-	 tmp = query_skill(weapon->query_weapon_skill()) +
-	    query_skill(weapon->query_weapon_skill()) / 2;
+	 tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
+	    this_object()->query_skill(weapon->query_weapon_skill()) / 2;
       }
       if (target->query_skill("combat/defense") <= tmp) {
 	 target->learn_skill("combat/defense");
-	 target->message("Learn: defense, " + query_skill("combat/defense"));
+	 target->message("Learn: defense, " + 
+            this_object()->query_skill("combat/defense"));
       }
    }
 }
@@ -212,17 +201,20 @@ void do_fight(void) {
       weapons = this_object()->query_wielded();
 
       if (sizeof(weapons) == 0) {
-	 attack_with("combat/unarmed", nil, target);
+	 this_object()->attack_with("combat/unarmed", nil, target);
       } else {
 	 for (i = 0; i < sizeof(weapons); i++) {
 	    if (!weapons[i]->query_offensive())
 	       continue;
-	    attack_with(weapons[i]->query_weapon_skill(), weapons[i], target);
+	    this_object()->attack_with(weapons[i]->query_weapon_skill(), 
+               weapons[i], target);
 	 }
       }
 
-      this_object()->message("%^CYAN%^HP[" + query_hp() + "/" +
-	 query_max_hp() + "]%^RESET%^");
+      this_object()->message("%^CYAN%^HP[" + this_object()->query_hp() + "/" +
+// XXX	 this_object()->query_max_hp() + "]%^RESET%^");
+	 this_object()->query_max_hp() + "] Target HP[" + target->query_hp() + "/" +
+         target->query_max_hp()  + "]%^RESET%^");
    }
 }
 

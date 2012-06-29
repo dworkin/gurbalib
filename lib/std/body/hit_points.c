@@ -1,9 +1,9 @@
-int cur_hp;
-int max_hp;
-int cur_mana;
-int max_mana;
-int cur_end;
-int max_end;
+static int cur_hp;
+static int max_hp;
+static int cur_mana;
+static int max_mana;
+static int cur_end;
+static int max_end;
 
 void create(void) {
    cur_hp = 1;
@@ -85,27 +85,27 @@ void set_end(int end) {
 }
 
 int query_max_hp(void) {
-   return (max_hp);
+   return max_hp;
 }
 
 int query_max_mana(void) {
-   return (max_mana);
+   return max_mana;
 }
 
 int query_max_end(void) {
-   return (max_end);
+   return max_end;
 }
 
 int query_hp(void) {
-   return (cur_hp);
+   return cur_hp;
 }
 
 int query_mana(void) {
-   return (cur_mana);
+   return cur_mana;
 }
 
 int query_end(void) {
-   return (cur_end);
+   return cur_end;
 }
 
 string query_status(void) {
@@ -149,12 +149,12 @@ string query_status(void) {
 
 int is_alive(void) {
    if (cur_hp > 0)
-      return (1);
-   return (0);
+      return 1;
+   return 0;
 }
 
 int is_dead(void) {
    if (cur_hp <= 0)
-      return (1);
-   return (0);
+      return 1;
+   return 0;
 }
