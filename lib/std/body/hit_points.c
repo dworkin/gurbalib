@@ -116,7 +116,9 @@ string query_status(void) {
 
    if (x == max)
       return "in peak physical condition.";
-   if (max < 5) {
+   else if (x == 0) 
+      return "dead as a door nail.";
+   else if (max < 5) {
       if (x < (max / 2))
 	 return "nocking on deaths door.";
       return "wounded.";
