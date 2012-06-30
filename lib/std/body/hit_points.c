@@ -1,9 +1,9 @@
-static int cur_hp;
-static int max_hp;
-static int cur_mana;
-static int max_mana;
-static int cur_end;
-static int max_end;
+int cur_hp;
+int max_hp;
+int cur_mana;
+int max_mana;
+int cur_end;
+int max_end;
 
 void create(void) {
    cur_hp = 1;
