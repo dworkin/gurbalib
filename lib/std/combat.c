@@ -72,11 +72,14 @@ int query_defense(void) {
 int do_swing(int me) {
    int opponent, me_roll, opponent_roll;
 
+   if (me < 3) me = 3;
+
    me_roll = random(me + 1);
 
    opponent = target->query_defense();
    opponent_roll = random(opponent + 1);
 
+// XXX This is temporary... 
    this_object()->message("Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" +
       me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" +
       opponent + "%^RESET%^]");
@@ -118,7 +121,7 @@ object get_target(object targ) {
    fighting = fighting - 1;
    if (fighting < 1) {
       targets = ( { } );
-      write("You give up fighting your attacker.\n");
+      this_object()->message("You give up fighting your attacker.\n");
    }
    return nil;
 }
@@ -128,7 +131,7 @@ void attack_with(string skill, object weapon, object target) {
 
    me = this_object()->query_end();
    if (me < ATTACK_COST) {
-      write("You are too tired to attack.\n");
+      this_object()->message("You are too tired to attack.\n");
       return;
    } else {
       this_object()->decrease_end(ATTACK_COST);
