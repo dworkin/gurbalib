@@ -20,7 +20,7 @@ void set_heal_rate(int rate) {
 }
 
 int query_heal_rate(void) {
-   return (heal_rate);
+   return heal_rate;
 }
 
 void set_heal_step(int amt) {
@@ -28,7 +28,7 @@ void set_heal_step(int amt) {
 }
 
 int query_heal_step(void) {
-   return (heal_amount);
+   return heal_amount;
 }
 
 void create() {
