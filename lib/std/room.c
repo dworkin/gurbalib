@@ -9,6 +9,7 @@ static mapping areas;
 static mapping room_commands;
 static int last_exit;
 static int weather;
+static int light;
 
 void setup(void);
 
@@ -25,7 +26,30 @@ void create(void) {
    areas = ([]);
    room_commands = ([]);
    last_exit = 0;
+   light = 1;
    setup();
+}
+
+void set_light(int flag) {
+   light = flag;
+}
+
+int query_dark() {
+   object* objs;
+   int x;
+
+   if (light)
+      return 0;
+
+   if (is_container()) {
+      objs = query_inventory();
+      for (x=sizeof(objs); x >= 0; x--) {
+         // XXX Need to check for lights in the room... recursively...
+         if (objs->is_lit()) return 1;
+      }
+   }
+
+   return 1;
 }
 
 void set_weather(int flag) {
@@ -395,3 +419,4 @@ void upgraded() {
    if (clone_num() == 0)
       setup();
 }
+

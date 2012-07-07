@@ -16,7 +16,6 @@ Make it so there are logs only admins can view?
 Party system (invite, follow, say, report)
 Clans
 m_guild_trainer, m_trainer
-m_lightable
 m_lockable, keys
 m_switchable, Levers
 m_throwable

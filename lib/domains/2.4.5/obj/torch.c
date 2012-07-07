@@ -1,4 +1,5 @@
 inherit OBJECT;
+inherit M_LIGHT;
 
 void setup(void) {
    set_id("torch");

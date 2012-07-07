@@ -42,12 +42,21 @@ void do_look() {
       if (this_player()->query_env("show_location"))
 	 write("%^BOLD%^" + this_environment()->file_name() + "%^RESET%^");
    }
-   write(this_environment()->query_desc());
+   if (this_environment()->query_dark()) {
+      write("It is too dark to see.\n");
+   } else {
+      write(this_environment()->query_desc());
+   }
 }
 
 void do_look_str(string str) {
    if (sscanf(str, "-%s", str)) {
       usage();
+      return;
+   }
+
+   if (this_environment()->query_dark()) {
+      write("It is too dark to see.\n");
       return;
    }
 
@@ -63,6 +72,11 @@ void do_look_str(string str) {
 void do_look_obj(object obj) {
    int i, flag;
    object *objs;
+
+   if (this_environment()->query_dark()) {
+      write("It is too dark to see.\n");
+      return;
+   }
 
    this_environment()->event("body_look_at", this_player(), obj);
    this_environment()->tell_room(this_player(), this_player()->query_Name() +
@@ -88,6 +102,11 @@ void do_look_obj(object obj) {
 void do_look_liv(object obj) {
    int i, flag;
    object *objs;
+
+   if (this_environment()->query_dark()) {
+      write("It is too dark to see.\n");
+      return;
+   }
 
    this_environment()->tell_room(this_player(), this_player()->query_Name() +
       " looks at " + capitalize(obj->query_id()) + ".\n");
@@ -143,6 +162,11 @@ void do_look_str_liv(string str, object obj) {
    }
    if (str == "in") {
       write("Pervert...");
+      return;
+   }
+
+   if (this_environment()->query_dark()) {
+      write("It is too dark to see.\n");
       return;
    }
 
