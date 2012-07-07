@@ -66,4 +66,5 @@ int break_branch(string str) {
    } else {
       write("Break what?\n");
    }
+   return 1;
 }
