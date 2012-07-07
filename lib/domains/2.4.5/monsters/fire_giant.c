@@ -13,7 +13,6 @@ void setup() {
    set_in_room_desc("A fire giant");
    set_long("A mighty hot big guy.");
    set_race("giant");
-   set_max_hp(300);
    set_level(15);
    set_aggressive(1);
    set_hit_skill("combat/unarmed");

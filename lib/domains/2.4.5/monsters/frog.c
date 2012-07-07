@@ -12,7 +12,6 @@ void setup() {
    set_in_room_desc("A cute little frog");
    set_long("It looks a little slimey.");
    set_race("frog");
-   set_max_hp(50);
    set_level(2);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);

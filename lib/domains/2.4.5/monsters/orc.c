@@ -13,7 +13,6 @@ void setup() {
    set_long("A dirty smelly orc.");
    set_race("orc");
    set_aggressive(1);
-   set_max_hp(100);
    set_level(random(2) + 1);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);

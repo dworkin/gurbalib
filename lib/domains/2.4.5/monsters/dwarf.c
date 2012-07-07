@@ -9,7 +9,6 @@ void setup() {
    set_long("The dwarf is small, but built like a pile of bricks.");
    set_race("dwarf");
    set_aggressive(1);
-   set_max_hp(100);
    set_level(10);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);

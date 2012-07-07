@@ -29,11 +29,6 @@ void create(void) {
    }
 }
 
-void set_max_hp(int hp) {
-   ::set_max_hp(hp);
-   set_hp(hp);
-}
-
 int is_player(void) {
    return 0;
 }
@@ -131,8 +126,15 @@ int query_aggressive() {
    return aggressive;
 }
 
-// XXX Need to do something here set hp and other stuff
+// XXX Need to expand this... :)
 int set_level(int x) {
-
+   x = x * 6;
+   set_max_hp(x);
+   set_hp(x);
+   set_max_mana(x);
+   set_mana(x);
+   set_max_end(x * 2);
+   set_end(x * 2);
+//   set_ac(x /4);
    return 1;
 }

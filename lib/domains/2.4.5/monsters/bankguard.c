@@ -12,7 +12,6 @@ void setup() {
    set_in_room_desc("A guard");
    set_long("A big and sturdy guard.");
    set_race("human");
-   set_max_hp(200);
    set_level(11);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);

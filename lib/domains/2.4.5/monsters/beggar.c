@@ -9,7 +9,6 @@ void setup() {
    set_in_room_desc("A beggar");
    set_long("A really filthy looking poor beggar.");
    set_race("human");
-   set_max_hp(30);
    set_level(3);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);

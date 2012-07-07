@@ -9,7 +9,6 @@ void setup() {
    set_in_room_desc("A large smelly troll.");
    set_long("The troll looks like a messed up tree.");
    set_race("troll");
-   set_max_hp(100);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);
    set_skill("combat/defense", 100);

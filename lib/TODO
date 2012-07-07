@@ -99,4 +99,3 @@ Fix it so room and or object commands look at return value to determine if
 they actually work or not...
 
 See play piano in /domains/boothill/rooms/saloon.c for an example.
-

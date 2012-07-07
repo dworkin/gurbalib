@@ -10,7 +10,6 @@ void setup() {
    set_long("A very big octopus with long arms, reaching for you.");
 
    set_race("frog");
-   set_max_hp(100);
    set_level(10);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);

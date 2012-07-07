@@ -14,7 +14,6 @@ void setup() {
    set_long("A frozen mass of muscle.  You really do not want to mess " +
       "with this giant.");
    set_race("giant");
-   set_max_hp(300);
    set_level(15);
    set_aggressive(1);
    set_hit_skill("combat/unarmed");

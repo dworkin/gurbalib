@@ -14,7 +14,6 @@ void setup() {
    set_long("An ugly orc shayman.  This thing looks wilder than your average " +
       "orc.");
    set_race("orc");
-   set_max_hp(300);
    set_level(10);
    set_aggressive(1);
    // XXX add magic missle spell...

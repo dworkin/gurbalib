@@ -13,7 +13,6 @@ void setup() {
    set_in_room_desc("A stone giant");
    set_long("A huge marble skined hulking tower of a man.");
    set_race("giant");
-   set_max_hp(300);
    set_level(15);
    set_aggressive(1);
    set_hit_skill("combat/unarmed");
