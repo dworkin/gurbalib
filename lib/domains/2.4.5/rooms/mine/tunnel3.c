@@ -81,17 +81,19 @@ int do_untie(string str) {
 }
 
 int do_climb(string str) {
+
    if ((str == "down") || (str == "rope")) {
       if (tied_rope) {
          this_player()->move(DIR + "/mine/tunnel8.c");
          write("You climb down the rope.\n");
+         tell_room(this_player(),
+            this_player()->query_Name() + " climbs down the rope.\n");
          this_player()->query_environment()->tell_room(this_player(),
             this_player()->query_Name() + " climbs down the rope.\n");
          this_player()->do_look(0);
       } else {
          write("You would fall down the hole and possibly hurt yourself.\n");
-         this_player()->query_environment()->tell_room(this_player(),
-            this_player()->query_Name() + 
+         tell_room(this_player(), this_player()->query_Name() + 
             " attempts to go down the hole and fails.\n");
       }
       return 1;
