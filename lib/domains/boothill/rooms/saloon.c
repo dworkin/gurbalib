@@ -16,4 +16,42 @@ void setup(void) {
    set_objects(([
       DIR + "/obj/piano.c" : 1,
    ]));
+
+   add_room_command("play","do_play");
 }
+
+int do_play(string str) {
+   int x;
+
+   if (!this_object()->present("piano")) return 0;
+
+   if (str == "piano") {
+      x = random(5);
+      switch(x) {
+         case 0:
+            write("You play a little ditty.");
+            this_environment()->tell_room(this_player(), 
+               this_player()->query_Name() + " plays a little ditty.");
+            break;
+         case 1:
+            write("You stroke the keys with love.");
+            this_environment()->tell_room(this_player(), 
+               this_player()->query_Name() + " plays a sweet little number.");
+            break;
+         case 2:
+            write("You bring it home.");
+            this_environment()->tell_room(this_player(), 
+               this_player()->query_Name() + " stuns you with their " + 
+               "rendition of chopin.");
+            break;
+         default:
+            write("You work the keyboard like it was your best friend.");
+            this_environment()->tell_room(this_player(), 
+               this_player()->query_Name() + " plays an old country song.");
+            break;
+      }
+      return 1;
+   }
+   return 0;
+}
+
