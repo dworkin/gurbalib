@@ -15,28 +15,8 @@ void setup(void) {
       "down" : DIR + "/rooms/hole.c",
    ]));
 
+   set_objects(([
+      DIR + "/obj/tombstone.c" : 1,
+   ]));
 }
 
-// XXX Need to add room command for this...
-void look_at_stone() {
-   int x;
-
-   x = random(5);
-   switch (x) {
-      case 0:
-         write("Here lies Fred, with a belly full of lead!\n");
-         break;
-      case 1:
-         write("Here lies Jake, He got hit over the head with a rake.\n");
-         break;
-      case 2:
-         write("Here lies Old man Tucker, He couldn't hold his liquor.\n");
-         break;
-      case 3:
-         write("We don't know this poor feller.\n");
-         break;
-      case 4:
-         write("Here lies the fine Miss Sally.\n");
-         break;
-   }
-}
