@@ -40,8 +40,6 @@ int do_tie(string str) {
                   this_player()->query_Name() + 
                   " ties a rope to the ring.\n");
                tied_rope = 1;
-            } else {
-               // XXX Hmmm move failed?
             }
          }
       } else {
@@ -67,8 +65,6 @@ int do_untie(string str) {
                   this_player()->query_Name() + 
                   " unties the rope.\n");
                tied_rope = 0;
-            } else {
-               // XXX ???
             }
          } else {
             write("There is no rope tied to the ring.\n");
