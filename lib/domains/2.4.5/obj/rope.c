@@ -9,8 +9,6 @@ void setup(void) {
    set_gettable(1);
 
    set_value(15);
-//   add_item_command("tie",this_object());
-//   add_item_command("untie",this_object());
    set_weight(10);
 }
 
@@ -19,5 +17,3 @@ string query_in_room_desc() {
       return "An old rope tied to " + tied_to;
    return "An old rope";
 }
-
-// XXX Need to add action to tie it to things...
