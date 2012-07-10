@@ -20,7 +20,7 @@ void halt_fight(void) {
    targets = ( { } );
 }
 
-void receive_damage(object who, int dam, int type) {
+void receive_damage(object who, int dam) {
    this_object()->message("%^RED%^You took " + dam + " damage from " +
       who->query_id() + ".%^RESET%^");
    this_object()->decrease_hp(dam);
@@ -36,14 +36,16 @@ void damage_target(int dam, object who) {
    int target_hp;
 
    target_hp = this_object()->query_hp();
+
    /* award expr for damage inflicted to target */
    if (dam > target_hp) {
       who->increase_expr(target_hp);
    } else {
       who->increase_expr(dam);
    }
+
    /* damage target */
-   this_object()->receive_damage(who, dam, 0);
+   this_object()->receive_damage(who, dam);
 }
 
 int query_defense(void) {
@@ -107,6 +109,7 @@ object get_target(object targ) {
    for (i = 0; i < max; i++) {
       if (targets[i] && targets[i]->is_dead()) {
 	 targets -= ( { targets[i] } );
+         i--; max--; // shorten up our array....
 	 if (sizeof(targets) == 0) {
 	    fighting = 0;
 	    i = max;
@@ -232,8 +235,9 @@ void attacked_by(object who) {
 void attack(object who) {
    if (!targets)
       targets = ( { } );
-   if (who->query_hp() < 1)
+   if (who->is_dead()) {
       return;
+   }
 
    targets += ( { who } );
    fighting = FIGHTING_TIMEOUT;
