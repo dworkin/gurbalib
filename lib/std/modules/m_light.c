@@ -5,7 +5,7 @@ int set_fuel(int x) {
 }
 
 int query_fuel() {
-   if fuel < 0)
+   if (fuel < 0)
       return 0;
    return fuel;
 }
