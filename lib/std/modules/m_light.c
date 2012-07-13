@@ -33,7 +33,7 @@ int event_burn_fuel() {
    fuel = fuel -1;
    if (fuel < 1) {
       room = this_object()->query_environment();
-      if (is_living(room)) {
+      if (room->is_living()) {
          room = room->query_environment();
       }
       room->tell_room(this_object(),"The light goes out.\n");
