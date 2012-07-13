@@ -10,6 +10,7 @@ void setup() {
    set_name("shayman");
    set_gender( "female" );
    add_adj("orc");
+   add_ids("orc","orc shayman");
    set_in_room_desc("Orc shayman");
    set_long("An ugly orc shayman.  This thing looks wilder than your average " +
       "orc.");
