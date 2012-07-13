@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -9,7 +10,7 @@ void setup(void) {
    add_exit("east","/domains/2.4.5/rooms/rum2.c");
 
    set_objects (([
-      "/domains/2.4.5/obj/jacket.c": 1,
+      DIR + "/obj/jacket.c": 1,
    ]));
 }
 

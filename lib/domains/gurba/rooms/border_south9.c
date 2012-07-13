@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -14,8 +15,8 @@ void setup(void) {
       "to the Gurba Bank.");
 
    set_exits(([
-      "west" : "/domains/gurba/rooms/border_south8",
-      "east" : "/domains/gurba/rooms/border_south10",
-      "north" : "/domains/gurba/rooms/bank",
+      "west" : DIR + "/rooms/border_south8",
+      "east" : DIR + "/rooms/border_south10",
+      "north" : DIR + "/rooms/bank",
    ]));
 }

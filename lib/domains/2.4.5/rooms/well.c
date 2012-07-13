@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -7,8 +8,8 @@ void setup(void) {
    set_long("You are down the well.  It is wet and slippery.  " +
       "There is a lever beside a door to the west.");
 
-   add_exit("north","/domains/2.4.5/rooms/maze/maze1.c");
-   add_exit("up","/domains/2.4.5/rooms/alley.c");
+   add_exit("north", DIR + "/rooms/maze/maze1.c");
+   add_exit("up", DIR + "/rooms/alley.c");
 
 }
 

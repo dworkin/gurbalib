@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -7,7 +8,7 @@ void setup(void) {
       "different ingredients, and a box containing knives, forks and " +
       "spoons. The room is kept quite clean.");
    set_exits(([
-      "south" : "/domains/gurba/rooms/restaurant",
+      "south" : DIR + "/rooms/restaurant",
    ]));
 
    add_item("stove", "It is an old iron wood stove that could use some " +

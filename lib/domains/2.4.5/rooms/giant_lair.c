@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -6,10 +7,10 @@ void setup(void) {
    set_brief("Lair of the Giant");
    set_long("There are mountains all around you.");
 
-   add_exit("east","/domains/2.4.5/rooms/giant_path.c");
-   add_exit("west","/domains/2.4.5/rooms/giant_conf.c");
+   add_exit("east", DIR + "/rooms/giant_path.c");
+   add_exit("west", DIR + "/rooms/giant_conf.c");
 
    set_objects (([
-      "/domains/2.4.5/monsters/giant.c": 1,
+      DIR + "/monsters/giant.c": 1,
    ]));
 }

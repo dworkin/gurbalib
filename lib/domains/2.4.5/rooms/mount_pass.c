@@ -1,4 +1,4 @@
-#define DIR "/domains/2.4.5/rooms"
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -10,7 +10,7 @@ void setup(void) {
      "is a tunnel entrance to the north.  It might be possible to climb " +
      "up, though.");
 
-   add_exit("north",DIR + "/vill_shore.c");
+   add_exit("north", DIR + "/rooms/vill_shore.c");
    add_room_command("climb","do_climb");
 }
 
@@ -18,7 +18,7 @@ int do_climb(string str) {
    object old_room;
    if (str == "" || str == "up") {
          old_room = this_player()->query_environment();
-         this_player()->move(DIR + "/ravine.c");
+         this_player()->move(DIR + "/rooms/ravine.c");
          write("You climb up the hill.\n");
          tell_room(this_player(), this_player()->query_Name() + 
             " climbs up the ravine.\n");

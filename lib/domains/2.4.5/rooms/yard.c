@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -6,11 +7,11 @@ void setup(void) {
    set_brief("Small yard");
    set_long("A small yard surrounded by houses.");
 
-   add_exit("south","/domains/2.4.5/rooms/vill_road1.c");
-   add_exit("east","/domains/2.4.5/rooms/pub2.c");
+   add_exit("south", DIR + "/rooms/vill_road1.c");
+   add_exit("east", DIR + "/rooms/pub2.c");
 
    set_objects (([
-      "/domains/2.4.5/monsters/beggar.c": 1,
-      "/domains/2.4.5/obj/knife.c": 1,
+      DIR + "/monsters/beggar.c": 1,
+      DIR + "/obj/knife.c": 1,
    ]));
 }

@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -17,10 +18,10 @@ void setup(void) {
       "north and south.");
 
    set_exits(([
-      "north" : "/domains/gurba/rooms/border_east5",
-      "south" : "/domains/gurba/rooms/border_east4",
-      "east" : "/domains/required/rooms/start",
-      "west" : "/domains/gurba/rooms/gelmir4",
+      "north" : DIR + "/rooms/border_east5",
+      "south" : DIR + "/rooms/border_east4",
+      "east" : STARTING_ROOM,
+      "west" : DIR + "/rooms/gelmir4",
    ]));
 
    add_item("gate", "The ancient stonework of the gate is etched with the " +

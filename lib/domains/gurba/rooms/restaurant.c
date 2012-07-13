@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -10,8 +11,8 @@ void setup(void) {
       "same time.");
 
    set_exits(([
-      "south" : "/domains/gurba/rooms/border_south3",
-      "north" : "/domains/gurba/rooms/restaurant2",
+      "south" : DIR + "/rooms/border_south3",
+      "north" : DIR + "/rooms/restaurant2",
    ]));
 
    add_item("tables", "table", "Each of the six wooden tables has four " +

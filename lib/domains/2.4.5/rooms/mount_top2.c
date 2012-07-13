@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -9,5 +10,5 @@ void setup(void) {
       "rush past above, feel so close you could almost touch them.  " +
       "The air here is fresh and clean.");
 
-   add_exit("west","/domains/2.4.5/rooms/mount_top.c");
+   add_exit("west", DIR + "/rooms/mount_top.c");
 }

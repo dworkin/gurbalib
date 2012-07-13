@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -18,7 +19,7 @@ void setup(void) {
       "set_quest(str) will return 1 if this is the first time it was " +
       "solved by this player, otherwise 0.");
 
-   add_exit("south", "/domains/2.4.5/rooms/wiz_hall.c");
+   add_exit("south", DIR + "/rooms/wiz_hall.c");
    add_room_command("quests", "list_quests");
 }
 

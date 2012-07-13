@@ -1,4 +1,4 @@
-
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -9,5 +9,5 @@ void setup(void) {
    add_item("well", "You look down the well, but see only darkness.  " +
       "There are some iron handles on the inside.");
 
-   add_hidden_exit("down","/domains/2.4.5/rooms/well.c");
+   add_hidden_exit("down", DIR + "/rooms/well.c");
 }

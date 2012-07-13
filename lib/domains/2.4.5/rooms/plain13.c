@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -7,6 +8,6 @@ void setup(void) {
    set_long("A large open plain.  There is a mountain to the north, " +
       "but it is too steep to climb.");
 
-   add_exit("south","/domains/2.4.5/rooms/plain8.c");
-   add_exit("west","/domains/2.4.5/rooms/plain11.c");
+   add_exit("south", DIR + "/rooms/plain8.c");
+   add_exit("west", DIR + "/rooms/plain11.c");
 }

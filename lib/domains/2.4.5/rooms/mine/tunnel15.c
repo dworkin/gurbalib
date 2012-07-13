@@ -1,3 +1,4 @@
+#include "../../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -6,6 +7,6 @@ void setup(void) {
    set_brief("Tunnel");
    set_long("In the tunnel into the mines.");
 
-   add_exit("east","/domains/2.4.5/rooms/tunnel16.c");
-   add_exit("west","/domains/2.4.5/rooms/tunnel14.c");
+   add_exit("east", DIR + "/rooms/mine/tunnel16.c");
+   add_exit("west", DIR + "/rooms/mine/tunnel14.c");
 }

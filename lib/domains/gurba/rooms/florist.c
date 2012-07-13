@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -6,7 +7,7 @@ void setup(void) {
       "out from everywhere in the room. Flowerpots of all colors house " +
       "the dozens of different flowers at sale here. ");
    set_exits(([
-      "northeast" : "/domains/gurba/rooms/square_southwest",
+      "northeast" : DIR + "/rooms/square_southwest",
    ]));
 
    add_item("flowers", "She has a lot of them, in all the colors of the " +
@@ -16,7 +17,7 @@ void setup(void) {
       "sizes, shapes, and colors. Mostly made out of clay or wood.");
 
    set_objects(([
-      "/domains/gurba/monsters/frida": 1,
-      "/domains/gurba/objects/florist_sign":1,
+      DIR + "/monsters/frida": 1,
+      DIR + "/objects/florist_sign":1,
    ]));
 }

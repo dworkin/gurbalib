@@ -1,3 +1,4 @@
+#include "../../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -12,9 +13,9 @@ void setup(void) {
 int do_movement() {
    exit_num = random(4);
    if (exit_num == 2) {
-      room = "/domains/2.4.5/rooms/maze1/maze4.c";
+      room = DIR + "/rooms/maze1/maze4.c";
    } else {
-      room = "/domains/2.4.5/rooms/maze1/maze2.c";
+      room = DIR + "/rooms/maze1/maze2.c";
    }
 
 }
@@ -22,9 +23,9 @@ int do_movement() {
 int do_movement2() {
    exit_num = random(4);
    if (exit_num == 2) {
-      room = "/domains/2.4.5/rooms/maze1/maze4.c";
+      room = DIR + "/rooms/maze1/maze4.c";
    } else {
-      room = "/domains/2.4.5/rooms/well.c";
+      room = DIR + "/rooms/well.c";
    }
 
 }

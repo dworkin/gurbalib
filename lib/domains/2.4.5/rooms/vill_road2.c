@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -9,14 +10,14 @@ void setup(void) {
      "To the north is the shop, and to the south is the adventurers " +
      "guild.  The road runs towards the shore to the east.");
 
-   add_exit("north","/domains/2.4.5/rooms/shop.c");
-   add_exit("south","/domains/2.4.5/rooms/adv_guild.c");
-   add_exit("east","/domains/2.4.5/rooms/vill_shore.c");
-   add_exit("west","/domains/2.4.5/rooms/vill_road1.c");
-   add_exit("down","/domains/2.4.5/rooms/station.c");
+   add_exit("north", DIR + "/rooms/shop.c");
+   add_exit("south", DIR + "/rooms/adv_guild.c");
+   add_exit("east", DIR + "/rooms/vill_shore.c");
+   add_exit("west", DIR + "/rooms/vill_road1.c");
+   add_exit("down", DIR + "/rooms/station.c");
 
    set_objects (([
-      "/domains/2.4.5/monsters/harry.c": 1,
+      DIR + "/monsters/harry.c": 1,
    ]));
 }
 

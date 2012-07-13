@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -6,7 +7,7 @@ void setup(void) {
    set_brief("East road");
    set_long("East road runs north-south.  Sun alley is to the west.");
 
-   add_exit("north","/domains/2.4.5/rooms/eastroad4.c");
-   add_exit("south","/domains/2.4.5/rooms/eastroad2.c");
-   add_exit("west","/domains/2.4.5/rooms/sunalley1.c");
+   add_exit("north", DIR + "/rooms/eastroad4.c");
+   add_exit("south", DIR + "/rooms/eastroad2.c");
+   add_exit("west", DIR + "/rooms/sunalley1.c");
 }

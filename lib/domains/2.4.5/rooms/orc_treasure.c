@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -6,10 +7,10 @@ void setup(void) {
    set_brief("The orc treasury");
    set_long("You are in the orc treasury.  It is normally heavily guarded.");
 
-   add_exit("south","/domains/2.4.5/rooms/fortress.c");
+   add_exit("south", DIR + "/rooms/fortress.c");
 
    set_objects (([
-      "/domains/2.4.5/monsters/orc_shayman.c": 1,
+      DIR + "/monsters/orc_shayman.c": 1,
    ]));
 }
 

@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -15,10 +16,10 @@ void setup(void) {
       "South of the gardens a well-kept armor shop is doing business.");
 
    set_exits(([
-      "west" : "/domains/gurba/rooms/square_south",
-      "north" : "/domains/gurba/rooms/square_east",
-      "northwest" : "/domains/gurba/rooms/square_center",
-      "south" : "/domains/gurba/rooms/armorshop",
+      "west" : DIR + "/rooms/square_south",
+      "north" : DIR + "/rooms/square_east",
+      "northwest" : DIR + "/rooms/square_center",
+      "south" : DIR + "/rooms/armorshop",
    ]));
 
    add_item("garden", "A great deal of care seems to have gone into the " +

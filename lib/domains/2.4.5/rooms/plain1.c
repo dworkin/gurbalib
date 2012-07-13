@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -6,10 +7,10 @@ void setup(void) {
    set_brief("A large open plain");
    set_long("A large open plain, extending to the north and south.");
 
-   add_exit("north","/domains/2.4.5/rooms/plain2.c");
-   add_exit("south","/domains/2.4.5/rooms/clearing.c");
+   add_exit("north", DIR + "/rooms/plain2.c");
+   add_exit("south", DIR + "/rooms/clearing.c");
 
    set_objects (([
-      "/domains/2.4.5/monsters/wolf.c": 1,
+      DIR + "/monsters/wolf.c": 1,
    ]));
 }

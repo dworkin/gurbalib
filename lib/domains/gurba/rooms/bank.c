@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -8,7 +9,7 @@ void setup(void) {
       "columns supporting the roof are made of what appears to be marble.");
 
    set_exits(([
-      "south" : "/domains/gurba/rooms/border_south9",
+      "south" : DIR + "/rooms/border_south9",
    ]));
 
    add_item("counter", "counters",

@@ -1,3 +1,4 @@
+#include "../../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -6,9 +7,9 @@ void setup(void) {
    set_brief("Dead end");
    set_long("Another dead end.");
 
-   add_exit("west","/domains/2.4.5/rooms/mine/tunnel28.c");
+   add_exit("west", DIR + "/rooms/mine/tunnel28.c");
 
    set_objects (([
-      "/domains/2.4.5/monsters/dragon.c": 1,
+      DIR + "/monsters/dragon.c": 1,
    ]));
 }

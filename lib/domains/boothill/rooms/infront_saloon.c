@@ -1,5 +1,5 @@
+#include "../domain.h"
 inherit ROOM;
-#define DIR "/domains/boothill"
 
 void setup(void) {
    add_area("boothill");

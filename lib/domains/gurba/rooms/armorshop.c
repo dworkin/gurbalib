@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -11,7 +12,7 @@ void setup(void) {
       "asking for a new breastplate or a repair of some kind.");
 
    set_exits(([
-      "north" : "/domains/gurba/rooms/square_southeast",
+      "north" : DIR + "/rooms/square_southeast",
    ]));
 
    add_item("armor", "armors", "shields", "shield",

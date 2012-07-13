@@ -1,3 +1,4 @@
+#include "../../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -6,10 +7,10 @@ void setup(void) {
    set_brief("End of the maze");
    set_long("Congradulations you have done it.);
 
-   add_exit("south","/domains/2.4.5/rooms/maze1/maze4.c");
+   add_exit("south", DIR + "/rooms/maze1/maze4.c");
 
    set_objects (([
-      "/domains/2.4.5/obj/leather.c": 1,
+      DIR + "/obj/leather.c": 1,
    ]));
 
 }

@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -10,7 +11,7 @@ void setup(void) {
       "of reviving ghosts.  Dead people come to the church and pray.  " +
       "there is a clock on the wall.  There is an exit to the south.");
 
-   add_exit("north","/domains/2.4.5/rooms/vill_shore.c");
+   add_exit("north", DIR + "/rooms/vill_shore.c");
 }
 
 // XXX Lots of work needed...

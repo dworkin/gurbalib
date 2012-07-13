@@ -1,3 +1,4 @@
+#include "../../../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -11,12 +12,12 @@ void setup(void) {
       "echoing throughout the hall. To the south lies Gelmir Road, and to " +
       "the north is the entrance to the guild itself.");
    set_exits(([
-      "south" : "/domains/gurba/rooms/gelmir3", 
-      "north" : "/domains/gurba/guilds/fighter/rooms/main",
+      "south" : DIR + "/rooms/gelmir3", 
+      "north" : DIR + "/guilds/fighter/rooms/main",
    ]));
 
    set_objects(([
-      "/domains/gurba/guilds/fighter/monsters/master" : 1
+      DIR + "/guilds/fighter/monsters/master" : 1
    ]));
 
    add_item("wall", "walls", "stonework", "weapons", "armor",

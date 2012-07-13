@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -8,7 +9,7 @@ void setup(void) {
       "and a shimmering field to the north.");
 
    set_objects (([
-      "/domains/2.4.5/monsters/leo.c": 1,
+      DIR + "/monsters/leo.c": 1,
    ]));
 }
 

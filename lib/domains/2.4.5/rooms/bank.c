@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -8,12 +9,12 @@ void setup(void) {
       "counter is covered with heavy iron bars.  On the wall beside " +
       "the counter, a door leads further east");
 
-   add_exit("west","/domains/2.4.5/rooms/narr_alley.c");
+   add_exit("west", DIR + "/rooms/narr_alley.c");
 
    add_item("tree","The branches are very high up.");
 
    set_objects (([
-      "/domains/2.4.5/monsters/bankguard.c" : 1,
+      DIR + "/monsters/bankguard.c" : 1,
    ]));
 }
 

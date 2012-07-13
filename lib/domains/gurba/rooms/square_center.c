@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -15,14 +16,14 @@ void setup(void) {
       "Hanging next to the statue is a large, ancient-looking bell.");
 
    set_exits(([
-      "north" : "/domains/gurba/rooms/square_north",
-      "south" : "/domains/gurba/rooms/square_south",
-      "east" : "/domains/gurba/rooms/square_east",
-      "west" : "/domains/gurba/rooms/square_west",
-      "northeast" : "/domains/gurba/rooms/square_northeast",
-      "northwest" : "/domains/gurba/rooms/square_northwest",
-      "southeast" : "/domains/gurba/rooms/square_southeast",
-      "southwest" : "/domains/gurba/rooms/square_southwest",
+      "north" : DIR + "/rooms/square_north",
+      "south" : DIR + "/rooms/square_south",
+      "east" : DIR + "/rooms/square_east",
+      "west" : DIR + "/rooms/square_west",
+      "northeast" : DIR + "/rooms/square_northeast",
+      "northwest" : DIR + "/rooms/square_northwest",
+      "southeast" : DIR + "/rooms/square_southeast",
+      "southwest" : DIR + "/rooms/square_southwest",
    ]));
 
    add_item("statue", "A large and well-crafted statue of a dwarf. It " +

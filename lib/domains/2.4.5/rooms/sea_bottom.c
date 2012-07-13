@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -6,9 +7,9 @@ void setup(void) {
    set_brief("Sea bottom");
    set_long("You are at the bottom of the sea.");
 
-   add_exit("up","/domains/2.4.5/rooms/sea.c");
+   add_exit("up", DIR + "/rooms/sea.c");
 
    set_objects (([
-      "/domains/2.4.5/monsters/octopus.c": 1,
+      DIR + "/monsters/octopus.c": 1,
    ]));
 }

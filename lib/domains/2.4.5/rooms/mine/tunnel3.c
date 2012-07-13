@@ -1,4 +1,4 @@
-#define DIR "/domains/2.4.5/rooms"
+#include "../../domain.h"
 inherit ROOM;
 int tied_rope;  // Flag to note if the rope is here and tied or not..
 
@@ -9,8 +9,8 @@ void setup(void) {
    set_long("There is a giant hole in the ground here, " +
       "and a large iron ring attached to the wall.");
 
-   add_exit("north",DIR + "/tunnel4.c");
-   add_exit("south",DIR + "/tunnel2.c");
+   add_exit("north", DIR + "/rooms/mine/tunnel4.c");
+   add_exit("south", DIR + "/rooms/mine/tunnel2.c");
 
    add_room_command("tie","do_tie");
    add_room_command("untie","do_untie");
@@ -84,7 +84,7 @@ int do_climb(string str) {
 
    if ((str == "down") || (str == "rope")) {
       if (tied_rope) {
-         this_player()->move(DIR + "/mine/tunnel8.c");
+         this_player()->move(DIR + "/rooms/mine/tunnel8.c");
          write("You climb down the rope.\n");
          tell_room(this_player(),
             this_player()->query_Name() + " climbs down the rope.\n");

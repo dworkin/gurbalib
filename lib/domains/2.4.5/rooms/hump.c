@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -8,11 +9,11 @@ void setup(void) {
    set_brief("Humpbacked bridge");
    set_long("An old humpbacked bridge.");
 
-   add_exit("east","/domains/2.4.5/rooms/vill_green.c");
-   add_exit("west","/domains/2.4.5/rooms/wild1.c");
+   add_exit("east", DIR + "/rooms/vill_green.c");
+   add_exit("west", DIR + "/rooms/wild1.c");
 
    set_objects (([
-      "/domains/2.4.5/obj/torch.c": 1,
+      DIR + "/obj/torch.c": 1,
    ]));
 
    name = "/domains/required/objects/coin.c";

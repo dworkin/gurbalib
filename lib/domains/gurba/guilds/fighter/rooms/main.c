@@ -1,3 +1,4 @@
+#include "../../../domain.h"
 inherit ROOM;
 
 void setup(void) {
@@ -6,11 +7,11 @@ void setup(void) {
       "is the storage room.");
 
    set_exits(([
-      "south" : "/domains/gurba/guilds/fighter/rooms/entrance", 
-      "north" : "/domains/gurba/guilds/fighter/rooms/storage",
+      "south" : DIR + "/guilds/fighter/rooms/entrance", 
+      "north" : DIR + "/guilds/fighter/rooms/storage",
    ]));
 
    set_objects(([
-      "/domains/gurba/guilds/fighter/objects/fighter_board":1,
+      DIR + "/guilds/fighter/objects/fighter_board":1,
    ]));
 }

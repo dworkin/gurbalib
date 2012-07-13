@@ -5,4 +5,5 @@ void setup(void) {
    set_adj("large");
    set_long("A large sack.");
    set_weight(10);
+   set_gettable(1);
 }

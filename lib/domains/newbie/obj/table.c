@@ -1,5 +1,5 @@
+#include "../domain.h"
 inherit CONTAINER;
-#define DIR "/domains/newbie"
 
 void setup(void) {
    set_id("table");

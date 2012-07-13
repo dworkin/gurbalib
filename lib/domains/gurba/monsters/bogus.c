@@ -1,3 +1,4 @@
+#include "../domain.h"
 inherit M_VENDOR;
 
 void setup(void) {
@@ -12,11 +13,11 @@ void setup(void) {
 
    set_restock_delay(7200);
 
-   add_item("/domains/gurba/objects/rock", 9);
-   add_item("/domains/gurba/objects/clothing/boots", 5);
-   add_item("/domains/gurba/objects/clothing/gloves", 6);
-   add_item("/domains/gurba/objects/clothing/hat", 3);
-   add_item("/domains/gurba/objects/clothing/jacket", 2);
-   add_item("/domains/gurba/objects/clothing/tshirt", 1);
-   add_item("/domains/gurba/objects/weapons/sword", 8);
+   add_item(DIR + "/objects/rock", 9);
+   add_item(DIR + "/objects/clothing/boots", 5);
+   add_item(DIR + "/objects/clothing/gloves", 6);
+   add_item(DIR + "/objects/clothing/hat", 3);
+   add_item(DIR + "/objects/clothing/jacket", 2);
+   add_item(DIR + "/objects/clothing/tshirt", 1);
+   add_item(DIR + "/objects/weapons/sword", 8);
 }
