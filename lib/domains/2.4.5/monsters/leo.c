@@ -6,14 +6,17 @@ inherit M_BLOCKEXITS;
 void setup() {
    set_name("leo");
    set_gender( "male" );
-   add_adj("scraggly");
-   set_in_room_desc("A wolf");
-   set_long("The grey wolf, running around.  It has some big dangerous teeth.");
-   set_race("wolf");
-   set_level(20);
+   set_in_room_desc("Leo the Archwizard");
+   set_long("Leo the Archwizard.");
+   set_race("human");
+   set_level(40);
    set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 50);
-   set_skill("combat/defense", 100);
+   set_skill("combat/unarmed", 90);
+   set_skill("combat/defense", 200);
 }
 
-// XXX Needs lots of work...
+// XXX Need to setup chats
+// XXX Need to do fireball spell as an attack option.
+// XXX Quest for Orc slayer?
+// XXX Give user a castle if they ask for one....
+

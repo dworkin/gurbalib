@@ -6,12 +6,17 @@ void setup(void) {
 
    set_brief("Village church");
    set_long("You are in the local village church.  There is a huge " +
-      "pit in the center, and a adoor in the west wall.  " +
+      "pit in the center, and a door in the west wall.  " +
       "There is a button beside the door.  This church has the service " +
       "of reviving ghosts.  Dead people come to the church and pray.  " +
       "there is a clock on the wall.  There is an exit to the south.");
 
    add_exit("north", DIR + "/rooms/vill_shore.c");
+   add_exit("south", DIR + "/rooms/vill_green.c");
+   add_item("clock","The clock appears to be broken, it is stuck at: 1:26");
+   add_item("pit","In the middle of the church is a deep pit.  IT was used " +
+      "for sacrifice in the old times, but nowadays it is only " +
+      "left for tourists to look at.");
 }
 
 // XXX Lots of work needed...
