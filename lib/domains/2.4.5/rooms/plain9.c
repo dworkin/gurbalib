@@ -14,5 +14,6 @@ void setup(void) {
 
    set_objects (([
       DIR + "/monsters/frog.c": 1,
+      DIR + "/obj/stethoscope.c": 1,
    ]));
 }
