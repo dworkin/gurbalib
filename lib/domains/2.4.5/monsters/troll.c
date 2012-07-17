@@ -2,6 +2,8 @@ inherit MONSTER;
 inherit M_ACTIONS;
 inherit M_TRIGGERS;
 inherit M_BLOCKEXITS;
+#define INTERVAL 5
+int count;
 
 void setup() {
    set_name("troll");
@@ -16,8 +18,20 @@ void setup() {
    set_aggressive(1);
 }
 
-// XXX Make the troll talk...
-//  The troll says: Mumble...
-//  The troll says: Your mother was a %(#GKB!
-// See room code forest2.c in 2.4.5 orlginally for specifics...
-
+void do_extra_actions() {
+   count = count + 1;
+   if (count >= INTERVAL) {
+        switch(random(2)) {
+           case 0:
+	      respond("say Mumble...");
+              break;
+           case 1:
+              respond("say Your mother was a %&#$(G%#!");
+              break;
+           default:
+              respond("say what?");
+              break;
+        }
+        count = 0;
+   }
+}

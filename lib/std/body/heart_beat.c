@@ -81,6 +81,9 @@ void event_heart_beat(void) {
       if (this_object()->is_dead()) {
 	 EVENT_D->unsubscribe_event("heart_beat");
 	 this_object()->destruct();
+      } else {
+         /* allow monsters to talk, cast spells etc... */
+         this_object()->do_extra_actions();
       }
    } else {			/* Player routines */
 
