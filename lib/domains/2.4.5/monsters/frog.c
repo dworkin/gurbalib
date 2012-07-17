@@ -2,7 +2,7 @@ inherit MONSTER;
 inherit M_ACTIONS;
 inherit M_TRIGGERS;
 inherit M_BLOCKEXITS;
-#define DIR "/domains/2.4.5"
+#include "../domain.h"
 
 void setup() {
    object obj;
