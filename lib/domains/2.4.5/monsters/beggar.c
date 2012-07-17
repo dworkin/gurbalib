@@ -2,6 +2,8 @@ inherit MONSTER;
 inherit M_ACTIONS;
 inherit M_TRIGGERS;
 inherit M_BLOCKEXITS;
+int count;
+#define INTERVAL 5
 
 void setup() {
    set_name("beggar");
@@ -13,16 +15,33 @@ void setup() {
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);
    set_skill("combat/defense", 100);
-   //add_chat("Beggar says: Please, give money to a poor beggar!");
-   //add_chat("Beggar says: Why can't I find any money?");
-   //add_chat("Beggar says: two coins please.");
-   //if talked to
+   // XXX if talked to
    // add_chat("Beggar says: Why do you do this to me?");
 }
 
-// XXX  if given money and has > 12 coins go by beer  
-// call_other(begger, "go east");
-// call_other("buy beer");
-// call_other("drink beer");
-// call_other("west");
+void do_extra_actions() {
+   count = count + 1;
+
+   if (count >= INTERVAL) {
+      switch(rand(3)) {
+         case 0:
+           respond("say Please, give money to a poor beggar!");
+           break;
+         case 1:
+           respond("say Why can't I find any money?");
+           break;
+         default:
+           respond("say Two coins please.");
+           break;
+      }
+      count = 0;
+   }
+// May need to change this up.... XXX check for coin and value?
+   if (this_object()->query_total_money() > 12) {
+      respond("go east");
+      respond("buy beer");
+      respond("drink beer");
+      respond("west");
+   }
+}
 

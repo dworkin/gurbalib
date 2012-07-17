@@ -21,17 +21,17 @@ void setup() {
 void do_extra_actions() {
    count = count + 1;
    if (count >= INTERVAL) {
-        switch(random(2)) {
-           case 0:
-	      respond("say Mumble...");
-              break;
-           case 1:
-              respond("say Your mother was a %&#$(G%#!");
-              break;
-           default:
-              respond("say what?");
-              break;
-        }
-        count = 0;
+      switch(random(2)) {
+         case 0:
+	    respond("say Mumble...");
+            break;
+         case 1:
+            respond("say Your mother was a %&#$(G%#!");
+            break;
+         default:
+            respond("say what?");
+            break;
+      }
+      count = 0;
    }
 }
