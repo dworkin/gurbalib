@@ -18,6 +18,6 @@ void setup(void) {
 
    set_objects(([
       DIR + "/monsters/frida": 1,
-      DIR + "/objects/florist_sign":1,
+      "/domains/required/objects/mer_sign":1,
    ]));
 }
