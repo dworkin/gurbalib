@@ -7,8 +7,11 @@ void setup(void) {
    set_brief("The local pub");
    set_long("You can order drinks here.");
 
+   set_objects(([
+      DIR + "/monsters/barkeep.c": 1,
+      "/domains/required/objects/mer_sign.c": 1,
+   }
+
    add_exit("west", DIR + "/rooms/yard.c");
 }
-
-// XXX Add menu, and only allow exit if you don't have drinks anymore...
 
