@@ -26,7 +26,6 @@ auto dest/update of all instances of an object
 PK system (announcing, death announcing)
 Combat styles
 support for getting 2nd or 3rd sword in a room or inv
-Weight of objects
 Bank
 
 restructure doc and doc/help directory
@@ -54,8 +53,6 @@ are a few overlaps that are not needed...
 Look at set_in_room_desc, set_brief, etc...  very messy right now...
 
 fix  You wield your the shield.
-
-Need to review See Also: in -h options...
 
 why /daemons, /kernel/daemons, /sys/daemons
     /sys, /kernel/sys, 
