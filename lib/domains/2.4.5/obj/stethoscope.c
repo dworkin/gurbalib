@@ -1,6 +1,4 @@
 inherit OBJECT;
-string tied_to;
-object tied_to_obj;
 
 void setup(void) {
    set_id("stethoscope");
@@ -11,12 +9,14 @@ void setup(void) {
 
    set_value(15);
    set_weight(1);
-// XXX add action "listen";
-// XXX add action "apply";
+   add_item_command("listen","listen");
+   add_item_command("apply","apply");
 }
 
 int listen(string str) {
    write("You must apply stethoscope to something.\n");
+   this_player()->query_environment()->tell_room(this_player(),
+      this_player()->query_Name() + " fiddles with their stethoscope.\n");
    return 1;
 }
 
@@ -44,8 +44,9 @@ int apply(string str) {
    }
 
    write("You listen to the " + obj->query_name() + "\n");
-
-// XXX Tell others what the player is doing...
+   this_player()->query_environment()->tell_room(this_player(),
+      this_player()->query_Name() + " uses a stethoscope to listen to " +
+      obj->query_name() + "\n");
 
    if (living(ob)) {
       write("Thub Whub\n");

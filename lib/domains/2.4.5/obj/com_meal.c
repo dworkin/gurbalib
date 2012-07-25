@@ -17,6 +17,9 @@ int do_eat(void) {
 
    x = random(5) + 1;
    write("You eat the common meal.  It's tollerable if you plug your nose.");
+   this_player()->query_environment()->tell_room(this_player(),
+      this_player()->query_Name() + 
+      " eats something that looks about 2 days to old to eat.\n");
    this_player()->increase_hp(x);
    this_object()->destruct();
 }

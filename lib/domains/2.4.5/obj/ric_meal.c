@@ -17,7 +17,8 @@ int do_eat(void) {
 
    x = random(25) + 1;
    write("That hit the spot.");
-// XXX Should say something to the room...
+   this_player()->query_environment()->tell_room(this_player(),
+      this_player()->query_Name() + " enjoys an expensive meal.");
    this_player()->increase_hp(x);
    this_object()->destruct();
 }
