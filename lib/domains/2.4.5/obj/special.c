@@ -15,6 +15,8 @@ int do_eat(void) {
 
    x = 10;
    write("A tingling feeling goes through your body.");
+   this_player()->query_environment()->tell_room(this_player(),
+      this_player()->query_Name() + " slams down a house special.\n");
    this_player()->increase_hp(x);
    this_object()->destruct();
 }
