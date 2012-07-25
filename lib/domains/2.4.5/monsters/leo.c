@@ -2,6 +2,9 @@ inherit MONSTER;
 inherit M_ACTIONS;
 inherit M_TRIGGERS;
 inherit M_BLOCKEXITS;
+#define INTERVAL 8
+int count;
+
 
 void setup() {
    set_name("leo");
@@ -15,8 +18,15 @@ void setup() {
    set_skill("combat/defense", 200);
 }
 
-// XXX Need to setup chats
 // XXX Need to do fireball spell as an attack option.
 // XXX Quest for Orc slayer?
 // XXX Give user a castle if they ask for one....
 
+void do_extra_actions() {
+   count = count + 1;
+   if (count >= INTERVAL) {
+      respond("smile");
+      count = 0;
+   }
+}
+}
