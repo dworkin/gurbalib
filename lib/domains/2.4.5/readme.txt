@@ -10,3 +10,4 @@ All rights reserved.  Permission is granted to extend and modify the
 source code provided subject to the restriction that the source code may
 not be used in any way whatsoever for monetary gain.
 
+This readme.txt covers everything in /domains/2.4.5
