@@ -10,7 +10,12 @@ void setup(void) {
       "south, and some shimmering blue light in the doorway.");
    add_exit("north", DIR + "/rooms/vill_road2.c");
    add_exit("south", "/domains/required/rooms/bug_room.c");
+
+   set_objects(([
+      DIR + "/obj/book.c": 1,
+   ]));
+
+   add_item("chain", "The chain is secured to the wall.\n");
 }
 
 // XXX more to add here...
-// XXX make sure you look at obj/book.c also...

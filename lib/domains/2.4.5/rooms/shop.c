@@ -11,6 +11,9 @@ void setup(void) {
 
    add_exit("south", DIR + "/rooms/vill_road2.c");
    add_exit("west", DIR + "/rooms/storage.c");
-}
 
-// XXX Need to do store stuff here...
+  set_objects(([
+      DIR + "/monsters/shopkeep.c": 1,
+      "/domains/required/objects/mer_sign.c": 1,
+   ]));
+}
