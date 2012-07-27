@@ -30,19 +30,19 @@ void why_did(string str) {
    sscanf(str, "%s %s", who, what);
    if(who == "harry" || who == "Harry") return;
    if (sscanf(str, "%s sells %s.", who, what) == 2) {
-      notify("Harry says: Why did you sell " + what + "\n");
+      respond("say Why did you sell " + what);
    }
    if (sscanf(str, "%s attacks %s.", who, what) == 2) {
-      notify("Harry says: Why does " + who + " attack " + what + "?\n");
+      respond("say Why does " + who + " attack " + what + "?");
    }
    if (sscanf(str, "%s left the game.", who) == 1) {
-      notify("Harry says: Why did " + who + " quit the game ?\n");
+      respond("say Why did " + who + " quit the game ?");
    }
    if (sscanf(str, "%s takes %s.\n", who, what) == 2) {
-      notify("Harry says: Why did " + who + " take " + what + " ?\n");
+      respond("say Why did " + who + " take " + what + " ?");
    }
    if (sscanf(str, "%s drops %s.\n", who, what) == 2) {
-      notify("Harry says: Why did " + who + " drop " + what + " ?\n");
+      respond("say Why did " + who + " drop " + what + " ?");
    }
 }
 
@@ -51,7 +51,7 @@ void how_does_it_feel(string str) {
    sscanf(str, "%s %s", who, what);
    if(who == "harry" || who == "Harry") return;
    if (sscanf(str, "%s is now level %s.\n", who, what) == 2) {
-      notify("Harry says: How does it feel, being of level " + what + " ?\n");
+      respond("say How does it feel, being of level " + what + " ?");
    }
 }
 
@@ -63,7 +63,7 @@ void smiles(string str) {
       return;
    if (sscanf(str, "%s smiles happily", who) == 1 &&
       who != "Harry") {
-      notify("Harry smiles happily.\n");
+      respond("smile");
    }
 }
 
@@ -71,7 +71,7 @@ void say_hello(string str) {
    string who;
 
    if (sscanf(str, "%s arrives.", who) == 1) {
-      notify( "Harry says: Hi " + who + ", nice to see you !\n");
+      respond("say Hi " + who + ", nice to see you !");
    }
 }
 
@@ -85,19 +85,19 @@ void test_say(string str) {
    str = b;
 
    if (str == "hello" || str == "hi" || str == "hello everybody") {
-      message = "Harry says: Pleased to meet you!\n";
+      message = "say Pleased to meet you!";
    }
    if (str == "shut up") {
-      message = "Harry says: Why do you want me to shut up ?\n";
+      message = "say Why do you want me to shut up ?";
    }
    if (sscanf(str, "%sstay here%s", a, b) == 2 ||
       sscanf(str, "%snot follow%s", a, b) == 2 ||
       sscanf(str, "%sget lost%s", a, b) == 2) {
 
-      message = "Harry says: Ok then.\n";
+      message = "say Ok then.";
    }
-   if(!message) message = "Harry says: Why do you say '" + str + "'???\n";
-   notify(message);
+   if(!message) message = "say Why do you say '" + str + "'???";
+   respond(message);
 }
 
 void follow(string str) {
@@ -123,7 +123,7 @@ void gives(string str) {
 
       if(rand == 0) {
          if(random(10) > 6) {
-            notify("Harry sighs and says: I guess you're gonna kill me now.\n");
+            respond("sigh I guess you're gonna kill me now.");
 // XXX            obj = first_inventory(this_object());
             while(obj) {
 // XXX               next_obj = next_inventory(harry);
@@ -152,14 +152,14 @@ void gives(string str) {
          notify("Harry returned the " + what + " to " + who + ".\n");
       }
    } else if(what == "corpse") {
-      notify("Harry says: HEY, bury your corpses yourself, asshole.\n");
+      respond("say HEY, bury your corpses yourself, asshole.");
 // XXX      obj = first_inventory(harry);
 // XXX      while(!call_other(obj, "id", what))
 // XXX         obj = next_inventory(obj);
 // XXX      transfer(obj, find_living(lower_case(who)));
       notify("Harry returned the " + what + " to " + who + ".\n");
    } else {
-      notify("Harry says: Thank you very much, sir.\n");
+      respond("say Thank you very much, sir.");
    }
 }
 

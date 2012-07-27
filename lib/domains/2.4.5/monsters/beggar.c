@@ -15,8 +15,6 @@ void setup() {
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);
    set_skill("combat/defense", 100);
-   // XXX if talked to
-   // add_chat("Beggar says: Why do you do this to me?");
 }
 
 void do_extra_actions() {
@@ -45,3 +43,12 @@ void do_extra_actions() {
    }
 }
 
+void outside_message(string str) {
+   str = ANSI_D->strip_colors(str);
+   str = str[..strlen(str) -3)];
+
+   // XXX need to fix this... if action on the beggar...
+   if (1) {
+      respond("say Why do you do this to me?");
+   }
+}
