@@ -180,7 +180,13 @@ void attack_with(string skill, object weapon, object target) {
 
       target->damage_target(damage, this_object());
    } else {
-      this_object()->targetted_action("$N $vmiss $T.", target);
+      string miss;
+
+      if (miss) {
+         this_object()->targetted_action("$N $vmiss $T.", target);
+      } else {
+         this_object()->targetted_action(miss, target);
+      }
 
       if (!weapon) {
 	 tmp = this_object()->query_skill("combat/unarmed") +

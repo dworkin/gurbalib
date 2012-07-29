@@ -27,9 +27,8 @@ void setup() {
    obj2->setup();
 }
 
-// XXX Needs work still 
 string query_miss_message() {
-   if (rand(1)) {
+   if (random(1)) {
       return "The octopus says: Mumble.";
    } else {
       return "The octopus says: I will convert you to a pulp!";

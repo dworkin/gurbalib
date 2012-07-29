@@ -21,7 +21,7 @@ void do_extra_actions() {
    count = count + 1;
 
    if (count >= INTERVAL) {
-      switch(rand(3)) {
+      switch(random(3)) {
          case 0:
            respond("say Please, give money to a poor beggar!");
            break;
