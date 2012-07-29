@@ -46,6 +46,8 @@ int do_ring(string arg) {
    if (arg == "bell") {
       this_player()->simple_action ("$N $vring the bell.  A deep, " +
          "sonorous toll echoes across the square.");
-   } else
-      write("Ring what?");
+      return 1;
+   } else {
+      return 0;
+   }
 }

@@ -34,7 +34,8 @@ void do_pick(string arg) {
       obj->setup();
       obj->move(this_player()->query_environment());
       obj->attack(this_player());
+      return 1;
    } else {
-      write("Pick what?\n");
+      return 0;
    }
 }

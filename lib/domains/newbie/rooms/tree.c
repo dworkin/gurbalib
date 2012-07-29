@@ -43,8 +43,6 @@ int enter_hole(string arg) {
       }
       return 1;
    } else {
-      write("squeeze what?\n");	// maybe remove this line? 
-      // So you can try other enter commands...
       return 0;
    }
 }
@@ -63,8 +61,8 @@ int break_branch(string str) {
 	 obj->move(this_player());
 	 obj->setup();
       }
+      return 1;
    } else {
-      write("Break what?\n");
+      return 0;
    }
-   return 1;
 }

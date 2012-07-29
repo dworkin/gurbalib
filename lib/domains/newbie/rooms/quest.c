@@ -28,7 +28,8 @@ int do_push(string arg) {
 	 write("Congratulations!!! You have just completed the NewbieVille " +
 	    "Quest which earns you 200 exp!\n");
       }
+      return 1;
    } else {
-      write("Push what?");
+      return 0;
    }
 }

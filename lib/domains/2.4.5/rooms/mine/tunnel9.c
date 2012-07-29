@@ -17,16 +17,20 @@ string query_long() {
    }
 }
 
-void do_up() {
-   if (!call_other(DIR + "/rooms/mine/tunnel3","query_tied")) {
-      write("You can not climb up, there is not a rope.\n");
-   } else {
-     this_player()->move(DIR + "/rooms/mine/tunnel8.c");
-     write("You climb up the rope.\n");
-     tell_room(this_player(),
-        this_player()->query_Name() + " climbs up the rope.\n");
-     this_player()->query_environment()->tell_room(this_player(),
-        this_player()->query_Name() + " climbs up the rope.\n");
-     this_player()->do_look(0);
+void do_up(string str) {
+   if (str == "rope" || str == "up") { 
+      if (!call_other(DIR + "/rooms/mine/tunnel3","query_tied")) {
+         write("You can not climb up, there is not a rope.\n");
+      } else {
+         this_player()->move(DIR + "/rooms/mine/tunnel8.c");
+         write("You climb up the rope.\n");
+         tell_room(this_player(),
+            this_player()->query_Name() + " climbs up the rope.\n");
+         this_player()->query_environment()->tell_room(this_player(),
+            this_player()->query_Name() + " climbs up the rope.\n");
+         this_player()->do_look(0);
+      }
+      return 1;
    }
+   return 0;
 }
