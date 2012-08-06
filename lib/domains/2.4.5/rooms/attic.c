@@ -8,7 +8,7 @@ void setup(void) {
    set_brief("The attic");
 }
 
-string query_long {
+string query_long() {
    string str;
 
    str = "This is the attic above the church.  There is a door to the west.";
@@ -17,6 +17,8 @@ string query_long {
    } else {
       str += "  There is a lamp beside the elevator.";
    }
+
+   return str;
 }
 
 // XXX More work to do...

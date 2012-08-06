@@ -22,6 +22,7 @@ int listen(string str) {
 
 int apply(string str) {
    object obj;
+   string what;
 
    if (!str) 
       return 0;
@@ -48,7 +49,7 @@ int apply(string str) {
       this_player()->query_Name() + " uses a stethoscope to listen to " +
       obj->query_name() + "\n");
 
-   if (living(ob)) {
+   if (obj->is_living()) {
       write("Thub Whub\n");
    } else {
       write("You hear nothing.\n");
