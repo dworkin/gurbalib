@@ -9,8 +9,8 @@ void setup(void) {
 
    set_value(15);
    set_weight(1);
-   add_item_command("listen","listen");
-   add_item_command("apply","apply");
+   add_object_command("listen","listen");
+   add_object_command("apply","apply");
 }
 
 int listen(string str) {
