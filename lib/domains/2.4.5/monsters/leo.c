@@ -29,4 +29,3 @@ void do_extra_actions() {
       count = 0;
    }
 }
-}

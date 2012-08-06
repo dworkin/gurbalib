@@ -44,8 +44,11 @@ void do_extra_actions() {
 }
 
 void outside_message(string str) {
+   int x;
    str = ANSI_D->strip_colors(str);
-   str = str[..strlen(str) -3)];
+   x = strlen(str) -3;
+   
+   str = str[..x];
 
    // XXX need to fix this... if action on the beggar...
    if (1) {

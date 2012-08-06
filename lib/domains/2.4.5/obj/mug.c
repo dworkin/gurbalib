@@ -2,6 +2,7 @@ inherit OBJECT;
 
 void setup(void) {
    set_id("beer");
+   add_id("mug");
    set_adj("mug of");
    set_long("A stout mug of beer.");
    set_in_room_desc("A mug of beer");
