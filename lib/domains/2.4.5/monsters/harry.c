@@ -124,13 +124,7 @@ void gives(string str) {
       if(rand == 0) {
          if(random(10) > 6) {
             respond("sigh I guess you're gonna kill me now.");
-// XXX            obj = first_inventory(this_object());
-            while(obj) {
-// XXX               next_obj = next_inventory(harry);
-// XXX               transfer(obj, environment(harry));
-               notify("Harry drops " + call_other(obj, "short") + ".\n");
-               obj = next_obj;
-            }
+	    respond("drop all");
             call_other(this_object(), "init_command", "west");
          }
       }
@@ -138,26 +132,22 @@ void gives(string str) {
          call_other(this_object(), "init_command", "drink " + what);
       }
       if(rand == 2) {
-// XXX         obj = first_inventory(harry);
-// XXX         while(!call_other(obj, "id", what))
-// XXX            obj = next_inventory(obj);
-// XXX         transfer(obj, environment(harry));
-         notify("Harry drops the " + what + ".\n");
+         respond("drop all");
       }
       if(rand == 3) {
-// XXX         obj = first_inventory(harry);
-// XXX         while(!call_other(obj, "id", what))
-// XXX            obj = next_inventory(obj);
-// XXX         transfer(obj, find_living(lower_case(who)));
-         notify("Harry returned the " + what + " to " + who + ".\n");
+         obj = this_object()->present(what);
+         if (obj) {
+            obj->move(who);
+            notify("Harry returned the " + what + " to " + who + ".\n");
+         }
       }
    } else if(what == "corpse") {
       respond("say HEY, bury your corpses yourself, asshole.");
-// XXX      obj = first_inventory(harry);
-// XXX      while(!call_other(obj, "id", what))
-// XXX         obj = next_inventory(obj);
-// XXX      transfer(obj, find_living(lower_case(who)));
-      notify("Harry returned the " + what + " to " + who + ".\n");
+      obj = this_object()->present(what);
+      if (obj) {
+         obj->move(who);
+         notify("Harry returned the " + what + " to " + who + ".\n");
+      }
    } else {
       respond("say Thank you very much, sir.");
    }
@@ -167,15 +157,8 @@ void monster_died() {
    object obj, b;
    int num;
 
-// XXX   obj = first_inventory(harry);
-// XXX   while(obj) {
-// XXX      b = next_inventory(harry);
-// XXX      if (call_other(obj, "id", "bottle")) {
-// XXX         obj->destruct();
-// XXX         num = 1;
-// XXX      }
-// XXX      obj = b;
-// XXX   }
+// XXX  drop all make sure bottles break....
+
    if (num) {
       notify("There is a crushing sound of bottles breaking, " +
       "as the body falls.\n");
