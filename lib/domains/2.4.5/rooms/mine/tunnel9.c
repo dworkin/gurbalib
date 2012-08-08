@@ -6,6 +6,7 @@ void setup(void) {
 
    set_brief("Hole in ceiling");
    add_room_command("up","do_up");
+   add_room_command("climb","do_up");
 }
 
 string query_long() {
