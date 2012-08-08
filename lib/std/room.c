@@ -30,6 +30,10 @@ void create(void) {
    setup();
 }
 
+int is_room() {
+   return 1;
+}
+
 void set_light(int flag) {
    light = flag;
 }
