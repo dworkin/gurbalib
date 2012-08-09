@@ -348,7 +348,7 @@ void set_weight(int val) {
    weight = val;
 }
 
-int query_weight(int val) {
+int query_weight(void) {
    return weight;
 }
 

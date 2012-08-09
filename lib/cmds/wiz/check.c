@@ -27,6 +27,10 @@ string get_what(string str) {
 
    path = this_player()->query_env("cwd");
 
+   path = normalize_path(str, path);
+
+   if (file_exists(path)) return path;
+
    if (strlen(str) > 2) {
       if (str[strlen(str) - 2] == '.' && str[strlen(str) - 1] == 'c') {
 	 // were good do nothing...
@@ -34,8 +38,6 @@ string get_what(string str) {
 	 str = str + ".c";
       }
    }
-
-   path = normalize_path(str, path);
 
    return path;
 }
@@ -49,20 +51,32 @@ void do_monster_check(object obj) {
 }
 
 void do_object_check(object obj) {
+   string tmpstr;
    write("Doing object check\n");
+
+   tmpstr = obj->query_breif();
+   if (!tmpstr || tmpstr == "") write("Warning: No breif\n");
+
+   tmpstr = obj->query_long();
+   if (!tmpstr || tmpstr == "") write("Warning: No long set\n");
+
+   if (obj->is_gettable() && (obj->query_weight() < 1))
+      write("Warning: object weight < 1\n");
 }
 
 void do_check(string str) {
    string what;
    object obj;
 
-   if (file_exists(str) == -1) {
-      write("Checking directories unsupported currently: " + str + "\n");
+   what = get_what(str);
+   if (file_exists(what) == -1) {
+      write("Checking directories unsupported currently: " + what + "\n");
    } else {
-      what = get_what(str);
       if (file_exists(what) == 1) {
 
-// XXX  obj = 
+         obj = compile_object(what);
+         obj->setup();
+         obj->setup_mudlib();
 
          if (obj) {
             if (obj->is_room()) {
@@ -92,7 +106,7 @@ void main(string str) {
    }
 
    files = explode(str," ");
-   if (!files) files = ([ str ]);
+   if (!files) files = ({ str });
    max = sizeof(files);
    for(x=0;x<max;x++) {
       do_check(files[x]);
