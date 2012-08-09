@@ -42,8 +42,34 @@ string get_what(string str) {
    return path;
 }
 
+void check_exits(object obj, mapping exits) {
+   string *indices;
+   int x;
+
+   indices = map_indices(exits);
+   x = sizeof(indices) -1;
+   while (x > -1) {
+
+      write("Checking exit: " + indices[x] + "\n");
+
+      if (!file_exists(exits[indices[x]])) {
+         write("Warning exit: " + indices[x] + ":" + 
+            exits[indices[x]] + " does not exist.\n");
+      }
+      x = x - 1;
+   }
+}
+
 void do_room_check(object obj) {
    write("Doing room check\n");
+
+   exits = obj->query_exits();
+   check_exits(obj,exits);
+
+   exits = obj->query_hidden_exits();
+   check_exits(obj,exits);
+
+   exits = obj->query_room_commands();
 }
 
 void do_monster_check(object obj) {
@@ -73,6 +99,7 @@ void do_check(string str) {
       write("Checking directories unsupported currently: " + what + "\n");
    } else {
       if (file_exists(what) == 1) {
+         write("Looking at file: " + what + "\n");
 
          obj = compile_object(what);
          obj->setup();
