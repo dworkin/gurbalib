@@ -42,19 +42,48 @@ string get_what(string str) {
    return path;
 }
 
-void check_exits(object obj, mapping exits) {
+void check_remote_exit(string room, string exit, string filename) {
+   object obj;
+   string tmp;
+
+   obj = compile_object(what);
+   // XXX Should we do this if room already exists???
+   obj->setup();
+   obj->setup_mudlib();
+
+
+   if (!obj) {
+      write("Unable to load room : " + room + "\n";
+      return;
+   }
+
+  tmp = obj->query_exit(exit)
+  if (tmp != filename) {
+     write("Warning: reverse exit points at: " + tmp + " not " + filename + 
+        ".\n");
+  }
+}
+
+void check_exits(object obj, mapping myexits) {
    string *indices;
+   string exit, filename;
    int x;
 
-   indices = map_indices(exits);
+   indices = map_indices(myexits);
    x = sizeof(indices) -1;
    while (x > -1) {
 
       write("Checking exit: " + indices[x] + "\n");
 
-      if (!file_exists(exits[indices[x]])) {
+      if (!file_exists(myexits[indices[x]])) {
          write("Warning exit: " + indices[x] + ":" + 
-            exits[indices[x]] + " does not exist.\n");
+            myexits[indices[x]] + " does not exist.\n");
+      }
+      if (exists(exits[x])) {
+         filename = this_object()->base_name();
+         check_remote_exit(indices[x], x, filename);
+      } else {
+	write("Warning nonstandard exit: " + x + " no further checks.\n");
       }
       x = x - 1;
    }
