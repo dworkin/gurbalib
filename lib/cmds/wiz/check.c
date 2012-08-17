@@ -1,4 +1,4 @@
-mapping exits;
+static mapping exits;
 
 void usage() {
    write("Usage: check [-h] FILENAME\n");
@@ -10,6 +10,7 @@ void usage() {
 }
 
 void setup_exits() {
+   exits = ([]);
    exits["north"] = "south";
    exits["south"] =  "north";
    exits["east"] = "west";
@@ -33,9 +34,9 @@ string get_what(string str) {
 
    if (strlen(str) > 2) {
       if (str[strlen(str) - 2] == '.' && str[strlen(str) - 1] == 'c') {
-	 // were good do nothing...
+         // were good do nothing...
       } else {
-	 str = str + ".c";
+         str = str + ".c";
       }
    }
 
@@ -44,23 +45,28 @@ string get_what(string str) {
 
 void check_remote_exit(string room, string exit, string filename) {
    object obj;
-   string tmp;
+   string tmp, myexit;
 
-   obj = compile_object(what);
+   obj = compile_object(room);
    // XXX Should we do this if room already exists???
    obj->setup();
    obj->setup_mudlib();
 
 
    if (!obj) {
-      write("Unable to load room : " + room + "\n";
+      write("Unable to load room : " + room + "\n");
       return;
    }
 
-  tmp = obj->query_exit(exit)
-  if (tmp != filename) {
-     write("Warning: reverse exit points at: " + tmp + " not " + filename + 
-        ".\n");
+  myexit = exits[exit];
+  tmp = obj->query_exit(myexit);
+
+  if (!tmp || tmp == "") {
+     write("Warning: No reverse exit: " + obj->base_name() + 
+        "(" + myexit + ")\n");
+  } else if (tmp != filename) {
+     write("Warning: reverse exit " + obj->base_name() + ":(" + myexit + ")\n");
+     write("points at: " + tmp + " not " + filename + ".\n");
   }
 }
 
@@ -70,6 +76,7 @@ void check_exits(object obj, mapping myexits) {
    int x;
 
    indices = map_indices(myexits);
+
    x = sizeof(indices) -1;
    while (x > -1) {
 
@@ -78,27 +85,34 @@ void check_exits(object obj, mapping myexits) {
       if (!file_exists(myexits[indices[x]])) {
          write("Warning exit: " + indices[x] + ":" + 
             myexits[indices[x]] + " does not exist.\n");
-      }
-      if (exists(exits[x])) {
-         filename = this_object()->base_name();
-         check_remote_exit(indices[x], x, filename);
+      } else if (member_map(indices[x],exits)) {
+         filename = obj->base_name();
+         if (filename[strlen(filename) - 2] == '.' && 
+            filename[strlen(filename) - 1] == 'c') {
+            // were good do nothing...
+         } else {
+            filename = filename + ".c";
+         }
+         check_remote_exit(myexits[indices[x]], indices[x], filename);
       } else {
-	write("Warning nonstandard exit: " + x + " no further checks.\n");
+	write("Warning nonstandard exit: " + indices[x] + 
+           " no further checks.\n");
       }
       x = x - 1;
    }
 }
 
 void do_room_check(object obj) {
+   mapping myexits;
    write("Doing room check\n");
 
-   exits = obj->query_exits();
-   check_exits(obj,exits);
+   myexits = obj->query_exits();
+   check_exits(obj,myexits);
 
-   exits = obj->query_hidden_exits();
-   check_exits(obj,exits);
+   myexits = obj->query_hidden_exits();
+   check_exits(obj,myexits);
 
-   exits = obj->query_room_commands();
+   myexits = obj->query_room_commands();
 }
 
 void do_monster_check(object obj) {
@@ -160,6 +174,8 @@ void main(string str) {
       usage();
       return;
    }
+
+   setup_exits();
 
    files = explode(str," ");
    if (!files) files = ({ str });
