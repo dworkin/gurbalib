@@ -123,8 +123,8 @@ void do_object_check(object obj) {
    string tmpstr;
    write("Doing object check\n");
 
-   tmpstr = obj->query_breif();
-   if (!tmpstr || tmpstr == "") write("Warning: No breif\n");
+   tmpstr = obj->query_brief();
+   if (!tmpstr || tmpstr == "") write("Warning: No brief\n");
 
    tmpstr = obj->query_long();
    if (!tmpstr || tmpstr == "") write("Warning: No long set\n");
