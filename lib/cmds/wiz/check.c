@@ -130,7 +130,9 @@ void do_object_check(object obj) {
    if (!tmpstr || tmpstr == "") write("Warning: No long set\n");
 
    if (obj->is_gettable() && (obj->query_weight() < 1))
-      write("Warning: object weight < 1\n");
+      write("Warning: object gettable and weight < 1\n");
+   if (obj->is_gettable() && (obj->query_value() < 1))
+      write("Warning: object gettable and value < 1\n");
 }
 
 void do_check(string str) {
