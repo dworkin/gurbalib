@@ -32,29 +32,27 @@
  * some common object types and their absolute path
  */
 #define SHORT_OBJECT_TYPE ([\
-  "player"     :"/std/player",\
-  "user"       :"/std/user",\
+  "player"     :"/sys/lib/player",\
+  "user"       :"/sys/lib/user",\
   "connection" :"/kernel/obj/net/connection",\
   "port"       :"/kernel/obj/net/port",\
-  "compiler"   :"/kernel/daemon/compiler"\
+  "compiler"   :"/kernel/daemons/compiler_d"\
 ])
 
-// Some prototypes
 int query_tls_size();
 void set_tls_size(int size);
 mixed get_tlvar(int index);
 void set_tlvar(int index, mixed value);
 
 int tls_size, count, ocount, ident, shutting_down;
-
 object compiler_d, error_d, secure_d, syslog_d;
-
 object *users;
+
 #ifdef SYS_NETWORKING
 object *ports;
 #endif
 
-// Include some useful functions from the auto object
+/* Include some useful functions from the auto object */
 #include "/kernel/lib/afun/dump_value.c"
 #include "/kernel/lib/afun/argcheck.c"
 #include "/kernel/lib/afun/normalize_path.c"
@@ -107,7 +105,7 @@ void queue_upgrade(object ob) {
       upgrade_done();
 }
 
-// Ensure we have a TLS after the call_out
+/* Ensure we have a TLS after the call_out */
 void _continue_queue_upgrade(mixed * tls, object ob) {
    queue_upgrade(ob);
 }
@@ -116,7 +114,7 @@ void continue_queue_upgrade(object ob) {
    _continue_queue_upgrade(allocate(query_tls_size()), ob);
 }
 
-// Don't use this to compile inheritables!
+/* Don't use this to compile inheritables! */
 object compile_object(string path, varargs string code) {
    mixed stuff;
    object ob, auto;
@@ -548,10 +546,13 @@ void compile_error(string file, int line, string err) {
    }
 }
 
-//	log a runtime error
+/* log a runtime error */
 void runtime_error(string error, int caught, int ticks) {
+
    mixed **trace;
-   string progname, objname, function, str;
+
+   string progname, objname, func, str;
+
    int i, sz, line, len;
    object player;
 
@@ -569,7 +570,7 @@ void runtime_error(string error, int caught, int ticks) {
    if ((sz = sizeof(trace) - 1) != 0) {
       for (i = 0; i < sz; i++) {
 	 progname = trace[i][1];
-	 function = trace[i][2];
+	 func = trace[i][2];
 	 objname = trace[i][0];
 	 line = trace[i][3];
 	 if (line == 0) {
@@ -578,8 +579,8 @@ void runtime_error(string error, int caught, int ticks) {
 	    str = "    " + line;
 	    str = str[strlen(str) - 4..];
 	 }
-	 str += " " + function + " ";
-	 len = strlen(function);
+	 str += " " + func + " ";
+	 len = strlen(func);
 	 if (len < 17) {
 	    str += "                 "[len..];
 	 }
@@ -699,13 +700,13 @@ void set_tlvar(int i, mixed v) {
  * and loops. Also, note that this_player() will not be set correctly
  * during an upgrade, this may need fixing later.
  */
-static int _touch(mixed tls, object ob, string function) {
+static int _touch(mixed tls, object ob, string func) {
    object savep;
    object *clones;
    int i;
 
 #ifdef DEBUG_RECOMPILE
-   message("touching " + object_name(ob) + " due to a call to " + function +
+   message("touching " + object_name(ob) + " due to a call to " + func +
       "\n");
 #endif
 
@@ -714,6 +715,6 @@ static int _touch(mixed tls, object ob, string function) {
    }
 }
 
-int touch(object ob, string function) {
-   return _touch(allocate(query_tls_size()), ob, function);
+int touch(object ob, string func) {
+   return _touch(allocate(query_tls_size()), ob, func);
 }

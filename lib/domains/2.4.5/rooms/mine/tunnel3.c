@@ -1,6 +1,6 @@
 #include "../../domain.h"
 inherit ROOM;
-int tied_rope;  // Flag to note if the rope is here and tied or not..
+int tied_rope;  /* Flag to note if the rope is here and tied or not.. */
 
 void setup(void) {
    add_area("2.4.5");
@@ -16,7 +16,7 @@ void setup(void) {
    add_room_command("untie","do_untie");
    add_room_command("climb","do_climb");
    add_room_command("down","do_climb");
-// XXX Need to check go down??? and or override it?
+/* XXX Need to check go down??? and or override it? */
 
    add_item("ring","A large iron ring hooked to the wall. " +
       "You could probably tie a rope to it.");

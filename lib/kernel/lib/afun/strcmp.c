@@ -1,4 +1,4 @@
-// strcmp, by Aidil@Way of the Force
+/* strcmp, by Aidil@Way of the Force */
 nomask static int strcmp(string one, string two) {
    if (one < two) {
       return -1;

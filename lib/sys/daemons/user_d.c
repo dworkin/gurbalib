@@ -411,8 +411,9 @@ void print_finger_info(object player, object player2, int cloned) {
    }
 }
 
-// Player is requesting finger information on player: name
-// So lets tell them....  return 0 if not found. 1 if telling player info...
+/* Player is requesting finger information on player: name
+   So lets tell them....  return 0 if not found. 1 if telling player info...
+*/
 void finger(object player, string name) {
    object obj;
 

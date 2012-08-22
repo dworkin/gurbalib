@@ -14,4 +14,4 @@ void setup(void) {
    ]));
 }
 
-// XXX Need to work on exits, computer and a bunch of other stuff.
+/* XXX Need to work on exits, computer and a bunch of other stuff. */

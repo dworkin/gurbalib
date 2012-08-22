@@ -459,9 +459,10 @@ void write_prompt() {
    out(prompt + "%^RESET%^ ");
 }
 
-/* More a set of lines */
-// FIX IT SO More supports COLORS like message....
-// or make a color_more for channels command....
+/* More a set of lines 
+  XXX FIX IT SO More supports COLORS like message....
+   or make a color_more for channels command....
+*/
 void more(string * lines) {
    string msg;
    mixed height;
@@ -838,8 +839,7 @@ void receive_message(string message) {
 	    }
 	 }
       }
-// XXX why do verb stuff here and in lib/std/modules/m_actions.c
-
+/* XXX why do verb stuff here and in lib/std/modules/m_actions.c */
       if (PARSE_D->is_verb(cmd) && (arg == "-h" || sscanf(arg, "-h %s", arg))) {
 	 PARSE_D->call_help(cmd);
 	 flag = 1;

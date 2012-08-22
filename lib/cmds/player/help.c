@@ -1,4 +1,4 @@
-// This is a dummy function... instead edit /docs/help/help
+/* This is a dummy function... instead edit /docs/help/help */
 void usage() {
 }
 

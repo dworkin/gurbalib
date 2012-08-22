@@ -18,4 +18,4 @@ void setup(void) {
    add_item("chain", "The chain is secured to the wall.\n");
 }
 
-// XXX more to add here...
+/* XXX more to add here... */

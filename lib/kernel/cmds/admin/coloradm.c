@@ -33,7 +33,7 @@ void usage() {
    write("\tcoloradm ROOM_NAME=RED+REVERSE+UNDERLINE\n");
 }
 
-// If the arg[0] is a base symbol, it can't be used as a custom tag.
+/* If the arg[0] is a base symbol, it can't be used as a custom tag. */
 mixed *valid_tag_name(mixed * arg) {
    return !ANSI_D->query_base_symbol(arg[0]) ? arg : nil;
 }

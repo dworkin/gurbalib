@@ -128,9 +128,10 @@ string query_age() {
    return ret;
 }
 
-// XXX Need to figure out consiquences maybe...
-//     put exp on body, if you make it back you get it back?
-//     similar to deamon souls....
+/* XXX Need to figure out consiquences maybe...
+   put exp on body, if you make it back you get it back?
+   similar to deamon souls....
+*/
 void die(void) {
    object obj, *inv;
    int i;

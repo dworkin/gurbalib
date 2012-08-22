@@ -34,7 +34,7 @@ void do_extra_actions() {
       }
       count = 0;
    }
-// May need to change this up.... XXX check for coin and value?
+/* May need to change this up.... XXX check for coin and value? */
    if (this_object()->query_total_money() > 12) {
       respond("go east");
       respond("buy beer");
@@ -50,7 +50,7 @@ void outside_message(string str) {
    
    str = str[..x];
 
-   // XXX need to fix this... if action on the beggar...
+   /* XXX need to fix this... if action on the beggar... */
    if (1) {
       respond("say Why do you do this to me?");
    }

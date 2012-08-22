@@ -13,4 +13,4 @@ void setup(void) {
 
 }
 
-// XXX Need to add the lever and do what it does...
+/* XXX Need to add the lever and do what it does... */

@@ -1,8 +1,5 @@
 int coins;
 
-int add_money(string type, int amount);	// add coins to player
-mixed *query_all_coins();		// get a list of all coins
-
 void create() {
 }
 

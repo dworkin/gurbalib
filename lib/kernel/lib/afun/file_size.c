@@ -1,4 +1,4 @@
- // get the size of a file in K, or 0 if the file doesn't exist
+/* get the size of a file in K, or 0 if the file doesn't exist */
 int file_size(string file, varargs int dir) {
    mixed **info;
    string *files, name;

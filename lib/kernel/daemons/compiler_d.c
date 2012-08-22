@@ -103,12 +103,12 @@ private int test_path(string path, string * comp) {
    return 0;
 }
 
-// Is path a valid inheritable?
+/* Is path a valid inheritable? */
 int test_inheritable(string path) {
    return test_path(path, INHERIT_DIRS);
 }
 
-// Is path a valid object?
+/* Is path a valid object? */
 int test_object(string path) {
    return path == DRIVER || test_path(path, OBJECT_DIRS);
 }
@@ -158,18 +158,18 @@ mixed include_file(string file, string path) {
  * Include and inheritance tracking
  */
 
-// Register the compiled object for a program
+/* Register the compiled object for a program */
 void register_program(object ob) {
    argcheck(ob, 1, "object");
    programs[object_name(ob)] = ob;
 }
 
-// Number of programs known to the system
+/* Number of programs known to the system */
 int query_program_count() {
    return programs ? map_sizeof(programs) : 0;
 }
 
-// Clear inherit list for the file + issue
+/* Clear inherit list for the file + issue */
 void clear_inherits(string file, int issue) {
    string progname;
 
@@ -218,7 +218,7 @@ void clear_inherits(string file, int issue) {
    }
 }
 
-// Register inherits for the object
+/* Register inherits for the object */
 static void set_inherits(object ob, object * inherits) {
    int count, issue, obissue;
    string iname, file;
@@ -256,7 +256,7 @@ static void set_inherits(object ob, object * inherits) {
    }
 }
 
-// Which files inherit the argument ?
+/* Which files inherit the argument ? */
 string *inherits_this(string f, varargs int issue) {
    string *files, *result;
    int fcount, icount;
@@ -364,7 +364,7 @@ string *find_depending_objects(string file) {
    return map_array(edges, "issue_to_file", this_object());
 }
 
- // Return the filename for this issue
+/* Return the filename for this issue */
 string issue_to_file(string str) {
    string f;
 
@@ -375,7 +375,7 @@ string issue_to_file(string str) {
    }
 }
 
-// Find all inheritables that have more then one instance registered.
+/* Find all inheritables that have more then one instance registered. */
 mapping find_duplicates() {
    int i;
    string *pnames;
@@ -423,7 +423,7 @@ static void register_included_by_single(string inc, string by) {
    increv[by] |= ( { inc } );
 }
 
-// Register 'list' as files included by 'what'
+/* Register 'list' as files included by 'what' */
 void register_included_by(string what, string * list) {
    int i;
 
@@ -435,7 +435,7 @@ void register_included_by(string what, string * list) {
    }
 }
 
-// Unregister 'by' from all files that it includes
+/* Unregister 'by' from all files that it includes */
 static void remove_all_included_by(string by) {
    int i;
 
@@ -454,14 +454,14 @@ static void remove_all_included_by(string by) {
    }
 }
 
-// Which files are included by the file provided as argument.
+/* Which files are included by the file provided as argument. */
 string *query_includes(string what) {
    if (includes[what]) {
       return includes[what][..];
    }
 }
 
-// Which files include the file provided as argument?
+/* Which files include the file provided as argument? */
 string *query_included_by(string str) {
    if (increv[str]) {
       return increv[str][..];
@@ -489,10 +489,10 @@ mixed *find_all_depending_programs(string file, varargs string * skip) {
    mixed *tmp;
    int i;
 
-    // Is this an include file?
+    /* Is this an include file? */
    list = query_includes(file);
 
-    // Its not, assume its a library and find the depending objects
+    /* Its not, assume its a library and find the depending objects */
    if (!list)
       return ( { ( { } ), find_depending_objects(file) } );
 
@@ -511,7 +511,7 @@ mixed *find_all_depending_programs(string file, varargs string * skip) {
    else
       skip = ( { } );
 
-   // split the list in includes, libraries and objects
+   /* split the list in includes, libraries and objects */
    for (i = 0; i < sizeof(list); i++) {
       if (query_includes(list[i])) {
 	 incl |= ( { list[i] } );

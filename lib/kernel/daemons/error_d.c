@@ -4,7 +4,7 @@
 #include <tlsvar.h>
 #include <error_handling.h>
 
-int count; // counts the number of runtime errors we have had so far
+int count; /* counts the number of runtime errors we have had so far */
 int inat;
 
 static void create() {
@@ -13,7 +13,7 @@ static void create() {
 
 string format_runtime_error(string error, mixed ** trace, int caught, int ticks,
    int atom) {
-   string progname, objname, function, str, tmp, args, result;
+   string progname, objname, func, str, tmp, args, result;
    int i, sz, line, len;
    object player;
 
@@ -30,7 +30,7 @@ string format_runtime_error(string error, mixed ** trace, int caught, int ticks,
 
       for (i = 0; i < sz; i++) {
 	 progname = trace[i][1];
-	 function = trace[i][2];
+	 func = trace[i][2];
 	 objname = trace[i][0];
 	 line = trace[i][3];
 #ifdef ERROR_SHOW_ARGUMENTS
@@ -47,8 +47,8 @@ string format_runtime_error(string error, mixed ** trace, int caught, int ticks,
 	    str = "    " + line;
 	    str = str[strlen(str) - 4..];
 	 }
-	 str += " " + function + " ";
-	 len = strlen(function);
+	 str += " " + func + " ";
+	 len = strlen(func);
 	 if (len < 17) {
 	    str += "                 "[len..];
 	 }
@@ -150,7 +150,7 @@ void runtime_error(string error, mixed ** trace, int caught, int ticks,
       DRIVER->set_tlvar(TLS_CAUGHT_ERROR, result);
    }
 
-   // not atomic, we can write to files, do so.
+   /* not atomic, we can write to files, do so. */
    if (atom < 0) {
       log_runtime_error(result, caught);
    } else {

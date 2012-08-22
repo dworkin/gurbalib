@@ -9,7 +9,7 @@ void usage() {
    write("See also: date, time, wtime, scan\n");
 }
 
-// XXX Has a bunch of experimental stuff in it that needs to be cleaned up.
+/* XXX Has a bunch of experimental stuff in it that needs to be cleaned up. */
 
 void display_driver(mixed * stat) {
    write("Driver version         : " + (string) stat[ST_VERSION] + "\n");

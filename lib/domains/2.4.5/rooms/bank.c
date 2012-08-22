@@ -18,5 +18,5 @@ void setup(void) {
    ]));
 }
 
-// XXX Need to do door...
+/* XXX Need to do door... */
 

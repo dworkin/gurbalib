@@ -1,4 +1,4 @@
- // reduce a path to its minimal absolute form
+/* reduce a path to its minimal absolute form */
 string normalize_path(string file, string dir) {
    string *path;
    int i, j, sz;
@@ -36,7 +36,7 @@ string normalize_path(string file, string dir) {
 	 if (sscanf(file, "%*s//") == 0 && sscanf(file, "%*s/.") == 0 &&
 	    sscanf(dir, "%*s/..") == 0) {
 
-	     // simple relative path
+	     /* simple relative path */
 
 	    if (dir[strlen(dir) - 1] == '/')
 	       path = explode(dir + file, "/");
@@ -51,7 +51,7 @@ string normalize_path(string file, string dir) {
 	 /* fall through */
       case '.':
 
-	  // complex relative path
+	  /* complex relative path */
 
 	 path = explode(dir + "/" + file, "/");
 	 break;

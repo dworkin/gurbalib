@@ -9,7 +9,7 @@ void usage() {
    }
 }
 
-// 'who' command Originally by Fudge Improved by Cerihan 3/15/09
+/* 'who' command Originally by Fudge Improved by Cerihan 3/15/09 */
 
 void main(string str) {
    object *usr;

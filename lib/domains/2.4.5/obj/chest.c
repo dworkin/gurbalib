@@ -9,4 +9,4 @@ void setup(void) {
    set_value(200);
 }
 
-// XXX add weight of items in it to its weight should be in container code.
+/* XXX add weight of items in it to its weight should be in container code. */

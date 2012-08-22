@@ -288,12 +288,12 @@ nomask mapping query_verb_rules() {
    return PARSE_D->query_objects_rules(this_object());
 }
 
-void add_object_command(string command, string function) {
+void add_object_command(string command, string func) {
    if (!object_commands) object_commands = ([ ]);
    if (!object_commands[command]) 
-      object_commands += ([command:function]);
+      object_commands += ([command:func]);
    else 
-      object_commands[command] = function;
+      object_commands[command] = func;
 }
 
 void remove_object_command(string command) {

@@ -13,4 +13,4 @@ void setup(void) {
    ]));
 }
 
-// XXX Need to do the lamp, elevator and exits...
+/* XXX Need to do the lamp, elevator and exits... */

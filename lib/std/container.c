@@ -28,7 +28,7 @@ void object_arrived(object obj) {
        obj->destruct();
    }
 
-   // Player moves into room
+   /* Player moves into room */
    if (obj->is_player()) {
       inv = this_object()->query_inventory();
 
@@ -39,7 +39,7 @@ void object_arrived(object obj) {
       }
    }
 
-   // Aggressive monster moves into room
+   /* Aggressive monster moves into room */
    if (obj->query_aggressive()) {
       inv = this_object()->query_inventory();
 

@@ -18,5 +18,6 @@ void setup(void) {
    set_fuel(1000);
 }
 
-// XXX Need to add functions to light it and extinquish it??? 
-// Should it be here or in the M_LIGHT code????
+/* XXX Need to add functions to light it and extinquish it??? 
+   Should it be here or in the M_LIGHT code????
+*/

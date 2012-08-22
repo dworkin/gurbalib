@@ -1,4 +1,4 @@
-// removes this object from a list
+/* removes this object from a list */
 atomic int list_remove(string list) {
    object *ptr;
    object sentinel, prev, next;

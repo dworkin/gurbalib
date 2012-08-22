@@ -18,9 +18,10 @@ void setup() {
    set_skill("combat/defense", 200);
 }
 
-// XXX Need to do fireball spell as an attack option.
-// XXX Quest for Orc slayer?
-// XXX Give user a castle if they ask for one....
+/* XXX Need to do fireball spell as an attack option.
+   XXX Quest for Orc slayer?
+   XXX Give user a castle if they ask for one....
+*/
 
 void do_extra_actions() {
    count = count + 1;

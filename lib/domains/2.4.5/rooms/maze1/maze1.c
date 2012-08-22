@@ -9,7 +9,7 @@ void setup(void) {
 
 }
 
-// XXX Need to figure out fake exits...
+/* XXX Need to figure out fake exits... */
 int do_movement() {
    exit_num = random(4);
    if (exit_num == 2) {

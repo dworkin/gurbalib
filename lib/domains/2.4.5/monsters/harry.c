@@ -23,7 +23,7 @@ void notify(string str) {
     query_environment()->tell_room(this_object(), str);
 }
 
-// XXX get harry from vill_road2.c  Needs lots of work...
+/* XXX get harry from vill_road2.c  Needs lots of work... */
 void why_did(string str) {
    string who, what;
 
@@ -157,7 +157,7 @@ void monster_died() {
    object obj, b;
    int num;
 
-// XXX  drop all make sure bottles break....
+/* XXX  drop all make sure bottles break.... */
 
    if (num) {
       notify("There is a crushing sound of bottles breaking, " +

@@ -19,4 +19,4 @@ void setup(void) {
       "left for tourists to look at.");
 }
 
-// XXX Lots of work needed...
+/* XXX Lots of work needed... */

@@ -14,7 +14,7 @@ void usage() {
    write("See also: grep\n");
 }
 
-// Return an array of differences between the files
+/* Return an array of differences between the files */
 string *do_work(string file1, string file2) {
    string *lines1, *lines2, *lines, *keys;
    int i, max, c1, c2;

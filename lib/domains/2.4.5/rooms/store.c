@@ -9,4 +9,4 @@ void setup(void) {
    add_exit("south", DIR + "/rooms/shop.c");
 }
 
-// XXX Need to do store stuff here...
+/* XXX Need to do store stuff here... */

@@ -8,7 +8,7 @@
 
 #define INIT_LIST "/sys/data/init"
 
-// Returns a default init list.
+/* Returns a default init list. */
 private string *default_init() {
    string *objects;
 

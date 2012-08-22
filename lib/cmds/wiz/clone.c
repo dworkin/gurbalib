@@ -14,7 +14,7 @@ string get_what(string str) {
 
    if (strlen(str) > 2) {
       if (str[strlen(str) - 2] == '.' && str[strlen(str) - 1] == 'c') {
-	 // were good do nothing...
+	 /* were good do nothing... */
       } else {
 	 str = str + ".c";
       }

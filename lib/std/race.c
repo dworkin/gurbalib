@@ -1,4 +1,3 @@
-// we need to beef up our player races a little
 inherit MONSTER_RACE;
 string language;
 

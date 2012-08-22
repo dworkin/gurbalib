@@ -21,4 +21,4 @@ string query_long() {
    return str;
 }
 
-// XXX More work to do...
+/* XXX More work to do... */

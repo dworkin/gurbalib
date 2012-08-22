@@ -36,7 +36,7 @@ void delete_message(string str) {
 
    if (sscanf(str, "%d", x)) {
 
-// XXX do the work here... delete(x);
+/* XXX do the work here... delete(x); */
 
    } else {
       write("You need to enter a message number to delete.\n");
@@ -55,7 +55,7 @@ void send_message(string str) {
       write("Send Message? (Y|N):");
    }
    if (str == "y" || str == "Y") {
-      // Send the message.
+      /* Send the message. */
    } else if (str == "n" || str == "N") {
       show_menu();
    } else {
@@ -71,7 +71,7 @@ void get_subject(string str) {
 
    subject = str;
 
-// XXX  body = editor results?
+/* XXX  body = editor results? */
 
    send_message("");
 }
@@ -157,7 +157,7 @@ void view_mailbox(string str) {
       }
    }
 
-   // messages = MAIL_D->get_messages(this_player()->query_name());
+   /* messages = MAIL_D->get_messages(this_player()->query_name()); */
    if (messages)
       max = sizeof(messages);
    else

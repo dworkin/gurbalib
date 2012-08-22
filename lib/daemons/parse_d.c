@@ -50,26 +50,26 @@ int call_help(string verb) {
 }
 
 /* calls can_x with right number of args for grammar */
-int query_can(mixed obj, string function, varargs mixed args ...) {
+int query_can(mixed obj, string func, varargs mixed args ...) {
    mixed x;
 
    if (sizeof(args) && typeof(args[0]) == T_ARRAY)
       args = args[0];
    switch (sizeof(args)) {
       case 0:
-	 x = call_other(obj, function);
+	 x = call_other(obj, func);
 	 break;
       case 1:
-	 x = call_other(obj, function, args[0]);
+	 x = call_other(obj, func, args[0]);
 	 break;
       case 2:
-	 x = call_other(obj, function, args[0], args[1]);
+	 x = call_other(obj, func, args[0], args[1]);
 	 break;
       case 3:
-	 x = call_other(obj, function, args[0], args[1], args[2]);
+	 x = call_other(obj, func, args[0], args[1], args[2]);
 	 break;
       case 4:
-	 x = call_other(obj, function, args[0], args[1], args[2], args[3]);
+	 x = call_other(obj, func, args[0], args[1], args[2], args[3]);
 	 break;
    }
    if (!x)
@@ -133,7 +133,7 @@ mapping query_objects_rules(object obj) {
 
 int parse(string str) {
    mixed *result;
-   string function, err;
+   string func, err;
    string local_production_rules;
    object local_verb_object;
    mixed obj;
@@ -166,27 +166,27 @@ int parse(string str) {
 #ifdef DEBUG_PARSER
    write("parse_string result: " + dump_value(result));
 #endif
-   function = "";
+   func = "";
    if (sizeof(result) > 1) {
       for (i = 0; i < sizeof(result); i++) {
 	 switch (typeof(result[i])) {
 	    case T_OBJECT:
 	       if (result[i]->is_living())
-		  function += "liv ";
+		  func += "liv ";
 	       else
-		  function += "obj ";
+		  func += "obj ";
 	       break;
 	    case T_STRING:
 	       if (i == 0)
-		  function += lowercase(result[i]) + " ";
+		  func += lowercase(result[i]) + " ";
 	       else
-		  function += "str ";
+		  func += "str ";
 	       break;
 	 }
       }
-      function = implode(explode(function, " "), "_");
+      func = implode(explode(func, " "), "_");
    } else {
-      function = result[0];
+      func = result[0];
    }
 
 #ifdef DEBUG_PARSE
@@ -195,50 +195,50 @@ int parse(string str) {
 
    if (sizeof(result) > 1)
       local_verb_object =
-	 query_verb_object(function, result[1..(sizeof(result) - 1)]);
+	 query_verb_object(func, result[1..(sizeof(result) - 1)]);
    else
-      local_verb_object = query_verb_object(function);
+      local_verb_object = query_verb_object(func);
 
    if (local_verb_object) {
       obj = local_verb_object;
 
 #ifdef DEBUG_PARSE
-      write("Function : 'can_" + function + "' in object " + dump_value(obj));
+      write("Function : 'can_" + func + "' in object " + dump_value(obj));
 #endif
       returned = 1;
    } else {
       obj = verbs[result[0]];
 
 #ifdef DEBUG_PARSE
-      write("Function : 'can_" + function + "' in object " + obj);
+      write("Function : 'can_" + func + "' in object " + obj);
 #endif
 
       if (sizeof(result) > 1)
 	 returned =
-	    query_can(obj, "can_" + function, result[1..(sizeof(result) - 1)]);
+	    query_can(obj, "can_" + func, result[1..(sizeof(result) - 1)]);
       else
-	 returned = query_can(obj, "can_" + function);
+	 returned = query_can(obj, "can_" + func);
    }
 
    if (returned == 1) {
 #ifdef DEBUG_PARSE
-      write("calling : " + "do_" + function);
+      write("calling : " + "do_" + func);
 #endif
       switch (sizeof(result)) {
 	 case 1:
-	    call_other(obj, "do_" + function);
+	    call_other(obj, "do_" + func);
 	    break;
 	 case 2:
-	    call_other(obj, "do_" + function, result[1]);
+	    call_other(obj, "do_" + func, result[1]);
 	    break;
 	 case 3:
-	    call_other(obj, "do_" + function, result[1], result[2]);
+	    call_other(obj, "do_" + func, result[1], result[2]);
 	    break;
 	 case 4:
-	    call_other(obj, "do_" + function, result[1], result[2], result[3]);
+	    call_other(obj, "do_" + func, result[1], result[2], result[3]);
 	    break;
 	 case 5:
-	    call_other(obj, "do_" + function, result[1], result[2],
+	    call_other(obj, "do_" + func, result[1], result[2],
 	       result[3], result[4]);
 	    break;
       }

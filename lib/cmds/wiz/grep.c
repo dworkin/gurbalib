@@ -7,5 +7,5 @@ void usage() {
 }
 
 void main(string str) {
-   // XXX do the work here...
+   /* XXX do the work here... */
 }

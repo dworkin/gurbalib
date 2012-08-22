@@ -1,4 +1,4 @@
-// inserts an object into a list before the object 'before'.
+/* inserts an object into a list before the object 'before'. */
 atomic int list_insert(string list, object before) {
    object *ptr;
    object sentinel, prev, next;

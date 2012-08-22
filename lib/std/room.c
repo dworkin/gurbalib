@@ -48,7 +48,7 @@ int query_dark() {
    if (is_container()) {
       objs = query_inventory();
       for (x=sizeof(objs); x >= 0; x--) {
-         // XXX Need to check for lights in the room... recursively...
+         /* XXX Need to check for lights in the room... recursively... */
          if (objs->is_lit()) return 1;
       }
    }
@@ -242,11 +242,11 @@ string query_desc(varargs int brief) {
    return text;
 }
 
-void add_room_command(string command, string function) {
+void add_room_command(string command, string func) {
    if (!room_commands[command])
-      room_commands += ([command:function]);
+      room_commands += ([command:func]);
    else
-      room_commands[command] = function;
+      room_commands[command] = func;
 }
 
 void remove_room_command(string command) {

@@ -17,7 +17,9 @@ void setup() {
    set_race("orc");
    set_level(10);
    set_aggressive(1);
-   // XXX add magic missle spell...
+
+   /* XXX add magic missle spell... */
+
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);
    set_skill("combat/defense", 100);

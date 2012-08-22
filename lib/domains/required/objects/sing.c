@@ -9,4 +9,6 @@ void setup(void) {
    set_value(1);
 }
 
-// XXX Fix mudlib so it uses this when it can't load an object to help track down bugs...
+/* XXX Fix mudlib so it uses this when it can't load an object to 
+	help track down bugs...
+*/

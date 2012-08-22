@@ -11,4 +11,4 @@ void setup(void) {
    add_exit("north", DIR + "/rooms/vill_shore.c");
 }
 
-// XXX Need to do the door, button and stuff....
+/* XXX Need to do the door, button and stuff.... */

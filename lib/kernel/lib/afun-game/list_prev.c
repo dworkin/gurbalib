@@ -1,4 +1,4 @@
-// Return the previous object in the list
+/* Return the previous object in the list */
 object list_next(string list) {
    object *ptr;
    ptr = get_list(list);

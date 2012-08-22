@@ -34,7 +34,7 @@ string get_what(string str) {
 
    if (strlen(str) > 2) {
       if (str[strlen(str) - 2] == '.' && str[strlen(str) - 1] == 'c') {
-         // were good do nothing...
+         /* were good do nothing... */
       } else {
          str = str + ".c";
       }
@@ -48,7 +48,7 @@ void check_remote_exit(string room, string exit, string filename) {
    string tmp, myexit;
 
    obj = compile_object(room);
-   // XXX Should we do this if room already exists???
+   /* XXX Should we do this if room already exists??? */
    obj->setup();
    obj->setup_mudlib();
 
@@ -89,7 +89,7 @@ void check_exits(object obj, mapping myexits) {
          filename = obj->base_name();
          if (filename[strlen(filename) - 2] == '.' && 
             filename[strlen(filename) - 1] == 'c') {
-            // were good do nothing...
+            /* were good do nothing... */
          } else {
             filename = filename + ".c";
          }
@@ -116,7 +116,18 @@ void do_room_check(object obj) {
 }
 
 void do_monster_check(object obj) {
+   string tmp;
+
    write("Doing monster check\n");
+
+   tmp = obj->query_name();
+   if (!tmp || tmp == "") write("Warning: Monster has no name.\n");
+   tmp = obj->query_brief();
+   if (!tmp || tmp == "") write("Warning: Monster has no brief description.\n");
+   tmp = obj->query_long();
+   if (!tmp || tmp == "") write("Warning: Monster has no long description.\n");
+
+   if (obj->is_gettable()) write("Warning: Living object is gettable.\n");
 }
 
 void do_object_check(object obj) {
@@ -124,10 +135,10 @@ void do_object_check(object obj) {
    write("Doing object check\n");
 
    tmpstr = obj->query_brief();
-   if (!tmpstr || tmpstr == "") write("Warning: No brief\n");
+   if (!tmpstr || tmpstr == "") write("Warning: No brief description.\n");
 
    tmpstr = obj->query_long();
-   if (!tmpstr || tmpstr == "") write("Warning: No long set\n");
+   if (!tmpstr || tmpstr == "") write("Warning: No long description.\n");
 
    if (obj->is_gettable() && (obj->query_weight() < 1))
       write("Warning: object gettable and weight < 1\n");

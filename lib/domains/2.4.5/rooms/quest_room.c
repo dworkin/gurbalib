@@ -24,6 +24,6 @@ void setup(void) {
 }
 
 
-// XXX Need to add show quests....
+/* XXX Need to add show quests.... */
 void list_quests() {
 }

@@ -1,4 +1,4 @@
- // return a string describing a value
+/* return a string describing a value */
 static string dump_value(mixed value, varargs mapping seen) {
    string str;
    int i, sz;

@@ -1,3 +1,3 @@
-// Gurbalib telnet user object
+/* Gurbalib telnet user object */
 
 inherit "/sys/lib/user";

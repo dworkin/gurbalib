@@ -1,4 +1,4 @@
-// reversible explode string
+/* reversible explode string */
 static string *rexplode(string str, string sep) {
    string dummy;
    string *result;

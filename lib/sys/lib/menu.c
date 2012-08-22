@@ -25,10 +25,10 @@
 #define PAD            "                                                                                                                 "
 #define LINE           "------------------------------------------------------------------------------"
 
-// prototypes
+/* prototypes */
 private void exec_menu();
 
-// Interface for object using this library
+/* Interface for object using this library */
 
 /* Displays a menu to this_player() and redirects the input to the
  * menu handler.
@@ -61,7 +61,7 @@ static mixed *make_fcall(object ob, string fun, mixed args ...) {
       ));
 }
 
-// Private functions
+/* Private functions */
 private void prompt(string * keys) {
    string disp;
 

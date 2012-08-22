@@ -24,7 +24,7 @@
 #include	<type.h>
 #include	<m_save_restore.h>
 
-// Conversion functions used by the restore_variable grammar
+/* Conversion functions used by the restore_variable grammar */
 int *cnvint(mixed * data) {
    int r;
 

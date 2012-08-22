@@ -6,9 +6,6 @@ void usage() {
    write("See also: rsay\n");
 }
 
-// *Note if more languages are added can make it more complicated to
-// support other languages as well...
-
 void main(string str) {
    if (!str || str == "") {
       usage();

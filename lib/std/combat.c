@@ -3,7 +3,7 @@ static int fighting;
 static object target;
 
 #define FIGHTING_TIMEOUT 300
-// Ammount of Endurance required to Attack
+/* Ammount of Endurance required to Attack */
 #define ATTACK_COST 5
 
 void create(void) {
@@ -81,7 +81,7 @@ int do_swing(int me) {
    opponent = target->query_defense();
    opponent_roll = random(opponent + 1);
 
-// XXX This is temporary... 
+/* XXX This is temporary...  */
    this_object()->message("Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" +
       me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" +
       opponent + "%^RESET%^]");
@@ -109,7 +109,7 @@ object get_target(object targ) {
    for (i = 0; i < max; i++) {
       if (targets[i] && targets[i]->is_dead()) {
 	 targets -= ( { targets[i] } );
-         i--; max--; // shorten up our array....
+         i--; max--; 	/* shorten up our array.... */
 	 if (sizeof(targets) == 0) {
 	    fighting = 0;
 	    i = max;
@@ -224,7 +224,7 @@ void do_fight(void) {
       }
 
       this_object()->message("%^CYAN%^HP[" + this_object()->query_hp() + "/" +
-// XXX	 this_object()->query_max_hp() + "]%^RESET%^");
+/* XXX	 this_object()->query_max_hp() + "]%^RESET%^"); */
 	 this_object()->query_max_hp() + "] Target HP[" + target->query_hp() + "/" +
          target->query_max_hp()  + "]%^RESET%^");
    }
