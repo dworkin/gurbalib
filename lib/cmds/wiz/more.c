@@ -61,7 +61,7 @@ void main(string arg) {
    chopped = 0;
    offset = 0;
    lines = ( { } );
-   length = size >= MAX_STRING_SIZE / 2 ? MAX_STRING_SIZE / 2 : size;
+   length = size >= status()[ST_STRSIZE] / 2 ? status()[ST_STRSIZE] / 2 : size;
    maxlines = status()[ST_ARRAYSIZE] - 1;
 
    while (offset < size) {

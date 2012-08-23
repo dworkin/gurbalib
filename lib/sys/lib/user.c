@@ -149,8 +149,6 @@ void wrap_message(string str, varargs int chat_flag) {
 
    if (width < 0)
       width = DEFAULT_WIDTH;
-   if (width == 0)
-      width = MAX_STRING_SIZE;
 
    rlimits(MAX_DEPTH; MAX_TICKS * MAX_TICKS) {
       /* Split the string into lines */
