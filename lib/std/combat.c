@@ -225,8 +225,8 @@ void do_fight(void) {
 
       this_object()->message("%^CYAN%^HP[" + this_object()->query_hp() + "/" +
 /* XXX	 this_object()->query_max_hp() + "]%^RESET%^"); */
-	 this_object()->query_max_hp() + "] Target HP[" + target->query_hp() + "/" +
-         target->query_max_hp()  + "]%^RESET%^");
+	 this_object()->query_max_hp() + "] Target HP[" + 
+         target->query_hp() + "/" + target->query_max_hp()  + "]%^RESET%^");
    }
 }
 

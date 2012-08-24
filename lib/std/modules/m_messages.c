@@ -210,8 +210,9 @@ void simple_action(string msg, varargs mixed objs ...) {
    set_this_player(this_object());
 
    catch {
+/* XXX Why use this_player here??? */
       result = compose_message(this_player(), msg, nil, objs);
-      room = this_environment();
+      room = this_object()->this_environment();
       if (room) room->tell_room(this_object(), result[2]);
       write(capitalize(result[0]));
       set_this_player(sp);
@@ -227,8 +228,8 @@ void targetted_action(string msg, object target, varargs mixed objs ...) {
 
    result = compose_message(this_player(), msg, target, objs);
    room = this_environment();
-   if (room) room->this_environment()->tell_room(this_player(), 
-      result[2], target);
+   if (room) room->tell_room(this_player(), result[2], target);
+/* XXX Why use this_object() here... and this player above? */
    this_object()->message(capitalize(result[0]));
    if (target && target->is_living() && target != this_player()) {
       target->message(capitalize(result[1]));
@@ -242,10 +243,9 @@ void other_action(object who, string msg, object target,
    object room;
 
    result = compose_message(who, msg, target, objs);
-   if (!this_object()->query_environment())
-      return;
    room = this_object()->query_environment();
-   if (room) room->tell_room(who, result[2], target);
+   if (!room) return;
+   room->tell_room(who, result[2], target);
    if (target && target->is_living() && target != who) {
       target->message(capitalize(result[1]));
    }
