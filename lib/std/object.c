@@ -214,7 +214,14 @@ nomask int move(mixed destination) {
       if (destination[strlen(destination) - 2..] == ".c")
 	 destination = destination[..strlen(destination) - 3];
       dest = find_object(destination);
-      if (!dest) dest = compile_object(destination);
+      if (!dest) {
+         catch {
+            dest = compile_object(destination);
+            dest->setup();
+         } : {
+            dest = nil;
+         }
+      }
    } else dest = destination;
 
    if (!dest) return 0;
