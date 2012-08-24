@@ -9,83 +9,97 @@ void usage() {
    write("See also: date, time, wtime, scan\n");
 }
 
-/* XXX Has a bunch of experimental stuff in it that needs to be cleaned up. */
-
 void display_driver(mixed * stat) {
-   write("Driver version         : " + (string) stat[ST_VERSION] + "\n");
-   write("System Start time      : " + (string) ctime(stat[ST_STARTTIME]) +
-      "\n");
-   write("System Boot time       : " + (string) ctime(stat[ST_BOOTTIME]) +
-      "\n");
-   write("Uptime                 :" + format_time(stat[ST_UPTIME]) + "\n");
-   write("Swapsize               : " + (string) stat[ST_SWAPSIZE] + "\n");
-   write("Swap used              : " + (string) stat[ST_SWAPUSED] + "\n");
-   write("Swap sector size       : " + (string) stat[ST_SECTORSIZE] + "\n");
-   write("Swap objects/1m        : " + (string) stat[ST_SWAPRATE1] + "\n");
-   write("Swap objects/5m        : " + (string) stat[ST_SWAPRATE5] + "\n");
-   write("Static mem allocated   : " + (string) stat[ST_SMEMSIZE] + "\n");
-   write("Static mem in use      : " + (string) stat[ST_SMEMUSED] + "\n");
-   write("Dynamic mem allocated  : " + (string) stat[ST_DMEMSIZE] + "\n");
-   write("Dynamic mem in use     : " + (string) stat[ST_DMEMUSED] + "\n");
-   write("Object table size      : " + (string) stat[ST_OTABSIZE] + "\n");
-   write("Number of objects      : " + (string) stat[ST_NOBJECTS] + "\n");
-   write("Callouts table size    : " + (string) stat[ST_COTABSIZE] + "\n");
-   write("Number of short co     : " + (string) stat[ST_NCOSHORT] + "\n");
-   write("Number of long co      : " + (string) stat[ST_NCOLONG] + "\n");
-   write("User table size        : " + (string) stat[ST_UTABSIZE] + "\n");
-   write("Editor table size      : " + (string) stat[ST_ETABSIZE] + "\n");
-   write("Max string size        : " + (string) stat[ST_STRSIZE] + "\n");
-   write("Max array/mapping size : " + (string) stat[ST_ARRAYSIZE] + "\n");
-   write("Remaining stack depth   : " + (string) stat[ST_STACKDEPTH] + "\n");
-   write("Remaining ticks         : " + (string) stat[ST_TICKS] + "\n");
+   string *lines;
+
+   lines = ({ "Driver version         : " + (string) stat[ST_VERSION] });
+   lines += ({ "System Start time      : " + 
+      (string) ctime(stat[ST_STARTTIME]) });
+   lines += ({ "System Boot time       : " + 
+      (string) ctime(stat[ST_BOOTTIME]) });
+   lines += ({ "Uptime                 :" + 
+      format_time(stat[ST_UPTIME]) });
+   lines += ({ "Swapsize               : " + 
+      (string) stat[ST_SWAPSIZE] });
+   lines += ({ "Swap used              : " + (string) stat[ST_SWAPUSED] });
+   lines += ({ "Swap sector size       : " + (string) stat[ST_SECTORSIZE] });
+   lines += ({ "Swap objects/1m        : " + (string) stat[ST_SWAPRATE1] });
+   lines += ({ "Swap objects/5m        : " + (string) stat[ST_SWAPRATE5] });
+   lines += ({ "Static mem allocated   : " + (string) stat[ST_SMEMSIZE] });
+   lines += ({ "Static mem in use      : " + (string) stat[ST_SMEMUSED] });
+   lines += ({ "Dynamic mem allocated  : " + (string) stat[ST_DMEMSIZE] });
+   lines += ({ "Dynamic mem in use     : " + (string) stat[ST_DMEMUSED] });
+   lines += ({ "Object table size      : " + (string) stat[ST_OTABSIZE] });
+   lines += ({ "Number of objects      : " + (string) stat[ST_NOBJECTS] });
+   lines += ({ "Callouts table size    : " + (string) stat[ST_COTABSIZE] });
+   lines += ({ "Number of short call_ou: " + (string) stat[ST_NCOSHORT] });
+   lines += ({ "Number of long call_out: " + (string) stat[ST_NCOLONG] });
+   lines += ({ "User table size        : " + (string) stat[ST_UTABSIZE] });
+   lines += ({ "Editor table size      : " + (string) stat[ST_ETABSIZE] });
+   lines += ({ "Max string size        : " + (string) stat[ST_STRSIZE] });
+   lines += ({ "Max array/mapping size : " + (string) stat[ST_ARRAYSIZE] });
+   lines += ({ "Remaining stack depth   : " + (string) stat[ST_STACKDEPTH] });
+   lines += ({ "Remaining ticks         : " + (string) stat[ST_TICKS] });
+
+   this_player()->more(lines);
 }
 
 void display_obj(mixed * stat, object obj) {
    int i, maxi;
-   mixed *tmp;
-   string *incs;
+   mapping tmp;
+   string *keys, *incs, *lines, *tmp2;
 
-   write("OBJ ID                 : " + (string) stat[O_INDEX] + "\n");
-   write("Filename               : " + obj->file_name() + "\n");
-   write("Compile Time           : " + (string) ctime(stat[O_COMPILETIME]) +
-      "\n");
-   write("Program Size           : " + (string) stat[O_PROGSIZE] + "\n");
-   write("Data Size              : " + (string) stat[O_DATASIZE] + "\n");
-   write("Sectors                : " + (string) stat[O_NSECTORS] + "\n");
-   write("Callout's              :\n");
-   tmp = stat[O_CALLOUTS];
-   if (tmp) {
-      maxi = sizeof(tmp);
+   lines =  ({ "OBJ ID                 : " + (string) stat[O_INDEX] });
+   lines += ({ "Filename               : " + obj->file_name() });
+   lines += ({ "Compile Time           : " + (string) ctime(stat[O_COMPILETIME])
+      });
+   lines += ({ "Program Size           : " + (string) stat[O_PROGSIZE] });
+   lines += ({ "Data Size              : " + (string) stat[O_DATASIZE] });
+   lines += ({ "Sectors                : " + (string) stat[O_NSECTORS] });
+   lines += ({ "Callout's              : " });
+
+   tmp2 = stat[O_CALLOUTS];
+   if (tmp2) {
+      lines += ({ "Depending programs  :" });
+      maxi = sizeof(tmp2);
       for (i = 0; i < maxi; i++) {
-	 write("\t" + tmp[i] + "\n");
+	 lines += ({ "\t" + tmp2[i] });
       }
    }
-   write("Undefined Functions    :  XXX (Need to implement this bit...)\n");
+   lines += ({ "Undefined Functions    : " });
    tmp = stat[O_UNDEFINED];
    if (tmp) {
-      maxi = sizeof(tmp);
+      keys = map_indices(tmp);
+      maxi = sizeof(keys);
       for (i = 0; i < maxi; i++) {
-	 write("\t" + tmp[i] + "\n");
+	 lines += ({ "\t" + keys[i] + ": " + dump_value(keys[i],tmp) });
       }
    }
-   write("Inherited              :" + (string) stat[O_INHERITED] + "\n");
-   write("Instantiated           :" + (string) stat[O_INSTANTIATED] + "\n");
-   tmp = DRIVER->find_all_depending_programs(obj->file_name());
-   if (tmp) {
-      maxi = sizeof(tmp);
+
+   lines += ({ "Inherited? (1=T;0=F)   :" + (string) stat[O_INHERITED] });
+   lines += ({ "Instantiated?          :" + (string) stat[O_INSTANTIATED] });
+
+   tmp2 = DRIVER->find_all_depending_programs(obj->file_name());
+   if (tmp2) {
+      lines += ({ "Depending programs:" });
+      maxi = sizeof(tmp2);
       for (i = 0; i < maxi; i++) {
-	 write("\t" + tmp[i] + "\n");
+	 lines += ({ "\t" + tmp2[i] });
       }
    }
+
    incs = COMPILER_D->query_includes(obj->file_name());
    if (incs) {
+      lines += ({ "Includes:" });
       maxi = sizeof(incs);
       for (i = 0; i < maxi; i++) {
-	 write("\t" + incs[i] + "\n");
+	 lines += ({ "\t" + incs[i] });
       }
    }
-   write("File Owner: " + owner_file(obj->file_name()) + "\n");
-   write("Object Owner: " + owner_object(obj) + "\n");
+   lines += ({ "File Owner: " + owner_file(obj->file_name()) });
+   lines += ({ "Object Owner: " + owner_object(obj) });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {
@@ -109,19 +123,21 @@ void main(string str) {
 	 obj = USER_D->find_player(str);
       }
 
-      str = normalize_path(str, this_player()->query_env("cwd"));
+      if (!obj) {
+         str = normalize_path(str, this_player()->query_env("cwd"));
 
-      if (file_exists(str)) {
-	 if (!obj) {
-	    obj = find_object(str);
-	 }
-	 if (!obj) {
-	    obj = compile_object(str);
-	    if (obj) {
-	       obj->setup();
-	       obj->setup_mudlib();
+         if (file_exists(str)) {
+	    if (!obj) {
+	       obj = find_object(str);
+            }
+	    if (!obj) {
+               obj = compile_object(str);
+               if (obj) {
+	          obj->setup();
+	          obj->setup_mudlib();
+	       }
 	    }
-	 }
+         }
       }
 
       if (obj) {
