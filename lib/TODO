@@ -11,29 +11,22 @@ look into a "git" interface for security and editing files.
 Need to research writeable files for wizards/admins and see what
 makes sense.
 
-Make it so there are logs only admins can view? 
-
 Party system (invite, follow, say, report)
 Clans
 m_guild_trainer, m_trainer
 m_lockable, keys
 m_switchable, Levers
 m_throwable
-m_writable
 ladders/stairs, portals
 tracking of most used rooms, objects
 auto dest/update of all instances of an object
 PK system (announcing, death announcing)
-Combat styles
-support for getting 2nd or 3rd sword in a room or inv
 Bank
 
 restructure doc and doc/help directory
 	help/wiz seems odd as well...?
 	Need to write intro wiz documentation
 	maybe a newbie admin doc as well...
-
-Come up with some standards for combat/exp skills
 
 Why sys/obj/user/telnet.c  it just inherits /sys/lib/user right now ???
 	if you look at kernel/include/std.h it defines:
@@ -62,6 +55,7 @@ why /daemons, /kernel/daemons, /sys/daemons
 Still need to modify add_item_command so that it uses function names from
 add_object_command...
 
+support for getting 2nd or 3rd sword in a room or inv
 Fix it so deep inventory works with autoload.
 
 Fix bunny so that it doesn't attack you second time you pick flower...
