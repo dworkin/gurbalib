@@ -397,6 +397,7 @@ string scan_local_verbs() {
    int i;
    string production_rules;
    object *inventory_environment;
+   object room;
 
    production_rules = "";
 
@@ -411,14 +412,16 @@ string scan_local_verbs() {
    }
 
    /* scan environment and contents of environment */
-   inventory_environment = ( {
-      this_player()->query_environment()}
-   ) + this_player()->query_environment()->query_inventory();
-   for (i = 0; i < sizeof(inventory_environment); i++) {
-      if (typeof(object_rules[inventory_environment[i]]) != T_MAPPING)
-	 continue;
-      production_rules +=
-	 parse_verb_rules(object_rules[inventory_environment[i]]);
+   room = this_player()->query_environment();
+   if (room) {
+      inventory_environment = ( { room } ) +
+         room->query_inventory();
+      for (i = 0; i < sizeof(inventory_environment); i++) {
+         if (typeof(object_rules[inventory_environment[i]]) != T_MAPPING)
+            continue;
+         production_rules +=
+            parse_verb_rules(object_rules[inventory_environment[i]]);
+      }
    }
    return production_rules;
 }

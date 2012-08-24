@@ -204,14 +204,15 @@ string *compose_message(object who, string msg, object target,
 
 void simple_action(string msg, varargs mixed objs ...) {
    string *result;
-   object sp;
+   object sp, room;
 
    sp = this_player();
    set_this_player(this_object());
 
    catch {
       result = compose_message(this_player(), msg, nil, objs);
-      this_environment()->tell_room(this_object(), result[2]);
+      room = this_environment();
+      if (room) room->tell_room(this_object(), result[2]);
       write(capitalize(result[0]));
       set_this_player(sp);
    }:{
@@ -222,9 +223,12 @@ void simple_action(string msg, varargs mixed objs ...) {
 
 void targetted_action(string msg, object target, varargs mixed objs ...) {
    string *result;
+   object room;
 
    result = compose_message(this_player(), msg, target, objs);
-   this_environment()->tell_room(this_player(), result[2], target);
+   room = this_environment();
+   if (room) room->this_environment()->tell_room(this_player(), 
+      result[2], target);
    this_object()->message(capitalize(result[0]));
    if (target && target->is_living() && target != this_player()) {
       target->message(capitalize(result[1]));
@@ -232,14 +236,16 @@ void targetted_action(string msg, object target, varargs mixed objs ...) {
    }
 }
 
-void other_action(object who, string msg, object target, varargs mixed objs ...) {
+void other_action(object who, string msg, object target, 
+   varargs mixed objs ...) {
    string *result;
+   object room;
 
    result = compose_message(who, msg, target, objs);
    if (!this_object()->query_environment())
       return;
-   this_object()->query_environment()->tell_room(who, result[2], target);
-   /*  who->write( capitalize( result[0] ) ); */
+   room = this_object()->query_environment();
+   if (room) room->tell_room(who, result[2], target);
    if (target && target->is_living() && target != who) {
       target->message(capitalize(result[1]));
    }

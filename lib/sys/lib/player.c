@@ -624,8 +624,9 @@ void do_quit(void) {
    }
 
    if (query_env("save_on_quit")) {
-      set_env("start",
-	 this_player()->query_environment()->file_name());
+      object room;
+      room = this_player()->query_environment();
+      if (room) set_env("start", room->file_name());
    }
 
    quitcmd = this_player()->query_env("quit_message");
