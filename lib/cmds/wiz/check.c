@@ -47,11 +47,16 @@ void check_remote_exit(string room, string exit, string filename) {
    object obj;
    string tmp, myexit;
 
-   obj = compile_object(room);
-   /* XXX Should we do this if room already exists??? */
-   obj->setup();
-   obj->setup_mudlib();
+   if (file_exists(room)) {
 
+      obj = find_object(room);
+
+      if (!obj) {
+         obj = compile_object(room);
+         obj->setup();
+         obj->setup_mudlib();
+      }
+   }
 
    if (!obj) {
       write("Unable to load room : " + room + "\n");
