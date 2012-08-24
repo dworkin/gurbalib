@@ -146,24 +146,26 @@ object compile_object(string path, varargs string code) {
       ob =::compile_object(path);
    }
 
-   if (path != DRIVER && path != AUTO) {
-      set_tlvar(TLS_INHERITS, 
-         (( { find_object(AUTO)}) | get_tlvar(TLS_INHERITS)));
-   }
+   if (ob) {
+      if (path != DRIVER && path != AUTO) {
+         set_tlvar(TLS_INHERITS, 
+            (( { find_object(AUTO)}) | get_tlvar(TLS_INHERITS)));
+      }
 
-   ident--;
+      ident--;
 
-   if (compiler_d) {
-      compiler_d->register_includes(ob, get_tlvar(TLS_INCLUDES));
-      compiler_d->register_inherits(ob, get_tlvar(TLS_INHERITS));
-   }
+      if (compiler_d) {
+         compiler_d->register_includes(ob, get_tlvar(TLS_INCLUDES));
+         compiler_d->register_inherits(ob, get_tlvar(TLS_INHERITS));
+      }
 
-   set_tlvar(TLS_INCLUDES, ( { } ) );
-   set_tlvar(TLS_INHERITS, ( { } ) );
-   set_tlvar(TLS_COMPILING, nil);
+      set_tlvar(TLS_INCLUDES, ( { } ) );
+      set_tlvar(TLS_INHERITS, ( { } ) );
+      set_tlvar(TLS_COMPILING, nil);
 
-   if (mark) {
-      queue_upgrade(ob);
+      if (mark) {
+         queue_upgrade(ob);
+      }
    }
 
    return ob;

@@ -821,12 +821,16 @@ void receive_message(string message) {
 
       if (!flag) {
 	 /* Check for a room command */
+	 object room;
 	 string roomcmd_h;
-	 roomcmd_h = this_environment()->query_room_command(cmd);
-	 if (roomcmd_h) {
-	    call_other(this_environment(), roomcmd_h, arg);
-	    flag = 1;
-	 }
+         room = this_environment();
+         if (room) {
+	    roomcmd_h = room->query_room_command(cmd);
+	    if (roomcmd_h) {
+	       call_other(room, roomcmd_h, arg);
+	       flag = 1;
+	    }
+         }
       }
 
       /* Check for a command, and call the command if it's found */

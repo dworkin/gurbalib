@@ -207,32 +207,24 @@ nomask int move(mixed destination) {
    mixed err;
    object dest;
 
-   if (!destination)
-      return 0;
+   if (!destination) return 0;
 
    if (typeof(destination) == T_STRING) {
       /* Remove trailing .c */
       if (destination[strlen(destination) - 2..] == ".c")
 	 destination = destination[..strlen(destination) - 3];
       dest = find_object(destination);
-      if (!dest)
-	 dest = compile_object(destination);
-   } else {
-      dest = destination;
-   }
+      if (!dest) dest = compile_object(destination);
+   } else dest = destination;
 
-   if (!dest)
-      return 0;
-   if (object_environment == dest)
-      return 0;
+   if (!dest) return 0;
+   if (object_environment == dest) return 0;
 
    err = dest->receive_object(this_object());
 
    if (!err || (err != 1)) {
-      if (err)
-	 write("Error in move:" + err + "\n");
-      else
-	 write("Error in move.\n");
+      if (err) write("Error in move:" + err + "\n");
+      else write("Error in move.\n");
       return 0;
    }
 
