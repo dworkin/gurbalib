@@ -16,10 +16,9 @@ int is_container(void) {
 }
 
 void object_arrived(object obj) {
-   int amount;
+   int amount, x;
    string type;
    object *inv;
-   int x;
 
    if (obj->is_money() && this_object()->is_player()) {
        amount = obj->query_amount();
@@ -84,8 +83,8 @@ nomask object *query_inventory(void) {
 object find_object_num(string name, int num) {
    int i, j;
    string *ids;
-
    object *inv;
+
    inv = query_inventory();
 
    if (inv)
@@ -109,8 +108,7 @@ object present(string name) {
 
 object find_adj_object_num(string adj, string name, int num) {
    int i, j, k;
-   string *ids;
-   string *adjs;
+   string *ids, *adjs;
    object *inv;
 
    inv = query_inventory();
@@ -138,8 +136,7 @@ object find_adj_object(string adj, string name) {
 
 object find_adjs_object_num(string * adj, string name, int num) {
    int i, j, k;
-   string *ids;
-   string *adjs;
+   string *ids, *adjs;
    object *inv;
 
    inv = query_inventory();
@@ -171,6 +168,25 @@ object find_adjs_object(string * adj, string name) {
    return find_adjs_object_num(adj, name, 1);
 }
 
+void error_loading_object(string name) {
+   object ob;
+   string filename;
+
+   LOG_D->write_log("rooms", "Error: " + this_object()->base_name() + 
+      " loading object:" + name + "\n");
+
+   filename = "/domains/required/objects/sing.c";
+   ob = clone_object(filename);
+   if (ob) {
+      ob->move(object_name(this_object()));
+      ob->setup();
+   } else {
+      LOG_D->write_log("rooms", "Error: " + this_object()->base_name() + 
+         " loading object:" + filename + "\n");
+   }
+
+}
+
 void set_objects(mapping obs) {
    object ob;
    string *filename;
@@ -191,9 +207,13 @@ void set_objects(mapping obs) {
       if (typeof(obs[filename[i]]) == T_ARRAY) {
 
 	 ob = clone_object(name);
-	 ob->move(object_name(this_object()));
-	 ob->setup();
-	 ob->mudlib_setup(obs[filename[i]]);
+         if (ob) {
+	    ob->move(object_name(this_object()));
+	    ob->setup();
+	    ob->mudlib_setup(obs[filename[i]]);
+         } else {
+            error_loading_object(name);
+         }
       } else {
 	 num = obs[filename[i]];
 
@@ -205,8 +225,12 @@ void set_objects(mapping obs) {
 
 	 while (num > 0) {
 	    ob = clone_object(name);
-	    ob->move(object_name(this_object()));
-	    ob->setup();
+            if (ob) {
+	       ob->move(object_name(this_object()));
+	       ob->setup();
+            } else {
+               error_loading_object(name);
+            }
 	    num--;
 	 }
       }
