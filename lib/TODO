@@ -86,3 +86,7 @@ Fix it so room and or object commands look at return value to determine if
 they actually work or not...
 See play piano in /domains/boothill/rooms/saloon.c for an example.
 
+Fix loging so if dir doesn't exist put it in the standard log file
+instead...
+Fix rooms not loading objects so it loads the singularity(sing.c)
+
