@@ -100,6 +100,10 @@ void main(string str) {
             case "emotes":
                lines += EMOTE_D->show_emote("",width);
                break;
+            case "fighter":
+            case "fighters":
+		  show_cmds("/cmds/guild/fighter");
+               break;
 	    default:
 	       usage();
 	       break;
