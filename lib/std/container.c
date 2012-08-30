@@ -25,6 +25,7 @@ void object_arrived(object obj) {
        type = obj->query_currency();
        this_player()->add_money(type, amount);
        obj->destruct();
+       return;
    }
 
    /* Player moves into room */
