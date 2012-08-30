@@ -114,7 +114,7 @@ string query_status(void) {
    max = this_object()->query_max_hp();
    x = this_object()->query_hp();
 
-   if (x == max)
+   if (x >= max)
       return "in peak physical condition.";
    else if (x == 0) 
       return "dead as a door nail.";
