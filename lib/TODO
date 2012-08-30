@@ -90,3 +90,5 @@ Fix loging so if dir doesn't exist put it in the standard log file
 instead...
 Fix rooms not loading objects so it loads the singularity(sing.c)
 
+move page command from a generic player command to the fighers guild in gurba
+

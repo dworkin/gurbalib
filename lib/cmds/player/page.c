@@ -26,7 +26,7 @@ void main(string str) {
    if (ob) {
       ob->parse(str);
    } else {
-      ob = clone_object("/std/page.c");
+      ob = clone_object("/domains/gurba/guilds/fighter/monsters/page.c");
       if (ob) {
 	 ob->move(this_player()->query_environment());
 	 ob->set_master(this_player());
