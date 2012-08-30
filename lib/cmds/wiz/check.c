@@ -1,4 +1,5 @@
 static mapping exits;
+int warn, error;
 
 void usage() {
    write("Usage: check [-h] FILENAME\n");
@@ -7,6 +8,15 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("See also: update, clone\n");
+}
+
+void warn(string str) {
+   write("Warning: " + str);
+   warn+=1;
+}
+void error(string str) {
+   write("Warning: " + str);
+   error+=1;
 }
 
 void setup_exits() {
@@ -59,7 +69,7 @@ void check_remote_exit(string room, string exit, string filename) {
    }
 
    if (!obj) {
-      write("Unable to load room : " + room + "\n");
+      error("Unable to load room : " + room + "\n");
       return;
    }
 
@@ -67,11 +77,11 @@ void check_remote_exit(string room, string exit, string filename) {
   tmp = obj->query_exit(myexit);
 
   if (!tmp || tmp == "") {
-     write("Warning: No reverse exit: " + obj->base_name() + 
+     warn("No reverse exit: " + obj->base_name() + 
         "(" + myexit + ")\n");
   } else if (tmp != filename) {
-     write("Warning: reverse exit " + obj->base_name() + ":(" + myexit + ")\n");
-     write("points at: " + tmp + " not " + filename + ".\n");
+     warn("Reverse exit " + obj->base_name() + ":(" + myexit + ")\n" +
+        "Points at: " + tmp + " not " + filename + ".\n");
   }
 }
 
@@ -88,7 +98,7 @@ void check_exits(object obj, mapping myexits) {
       write("Checking exit: " + indices[x] + "\n");
 
       if (!file_exists(myexits[indices[x]])) {
-         write("Warning exit: " + indices[x] + ":" + 
+         warn("Exit: " + indices[x] + ":" + 
             myexits[indices[x]] + " does not exist.\n");
       } else if (member_map(indices[x],exits)) {
          filename = obj->base_name();
@@ -100,8 +110,7 @@ void check_exits(object obj, mapping myexits) {
          }
          check_remote_exit(myexits[indices[x]], indices[x], filename);
       } else {
-	write("Warning nonstandard exit: " + indices[x] + 
-           " no further checks.\n");
+	warn("Nonstandard exit: " + indices[x] + " no further checks.\n");
       }
       x = x - 1;
    }
@@ -126,13 +135,13 @@ void do_monster_check(object obj) {
    write("Doing monster check\n");
 
    tmp = obj->query_name();
-   if (!tmp || tmp == "") write("Warning: Monster has no name.\n");
+   if (!tmp || tmp == "") warn("Monster has no name.\n");
    tmp = obj->query_brief();
-   if (!tmp || tmp == "") write("Warning: Monster has no brief description.\n");
+   if (!tmp || tmp == "") warn("Monster has no brief description.\n");
    tmp = obj->query_long();
-   if (!tmp || tmp == "") write("Warning: Monster has no long description.\n");
+   if (!tmp || tmp == "") warn("Monster has no long description.\n");
 
-   if (obj->is_gettable()) write("Warning: Living object is gettable.\n");
+   if (obj->is_gettable()) warn("Living object is gettable.\n");
 }
 
 void do_object_check(object obj) {
@@ -140,15 +149,15 @@ void do_object_check(object obj) {
    write("Doing object check\n");
 
    tmpstr = obj->query_brief();
-   if (!tmpstr || tmpstr == "") write("Warning: No brief description.\n");
+   if (!tmpstr || tmpstr == "") warn("No brief description.\n");
 
    tmpstr = obj->query_long();
-   if (!tmpstr || tmpstr == "") write("Warning: No long description.\n");
+   if (!tmpstr || tmpstr == "") warn("No long description.\n");
 
    if (obj->is_gettable() && (obj->query_weight() < 1))
-      write("Warning: object gettable and weight < 1\n");
+      warn("Object gettable and weight < 1\n");
    if (obj->is_gettable() && (obj->query_value() < 1))
-      write("Warning: object gettable and value < 1\n");
+      warn("Object gettable and value < 1\n");
 }
 
 void do_check(string str) {
@@ -175,7 +184,7 @@ void do_check(string str) {
                do_object_check(obj);
             }
          } else {
-            write("Unable to compile: " + str + "\n");
+            error("Unable to compile: " + str + "\n");
          }
       }
    }
@@ -199,6 +208,9 @@ void main(string str) {
    if (!files) files = ({ str });
    max = sizeof(files);
    for(x=0;x<max;x++) {
+      warn =0;
+      error = 0;
       do_check(files[x]);
+      write("Errors: " + error + " Warnings: " + warn + "\n");
    }
 }
