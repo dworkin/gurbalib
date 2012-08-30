@@ -65,7 +65,7 @@ string *show_emote(string str, int width) {
          tmp = strlen(rules[i]) + 3 + strlen(line);
          if (tmp >= width) {
             lines += ({ line });
-            line = "   " + rules[i];
+            line = "   " + rules[i] + ", ";
          } else {
 	    line += rules[i] + ", ";
          }
