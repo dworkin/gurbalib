@@ -97,7 +97,7 @@ void increase_level() {
    this_player()->set_max_end((level *
 	 this_player()->query_base_stat("con")) + 20);
    write("Congratulations, you just achieved level: " + level + "\n");
-   this_player()->set_title(query_level_title(level));
+   this_player()->set_title("$N " + query_level_title(level));
 }
 
 void increase_expr(int expr) {
