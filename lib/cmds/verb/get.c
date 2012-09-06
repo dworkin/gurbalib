@@ -3,6 +3,10 @@ void usage() {
    write("Allows you to pick up a given object OBJ.\n");
    write("Options:\n");
    write("\tall\tPick's up everything you can pick up.\n");
+   write("Examples:\n");
+   write("\tget sword\n");
+   write("\tget all\n");
+   write("\tget potion from table\n");
 }
 
 string *query_verb_info() {

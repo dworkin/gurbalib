@@ -19,7 +19,7 @@ void setup(void) {
    ]));
 }
 
-void do_pick(string arg) {
+int do_pick(string arg) {
    if (arg == "flower") {
       object obj;
 
