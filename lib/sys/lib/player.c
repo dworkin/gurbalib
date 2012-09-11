@@ -248,7 +248,7 @@ void set_title(string t) {
 }
 
 string query_title(void) {
-   string t;
+   string t, t2;
 
    t = title;
    if (!query_name()) {
@@ -256,8 +256,11 @@ string query_title(void) {
    }
 
    if (!t || t == "")
-      t = " the title less";
-   return replace_string(t, "$N", capitalize(player_name));
+      t = "$N the title less";
+   t2 = replace_string(t, "$N", capitalize(player_name));
+   if (t2 == t)  t2 = capitalize(player_name) + " " + t;
+
+   return t2;
 }
 
 string query_title_string(void) {
