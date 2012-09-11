@@ -2,21 +2,30 @@ string invert_exit(string exit) {
    argcheck(exit, 1, "string");
    switch (exit) {
       case "north":
-	 return ("south");
+	 return "south";
       case "south":
-	 return ("north");
+	 return "north";
       case "east":
-	 return ("west");
+	 return "west";
       case "west":
-	 return ("east");
+	 return "east";
       case "northeast":
-	 return ("southwest");
+	 return "southwest";
       case "southeast":
-	 return ("northwest");
+	 return "northwest";
       case "northwest":
-	 return ("southeast");
+	 return "southeast";
       case "southwest":
-	 return ("northeast");
+	 return "northeast";
+      case "up":
+         return "down";
+      case "down":
+         return "up";
+      case "in":
+         return "out";
+      case "out":
+         return "in";
    }
-   return ("unknown");
+
+   return "unknown";
 }

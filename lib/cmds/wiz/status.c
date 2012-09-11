@@ -48,6 +48,7 @@ void display_obj(mixed * stat, object obj) {
    int i, maxi;
    mapping tmp;
    string *keys, *incs, *lines, *tmp2;
+   string cloner;
 
    lines =  ({ "OBJ ID                 : " + (string) stat[O_INDEX] });
    lines += ({ "Filename               : " + obj->file_name() });
@@ -98,6 +99,8 @@ void display_obj(mixed * stat, object obj) {
    }
    lines += ({ "File Owner: " + owner_file(obj->file_name()) });
    lines += ({ "Object Owner: " + owner_object(obj) });
+   cloner = obj->query_cloner();
+   lines += ({ "Cloner: " + cloner });
 
    this_player()->more(lines);
 }

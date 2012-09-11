@@ -1,4 +1,3 @@
-static mapping exits;
 int warn, error;
 
 void usage() {
@@ -17,20 +16,6 @@ void warn(string str) {
 void error(string str) {
    write("Warning: " + str);
    error+=1;
-}
-
-void setup_exits() {
-   exits = ([]);
-   exits["north"] = "south";
-   exits["south"] =  "north";
-   exits["east"] = "west";
-   exits["west"] = "east";
-   exits["up"] = "down";
-   exits["down"] = "up";
-   exits["northwest"] = "southeast";
-   exits["southeast"] = "northwest";
-   exits["northeast"] = "southwest";
-   exits["southwest"] = "northeast";
 }
 
 string get_what(string str) {
@@ -73,7 +58,7 @@ void check_remote_exit(string room, string exit, string filename) {
       return;
    }
 
-  myexit = exits[exit];
+  myexit = invert_exit(exit);
   tmp = obj->query_exit(myexit);
 
   if (!tmp || tmp == "") {
@@ -100,7 +85,7 @@ void check_exits(object obj, mapping myexits) {
       if (!file_exists(myexits[indices[x]])) {
          warn("Exit: " + indices[x] + ":" + 
             myexits[indices[x]] + " does not exist.\n");
-      } else if (member_map(indices[x],exits)) {
+      } else if (invert_exit(indices[x]) != "unknown") {
          filename = obj->base_name();
          if (filename[strlen(filename) - 2] == '.' && 
             filename[strlen(filename) - 1] == 'c') {
@@ -201,8 +186,6 @@ void main(string str) {
       usage();
       return;
    }
-
-   setup_exits();
 
    files = explode(str," ");
    if (!files) files = ({ str });
