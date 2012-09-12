@@ -10,7 +10,7 @@ void setup(void) {
 
    set_exits(([
       "north" : DIR + "/rooms/infront_store.c", 
-      "south" : DIR + "/rooms/entrance.c", 
+      "south" : DIR + "/rooms/welcome.c", 
       "east" : DIR + "/rooms/saloon.c", 
    ]));
 }
