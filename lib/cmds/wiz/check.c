@@ -18,14 +18,11 @@ void error(string str) {
    error+=1;
 }
 
-string get_what(string str) {
-   string path;
+string add_dotc(string input) {
+   string str;
 
-   path = this_player()->query_env("cwd");
-
-   path = normalize_path(str, path);
-
-   if (file_exists(path)) return path;
+   str = input;
+   if (!str || str == "") return "";
 
    if (strlen(str) > 2) {
       if (str[strlen(str) - 2] == '.' && str[strlen(str) - 1] == 'c') {
@@ -34,7 +31,16 @@ string get_what(string str) {
          str = str + ".c";
       }
    }
+   return str;
+}
 
+string get_what(string str) {
+   string path;
+
+   path = this_player()->query_env("cwd");
+   path = normalize_path(str, path);
+   if (file_exists(path)) return path;
+   path = add_dotc(path);
    return path;
 }
 
@@ -60,6 +66,7 @@ void check_remote_exit(string room, string exit, string filename) {
 
   myexit = invert_exit(exit);
   tmp = obj->query_exit(myexit);
+  tmp = add_dotc(tmp);
 
   if (!tmp || tmp == "") {
      warn("No reverse exit: " + obj->base_name() + 
@@ -72,30 +79,29 @@ void check_remote_exit(string room, string exit, string filename) {
 
 void check_exits(object obj, mapping myexits) {
    string *indices;
-   string exit, filename;
-   int x;
+   string exit, filename, exitfile;
+   int x, len;
 
    indices = map_indices(myexits);
 
    x = sizeof(indices) -1;
    while (x > -1) {
+      exitfile = myexits[indices[x]];
+      exitfile = add_dotc(exitfile);
 
-      write("Checking exit: " + indices[x] + "\n");
+      write("Checking exit: " + indices[x] + " " + exitfile + "\n");
 
-      if (!file_exists(myexits[indices[x]])) {
+      if (!file_exists(exitfile)) {
          warn("Exit: " + indices[x] + ":" + 
-            myexits[indices[x]] + " does not exist.\n");
+            myexits[exitfile] + " does not exist.\n");
       } else if (invert_exit(indices[x]) != "unknown") {
          filename = obj->base_name();
-         if (filename[strlen(filename) - 2] == '.' && 
-            filename[strlen(filename) - 1] == 'c') {
-            /* were good do nothing... */
-         } else {
-            filename = filename + ".c";
-         }
-         check_remote_exit(myexits[indices[x]], indices[x], filename);
+         filename = add_dotc(filename);
+
+         check_remote_exit(exitfile, indices[x], filename);
+
       } else {
-	warn("Nonstandard exit: " + indices[x] + " no further checks.\n");
+	warn("Nonstandard exit: " + exitfile + " no further checks.\n");
       }
       x = x - 1;
    }
