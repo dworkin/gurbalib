@@ -49,21 +49,30 @@ void set_amount(int amt) {
    }
 }
 
+/* Setup some reasonable defaults.... */
 void create(void) {
    ::create();
-   if (!currency) set_currency("ducat");
-   if (!amount) set_amount(1);
+   set_currency("ducat");
+   set_amount(1);
 
    set_id("coin");
    add_id("coins");
-   if (amount > 1) {
-      set_long("Some coins.");
-      set_in_room_desc(amount + " coins.");
-   } else {
-      set_long("A coin.");
-      set_in_room_desc("A coin.");
-   }
+   set_long("A coin.");
+   set_in_room_desc("A coin.");
    set_gettable(1);
+   set_value(1);
+}
+
+int query_weight() {
+   return 1;
+}
+
+int query_value() {
+   int x;
+
+   x = ::query_value();
+   x *= amount;
+   return x;
 }
 
 int is_money() {
