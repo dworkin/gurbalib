@@ -59,7 +59,6 @@ void main(string str) {
 	    return;
 	 }
 
-	 this_environment()->event("body_leave", this_player());
 	 this_environment()->tell_room(this_player(),
 	    this_player()->query_Name() + " disappears.\n");
 	 if (!ob || !this_player()->move(ob)) {
@@ -67,7 +66,6 @@ void main(string str) {
 	 } else {
 	    this_player()->do_look(0);
 	 }
-	 this_environment()->event("body_enter", this_player());
 	 this_environment()->tell_room(this_player(),
 	    this_player()->query_Name() + " appears.\n");
       } else {

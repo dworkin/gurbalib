@@ -7,13 +7,27 @@ void setup(void) {
    set_in_room_desc("A small bell is floating in the air next to the " +
       "entrance.");
    set_gettable(0);
-   query_environment()->subscribe_event("body_enter");
-   query_environment()->subscribe_event("body_leave");
+}
+
+void post_move() {
+   object room;
+
+   room = query_environment();
+   if (room) {
+      query_environment()->subscribe_event("body_enter");
+      query_environment()->subscribe_event("body_leave");
+   }
+   
 }
 
 void destruct(void) {
-   query_environment()->unsubscribe_event("body_enter");
-   query_environment()->unsubscribe_event("body_leave");
+   object room;
+
+   room = query_environment();
+   if (room) {
+      query_environment()->unsubscribe_event("body_enter");
+      query_environment()->unsubscribe_event("body_leave");
+   }
    ::destruct();
 }
 

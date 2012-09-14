@@ -312,6 +312,7 @@ string body_exit(object who, string dir) {
    int i;
    string error, lname, aname;
    object *inventory;
+   object room;
 
    if (!query_exit(dir) && !query_hidden_exit(dir)) {
       write("You can't go " + dir + ".\n");
@@ -382,8 +383,9 @@ string body_exit(object who, string dir) {
       PARSE_D->parse("look");
 
    }
-   event("body_enter", who);
-   who->query_environment()->tell_room(who, aname + " enters.\n");
+   room = who->query_environment();
+   room->event("body_enter", who);
+   room->tell_room(who, aname + " enters.\n");
    return nil;
 }
 
