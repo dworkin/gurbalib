@@ -6,14 +6,15 @@ void setup(void) {
 
    set_brief("The shop");
    set_long("You are in a shop.  You can buy or sell things here.  " +
-      "There is an opening to the north, and some shimmering blue light " +
-      "in the doorway.  To the west you can see a small room.");
+      "There is an opening to the north and a small room to the west.");
 
+   add_exit("north", DIR + "/rooms/store.c");
    add_exit("south", DIR + "/rooms/vill_road2.c");
    add_exit("west", DIR + "/rooms/storage.c");
 
   set_objects(([
       DIR + "/monsters/shopkeep.c": 1,
       "/domains/required/objects/mer_sign.c": 1,
+      DIR + "/obj/field.c": 1,
    ]));
 }
