@@ -206,12 +206,12 @@ void simple_action(string msg, varargs mixed objs ...) {
    string *result;
    object sp, room;
 
+/* XXX Why set this player here??? */
    sp = this_player();
    set_this_player(this_object());
 
    catch {
-/* XXX Why use this_player here??? */
-      result = compose_message(this_player(), msg, nil, objs);
+      result = compose_message(this_object(), msg, nil, objs);
       room = this_object()->this_environment();
       if (room) room->tell_room(this_object(), result[2]);
       write(capitalize(result[0]));
@@ -226,12 +226,11 @@ void targetted_action(string msg, object target, varargs mixed objs ...) {
    string *result;
    object room;
 
-   result = compose_message(this_player(), msg, target, objs);
+   result = compose_message(this_object(), msg, target, objs);
    room = this_environment();
-   if (room) room->tell_room(this_player(), result[2], target);
-/* XXX Why use this_object() here... and this player above? */
+   if (room) room->tell_room(this_object(), result[2], target);
    this_object()->message(capitalize(result[0]));
-   if (target && target->is_living() && target != this_player()) {
+   if (target && target->is_living() && target != this_object()) {
       target->message(capitalize(result[1]));
       target->outside_message(capitalize(result[1]));
    }
