@@ -13,6 +13,9 @@ void setup() {
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);
    set_skill("combat/defense", 100);
-   is_blocking("north");
+   add_block("north");
 }
 
+int do_block(object who) {
+   return 1;
+}

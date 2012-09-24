@@ -14,11 +14,12 @@ string query_guild(void) {
 }
 
 int do_block(object who) {
-   if (who->guild_member(guild))
-      return 1;
+   if (who->guild_member(guild)) {
+      return 0;
+   }
    this_object()->respond("say Sorry. You need to be a member of this guild " +
       "to enter.");
-   return 0;
+   return 1;
 }
 
 void do_dub(object who) {

@@ -331,14 +331,14 @@ string body_exit(object who, string dir) {
 
    /* there is a normal exit */
    if (query_exit(dir)) {
-      /* Is there a fake exit? */
+      /* Is there a fake exit?  XXX what about blocking this??? */
       if (query_exit(dir)[0] == '#') {
 	 return (query_exit(dir)[1..]);
       }
       for (i = 0; i < sizeof(inventory); i++) {
 	 if (inventory[i]->is_blocking(dir)) {
 	    /* We've got an object blocking the exit! */
-	    if (!inventory[i]->do_block(who)) {
+	    if (inventory[i]->do_block(who)) {
 	       inventory[i]->other_action(inventory[i],
 		  inventory[i]->query_block_action(), who, dir);
 	       return nil;
@@ -351,7 +351,7 @@ string body_exit(object who, string dir) {
       if (who->is_player())
 	 last_exit = time();
    } else if (query_hidden_exit(dir)) {
-      /* there is a hidden exit */
+      /* there is a hidden exit XXX what about blocking this??? */
       if (query_hidden_exit(dir)[0] == '#') {
 	 return query_hidden_exit(dir)[1..];
       }

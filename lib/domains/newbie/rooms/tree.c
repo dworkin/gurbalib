@@ -11,6 +11,7 @@ void setup(void) {
 
    set_exits(([
       "south" : STARTING_ROOM,
+      "hole" : DIR + "/rooms/entrance",
    ]));
 
    set_objects(([
@@ -23,28 +24,6 @@ void setup(void) {
 
    add_room_command("squeeze", "enter_hole");
    add_room_command("break", "break_branch");
-}
-
-int enter_hole(string arg) {
-   string dest;
-
-   if (arg == "hole") {
-      if (this_player()->is_completed_quest("NewbieVille")) {
-	 write("The hole is too small for you to enter it.\n");
-      } else {
-	 dest = DIR + "/rooms/entrance";
-	 this_player()->query_environment()->tell_room(this_player(),
-	    this_player()->query_Name() + " enters the hole.\n");
-	 write("You enter the hole.\n");
-	 this_player()->move(dest);
-	 this_player()->query_environment()->tell_room(this_player(),
-	    this_player()->query_Name() + " pops out of the hole.\n");
-	 this_player()->do_look(0);
-      }
-      return 1;
-   } else {
-      return 0;
-   }
 }
 
 int break_branch(string str) {
