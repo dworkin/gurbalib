@@ -16,7 +16,6 @@ void setup(void) {
    add_room_command("untie","do_untie");
    add_room_command("climb","do_climb");
    add_room_command("down","do_climb");
-/* XXX Need to check go down??? and or override it? */
 
    add_item("ring","A large iron ring hooked to the wall. " +
       "You could probably tie a rope to it.");
@@ -37,7 +36,7 @@ int do_tie(string str) {
          } else {
             if (obj->move(this_player()->query_environment())) {
                obj->set_gettable(0);
-               obj->set_in_room_description("An old rope tied to the ring");
+               obj->set_tied("ring");
                write("You tie the rope to the ring.\n");
                this_player()->query_environment()->tell_room(this_player(),
                   this_player()->query_Name() + 
@@ -61,7 +60,7 @@ int do_untie(string str) {
       if (obj) {
          if (tied_rope) {
             obj->set_gettable(1);
-            obj->set_in_room_description("An old rope");
+            obj->set_tied("");
             if (obj->move(this_player())) {
                write("You untie the rope from the ring, and pick it up.\n");
                this_player()->query_environment()->tell_room(this_player(),
@@ -70,7 +69,7 @@ int do_untie(string str) {
                tied_rope = 0;
             }
          } else {
-            write("There is no rope tied to the ring.\n");
+            write("The rope is not tied to anything.\n");
             this_player()->query_environment()->tell_room(this_player(),
                this_player()->query_Name() + 
                " looks longingly at the ring.\n");
@@ -85,7 +84,7 @@ int do_untie(string str) {
 
 int do_climb(string str) {
 
-   if ((str == "down") || (str == "rope")) {
+   if (!str || (str == "") || (str == "down") || (str == "rope")) {
       if (tied_rope) {
          this_player()->move(DIR + "/rooms/mine/tunnel8.c");
          write("You climb down the rope.\n");
@@ -100,7 +99,7 @@ int do_climb(string str) {
             " attempts to go down the hole and fails.\n");
       }
       return 1;
-   } 
+   }
    return 0;
 }
 
