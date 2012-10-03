@@ -1,13 +1,16 @@
 Introduction to GurbaLib development
 
-help   : Documentation available to players through the help command
+The man command is similar to the help command for players,
+however you can get additional documentation not available to them.
+Here are some of the things you can read about:
 
+help   : Documentation available to players through the help command
 afun   : Documentation on functions defined in /kernel/lib/afun
 kfun   : Documentation on functions provided by the driver
+kernel : General documentation of the kernel
+misc   : misc documentation
+modules: Documentation on specific modules
 
 When something exists as an afun and kfun, the afun will be used.
 When something exists both as an afun and a kfun, you can review
 the kfun version by using 'man kfun/subject'
-
-kernel : General documentation of the kernel
-misc   : misc documentation
