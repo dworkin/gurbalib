@@ -128,10 +128,6 @@ string query_age() {
    return ret;
 }
 
-/* XXX Need to figure out consiquences maybe...
-   put exp on body, if you make it back you get it back?
-   similar to deamon souls....
-*/
 void die(void) {
    object obj, *inv;
    int i;
@@ -153,6 +149,11 @@ void die(void) {
       obj->set_name(this_object()->query_Name());
       obj->move(this_object()->query_environment());
       this_object()->move(VOID);
+      this_object()->clear_money();
+
+      /* XXX Maybe make it so exp on corpse, 
+         if you make it back you get it back?  
+         similar to deamon souls....  */
    } else {
       obj->set_name("a " + this_object()->query_id());
       obj->move(this_object()->query_environment());

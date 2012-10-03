@@ -24,7 +24,11 @@ mixed *query_all_coins(void) {
       }
       c += ( { ( { currencies[i], num } ) } );
    }
-   return (c);
+   return c;
+}
+
+int clear_money() {
+   coins = 0;
 }
 
 int add_money(string type, int amount) {
