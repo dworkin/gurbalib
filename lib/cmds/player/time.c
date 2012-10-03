@@ -1,11 +1,19 @@
 void usage() {
-   write("Usage: time [-h]\n");
-   write("Show what time it is, in the mud.\n");
+   write("Usage: time [-h] [-s]\n");
+   write("Show what time it is, in mud time.\n");
+   write("The calendar system is as follows.\n\n");
+
+   write("One year has 17 months, one for each of the deities.\n");
+   write("One month has 5 weeks, one for each of the Elder Gods.\n");
+   write("One week has 4 days, one for each of the elements.\n\n");
+   write("One year has 340 days. One month is 20 days.\n\n");
+
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("\t-s\tShow the short version of game time.\n");
 
    if (query_wizard(this_player())) {
-      write("See also: date, wtime, status\n");
+      write("See also: date, status\n");
    }
 }
 
@@ -17,7 +25,11 @@ void main(string str) {
    string *years;
 
    if (str && str != "") {
-      usage();
+      if ((str == "-s") || (str == "-S")) {
+         write(TIME_D->query_time());
+      } else {
+         usage();
+      }
       return;
    }
 
