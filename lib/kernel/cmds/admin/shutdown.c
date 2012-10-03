@@ -1,10 +1,4 @@
-/*
- *  ??.??.??  Fudge created
- *  03.08.98  Satch added 'reason' for shutdown.
- *
- */
-
-#define S_LOG  "/logs/shutdowns"
+/* Fudge created, *  03.08.98  Satch added 'reason' for shutdown.  */
 string reason;
 
 void usage() {
@@ -86,12 +80,12 @@ void main(string arg) {
    }
 
    if (lowercase(time) == "now") {
-      write_file(S_LOG, ctime(time()) + ": " +
+      LOG_D->write_log("shutdown", ctime(time()) + ": " +
 	 this_player()->query_Name() + " forced a shutdown.\n" + "REASON: "
 	 + reason + "\n");
       do_shutdown();
    } else {
-      write_file(S_LOG, ctime(time()) + ": " +
+      LOG_D->write_log("shutdown", ctime(time()) + ": " +
 	 this_player()->query_Name() + " forced a shutdown.\n" + "REASON: " +
 	 reason + "\n");
       countdown(str2val(time));

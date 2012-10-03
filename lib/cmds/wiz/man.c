@@ -124,7 +124,7 @@ void main(string arg) {
 
    if (!found) {
       write(capitalize(arg) + ": Unknown man page.");
-      write_file("/logs/man", this_player()->query_Name() + " on " +
+      LOG_D->write_log("man", this_player()->query_Name() + " on " +
 	 ctime(time()) + ": " + arg + "\n");
       return;
    }

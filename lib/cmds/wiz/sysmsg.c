@@ -1,6 +1,7 @@
 void usage() {
    write("Usage: sysmsg [-h] MSG\n");
-   write("Send a message MSG to the system.\n");
+   write("Send a system message MSG to everyone on the mud.\n");
+   write("Note: these messages are logged.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
 }
@@ -25,7 +26,7 @@ void main(string msg) {
 	    "%^RED%^ on %^WHITE%^" + ctime(time()) + "%^RED%^:%^RESET%^\n");
 	 usr[i]->message("\"" + msg + "\"");
       }
-      write_file("/logs/sysmsg", this_player()->query_Name() +
+      LOG_D->write_log("sysmsg", this_player()->query_Name() +
 	 " on " + ctime(time()) + ": \"" + msg + "\"\n");
    }
 }

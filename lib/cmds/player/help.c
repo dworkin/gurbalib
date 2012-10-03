@@ -68,7 +68,7 @@ void main(string arg) {
 	 }
       } else {
 	 write(capitalize(arg) + ": Unknown help topic.");
-	 write_file("/logs/help", this_player()->query_Name() +
+	 LOG_D->write_log("help", this_player()->query_Name() +
 	    " on " + ctime(time()) + ": " + arg + "\n");
 	 return;
       }

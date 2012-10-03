@@ -10,7 +10,7 @@ string read_callback;
 int connected;
 
 void FTPLOG(string str) {
-   write_file("/logs/ftpd", ctime(time()) + " : " + str);
+   LOG_D->write_log("ftpd", ctime(time()) + " : " + str);
 }
 
 void message_done(void) {

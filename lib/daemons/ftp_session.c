@@ -50,7 +50,7 @@ string query_name(void) {
 }
 
 void FTPLOG(string str) {
-   write_file("/logs/ftpd", ctime(time()) + " : " + str);
+   LOG_D->write_log("ftpd", ctime(time()) + " : " + str);
 }
 
 void FTP_CMD_user(string arg) {

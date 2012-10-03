@@ -28,7 +28,7 @@ void main(string str) {
 	 if (query_wizard(usrs[i])) {
 	    usrs[i]->message("%^RED%^" + "" + this_player()->query_Name() +
 	       " wizcalls: %^RESET%^" + str + "\n");
-	    write_file("/logs/wizcall", this_player()->query_Name() + " on " +
+	    LOG_D->write_log("wizcall", this_player()->query_Name() + " on " +
 	       ctime(time()) + ": " + str + "\n");
 	 }
       }
