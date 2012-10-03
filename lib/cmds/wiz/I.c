@@ -1,8 +1,9 @@
 void usage() {
    write("Usage: I [-h] MSG\n");
-   write("Allows a wizard to record a message, MSG in the did log....\n");
+   write("Allows a wizard to tell other wizards what they have been upto.\n");
    write("Use it to explain what you have been working on.\n");
-   write("All wizards will see whats changed since they last logged in.\n");
+   write("All wizards will see whats been recorded since they last logged " +
+      "in.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
 }
