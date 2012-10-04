@@ -19,7 +19,6 @@ m_throwable
 ladders/stairs, portals
 tracking of most used rooms, objects
 auto dest/update of all instances of an object
-Bank
 
 restructure doc and doc/help directory
 	help/wiz seems odd as well...?

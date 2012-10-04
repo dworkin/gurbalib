@@ -1,4 +1,5 @@
-int coins;
+int coins; /* Players money on them */
+int bank; /* Players money in the bank */
 
 void create() {
 }
@@ -47,4 +48,26 @@ int add_money(string type, int amount) {
 
 int query_total_money() {
    return coins;
+}
+
+int query_bank() {
+   return bank;
+}
+
+int withdraw(int x) {
+   if (bank >= x) {
+      bank -= x;
+      coins += x;
+      return 1;
+   }
+   return 0;
+}
+
+int deposit(int x) {
+   if (coins >= x) {
+      coins -= x;
+      bank += x;
+      return 1;
+   }
+   return 0;
 }
