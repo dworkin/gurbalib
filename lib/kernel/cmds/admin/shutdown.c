@@ -40,8 +40,11 @@ void countdown(int mins) {
    int i;
 
    usrs = USER_D->query_players();
-
-   if (mins == 0) {
+  
+   if (mins < 0) {
+      usage();
+      return;
+   } else if (mins == 0) {
       do_shutdown();
    } else {
       for (i = 0; i < sizeof(usrs); i++) {
