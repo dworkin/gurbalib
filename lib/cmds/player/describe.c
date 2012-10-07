@@ -18,7 +18,7 @@ void main(string str) {
    }
 
    if (str) {
-      str = replace_string(str, "$N", this_player()->query_proper_name());
+      str = replace_string(str, "$N", this_player()->query_Name());
    }
 
    this_player()->set_long(str);

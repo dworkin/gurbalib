@@ -441,14 +441,12 @@ void input_name(string str) {
 	 /* Player exists */
 
 	 player->set_name(user_name);
-	 player->set_proper_name(capitalize(user_name));
 	 player->restore_me();
 	 send_message("Enter your password: ");
 	 send_message(0);
 	 player->input_to_object(this_object(), "input_old_passwd");
       } else {
 	 player->set_name(user_name);
-	 player->set_proper_name(capitalize(user_name));
 	 if (SITEBAN_D->is_newbanned(query_ip_number(this_object()))) {
 	    /* site is new character banned */
 	    log_file("logins", ctime(time()) + "\t" +

@@ -212,9 +212,9 @@ void main(string str) {
             break;
       }
 
-      if (this_player()->query_proper_name()) {
+      if (this_player()->query_Name()) {
 	 this_environment()->tell_room(this_player(),
-	    "%^GREEN%^" + capitalize(this_player()->query_proper_name()) + you +
+	    "%^GREEN%^" + capitalize(this_player()->query_Name()) + you +
 	    "%^RESET%^" + capitalize(str) + "\n");
       } else {
 	 this_environment()->tell_room(this_player(),

@@ -122,10 +122,6 @@ void login_player(void) {
    if (query_gender() == "unkown")
       set_gender("male");
 
-   if (!query_proper_name()) {
-      set_proper_name(capitalize(player_name));
-   }
-
    /* Set the current working directory */
    if (!query_env("cwd"))
       set_env("cwd", "/");

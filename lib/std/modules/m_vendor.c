@@ -148,7 +148,7 @@ string query_list(void) {
 	 num = "   " + stored_items[objs[i]];
 	 num = num[strlen(num) - 3..];
 
-	 if (!obj->query_proper_name()) {
+	 if (!obj->query_Name()) {
 	    if (!obj->query_adj() || obj->query_adj() == "") {
 	       str +=
 		  " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_id() + ", " +
@@ -160,7 +160,7 @@ string query_list(void) {
 	    }
 	 } else {
 	    str +=
-	       " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_proper_name() +
+	       " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_Name() +
 	       ", " + objs->query_value() + " ducats.\n";
 	 }
 	 obj->query_environment()->remove_object(obj);

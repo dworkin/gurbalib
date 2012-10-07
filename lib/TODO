@@ -11,7 +11,7 @@ look into a "git" interface for security and editing files.
 Need to research writeable files for wizards/admins and see what
 makes sense.
 
-Party system (invite, follow, say, report), Clans, Expand Guilds
+Party system (invite, say, report), Clans, Expand Guilds
 PK system (announcing, death announcing)
 m_lockable, keys
 m_switchable, Levers
@@ -19,11 +19,6 @@ m_throwable
 ladders/stairs, portals
 tracking of most used rooms, objects
 auto dest/update of all instances of an object
-
-restructure doc and doc/help directory
-	help/wiz seems odd as well...?
-	Need to write intro wiz documentation
-	maybe a newbie admin doc as well...
 
 Why sys/obj/user/telnet.c  it just inherits /sys/lib/user right now ???
 	if you look at kernel/include/std.h it defines:
@@ -37,8 +32,8 @@ figure out why query_users, query_players, users()  do we need all of them?
 	query_users() you need to do ->query_player()  why
 	find_user(string str)  you also need to do a ->query_player() odd...
 
-Also look at query_Name vs query_name and friends... seems like there
-are a few overlaps that are not needed...
+Also look at query_Name vs query_name and friends... 
+seems like there are a few overlaps that are not needed...
 
 Look at set_in_room_desc, set_brief, etc...  very messy right now...
 

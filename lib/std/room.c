@@ -319,7 +319,7 @@ string body_exit(object who, string dir) {
       return nil;
    }
 
-   lname = who->query_proper_name();
+   lname = who->query_Name();
    aname = lname;
    if (!lname) {
       /* Generic-named NPCs */

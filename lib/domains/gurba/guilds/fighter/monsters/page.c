@@ -9,14 +9,13 @@ string my_name;
 void set_master(object m) {
    if (m) {
       master = m;
-      master_name = m->query_proper_name();
+      master_name = m->query_Name();
    }
 }
 
 void setup(void) {
    set_name(master_name + "s page");
    my_name = master_name + "'s page";
-   set_proper_name(capitalize(master_name) + "'s page");
    set_gender("male");
    set_adj("slave");
    set_in_room_desc(capitalize(master_name) + "'s page.");

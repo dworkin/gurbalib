@@ -3,7 +3,6 @@ inherit M_VENDOR;
 
 void setup(void) {
    set_name("frida");
-   set_proper_name("Frida");
    set_gender("female");
    add_id("shopkeeper", "merchant");
    set_in_room_desc("Frida, the florist");

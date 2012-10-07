@@ -3,7 +3,6 @@ inherit M_GUILD_MASTER;
 void setup(void) {
    set_guild("fighter");
    set_name("bob");
-   set_proper_name("Bob");
    set_gender("male");
    add_id("master", "guildmaster");
    set_in_room_desc("Bob, the Fighter's Guildmaster");

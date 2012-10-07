@@ -8,7 +8,6 @@ static object object_environment;
 static string *ids;
 static string *adjs;
 static int object_size;
-string proper_name;
 static mapping object_commands;
 static string detailed_desc;
 private int configured;
@@ -172,14 +171,6 @@ void set_long(string str) {
 
 string query_long(void) {
    return long_desc;
-}
-
-void set_proper_name(string name) {
-   proper_name = name;
-}
-
-string query_proper_name(void) {
-   return proper_name;
 }
 
 object query_environment(void) {

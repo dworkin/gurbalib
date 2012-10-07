@@ -4,7 +4,6 @@ inherit M_VENDOR;
 void setup(void) {
    set_name("innkeeper");
    add_ids("innkeep","tom", "shopkeeper", "merchant");
-   set_proper_name("Tom");
    set_gender("male");
    set_in_room_desc("Tom, the innkeeper");
    set_long("He is a large healthy man.");

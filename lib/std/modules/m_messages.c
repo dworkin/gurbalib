@@ -29,14 +29,14 @@ string *compose_message(object who, string msg, object target,
 	 switch (words[i][1]) {
 	    case 'N':
 	       if (who->is_living()) {
-		  if (!who->query_proper_name()) {
+		  if (!who->query_Name()) {
 		     us += "you ";
 		     them += "the " + who->query_id() + " ";
 		     others += "the " + who->query_id() + " ";
 		  } else {
 		     us += "you ";
-		     them += who->query_proper_name() + " ";
-		     others += who->query_proper_name() + " ";
+		     them += who->query_Name() + " ";
+		     others += who->query_Name() + " ";
 		  }
 	       } else {
 		  us += "you ";
@@ -117,14 +117,14 @@ string *compose_message(object who, string msg, object target,
 		  others += who->query_gender_reflexive() + " ";
 	       } else {
 		  if (target->is_living()) {
-		     if (!target->query_proper_name()) {
+		     if (!target->query_Name()) {
 			us += "the " + target->query_id() + " ";
 			them += "you ";
 			others += "the " + target->query_id() + " ";
 		     } else {
-			us += target->query_proper_name() + " ";
+			us += target->query_Name() + " ";
 			them += "you ";
-			others += target->query_proper_name() + " ";
+			others += target->query_Name() + " ";
 		     }
 		  } else {
 		     us += "the " + target->query_id() + " ";
@@ -141,14 +141,14 @@ string *compose_message(object who, string msg, object target,
 		  others += who->query_gender_reflexive() + " ";
 	       } else {
 		  if (target->is_living()) {
-		     if (!target->query_proper_name()) {
+		     if (!target->query_Name()) {
 			us += "the " + target->query_id() + " ";
 			them += "you ";
 			others += "the " + target->query_id() + " ";
 		     } else {
-			us += target->query_proper_name() + " ";
+			us += target->query_Name() + " ";
 			them += "you ";
-			others += target->query_proper_name() + " ";
+			others += target->query_Name() + " ";
 		     }
 		  } else {
 		     us += "the " + target->query_id() + " ";
