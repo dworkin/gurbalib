@@ -219,7 +219,8 @@ void set_objects(mapping obs) {
 	 num = obs[filename[i]];
 
 	 for (j = 0; j < sizeof(inv); j++) {
-	    if (inv[j]->base_name() == filename[i]) {
+	    if ((inv[j]->file_name() == filename[i]) || 
+               (inv[j]->base_name() == filename[i])) {
 	       num--;
 	    }
 	 }
