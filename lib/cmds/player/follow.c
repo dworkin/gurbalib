@@ -33,16 +33,21 @@ void main(string str) {
       this_environment()->tell_room(this_player(), 
          this_player()->query_Name() + " stops following " + 
          capitalize(str) + ".\n");
+      obj = find_object(name);
+      obj->remove_follower(this_player());
+      return;
    }
 
    /* Actually follow someone */
    obj = this_environment()->present(str);
    if (obj) {
       this_player()->set_follow(str);
+
       write("You start following " + str + ".\n");
       this_environment()->tell_room(this_player(), 
          this_player()->query_Name() + " starts following " + 
          capitalize(str) + ".\n");
+       obj->add_follower(this_player());
    } else {
       write("You can not find: " + str + ".\n");
    }

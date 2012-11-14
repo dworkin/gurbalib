@@ -11,6 +11,7 @@ inherit com "/std/combat";
 inherit "/std/body/gender";
 inherit "/std/body/race";
 inherit "/std/body/snoop";	/* Added by Fudge */
+inherit "/std/body/follow";
 
 void create(void) {
    hp::create();

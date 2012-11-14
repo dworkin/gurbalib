@@ -60,9 +60,6 @@ remove extranious *.o files... guild_d.o for example...
 	do we need extra .o files?
 	after figure that out update clean up scripts to clean up correctly.
 
-Look into if shutdown should call save_me like it does or this should
-	be somewhere else, or something else?
-
 Start using weight for picking up things, and for how much a bag
 can hold......
 
