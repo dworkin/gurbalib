@@ -11,6 +11,11 @@ void main(string str) {
    object obj, worn;
    string slot;
 
+   if (!str || str == "") {
+      usage();
+      return;
+   }
+
    if (sscanf(str, "-%s", str)) {
       usage();
       return;
