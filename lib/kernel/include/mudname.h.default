@@ -1,3 +1,8 @@
+/* What you want your mud to be called */
 #define MUD_NAME  "GurbaLib"
+
+/* Name for your mud on Intermud */
 #define IMUD_NAME "GurbaLib"
 
+/* Your contact info..... */
+#define ADMIN_EMAIL "you@some.place"

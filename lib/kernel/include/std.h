@@ -40,11 +40,7 @@
 #include <mudname.h>
 
 #define LIB_NAME  "GurbaLib"
-#define LIB_VERSION "v0.42 devel"
-
-#ifndef ADMIN_EMAIL
-#define ADMIN_EMAIL "you@some.place"
-#endif
+#define LIB_VERSION "v0.43"
 
 #ifndef LINKDEAD_TIMEOUT
 #define LINKDEAD_TIMEOUT 10*60
