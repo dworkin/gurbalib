@@ -51,8 +51,8 @@ lib/data/messages/login
 lib/data/messages/motd
 
 If you want a squeaky clean mud you can also remove the files in
-lib/domains/gurba and lib/domains/newbie  (I would keep them around for
-	a little while though since they are at the least example code)
+lib/domains/ execpt for required (I would keep them around for
+	a little while though since they are semi good example code)
 
 You will want to read the docs that are available and check out
 the todo list: lib/TODO 
