@@ -86,7 +86,7 @@ void create_homedir(string wiz) {
    if (file_exists(path) == 0) {
       make_dir(path);
       make_dir(path + "rooms/");
-      copy("/data/skel/rooms/workroom.c", path + "rooms/workroom.c");
+      copy("/domains/required/rooms/workroom.c", path + "rooms/workroom.c");
    }
 }
 
