@@ -1,15 +1,57 @@
 void usage() {
-   write("Usage: wear [-h] ITEM\n");
-   write("Puts on an item.  If you have armor its generally a good idea to " +
-      "put it on.\n");
+   write("Usage: wear [-h] [all|OBJ]\n");
+   write("Allows you to wear a given object OBJ.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("See also: remove, wield.\n");
+   write("\tall\tWear all available objects.\n");
+   write("See also: wield, remove.\n");
+}
+
+void do_wear(object obj, int loud) {
+   string slot;
+   object worn;
+
+   if (loud && !obj) {
+      write("what are you trying to wear?");
+   }
+
+   if (!obj->is_wearable()) {
+      if (loud) {
+         write("You cannot wear that.");
+      }
+      return;
+   }
+   if (obj->query_worn() == 1) {
+      if (loud) {
+         write("You're already wearing the " + obj->query_id() + ".");
+      }
+      return;
+   }
+
+   slot = obj->query_slot();
+   if (!obj->query_valid_slot(slot)) {
+      if (loud) {
+         write("You do not have a place to wear that.\n");
+      }
+      return;
+   }
+
+   worn = this_player()->query_slot(slot);
+   if (worn && (slot != "apparel")) {
+      if (loud) {
+         write("You are already wearing a " + worn->query_id() + ".");
+         return;
+      }
+   }
+
+   this_player()->do_wear(obj);
+   this_player()->targetted_action(obj->query_wear_message(), nil, obj);
 }
 
 void main(string str) {
-   object obj, worn;
-   string slot;
+   object obj;
+   object *inv;
+   int i, max;
 
    if (!str || str == "") {
       usage();
@@ -21,28 +63,15 @@ void main(string str) {
       return;
    }
 
+   if (str == "all") {
+      inv = this_player()->query_inventory();
+      max = sizeof(inv);
+      for (i = 0; i < max; i++) {
+         do_wear(inv[i],0);
+      }
+      return;
+   }
+
    obj = this_player()->present(lowercase(str));
-   if (!obj) {
-      write("Maybe you should get one first?");
-      return;
-   }
-   if (!obj->is_wearable()) {
-      write("You can't wear that.");
-      return;
-   }
-
-   slot = obj->query_slot();
-   if (!obj->query_valid_slot(slot)) {
-      write("You can not wear that.\n");
-      return;
-   }
-
-   worn = this_player()->query_slot(slot);
-   if (worn && (slot != "apparel")) {
-      write("You're already wearing a " + worn->query_id() + ".");
-      return;
-   }
-
-   this_player()->do_wear(obj);
-   this_player()->targetted_action(obj->query_wear_message(), nil, obj);
+   do_wear(obj,1);
 }
