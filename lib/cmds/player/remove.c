@@ -16,7 +16,7 @@ void do_remove(object obj, int loud) {
       write("what are you trying to remove?");
    }
 
-   if (obj->is_worn() && obj->is_cursed() {
+   if (obj->is_worn() && obj->is_cursed()) {
       this_player()->targetted_action("$N $vtry to remove $o, but $vfumble.",
          nil, obj);
       write("Strange... It won't come off.\n");
