@@ -25,7 +25,7 @@ void setup(void) {
    set_objects(([
       REQDIR + "/monsters/rat" : 1, 
       REQDIR + "/objects/chest" : 1, 
-      REQDIR + "/objects/weapons/short_sword" : 1, 
-      REQDIR + "/objects/armor/buckler" : 1,
+      REQDIR + "/objects/short_sword" : 1, 
+      REQDIR + "/objects/helmet" : 1,
    ]));
 }

@@ -26,7 +26,7 @@ void setup(void) {
    set_objects(([
       "/domains/required/objects/chest" : 1, 
       "/domains/required/monsters/rat" : 1, 
-      "/domains/required/objects/weapons/short_sword" : 1, 
-      "/domains/required/objects/armor/buckler" : 1,
+      "/domains/required/objects/short_sword" : 1, 
+      "/domains/required/objects/helmet" : 1,
    ]));
 }

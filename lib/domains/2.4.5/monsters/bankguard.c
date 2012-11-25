@@ -20,7 +20,7 @@ void setup() {
    obj = clone_object(DIR + "/obj/bankkey.c");
    obj->setup();
    obj->move(this_object());
-   obj = clone_object("/domains/required/objects/weapons/short_sword.c");
+   obj = clone_object("/domains/required/objects/short_sword.c");
    obj->setup();
    obj->move(this_object());
    do_wield(obj);

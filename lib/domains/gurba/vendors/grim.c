@@ -13,5 +13,5 @@ void setup(void) {
    set_restock_delay(7200);
 
    add_item(DIR + "/objects/weapons/sword", 9);
-   add_item(DIR + "/domains/required/objects/weapons/short_sword", 9);
+   add_item(DIR + "/domains/required/objects/short_sword", 9);
 }
