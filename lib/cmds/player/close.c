@@ -3,7 +3,7 @@ void usage() {
    write("Allows you to close a given object OBJ.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tDrop everything you are carring.\n");
+   write("\tall\tClose everything you can.\n");
    write("See also: open.\n");
 }
 

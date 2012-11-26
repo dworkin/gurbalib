@@ -4,7 +4,7 @@ void usage() {
       "currently wearing.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tDrop everything you are carring.\n");
+   write("\tall\tRemove everything you are wearing.\n");
    write("See also: get, remove.\n");
 }
 
