@@ -1,11 +1,11 @@
 void usage() {
    write("Usage: remove [-h] [all|OBJ]\n");
    write("Allows you to remove a given object OBJ, that you are " +
-      "currently wearing.\n");
+      "currently wearing or wielding.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tRemove everything you are wearing.\n");
-   write("See also: get, remove.\n");
+   write("\tall\tRemove everything you are wearing and wielding.\n");
+   write("See also: get, drop, wield, wear.\n");
 }
 
 void do_remove(object obj, int loud) {
@@ -16,15 +16,22 @@ void do_remove(object obj, int loud) {
       write("what are you trying to remove?");
    }
 
-   if (obj->is_worn() && obj->is_cursed()) {
-      this_player()->targetted_action("$N $vtry to remove $o, but $vfumble.",
-         nil, obj);
-      write("Strange... It won't come off.\n");
-      return;
-   }
-
-   if (!obj->query_worn()) {
-      write("Your not wearning that.\n");
+   if (obj->is_worn()) {
+      if (obj->is_cursed()) {
+         this_player()->targetted_action("$N $vtry to remove $o, but $vfumble.",
+            nil, obj);
+         write("Strange... It won't come off.\n");
+         return;
+      }
+   } else if (obj->is_wielded()) {
+      if (obj->is_cursed()) {
+         this_player()->targetted_action("$N $vtry to remove $o, but $vfumble.",
+            nil, obj);
+         write("Strange... It won't come off.\n");
+         return;
+      }
+   } else {
+      write("You are not wearning or wielding that.\n");
       return;
    }
 
