@@ -34,7 +34,14 @@ void do_drop(object obj, int loud) {
       this_player()->targetted_action(obj->query_remove_message(), nil, obj);
    }
    if (obj->query_wielded() == 1) {
-      /* XXX Need to make sure can remove it...? */
+      if (obj->is_cursed()) {
+         if (loud) {
+            this_player()->targetted_action("$N $vtry to remove $o, " +
+               "but $vfumble.", nil, obj);
+            write("Strange... It won't come off.\n");
+         } 
+         return;
+      }
       this_player()->do_unwield(obj);
       this_player()->targetted_action(obj->query_unwield_message(), nil, obj);
    }
