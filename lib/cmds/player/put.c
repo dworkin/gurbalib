@@ -26,7 +26,7 @@ void do_put(object obj1, object obj2, int loud) {
       return;
    }
 
-   if (loud && !obj2->is_closed()) {
+   if (loud && obj2->is_closed()) {
       write("It is not open.\n");
       return;
    }
