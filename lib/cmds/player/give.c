@@ -1,13 +1,13 @@
 void usage() {
-   write("Usage: put [-h] [all|OBJ] [at|in] OBJ2\n");
-   write("Allows you to put OBJ inside OBJ2\n");
+   write("Usage: give [-h] [all|OBJ] [to] PLAYER\n");
+   write("Allows you to give OBJ to PLAYER\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tPut everything you are carring in OBJ2.\n");
-   write("See also: get, remove.\n");
+   write("\tall\tGive everything you are carring to PLAYER.\n");
+   write("See also: get, drop.\n");
 }
 
-void do_put(object obj1, object obj2, int loud) {
+void do_give(object obj1, object obj2, int loud) {
    string slot;
    object worn;
 
@@ -21,18 +21,13 @@ void do_put(object obj1, object obj2, int loud) {
       return;
    }
 
-   if (loud && !obj2->is_container()) {
-      write("You can not put that there.\n");
-      return;
-   }
-
-   if (loud && !obj2->is_closed()) {
-      write("It is not open.\n");
+   if (loud && !obj2->is_living()) {
+      write("You can only give things to the living.\n");
       return;
    }
 
    if (loud && (obj2 == this_player())) {
-      write("You can not put things in your inventory, use get instead.\n");
+      write("You may not give things to yourself.\n");
       return;
    }
 
@@ -44,8 +39,7 @@ void do_put(object obj1, object obj2, int loud) {
          return;
       } else {
          this_player()->do_remove(obj1);
-         this_player()->targetted_action(obj1->query_remove_message(), 
-            nil, obj1);
+         this_player()->targetted_action(obj1->query_remove_message(), nil, obj1);
       }
    }
 
@@ -63,9 +57,9 @@ void do_put(object obj1, object obj2, int loud) {
    }
 
    if (obj1->move(obj2)) {
-      this_player()->targetted_action("$N $vput $o in $o1.", nil, obj1, obj2);
+      this_player()->targetted_action("$N $vgive $o to $o1.", nil, obj1, obj2);
    } else {
-      this_player()->targetted_action("$N $vtryto put $o in $o1, but $vfail.",
+      this_player()->targetted_action("$N $vtryto give $o to $o1, but $vfail.",
          nil, obj1, obj2);
    }
 }
@@ -86,20 +80,16 @@ void main(string str) {
       return;
    }
 
-   if (sscanf(str, "%s in %s",what,where) == 2) {
-   } else if (sscanf(str, "%s at %s",what,where) == 2) {
+   if (sscanf(str, "%s to %s",what,where) == 2) {
    } else if (sscanf(str, "%s %s",what,where) == 2) {
    } else {
-      write("You want to put what where?");
+      write("You want to give what to who?");
       return;
    }
 
-   obj = this_player()->present(lowercase(where));
+   obj = this_environment()->present(where);
    if (!obj) {
-      obj = this_player()->query_environment()->present(lowercase(where));
-   }
-   if (!obj) {
-      write("Where are you trying to put that?");
+      write("Who are you trying to give that to?");
       return;
    }
 
@@ -107,7 +97,7 @@ void main(string str) {
       inv = this_player()->query_inventory();
       max = sizeof(inv);
       for (i = 0; i < max; i++) {
-         do_put(inv[i], obj, 0);
+         do_give(inv[i], obj, 0);
       }
       return;
    }
@@ -116,5 +106,5 @@ void main(string str) {
    if (!obj2) {
       obj2 = this_player()->query_environment()->present(lowercase(what));
    }
-   do_put(obj2, obj, 1);
+   do_give(obj2, obj, 1);
 }
