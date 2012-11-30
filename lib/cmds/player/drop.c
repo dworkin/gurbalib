@@ -5,8 +5,8 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tDrop everything you are carring.\n");
    write("Examples:\n");
-   write("drop sword\n");
-   write("drop all\n");
+   write("\tdrop sword\n");
+   write("\tdrop all\n");
    write("See also: get, put, remove, wear, wield\n");
 }
 

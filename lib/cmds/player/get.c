@@ -6,10 +6,10 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tGet everything you can pick up.\n");
    write("Examples:\n");
-   write("get sword\n");
-   write("get sword from chest\n");
-   write("get all\n");
-   write("get all from chest\n");
+   write("\tget sword\n");
+   write("\tget sword from chest\n");
+   write("\tget all\n");
+   write("\tget all from chest\n");
    write("See also: drop, open, put, remove, wear, wield\n");
 }
 

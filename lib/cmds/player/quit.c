@@ -4,7 +4,7 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("Examples:\n");
-   write("quit\n");
+   write("\tquit\n");
    write("See also: score, who\n");
 }
 

@@ -6,8 +6,8 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tRemove everything you are wearing and wielding.\n");
    write("Examples:\n");
-   write("remove helmet\n");
-   write("remove all\n");
+   write("\tremove helmet\n");
+   write("\tremove all\n");
    write("See also: get, drop, put, wear, wield\n");
 }
 

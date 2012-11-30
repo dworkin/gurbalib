@@ -4,7 +4,7 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("Examples:\n");
-   write("inventory\n");
+   write("\tinventory\n");
    write("See also: hp, score, skills\n");
 }
 

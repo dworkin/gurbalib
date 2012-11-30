@@ -5,8 +5,8 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tPut everything you are carring in OBJ2.\n");
    write("Examples:\n");
-   write("put sword in chest\n");
-   write("put all in chest\n");
+   write("\tput sword in chest\n");
+   write("\tput all in chest\n");
    write("See also: get, drop, remove, wear, wield\n");
 }
 
