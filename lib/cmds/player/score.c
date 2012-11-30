@@ -5,12 +5,19 @@ void usage() {
       write("If no player is given give your stats.\n");
       write("Options:\n");
       write("\t-h\tHelp, this usage message.\n");
+      write("Examples:\n");
+      write("score\n");
+      write("score sirdude\n");
+      write("See also: hp, inventory, skills, status\n");   
    } else {
       write("Usage: score [-h]\n");
       write("Gives you basic stats about your character.\n");
       write("Options:\n");
       write("\t-h\tHelp, this usage message.\n");
       write("\t-q\tAlso display quests you have completed.\n");
+      write("Examples:\n");
+      write("score\n");
+      write("See also: hp, inventory, skills\n");   
    }
 }
 

@@ -5,9 +5,9 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("Examples:\n");
-   write("sell sword\n");
-   write("sell helmet\n");
-   write("See also: buy, retrieve, store\n");
+   write("\tsell sword\n");
+   write("\tsell helmet\n");
+   write("See also: buy, list, retrieve, store\n");
 }
 
 /* Created by Fudge */

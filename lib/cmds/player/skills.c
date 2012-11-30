@@ -4,6 +4,10 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\tfull\tShow all of the skills available on the mud.\n");
+   write("Examples:\n");
+   write("\tskills\n");
+   write("\tskills full\n");
+   write("See also: hp, inventory, score\n");
 }
 
 /*

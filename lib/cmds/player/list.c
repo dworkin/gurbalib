@@ -4,6 +4,9 @@ void usage() {
       "storage.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tlist\n");
+   write("See also: buy, retrieve, sell, store\n");
 }
 
 void main(string str) {
