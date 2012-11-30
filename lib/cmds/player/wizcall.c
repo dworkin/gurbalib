@@ -4,6 +4,10 @@ void usage() {
    write("You should have a good reason to bug them. :)\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\twizcall I need help I'm stuck in a room I can not get out of.\n");
+   write("\twizcall I found a bug in the look command.\n");
+   write("See also: shout, tell\n");
 }
 
 void main(string str) {

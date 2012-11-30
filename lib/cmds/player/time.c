@@ -11,9 +11,12 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\t-s\tShow the short version of game time.\n");
-
+   write("Examples:\n");
+   write("\ttime\n");
    if (query_wizard(this_player())) {
-      write("See also: date, status\n");
+      write("See also: date, score, status\n");
+   } else {
+      write("See also: date, score, status\n");
    }
 }
 

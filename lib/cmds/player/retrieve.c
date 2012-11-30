@@ -3,6 +3,9 @@ void usage() {
    write("Allows you to retrieve an object OBJ, from storage.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tretrieve sword\n");
+   write("\tretrieve helmet\n");
    write("See also: sell, buy, store\n");
 }
 

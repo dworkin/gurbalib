@@ -4,6 +4,10 @@ void usage() {
       "worth.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("value sword\n");
+   write("value helmet\n");
+   write("See also: buy, sell\n");
 }
 
 void main(string str) {

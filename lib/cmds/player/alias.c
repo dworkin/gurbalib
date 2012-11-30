@@ -4,8 +4,9 @@ void usage() {
    write("If no alias is given show a list of your current aliases.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("Example:\n");
+   write("Examples:\n");
    write("\talias ga get all\n");
+   write("\talias da drop all\n");
 }
 
 void main(string str) {

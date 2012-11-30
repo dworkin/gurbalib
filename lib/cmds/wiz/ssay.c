@@ -10,6 +10,7 @@ void usage() {
    write("\tAphex sleepily drones: Hiya\n");
    write("\t> ssay kicks Dran in the pants and says|Muahhahahaha!\n");
    write("\tAphex kicks Dran in the pants and says: Muahhahahaha!\n");
+   write("See also: emote, rsay, say, shout, tell, translate, whisper\n");
 }
 
 void main(string str) {

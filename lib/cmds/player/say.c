@@ -3,10 +3,13 @@ void usage() {
    write("Tell everyone in the current room MSG.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tsay I'm sleepy, I should go now.\n");
+   write("\tsay no your not!\n");
    if (query_wizard(this_player())) {
-      write("See also: ssay, tell, whisper, emote\n");
+      write("See also: emote, rsay, shout, ssay, tell, translate, whisper\n");
    } else {
-      write("See also: tell, whisper, emote\n");
+      write("See also: emote, rsay, shout, tell, whisper\n");
    }
 }
 

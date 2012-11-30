@@ -4,7 +4,10 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tEquip all available objects.\n");
-   write("See also: wield, remove.\n");
+   write("Examples:\n");
+   write("\twield sword\n");
+   write("\twield axe\n");
+   write("See also: wear, remove\n");
 }
 void do_wield(object obj, int loud) {
    string slot;

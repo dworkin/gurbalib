@@ -3,10 +3,13 @@ void usage() {
    write("Send a message WHAT to WHO.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\ttell sirdude you have a large nose.\n");
+   write("\ttell guest Hi how are you?\n");
    if (query_wizard(this_player())) {
-      write("See also: say, ssay, emote, whisper\n");
+      write("See also: emote, rsay, say, shout, ssay, translate, whisper\n");
    } else {
-      write("See also: say, emote, whisper\n");
+      write("See also: emote, rsay, say, shout, whisper\n");
    }
 }
 

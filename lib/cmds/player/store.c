@@ -4,6 +4,9 @@ void usage() {
       "command.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tstore sword\n");
+   write("\tstore helmet\n");
    write("See also: sell, buy, retrieve\n");
 }
 

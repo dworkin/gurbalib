@@ -4,8 +4,13 @@ void usage() {
    write("If PLAYER is specified, give detailed info about the player.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\twho\n");
+   write("\twho sirdude\n");
    if (query_wizard(this_player())) {
-      write("See also: last\n");
+      write("See also: last, look\n");
+   } else {
+      write("See also: look\n");
    }
 }
 

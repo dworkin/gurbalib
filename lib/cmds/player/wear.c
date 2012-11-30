@@ -4,6 +4,9 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tWear all available objects.\n");
+   write("Examples:\n");
+   write("\twear helmet\n");
+   write("\twear pants\n");
    write("See also: wield, remove.\n");
 }
 

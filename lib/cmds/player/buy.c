@@ -4,6 +4,9 @@ void usage() {
       "assuming you are near a shop keeper.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("buy sword\n");
+   write("buy helmet\n");
    write("See also: sell, retrieve, store\n");
 }
 

@@ -3,6 +3,9 @@ void usage() {
    write("This is how you leave the game.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("quit\n");
+   write("See also: score, who\n");
 }
 
 void main(string str) {

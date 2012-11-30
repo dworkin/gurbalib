@@ -3,8 +3,12 @@ void usage() {
    write("translate WORD into the catfolk language.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("See also: rsay\n");
+   write("Examples:\n");
+   write("I'm broken get a wiz to fix me...\n");
+   write("See also: emote, rsay, say, shout, ssay, tell, whisper\n");
 }
+
+/* XXX THis needs work, shouldn't only do catfolk... */
 
 void main(string str) {
    if (!str || str == "") {

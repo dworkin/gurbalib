@@ -14,7 +14,7 @@ void usage() {
    } );
    lines += ( { "For emotes without a target, you do not provide a rule." } );
    lines += ( { "Format defines what the emote will do." } );
-   lines += ( { "Example: if you do add blink $N blink." } );
+   lines += ( { "For example, if you do \"add blink $N blink.\"" } );
    lines += ( { "\tYou will see You blink." } );
    lines += ( {
       "\tEveryone else will see Sirdude blink. (If your name is sirdude)\n"

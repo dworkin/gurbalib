@@ -3,14 +3,13 @@ void usage() {
    write("Send a message MSG to everyone in the room.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("Example:\n");
-   write("\t If you type \"emote does a flip\" the output will look like " +
-      "this:\n");
-   write("\t PLAYER does a flip\n");
+   write("Examples:\n");
+   write("\temote does a flip!\n");
+   write("\temote beep sirdude\n");
    if (query_wizard(this_player())) {
-      write("See also: say, ssay, tell, whisper\n");
+      write("See also: rsay, say, shout, ssay, tell, translate, whisper\n");
    } else {
-      write("See also: say, tell, whisper\n");
+      write("See also: rsay, say, shout, tell, whisper\n");
    }
 }
 
