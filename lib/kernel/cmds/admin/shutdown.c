@@ -8,7 +8,10 @@ void usage() {
    write("Note: there is no way to stop a shutdown.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("See also: warmboot\n");
+   write("Examples:\n");
+   write("\tshutdown 5 were upgrading the server's memory.\n");
+   write("\tshutdown now sorry were experiencing major problems.\n");
+   write("See also: clone, dumpstate, rebuild, update, warmboot\n");
 }
 
 void do_shutdown() {

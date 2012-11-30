@@ -7,6 +7,9 @@ void usage() {
    write("* the current thread ends to notify the user.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tdumpstate\n");
+   write("See also: clone, rebuild, shutdown, update, warmboot\n");
 }
 
 void main(string str) {

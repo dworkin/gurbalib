@@ -5,6 +5,9 @@ void usage() {
    write("If no args are given show all skills.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tskilladm remove english\n");
+   write("\tskilladm add dodge\n");
    write("See also: skills, aliasadm, emoteadm\n");
 }
 

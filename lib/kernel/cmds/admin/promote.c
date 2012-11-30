@@ -12,6 +12,7 @@ void usage() {
    write("\tpromote sirdude admin\tMake sirdude an admin\n");
    write("\tpromote sirdude wiz\tMake sirdude a wizard\n");
    write("\tpromote sirdude player\tMake sirdude a normal player\n");
+   write("See also: rmuser, ban\n");
 }
 
 void display_level(string str) {

@@ -5,7 +5,9 @@ void usage() {
    write("Similar to a reboot but keeps the system running.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("See also: shutdown, clone, rebuild, update\n");
+   write("Examples:\n");
+   write("\twarmboot\n");
+   write("See also: clone, dumpstate, rebuild, shutdown, update, warmboot\n");
 }
 
 #define LAST_STAGE 3
