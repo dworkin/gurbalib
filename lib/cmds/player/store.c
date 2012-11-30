@@ -7,7 +7,7 @@ void usage() {
    write("Examples:\n");
    write("\tstore sword\n");
    write("\tstore helmet\n");
-   write("See also: buy, list, retrieve, sell\n");
+   write("See also: buy, identify, list, look, retrieve, sell, value\n");
 }
 
 void main(string str) {

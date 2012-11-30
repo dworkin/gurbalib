@@ -5,9 +5,9 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("Examples:\n");
-   write("value sword\n");
-   write("value helmet\n");
-   write("See also: buy, sell\n");
+   write("\tvalue sword\n");
+   write("\tvalue helmet\n");
+   write("See also: buy, identify, list, look, retrieve, sell, store, value\n");
 }
 
 void main(string str) {

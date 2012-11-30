@@ -7,7 +7,7 @@ void usage() {
    write("Examples:\n");
    write("\tsell sword\n");
    write("\tsell helmet\n");
-   write("See also: buy, list, retrieve, store\n");
+   write("See also: buy, identify, list, look, retrieve, sell, store, value\n");
 }
 
 /* Created by Fudge */

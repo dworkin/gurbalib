@@ -6,7 +6,7 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
    write("Examples:\n");
    write("\tlist\n");
-   write("See also: buy, retrieve, sell, store\n");
+   write("See also: buy, identify, look, retrieve, sell, store, value\n");
 }
 
 void main(string str) {

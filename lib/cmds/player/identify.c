@@ -4,6 +4,10 @@ void usage() {
       "information.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tidentify sword\n");
+   write("\tidentify helmet\n");
+   write("See also: buy, list, look, retrieve, sell, store, value\n");
 }
 
 void main(string str) {
