@@ -11,8 +11,11 @@ void do_wear(object obj, int loud) {
    string slot;
    object worn;
 
-   if (loud && !obj) {
-      write("what are you trying to wear?");
+   if (!obj) {
+      if (loud) {
+         write("what are you trying to wear?");
+      }
+      return;
    }
 
    if (!obj->is_wearable()) {

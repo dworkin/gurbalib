@@ -11,23 +11,31 @@ void do_give(object obj1, object obj2, int loud) {
    string slot;
    object worn;
 
-   if (loud && !obj1) {
-      write("What are you trying to put where?");
+   if (!obj1) {
+      if (loud) {
+         write("What are you trying to put where?");
+      }
       return;
    }
 
-   if (loud && !obj2) {
-      write("Where are you trying to put that?\n");
+   if (!obj2) {
+      if (loud) {
+         write("Where are you trying to put that?\n");
+      }
       return;
    }
 
-   if (loud && !obj2->is_living()) {
-      write("You can only give things to the living.\n");
+   if (!obj2->is_living()) {
+      if (loud) {
+         write("You can only give things to the living.\n");
+      }
       return;
    }
 
-   if (loud && (obj2 == this_player())) {
-      write("You may not give things to yourself.\n");
+   if (obj2 == this_player()) {
+      if (loud) {
+         write("You may not give things to yourself.\n");
+      }
       return;
    }
 

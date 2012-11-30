@@ -10,8 +10,10 @@ void do_wield(object obj, int loud) {
    string slot;
    object* wielded;
 
-   if (loud && !obj) {
-      write("Maybe you should get one first?");
+   if (!obj) {
+      if (loud) {
+         write("Maybe you should get one first?");
+      }
       return;
    }
 

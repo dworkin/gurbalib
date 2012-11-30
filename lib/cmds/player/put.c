@@ -11,28 +11,38 @@ void do_put(object obj1, object obj2, int loud) {
    string slot;
    object worn;
 
-   if (loud && !obj1) {
-      write("What are you trying to put where?");
+   if (!obj1) {
+      if (loud) {
+         write("What are you trying to put where?");
+      }
       return;
    }
 
-   if (loud && !obj2) {
-      write("Where are you trying to put that?\n");
+   if (!obj2) {
+      if (loud) {
+         write("Where are you trying to put that?\n");
+      }
       return;
    }
 
-   if (loud && !obj2->is_container()) {
-      write("You can not put that there.\n");
+   if (!obj2->is_container()) {
+      if (loud) {
+         write("You can not put that there.\n");
+      }
       return;
    }
 
-   if (loud && obj2->is_closed()) {
-      write("It is not open.\n");
+   if (obj2->is_closed()) {
+      if (loud) {
+         write("It is not open.\n");
+      }
       return;
    }
 
-   if (loud && (obj2 == this_player())) {
-      write("You can not put things in your inventory, use get instead.\n");
+   if (obj2 == this_player()) {
+      if (loud) {
+         write("You can not put things in your inventory, use get instead.\n");
+      }
       return;
    }
 

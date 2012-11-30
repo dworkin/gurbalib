@@ -11,8 +11,11 @@ void do_drop(object obj, int loud) {
    string slot;
    object worn;
 
-   if (loud && !obj) {
-      write("what are you trying to drop?");
+   if (!obj) {
+      if (loud) {
+         write("what are you trying to drop?");
+      }
+      return;
    }
 
    if (obj->is_undroppable()) {

@@ -12,33 +12,45 @@ void do_get(object obj1, object obj2, int loud) {
    string slot;
    object worn;
 
-   if (loud && !obj1) {
-      write("What are you trying to get?");
+   if (!obj1) {
+      if (loud) {
+         write("What are you trying to get?");
+      }
       return;
    }
 
-   if (loud && !obj2) {
-      write("Where are you trying to get that?\n");
+   if (obj1->is_gettable() != 1) {
+      if (loud) {
+         write("You can not get the " + obj1->query_id() + ".");
+      }
       return;
    }
 
-   if (loud && !obj2->is_container()) {
-      write("You can not get things from there.\n");
+   if (!obj2) {
+      if (loud) {
+         write("Where are you trying to get that?\n");
+      }
       return;
    }
 
-   if (loud && obj2->is_closed()) {
-      write("It is not open.\n");
+   if (!obj2->is_container()) {
+      if (loud) {
+         write("You can not get things from there.\n");
+      }
       return;
    }
 
-   if (loud && (obj2 == this_player())) {
-      write("You can not get things from your inventory.\n");
+   if (obj2->is_closed()) {
+      if (loud) {
+         write("It is not open.\n");
+      }
       return;
    }
 
-   if (loud && !obj1->is_gettable()) {
-      write("You can not get the " + obj1->query_id() + ".");
+   if (!obj1->is_gettable()) {
+      if (loud) {
+         write("You can not get the " + obj1->query_id() + ".");
+      }
       return;
    }
 
@@ -81,32 +93,29 @@ void main(string str) {
    } else if (sscanf(str, "%s %s",what,where) == 2) {
    } else {
       what = str;
-      obj = this_player()->query_environment();
    }
 
-   if (!obj) {
-      obj = this_player()->present(lowercase(where));
+   if (!where || (where == "")) {
+      obj = this_environment();
+   } else {
+      obj = this_environment()->present(lowercase(where));
    }
-   if (!obj) {
-      obj = this_player()->query_environment()->present(lowercase(where));
-   }
+
    if (!obj) {
       write("Where are you trying to get something from?");
       return;
    }
 
    if (what == "all") {
-      inv = this_player()->query_inventory();
+      inv = this_environment()->query_inventory();
       max = sizeof(inv);
       for (i = 0; i < max; i++) {
          do_get(inv[i], obj, 0);
       }
       return;
    }
+write("What = " + what + ", Where = " + where + "\n");
 
-   obj2 = this_player()->present(lowercase(what));
-   if (!obj2) {
-      obj2 = this_player()->query_environment()->present(lowercase(what));
-   }
+   obj2 = obj->present(lowercase(what));
    do_get(obj2, obj, 1);
 }

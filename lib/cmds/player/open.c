@@ -11,12 +11,17 @@ void do_open(object obj, int loud) {
    string slot;
    object worn;
 
-   if (loud && !obj) {
-      write("what are you trying to open?");
+   if (!obj) {
+         if (loud) { 
+         write("what are you trying to open?");
+      }
+      return;
    }
 
-   if (!obj->is_openable() && loud) {
-      write("You can't open the " + obj->query_id() + ".");
+   if (!obj->is_openable()) {
+      if (loud) {
+         write("You can't open the " + obj->query_id() + ".");
+      }
       return;
    }
    obj->do_open(this_player());

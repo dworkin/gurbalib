@@ -12,8 +12,11 @@ void do_remove(object obj, int loud) {
    string slot;
    object worn;
 
-   if (loud && !obj) {
-      write("what are you trying to remove?");
+   if (!obj) {
+      if (loud) {
+         write("what are you trying to remove?");
+      }
+      return;
    }
 
    if (obj->is_worn()) {

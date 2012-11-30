@@ -11,12 +11,17 @@ void do_close(object obj, int loud) {
    string slot;
    object worn;
 
-   if (loud && !obj) {
-      write("what are you trying to close?");
+   if (!obj) {
+      if (loud) {
+         write("what are you trying to close?");
+      }
+      return;
    }
 
-   if (!obj->is_closable() && loud) {
-      write("You can't close the " + obj->query_id() + ".");
+   if (!obj->is_closable()) {
+      if (loud) {
+         write("You can't close the " + obj->query_id() + ".");
+      }
       return;
    }
    obj->do_close(this_player());
