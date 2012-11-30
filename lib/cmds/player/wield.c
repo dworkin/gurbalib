@@ -7,7 +7,7 @@ void usage() {
    write("Examples:\n");
    write("\twield sword\n");
    write("\twield axe\n");
-   write("See also: wear, remove\n");
+   write("See also: get, drop, put, remove, wear\n");
 }
 void do_wield(object obj, int loud) {
    string slot;

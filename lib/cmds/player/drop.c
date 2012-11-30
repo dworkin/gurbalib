@@ -4,7 +4,10 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tDrop everything you are carring.\n");
-   write("See also: get, remove.\n");
+   write("Examples:\n");
+   write("drop sword\n");
+   write("drop all\n");
+   write("See also: get, put, remove, wear, wield\n");
 }
 
 void do_drop(object obj, int loud) {

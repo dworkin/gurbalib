@@ -5,7 +5,10 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tRemove everything you are wearing and wielding.\n");
-   write("See also: get, drop, wield, wear.\n");
+   write("Examples:\n");
+   write("remove helmet\n");
+   write("remove all\n");
+   write("See also: get, drop, put, wear, wield\n");
 }
 
 void do_remove(object obj, int loud) {

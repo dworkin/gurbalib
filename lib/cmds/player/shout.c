@@ -6,8 +6,8 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("Examples:\n");
-   write("shout I am the fluffy bunny king!\n");
-   write("shout no your not!\n");
+   write("\tshout I am the fluffy bunny king!\n");
+   write("\tshout no your not!\n");
    if (query_wizard(this_player())) {
       write("See also: emote, rsay, say, ssay, tell, translate, whisper\n");
    } else {

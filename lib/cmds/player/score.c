@@ -6,8 +6,8 @@ void usage() {
       write("Options:\n");
       write("\t-h\tHelp, this usage message.\n");
       write("Examples:\n");
-      write("score\n");
-      write("score sirdude\n");
+      write("\tscore\n");
+      write("\tscore sirdude\n");
       write("See also: hp, inventory, skills, status\n");   
    } else {
       write("Usage: score [-h]\n");

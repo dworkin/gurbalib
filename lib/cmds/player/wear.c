@@ -7,7 +7,7 @@ void usage() {
    write("Examples:\n");
    write("\twear helmet\n");
    write("\twear pants\n");
-   write("See also: wield, remove.\n");
+   write("See also: get, drop, put, remove, wield\n");
 }
 
 void do_wear(object obj, int loud) {

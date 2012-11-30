@@ -5,7 +5,12 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tGet everything you can pick up.\n");
-   write("See also: put, open, drop.\n");
+   write("Examples:\n");
+   write("get sword\n");
+   write("get sword from chest\n");
+   write("get all\n");
+   write("get all from chest\n");
+   write("See also: drop, open, put, remove, wear, wield\n");
 }
 
 void do_get(object obj1, object obj2, int loud) {

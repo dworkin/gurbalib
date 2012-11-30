@@ -4,7 +4,10 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tPut everything you are carring in OBJ2.\n");
-   write("See also: get, remove.\n");
+   write("Examples:\n");
+   write("put sword in chest\n");
+   write("put all in chest\n");
+   write("See also: get, drop, remove, wear, wield\n");
 }
 
 void do_put(object obj1, object obj2, int loud) {
