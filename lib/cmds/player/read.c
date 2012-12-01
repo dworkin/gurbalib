@@ -3,6 +3,9 @@ void usage() {
    write("Allows you to read readable things.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tread sign\n");
+   write("See also: look\n");
 }
 
 void main(string str) {

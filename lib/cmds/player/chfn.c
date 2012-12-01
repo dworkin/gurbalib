@@ -5,6 +5,10 @@ void usage() {
    write("If no info is given show your current information.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tchfn real Kent Mein\n");
+   write("\tchfn email mein@cs.umn.edu\n");
+   write("See also: passwd");
 }
 
 void show_chfn() {

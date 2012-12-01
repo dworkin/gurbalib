@@ -1,10 +1,12 @@
 void usage() {
-   write("Usage: close [-h] [all|OBJ]\n");
+   write("Usage: open [-h] [all|OBJ]\n");
    write("Allows you to open a given object OBJ.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tOpen everything you can.\n");
-   write("See also: open.\n");
+   write("Examples:\n");
+   write("\topen chest\n");
+   write("See also: close\n");
 }
 
 void do_open(object obj, int loud) {

@@ -4,7 +4,9 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tClose everything you can.\n");
-   write("See also: open.\n");
+   write("Examples:\n");
+   write("\tclose chest\n");
+   write("See also: open\n");
 }
 
 void do_close(object obj, int loud) {

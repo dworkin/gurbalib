@@ -3,6 +3,9 @@ void usage() {
    write("Allows you to change your password.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tpasswd\n");
+   write("See also: chfn\n");
 }
 
 void main(string arg) {
