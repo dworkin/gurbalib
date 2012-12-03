@@ -1,13 +1,17 @@
 void usage() {
-   write("Usage: identify [-h] OBJ\n");
-   write("Closely inspect an object OBJ to see if there is any addition " +
-      "information.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tidentify sword\n");
-   write("\tidentify helmet\n");
-   write("See also: buy, list, look, retrieve, sell, store, value\n");
+   string *lines;
+
+   lines = ({ "Usage: identify [-h] OBJ" });
+   lines += ({ "Closely inspect an object OBJ to see if there is any " +
+      "addition information." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tidentify sword" });
+   lines += ({ "\tidentify helmet" });
+   lines += ({ "See also: buy, list, look, retrieve, sell, store, value" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

@@ -1,12 +1,16 @@
 void usage() {
-   write("Usage: hp [-h]\n");
-   write("A short way to display your current: hit points, mana, " +
-      "endurance, ac\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\thp\n");
-   write("See also: inventory, levels, score, skills\n");
+   string *lines;
+
+   lines = ({ "Usage: hp [-h]" });
+   lines += ({ "A short way to display your current: hit points, mana, " +
+      "endurance, ac" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\thp" });
+   lines += ({ "See also: inventory, levels, score, skills" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

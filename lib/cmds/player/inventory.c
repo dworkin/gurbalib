@@ -1,11 +1,15 @@
 void usage() {
-   write("Usage: inventory [-h]\n");
-   write("Print a list of the items you currently have acquired.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tinventory\n");
-   write("See also: hp, levels, score, skills\n");
+   string *lines;
+
+   lines = ({ "Usage: inventory [-h]" });
+   lines += ({ "Print a list of the items you currently have acquired." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tinventory" });
+   lines += ({ "See also: hp, levels, score, skills" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

@@ -1,10 +1,14 @@
 void usage() {
-   write("Usage: ignore [-h] [PLAYER]\n");
-   write("Allows you to ignore a given player PLAYER,\n");
-   write("or stop ignoring them if they are currently ignored.\n");
-   write("If PLAYER is missing, show a list of who you are ignoring.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: ignore [-h] [PLAYER]" });
+   lines += ({ "Allows you to ignore a given player PLAYER," });
+   lines += ({ "or stop ignoring them if they are currently ignored." });
+   lines += ({ "If PLAYER is missing, show a list of who you are ignoring." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+
+   this_player()->more(lines);
 }
 
 /* Add a user to your ignore list  -- Arron Cusimano (mordain) 20090321 */

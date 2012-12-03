@@ -1,11 +1,15 @@
 void usage() {
-   write("Usage: levels [-h]\n");
-   write("Displays a list of the various levels and requirements.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tlevels\n");
-   write("See also: hp, inventory, score, skills\n");
+   string *lines;
+
+   lines = ({ "Usage: levels [-h]" });
+   lines += ({ "Displays a list of the various levels and requirements." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tlevels" });
+   lines += ({ "See also: hp, inventory, score, skills" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

@@ -1,12 +1,16 @@
 void usage() {
-   write("Usage: list [-h]\n");
-   write("When in a storage location, allows you to see what you have in " +
-      "storage.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tlist\n");
-   write("See also: buy, identify, look, retrieve, sell, store, value\n");
+   string *lines;
+
+   lines = ({ "Usage: list [-h]" });
+   lines += ({ "When in a storage location, allows you to see what you " +
+      "have in storage." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tlist" });
+   lines += ({ "See also: buy, identify, look, retrieve, sell, store, value" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

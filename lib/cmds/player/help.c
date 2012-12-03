@@ -1,32 +1,37 @@
 void usage() {
-   write("Usage: help [-h] [TOPIC]\n");
-   write("Get basic information on: TOPIC\n");
-   write("Current topics:\n");
-   write("\tnewbie       If your new to the mud start here.\n");
-   write("\tcomm         Basics on communication on the mud.\n");
-   write("\trules        Some basic rules you should be familar with.\n");
-   write("\tmultis       Our stance on multiple chars per person.\n");
-   write("\troleplaying  Some suggestions.\n");
-   write("\tabuse        What happens if you abuse the rules.\n");
-   write("\tbugs         How to report bugs you may find.\n");
-   write("\tcontact      How can you get ahold of someone if you need help.\n");
-   write("\ttime         How does time work on the mud?\n");
-   write("\tchannels     Another way to communicate.\n");
+   string *lines;
+
+   lines = ({ "Usage: help [-h] [TOPIC]" });
+   lines += ({ "Get basic information on: TOPIC" });
+   lines += ({ "Current topics:" });
+   lines += ({ "\tnewbie       If your new to the mud start here." });
+   lines += ({ "\tcomm         Basics on communication on the mud." });
+   lines += ({ "\trules        Some basic rules you should be familar with." });
+   lines += ({ "\tmultis       Our stance on multiple chars per person." });
+   lines += ({ "\troleplaying  Some suggestions." });
+   lines += ({ "\tabuse        What happens if you abuse the rules." });
+   lines += ({ "\tbugs         How to report bugs you may find." });
+   lines += ({ "\tcontact      How can you get ahold of someone if you need " +
+      "help." });
+   lines += ({ "\ttime         How does time work on the mud?" });
+   lines += ({ "\tchannels     Another way to communicate." });
 
    if (query_wizard(this_player())) {
-      write("\twizard       If you are a wizard start here\n");
+      lines += ({ "\twizard       If you are a wizard start here" });
    }
 
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\thelp newbie\n");
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\thelp newbie" });
 
    if (query_wizard(this_player())) {
-      write("See also: cmds, man\n");
+      lines += ({ "See also: cmds, man" });
    } else {
-      write("See also: cmds\n");
+      lines += ({ "See also: cmds" });
    }
+
+   this_player()->more(lines);
 }
 
 void show_file(string filename) {

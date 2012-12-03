@@ -1,11 +1,15 @@
 void usage() {
-   write("Usage: passwd [-h]\n");
-   write("Allows you to change your password.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tpasswd\n");
-   write("See also: chfn, describe\n");
+   string *lines;
+
+   lines = ({ "Usage: passwd [-h]" });
+   lines += ({ "Allows you to change your password." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tpasswd" });
+   lines += ({ "See also: chfn, describe" });
+
+   this_player()->more(lines);
 }
 
 void main(string arg) {
