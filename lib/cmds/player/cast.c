@@ -17,6 +17,9 @@ void usage(string str) {
       "list the spells you have access to.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tcast missle rat\n");
+   write("See also: cast, eat, go, pray\n");
 }
 
 int has_spell(string spellname) {

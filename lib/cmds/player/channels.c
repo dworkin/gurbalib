@@ -3,6 +3,9 @@ void usage() {
    write("List the available channels you can use to communicate on.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tchannels\n");
+   write("See also: chan\n");
 }
 
 /* 

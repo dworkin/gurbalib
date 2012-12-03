@@ -4,6 +4,9 @@ void usage() {
    write("can go, \"look\" around.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tgo north\n");
+   write("See also: attack, cast, eat, pray\n");
 }
 
 void main(string str) {

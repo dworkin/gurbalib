@@ -3,6 +3,9 @@ void usage() {
    write("OBJ offends you, you are going to destroy it.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tattack rat\n");
+   write("See also: cast, eat, go, pray\n");
 }
 
 void main(string str) {

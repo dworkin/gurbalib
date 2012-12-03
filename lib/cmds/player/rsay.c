@@ -18,9 +18,10 @@ void usage() {
    write("\trsay catfolk Hi, are we being sneaky?\n");
    write("\trsay Can you read this?\n");
    if (query_wizard(this_player())) {
-      write("See also: emote, say, shout, ssay, tell, translate, whisper\n");
+      write("See also: bug, emote, say, shout, ssay, tell, translate, " +
+         "whisper, wizcall\n");
    } else {
-      write("See also: emote, say, shout, tell, whisper\n");
+      write("See also: bug, emote, say, shout, tell, whisper, wizcall\n");
    }
 }
 

@@ -7,9 +7,10 @@ void usage() {
    write("\temote does a flip!\n");
    write("\temote beep sirdude\n");
    if (query_wizard(this_player())) {
-      write("See also: rsay, say, shout, ssay, tell, translate, whisper\n");
+      write("See also: bug, emote, rsay, say, shout, ssay, tell, translate, " +
+         "whisper, wizcall\n");
    } else {
-      write("See also: rsay, say, shout, tell, whisper\n");
+      write("See also: bug, emote, rsay, say, shout, tell, whisper, wizcall\n");
    }
 }
 

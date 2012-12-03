@@ -7,9 +7,10 @@ void usage() {
    write("\tsay I'm sleepy, I should go now.\n");
    write("\tsay no your not!\n");
    if (query_wizard(this_player())) {
-      write("See also: emote, rsay, shout, ssay, tell, translate, whisper\n");
+      write("See also: bug, emote, rsay, shout, ssay, tell, translate, " +
+         "whisper, wizcall\n");
    } else {
-      write("See also: emote, rsay, shout, tell, whisper\n");
+      write("See also: bug, emote, rsay, shout, tell, whisper, wizcall\n");
    }
 }
 

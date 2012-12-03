@@ -7,9 +7,10 @@ void usage() {
    write("\ttell sirdude you have a large nose.\n");
    write("\ttell guest Hi how are you?\n");
    if (query_wizard(this_player())) {
-      write("See also: emote, rsay, say, shout, ssay, translate, whisper\n");
+      write("See also: bug, emote, rsay, say, shout, ssay, translate, " +
+         "whisper, wizcall\n");
    } else {
-      write("See also: emote, rsay, say, shout, whisper\n");
+      write("See also: bug, emote, rsay, say, shout, whisper, wizcall\n");
    }
 }
 

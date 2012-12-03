@@ -4,6 +4,10 @@ void usage() {
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
    write("\tall\tGive everything you are carring to PLAYER.\n");
+   write("Examples:\n");
+   write("\tgive sword to sirdude\n");
+   write("\tgive sword sirdude\n");
+   write("\tgive all to sirdude\n");
    write("See also: get, drop.\n");
 }
 

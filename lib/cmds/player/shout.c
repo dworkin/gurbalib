@@ -9,9 +9,10 @@ void usage() {
    write("\tshout I am the fluffy bunny king!\n");
    write("\tshout no your not!\n");
    if (query_wizard(this_player())) {
-      write("See also: emote, rsay, say, ssay, tell, translate, whisper\n");
+      write("See also: bug, emote, rsay, say, ssay, tell, translate, " +
+         "whisper, wizcall\n");
    } else {
-      write("See also: emote, rsay, say, tell, whisper\n");
+      write("See also: bug, emote, rsay, say, tell, whisper, wizcall\n");
    }
 }
 

@@ -4,6 +4,14 @@ void usage() {
    write("We can't fix bugs unless we know about them.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tbug the rabbit hole does not work in newbieville\n");
+   if (query_wizard(this_player())) {
+      write("See also: emote, rsay, say, shout, ssay, tell, translate, " +
+         "whisper, wizcall\n");
+   } else {
+      write("See also: emote, rsay, say, shout, tell, whisper, wizcall\n");
+   }
 }
 
 private static mapping msg;

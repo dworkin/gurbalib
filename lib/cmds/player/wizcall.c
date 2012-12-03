@@ -7,7 +7,12 @@ void usage() {
    write("Examples:\n");
    write("\twizcall I need help I'm stuck in a room I can not get out of.\n");
    write("\twizcall I found a bug in the look command.\n");
-   write("See also: shout, tell\n");
+   if (query_wizard(this_player())) {
+      write("See also: bug, emote, rsay, say, shout, ssay, tell, translate, " +
+         "whisper\n");
+   } else {
+      write("See also: bug, emote, rsay, say, shout, tell, whisper\n");
+   }
 }
 
 void main(string str) {

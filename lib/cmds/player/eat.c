@@ -3,6 +3,9 @@ void usage() {
    write("Consume the specified object.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\teat apple\n");
+   write("See also: attack, cast, eat, go, pray\n");
 }
 
 void main(string str) {
