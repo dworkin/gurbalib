@@ -3,6 +3,7 @@ string *lines;
 
 void usage() {
    string flags;
+   string *lines;
 
    flags = "player|verb";
 
@@ -11,22 +12,25 @@ void usage() {
    if (query_admin(this_player()))
       flags += "|admin";
 
-   write("Usage: cmds [-h] [-v] [" + flags + "]\n");
-   write("cmds lists the various cmds at your disposal.\n");
-   write("Options:\n");
-   write("\t-e\tInclude emotes.\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\t-v\tVertical, displays commands one per line.\n");
-   write("If you specify a subsection like player it will only list " +
-      "player commands, instead of all commands you have available.\n");
-   write("Examples:\n");
-   write("\tcmds\n");
-   write("\tcmds players\n");
+   lines = ({ "Usage: cmds [-h] [-v] [" + flags + "]" });
+   lines += ({ "cmds lists the various cmds at your disposal." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-e\tInclude emotes." });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\t-v\tVertical, displays commands one per line." });
+   lines += ({ "If you specify a subsection like player it will only list " +
+      "player commands, " });
+   lines += ({ "instead of all commands you have available." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tcmds" });
+   lines += ({ "\tcmds players" });
    if (query_wizard(this_player())) {
-      write("See also: man, help\n");
+      lines += ({ "See also: man, help" });
    } else {
-      write("See also: help\n");
+      lines += ({ "See also: help" });
    }
+
+   this_player()->more(lines);
 }
 
 void show_cmds(string dir) {

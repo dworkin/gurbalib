@@ -1,11 +1,15 @@
 void usage() {
-   write("Usage: delete [-h] #\n");
-   write("Allows you to remove posts from a message board.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tdelete 3\n");
-   write("See also: look, post, read\n");
+   string *lines;
+
+   lines = ({ "Usage: delete [-h] #" });
+   lines += ({ "Allows you to remove posts from a message board." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tdelete 3" });
+   lines += ({ "See also: look, post, read" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

@@ -8,6 +8,7 @@ void chan_cmd(string chan, string cmd);
 
 void usage() {
    string cmds;
+   string *lines;
 
    cmds = "join (or on), leave (or off), hist, quit, who, list";
    if (query_wizard(this_player())) {
@@ -17,8 +18,15 @@ void usage() {
       cmds += ", wiz, admin, delete";
    }
 
-   write("Usage: chan <channel> </command>\n Command can be " + cmds +
-      "\nYou can also just use <channel> /command");
+   lines = ({ "Usage: chan CHANNEL </command>" });
+   lines += ({ Command can be " + cmds });
+   lines += ({ "You can also just use <channel> /command" });
+   lines += ({ "Examples:" });
+   lines += ({ "\tchan join funtime" });
+   lines += ({ "\tchan leave funtime" });
+   lines += ({ "See also: channels" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

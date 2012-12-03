@@ -1,12 +1,16 @@
 void usage() {
-   write("Usage: enter [-h] OBJECT\n");
-   write("Allows you to enter the specified object.  To see what you\n");
-   write("can enter, \"look\" around.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tenter hole\n");
-   write("See also: attack, cast, eat, go, pray\n");
+   string *lines;
+
+   lines = ({ "Usage: enter [-h] OBJECT" });
+   lines += ({ "Allows you to enter the specified object.  To see what you" });
+   lines += ({ "can enter, \"look\" around." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tenter hole" });
+   lines += ({ "See also: attack, cast, eat, follow, go, pray" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

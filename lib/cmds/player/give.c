@@ -1,14 +1,18 @@
 void usage() {
-   write("Usage: give [-h] [all|OBJ] [to] PLAYER\n");
-   write("Allows you to give OBJ to PLAYER\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tGive everything you are carring to PLAYER.\n");
-   write("Examples:\n");
-   write("\tgive sword to sirdude\n");
-   write("\tgive sword sirdude\n");
-   write("\tgive all to sirdude\n");
-   write("See also: get, drop.\n");
+   string *lines;
+
+   lines = ({ "Usage: give [-h] [all|OBJ] [to] PLAYER" });
+   lines += ({ "Allows you to give OBJ to PLAYER" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\tall\tGive everything you are carring to PLAYER." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tgive sword to sirdude" });
+   lines += ({ "\tgive sword sirdude" });
+   lines += ({ "\tgive all to sirdude" });
+   lines += ({ "See also: get, drop" });
+
+   this_player()->more(lines);
 }
 
 void do_give(object obj1, object obj2, int loud) {

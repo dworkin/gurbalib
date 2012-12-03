@@ -1,9 +1,18 @@
 void usage() {
-   write("Usage: follow [-h] [WHO]\n");
-   write("Allows you to follow/unfollow another player.\n");
-   write("If you give no aguments, it will print who you are following.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: follow [-h] [WHO]" });
+   lines += ({ "Allows you to follow/unfollow another player." });
+   lines += ({ "If you give no aguments, it will print who you are following." 
+      });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tfollow sirdude" });
+   lines += ({ "\tfollow" });
+   lines += ({ "See also: attack, cast, eat, enter, go, pray" });
+
+   this_player()->more(lines);
 }
 
 /* XXX need to still put backend of this in..... */

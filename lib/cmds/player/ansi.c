@@ -2,20 +2,24 @@ string parse_error;
 
 void usage() {
    string mode;
+   string *lines;
 
-   write("Usage: ansi[-h] [on|off|show]\n");
-   write("Used to turn on or off color support and show the settings.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\ton\tTurn on ANSI support.\n");
-   write("\toff\tTurn off ANSI support.\n");
-   write("\tshow\tDisplay your current ANSI support settings.\n");
    if (this_player()->query_env("ansi") == 1) {
       mode = "on";
    } else {
       mode = "off";
    }
-   write("You currently have ansi mode: " + mode + "\n");
+
+   lines = ({ "Usage: ansi[-h] [on|off|show]" });
+   lines += ({ "Used to turn on or off color support and show the settings." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\ton\tTurn on ANSI support." });
+   lines += ({ "\toff\tTurn off ANSI support." });
+   lines += ({ "\tshow\tDisplay your current ANSI support settings." });
+   lines += ({ "You currently have ansi mode: " + mode });
+
+   this_player()->more(lines);
 }
 
 #define GRAMMAR "whitespace=/[ ]+/\n"+\

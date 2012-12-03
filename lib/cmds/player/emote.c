@@ -1,17 +1,22 @@
 void usage() {
-   write("Usage: emote [-h] MSG\n");
-   write("Send a message MSG to everyone in the room.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\temote does a flip!\n");
-   write("\temote beep sirdude\n");
+   string *lines;
+
+   lines = ({ "Usage: emote [-h] MSG" });
+   lines += ({ "Send a message MSG to everyone in the room." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\temote does a flip!" });
+   lines += ({ "\temote beep sirdude" });
    if (query_wizard(this_player())) {
-      write("See also: bug, emote, rsay, say, shout, ssay, tell, translate, " +
-         "whisper, wizcall\n");
+      lines += ({ "See also: bug, emote, rsay, say, shout, ssay, tell, " +
+         "translate, whisper, wizcall" });
    } else {
-      write("See also: bug, emote, rsay, say, shout, tell, whisper, wizcall\n");
+      lines += ({ "See also: bug, emote, rsay, say, shout, tell, whisper, " +
+         "wizcall" });
    }
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

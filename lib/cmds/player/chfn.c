@@ -1,14 +1,19 @@
 void usage() {
-   write("Usage: chfn [-h] [real YOURNAME | email EMAIL]\n");
-   write("Allows you to change your basic information.\n");
-   write("You can set your realname to YOURNAME or your email to EMAIL.\n");
-   write("If no info is given show your current information.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tchfn real Kent Mein\n");
-   write("\tchfn email mein@cs.umn.edu\n");
-   write("See also: describe, passwd");
+   string *lines;
+
+   lines = ({ "Usage: chfn [-h] [real YOURNAME | email EMAIL]" });
+   lines += ({ "Allows you to change your basic information." });
+   lines += ({ "You can set your realname to YOURNAME or your email to EMAIL."
+      });
+   lines += ({ "If no info is given show your current information." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tchfn real Kent Mein" });
+   lines += ({ "\tchfn email mein@cs.umn.edu" });
+   lines += ({ "See also: describe, passwd" });
+
+   this_player()->more(lines);
 }
 
 void show_chfn() {

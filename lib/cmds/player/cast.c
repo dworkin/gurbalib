@@ -4,6 +4,7 @@ string find_spell(string spellname);
 void usage(string str) {
    object target;
    string spellpath;
+   string *lines;
 
    if (str != "") {
       spellpath = find_spell(str);
@@ -12,14 +13,17 @@ void usage(string str) {
 	 return;
       }
    }
-   write("Usage: cast [-h] [spell [target]]\n");
-   write("Allows you to cast a spell.  If you do not give a spell, it will " +
-      "list the spells you have access to.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tcast missle rat\n");
-   write("See also: attack, eat, enter, go, pray\n");
+
+   lines = ({ "Usage: cast [-h] [spell [target]]" });
+   lines += ({ "Allows you to cast a spell.  If you do not give a spell, " +
+      " it will list the spells you have access to." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tcast missle rat" });
+   lines += ({ "See also: attack, eat, enter, follow, go, pray" });
+
+   this_player()->more(lines);
 }
 
 int has_spell(string spellname) {

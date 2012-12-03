@@ -1,12 +1,17 @@
 void usage() {
-   write("Usage: describe [-h] DESCRIPTION\n");
-   write("Allows you to change your DESCRIPTION, so that when someone looks " +
-      "at you,\nThey know what you look like.");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tdescribe The unassuming little elf.\n");
-   write("See also: chfn, passwd\n");
+   string *lines;
+
+   lines = ({ "Usage: describe [-h] DESCRIPTION" });
+   lines += ({ "Allows you to change your DESCRIPTION, so that when someone " +
+      "looks at you," });
+   lines += ({ "They know what you look like." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tdescribe The unassuming little elf." });
+   lines += ({ "See also: chfn, passwd" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

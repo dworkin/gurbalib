@@ -1,12 +1,16 @@
 void usage() {
-   write("Usage: alias [-h] [STR COMMAND]\n");
-   write("Allows you to create an alias for a command.\n");
-   write("If no alias is given show a list of your current aliases.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\talias ga get all\n");
-   write("\talias da drop all\n");
+   string *lines;
+
+   lines = ({ "Usage: alias [-h] [STR COMMAND]" });
+   lines += ({ "Allows you to create an alias for a command." });
+   lines += ({ "If no alias is given show a list of your current aliases." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\talias ga get all" });
+   lines += ({ "\talias da drop all" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

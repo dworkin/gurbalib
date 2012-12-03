@@ -1,12 +1,16 @@
 void usage() {
-   write("Usage: eat [-h] [OBJECT]\n");
-   write("Consume the specified object.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\teat apple\n");
-   write("See also: attack, cast, enter, go, pray\n");
+   string *lines;
 
+   lines = ({ "Usage: eat [-h] [OBJECT]" });
+   lines += ({ "Consume the specified object." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\teat apple" });
+   lines += ({ "See also: attack, cast, enter, follow, go, pray" });
+
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

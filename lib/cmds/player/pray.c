@@ -1,11 +1,15 @@
 void usage() {
-   write("Usage: pray [-h] [prayer]\n");
-   write("Allows you to regain your body....\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tpray for forgiveness\n");
-   write("See also: attack, cast, eat, enter, go\n");
+   string *lines;
+
+   lines = ({ "Usage: pray [-h] [prayer]" });
+   lines += ({ "Allows you to regain your body...." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tpray for forgiveness" });
+   lines += ({ "See also: attack, cast, eat, enter, follow, go, pray" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

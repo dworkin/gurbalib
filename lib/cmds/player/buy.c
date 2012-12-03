@@ -1,13 +1,18 @@
 void usage() {
-   write("Usage: buy [-h] OBJ\n");
-   write("Allows you to buy an object OBJ, " +
-      "assuming you are near a shop keeper.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tbuy sword\n");
-   write("\tbuy helmet\n");
-   write("See also: identify, list, look, retrieve, sell, store, value\n");
+   string *lines;
+
+   lines = ({ "Usage: buy [-h] OBJ" });
+   lines += ({ "Allows you to buy an object OBJ, " +
+      "assuming you are near a shop keeper." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tbuy sword" });
+   lines += ({ "\tbuy helmet" });
+   lines += ({ "See also: identify, list, look, retrieve, sell, store, value"
+      });
+
+   this_player()->more(lines);
 }
 
 /* Created by Fudge */

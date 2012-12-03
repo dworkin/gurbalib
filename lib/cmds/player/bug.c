@@ -1,17 +1,22 @@
 void usage() {
-   write("Usage: bug [-h] SUBJECT\n");
-   write("Allows you to submit a bug to the system.\n");
-   write("We can't fix bugs unless we know about them.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tbug the rabbit hole does not work in newbieville\n");
+   string *lines;
+
+   lines = ({ "Usage: bug [-h] SUBJECT" });
+   lines += ({ "Allows you to submit a bug to the system." });
+   lines += ({ "We can't fix bugs unless we know about them." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tbug the rabbit hole does not work in newbieville" });
    if (query_wizard(this_player())) {
-      write("See also: emote, rsay, say, shout, ssay, tell, translate, " +
-         "whisper, wizcall\n");
+      lines += ({ "See also: emote, rsay, say, shout, ssay, tell, translate, " +
+         "whisper, wizcall" });
    } else {
-      write("See also: emote, rsay, say, shout, tell, whisper, wizcall\n");
+      lines += ({ "See also: emote, rsay, say, shout, tell, whisper, " +
+         "wizcall" });
    }
+
+   this_player()->more(lines);
 }
 
 private static mapping msg;

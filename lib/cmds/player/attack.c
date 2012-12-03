@@ -1,11 +1,15 @@
 void usage() {
-   write("Usage: attack [-h] [OBJECT]\n");
-   write("OBJ offends you, you are going to destroy it.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tattack rat\n");
-   write("See also: cast, eat, enter, go, pray\n");
+   string *lines;
+
+   lines = ({ "Usage: attack [-h] [OBJECT]" });
+   lines += ({ "OBJ offends you, you are going to destroy it." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tattack rat" });
+   lines += ({ "See also: cast, eat, enter, follow, go, pray" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

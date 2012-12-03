@@ -1,16 +1,20 @@
 void usage() {
-   write("Usage: get [-h] [all|OBJ] [from OBJ2]\n");
-   write("Allows you to pick up a given object OBJ, or to take an object " +
-      "from another object.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tGet everything you can pick up.\n");
-   write("Examples:\n");
-   write("\tget sword\n");
-   write("\tget sword from chest\n");
-   write("\tget all\n");
-   write("\tget all from chest\n");
-   write("See also: drop, open, put, remove, wear, wield\n");
+   string *lines;
+
+   lines = ({ "Usage: get [-h] [all|OBJ] [from OBJ2]" });
+   lines += ({ "Allows you to pick up a given object OBJ, or to take an " +
+      "object from another object." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\tall\tGet everything you can pick up." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tget sword" });
+   lines += ({ "\tget sword from chest" });
+   lines += ({ "\tget all" });
+   lines += ({ "\tget all from chest" });
+   lines += ({ "See also: drop, open, put, remove, wear, wield" });
+
+   this_player()->more(lines);
 }
 
 void do_get(object obj1, object obj2, int loud) {

@@ -1,12 +1,17 @@
 void usage() {
-   write("Usage: go [-h] DIRECTION\n");
-   write("Allows you to move in the specified direction.  To see where you\n");
-   write("can go, \"look\" around.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tgo north\n");
-   write("See also: attack, cast, eat, enter, pray\n");
+   string *lines;
+
+   lines = ({ "Usage: go [-h] DIRECTION" });
+   lines += ({ "Allows you to move in the specified direction.  To see " +
+      "where you" });
+   lines += ({ "can go, \"look\" around." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tgo north" });
+   lines += ({ "See also: attack, cast, eat, enter, follow, pray" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

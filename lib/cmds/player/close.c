@@ -1,12 +1,16 @@
 void usage() {
-   write("Usage: close [-h] [all|OBJ]\n");
-   write("Allows you to close a given object OBJ.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tClose everything you can.\n");
-   write("Examples:\n");
-   write("\tclose chest\n");
-   write("See also: open\n");
+   string *lines;
+
+   lines = ({ "Usage: close [-h] [all|OBJ]" });
+   lines += ({ "Allows you to close a given object OBJ." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\tall\tClose everything you can." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tclose chest" });
+   lines += ({ "See also: open" });
+
+   this_player()->more(lines);
 }
 
 void do_close(object obj, int loud) {

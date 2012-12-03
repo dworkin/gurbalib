@@ -1,13 +1,17 @@
 void usage() {
-   write("Usage: drop [-h] [all|OBJ]\n");
-   write("Allows you to drop a given object OBJ.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tDrop everything you are carring.\n");
-   write("Examples:\n");
-   write("\tdrop sword\n");
-   write("\tdrop all\n");
-   write("See also: get, put, remove, wear, wield\n");
+   string *lines;
+
+   lines = ({ "Usage: drop [-h] [all|OBJ]" });
+   lines += ({ "Allows you to drop a given object OBJ." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\tall\tDrop everything you are carring." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tdrop sword" });
+   lines += ({ "\tdrop all" });
+   lines += ({ "See also: get, put, remove, wear, wield" });
+
+   this_player()->more(lines);
 }
 
 void do_drop(object obj, int loud) {
