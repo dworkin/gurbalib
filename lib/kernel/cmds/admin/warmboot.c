@@ -1,13 +1,18 @@
 #include <type.h>
 
 void usage() {
-   write("Usage: warmboot [-h]\n");
-   write("Similar to a reboot but keeps the system running.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\twarmboot\n");
-   write("See also: clone, dumpstate, rebuild, shutdown, update, warmboot\n");
+   string *lines;
+
+   lines = ({ "Usage: warmboot [-h]" });
+   lines += ({ "Similar to a reboot but keeps the system running." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\twarmboot" });
+   lines += ({ "See also: clone, dumpstate, rebuild, shutdown, update, " +
+      "warmboot" });
+
+   this_player()->more(lines);
 }
 
 #define LAST_STAGE 3

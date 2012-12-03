@@ -1,18 +1,24 @@
 void usage() {
-   write("Usage: promote [-h] PLAYER [player|wiz|admin]\n");
-   write("Promote is kind of a misnomer, this command is used to change,\n");
-   write("the level of a given player, to the level you specify.\n");
-   write("We hope that you will be promoting rather than demoting players.\n");
-   write("If a wiz directory does not exist it will be created.\n");
-   write("Promoting a wizard or admin to a player will not remove their " +
-      "wiz dir.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tpromote sirdude admin\tMake sirdude an admin\n");
-   write("\tpromote sirdude wiz\tMake sirdude a wizard\n");
-   write("\tpromote sirdude player\tMake sirdude a normal player\n");
-   write("See also: rmuser, ban\n");
+   string *lines;
+
+   lines = ({ "Usage: promote [-h] PLAYER [player|wiz|admin]" });
+   lines += ({ "Promote is kind of a misnomer, this command is used to change,"
+      });
+   lines += ({ "the level of a given player, to the level you specify." });
+   lines += ({ "We hope that you will be promoting rather than demoting " +
+      "players." });
+   lines += ({ "If a wiz directory does not exist it will be created." });
+   lines += ({ "Promoting a wizard or admin to a player will not remove " +
+      "their wiz dir." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tpromote sirdude admin\tMake sirdude an admin" });
+   lines += ({ "\tpromote sirdude wiz\tMake sirdude a wizard" });
+   lines += ({ "\tpromote sirdude player\tMake sirdude a normal player" });
+   lines += ({ "See also: rmuser, ban" });
+
+   this_player()->more(lines);
 }
 
 void display_level(string str) {

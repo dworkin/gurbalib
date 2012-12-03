@@ -1,11 +1,15 @@
 void usage() {
-   write("Usage: read [-h] THING\n");
-   write("Allows you to read readable things.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tread sign\n");
-   write("See also: delete, look, post\n");
+   string *lines;
+
+   lines = ({ "Usage: read [-h] THING" });
+   lines += ({ "Allows you to read readable things." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tread sign" });
+   lines += ({ "See also: delete, look, post" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

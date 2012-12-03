@@ -1,14 +1,18 @@
 void usage() {
-   write("Usage: skilladm [-h] [remove SKILL] [add SKILL]\n");
-   write("Remove the specified skill, SKILL.\n");
-   write("Add the specified skill, SKILL.\n");
-   write("If no args are given show all skills.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tskilladm remove english\n");
-   write("\tskilladm add dodge\n");
-   write("See also: skills, aliasadm, emoteadm\n");
+   string *lines;
+
+   lines = ({ "Usage: skilladm [-h] [remove SKILL] [add SKILL]" });
+   lines += ({ "Remove the specified skill, SKILL." });
+   lines += ({ "Add the specified skill, SKILL." });
+   lines += ({ "If no args are given show all skills." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tskilladm remove english" });
+   lines += ({ "\tskilladm add dodge" });
+   lines += ({ "See also: skills, aliasadm, emoteadm" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

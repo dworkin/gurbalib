@@ -1,17 +1,21 @@
 void usage() {
-   write("Usage: whisper [-h] WHO MSG\n");
-   write("Whisper a message MSG to WHO\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\twhisper sirdude you are cool.\n");
-   write("\twhisper guest Hi how are you?\n");
+   string *lines;
+
+   lines = ({ "Usage: whisper [-h] WHO MSG" });
+   lines += ({ "Whisper a message MSG to WHO" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\twhisper sirdude you are cool." });
+   lines += ({ "\twhisper guest Hi how are you?" });
    if (query_wizard(this_player())) {
-      write("See also: bug, emote, rsay, say, shout, ssay, tell, translate, " +
-         "wizcall\n");
+      lines += ({ "See also: bug, emote, rsay, say, shout, ssay, tell, " +
+         "translate, wizcall" });
    } else {
-      write("See also: bug, emote, rsay, say, shout, tell, wizcall\n");
+      lines += ({ "See also: bug, emote, rsay, say, shout, tell, wizcall" });
    }
+
+   this_player()->more(lines);
 }
 
 void main(string who) {

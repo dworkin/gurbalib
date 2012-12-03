@@ -1,15 +1,19 @@
 void usage() {
-   write("Usage: dumpstate [-h]\n");
-   write("Create a backup of the current state of the mud.\n");
-   write("* Note:\n");
-   write("* The statedump is made when the current thread ends.\n");
-   write("* We schedule a 0 delay call_out which will run after\n");
-   write("* the current thread ends to notify the user.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tdumpstate\n");
-   write("See also: clone, rebuild, shutdown, update, warmboot\n");
+   string *lines;
+
+   lines = ({ "Usage: dumpstate [-h]" });
+   lines += ({ "Create a backup of the current state of the mud." });
+   lines += ({ "* Note:" });
+   lines += ({ "* The statedump is made when the current thread ends." });
+   lines += ({ "* We schedule a 0 delay call_out which will run after" });
+   lines += ({ "* the current thread ends to notify the user." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tdumpstate" });
+   lines += ({ "See also: clone, rebuild, shutdown, update, warmboot" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

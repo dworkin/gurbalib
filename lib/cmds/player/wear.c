@@ -1,13 +1,17 @@
 void usage() {
-   write("Usage: wear [-h] [all|OBJ]\n");
-   write("Allows you to wear a given object OBJ.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tWear all available objects.\n");
-   write("Examples:\n");
-   write("\twear helmet\n");
-   write("\twear pants\n");
-   write("See also: get, drop, put, remove, wield\n");
+   string *lines;
+
+   lines += ({ "Usage: wear [-h] [all|OBJ]" });
+   lines += ({ "Allows you to wear a given object OBJ." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\tall\tWear all available objects." });
+   lines += ({ "Examples:" });
+   lines += ({ "\twear helmet" });
+   lines += ({ "\twear pants" });
+   lines += ({ "See also: get, drop, put, remove, wield" });
+
+   this_player()->more(lines);
 }
 
 void do_wear(object obj, int loud) {

@@ -1,13 +1,17 @@
 void usage() {
-   write("Usage: wield [-h] [all|obj]\n");
-   write("Allows you to equip a given object OBJ.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tEquip all available objects.\n");
-   write("Examples:\n");
-   write("\twield sword\n");
-   write("\twield axe\n");
-   write("See also: get, drop, put, remove, wear\n");
+   string *lines;
+
+   lines = ({ "Usage: wield [-h] [all|obj]" });
+   lines += ({ "Allows you to equip a given object OBJ." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\tall\tEquip all available objects." });
+   lines += ({ "Examples:" });
+   lines += ({ "\twield sword" });
+   lines += ({ "\twield axe" });
+   lines += ({ "See also: get, drop, put, remove, wear" });
+
+   this_player()->more(lines);
 }
 void do_wield(object obj, int loud) {
    string slot;

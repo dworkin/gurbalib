@@ -1,14 +1,18 @@
 void usage() {
-   write("Usage: remove [-h] [all|OBJ]\n");
-   write("Allows you to remove a given object OBJ, that you are " +
-      "currently wearing or wielding.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tRemove everything you are wearing and wielding.\n");
-   write("Examples:\n");
-   write("\tremove helmet\n");
-   write("\tremove all\n");
-   write("See also: get, drop, put, wear, wield\n");
+   string *lines;
+
+   lines = ({ "Usage: remove [-h] [all|OBJ]" });
+   lines += ({ "Allows you to remove a given object OBJ, that you are " +
+      "currently wearing or wielding." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\tall\tRemove everything you are wearing and wielding." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tremove helmet" });
+   lines += ({ "\tremove all" });
+   lines += ({ "See also: get, drop, put, wear, wield" });
+
+   this_player()->more(lines);
 }
 
 void do_remove(object obj, int loud) {

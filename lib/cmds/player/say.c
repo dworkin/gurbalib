@@ -1,17 +1,22 @@
 void usage() {
-   write("Usage: say [-h] MSG\n");
-   write("Tell everyone in the current room MSG.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tsay I'm sleepy, I should go now.\n");
-   write("\tsay no your not!\n");
+   string *lines;
+
+   lines = ({ "Usage: say [-h] MSG" });
+   lines += ({ "Tell everyone in the current room MSG." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tsay I'm sleepy, I should go now." });
+   lines += ({ "\tsay no your not!" });
    if (query_wizard(this_player())) {
-      write("See also: bug, emote, rsay, shout, ssay, tell, translate, " +
-         "whisper, wizcall\n");
+      lines += ({ "See also: bug, emote, rsay, shout, ssay, tell, translate, " +
+         "whisper, wizcall" });
    } else {
-      write("See also: bug, emote, rsay, shout, tell, whisper, wizcall\n");
+      lines += ({ "See also: bug, emote, rsay, shout, tell, whisper, wizcall" 
+         });
    }
+
+   this_player()->more(lines);
 }
 
 /* Ok so it isn't the best method in the world for making sure that you 

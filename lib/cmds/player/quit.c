@@ -1,11 +1,15 @@
 void usage() {
-   write("Usage: quit [-h]\n");
-   write("This is how you leave the game.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tquit\n");
-   write("See also: score, who\n");
+   string *lines;
+
+   lines =({ "Usage: quit [-h]" });
+   lines += ({ "This is how you leave the game." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tquit" });
+   lines += ({ "See also: score, who" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

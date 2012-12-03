@@ -2,16 +2,20 @@
 string reason;
 
 void usage() {
-   write("Usage: shutdown [-h] [now|MINUTES] REASON\n");
-   write("Shutdown the server now or MINUTES minutes later.\n");
-   write("REASON is a message why the shutdown is needed.\n");
-   write("Note: there is no way to stop a shutdown.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tshutdown 5 were upgrading the server's memory.\n");
-   write("\tshutdown now sorry were experiencing major problems.\n");
-   write("See also: clone, dumpstate, rebuild, update, warmboot\n");
+   string *lines;
+
+   lines = ({ "Usage: shutdown [-h] [now|MINUTES] REASON" });
+   lines += ({ "Shutdown the server now or MINUTES minutes later." });
+   lines += ({ "REASON is a message why the shutdown is needed." });
+   lines += ({ "Note: there is no way to stop a shutdown." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tshutdown 5 were upgrading the server's memory." });
+   lines += ({ "\tshutdown now sorry were experiencing major problems." });
+   lines += ({ "See also: clone, dumpstate, rebuild, update, warmboot" });
+
+   this_player()->more(lines);
 }
 
 void do_shutdown() {

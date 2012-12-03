@@ -1,19 +1,23 @@
 void usage() {
-   write("Usage: shout [-h] MSG\n");
-   write("Send MSG to all players on the mud.  This command should only " +
-      " be used SPARINGLY.\n");
-   write("Don't abuse it or you'll lose it.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tshout I am the fluffy bunny king!\n");
-   write("\tshout no your not!\n");
+   string *lines;
+
+   lines += ({ "Usage: shout [-h] MSG" });
+   lines += ({ "Send MSG to all players on the mud.  This command should " +
+      "only be used SPARINGLY." });
+   lines += ({ "Don't abuse it or you'll lose it." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tshout I am the fluffy bunny king!" });
+   lines += ({ "\tshout no your not!" });
    if (query_wizard(this_player())) {
-      write("See also: bug, emote, rsay, say, ssay, tell, translate, " +
-         "whisper, wizcall\n");
+      lines += ({ "See also: bug, emote, rsay, say, ssay, tell, translate, " +
+         "whisper, wizcall" });
    } else {
-      write("See also: bug, emote, rsay, say, tell, whisper, wizcall\n");
+      lines += ({ "See also: bug, emote, rsay, say, tell, whisper, wizcall" });
    }
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

@@ -1,28 +1,31 @@
 void usage() {
    int x, max;
    string *langs;
+   string *lines;
 
-   write("Usage: rsay [-h] [LANGUAGE] MSG\n");
-   write("Tell the current room MSG in a specific language.\n");
-   write("If no LANGUAGE is given, it uses your current race.\n");
-   write("Valid LANGUAGES are: ");
+   lines = ({ "Usage: rsay [-h] [LANGUAGE] MSG" });
+   lines += ({ "Tell the current room MSG in a specific language." });
+   lines += ({ "If no LANGUAGE is given, it uses your current race." });
+   lines += ({ "Valid LANGUAGES are: " });
 
    langs = LANGUAGE_D->query_languages();
    max = sizeof(langs);
    for (x = 0; x < max; x++)
-      write("\t" + langs[x] + "\n");
+      lines += ({ "\t" + langs[x] });
 
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\trsay catfolk Hi, are we being sneaky?\n");
-   write("\trsay Can you read this?\n");
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\trsay catfolk Hi, are we being sneaky?" });
+   lines += ({ "\trsay Can you read this?" });
    if (query_wizard(this_player())) {
-      write("See also: bug, emote, say, shout, ssay, tell, translate, " +
-         "whisper, wizcall\n");
+      lines += ({ "See also: bug, emote, say, shout, ssay, tell, translate, " +
+         "whisper, wizcall" });
    } else {
-      write("See also: bug, emote, say, shout, tell, whisper, wizcall\n");
+      lines += ({ "See also: bug, emote, say, shout, tell, whisper, wizcall" });
    }
+ 
+   this_player()->more(lines);
 }
 
 tell_them(string str, string *words, string lang, string *words2) {

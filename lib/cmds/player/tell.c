@@ -1,17 +1,21 @@
 void usage() {
-   write("Usage: tell [-h] WHO WHAT\n");
-   write("Send a message WHAT to WHO.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\ttell sirdude you have a large nose.\n");
-   write("\ttell guest Hi how are you?\n");
+   string *lines;
+
+   lines = ({ "Usage: tell [-h] WHO WHAT" });
+   lines += ({ "Send a message WHAT to WHO." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\ttell sirdude you have a large nose." });
+   lines += ({ "\ttell guest Hi how are you?" });
    if (query_wizard(this_player())) {
-      write("See also: bug, emote, rsay, say, shout, ssay, translate, " +
-         "whisper, wizcall\n");
+      lines += ({ "See also: bug, emote, rsay, say, shout, ssay, translate, " +
+         "whisper, wizcall" });
    } else {
-      write("See also: bug, emote, rsay, say, shout, whisper, wizcall\n");
+      lines += ({ "See also: bug, emote, rsay, say, shout, whisper, wizcall" });
    }
+
+   this_player()->more(lines);
 }
 
 void main(string who) {

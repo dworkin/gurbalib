@@ -1,13 +1,17 @@
 void usage() {
-   write("Usage: put [-h] [all|OBJ] [at|in] OBJ2\n");
-   write("Allows you to put OBJ inside OBJ2\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\tall\tPut everything you are carring in OBJ2.\n");
-   write("Examples:\n");
-   write("\tput sword in chest\n");
-   write("\tput all in chest\n");
-   write("See also: get, drop, remove, wear, wield\n");
+   string *lines;
+
+   lines = ({ "Usage: put [-h] [all|OBJ] [at|in] OBJ2" });
+   lines += ({ "Allows you to put OBJ inside OBJ2" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\tall\tPut everything you are carring in OBJ2." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tput sword in chest" });
+   lines += ({ "\tput all in chest" });
+   lines += ({ "See also: get, drop, remove, wear, wield" });
+
+   this_player()->more(lines);
 }
 
 void do_put(object obj1, object obj2, int loud) {

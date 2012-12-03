@@ -1,13 +1,17 @@
 void usage() {
-   write("Usage: store [-h] OBJECT\n");
-   write("If you are in a storage area, you can store your items with this " +
-      "command.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tstore sword\n");
-   write("\tstore helmet\n");
-   write("See also: buy, identify, list, look, retrieve, sell, value\n");
+   string *lines;
+
+   lines += ({ "Usage: store [-h] OBJECT" });
+   lines += ({ "If you are in a storage area, you can store your items with " +
+      "this command." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tstore sword" });
+   lines += ({ "\tstore helmet" });
+   lines += ({ "See also: buy, identify, list, look, retrieve, sell, value" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

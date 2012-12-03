@@ -1,17 +1,22 @@
 void usage() {
-   write("Usage: who [-h] [PLAYER]\n");
-   write("Print out a list of who is on the system.\n");
-   write("If PLAYER is specified, give detailed info about the player.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\twho\n");
-   write("\twho sirdude\n");
+   string *lines;
+
+   lines += ({ "Usage: who [-h] [PLAYER]" });
+   lines += ({ "Print out a list of who is on the system." });
+   lines += ({ "If PLAYER is specified, give detailed info about the player." 
+      });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\twho" });
+   lines += ({ "\twho sirdude" });
    if (query_wizard(this_player())) {
-      write("See also: last, look\n");
+      lines += ({ "See also: last, look" });
    } else {
-      write("See also: look\n");
+      lines += ({ "See also: look" });
    }
+
+   this_player()->more(lines);
 }
 
 /* 'who' command Originally by Fudge Improved by Cerihan 3/15/09 */

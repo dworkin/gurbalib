@@ -1,18 +1,23 @@
 void usage() {
-   write("Usage: wizcall [-h] MSG\n");
-   write("Notify all active wizards that you need help.\n");
-   write("You should have a good reason to bug them. :)\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\twizcall I need help I'm stuck in a room I can not get out of.\n");
-   write("\twizcall I found a bug in the look command.\n");
+   string *lines;
+
+   lines = ({ "Usage: wizcall [-h] MSG" });
+   lines += ({ "Notify all active wizards that you need help." });
+   lines += ({ "You should have a good reason to bug them. :)" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\twizcall I need help I'm stuck in a room I can not get " +
+      "out of." });
+   lines += ({ "\twizcall I found a bug in the look command." });
    if (query_wizard(this_player())) {
-      write("See also: bug, emote, rsay, say, shout, ssay, tell, translate, " +
-         "whisper\n");
+      lines += ({ "See also: bug, emote, rsay, say, shout, ssay, tell, " +
+         "translate, whisper" });
    } else {
-      write("See also: bug, emote, rsay, say, shout, tell, whisper\n");
+      lines += ({ "See also: bug, emote, rsay, say, shout, tell, whisper" });
    }
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

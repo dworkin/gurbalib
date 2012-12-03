@@ -1,12 +1,16 @@
 void usage() {
-   write("Usage: retrieve [-h] OBJ\n");
-   write("Allows you to retrieve an object OBJ, from storage.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tretrieve sword\n");
-   write("\tretrieve helmet\n");
-   write("See also: buy, identify, list, look, sell, store, value\n");
+   string *lines;
+
+   lines = ({ "Usage: retrieve [-h] OBJ" });
+   lines += ({ "Allows you to retrieve an object OBJ, from storage." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tretrieve sword" });
+   lines += ({ "\tretrieve helmet" });
+   lines += ({ "See also: buy, identify, list, look, sell, store, value" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

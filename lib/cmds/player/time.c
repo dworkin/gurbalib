@@ -1,23 +1,28 @@
 void usage() {
-   write("Usage: time [-h] [-s]\n");
-   write("Show what time it is, in mud time.\n");
-   write("The calendar system is as follows.\n\n");
+   string *lines;
 
-   write("One year has 17 months, one for each of the deities.\n");
-   write("One month has 5 weeks, one for each of the Elder Gods.\n");
-   write("One week has 4 days, one for each of the elements.\n\n");
-   write("One year has 340 days. One month is 20 days.\n\n");
-
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\t-s\tShow the short version of game time.\n");
-   write("Examples:\n");
-   write("\ttime\n");
+   lines = ({ "Usage: time [-h] [-s]" });
+   lines += ({ "Show what time it is, in mud time." });
+   lines += ({ "The calendar system is as follows." });
+   lines += ({ "" });
+   lines += ({ "One year has 17 months, one for each of the deities." });
+   lines += ({ "One month has 5 weeks, one for each of the Elder Gods." });
+   lines += ({ "One week has 4 days, one for each of the elements." });
+   lines += ({ "" });
+   lines += ({ "One year has 340 days. One month is 20 days." });
+   lines += ({ "" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\t-s\tShow the short version of game time." });
+   lines += ({ "Examples:" });
+   lines += ({ "\ttime" });
    if (query_wizard(this_player())) {
-      write("See also: date, score, status\n");
+      lines += ({ "See also: date, score, status" });
    } else {
-      write("See also: date, score, status\n");
+      lines += ({ "See also: date, score, status" });
    }
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

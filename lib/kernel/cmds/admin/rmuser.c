@@ -2,15 +2,19 @@ object lock;
 string name;
 
 void usage() {
-   write("Usage: rmuser [-h] USER\n");
-   write("Delete the specified user, USER.\n");
-   write("If they are a wizard or admin it will prompt you to remove their " +
-      "wiz dir.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\trmuser sirdude\n");
-   write("See also: ban, muzzle, forcequit, zap\n");
+   string *lines;
+
+   lines = ({ "Usage: rmuser [-h] USER" });
+   lines += ({ "Delete the specified user, USER." });
+   lines += ({ "If they are a wizard or admin it will prompt you to " +
+      "remove their wiz dir." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\trmuser sirdude" });
+   lines += ({ "See also: ban, muzzle, forcequit, zap" });
+
+   this_player()->more(lines);
 }
 
 static void rmuser(string name) {

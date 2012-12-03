@@ -1,13 +1,18 @@
 void usage() {
-   write("Usage: value [-h] OBJ\n");
-   write("Evaluate the specified object and print out what you think it is " +
-      "worth.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tvalue sword\n");
-   write("\tvalue helmet\n");
-   write("See also: buy, identify, list, look, retrieve, sell, store, value\n");
+   string *lines;
+
+   lines = ({ "Usage: value [-h] OBJ" });
+   lines += ({ "Evaluate the specified object and print out what you " +
+      "think it is worth." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tvalue sword" });
+   lines += ({ "\tvalue helmet" });
+   lines += ({ "See also: buy, identify, list, look, retrieve, sell, store, " +
+      "value\n");
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

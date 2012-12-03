@@ -1,13 +1,17 @@
 void usage() {
-   write("Usage: wall [-h] MSG\n");
-   write("Tell everyone on the mud: MSG.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\t-w\tRestrict the MSG to sending only to wizards, " +
-      "not normal players.\n");
-   write("Examples:\n");
-   write("\twall We are upgrading the server in 10 minutes.\n");
-   write("See Also: shout, tell\n");
+   string *lines;
+
+   lines = ({ "Usage: wall [-h] MSG" });
+   lines += ({ "Tell everyone on the mud: MSG." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\t-w\tRestrict the MSG to sending only to wizards, " +
+      "not normal players." });
+   lines += ({ "Examples:" });
+   lines += ({ "\twall We are upgrading the server in 10 minutes." });
+   lines += ({ "See Also: shout, tell" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

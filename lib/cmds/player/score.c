@@ -1,25 +1,28 @@
 void usage() {
+   string *lines;
+
    if (query_wizard(this_player())) {
-      write("Usage: score [-h] [-q] [PLAYER]\n");
-      write("Gives you basic stats about player PLAYER.\n");
-      write("If no player is given give your stats.\n");
-      write("Options:\n");
-      write("\t-h\tHelp, this usage message.\n");
-      write("Examples:\n");
-      write("\tscore\n");
-      write("\tscore sirdude\n");
-      write("See also: hp, inventory, levels, skills, status\n");   
+      lines = "Usage: score [-h] [-q] [PLAYER]" });
+      lines += ({ "Gives you basic stats about player PLAYER." });
+      lines += ({ "If no player is given give your stats." });
+      lines += ({ "Options:" });
+      lines += ({ "\t-h\tHelp, this usage message." });
+      lines += ({ "Examples:" });
+      lines += ({ "\tscore" });
+      lines += ({ "\tscore sirdude" });
+      lines += ({ "See also: hp, inventory, levels, skills, status" });
    } else {
-      write("Usage: score [-h]\n");
-      write("Gives you basic stats about your character.\n");
-      write("Options:\n");
-      write("\t-h\tHelp, this usage message.\n");
-      write("\t-q\tAlso display quests you have completed.\n");
-      write("Examples:\n");
-      write("\tscore\n");
-      write("\tscore sirdude\n");
-      write("See also: hp, inventory, levels, skills\n");   
+      lines = ({ "Usage: score [-h]" });
+      lines += ({ "Gives you basic stats about your character." });
+      lines += ({ "Options:" });
+      lines += ({ "\t-h\tHelp, this usage message." });
+      lines += ({ "\t-q\tAlso display quests you have completed." });
+      lines += ({ "Examples:" });
+      lines += ({ "\tscore" });
+      lines += ({ "See also: hp, inventory, levels, skills" });
    }
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

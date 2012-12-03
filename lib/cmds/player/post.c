@@ -1,13 +1,17 @@
 void usage() {
-   write("Usage: post [-h] SUBJECT\n");
-   write("Post a message to a message board with subject SUBJECT.\n");
-   write("It will then kick you into a simple editor so you can write your " +
-      "message.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tpost This is a message\n");
-   write("See also: delete, look, read\n");
+   string *lines;
+
+   lines = ({ "Usage: post [-h] SUBJECT" });
+   lines += ({ "Post a message to a message board with subject SUBJECT." });
+   lines += ({ "It will then kick you into a simple editor so you can write " +
+      "your message." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tpost This is a message" });
+   lines += ({ "See also: delete, look, read" });
+
+   this_player()->more(lines);
 }
 
 private static mapping msg;
