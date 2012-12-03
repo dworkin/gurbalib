@@ -4,6 +4,9 @@ void usage() {
       "at you,\nThey know what you look like.");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tdescribe The unassuming little elf.\n");
+   write("See also: chfn, passwd\n");
 }
 
 void main(string str) {

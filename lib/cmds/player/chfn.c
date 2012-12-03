@@ -8,7 +8,7 @@ void usage() {
    write("Examples:\n");
    write("\tchfn real Kent Mein\n");
    write("\tchfn email mein@cs.umn.edu\n");
-   write("See also: passwd");
+   write("See also: describe, passwd");
 }
 
 void show_chfn() {

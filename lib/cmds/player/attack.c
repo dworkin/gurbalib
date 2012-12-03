@@ -5,7 +5,7 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
    write("Examples:\n");
    write("\tattack rat\n");
-   write("See also: cast, eat, go, pray\n");
+   write("See also: cast, eat, enter, go, pray\n");
 }
 
 void main(string str) {

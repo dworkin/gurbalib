@@ -4,7 +4,7 @@ void usage() {
    write("Try \"man man\" for more info.");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
-   write("See also: help, cmds\n");
+   write("See also: cmds, help\n");
 }
 
 /* A highly advanced man command 

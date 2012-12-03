@@ -19,7 +19,7 @@ void usage(string str) {
    write("\t-h\tHelp, this usage message.\n");
    write("Examples:\n");
    write("\tcast missle rat\n");
-   write("See also: cast, eat, go, pray\n");
+   write("See also: attack, eat, enter, go, pray\n");
 }
 
 int has_spell(string spellname) {

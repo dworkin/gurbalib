@@ -1,5 +1,32 @@
-/* This is a dummy function... instead edit /docs/help/help */
 void usage() {
+   write("Usage: help [-h] [TOPIC]\n");
+   write("Get basic information on: TOPIC\n");
+   write("Current topics:\n");
+   write("\tnewbie       If your new to the mud start here.\n");
+   write("\tcomm         Basics on communication on the mud.\n");
+   write("\trules        Some basic rules you should be familar with.\n");
+   write("\tmultis       Our stance on multiple chars per person.\n");
+   write("\troleplaying  Some suggestions.\n");
+   write("\tabuse        What happens if you abuse the rules.\n");
+   write("\tbugs         How to report bugs you may find.\n");
+   write("\tcontact      How can you get ahold of someone if you need help.\n");
+   write("\ttime         How does time work on the mud?\n");
+   write("\tchannels     Another way to communicate.\n");
+
+   if (query_wizard(this_player())) {
+      write("\twizard       If you are a wizard start here\n");
+   }
+
+   write("Options:\n");
+   write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\thelp newbie\n");
+
+   if (query_wizard(this_player())) {
+      write("See also: cmds, man\n");
+   } else {
+      write("See also: cmds\n");
+   }
 }
 
 void show_file(string filename) {
@@ -45,12 +72,14 @@ void show_file(string filename) {
 
 void main(string arg) {
    string file;
-   if (!arg || arg == "") {
-      arg = "help";
+   if (!arg || arg == "" || arg == "help") {
+      usage();
+      return;
    }
 
    if (sscanf(arg, "-%s", arg)) {
-      arg = "help";
+      usage();
+      return;
    }
 
    arg = lowercase(arg);

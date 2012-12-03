@@ -5,7 +5,7 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
    write("Examples:\n");
    write("\tread sign\n");
-   write("See also: look\n");
+   write("See also: delete, look, post\n");
 }
 
 void main(string str) {

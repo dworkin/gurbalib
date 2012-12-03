@@ -5,6 +5,9 @@ void usage() {
       "message.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tpost This is a message\n");
+   write("See also: delete, look, read\n");
 }
 
 private static mapping msg;

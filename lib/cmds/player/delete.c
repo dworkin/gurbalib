@@ -3,6 +3,9 @@ void usage() {
    write("Allows you to remove posts from a message board.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tdelete 3\n");
+   write("See also: look, post, read\n");
 }
 
 void main(string str) {

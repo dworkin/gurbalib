@@ -19,7 +19,14 @@ void usage() {
    write("\t-v\tVertical, displays commands one per line.\n");
    write("If you specify a subsection like player it will only list " +
       "player commands, instead of all commands you have available.\n");
-   write("See also: man, help\n");
+   write("Examples:\n");
+   write("\tcmds\n");
+   write("\tcmds players\n");
+   if (query_wizard(this_player())) {
+      write("See also: man, help\n");
+   } else {
+      write("See also: help\n");
+   }
 }
 
 void show_cmds(string dir) {
