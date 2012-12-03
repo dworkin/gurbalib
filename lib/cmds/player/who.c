@@ -31,6 +31,7 @@ void main(string str) {
    if (str && str != "") {
       if (sscanf(str, "-%s", str)) {
          usage();
+         return;
       }
       if (USER_D->player_exists(str)) {
          USER_D->finger(this_player(), str);
