@@ -3,6 +3,9 @@ void usage() {
    write("Displays a list of the various levels and requirements.\n");
    write("Options:\n");
    write("\t-h\tHelp, this usage message.\n");
+   write("Examples:\n");
+   write("\tlevels\n");
+   write("See also: hp, inventory, score, skills\n");
 }
 
 void main(string str) {

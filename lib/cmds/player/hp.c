@@ -6,7 +6,7 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
    write("Examples:\n");
    write("\thp\n");
-   write("See also: inventory, score, skills\n");
+   write("See also: inventory, levels, score, skills\n");
 }
 
 void main(string str) {

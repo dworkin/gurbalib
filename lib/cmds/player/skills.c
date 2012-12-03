@@ -7,7 +7,7 @@ void usage() {
    write("Examples:\n");
    write("\tskills\n");
    write("\tskills full\n");
-   write("See also: hp, inventory, score\n");
+   write("See also: hp, inventory, levels, score\n");
 }
 
 /*
