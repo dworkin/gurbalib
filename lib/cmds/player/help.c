@@ -2,6 +2,7 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: help [-h] [TOPIC]" });
+   lines += ({ "" });
    lines += ({ "Get basic information on: TOPIC" });
    lines += ({ "Current topics:" });
    lines += ({ "\tnewbie       If your new to the mud start here." });
@@ -20,15 +21,17 @@ void usage() {
       lines += ({ "\twizard       If you are a wizard start here" });
    }
 
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\thelp newbie" });
+   lines += ({ "See also:" });
 
    if (query_wizard(this_player())) {
-      lines += ({ "See also: cmds, man" });
+      lines += ({ "\tcmds, man" });
    } else {
-      lines += ({ "See also: cmds" });
+      lines += ({ "\tcmds" });
    }
 
    this_player()->more(lines);

@@ -1,14 +1,17 @@
 void usage() {
    string *lines;
    lines = ({ "Usage: sell [-h] OBJ" });
+   lines += ({ "" });
    lines += ({ "Allows you to sell an object OBJ, " +
       "assuming you are near a shop keeper." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tsell sword" });
    lines += ({ "\tsell helmet" });
-   lines += ({ "See also: buy, identify, list, look, retrieve, sell, " +
+   lines += ({ "See also:" });
+   lines += ({ "\tbuy, identify, list, look, retrieve, sell, " +
       "store, value" });
 
    this_player()->more(lines);

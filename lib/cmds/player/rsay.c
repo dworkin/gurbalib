@@ -4,25 +4,29 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: rsay [-h] [LANGUAGE] MSG" });
+   lines += ({ "" });
    lines += ({ "Tell the current room MSG in a specific language." });
    lines += ({ "If no LANGUAGE is given, it uses your current race." });
    lines += ({ "Valid LANGUAGES are: " });
 
    langs = LANGUAGE_D->query_languages();
    max = sizeof(langs);
-   for (x = 0; x < max; x++)
+   for (x = 0; x < max; x++) {
       lines += ({ "\t" + langs[x] });
+   }
 
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\trsay catfolk Hi, are we being sneaky?" });
    lines += ({ "\trsay Can you read this?" });
+   lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "See also: bug, emote, say, shout, ssay, tell, translate, " +
+      lines += ({ "\tbug, emote, say, shout, ssay, tell, translate, " +
          "whisper, wizcall" });
    } else {
-      lines += ({ "See also: bug, emote, say, shout, tell, whisper, wizcall" });
+      lines += ({ "\tbug, emote, say, shout, tell, whisper, wizcall" });
    }
  
    this_player()->more(lines);

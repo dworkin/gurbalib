@@ -11,12 +11,20 @@ void usage() {
    }
 
    lines = ({ "Usage: ansi[-h] [on|off|show]" });
+   lines += ({ "" });
    lines += ({ "Used to turn on or off color support and show the settings." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\ton\tTurn on ANSI support." });
    lines += ({ "\toff\tTurn off ANSI support." });
    lines += ({ "\tshow\tDisplay your current ANSI support settings." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tansi on" });
+   lines += ({ "\tansi show" });
+   lines += ({ "See also:" });
+   lines += ({ "\talias, describe, chfn, ignore, passwd" });
+   lines += ({ "" });
    lines += ({ "You currently have ansi mode: " + mode });
 
    this_player()->more(lines);

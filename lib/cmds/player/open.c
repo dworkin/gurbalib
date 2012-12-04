@@ -2,13 +2,16 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: open [-h] [all|OBJ]" });
+   lines += ({ "" });
    lines += ({ "Allows you to open a given object OBJ." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\tall\tOpen everything you can." });
    lines += ({ "Examples:" });
    lines += ({ "\topen chest" });
-   lines += ({ "See also: close" });
+   lines += ({ "See also:" });
+   lines += ({ "\tclose" });
 
    this_player()->more(lines);
 }

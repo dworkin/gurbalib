@@ -2,6 +2,7 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: promote [-h] PLAYER [player|wiz|admin]" });
+   lines += ({ "" });
    lines += ({ "Promote is kind of a misnomer, this command is used to change,"
       });
    lines += ({ "the level of a given player, to the level you specify." });
@@ -10,13 +11,15 @@ void usage() {
    lines += ({ "If a wiz directory does not exist it will be created." });
    lines += ({ "Promoting a wizard or admin to a player will not remove " +
       "their wiz dir." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tpromote sirdude admin\tMake sirdude an admin" });
    lines += ({ "\tpromote sirdude wiz\tMake sirdude a wizard" });
    lines += ({ "\tpromote sirdude player\tMake sirdude a normal player" });
-   lines += ({ "See also: rmuser, ban" });
+   lines += ({ "See also:" });
+   lines += ({ "\tban, forcequit, muzzle, rmuser, zap" });
 
    this_player()->more(lines);
 }

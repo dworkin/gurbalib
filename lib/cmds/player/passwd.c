@@ -2,12 +2,15 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: passwd [-h]" });
+   lines += ({ "" });
    lines += ({ "Allows you to change your password." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tpasswd" });
-   lines += ({ "See also: chfn, describe" });
+   lines += ({ "See also:" });
+   lines += ({ "\talias, ansi, chfn, describe, ignore" });
 
    this_player()->more(lines);
 }

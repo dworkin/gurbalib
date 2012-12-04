@@ -2,13 +2,15 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: eat [-h] [OBJECT]" });
+   lines += ({ "" });
    lines += ({ "Consume the specified object." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\teat apple" });
-   lines += ({ "See also: attack, cast, enter, follow, go, pray" });
-
+   lines += ({ "See also:" });
+   lines += ({ "\tattack, cast, enter, follow, go, pray" });
 
    this_player()->more(lines);
 }

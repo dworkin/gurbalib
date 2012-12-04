@@ -2,15 +2,18 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: remove [-h] [all|OBJ]" });
+   lines += ({ "" });
    lines += ({ "Allows you to remove a given object OBJ, that you are " +
       "currently wearing or wielding." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\tall\tRemove everything you are wearing and wielding." });
    lines += ({ "Examples:" });
    lines += ({ "\tremove helmet" });
    lines += ({ "\tremove all" });
-   lines += ({ "See also: get, drop, put, wear, wield" });
+   lines += ({ "See also:" });
+   lines += ({ "\tget, drop, put, wear, wield" });
 
    this_player()->more(lines);
 }

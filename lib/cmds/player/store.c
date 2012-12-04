@@ -1,15 +1,18 @@
 void usage() {
    string *lines;
 
-   lines += ({ "Usage: store [-h] OBJECT" });
+   lines = ({ "Usage: store [-h] OBJECT" });
+   lines += ({ "" });
    lines += ({ "If you are in a storage area, you can store your items with " +
       "this command." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tstore sword" });
    lines += ({ "\tstore helmet" });
-   lines += ({ "See also: buy, identify, list, look, retrieve, sell, value" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbuy, identify, list, look, retrieve, sell, value" });
 
    this_player()->more(lines);
 }

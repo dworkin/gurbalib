@@ -2,7 +2,9 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: give [-h] [all|OBJ] [to] PLAYER" });
+   lines += ({ "" });
    lines += ({ "Allows you to give OBJ to PLAYER" });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\tall\tGive everything you are carring to PLAYER." });
@@ -10,7 +12,8 @@ void usage() {
    lines += ({ "\tgive sword to sirdude" });
    lines += ({ "\tgive sword sirdude" });
    lines += ({ "\tgive all to sirdude" });
-   lines += ({ "See also: get, drop" });
+   lines += ({ "See also:" });
+   lines += ({ "\tget, drop" });
 
    this_player()->more(lines);
 }

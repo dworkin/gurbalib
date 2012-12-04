@@ -5,14 +5,17 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: rmuser [-h] USER" });
+   lines += ({ "" });
    lines += ({ "Delete the specified user, USER." });
    lines += ({ "If they are a wizard or admin it will prompt you to " +
       "remove their wiz dir." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\trmuser sirdude" });
-   lines += ({ "See also: ban, muzzle, forcequit, zap" });
+   lines += ({ "See also:" });
+   lines += ({ "\tban, forcequit, muzzle, zap" });
 
    this_player()->more(lines);
 }

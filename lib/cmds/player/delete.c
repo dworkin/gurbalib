@@ -2,12 +2,15 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: delete [-h] #" });
+   lines += ({ "" });
    lines += ({ "Allows you to remove posts from a message board." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tdelete 3" });
-   lines += ({ "See also: look, post, read" });
+   lines += ({ "See also:" });
+   lines += ({ "\tlook, post, read" });
 
    this_player()->more(lines);
 }

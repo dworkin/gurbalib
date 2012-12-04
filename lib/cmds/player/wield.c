@@ -2,14 +2,17 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: wield [-h] [all|obj]" });
+   lines += ({ "" });
    lines += ({ "Allows you to equip a given object OBJ." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\tall\tEquip all available objects." });
    lines += ({ "Examples:" });
    lines += ({ "\twield sword" });
    lines += ({ "\twield axe" });
-   lines += ({ "See also: get, drop, put, remove, wear" });
+   lines += ({ "See also:" });
+   lines += ({ "\tget, drop, put, remove, wear" });
 
    this_player()->more(lines);
 }

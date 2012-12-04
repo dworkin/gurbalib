@@ -2,14 +2,17 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: put [-h] [all|OBJ] [at|in] OBJ2" });
+   lines += ({ "" });
    lines += ({ "Allows you to put OBJ inside OBJ2" });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\tall\tPut everything you are carring in OBJ2." });
    lines += ({ "Examples:" });
    lines += ({ "\tput sword in chest" });
    lines += ({ "\tput all in chest" });
-   lines += ({ "See also: get, drop, remove, wear, wield" });
+   lines += ({ "See also:" });
+   lines += ({ "\tget, drop, remove, wear, wield" });
 
    this_player()->more(lines);
 }

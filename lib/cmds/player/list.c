@@ -2,13 +2,16 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: list [-h]" });
+   lines += ({ "" });
    lines += ({ "When in a storage location, allows you to see what you " +
       "have in storage." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tlist" });
-   lines += ({ "See also: buy, identify, look, retrieve, sell, store, value" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbuy, identify, look, retrieve, sell, store, value" });
 
    this_player()->more(lines);
 }

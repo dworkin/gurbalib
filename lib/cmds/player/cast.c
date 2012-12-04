@@ -15,13 +15,17 @@ void usage(string str) {
    }
 
    lines = ({ "Usage: cast [-h] [spell [target]]" });
+   lines += ({ "" });
    lines += ({ "Allows you to cast a spell.  If you do not give a spell, " +
-      " it will list the spells you have access to." });
+      " it will list the " });
+   lines += ({ "spells you have access to." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tcast missle rat" });
-   lines += ({ "See also: attack, eat, enter, follow, go, pray" });
+   lines += ({ "See also:" });
+   lines += ({ "\tattack, eat, enter, follow, go, pray" });
 
    this_player()->more(lines);
 }

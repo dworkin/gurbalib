@@ -2,8 +2,10 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: get [-h] [all|OBJ] [from OBJ2]" });
+   lines += ({ "" });
    lines += ({ "Allows you to pick up a given object OBJ, or to take an " +
       "object from another object." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\tall\tGet everything you can pick up." });
@@ -12,7 +14,8 @@ void usage() {
    lines += ({ "\tget sword from chest" });
    lines += ({ "\tget all" });
    lines += ({ "\tget all from chest" });
-   lines += ({ "See also: drop, open, put, remove, wear, wield" });
+   lines += ({ "See also:" });
+   lines += ({ "\tdrop, open, put, remove, wear, wield" });
 
    this_player()->more(lines);
 }

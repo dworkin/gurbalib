@@ -2,6 +2,7 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: time [-h] [-s]" });
+   lines += ({ "" });
    lines += ({ "Show what time it is, in mud time." });
    lines += ({ "The calendar system is as follows." });
    lines += ({ "" });
@@ -16,10 +17,11 @@ void usage() {
    lines += ({ "\t-s\tShow the short version of game time." });
    lines += ({ "Examples:" });
    lines += ({ "\ttime" });
+   lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "See also: date, score, status" });
+      lines += ({ "\tdate, score, status" });
    } else {
-      lines += ({ "See also: date, score, status" });
+      lines += ({ "\tdate, score, status" });
    }
 
    this_player()->more(lines);

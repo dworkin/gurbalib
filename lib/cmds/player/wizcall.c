@@ -2,19 +2,22 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: wizcall [-h] MSG" });
+   lines += ({ "" });
    lines += ({ "Notify all active wizards that you need help." });
    lines += ({ "You should have a good reason to bug them. :)" });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\twizcall I need help I'm stuck in a room I can not get " +
       "out of." });
    lines += ({ "\twizcall I found a bug in the look command." });
+   lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "See also: bug, emote, rsay, say, shout, ssay, tell, " +
+      lines += ({ "\tbug, emote, rsay, say, shout, ssay, tell, " +
          "translate, whisper" });
    } else {
-      lines += ({ "See also: bug, emote, rsay, say, shout, tell, whisper" });
+      lines += ({ "\tbug, emote, rsay, say, shout, tell, whisper" });
    }
 
    this_player()->more(lines);

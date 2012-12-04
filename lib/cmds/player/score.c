@@ -2,24 +2,30 @@ void usage() {
    string *lines;
 
    if (query_wizard(this_player())) {
-      lines = "Usage: score [-h] [-q] [PLAYER]" });
+      lines = ({ "Usage: score [-h] [-q] [PLAYER]" });
+      lines += ({ "" });
       lines += ({ "Gives you basic stats about player PLAYER." });
       lines += ({ "If no player is given give your stats." });
+      lines += ({ "" });
       lines += ({ "Options:" });
       lines += ({ "\t-h\tHelp, this usage message." });
       lines += ({ "Examples:" });
       lines += ({ "\tscore" });
       lines += ({ "\tscore sirdude" });
-      lines += ({ "See also: hp, inventory, levels, skills, status" });
+      lines += ({ "See also:" });
+      lines += ({ "\thp, inventory, levels, skills, status" });
    } else {
       lines = ({ "Usage: score [-h]" });
+      lines += ({ "" });
       lines += ({ "Gives you basic stats about your character." });
+      lines += ({ "" });
       lines += ({ "Options:" });
       lines += ({ "\t-h\tHelp, this usage message." });
       lines += ({ "\t-q\tAlso display quests you have completed." });
       lines += ({ "Examples:" });
       lines += ({ "\tscore" });
-      lines += ({ "See also: hp, inventory, levels, skills" });
+      lines += ({ "See also:" });
+      lines += ({ "\thp, inventory, levels, skills" });
    }
 
    this_player()->more(lines);

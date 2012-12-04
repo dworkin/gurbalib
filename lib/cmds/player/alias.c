@@ -2,13 +2,17 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: alias [-h] [STR COMMAND]" });
+   lines += ({ "" });
    lines += ({ "Allows you to create an alias for a command." });
    lines += ({ "If no alias is given show a list of your current aliases." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\talias ga get all" });
    lines += ({ "\talias da drop all" });
+   lines += ({ "See also:" });
+   lines += ({ "\tansi, describe, chfn, ignore, passwd" });
 
    this_player()->more(lines);
 }

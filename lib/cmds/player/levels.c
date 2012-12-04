@@ -2,12 +2,15 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: levels [-h]" });
+   lines += ({ "" });
    lines += ({ "Displays a list of the various levels and requirements." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tlevels" });
-   lines += ({ "See also: hp, inventory, score, skills" });
+   lines += ({ "See also:" });
+   lines += ({ "\thp, inventory, score, skills" });
 
    this_player()->more(lines);
 }

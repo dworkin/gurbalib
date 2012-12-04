@@ -4,13 +4,15 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: warmboot [-h]" });
+   lines += ({ "" });
    lines += ({ "Similar to a reboot but keeps the system running." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\twarmboot" });
-   lines += ({ "See also: clone, dumpstate, rebuild, shutdown, update, " +
-      "warmboot" });
+   lines += ({ "See also:" });
+   lines += ({ "\tclone, dumpstate, rebuild, shutdown, update" });
 
    this_player()->more(lines);
 }

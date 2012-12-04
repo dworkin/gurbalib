@@ -2,12 +2,15 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: inventory [-h]" });
+   lines += ({ "" });
    lines += ({ "Print a list of the items you currently have acquired." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tinventory" });
-   lines += ({ "See also: hp, levels, score, skills" });
+   lines += ({ "See also:" });
+   lines += ({ "\thp, levels, score, skills" });
 
    this_player()->more(lines);
 }

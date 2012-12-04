@@ -2,14 +2,17 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: identify [-h] OBJ" });
+   lines += ({ "" });
    lines += ({ "Closely inspect an object OBJ to see if there is any " +
       "addition information." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tidentify sword" });
    lines += ({ "\tidentify helmet" });
-   lines += ({ "See also: buy, list, look, retrieve, sell, store, value" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbuy, list, look, retrieve, sell, store, value" });
 
    this_player()->more(lines);
 }

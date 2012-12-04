@@ -13,7 +13,9 @@ void usage() {
       flags += "|admin";
 
    lines = ({ "Usage: cmds [-h] [-v] [" + flags + "]" });
+   lines += ({ "" });
    lines += ({ "cmds lists the various cmds at your disposal." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-e\tInclude emotes." });
    lines += ({ "\t-h\tHelp, this usage message." });
@@ -24,10 +26,11 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tcmds" });
    lines += ({ "\tcmds players" });
+   lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "See also: man, help" });
+      lines += ({ "\tman, help" });
    } else {
-      lines += ({ "See also: help" });
+      lines += ({ "\thelp" });
    }
 
    this_player()->more(lines);

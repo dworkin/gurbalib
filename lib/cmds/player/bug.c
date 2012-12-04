@@ -2,17 +2,20 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: bug [-h] SUBJECT" });
+   lines += ({ "" });
    lines += ({ "Allows you to submit a bug to the system." });
    lines += ({ "We can't fix bugs unless we know about them." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tbug the rabbit hole does not work in newbieville" });
+      lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "See also: emote, rsay, say, shout, ssay, tell, translate, " +
+      lines += ({ "\temote, rsay, say, shout, ssay, tell, translate, " +
          "whisper, wizcall" });
    } else {
-      lines += ({ "See also: emote, rsay, say, shout, tell, whisper, " +
+      lines += ({ "\temote, rsay, say, shout, tell, whisper, " +
          "wizcall" });
    }
 

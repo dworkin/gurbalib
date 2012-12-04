@@ -2,14 +2,17 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: wall [-h] MSG" });
+   lines += ({ "" });
    lines += ({ "Tell everyone on the mud: MSG." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\t-w\tRestrict the MSG to sending only to wizards, " +
       "not normal players." });
    lines += ({ "Examples:" });
    lines += ({ "\twall We are upgrading the server in 10 minutes." });
-   lines += ({ "See Also: shout, tell" });
+   lines += ({ "See also:" });
+   lines += ({ "\tshout, tell" });
 
    this_player()->more(lines);
 }

@@ -2,17 +2,20 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: tell [-h] WHO WHAT" });
+   lines += ({ "" });
    lines += ({ "Send a message WHAT to WHO." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\ttell sirdude you have a large nose." });
+   lines += ({ "\ttell sirdude You have a large nose." });
    lines += ({ "\ttell guest Hi how are you?" });
+   lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "See also: bug, emote, rsay, say, shout, ssay, translate, " +
+      lines += ({ "\tbug, emote, rsay, say, shout, ssay, translate, " +
          "whisper, wizcall" });
    } else {
-      lines += ({ "See also: bug, emote, rsay, say, shout, whisper, wizcall" });
+      lines += ({ "\tbug, emote, rsay, say, shout, whisper, wizcall" });
    }
 
    this_player()->more(lines);

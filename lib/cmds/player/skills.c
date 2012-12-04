@@ -2,14 +2,17 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: skills [-h] [full]" });
+   lines += ({ "" });
    lines += ({ "List the skills you know" });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\tfull\tShow all of the skills available on the mud." });
    lines += ({ "Examples:" });
    lines += ({ "\tskills" });
    lines += ({ "\tskills full" });
-   lines += ({ "See also: hp, inventory, levels, score" });
+   lines += ({ "See also:" });
+   lines += ({ "\thp, inventory, levels, score" });
 
    this_player()->more(lines);
 }

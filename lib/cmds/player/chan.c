@@ -10,7 +10,7 @@ void usage() {
    string cmds;
    string *lines;
 
-   cmds = "join (or on), leave (or off), hist, quit, who, list";
+   cmds = "join, leave, hist, quit, who, list";
    if (query_wizard(this_player())) {
       cmds += ", new";
    }
@@ -19,12 +19,15 @@ void usage() {
    }
 
    lines = ({ "Usage: chan CHANNEL </command>" });
-   lines += ({ Command can be " + cmds });
+   lines += ({ "" });
+   lines += ({ "Command can be " + cmds });
    lines += ({ "You can also just use <channel> /command" });
+   lines += ({ "" });
    lines += ({ "Examples:" });
-   lines += ({ "\tchan join funtime" });
-   lines += ({ "\tchan leave funtime" });
-   lines += ({ "See also: channels" });
+   lines += ({ "\tchan wiz join" });
+   lines += ({ "\tchan wiz leave" });
+   lines += ({ "See also:" });
+   lines += ({ "\tchannels" });
 
    this_player()->more(lines);
 }

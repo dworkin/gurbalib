@@ -2,11 +2,17 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: ignore [-h] [PLAYER]" });
+   lines += ({ "" });
    lines += ({ "Allows you to ignore a given player PLAYER," });
    lines += ({ "or stop ignoring them if they are currently ignored." });
    lines += ({ "If PLAYER is missing, show a list of who you are ignoring." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tignore sirdude" });
+   lines += ({ "See also:" });
+   lines += ({ "\talias, ansi, describe, chfn, passwd" });
 
    this_player()->more(lines);
 }

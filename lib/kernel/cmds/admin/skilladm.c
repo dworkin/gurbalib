@@ -2,15 +2,18 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: skilladm [-h] [remove SKILL] [add SKILL]" });
+   lines += ({ "" });
    lines += ({ "Remove the specified skill, SKILL." });
    lines += ({ "Add the specified skill, SKILL." });
    lines += ({ "If no args are given show all skills." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tskilladm remove english" });
    lines += ({ "\tskilladm add dodge" });
-   lines += ({ "See also: skills, aliasadm, emoteadm" });
+   lines += ({ "See also:" });
+   lines += ({ "\tskills, aliasadm, emoteadm" });
 
    this_player()->more(lines);
 }

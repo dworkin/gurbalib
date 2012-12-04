@@ -1,15 +1,18 @@
 void usage() {
    string *lines;
 
-   lines += ({ "Usage: wear [-h] [all|OBJ]" });
+   lines = ({ "Usage: wear [-h] [all|OBJ]" });
+   lines += ({ "" });
    lines += ({ "Allows you to wear a given object OBJ." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\tall\tWear all available objects." });
    lines += ({ "Examples:" });
    lines += ({ "\twear helmet" });
    lines += ({ "\twear pants" });
-   lines += ({ "See also: get, drop, put, remove, wield" });
+   lines += ({ "See also:" });
+   lines += ({ "\tget, drop, put, remove, wield" });
 
    this_player()->more(lines);
 }

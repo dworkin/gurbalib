@@ -2,13 +2,16 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: hp [-h]" });
+   lines += ({ "" });
    lines += ({ "A short way to display your current: hit points, mana, " +
       "endurance, ac" });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\thp" });
-   lines += ({ "See also: inventory, levels, score, skills" });
+   lines += ({ "See also:" });
+   lines += ({ "\tinventory, levels, score, skills" });
 
    this_player()->more(lines);
 }

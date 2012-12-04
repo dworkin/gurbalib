@@ -2,17 +2,20 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: emote [-h] MSG" });
+   lines += ({ "" });
    lines += ({ "Send a message MSG to everyone in the room." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\temote does a flip!" });
    lines += ({ "\temote beep sirdude" });
+   lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "See also: bug, emote, rsay, say, shout, ssay, tell, " +
+      lines += ({ "\tbug, emote, rsay, say, shout, ssay, tell, " +
          "translate, whisper, wizcall" });
    } else {
-      lines += ({ "See also: bug, emote, rsay, say, shout, tell, whisper, " +
+      lines += ({ "\tbug, emote, rsay, say, shout, tell, whisper, " +
          "wizcall" });
    }
 

@@ -2,12 +2,15 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: channels [-h]" });
+   lines += ({ "" });
    lines += ({ "List the available channels you can use to communicate on." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tchannels" });
-   lines += ({ "See also: chan" });
+   lines += ({ "See also:" });
+   lines += ({ "\tchan" });
 
    this_player()->more(lines);
 }

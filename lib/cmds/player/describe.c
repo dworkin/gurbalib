@@ -2,14 +2,17 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: describe [-h] DESCRIPTION" });
+   lines += ({ "" });
    lines += ({ "Allows you to change your DESCRIPTION, so that when someone " +
       "looks at you," });
    lines += ({ "They know what you look like." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tdescribe The unassuming little elf." });
-   lines += ({ "See also: chfn, passwd" });
+   lines += ({ "See also:" });
+   lines += ({ "\talias, ansi, chfn, ignore, passwd" });
 
    this_player()->more(lines);
 }

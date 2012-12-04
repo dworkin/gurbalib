@@ -1,19 +1,22 @@
 void usage() {
    string *lines;
 
-   lines += ({ "Usage: who [-h] [PLAYER]" });
+   lines = ({ "Usage: who [-h] [PLAYER]" });
+   lines += ({ "" });
    lines += ({ "Print out a list of who is on the system." });
    lines += ({ "If PLAYER is specified, give detailed info about the player." 
       });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\twho" });
    lines += ({ "\twho sirdude" });
+   lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "See also: last, look" });
+      lines += ({ "\tlast, look" });
    } else {
-      lines += ({ "See also: look" });
+      lines += ({ "\tlook" });
    }
 
    this_player()->more(lines);

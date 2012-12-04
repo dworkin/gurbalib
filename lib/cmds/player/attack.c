@@ -2,12 +2,15 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: attack [-h] [OBJECT]" });
+   lines += ({ "" });
    lines += ({ "OBJ offends you, you are going to destroy it." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tattack rat" });
-   lines += ({ "See also: cast, eat, enter, follow, go, pray" });
+   lines += ({ "See also:" });
+   lines += ({ "\tcast, eat, enter, follow, go, pray" });
 
    this_player()->more(lines);
 }

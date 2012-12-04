@@ -1,20 +1,23 @@
 void usage() {
    string *lines;
 
-   lines += ({ "Usage: shout [-h] MSG" });
+   lines = ({ "Usage: shout [-h] MSG" });
+   lines += ({ "" });
    lines += ({ "Send MSG to all players on the mud.  This command should " +
       "only be used SPARINGLY." });
    lines += ({ "Don't abuse it or you'll lose it." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tshout I am the fluffy bunny king!" });
    lines += ({ "\tshout no your not!" });
+   lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "See also: bug, emote, rsay, say, ssay, tell, translate, " +
+      lines += ({ "\tbug, emote, rsay, say, ssay, tell, translate, " +
          "whisper, wizcall" });
    } else {
-      lines += ({ "See also: bug, emote, rsay, say, tell, whisper, wizcall" });
+      lines += ({ "\tbug, emote, rsay, say, tell, whisper, wizcall" });
    }
 
    this_player()->more(lines);

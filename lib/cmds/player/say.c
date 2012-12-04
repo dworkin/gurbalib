@@ -2,18 +2,20 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: say [-h] MSG" });
+   lines += ({ "" });
    lines += ({ "Tell everyone in the current room MSG." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tsay I'm sleepy, I should go now." });
    lines += ({ "\tsay no your not!" });
+   lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "See also: bug, emote, rsay, shout, ssay, tell, translate, " +
+      lines += ({ "\tbug, emote, rsay, shout, ssay, tell, translate, " +
          "whisper, wizcall" });
    } else {
-      lines += ({ "See also: bug, emote, rsay, shout, tell, whisper, wizcall" 
-         });
+      lines += ({ "\tbug, emote, rsay, shout, tell, whisper, wizcall" });
    }
 
    this_player()->more(lines);

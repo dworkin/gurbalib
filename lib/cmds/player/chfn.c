@@ -2,16 +2,19 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: chfn [-h] [real YOURNAME | email EMAIL]" });
+   lines += ({ "" });
    lines += ({ "Allows you to change your basic information." });
    lines += ({ "You can set your realname to YOURNAME or your email to EMAIL."
       });
    lines += ({ "If no info is given show your current information." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tchfn real Kent Mein" });
    lines += ({ "\tchfn email mein@cs.umn.edu" });
-   lines += ({ "See also: describe, passwd" });
+   lines += ({ "See also:" });
+   lines += ({ "\talias, ansi, describe, ignore, passwd" });
 
    this_player()->more(lines);
 }

@@ -2,13 +2,16 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: retrieve [-h] OBJ" });
+   lines += ({ "" });
    lines += ({ "Allows you to retrieve an object OBJ, from storage." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tretrieve sword" });
    lines += ({ "\tretrieve helmet" });
-   lines += ({ "See also: buy, identify, list, look, sell, store, value" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbuy, identify, list, look, sell, store, value" });
 
    this_player()->more(lines);
 }

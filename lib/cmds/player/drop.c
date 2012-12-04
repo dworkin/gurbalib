@@ -2,14 +2,17 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: drop [-h] [all|OBJ]" });
+   lines += ({ "" });
    lines += ({ "Allows you to drop a given object OBJ." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\tall\tDrop everything you are carring." });
    lines += ({ "Examples:" });
    lines += ({ "\tdrop sword" });
    lines += ({ "\tdrop all" });
-   lines += ({ "See also: get, put, remove, wear, wield" });
+   lines += ({ "See also:" });
+   lines += ({ "\tget, put, remove, wear, wield" });
 
    this_player()->more(lines);
 }

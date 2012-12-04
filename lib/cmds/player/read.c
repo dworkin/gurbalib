@@ -2,12 +2,15 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: read [-h] THING" });
+   lines += ({ "" });
    lines += ({ "Allows you to read readable things." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tread sign" });
-   lines += ({ "See also: delete, look, post" });
+   lines += ({ "See also:" });
+   lines += ({ "\tdelete, look, post" });
 
    this_player()->more(lines);
 }

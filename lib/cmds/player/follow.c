@@ -2,15 +2,18 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: follow [-h] [WHO]" });
+   lines += ({ "" });
    lines += ({ "Allows you to follow/unfollow another player." });
    lines += ({ "If you give no aguments, it will print who you are following." 
       });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tfollow sirdude" });
    lines += ({ "\tfollow" });
-   lines += ({ "See also: attack, cast, eat, enter, go, pray" });
+   lines += ({ "See also:" });
+   lines += ({ "\tattack, cast, eat, enter, go, pray" });
 
    this_player()->more(lines);
 }

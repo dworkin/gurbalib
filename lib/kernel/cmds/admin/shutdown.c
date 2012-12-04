@@ -5,15 +5,18 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: shutdown [-h] [now|MINUTES] REASON" });
+   lines += ({ "" });
    lines += ({ "Shutdown the server now or MINUTES minutes later." });
    lines += ({ "REASON is a message why the shutdown is needed." });
    lines += ({ "Note: there is no way to stop a shutdown." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tshutdown 5 were upgrading the server's memory." });
    lines += ({ "\tshutdown now sorry were experiencing major problems." });
-   lines += ({ "See also: clone, dumpstate, rebuild, update, warmboot" });
+   lines += ({ "See also:" });
+   lines += ({ "\tclone, dumpstate, rebuild, update, warmboot" });
 
    this_player()->more(lines);
 }

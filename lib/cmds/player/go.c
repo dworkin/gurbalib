@@ -2,14 +2,17 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: go [-h] DIRECTION" });
+   lines += ({ "" });
    lines += ({ "Allows you to move in the specified direction.  To see " +
       "where you" });
    lines += ({ "can go, \"look\" around." });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tgo north" });
-   lines += ({ "See also: attack, cast, eat, enter, follow, pray" });
+   lines += ({ "See also:" });
+   lines += ({ "\tattack, cast, eat, enter, follow, pray" });
 
    this_player()->more(lines);
 }
