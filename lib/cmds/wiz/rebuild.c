@@ -1,10 +1,24 @@
 void usage() {
-   write("Usage: rebuild [-h] [-v]\n");
-   write("Rebuild the objects on the mud.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\t-v\tenable Verbose mode.\n");
-   write("See also: warmboot, clone, update\n");
+   string *lines;
+
+   lines = ({ "Usage: rebuild [-h] [-v]" });
+   lines += ({ " " });
+   lines += ({ "Rebuild the objects on the mud." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\t-v\tenable Verbose mode." });
+   lines += ({ "Examples:" });
+   lines += ({ "\trebuild" });
+   lines += ({ "See also:" });
+
+   if (query_admin(this_player()) {
+      lines += ({ "\tcheck, clean, clone, update, warmboot" });
+   } else {
+      lines += ({ "\tcheck, clean, clone, update" });
+   }
+
+   this_player()->more(lines);
 }
 
 static int upgrade_uobj(string * files, int verbose) {

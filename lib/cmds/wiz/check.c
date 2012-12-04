@@ -1,12 +1,24 @@
 int warn, error;
 
 void usage() {
-   write("Usage: check [-h] FILENAME\n");
-   write("Check the supplied file, FILENAME.\n");
-   write("If FILENAME is a directory check all files in that directory.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: update, clone\n");
+   string *lines;
+   lines = ({ "Usage: check [-h] FILENAME" });
+   lines += ({ " " });
+   lines += ({ "Check the supplied file, FILENAME." });
+   lines += ({ "If FILENAME is a directory check all files in that directory." 
+      });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "See also:" });
+
+   if (query_admin(this_player()) {
+      lines += ({ "\tclean, clone, rebuild, update, warmboot" });
+   } else {
+      lines += ({ "\tclean, clone, rebuild, update" });
+   }
+
+   this_player()->more(lines);
 }
 
 void warn(string str) {

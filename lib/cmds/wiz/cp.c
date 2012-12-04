@@ -1,8 +1,17 @@
 void usage() {
-   write("Usage: cp [-h] [file1] [file2]\n");
-   write("Copy [file1] to [file2].\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+   lines += ({ "Usage: cp [-h] [file1] [file2]" });
+   lines += ({ " " });
+   lines += ({ "Copy [file1] to [file2]." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tcp workroom.c /domains/newbie/rooms/workroom.c" });
+   lines += ({ "See also:" });
+   lines += ({ "\tmv" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

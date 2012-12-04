@@ -4,10 +4,24 @@
  */
 
 void usage() {
-   write("Usage: clean [-h]\n");
-   write("Clear all the objects out of the current room.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: clean [-h]\n");
+   lines += ({ " " });
+   lines += ({ "Clear all the objects out of the current room.\n");
+   lines += ({ " " });
+   lines += ({ "Options:\n");
+   lines += ({ "\t-h\tHelp, this usage message.\n");
+   lines += ({ "Examples:" });
+   lines += ({ "See also:" });
+
+   if (query_admin(this_player()) {
+      lines += ({ "\tcheck, clone, rebuild, update, warmboot" });
+   } else {
+      lines += ({ "\tcheck, clone, rebuild, update" });
+   }
+
+   this_player()->more(lines);
 }
 
 void main(string arg) {

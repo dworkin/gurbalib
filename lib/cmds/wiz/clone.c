@@ -1,10 +1,23 @@
 void usage() {
-   write("Usage: clone [-h] FILENAME [WHO]\n");
-   write("Bring a copy of the object FILENAME into existence.\n");
-   write("If who is specified give it to WHO or move it to their location.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: warmboot, rebuild, update\n");
+   string *lines;
+
+   lines = ({ "Usage: clone [-h] FILENAME [WHO]" });
+   lines += ({ " " });
+   lines += ({ "Bring a copy of the object FILENAME into existence." });
+   lines += ({ "If who is specified give it to WHO or move it to their " +
+      "location." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "See also:" });
+
+   if (query_admin(this_player()) {
+      lines += ({ "\tclean, check, rebuild, update, warmboot" });
+   } else {
+      lines += ({ "\tclean, check, rebuild, update" });
+   }
+
+   this_player()->more(lines);
 }
 
 string get_what(string str) {

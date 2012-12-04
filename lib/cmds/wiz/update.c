@@ -1,9 +1,21 @@
 void usage() {
-   write("Usage: update [-h] FILE\n");
-   write("Recompile the file, FILE.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: warmboot, clone, rebuild\n");
+   string *lines;
+
+   lines = ({ "Usage: update [-h] FILE" });
+   lines += ({ " " });
+   lines += ({ "Recompile the file, FILE." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   
+   lines += ({ "See also:" });
+   if (query_admin(this_player()) {
+      lines += ({ "\tcheck, clean, clone, rebuild, warmboot" });
+   } else {
+      lines += ({ "\tcheck, clean, clone, rebuild" });
+   }
+
+   this_player()->more(lines);
 }
 
 object compiler_d;
