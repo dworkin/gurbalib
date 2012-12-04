@@ -1,11 +1,21 @@
 void usage() {
-   write("Usage: aload [-h] [save]\n");
-   write("If no arguments are given, load your current autoload objects.\n");
-   write("If save is specified, create an autoload string from your " +
-      "inventory.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: compose\n");
+   string *lines;
+   lines = ({ "Usage: aload [-h] [save]" });
+   lines += ({ " " });
+   lines += ({ "If no arguments are given, load your current autoload " +
+      "objects." });
+   lines += ({ "If save is specified, create an autoload string from your " +
+      "inventory." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\taload save" });
+   lines += ({ "\taload" });
+   lines += ({ "See also:" });
+   lines += ({ "\tcompose" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

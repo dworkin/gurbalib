@@ -1,9 +1,15 @@
 void usage() {
-   write("Usage: browse [-h] [dir]\n");
-   write("An interactive way to look at files.");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: cd, ls, pwd\n");
+   string *lines;
+   lines = ({ "Usage: browse [-h] [dir]" });
+   lines += ({ " " });
+   lines += ({ "An interactive way to look at files." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "See also:" });
+   lines += ({ "\tcd, ls, pwd" });
+
+   this_player()->more(lines);
 }
 
 void main(varargs string arg) {

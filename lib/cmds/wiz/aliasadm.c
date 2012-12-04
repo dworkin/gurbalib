@@ -10,10 +10,12 @@ void usage() {
    lines += ( { "\tIf ALIAS is missing show all global aliases registered." } );
    lines += ( { "Usage: aliasadm del ALIAS     delete the entrys for ALIAS" } );
    lines += ( { "Usage: aliasadm add TYPE NAME FORMAT" } );
+   lines += ( { " " } );
    lines += ( { "Add an alias to the alias database." } );
    lines += ( { "TYPE is \"player\" or \"wiz\"" } );
    lines += ( { "NAME is the new command name for the alias." } );
    lines += ( { "Format defines what the alias will do." } );
+   lines += ( { " " } );
    lines += ( { "Options:" } );
    lines += ( { "\t-h\tHelp, this usage message." } );
    lines += ( { "Examples:" } );
@@ -21,6 +23,9 @@ void usage() {
    lines += ( { "\taliasadm add wiz z update $*" } );
    lines += ( { "\taliasadm show a" } );
    lines += ( { "\taliasadm del a" } );
+   lines += ( { "See also:" } );
+   lines += ( { "\talias" } );
+
    this_player()->more(lines);
 }
 

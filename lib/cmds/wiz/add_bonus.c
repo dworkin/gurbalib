@@ -1,9 +1,16 @@
 void usage() {
-   write("Usage: add_bonus [-h] STATNAME\n");
-   write("Increase your bonus to stat STATNAME by 1.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: stats, add_base\n");
+   string *lines;
+
+   lines = ({ "Usage: add_bonus [-h] STATNAME" });
+   lines += ({ " " });
+   lines += ({ "Increase your bonus to stat STATNAME by 1." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "See also:" });
+   lines += ({ "\tstats, add_base" });
+
+   this_player()->more(lines);
 }
 
 void main(string statname) {

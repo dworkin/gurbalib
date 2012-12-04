@@ -1,15 +1,23 @@
 void usage() {
-   write("Usage: ban [-h] [-s SITE] [PLAYER]\n");
-   write("Allows you to toggle banishment of  the specified player PLAYER.\n");
-   write("Alternately if you use the -s flag you can ban/unban a site SITE.\n");
-   write("If no Player or SITE is given it displays what is currently " +
-      "banned.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("\tban sirdude\n");
-   write("\tban -s 128.101.32.*\n");
-   write("See also: who, unban\n");
+   string *lines;
+   lines = ({ "Usage: ban [-h] [-s SITE] [PLAYER]" });
+   lines += ({ " " });
+   lines += ({ "Allows you to toggle banishment of  the specified player " +
+      "PLAYER." });
+   lines += ({ "Alternately if you use the -s flag you can ban/unban a site " +
+      "SITE." });
+   lines += ({ "If no Player or SITE is given it displays what is currently " +
+      "banned." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tban sirdude" });
+   lines += ({ "\tban -s 128.101.32.*" });
+   lines += ({ "See also:" });
+   lines += ({ "\twho, unban" });
+
+   this_player()->more(lines);
 }
 
 void show_banned() {

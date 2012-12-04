@@ -1,10 +1,16 @@
 void usage() {
-   write("Usage: cat [-h] [file]\n");
-   write("cat allows a wizard to concatenate a file " +
-      "(print it to the screen).\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: more, tail, browse\n");
+   string *lines;
+   lines = ({ "Usage: cat [-h] [file]" });
+   lines += ({ " " });
+   lines += ({ "cat allows a wizard to concatenate a file " +
+      "(print it to the screen)." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "See also:" });
+   lines += ({ "\tmore, tail, browse" });
+
+   this_player()->more(lines);
 }
 
 void main(string file) {
