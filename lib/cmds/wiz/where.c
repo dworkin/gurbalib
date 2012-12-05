@@ -12,7 +12,7 @@ void usage() {
    linse += ({ "\twhere" });
    linse += ({ "\twhere sirdude" });
    lines += ({ "See also:" });
-   lines += ({ "\tgoto, home, summon" });
+   lines += ({ "\tlast, locate, look, who" });
 
    this_player()->more(lines);
 }

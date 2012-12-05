@@ -1,10 +1,20 @@
 void usage() {
-   write("Usage: last [-h] [player]\n");
-   write("Find out when a player was last logged in.\n");
-   write("If no player is given show last for everyone.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: who\n");
+   string *lines;
+
+   lines = ({ "Usage: last [-h] [player]" });
+   liens += ({ " " });
+   lines += ({ "Find out when a player was last logged in." });
+   lines += ({ "If no player is given show last for everyone." });
+   liens += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tlast" });
+   lines += ({ "\tlast sirdude" });
+   lines += ({ "See also:" });
+   lines += ({ "\tlocate, look, where, who" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

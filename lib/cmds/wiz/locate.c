@@ -1,8 +1,18 @@
 void usage() {
-   write("Usage: locate [-h] PLAYER\n");
-   write("Locate player PLAYER.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: locate [-h] PLAYER" });
+   lines += ({ " " });
+   lines += ({ "Locate player PLAYER." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tlocate sirdude" });
+   lines += ({ "See also:" });
+   lines += ({ "\tlast, look, where, who" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {
