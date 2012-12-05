@@ -1,9 +1,19 @@
 void usage() {
-   write("Usage: tail [-h] [file]\n");
-   write("Show the tail end of a file " + "(print it to the screen).\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: more, cat, browse\n");
+   string *lines;
+
+   lines = ({ "Usage: tail [-h] [file]" });
+   lines += ({ " " });
+   lines += ({ "Show the tail end of a file " + "(print it to the screen)." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\ttail void.c" });
+   lines += ({ "\ttail /domains/required/rooms/void.c" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, pwd" });
+
+   this_player()->more(lines);
 }
 
 void main(string arg) {

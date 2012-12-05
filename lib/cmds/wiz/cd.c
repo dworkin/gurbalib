@@ -13,7 +13,7 @@ void usage() {
    lines += ({ "cd ..            Move up one directory." });
    lines += ({ "cd               Change cwd to /wiz/(username)." });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, edit, ls, pwd" });
+   lines += ({ "\tbrowse, cat, diff, edit, ls, more, pwd, tail" });
 
    this_player()->more(lines);
 }

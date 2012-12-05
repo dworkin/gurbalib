@@ -1,17 +1,28 @@
 void usage() {
-   write("Usage: diff [-h] [-o FILE] FILE1 FILE2\n");
-   write("This is the poor man's diff. it uses a mapping to store lines.\n");
-   write("So it only tells you if an exact line is in both files or not.\n");
-   write("It will only let you know about the first occurance of a " +
-      "line as well.\n");
-   write("It works nicely enough for small cases though.  If you need more\n");
-   write("power use a real diff.\n");
-   write("Print out the differences between FILE1 and FILE2, " +
-      "in std diff format.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\t-o FILE\tPrint the output to FILE instead of to the player.\n");
-   write("See also: grep\n");
+   string *lines;
+
+   lines = ({ "Usage: diff [-h] [-o FILE] FILE1 FILE2" });
+   lines += ({ "This is the poor man's diff. it uses a mapping to store lines."
+      });
+   lines += ({ "So it only tells you if an exact line is in both files or not."
+      });
+   lines += ({ "It will only let you know about the first occurance of a " +
+      "line as well." });
+   lines += ({ "It works nicely enough for small cases though.  If you " +
+      "need more" });
+   lines += ({ "power use a real diff." });
+   lines += ({ "Print out the differences between FILE1 and FILE2, " +
+      "in std diff format." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\t-o FILE\tPrint the output to FILE instead of to the player."
+      });
+   lines += ({ "Examples:" });
+   lines += ({ "diff start.c void.c\t" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbrowse, cat, cd, edit, ls, more, pwd, tail" });
+
+   this_player()->more(lines);
 }
 
 /* Return an array of differences between the files */

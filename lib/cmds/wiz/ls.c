@@ -12,8 +12,11 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-l\tUse long listing, giving you more info" });
    lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples" });
+   lines += ({ "\tls /domains/required" });
+   lines += ({ "\tls" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cd, edit, pwd" });
+   lines += ({ "\tbrowse, cat, cd, diff, edit, more, pwd, tail" });
 
    this_player()->more(lines);
 }

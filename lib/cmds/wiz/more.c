@@ -1,10 +1,20 @@
 void usage() {
-   write("Usage: more [-h] [file]\n");
-   write("cat allows a wizard to concatenate a file " +
-      "(print it to the screen).\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: browse, cat, tail\n");
+   string *lines;
+
+   lines = ({ "Usage: more [-h] [file]" });
+   lines += ({ " " });
+   lines += ({ "cat allows a wizard to concatenate a file " +
+      "(print it to the screen)." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tmore void.c" });
+   lines += ({ "\tmore /domains/required/rooms/void.c" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, pwd, tail" });
+
+   this_player()->more(lines);
 }
 
 /* A highly advanced more command

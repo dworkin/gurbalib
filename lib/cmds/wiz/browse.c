@@ -6,8 +6,11 @@ void usage() {
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "browse void.c" });
+   lines += ({ "browse /domains/required/rooms" });
    lines += ({ "See also:" });
-   lines += ({ "\tcd, edit, ls, pwd" });
+   lines += ({ "\tcat, cd, diff, edit, ls, more, pwd, tail" });
 
    this_player()->more(lines);
 }

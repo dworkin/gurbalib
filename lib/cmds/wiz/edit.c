@@ -2,6 +2,7 @@ void usage() {
    string *lines;
 
    lines += ({ "Usage: edit [-h] [FILENAME]" });
+   lines == ({ " " });
    lines += ({ "Start up the ed editor and edit a file." });
    lines += ({ "Ed is a line editor, you can only work with one line at a " +
       "time." });
@@ -10,6 +11,7 @@ void usage() {
       "a or i." });
    lines += ({ "To exit insert mode create a line with just a '.' in it " +
       "and hit return." });
+   lines == ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Useful commands:" });
@@ -25,7 +27,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tedit workroom.c" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cd, ls, pwd" });
+   lines += ({ "\tbrowse, cat, cd, diff, ls, more, pwd, tail" });
 
    this_player()->more(lines);
 }
