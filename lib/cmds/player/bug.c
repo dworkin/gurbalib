@@ -12,8 +12,8 @@ void usage() {
    lines += ({ "\tbug the rabbit hole does not work in newbieville" });
       lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "\temote, rsay, say, shout, ssay, tell, translate, " +
-         "whisper, wizcall" });
+      lines += ({ "\techo, echoto, emote, rsay, say, shout, ssay, tell, " +
+         "translate, whisper, wizcall" });
    } else {
       lines += ({ "\temote, rsay, say, shout, tell, whisper, " +
          "wizcall" });

@@ -1,17 +1,22 @@
 void usage() {
-   write("Usage: ssay [-h] HOW|WHAT\n");
-   write("Ssay is short for SuperSay, it will allow you to ");
-   write("say WHAT to WHO. But do it HOW.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: say, tell, whisper, emote\n");
-   write("Examples:\n");
-   write("\t> ssay sleepily drones|Hiya\n");
-   write("\tAphex sleepily drones: Hiya\n");
-   write("\t> ssay kicks Dran in the pants and says|Muahhahahaha!\n");
-   write("\tAphex kicks Dran in the pants and says: Muahhahahaha!\n");
-   write("See also: bug, emote, rsay, say, shout, tell, translate, " +
-      "whisper, wizcall\n");
+   string *lines;
+
+   lines = ({ "Usage: ssay [-h] HOW|WHAT" });
+   lines == ({ " " });
+   lines += ({ "Ssay is short for SuperSay, it will allow you to " });
+   lines += ({ "say WHAT to WHO. But do it HOW." });
+   lines == ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\t> ssay sleepily drones|Hiya" });
+   lines += ({ "\tAphex sleepily drones: Hiya" });
+   lines += ({ "\t> ssay kicks Dran in the pants and says|Muahhahahaha!" });
+   lines += ({ "\tAphex kicks Dran in the pants and says: Muahhahahaha!" });
+   lines += ({ "See also: bug, echo, echoto, emote, rsay, say, shout, tell, " +
+      "translate, whisper, wizcall" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

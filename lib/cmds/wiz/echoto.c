@@ -1,8 +1,19 @@
 void usage() {
-   write("Usage: echoto [-h] [player] MSG\n");
-   write("Echo a message MSG to the player specified.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: echoto [-h] [player] MSG" });
+   lines += ({ " " });
+   lines += ({ "Echo a message MSG to the player specified." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\techoto sirdude You hear a odd noise." });
+   lines += ({ "See also:" });
+   lines += ({ "\tbug, echo, emote, rsay, say, shout, ssay, tell, " +
+      "translate, whisper, wizcall" });
+
+   this_player()->more(lines);
 }
 
 void main(string who) {

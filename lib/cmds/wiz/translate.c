@@ -1,12 +1,18 @@
 void usage() {
-   write("Usage: translate [-h] WORD\n");
-   write("translate WORD into the catfolk language.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Examples:\n");
-   write("I'm broken get a wiz to fix me...\n");
-   write("See also: bug, emote, rsay, say, shout, ssay, tell, whisper, " +
-      "wizcall\n");
+   string *lines;
+
+   lines = ({ "Usage: translate [-h] WORD" });
+   lines += ({ " " });
+   lines += ({ "translate WORD into the catfolk language." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "I'm broken get a wiz to fix me..." });
+   lines += ({ "See also: bug, echo, echoto, emote, rsay, say, shout, " +
+      "ssay, tell, whisper, wizcall" });
+
+   this_player()->more(lines);
 }
 
 /* XXX THis needs work, shouldn't only do catfolk... */

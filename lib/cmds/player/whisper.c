@@ -12,7 +12,7 @@ void usage() {
    lines += ({ "\twhisper guest Hi how are you?" });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "\tbug, emote, rsay, say, shout, ssay, tell, " +
+      lines += ({ "\tbug, echo, echoto, emote, rsay, say, shout, ssay, tell, " +
          "translate, wizcall" });
    } else {
       lines += ({ "\tbug, emote, rsay, say, shout, tell, wizcall" });
