@@ -1,9 +1,18 @@
 void usage() {
-   write("Usage: home [-h]\n");
-   write("Transport you to your \"work room\".\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: goto, summon, where\n");
+   string *lines;
+
+   lines = ({ "Usage: home [-h]" });
+   lines += ({ " " });
+   lines += ({ "Transport you to your \"work room\"." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\thome" });
+   lines += ({ "See also:" });
+   lines += ({ "\tgoto, summon, where" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

@@ -1,10 +1,20 @@
 void usage() {
-   write("Usage: where [-h] [player]\n");
-   write("Locates the given [player] and prints out their location.\n");
-   write("If [player] is omitted it prints out everyones location.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: goto, home, summon\n");
+   string *lines;
+
+   lines = ({ "Usage: where [-h] [player]" });
+   lines += ({ " " });
+   lines += ({ "Locates the given [player] and prints out their location." });
+   lines += ({ "If [player] is omitted it prints out everyones location." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   linse += ({ "\twhere" });
+   linse += ({ "\twhere sirdude" });
+   lines += ({ "See also:" });
+   lines += ({ "\tgoto, home, summon" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

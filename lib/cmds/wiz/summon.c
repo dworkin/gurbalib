@@ -1,10 +1,19 @@
 void usage() {
-   write("Usage: summon [-h] PLAYER\n");
-   write("Find PLAYER, print their current location, and then bring " +
-      "them here.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: trans, goto, home, where\n");
+   string *lines;
+
+   lines = ({ "Usage: summon [-h] PLAYER" });
+   lines += ({ " " });
+   lines += ({ "Find PLAYER, print their current location, and then bring " +
+      "them here." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tsummon guest" });
+   lines += ({ "See also:" });
+   lines += ({ "\tgoto, home, where" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

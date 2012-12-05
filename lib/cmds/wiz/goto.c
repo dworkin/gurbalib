@@ -3,12 +3,22 @@
 /* Fixed to properly setup rooms that get loaded by this command */
 
 void usage() {
-   write("Usage: goto [-h] PLAYER|ROOM\n");
-   write("Find PLAYER, and then transport you to them.\n");
-   write("or goto the specified ROOM.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: home, summon, where\n");
+   string *lines;
+
+   lines = ({ "Usage: goto [-h] PLAYER|ROOM" });
+   lines += ({ " " });
+   lines += ({ "Find PLAYER, and then transport you to them." });
+   lines += ({ "or goto the specified ROOM." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples" });
+   lines += ({ "\tgoto sirdude" });
+   lines += ({ "\tgoto /domains/required/rooms/start.c" });
+   lines += ({ "See also:" });
+   lines += ({ "\thome, summon, where" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {
