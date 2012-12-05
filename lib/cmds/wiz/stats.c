@@ -8,7 +8,7 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\t stats rat" });
+   lines += ({ "\tstats rat" });
    lines += ({ "See also:" });
    lines += ({ "\tadd_base, add_bonus, query_base_max, score" });
 
