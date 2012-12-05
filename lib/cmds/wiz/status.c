@@ -1,12 +1,22 @@
 #include <status.h>
 
 void usage() {
-   write("Usage: status [-h] [OBJ]\n");
-   write("Display various usage stat's about the object OBJ.\n");
-   write("If no object is given it displays stats for the driver.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: date, time, scan\n");
+   string *lines;
+
+   lines = ({ "Usage: status [-h] [OBJ]" });
+   lines += ({ " " });
+   lines += ({ "Display various usage stat's about the object OBJ." });
+   lines += ({ "If no object is given it displays stats for the driver." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tstatus" });
+   lines += ({ "\tstatus sirdude" });
+   lines += ({ "See also:" });
+   lines += ({ "\tdate, time, scan" });
+
+   this_player()->more(lines);
 }
 
 void display_driver(mixed * stat) {

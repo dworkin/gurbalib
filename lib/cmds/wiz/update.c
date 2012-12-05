@@ -7,12 +7,14 @@ void usage() {
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   
+   lines += ({ "Examples:" });
+   lines += ({ "\tupdate /domains/required/rooms/start.c" });
+   lines += ({ "\tupdate start.c" });
    lines += ({ "See also:" });
    if (query_admin(this_player()) {
-      lines += ({ "\tcheck, clean, clone, rebuild, warmboot" });
+      lines += ({ "\tcheck, clean, clone, dest, rebuild, warmboot" });
    } else {
-      lines += ({ "\tcheck, clean, clone, rebuild" });
+      lines += ({ "\tcheck, clean, clone, dest, rebuild" });
    }
 
    this_player()->more(lines);

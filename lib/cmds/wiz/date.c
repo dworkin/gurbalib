@@ -1,9 +1,18 @@
 void usage() {
-   write("Usage: date [-h]\n");
-   write("Show the real world time and date.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: time, status\n");
+   string *lines;
+
+   lines = ({ "Usage: date [-h]" });
+   lines += ({ " " });
+   lines += ({ "Show the real world time and date." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tdate" });
+   lines += ({ "See also:" });
+   lines += ({ "\ttime, status" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

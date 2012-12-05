@@ -1,9 +1,23 @@
 void usage() {
-   write("Usage: dest [-h] OBJ\n");
-   write("Destroy object OBJ.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also zap\n");
+   string *lines;
+
+   lines = ({ "Usage: dest [-h] OBJ" });
+   lines += ({ " " });
+   lines += ({ "Destroy object OBJ." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tdest sword" });
+   lines += ({ "See also:" });
+
+   if (query_admin(this_player()) {
+      lines += ({ "\tcheck, clean, check, rebuild, update, warmboot" });
+   } else {
+      lines += ({ "\tcheck, clean, check, rebuild, update" });
+   }
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

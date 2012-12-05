@@ -13,9 +13,9 @@ void usage() {
    lines += ({ "See also:" });
 
    if (query_admin(this_player()) {
-      lines += ({ "\tcheck, clean, clone, update, warmboot" });
+      lines += ({ "\tcheck, clean, clone, dest, update, warmboot" });
    } else {
-      lines += ({ "\tcheck, clean, clone, update" });
+      lines += ({ "\tcheck, clean, clone, dest, update" });
    }
 
    this_player()->more(lines);

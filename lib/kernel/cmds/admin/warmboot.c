@@ -12,7 +12,8 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\twarmboot" });
    lines += ({ "See also:" });
-   lines += ({ "\tclone, dumpstate, rebuild, shutdown, update" });
+   lines += ({ "\tcheck, clean, clone, dest, dumpstate, rebuild, shutdown, " +
+      "update" });
 
    this_player()->more(lines);
 }
