@@ -1,5 +1,6 @@
 void usage() {
    string *lines;
+
    lines = ({ "Usage: cd [-h] [dir]" });
    lines += ({ " " });
    lines += ({ "Change the current working directory(cwd) to [dir]." });

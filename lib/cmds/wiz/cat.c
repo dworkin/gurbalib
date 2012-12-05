@@ -1,5 +1,6 @@
 void usage() {
    string *lines;
+
    lines = ({ "Usage: cat [-h] [file]" });
    lines += ({ " " });
    lines += ({ "cat allows a wizard to concatenate a file " +

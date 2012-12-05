@@ -1,5 +1,6 @@
 void usage() {
    string *lines;
+
    lines = ({ "Usage: ban [-h] [-s SITE] [PLAYER]" });
    lines += ({ " " });
    lines += ({ "Allows you to toggle banishment of  the specified player " +
@@ -15,7 +16,7 @@ void usage() {
    lines += ({ "\tban sirdude" });
    lines += ({ "\tban -s 128.101.32.*" });
    lines += ({ "See also:" });
-   lines += ({ "\twho, unban" });
+   lines += ({ "\tforcequit, muzzle, zap" });
 
    this_player()->more(lines);
 }

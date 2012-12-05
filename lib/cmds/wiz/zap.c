@@ -1,11 +1,20 @@
 void usage() {
-   write("Usage: zap [-h] PLAYER [PERCENT]\n");
-   write("Zap the given player: PLAYER, reducing their HP by PERCENT.\n");
-   write("PERCENT should be > 0 and < 100.\n");
-   write("If PERCENT is missing, we assume you want to kill your target.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: dest\n");
+   string *lines;
+
+   lines = ({ "Usage: zap [-h] PLAYER [PERCENT]" });
+   lines += ({ "Zap the given player: PLAYER, reducing their HP by PERCENT." });
+   lines += ({ "PERCENT should be > 0 and < 100." });
+   lines += ({ "If PERCENT is missing, we assume you want to kill your target."
+      });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines == ({ "Examples:" });
+   lines += ({ "\tzap sirdude" });
+   lines += ({ "\tzap sirdude 50" });
+   lines += ({ "See also:" });
+   lines += ({ "\tban, muzzle, zap" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

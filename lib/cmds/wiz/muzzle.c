@@ -1,9 +1,19 @@
 void usage() {
-   write("Usage: muzzle [-h] PLAYER\n");
-   write("Muzzle a player so they can no longer shout.\n");
-   write("If PLAYER is already muzzled it unmuzzles them.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: muzzle [-h] PLAYER" });
+   lines += ({ " " });
+   lines += ({ "Muzzle a player so they can no longer shout." });
+   lines += ({ "If PLAYER is already muzzled it unmuzzles them." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples" });
+   lines += ({ "\tmuzzle sirdude" });
+   lines += ({ "See also:" });
+   lines += ({ "\tban, muzzle, zap" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

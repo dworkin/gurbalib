@@ -1,12 +1,12 @@
 void usage() {
    string *lines;
-   lines = ( { } );
 
-   lines += ( { "Usage: emoteadm -h" } );
+   lines = ( { "Usage: emoteadm -h" } );
    lines += ( { "Usage: emoteadm show [EMOTE]    show the entrys for EMOTE" } );
    lines += ( { "\tIf EMOTE is missing show all emotes registered." } );
    lines += ( { "Usage: emoteadm del EMOTE     delete the entrys for EMOTE" } );
    lines += ( { "Usage: emoteadm add NAME [RULE] FORMAT" } );
+   lines += ( { } );
    lines += ( { "Add an emote to the emote database." } );
    lines += ( { "NAME is the thing players will type for the emote." } );
    lines += ( { "RULE if provided is one of the following: LIV|STR|OBJ" } );
@@ -20,6 +20,7 @@ void usage() {
       "\tEveryone else will see Sirdude blink. (If your name is sirdude)\n"
    } );
 
+   lines += ( { } );
    lines += ( { "Options:" } );
    lines += ( { "\t-h\tHelp, this usage message." } );
    lines += ( { "\t$N\tUpper case name of the player emoting" } );
@@ -37,6 +38,7 @@ void usage() {
    lines += ( { "Examples:" } );
    lines += ( { "\temoteadm add blink $N $sblink." } );
    lines += ( { "\temoteadm add LIV $N $vblink at $t" } );
+
    this_player()->more(lines);
 }
 

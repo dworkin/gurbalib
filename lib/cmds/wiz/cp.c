@@ -1,5 +1,6 @@
 void usage() {
    string *lines;
+
    lines += ({ "Usage: cp [-h] [file1] [file2]" });
    lines += ({ " " });
    lines += ({ "Copy [file1] to [file2]." });

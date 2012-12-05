@@ -1,8 +1,18 @@
 void usage() {
-   write("Usage: forcequit [-h] PLAYER\n");
-   write("Locates the given PLAYER and forces them to quit the game.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: forcequit [-h] PLAYER" });
+   lines += ({ " " });
+   lines += ({ "Locates the given PLAYER and forces them to quit the game." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples" });
+   lines += ({ "\tforcequit sirdude" });
+   lines += ({ "See also:" });
+   lines += ({ "\tban, muzzle, zap" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

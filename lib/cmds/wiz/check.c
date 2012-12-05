@@ -2,6 +2,7 @@ int warn, error;
 
 void usage() {
    string *lines;
+
    lines = ({ "Usage: check [-h] FILENAME" });
    lines += ({ " " });
    lines += ({ "Check the supplied file, FILENAME." });
