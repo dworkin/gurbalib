@@ -1,24 +1,33 @@
 void usage() {
-   write("Usage: edit [-h] [FILENAME]\n");
-   write("Start up the ed editor and edit a file.\n");
-   write("Ed is a line editor, you can only work with one line at a time.\n");
-   write("It has two modes command mode and insert mode.\n");
-   write("You start in command mode, to enter insert mode you can use " +
-      "a or i.\n");
-   write("To exit insert mode create a line with just a '.' in it and hit " +
-      "return.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Useful commands:\n");
-   write("\tp\tprint line.\n");
-   write("\td\tdelete line.\n");
-   write("\tr FILE\tread a file named FILE.\n");
-   write("\tw FILE\twrite a file name FILE.\n");
-   write("\tq\tquit.\n");
-   write("\tQ\tquit, discarding any unsaved work.\n");
-   write("\te FILE\tedit a file named FILE.\n");
-   write("\t+5\tJump ahead 5 lines.  (you can use other numbers.\n");
-   write("\t-5\tJump back 5 lines.  (you can use other numbers.\n");
+   string *lines;
+
+   lines += ({ "Usage: edit [-h] [FILENAME]" });
+   lines += ({ "Start up the ed editor and edit a file." });
+   lines += ({ "Ed is a line editor, you can only work with one line at a " +
+      "time." });
+   lines += ({ "It has two modes command mode and insert mode." });
+   lines += ({ "You start in command mode, to enter insert mode you can use " +
+      "a or i." });
+   lines += ({ "To exit insert mode create a line with just a '.' in it " +
+      "and hit return." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Useful commands:" });
+   lines += ({ "\tp\tprint line." });
+   lines += ({ "\td\tdelete line." });
+   lines += ({ "\tr FILE\tread a file named FILE." });
+   lines += ({ "\tw FILE\twrite a file name FILE." });
+   lines += ({ "\tq\tquit." });
+   lines += ({ "\tQ\tquit, discarding any unsaved work." });
+   lines += ({ "\te FILE\tedit a file named FILE." });
+   lines += ({ "\t+5\tJump ahead 5 lines.  (you can use other numbers." });
+   lines += ({ "\t-5\tJump back 5 lines.  (you can use other numbers." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tedit workroom.c" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbrowse, cd, ls, pwd" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

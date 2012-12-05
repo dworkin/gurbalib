@@ -1,14 +1,21 @@
 /* vim:set ft=lpc: */
 
 void usage() {
-   write("Usage: ls [-l] [-h] [<dir> ...]\n");
-   write("ls allows a wizard to list the contents of a directory.\n");
-   write("If no directory is given, it uses the wizard's current " +
-      "working directory.\n");
-   write("Options:\n");
-   write("\t-l\tUse long listing, giving you more info\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: pwd, cd, browse\n");
+   string *lines;
+
+   lines += ({ "Usage: ls [-l] [-h] [<dir> ...]" });
+   lines += ({ " " });
+   lines += ({ "ls allows a wizard to list the contents of a directory." });
+   lines += ({ "If no directory is given, it uses the wizard's current " +
+      "working directory." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-l\tUse long listing, giving you more info" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "See also:" });
+   lines += ({ "\tbrowse, cd, edit, pwd" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

@@ -8,7 +8,7 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "See also:" });
-   lines += ({ "\tstats, add_base" });
+   lines += ({ "\tadd_base, query_base_max, score, stats" });
 
    this_player()->more(lines);
 }

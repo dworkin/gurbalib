@@ -1,9 +1,18 @@
 void usage() {
-   write("Usage: stats [-h] [object]\n");
-   write("Display the stat's for the specified object/person.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: add_base, add_bonus, score\n");
+   string *lines;
+
+   lines = ({ "Usage: stats [-h] [object]" });
+   lines += ({ " " });
+   lines += ({ "Display the stat's for the specified object/person." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\t stats rat" });
+   lines += ({ "See also:" });
+   lines += ({ "\tadd_base, add_bonus, query_base_max, score" });
+
+   this_player()->more(lines);
 }
 
 void main(string arg) {

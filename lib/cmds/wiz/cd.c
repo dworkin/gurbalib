@@ -1,9 +1,11 @@
 void usage() {
    string *lines;
    lines = ({ "Usage: cd [-h] [dir]" });
+   lines += ({ " " });
    lines += ({ "Change the current working directory(cwd) to [dir]." });
    lines += ({ "If [dir] is not given, the working directory is set to the " +
       "wizards home directory." });
+   lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
@@ -11,7 +13,7 @@ void usage() {
    lines += ({ "cd ..            Move up one directory." });
    lines += ({ "cd               Change cwd to /wiz/(username)." });
    lines += ({ "See also:" });
-   lines += ({ "\tpwd, ls, browse" });
+   lines += ({ "\tbrowse, edit, ls, pwd" });
 
    this_player()->more(lines);
 }

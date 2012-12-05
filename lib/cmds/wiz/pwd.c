@@ -1,9 +1,18 @@
 void usage() {
-   write("Usage: pwd [-h]\n");
-   write("Prints the current working directory.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: cd, ls, browse\n");
+   string *lines;
+
+   lines += ({ "Usage: pwd [-h]" });
+   lines += ({ " " });
+   lines += ({ "Prints the current working directory." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tpwd" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbrowse, cd, edit, ls" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

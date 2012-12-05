@@ -9,7 +9,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tadd_base Strength" });
    lines += ({ "See also:" });
-   lines += ({ "\tstats, add_bonus" });
+   lines += ({ "\tadd_bonus, query_base_max, score, stats" });
 
    this_player()->more(lines);
 }

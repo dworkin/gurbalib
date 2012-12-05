@@ -1,8 +1,18 @@
 void usage() {
-   write("Usage: query_base_max [-h] [STAT]\n");
-   write("Get the maximum base for stat STAT.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: query_base_max [-h] [STAT]\n");
+   lines += ({ " " });
+   lines += ({ "Get the maximum base for stat STAT.\n");
+   lines += ({ " " });
+   lines += ({ "Options:\n");
+   lines += ({ "\t-h\tHelp, this usage message.\n");
+   lines += ({ "Examples:" });
+   lines += ({ "\tquery_base_max strength" });
+   lines += ({ "See also:" });
+   lines += ({ "\tadd_base, add_bonus, score, stats" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

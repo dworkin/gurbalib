@@ -7,7 +7,7 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "See also:" });
-   lines += ({ "\tcd, ls, pwd" });
+   lines += ({ "\tcd, edit, ls, pwd" });
 
    this_player()->more(lines);
 }
