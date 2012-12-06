@@ -1,13 +1,21 @@
 #include <status.h>
 
 void usage() {
-   write("Usage: title [-h] [string]\n");
-   write("Title allows you to set your title to string.\n");
-   write("You can use $N as a variable for your username.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Example:\n");
-   write("\ttitle %N is the coolest kid on the block!\n");
+   string *lines;
+
+   lines = ({ "Usage: title [-h] [string]" });
+   lines += ({ " " });
+   lines += ({ "Title allows you to set your title to string." });
+   lines += ({ "You can use $N as a variable for your username." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Example:" });
+   lines += ({ "\ttitle %N is the coolest kid on the block!" });
+   lines += ({ "See also:" });
+   lines += ({ "\tgender" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

@@ -16,7 +16,8 @@ void usage() {
    lines += ({ "\tshutdown 5 were upgrading the server's memory." });
    lines += ({ "\tshutdown now sorry were experiencing major problems." });
    lines += ({ "See also:" });
-   lines += ({ "\tclone, dumpstate, rebuild, update, warmboot" });
+   lines += ({ "\tcheck, clean, clone, dest, eval, dumpstate, rebuild, " +
+      "update, warmboot" });
 
    this_player()->more(lines);
 }

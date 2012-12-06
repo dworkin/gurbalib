@@ -12,7 +12,7 @@ void usage() {
    lines += ({ "\tlast" });
    lines += ({ "\tlast sirdude" });
    lines += ({ "See also:" });
-   lines += ({ "\tlocate, look, where, who" });
+   lines += ({ "\tlocate, look, snoop, where, who" });
 
    this_player()->more(lines);
 }

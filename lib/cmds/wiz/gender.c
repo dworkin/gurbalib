@@ -1,8 +1,18 @@
 void usage() {
-   write("Usage: gender [-h] [male|female]\n");
-   write("Allows you to set your gender.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: gender [-h] [male|female]" });
+   lines += ({ " " });
+   lines += ({ "Allows you to set your gender." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tgender male" });
+   lines += ({ "See also:" });
+   lines += ({ "\ttitle" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

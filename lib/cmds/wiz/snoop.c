@@ -1,8 +1,18 @@
 void usage() {
-   write("Usage: snoop [-h] PLAYER\n");
-   write("Snoop on player: PLAYER.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: snoop [-h] PLAYER" });
+   lines += ({ " " });
+   lines += ({ "Snoop on player: PLAYER." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   liens += ({ "\tsnoop sirdude" });
+   lines += ({ "See also:" });
+   lines += ({ "\tlast, locate, look, snoop, who" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

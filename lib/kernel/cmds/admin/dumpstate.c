@@ -14,7 +14,8 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tdumpstate" });
    lines += ({ "See also:" });
-   lines += ({ "\tclone, rebuild, shutdown, update, warmboot" });
+   lines += ({ "\tcheck, clean, clone, dest, eval, rebuild, " +
+      "shutdown, update, warmboot" });
 
    this_player()->more(lines);
 }

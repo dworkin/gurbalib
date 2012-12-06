@@ -12,9 +12,9 @@ void usage() {
    lines += ({ "\tupdate start.c" });
    lines += ({ "See also:" });
    if (query_admin(this_player()) {
-      lines += ({ "\tcheck, clean, clone, dest, rebuild, warmboot" });
+      lines += ({ "\tcheck, clean, clone, dest, eval, rebuild, warmboot" });
    } else {
-      lines += ({ "\tcheck, clean, clone, dest, rebuild" });
+      lines += ({ "\tcheck, clean, clone, dest, eval, rebuild" });
    }
 
    this_player()->more(lines);

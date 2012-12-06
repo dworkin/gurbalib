@@ -1,9 +1,18 @@
 void usage() {
-   write("Usage: unset [-h] VAR\n");
-   write("Remove an environment variable VAR.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: set\n");
+   string *lines;
+
+   lines = ({ "Usage: unset [-h] VAR" });
+   lines += ({ " " });
+   lines += ({ "Remove an environment variable VAR." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines == ({ "\tunset save_on_quit" });
+   lines += ({ "See also:" });
+   lines += ({ "\tset" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

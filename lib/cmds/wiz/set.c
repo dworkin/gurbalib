@@ -1,23 +1,32 @@
 void usage() {
-   write("Usage: set [-h] [VAR VALUE]\n");
-   write("Set an environment variable VAR to VALUE.\n");
-   write("If no VAR VALUE pair is given print your current environment.\n");
-   write("Some variables you can set:\n");
-   write("\tstart\t\tyour starting room.\n");
-   write("\theight\t\theight of your screen.\n");
-   write("\twidth\t\twidth of your screen.\n");
-   write("\thidden\t\tSet to 1 if you want to hide your login from users.\n");
-   write("\tautoload\t\tSet to 1 if you want to save your equipment on " +
-      "quit.\n");
-   write("\tsave_on_quit\tSet to 1 if you want to start where you last " +
-      "quit.\n");
-   write("\tquit_message\tSet your quit message.  Example: $N $vquit.\n");
-   write("\tverbose_errors\tSet to 1 if you want longer error codes.\n");
-   write("\tdisplay_caught\tSet to 1 if you want to show caught runtime " +
-      "errors.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: unset\n");
+   string *lines;
+   lines = ({ "Usage: set [-h] [VAR VALUE]" });
+   lines += ({ "Set an environment variable VAR to VALUE." });
+   lines += ({ "If no VAR VALUE pair is given print your current environment."
+      });
+   lines += ({ "Some variables you can set:" });
+   lines += ({ "\tstart\t\tyour starting room." });
+   lines += ({ "\theight\t\theight of your screen." });
+   lines += ({ "\twidth\t\twidth of your screen." });
+   lines += ({ "\thidden\t\tSet to 1 if you want to hide your login from " +
+      "users." });
+   lines += ({ "\tautoload\t\tSet to 1 if you want to save your equipment on " +
+      "quit." });
+   lines += ({ "\tsave_on_quit\tSet to 1 if you want to start where you last " +
+      "quit." });
+   lines += ({ "\tquit_message\tSet your quit message.  Example: $N $vquit." });
+   lines += ({ "\tverbose_errors\tSet to 1 if you want longer error codes." });
+   lines += ({ "\tdisplay_caught\tSet to 1 if you want to show caught " +
+      "runtime errors." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tset width 50" });
+   lines += ({ "\tset save_on_quit 1" });
+   lines += ({ "See also:" });
+   lines += ({ "\tunset" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {
