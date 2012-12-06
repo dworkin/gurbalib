@@ -12,7 +12,9 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\twall We are upgrading the server in 10 minutes." });
    lines += ({ "See also:" });
-   lines += ({ "\tshout, tell" });
+   lines += ({ "\tbug, echo, echoto, emote, rsay, say, ssay, tell, " +
+      "translate, whisper, wizcall" });
+/* XXX Check these for wall */
 
    this_player()->more(lines);
 }

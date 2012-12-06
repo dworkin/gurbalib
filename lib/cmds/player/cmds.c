@@ -15,14 +15,14 @@ void usage() {
    lines = ({ "Usage: cmds [-h] [-v] [" + flags + "]" });
    lines += ({ "" });
    lines += ({ "cmds lists the various cmds at your disposal." });
+   lines += ({ "If you specify a subsection like player it will only list " +
+      "player commands, " });
+   lines += ({ "instead of all commands you have available." });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-e\tInclude emotes." });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\t-v\tVertical, displays commands one per line." });
-   lines += ({ "If you specify a subsection like player it will only list " +
-      "player commands, " });
-   lines += ({ "instead of all commands you have available." });
    lines += ({ "Examples:" });
    lines += ({ "\tcmds" });
    lines += ({ "\tcmds players" });

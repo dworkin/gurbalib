@@ -3,7 +3,7 @@ void usage() {
 
    lines = ({ "Usage: skills [-h] [full]" });
    lines += ({ "" });
-   lines += ({ "List the skills you know" });
+   lines += ({ "List the skills you know, and how well you know it." });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });

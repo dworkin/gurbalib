@@ -14,23 +14,32 @@
                 "value: TAG ? valid_value\n"
 
 void usage() {
-   write("Usage: coloradm [-h] [SHOW|COMMAND]\n");
-   write("Allows you to modify the color table, or look at the current " +
-      "color table.\n");
-   write("COMMAND has the following SYNTAX:\n");
-   write("\tSYMBOL=COLOR\n");
-   write("\tSYMBOL=COLOR+ATTRIBUTES\n");
-   write("Use coloradm show to see your options.\n");
+   string *lines;
 
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\tshow\tShows you the current symbols.\n");
+   lines = ({ "Usage: coloradm [-h] [SHOW|COMMAND]" });
+   lines += ({ " " });
+   lines += ({ "Allows you to modify the color table, or look at the current " +
+      "color table." });
+   lines += ({ "COMMAND has the following SYNTAX:" });
+   lines += ({ "\tSYMBOL=COLOR" });
+   lines += ({ "\tSYMBOL=COLOR+ATTRIBUTES" });
+   lines += ({ "Use coloradm show to see your options." });
+   lines += ({ " " });
 
-   write("See also: ansi\n");
-   write("Examples:\n");
-   write("\tcoloradm ROOM_NAME=GREEN\n");
-   write("\tcoloradm ROOM_NAME=RED+REVERSE\n");
-   write("\tcoloradm ROOM_NAME=RED+REVERSE+UNDERLINE\n");
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\tshow\tShows you the current symbols." });
+
+   lines += ({ "Examples:" });
+   lines += ({ "\tcoloradm ROOM_NAME=GREEN" });
+   lines += ({ "\tcoloradm ROOM_NAME=RED+REVERSE" });
+   lines += ({ "\tcoloradm ROOM_NAME=RED+REVERSE+UNDERLINE" });
+   lines += ({ "See also:" });
+   lines += ({ "\tansi, alias, aliasadm, chfn, describe, emoteadm, " +
+      "ignore, passwd, skilladm" });
+/* XXX Need to check these to see if they have refs for this command */
+
+   this_player()->more(lines);
 }
 
 /* If the arg[0] is a base symbol, it can't be used as a custom tag. */
