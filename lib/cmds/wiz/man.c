@@ -1,10 +1,19 @@
 void usage() {
-   write("Usage: man [-h] [TOPIC]\n");
-   write("Get more information on topic TOPIC, if it exists.\n");
-   write("Try \"man man\" for more info.");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: cmds, help\n");
+   string *lines;
+
+   lines += ({ "Usage: man [-h] [TOPIC]" });
+   lines += ({ " " });
+   lines += ({ "Get more information on topic TOPIC, if it exists." });
+   lines += ({ "Try \"man man\" for more info." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tman man" });
+   lines += ({ "See also:" });
+   lines += ({ "\tcmds, help" });
+
+   this_player()->more(lines);
 }
 
 /* A highly advanced man command 

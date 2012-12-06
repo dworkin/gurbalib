@@ -10,7 +10,7 @@ void usage() {
    lines += ({ "Examples" });
    lines += ({ "\tforcequit sirdude" });
    lines += ({ "See also:" });
-   lines += ({ "\tban, muzzle, zap" });
+   lines += ({ "\tban, heal, muzzle, zap" });
 
    this_player()->more(lines);
 }

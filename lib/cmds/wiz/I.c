@@ -1,5 +1,6 @@
 void usage() {
    string *lines;
+
    lines = ({ "Usage: I [-h] MSG" });
    lines += ({ " " });
    lines += ({ "Allows a wizard to tell other wizards what they " +

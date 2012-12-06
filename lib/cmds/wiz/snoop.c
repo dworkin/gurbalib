@@ -10,7 +10,7 @@ void usage() {
    lines += ({ "Examples:" });
    liens += ({ "\tsnoop sirdude" });
    lines += ({ "See also:" });
-   lines += ({ "\tlast, locate, look, snoop, who" });
+   lines += ({ "\tlast, locate, look, who" });
 
    this_player()->more(lines);
 }

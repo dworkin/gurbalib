@@ -16,7 +16,7 @@ void usage() {
    lines += ({ "\tban sirdude" });
    lines += ({ "\tban -s 128.101.32.*" });
    lines += ({ "See also:" });
-   lines += ({ "\tforcequit, muzzle, zap" });
+   lines += ({ "\tforcequit, heal, muzzle, zap" });
 
    this_player()->more(lines);
 }

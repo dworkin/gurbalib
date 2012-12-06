@@ -1,8 +1,19 @@
 void usage() {
-   write("Usage: heal [-h] [player]\n");
-   write("Allows you to heal a player, if no player is given heal yourself.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+   lines = ({ "Usage: heal [-h] [player]" });
+   lines += ({ " " });
+   lines += ({ "Allows you to heal a player, if no player is given heal " +
+      "yourself." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\theal sirdude" });
+   lines += ({ "\theal" });
+   lines += ({ "See also:" });
+   lines += ({ "\tban, forcequit, muzzle, zap" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

@@ -11,7 +11,7 @@ void usage() {
    lines += ({ "Examples" });
    lines += ({ "\tmuzzle sirdude" });
    lines += ({ "See also:" });
-   lines += ({ "\tforcequit, ban, zap" });
+   lines += ({ "\tban, forcequit, heal, zap" });
 
    this_player()->more(lines);
 }
