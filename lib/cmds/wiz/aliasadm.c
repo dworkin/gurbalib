@@ -24,7 +24,7 @@ void usage() {
    lines += ( { "\taliasadm show a" } );
    lines += ( { "\taliasadm del a" } );
    lines += ( { "See also:" } );
-   lines += ( { "\talias" } );
+   lines += ( { "\talias, emoteadm" } );
 
    this_player()->more(lines);
 }

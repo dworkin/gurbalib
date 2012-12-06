@@ -14,7 +14,7 @@ void usage() {
    lines += ({ "\twho sirdude" });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "\tlast, locate, look, snoop, where" });
+      lines += ({ "\tlast, locate, look, rwho, snoop, where" });
    } else {
       lines += ({ "\tlook" });
    }

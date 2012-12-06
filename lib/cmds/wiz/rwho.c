@@ -1,9 +1,18 @@
 void usage() {
-   write("Usage: rwho [-h] MUDNAME\n");
-   write("Remote who, lists users on another mud.\n");
-   write("To see what other muds you can look at use the command: mudlist\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: rwho [-h] MUDNAME" });
+   lines += ({ "Remote who, lists users on another mud." });
+   lines += ({ "To see what other muds you can look at use the command: " +
+      "mudlist" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\t rwho gurbalib" });
+   lines += ({ "See also:" });
+   lines += ({ "\tlast, locate, look, snoop, where, who" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

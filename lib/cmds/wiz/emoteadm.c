@@ -38,6 +38,8 @@ void usage() {
    lines += ( { "Examples:" } );
    lines += ( { "\temoteadm add blink $N $sblink." } );
    lines += ( { "\temoteadm add LIV $N $vblink at $t" } );
+   lines += ( { "See also:" } );
+   lines += ( { "\talias, aliasadmin, emote" } );
 
    this_player()->more(lines);
 }
