@@ -1,9 +1,25 @@
 void usage() {
-   write("Usage: look [-h] [[at|in] OBJ]\n");
-   write("Allows you to get more details on a given object OBJ.\n");
-   write("If no argument is given look at your surroundings.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: look [-h] [[at|in] OBJ]" });
+   lines += ({ " " });
+   lines += ({ "Allows you to get more details on a given object OBJ." });
+   lines += ({ "If no argument is given look at your surroundings." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tlook" });
+   lines += ({ "\tlook at tree" });
+   lines += ({ "\tlook in chest" });
+   lines += ({ "See also:" });
+
+   lines += ({ "\tbuy, identify, look, retrieve, sell, store, value" });
+   if (query_wizard(this_player())) {
+      lines += ({ "\tlast, locate, rwho, snoop, where" });
+   }
+
+   this_player()->more(lines);
 }
 
 string *query_verb_info() {
