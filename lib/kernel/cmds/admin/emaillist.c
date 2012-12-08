@@ -23,7 +23,7 @@ void usage() {
 void create_list(string type, string file) {
    string *names;
    string *lines;
-   int i, max;
+   int i, max, temp;
    object obj;
 
    names = USER_D->list_all_users();
@@ -31,31 +31,42 @@ void create_list(string type, string file) {
    lines = ({ });
 
    for(i=0;i<max;i++) {
-      obj = USER_D->get_data_ob(names[i]);
+write("Checking XXX " + names[i] + "\n");
+      obj = USER_D->find_player(names[i]);
+      if (!obj) {
+         temp = 1;
+         obj = USER_D->get_data_ob(names[i]);
+      }
 
-      if (!type || type == "") {
-         lines += ({ obj->query_real_name() + "(" + 
-            obj->query_name() + ")" +
-            obj->query_email_address() });
-      } else {
-         type = lowercase(type);
-         if ((type == "player") || (type == "players")) {
+      if (obj) {
+         if (!type || type == "") {
             lines += ({ obj->query_real_name() + "(" + 
-               obj->query_name() + ")" +
-               obj->query_email_address() });
-         } else if ((type == "wiz") || (type == "wizard") || 
-            (type == "wizards")) {
-            if (USER_D->query_wizard(obj)) {
+               names[i] + ") <" + 
+               obj->query_email_address() + ">" });
+         } else {
+            type = lowercase(type);
+            if ((type == "player") || (type == "players")) {
                lines += ({ obj->query_real_name() + "(" + 
                   obj->query_name() + ")" +
                   obj->query_email_address() });
+            } else if ((type == "wiz") || (type == "wizard") || 
+               (type == "wizards")) {
+               if (USER_D->query_wizard(obj)) {
+                  lines += ({ obj->query_real_name() + "(" + 
+                     obj->query_name() + ")" +
+                     obj->query_email_address() });
+               }
+            } else if ((type == "admin") || (type == "admins")) {
+               if (USER_D->query_admin(obj)) {
+                  lines += ({ obj->query_real_name() + "(" + 
+                     obj->query_name() + ")" +
+                     obj->query_email_address() });
+               }
             }
-         } else if ((type == "admin") || (type == "admins")) {
-            if (USER_D->query_admin(obj)) {
-               lines += ({ obj->query_real_name() + "(" + 
-                  obj->query_name() + ")" +
-                  obj->query_email_address() });
-            }
+         }
+         if (temp) {
+            temp = 0;
+/* XXX           destruct_object(obj); */
          }
       }
    }
@@ -65,18 +76,13 @@ void create_list(string type, string file) {
       if (!file || file == "") {
          write(lines[i]);
       } else {
-         /* XXX how do we write a file? */
+         write_file(file, lines[i]);
       }
    }
 }
 
 void main(string str) {
    string type, file;
-
-   if (!str || str == "") {
-      usage();
-      return;
-   }
 
    if (sscanf(str, "-%s", str)) {
       usage();
@@ -88,8 +94,16 @@ void main(string str) {
       return;
    }
 
-/* XXX Do the work here */
-
-   create_list(type, file);
-
+   if (sscanf(str, "%s %s", type, file) != 2) {
+      type = lowercase(str);
+      if ((type == "player")  || (type == "players") ||
+         (type == "wiz") || (type == "wizard") || (type == "wizards") ||
+         (type == "admin") || (type == "admins")) {
+         create_list(type, "");
+      } else {
+         create_list("",type);
+      }
+   } else {
+      create_list(type, file);
+   }
 }
