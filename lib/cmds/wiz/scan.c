@@ -1,10 +1,20 @@
 void usage() {
-   write("scan [-h] [OBJ]\n");
-   write("Print a list of objects in the current room.\n");
-   write("If OBJ is specified list the inventory of object OBJ\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: status\n");
+   string *lines;
+
+   lines = ({ "scan [-h] [OBJ]" });
+   lines += ({ " " });
+   lines += ({ "Print a list of objects in the current room." });
+   lines += ({ "If OBJ is specified list the inventory of object OBJ" });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tscan" });
+   lines += ({ "\tscan rat" });
+   lines += ({ "See also:" });
+   lines += ({ "\tdate, status, time" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

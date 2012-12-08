@@ -14,7 +14,7 @@ void usage() {
    lines += ({ "\tstatus" });
    lines += ({ "\tstatus sirdude" });
    lines += ({ "See also:" });
-   lines += ({ "\tdate, time, scan" });
+   lines += ({ "\tdate, scan, time" });
 
    this_player()->more(lines);
 }

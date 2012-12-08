@@ -8,8 +8,9 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "I'm broken get a wiz to fix me..." });
-   lines += ({ "See also: bug, echo, echoto, emote, rsay, say, shout, " +
+   lines += ({ "\tXXX I'm broken get a wiz to fix me..." });
+   lines += ({ "See also:" });
+   lines += (" "\tbug, echo, echoto, emote, rsay, say, shout, " +
       "ssay, sysmsg, tell, whisper, wizcall" });
 
    if (query_admin(this_player())) {

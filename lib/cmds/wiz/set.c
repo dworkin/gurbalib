@@ -1,6 +1,7 @@
 void usage() {
    string *lines;
    lines = ({ "Usage: set [-h] [VAR VALUE]" });
+   lines += ({ " " });
    lines += ({ "Set an environment variable VAR to VALUE." });
    lines += ({ "If no VAR VALUE pair is given print your current environment."
       });
@@ -10,7 +11,7 @@ void usage() {
    lines += ({ "\twidth\t\twidth of your screen." });
    lines += ({ "\thidden\t\tSet to 1 if you want to hide your login from " +
       "users." });
-   lines += ({ "\tautoload\t\tSet to 1 if you want to save your equipment on " +
+   lines += ({ "\tautoload\tSet to 1 if you want to save your equipment on " +
       "quit." });
    lines += ({ "\tsave_on_quit\tSet to 1 if you want to start where you last " +
       "quit." });
@@ -18,6 +19,7 @@ void usage() {
    lines += ({ "\tverbose_errors\tSet to 1 if you want longer error codes." });
    lines += ({ "\tdisplay_caught\tSet to 1 if you want to show caught " +
       "runtime errors." });
+   lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });

@@ -10,7 +10,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tdate" });
    lines += ({ "See also:" });
-   lines += ({ "\ttime, status" });
+   lines += ({ "\tscan, status, time" });
 
    this_player()->more(lines);
 }

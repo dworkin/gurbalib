@@ -8,7 +8,7 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   liens += ({ "\tsnoop sirdude" });
+   lines += ({ "\tsnoop sirdude" });
    lines += ({ "See also:" });
    lines += ({ "\tlast, locate, look, rwho, who" });
 

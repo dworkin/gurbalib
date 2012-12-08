@@ -19,9 +19,9 @@ void usage() {
    lines += ({ "\ttime" });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "\tdate, score, status" });
+      lines += ({ "\tdate, scan, score, status, time" });
    } else {
-      lines += ({ "\tdate, score, status" });
+      lines += ({ "\tscore, time" });
    }
 
    this_player()->more(lines);

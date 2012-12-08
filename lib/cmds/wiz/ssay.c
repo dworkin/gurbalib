@@ -9,11 +9,10 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\t> ssay sleepily drones|Hiya" });
-   lines += ({ "\tAphex sleepily drones: Hiya" });
-   lines += ({ "\t> ssay kicks Dran in the pants and says|Muahhahahaha!" });
-   lines += ({ "\tAphex kicks Dran in the pants and says: Muahhahahaha!" });
-   lines += ({ "See also: bug, echo, echoto, emote, rsay, say, shout, " +
+   lines += ({ "\tssay sleepily drones|Hiya" });
+   lines += ({ "\tssay kicks Dran in the pants and says|Muahhahahaha!" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbug, echo, echoto, emote, rsay, say, shout, " +
       "sysmsg, tell, translate, whisper, wizcall" });
 
    if (query_admin(this_player())) {
