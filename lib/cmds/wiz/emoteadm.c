@@ -41,6 +41,10 @@ void usage() {
    lines += ( { "See also:" } );
    lines += ( { "\talias, aliasadmin, emote" } );
 
+   if (query_admin(this_player()) {
+      lines == ({ "\tcoloradm" });
+   }
+
    this_player()->more(lines);
 }
 

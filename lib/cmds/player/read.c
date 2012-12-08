@@ -10,7 +10,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tread sign" });
    lines += ({ "See also:" });
-   lines += ({ "\tdelete, look, post" });
+   lines += ({ "\tdelete, look, mail, post" });
 
    this_player()->more(lines);
 }

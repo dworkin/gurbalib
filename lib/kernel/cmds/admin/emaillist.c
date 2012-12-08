@@ -3,8 +3,8 @@ void usage() {
 
    lines = ({ "Usage: emaillist [-h] [admins|players|wizards] [FILE]" });
    lines += ({ "" });
-   lines += ({ "Print out an email list of the mud users.
-   lines += "{   If FILE is given, write it to that file." });
+   lines += ({ "Print out an email list of the mud users." });
+   lines += ({ "If FILE is given, write it to that file." });
    lines += ({ "If admins, players or wizards are specified only " +
       "include those users." });
    lines += ({ "" });
@@ -31,7 +31,7 @@ void create_list(string type, string file) {
    lines = ({ });
 
    for(i=0;i<max;i++) {
-      obj = get_data_ob(names[i]);
+      obj = USER_D->get_data_ob(names[i]);
 
       if (!type || type == "") {
          lines += ({ obj->query_real_name() + "(" + 
@@ -45,13 +45,13 @@ void create_list(string type, string file) {
                obj->query_email_address() });
          } else if ((type == "wiz") || (type == "wizard") || 
             (type == "wizards")) {
-            if (query_wizard(obj) {
+            if (USER_D->query_wizard(obj)) {
                lines += ({ obj->query_real_name() + "(" + 
                   obj->query_name() + ")" +
                   obj->query_email_address() });
             }
          } else if ((type == "admin") || (type == "admins")) {
-            if (query_admin(obj) {
+            if (USER_D->query_admin(obj)) {
                lines += ({ obj->query_real_name() + "(" + 
                   obj->query_name() + ")" +
                   obj->query_email_address() });

@@ -10,7 +10,8 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tquit" });
    lines += ({ "See also:" });
-   lines += ({ "\tscore, who" });
+   lines += ({ "\tattack, cast, eat, enter, follow, go, pray" });
+
 
    this_player()->more(lines);
 }

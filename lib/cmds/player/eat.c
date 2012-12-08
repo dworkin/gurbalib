@@ -10,7 +10,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\teat apple" });
    lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, enter, follow, go, pray" });
+   lines += ({ "\tattack, cast, enter, follow, go, pray, quit" });
 
    this_player()->more(lines);
 }

@@ -14,7 +14,7 @@ void usage() {
    lines += ({ "\tlook in chest" });
    lines += ({ "See also:" });
 
-   lines += ({ "\tbuy, identify, look, retrieve, sell, store, value" });
+   lines += ({ "\tbuy, identify, list, retrieve, sell, store, value" });
    if (query_wizard(this_player())) {
       lines += ({ "\tlast, locate, rwho, snoop, where" });
    }

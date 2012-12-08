@@ -1,7 +1,7 @@
 void usage() {
    string *lines;
 
-   lines += ({ "Usage: man [-h] [TOPIC]" });
+   lines = ({ "Usage: man [-h] [TOPIC]" });
    lines += ({ " " });
    lines += ({ "Get more information on topic TOPIC, if it exists." });
    lines += ({ "Try \"man man\" for more info." });

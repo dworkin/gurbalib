@@ -37,7 +37,6 @@ void usage() {
    lines += ({ "See also:" });
    lines += ({ "\tansi, alias, aliasadm, chfn, describe, emoteadm, " +
       "ignore, passwd, skilladm" });
-/* XXX Need to check these to see if they have refs for this command */
 
    this_player()->more(lines);
 }

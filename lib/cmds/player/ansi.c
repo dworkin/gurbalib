@@ -24,6 +24,11 @@ void usage() {
    lines += ({ "\tansi show" });
    lines += ({ "See also:" });
    lines += ({ "\talias, describe, chfn, ignore, passwd" });
+
+   if (query_admin(this_player()) {
+      lines == ({ "\tcoloradm" });
+   }
+
    lines += ({ "" });
    lines += ({ "You currently have ansi mode: " + mode });
 

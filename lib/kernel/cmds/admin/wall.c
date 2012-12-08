@@ -14,7 +14,6 @@ void usage() {
    lines += ({ "See also:" });
    lines += ({ "\tbug, echo, echoto, emote, rsay, say, ssay, tell, " +
       "translate, whisper, wizcall" });
-/* XXX Check these for wall */
 
    this_player()->more(lines);
 }

@@ -12,6 +12,10 @@ void usage() {
    lines += ({ "See also: bug, echo, echoto, emote, rsay, say, shout, " +
       "ssay, tell, whisper, wizcall" });
 
+   if (query_admin(this_player()) {
+      lines == ({ "\twall" });
+   }
+
    this_player()->more(lines);
 }
 

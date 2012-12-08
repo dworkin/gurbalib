@@ -12,7 +12,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tpost This is a message" });
    lines += ({ "See also:" });
-   lines += ({ "\tdelete, look, read" });
+   lines += ({ "\tdelete, look, mail, read" });
 
    this_player()->more(lines);
 }

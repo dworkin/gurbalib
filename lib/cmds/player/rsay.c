@@ -28,6 +28,10 @@ void usage() {
    } else {
       lines += ({ "\tbug, emote, say, shout, tell, whisper, wizcall" });
    }
+
+   if (query_admin(this_player()) {
+      lines == ({ "\twall" });
+   }
  
    this_player()->more(lines);
 }

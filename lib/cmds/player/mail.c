@@ -4,31 +4,40 @@ string msgdate;
 string *body;
 
 void usage() {
-   string usage;
-   string all;
+   string usage, all;
+   string *lines;
 
    if (query_admin(this_player())) {
-      usage = "Usage: mail [-h] [all|PLAYER1 [PLAYER2] [...]]\n";
-      all = "\tm all\tSend a message to all players\n";
+      usage = "Usage: mail [-h] [all|PLAYER1 [PLAYER2] [...]]";
+      all = "\tm all\tSend a message to all players";
    } else {
-      usage = "Usage: mail [-h] [PLAYER1] [PLAYER2]]\n";
+      usage = "Usage: mail [-h] [PLAYER1] [PLAYER2]]";
    }
 
-   write(usage);
-   write("Send a mud mail to the players specified.\n");
-   write("You may also use all to send a mudmail to all players.\n");
-   write("If no player is given check your mail to see if you have " +
-      "any incoming messages.\n");
-   write("Inside of the mail command you have the following options.\n");
-   write("\td #\tDelete message #\n");
-   write("\tm PLAYER\tSend a message to PLAYER\n");
-   if (all)
-      write(all);
-   write("\tl \tView your mail.\n");
-   write("\tq \tQuit.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("See also: say, tell, whisper, emote\n");
+   lines = ({ usage });
+   lines += ({ " " });
+   lines += ({ "Send a mud mail to the players specified." });
+   lines += ({ "You may also use all to send a mudmail to all players." });
+   lines += ({ "If no player is given check your mail to see if you have " +
+      "any incoming messages." });
+   lines += ({ "Inside of the mail command you have the following options." });
+   lines += ({ "\td #\tDelete message #" });
+   lines += ({ "\tm PLAYER\tSend a message to PLAYER" });
+
+   if (all) lines += ({ all });
+
+   lines += ({ "\tl \tView your mail." });
+   lines += ({ "\tq \tQuit." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tmail" });
+   lines += ({ "\tmail sirdude" });
+   lines += ({ "See also:" });
+   lines += ({ "\tdelete, look, post, read" });
+
+   this_player()->more(lines);
 }
 
 void delete_message(string str) {

@@ -10,7 +10,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tattack rat" });
    lines += ({ "See also:" });
-   lines += ({ "\tcast, eat, enter, follow, go, pray" });
+   lines += ({ "\tcast, eat, enter, follow, go, pray, quit" });
 
    this_player()->more(lines);
 }

@@ -14,24 +14,37 @@
                 "arguments: command arg"\
 
 void usage() {
-   write("Usage: intermud [-h] <command> [arg]\n");
-   write("An interface to the intermud connection service.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("Valid commands:\n" +
-      "  - status\n" +
-      "    Shows information on the current intermud connection\n" +
-      "  - stop\n" +
-      "    Stops the current connection and unloads the intermud service\n" +
-      "  - start\n" +
-      "    Loads the intermud service and starts a connection (if enabled)\n" +
-      "  - enable\n" +
-      "    Enables intermud 3 connections\n" +
-      "  - disable\n" +
-      "    Disables intermud 3 connections\n" +
-      "  - default [name]\n" +
-      "    Displays the default router (and sets it if name is provided\n");
-   write("See also: channels, mudlist, rwho\n");
+   string *lines;
+
+   lines = ({ "Usage: intermud [-h] <command> [arg]" });
+   lines += ({ " " });
+   lines += ({ "An interface to the intermud connection service." });
+   lines += ({ "Valid commands:" });
+   lines += ({ "  - status" });
+   lines += ({ "    Shows information on the current intermud connection" });
+   lines += ({ "  - stop" });
+   lines += ({ "    Stops the current connection and unloads the intermud " +
+      "service" });
+   lines += ({ "  - start" });
+   lines += ({ "    Loads the intermud service and starts a connection " +
+      "(if enabled)" });
+   lines += ({ "  - enable" });
+   lines += ({ "    Enables intermud 3 connections" });
+   lines += ({ "  - disable" });
+   lines += ({ "    Disables intermud 3 connections" });
+   lines += ({ "  - default [name]" });
+   lines += ({ "    Displays the default router (and sets it if name " +
+      "is provided" });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tintermud start" });
+   lines += ({ "\tintermud status" });
+   lines += ({ "See also:" });
+   lines += ({ "\tchannels, mudlist, rwho" });
+
+   this_player()->more(lines);
 }
 
 static int check_istat() {
