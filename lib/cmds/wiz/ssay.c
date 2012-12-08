@@ -13,8 +13,8 @@ void usage() {
    lines += ({ "\tAphex sleepily drones: Hiya" });
    lines += ({ "\t> ssay kicks Dran in the pants and says|Muahhahahaha!" });
    lines += ({ "\tAphex kicks Dran in the pants and says: Muahhahahaha!" });
-   lines += ({ "See also: bug, echo, echoto, emote, rsay, say, shout, tell, " +
-      "translate, whisper, wizcall" });
+   lines += ({ "See also: bug, echo, echoto, emote, rsay, say, shout, " +
+      "sysmsg, tell, translate, whisper, wizcall" });
 
    if (query_admin(this_player()) {
       lines == ({ "\twall" });

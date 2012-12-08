@@ -1,9 +1,21 @@
 void usage() {
-   write("Usage: sysmsg [-h] MSG\n");
-   write("Send a system message MSG to everyone on the mud.\n");
-   write("Note: these messages are logged.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: sysmsg [-h] MSG" });
+   lines += ({ " " });
+   lines += ({ "Send a system message MSG to everyone on the mud." });
+   lines += ({ "Note: these messages are logged, do not abuse it." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tsysmsg Let the games begin." });
+   lines += ({ "See also:" });
+
+   lines += ({ "\tbug, echo, echoto, emote, rsay, say, ssay, tell, " +
+      "translate, whisper, wizcall" });
+
+   this_player()->more(lines);
 }
 
 void main(string msg) {

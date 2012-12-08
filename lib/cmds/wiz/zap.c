@@ -2,10 +2,12 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: zap [-h] PLAYER [PERCENT]" });
+   lines += ({ " " });
    lines += ({ "Zap the given player: PLAYER, reducing their HP by PERCENT." });
    lines += ({ "PERCENT should be > 0 and < 100." });
    lines += ({ "If PERCENT is missing, we assume you want to kill your target."
       });
+   lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });

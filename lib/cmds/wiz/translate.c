@@ -10,10 +10,10 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "I'm broken get a wiz to fix me..." });
    lines += ({ "See also: bug, echo, echoto, emote, rsay, say, shout, " +
-      "ssay, tell, whisper, wizcall" });
+      "ssay, sysmsg, tell, whisper, wizcall" });
 
-   if (query_admin(this_player()) {
-      lines == ({ "\twall" });
+   if (query_admin(this_player())) {
+      lines += ({ "\twall" });
    }
 
    this_player()->more(lines);

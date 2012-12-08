@@ -8,7 +8,7 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines == ({ "\tunset save_on_quit" });
+   lines += ({ "\tunset save_on_quit" });
    lines += ({ "See also:" });
    lines += ({ "\tset" });
 
