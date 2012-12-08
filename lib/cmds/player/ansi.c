@@ -25,8 +25,8 @@ void usage() {
    lines += ({ "See also:" });
    lines += ({ "\talias, describe, chfn, ignore, passwd" });
 
-   if (query_admin(this_player()) {
-      lines == ({ "\tcoloradm" });
+   if (query_admin(this_player())) {
+      lines += ({ "\tcoloradm" });
    }
 
    lines += ({ "" });

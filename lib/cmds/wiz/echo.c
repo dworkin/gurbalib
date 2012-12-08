@@ -13,8 +13,8 @@ void usage() {
    lines += ({ "\tbug, echoto, emote, rsay, say, shout, ssay, sysmsg, tell, " +
       "translate, whisper, wizcall" });
 
-   if (query_admin(this_player()) {
-      lines == ({ "\twall" });
+   if (query_admin(this_player())) {
+      lines += ({ "\twall" });
    }
    this_player()->more(lines);
 }

@@ -2,10 +2,10 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: ssay [-h] HOW|WHAT" });
-   lines == ({ " " });
+   lines += ({ " " });
    lines += ({ "Ssay is short for SuperSay, it will allow you to " });
    lines += ({ "say WHAT to WHO. But do it HOW." });
-   lines == ({ " " });
+   lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
@@ -16,8 +16,8 @@ void usage() {
    lines += ({ "See also: bug, echo, echoto, emote, rsay, say, shout, " +
       "sysmsg, tell, translate, whisper, wizcall" });
 
-   if (query_admin(this_player()) {
-      lines == ({ "\twall" });
+   if (query_admin(this_player())) {
+      lines += ({ "\twall" });
    }
 
    this_player()->more(lines);
