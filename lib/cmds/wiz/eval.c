@@ -2,7 +2,9 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: eval [-h] STRING" });
+   lines += ({ " " });
    lines += ({ "Evaluate the lpc code: STRING." });
+   lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\t.me  is shorthand for this_player()" });
@@ -16,7 +18,7 @@ void usage() {
       "\t\tUSER_D->find_player(\"sirdude\")->query_hp() + \"\\n\");" });
    lines += ({ "See also" });
 
-   if (query_admin(this_player()) {
+   if (query_admin(this_player())) {
       lines += ({ "\tclean, clone, check, dest, rebuild, update, warmboot" });
    } else {
       lines += ({ "\tclean, clone, check, dest, rebuild, update" });

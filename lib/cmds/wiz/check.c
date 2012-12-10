@@ -13,7 +13,7 @@ void usage() {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "See also:" });
 
-   if (query_admin(this_player()) {
+   if (query_admin(this_player())) {
       lines += ({ "\tclean, clone, dest, eval, rebuild, update, warmboot" });
    } else {
       lines += ({ "\tclean, clone, dest, eval, rebuild, update" });

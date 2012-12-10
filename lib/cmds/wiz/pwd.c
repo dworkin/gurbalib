@@ -10,7 +10,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tpwd" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, tail" });
+   lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, mkdir, rm, tail" });
 
    this_player()->more(lines);
 }

@@ -3,7 +3,7 @@
 void usage() {
    string *lines;
 
-   lines += ({ "Usage: ls [-l] [-h] [<dir> ...]" });
+   lines = ({ "Usage: ls [-l] [-h] [<dir> ...]" });
    lines += ({ " " });
    lines += ({ "ls allows a wizard to list the contents of a directory." });
    lines += ({ "If no directory is given, it uses the wizard's current " +
@@ -16,7 +16,7 @@ void usage() {
    lines += ({ "\tls /domains/required" });
    lines += ({ "\tls" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, diff, edit, more, pwd, tail" });
+   lines += ({ "\tbrowse, cat, cd, diff, edit, more, mkdir, pwd, rm, tail" });
 
    this_player()->more(lines);
 }

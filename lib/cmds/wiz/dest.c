@@ -11,7 +11,7 @@ void usage() {
    lines += ({ "\tdest sword" });
    lines += ({ "See also:" });
 
-   if (query_admin(this_player()) {
+   if (query_admin(this_player())) {
       lines += ({ "\tcheck, clean, check, eval, rebuild, update, warmboot" });
    } else {
       lines += ({ "\tcheck, clean, check, eval, rebuild, update" });

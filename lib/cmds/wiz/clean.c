@@ -15,7 +15,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "See also:" });
 
-   if (query_admin(this_player()) {
+   if (query_admin(this_player())) {
       lines += ({ "\tcheck, clone, dest, eval, rebuild, update, warmboot" });
    } else {
       lines += ({ "\tcheck, clone, dest, eval, rebuild, update" });

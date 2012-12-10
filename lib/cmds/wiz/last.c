@@ -2,10 +2,10 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: last [-h] [player]" });
-   liens += ({ " " });
+   lines += ({ " " });
    lines += ({ "Find out when a player was last logged in." });
    lines += ({ "If no player is given show last for everyone." });
-   liens += ({ " " });
+   lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });

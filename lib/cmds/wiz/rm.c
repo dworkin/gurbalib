@@ -1,8 +1,17 @@
 void usage() {
-   write("Usage: rm [-h] FILE\n");
-   write("Remove a file or directory FILE.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines =({ "Usage: rm [-h] FILE" });
+   lines += ({ "Remove a file or directory FILE." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\trm /tmp/sirdude.txt" });
+   lines += ({ "\trm example.c" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, mkdir, pwd, tail" });
+
+   this_player()->more(lines);
 }
 
 void main(string arg) {

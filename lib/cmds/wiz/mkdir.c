@@ -1,8 +1,19 @@
 void usage() {
-   write("Usage: mkdir [-h] DIR\n");
-   write("mkdir allows you to make a directory named DIR.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: mkdir [-h] DIR" });
+   lines += ({ " " });
+   lines += ({ "mkdir allows you to make a directory named DIR." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "mkdir test" });
+   lines += ({ "mkdir /tmp/test" });
+   lines += ({ "See also:" });
+   lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, mkdir, pwd, rm, tail" });
+
+   this_player()->more(lines);
 }
 
 void main(string arg) {

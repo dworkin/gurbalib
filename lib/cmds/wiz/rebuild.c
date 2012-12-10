@@ -12,7 +12,7 @@ void usage() {
    lines += ({ "\trebuild" });
    lines += ({ "See also:" });
 
-   if (query_admin(this_player()) {
+   if (query_admin(this_player())) {
       lines += ({ "\tcheck, clean, clone, dest, eval, update, warmboot" });
    } else {
       lines += ({ "\tcheck, clean, clone, dest, eval, update" });

@@ -11,7 +11,7 @@ void usage() {
    lines += ({ "\ttail void.c" });
    lines += ({ "\ttail /domains/required/rooms/void.c" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, pwd" });
+   lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, mkdir, pwd, rm" });
 
    this_player()->more(lines);
 }
