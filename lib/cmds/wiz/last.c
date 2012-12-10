@@ -14,7 +14,6 @@ void usage() {
    lines += ({ "See also:" });
    lines += ({ "\tlocate, look, mudlist, possess, rwho, snoop, where, who" });
 
-
    this_player()->more(lines);
 }
 

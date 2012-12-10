@@ -10,7 +10,8 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tcp workroom.c /domains/newbie/rooms/workroom.c" });
    lines += ({ "See also:" });
-   lines += ({ "\tmv" });
+   lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, mkdir, pwd, " +
+      "rm, tail" });
 
    this_player()->more(lines);
 }

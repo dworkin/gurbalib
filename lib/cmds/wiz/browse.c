@@ -10,7 +10,8 @@ void usage() {
    lines += ({ "browse void.c" });
    lines += ({ "browse /domains/required/rooms" });
    lines += ({ "See also:" });
-   lines += ({ "\tcat, cd, diff, edit, ls, more, mkdir, pwd, rm, tail" });
+   lines += ({ "\tcat, cd, cp, diff, edit, ls, more, mkdir, pwd, " +
+      "rm, tail" });
 
    this_player()->more(lines);
 }

@@ -7,7 +7,7 @@ void usage() {
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   lines += ({ "Examples" });
+   lines += ({ "Examples:" });
    lines += ({ "\tforcequit sirdude" });
    lines += ({ "See also:" });
    lines += ({ "\tban, halt, heal, muzzle, zap" });

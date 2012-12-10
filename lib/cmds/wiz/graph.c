@@ -17,7 +17,14 @@ void usage() {
    lines += ({ "\tgraph /domains/gurba/rooms" });
    lines += ({ "\tgraph rooms" });
    lines += ({ "See also:" });
-   lines += ({ "\tcheck XXX" });
+
+   if (query_admin(this_player())) {
+      lines += ({ "\tcheck, clean, clone, dest, eval, rebuild, " +
+         "update, warmboot" });
+   } else {
+      lines += ({ "\tcheck, clean, clone, dest, eval, rebuild, " +
+         "update" });
+   }
 
    this_player()->more(lines);
 }

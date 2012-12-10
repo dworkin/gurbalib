@@ -12,7 +12,8 @@ void usage() {
    lines += ({ "\tcat void.c" });
    lines += ({ "\tcat /domains/required/rooms/void.c" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cd, diff, edit, ls, more, mkdir, pwd, rm, tail" });
+   lines += ({ "\tbrowse, cd, cp, diff, edit, ls, more, mkdir, pwd, " +
+      "rm, tail" });
 
    this_player()->more(lines);
 }

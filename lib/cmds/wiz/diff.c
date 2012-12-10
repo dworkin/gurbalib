@@ -20,7 +20,8 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "diff start.c void.c\t" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, edit, ls, more, mkdir, pwd, rm, tail" });
+   lines += ({ "\tbrowse, cat, cd, cp, edit, ls, more, mkdir, pwd, " +
+      "rm, tail" });
 
    this_player()->more(lines);
 }

@@ -11,7 +11,8 @@ void usage() {
    lines += ({ "\tmkdir test" });
    lines += ({ "\tmkdir /tmp/test" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, mkdir, pwd, rm, tail" });
+   lines += ({ "\tbrowse, cat, cd, cp, diff, edit, ls, more, pwd, " +
+      "rm, tail" });
 
    this_player()->more(lines);
 }

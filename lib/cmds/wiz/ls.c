@@ -16,7 +16,8 @@ void usage() {
    lines += ({ "\tls /domains/required" });
    lines += ({ "\tls" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, diff, edit, more, mkdir, pwd, rm, tail" });
+   lines += ({ "\tbrowse, cat, cd, cp, diff, edit, more, mkdir, pwd, " +
+      "rm, tail" });
 
    this_player()->more(lines);
 }

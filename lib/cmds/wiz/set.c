@@ -1,5 +1,6 @@
 void usage() {
    string *lines;
+
    lines = ({ "Usage: set [-h] [VAR VALUE]" });
    lines += ({ " " });
    lines += ({ "Set an environment variable VAR to VALUE." });

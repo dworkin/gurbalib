@@ -11,10 +11,13 @@ void usage() {
    lines += ({ "\tupdate /domains/required/rooms/start.c" });
    lines += ({ "\tupdate start.c" });
    lines += ({ "See also:" });
+
    if (query_admin(this_player())) {
-      lines += ({ "\tcheck, clean, clone, dest, eval, rebuild, warmboot" });
+      lines += ({ "\tcheck, clean, clone, dest, eval, graph, rebuild, " +
+         "warmboot" });
    } else {
-      lines += ({ "\tcheck, clean, clone, dest, eval, rebuild" });
+      lines += ({ "\tcheck, clean, clone, dest, eval, graph, rebuild, "
+          });
    }
 
    this_player()->more(lines);

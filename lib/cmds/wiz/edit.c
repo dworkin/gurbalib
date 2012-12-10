@@ -27,7 +27,8 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tedit workroom.c" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, diff, ls, more, mkdir, pwd, rm, tail" });
+   lines += ({ "\tbrowse, cat, cd, cp, diff, ls, more, mkdir, pwd, " +
+      "rm, tail" });
 
    this_player()->more(lines);
 }

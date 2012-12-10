@@ -4,8 +4,8 @@ void usage() {
    lines = ({ "Usage: possess [-h] [MONSTER]" });
    lines += ({ " " });
    lines += ({ "Allows you to possess a monster and control it." });
-   lines += ({ "If you type possess with no arguments you will stop possessing " +
-      "an object." });
+   lines += ({ "If you type possess with no arguments you will stop " +
+      "possessing an object." });
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });

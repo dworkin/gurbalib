@@ -24,7 +24,7 @@ void usage() {
    lines += ( { "\taliasadm show a" } );
    lines += ( { "\taliasadm del a" } );
    lines += ( { "See also:" } );
-   lines += ( { "\talias, emoteadm" } );
+   lines += ( { "\talias, emote, emoteadm" } );
 
    if (query_admin(this_player())) {
       lines += ({ "\tcoloradm" });

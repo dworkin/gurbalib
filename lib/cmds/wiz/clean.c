@@ -16,9 +16,11 @@ void usage() {
    lines += ({ "See also:" });
 
    if (query_admin(this_player())) {
-      lines += ({ "\tcheck, clone, dest, eval, rebuild, update, warmboot" });
+      lines += ({ "\tcheck, clone, dest, eval, graph, rebuild, " +
+         "update, warmboot" });
    } else {
-      lines += ({ "\tcheck, clone, dest, eval, rebuild, update" });
+      lines += ({ "\tcheck, clone, dest, eval, graph, rebuild, " +
+         "update" });
    }
 
    this_player()->more(lines);
