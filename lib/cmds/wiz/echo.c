@@ -1,12 +1,12 @@
 void usage() {
    string *lines;
 
-   lines = ({ "Usage: echo [-h] MSG\n");
+   lines = ({ "Usage: echo [-h] MSG" });
    lines += ({ " " });
-   lines += ({ "Echo a message MSG to the room.\n");
+   lines += ({ "Echo a message MSG to the room." });
    lines += ({ " " });
-   lines += ({ "Options:\n");
-   lines += ({ "\t-h\tHelp, this usage message.\n");
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\techo something makes a noise in the corner." });
    lines += ({ "See also:" });

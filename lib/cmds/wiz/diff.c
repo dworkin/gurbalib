@@ -2,6 +2,9 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: diff [-h] [-o FILE] FILE1 FILE2" });
+   lines += ({ " " });
+   lines += ({ "Print out the differences between FILE1 and FILE2, " +
+      "in std diff format." });
    lines += ({ "This is the poor man's diff. it uses a mapping to store lines."
       });
    lines += ({ "So it only tells you if an exact line is in both files or not."
@@ -11,14 +14,13 @@ void usage() {
    lines += ({ "It works nicely enough for small cases though.  If you " +
       "need more" });
    lines += ({ "power use a real diff." });
-   lines += ({ "Print out the differences between FILE1 and FILE2, " +
-      "in std diff format." });
+   lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\t-o FILE\tPrint the output to FILE instead of to the player."
       });
    lines += ({ "Examples:" });
-   lines += ({ "diff start.c void.c\t" });
+   lines += ({ "\tdiff start.c void.c\t" });
    lines += ({ "See also:" });
    lines += ({ "\tbrowse, cat, cd, cp, edit, ls, more, mkdir, pwd, " +
       "rm, tail" });

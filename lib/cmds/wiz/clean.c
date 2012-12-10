@@ -6,13 +6,14 @@
 void usage() {
    string *lines;
 
-   lines = ({ "Usage: clean [-h]\n");
+   lines = ({ "Usage: clean [-h]" });
    lines += ({ " " });
-   lines += ({ "Clear all the objects out of the current room.\n");
+   lines += ({ "Clear all the objects out of the current room." });
    lines += ({ " " });
-   lines += ({ "Options:\n");
-   lines += ({ "\t-h\tHelp, this usage message.\n");
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
+   lines += ({ "\tclean" });
    lines += ({ "See also:" });
 
    if (query_admin(this_player())) {

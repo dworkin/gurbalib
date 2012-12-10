@@ -1,7 +1,7 @@
 void usage() {
    string *lines;
 
-   lines += ({ "Usage: edit [-h] [FILENAME]" });
+   lines = ({ "Usage: edit [-h] [FILENAME]" });
    lines += ({ " " });
    lines += ({ "Start up the ed editor and edit a file." });
    lines += ({ "Ed is a line editor, you can only work with one line at a " +

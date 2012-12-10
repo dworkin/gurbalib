@@ -6,7 +6,7 @@ void usage() {
    lines += ( { "\tIf EMOTE is missing show all emotes registered." } );
    lines += ( { "Usage: emoteadm del EMOTE     delete the entrys for EMOTE" } );
    lines += ( { "Usage: emoteadm add NAME [RULE] FORMAT" } );
-   lines += ( { } );
+   lines += ( { " " } );
    lines += ( { "Add an emote to the emote database." } );
    lines += ( { "NAME is the thing players will type for the emote." } );
    lines += ( { "RULE if provided is one of the following: LIV|STR|OBJ" } );
@@ -17,10 +17,10 @@ void usage() {
    lines += ( { "For example, if you do \"add blink $N blink.\"" } );
    lines += ( { "\tYou will see You blink." } );
    lines += ( {
-      "\tEveryone else will see Sirdude blink. (If your name is sirdude)\n"
+      "\tEveryone else will see Sirdude blink. (If your name is sirdude)"
    } );
 
-   lines += ( { } );
+   lines += ( { " " } );
    lines += ( { "Options:" } );
    lines += ( { "\t-h\tHelp, this usage message." } );
    lines += ( { "\t$N\tUpper case name of the player emoting" } );

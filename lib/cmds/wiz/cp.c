@@ -1,7 +1,7 @@
 void usage() {
    string *lines;
 
-   lines += ({ "Usage: cp [-h] [file1] [file2]" });
+   lines = ({ "Usage: cp [-h] [file1] [file2]" });
    lines += ({ " " });
    lines += ({ "Copy [file1] to [file2]." });
    lines += ({ " " });
@@ -17,12 +17,8 @@ void usage() {
 }
 
 void main(string str) {
-   string file;
-   string dest;
-   string file_name;
-   string where;
+   string file, dest, where, file_name, in;
    string *parts;
-   string in;
 
    if (!str || str == "" || (sscanf(str, "%s %s", str, where) != 2)) {
       write("Please specify a source and a destination.");
