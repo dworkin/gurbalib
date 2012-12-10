@@ -1,7 +1,7 @@
 void usage() {
    string *lines;
 
-   lines += ({ "Usage: pwd [-h]" });
+   lines = ({ "Usage: pwd [-h]" });
    lines += ({ " " });
    lines += ({ "Prints the current working directory." });
    lines += ({ " " });

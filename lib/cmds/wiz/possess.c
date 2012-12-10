@@ -1,10 +1,20 @@
 void usage() {
-   write("Usage: possess [-h] [MONSTER]\n");
-   write("Allows you to possess a monster and control it.\n");
-   write("If you type possess with no arguments you will stop possessing " +
-      "an object.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: possess [-h] [MONSTER]" });
+   lines += ({ " " });
+   lines += ({ "Allows you to possess a monster and control it." });
+   lines += ({ "If you type possess with no arguments you will stop possessing " +
+      "an object." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tpossess rat" });
+   lines += ({ "See also:" });
+   lines += ({ "\tlast, locate, look, mudlist, rwho, snoop, where, who" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

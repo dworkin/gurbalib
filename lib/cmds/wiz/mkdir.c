@@ -8,8 +8,8 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "mkdir test" });
-   lines += ({ "mkdir /tmp/test" });
+   lines += ({ "\tmkdir test" });
+   lines += ({ "\tmkdir /tmp/test" });
    lines += ({ "See also:" });
    lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, mkdir, pwd, rm, tail" });
 

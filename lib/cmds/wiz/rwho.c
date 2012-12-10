@@ -12,7 +12,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\t rwho gurbalib" });
    lines += ({ "See also:" });
-   lines += ({ "\tlast, locate, look, snoop, where, who" });
+   lines += ({ "\tlast, locate, look, mudlist, possess, snoop, where, who" });
 
    this_player()->more(lines);
 }

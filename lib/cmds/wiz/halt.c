@@ -1,8 +1,18 @@
 void usage() {
-   write("Usage: halt [-h] \n");
-   write("Allows you to stop fighting in the room.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: halt [-h] " });
+   lines += ({ " " });
+   lines += ({ "Allows you to stop fighting in the room." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\thalt" });
+   lines += ({ "See also:" });
+   lines += ({ "\tban, forcequit, heal, muzzle, zap" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

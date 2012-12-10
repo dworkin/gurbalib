@@ -10,7 +10,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tlocate sirdude" });
    lines += ({ "See also:" });
-   lines += ({ "\tlast, look, rwho, snoop, where, who" });
+   lines += ({ "\tlast, look, mudlist, possess, rwho, snoop, where, who" });
 
    this_player()->more(lines);
 }

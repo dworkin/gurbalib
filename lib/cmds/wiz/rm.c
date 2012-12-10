@@ -2,7 +2,9 @@ void usage() {
    string *lines;
 
    lines =({ "Usage: rm [-h] FILE" });
+   lines += ({ " " });
    lines += ({ "Remove a file or directory FILE." });
+   lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });

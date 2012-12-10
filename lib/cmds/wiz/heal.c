@@ -11,7 +11,7 @@ void usage() {
    lines += ({ "\theal sirdude" });
    lines += ({ "\theal" });
    lines += ({ "See also:" });
-   lines += ({ "\tban, forcequit, muzzle, zap" });
+   lines += ({ "\tban, forcequit, halt, muzzle, zap" });
 
    this_player()->more(lines);
 }

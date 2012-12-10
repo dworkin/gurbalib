@@ -12,7 +12,7 @@ void usage() {
    lines += ({ "\twhere" });
    lines += ({ "\twhere sirdude" });
    lines += ({ "See also:" });
-   lines += ({ "\tlast, locate, look, rwho, snoop, who" });
+   lines += ({ "\tlast, locate, look, mudlist, possess, rwho, snoop, who" });
 
    this_player()->more(lines);
 }

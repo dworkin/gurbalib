@@ -14,7 +14,7 @@ void usage() {
    lines += ({ "\tzap sirdude" });
    lines += ({ "\tzap sirdude 50" });
    lines += ({ "See also:" });
-   lines += ({ "\tban, forcequit, heal, muzzle" });
+   lines += ({ "\tban, forcequit, halt, heal, muzzle" });
 
    this_player()->more(lines);
 }

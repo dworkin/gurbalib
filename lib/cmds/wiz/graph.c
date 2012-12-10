@@ -4,11 +4,22 @@
 #define TIMEOUT 2000
 
 void usage() {
-   write("Usage: graph [-h] DIR\n");
-   write("prints dot compatible output of a graph of the directory you " +
-      "specify to /tmp/(wizardname).dot.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: graph [-h] DIR" });
+   lines += ({ " " });
+   lines += ({ "prints dot compatible output of a graph of the directory you " +
+      "specify to /tmp/(wizardname).dot." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tgraph /domains/gurba/rooms" });
+   lines += ({ "\tgraph rooms" });
+   lines += ({ "See also:" });
+   lines += ({ "\tcheck XXX" });
+
+   this_player()->more(lines);
 }
 
 string filename;

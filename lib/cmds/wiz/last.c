@@ -12,7 +12,8 @@ void usage() {
    lines += ({ "\tlast" });
    lines += ({ "\tlast sirdude" });
    lines += ({ "See also:" });
-   lines += ({ "\tlocate, look, rwho, snoop, where, who" });
+   lines += ({ "\tlocate, look, mudlist, possess, rwho, snoop, where, who" });
+
 
    this_player()->more(lines);
 }

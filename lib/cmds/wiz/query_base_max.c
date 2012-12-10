@@ -1,12 +1,12 @@
 void usage() {
    string *lines;
 
-   lines = ({ "Usage: query_base_max [-h] [STAT]\n");
+   lines = ({ "Usage: query_base_max [-h] [STAT]" });
    lines += ({ " " });
-   lines += ({ "Get the maximum base for stat STAT.\n");
+   lines += ({ "Get the maximum base for stat STAT." });
    lines += ({ " " });
-   lines += ({ "Options:\n");
-   lines += ({ "\t-h\tHelp, this usage message.\n");
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tquery_base_max strength" });
    lines += ({ "See also:" });

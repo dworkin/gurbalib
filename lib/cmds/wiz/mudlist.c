@@ -1,9 +1,20 @@
 void usage() {
-   write("Usage: mudlist [-h] [MUD]\n");
-   write("Display a list of muds connected via intermud.\n");
-   write("If you give a mudname it will only display that mud's info.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: mudlist [-h] [MUD]" });
+   lines += ({ " " });
+   lines += ({ "Display a list of muds connected via intermud." });
+   lines += ({ "If you give a mudname it will only display that mud's info." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tmudlist" });
+   lines += ({ "\tmudlist gurbalib" });
+   lines += ({ "See also:" });
+   lines += ({ "\tlast, locate, look, possess, rwho, snoop, where, who" });
+
+   this_player()->more(lines);
 }
 
 /* vim:set ft=lpc: */
