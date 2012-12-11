@@ -119,14 +119,13 @@ void main(string str) {
    }
 
    if (what == "all") {
-      inv = this_environment()->query_inventory();
+      inv = obj->query_inventory();
       max = sizeof(inv);
       for (i = 0; i < max; i++) {
          do_get(inv[i], obj, 0);
       }
       return;
    }
-write("What = " + what + ", Where = " + where + "\n");
 
    obj2 = obj->present(lowercase(what));
    do_get(obj2, obj, 1);
