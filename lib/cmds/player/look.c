@@ -58,6 +58,9 @@ void do_look_liv(object obj) {
 
    this_environment()->tell_room(this_player(), this_player()->query_Name() +
       " looks at " + capitalize(obj->query_id()) + ".\n");
+
+   write("%^PLAYER%^" + obj->query_brief() + "%^RESET%^\n");
+
    write(obj->query_long());
    write("A " + obj->query_gender() + " " + obj->query_race() +
       " who is " + obj->query_status() + "\n");
