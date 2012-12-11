@@ -380,9 +380,9 @@ string body_exit(object who, string dir) {
    }
 
    if (who->is_player() || who->is_possessed()) {
-      PARSE_D->parse("look");
-
+      call_other(this_object(), "init_command", "look");
    }
+
    room = who->query_environment();
    room->event("body_enter", who);
    room->tell_room(who, aname + " enters.\n");
