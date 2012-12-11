@@ -71,7 +71,7 @@ void display_obj(mixed * stat, object obj) {
 
    tmp2 = stat[O_CALLOUTS];
    if (tmp2) {
-      lines += ({ "Depending programs  :" });
+      lines += ({ "Depending programs	:" });
       maxi = sizeof(tmp2);
       for (i = 0; i < maxi; i++) {
 	 lines += ({ "\t" + tmp2[i] });
@@ -110,7 +110,9 @@ void display_obj(mixed * stat, object obj) {
    lines += ({ "File Owner: " + owner_file(obj->file_name()) });
    lines += ({ "Object Owner: " + owner_object(obj) });
    cloner = obj->query_cloner();
-   lines += ({ "Cloner: " + cloner });
+   if (cloner) { 
+      lines += ({ "Cloner: " + cloner });
+   }
 
    this_player()->more(lines);
 }
