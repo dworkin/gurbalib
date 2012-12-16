@@ -27,14 +27,14 @@ void main(string str) {
       return;
    }
 
-   if (str) {
+   if (!str || str == "") {
+      where = this_environment();
+   } else {
       where = this_player()->query_environment()->present(str);
 
       if (!where) {
 	 where = this_player()->present(str);
       }
-   } else {
-      where = this_environment();
    }
 
    if (!where) {
