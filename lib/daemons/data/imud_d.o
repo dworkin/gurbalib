@@ -3,4 +3,5 @@ chanlist ([0|])
 mudlist ([0|])
 enabled 1
 current_router 1
-default_router "*wpr"
+data_version 5
+default_router "*i4"
