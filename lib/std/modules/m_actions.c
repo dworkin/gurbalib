@@ -4,6 +4,7 @@ inherit M_MESSAGES;
 
 static string *que;
 static int time;
+static int actionssize;
 static string *actions;
 static mapping item_commands;	/* Commands that are local to worn/wielded items. */
 
@@ -151,13 +152,14 @@ void respond(string message) {
 }
 
 void do_action(void) {
-   respond(actions[random(sizeof(actions))]);
+   respond(actions[random(actionssize)]);
    call_out("do_action", time);
 }
 
 void set_actions(int t, string * act) {
    time = t;
    actions = act;
+   actionssize = sizeof(actions);
 
    call_out("do_action", time);
 }

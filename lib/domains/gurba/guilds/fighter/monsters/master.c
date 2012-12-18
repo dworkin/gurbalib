@@ -13,7 +13,7 @@ void setup(void) {
    set_level(15);
    add_block("north");
    if (clone_num() != 0) {
-      set_actions(80, ( {
+      set_actions(40, ( {
 	    "say Surely you seek the path of a fighter!",
 	    "say All you have to do is say 'join'.",
 	    "say Say 'join' to become a fighter.",

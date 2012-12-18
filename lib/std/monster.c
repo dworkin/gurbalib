@@ -65,6 +65,12 @@ string query_name(void) {
    return (living_name);
 }
 
+/* XXX This should not be here and in player/user.c but its needed 
+   for monsters as well as players...  should fix it */
+string query_Name(void) {
+   return (capitalize(living_name));
+}
+
 void set_wearing(mixed obj) {
    object armor;
 
