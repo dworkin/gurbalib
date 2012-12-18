@@ -5,6 +5,7 @@ inherit bod BODY;
 inherit "/std/body/skills";
 
 inherit M_MESSAGES;
+inherit M_ACTIONS;
 
 string living_name;
 static object possessor;
@@ -126,7 +127,6 @@ int query_aggressive() {
    return aggressive;
 }
 
-/* XXX Need to expand this... :) */
 int set_level(int x) {
    x = x * 6;
    set_max_hp(x);
@@ -135,6 +135,5 @@ int set_level(int x) {
    set_mana(x);
    set_max_end(x * 2);
    set_end(x * 2);
-/*   set_ac(x /4); */
    return 1;
 }

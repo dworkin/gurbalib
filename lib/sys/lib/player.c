@@ -743,7 +743,6 @@ string *query_guilds(void) {
 
 /* Process input from the player */
 void receive_message(string message) {
-
    mixed result;
    string func, cmd, arg;
    string *exits;
@@ -843,19 +842,7 @@ void receive_message(string message) {
 	    }
 	 }
       }
-/* XXX why do verb stuff here and in lib/std/modules/m_actions.c */
-      if (PARSE_D->is_verb(cmd) && (arg == "-h" || sscanf(arg, "-h %s", arg))) {
-	 PARSE_D->call_help(cmd);
-	 flag = 1;
-      }
-
-      /* Check for a verb */
-      if (!flag) {
-	 result = PARSE_D->parse(cmd + " " + arg);
-	 if (result) {
-	    flag = 1;
-	 }
-      }
+/* XXX why do cmd stuff here and in lib/std/modules/m_actions.c */
 
       if (!flag) {
 	 /* Check if the command is an emote */
