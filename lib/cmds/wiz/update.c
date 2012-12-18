@@ -1,15 +1,18 @@
 void usage() {
    string *lines;
 
-   lines = ({ "Usage: update [-h] FILE" });
+   lines = ({ "Usage: update [-h] [FILE|obj]" });
    lines += ({ " " });
-   lines += ({ "Recompile the file, FILE." });
+   lines += ({ "Recompile the file, or object specified." });
+   lines += ({ "If FILE equals \"here\" recompile the current room." });
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tupdate /domains/required/rooms/start.c" });
    lines += ({ "\tupdate start.c" });
+   lines += ({ "\tupdate here" });
+   lines += ({ "\tupdate sword" });
    lines += ({ "See also:" });
 
    if (query_admin(this_player())) {
@@ -166,6 +169,22 @@ void main(string str) {
 
       if (ob) {
 	 write("Compilation successful.\n");
+      }
+   } else if (ob = this_environment()->present(str)) {
+      path = ob->file_name();
+
+      if (recompile_object(path)) {
+         write("Compilation successful.\n");
+      } else {
+         write("Something went wrong.\n");
+      }
+   } else if (ob = this_player()->present(str)) {
+      path = ob->file_name();
+
+      if (recompile_object(path)) {
+         write("Compilation successful.\n");
+      } else {
+         write("Something went wrong.\n");
       }
    } else {
       write("File not found.\n");
