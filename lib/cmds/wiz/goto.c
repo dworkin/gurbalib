@@ -50,6 +50,7 @@ void main(string str) {
    } else {
       string file;
       object ob;
+
       file = normalize_path(str, this_player()->query_env("cwd"));
       if (file_exists(file + ".c")) {
 	 file = file + ".c";
