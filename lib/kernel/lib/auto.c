@@ -32,6 +32,7 @@
 #include "afun/argcheck.c"
 #include "afun/set_list.c"
 #include "afun/get_list.c"
+#include "afun/call_git.c"
 #include "afun/console_msg.c"
 #include "afun/compile_object.c"
 #include "afun/compile_library.c"
