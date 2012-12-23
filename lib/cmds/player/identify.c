@@ -12,7 +12,7 @@ void usage() {
    lines += ({ "\tidentify sword" });
    lines += ({ "\tidentify helmet" });
    lines += ({ "See also:" });
-   lines += ({ "\tbuy, list, look, retrieve, sell, store, value" });
+   lines += ({ "\tbuy, list, look, sell, value" });
 
    this_player()->more(lines);
 }

@@ -97,7 +97,6 @@
 #define M_PICKABLE      "/std/modules/m_pickable"
 #define M_READABLE      "/std/modules/m_readable"
 #define M_SAVERESTORE   "/std/modules/m_save_restore"
-#define M_STORAGE       "/std/modules/m_storage"
 #define M_TRIGGERS      "/std/modules/m_triggers"
 #define M_UNDROPPABLE   "/std/modules/m_undroppable"
 #define M_VENDOR        "/std/modules/m_vendor"

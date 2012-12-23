@@ -1,6 +1,5 @@
 #include "../../../domain.h"
 inherit ROOM;
-inherit M_STORAGE;
 
 void setup(void) {
    set_brief("%^BLUE%^Fighters Guild Locker Rooms%^RESET%^");
