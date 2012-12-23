@@ -133,7 +133,8 @@ void main(string str) {
       show_cmds(path[c]);
    }
 
-   show_cmds("/cmds/verb");
+   /* Currently we have none... */
+   /* show_cmds("/cmds/verb"); */
 
    lines += EMOTE_D->show_emote("",width);
 
