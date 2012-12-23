@@ -3,16 +3,30 @@ inherit ROOM;
 inherit M_STORAGE;
 
 void setup(void) {
-   set_brief("%^BLUE%^Fighters Guild Storage%^RESET%^");
-   set_long("The room is filled with assorted weapons and armor..");
+   set_brief("%^BLUE%^Fighters Guild Locker Rooms%^RESET%^");
+   set_long("There are a bunch of lockers here.  Hey there is yours, to " +
+      " the east.");
 
    set_exits(([
       "south" : DIR + "/guilds/fighter/rooms/main",
    ]));
+}
 
-   set_objects(([
-      DIR + "/guilds/fighter/objects/storage_sign" : 1,
-   ]));
+void go_locker {
+   string locker;
+   object obj;
 
-   set_storage_size(30);
+   locker = REQDIR + "data/lockers/" + this_player()->query_name() + ".o";
+
+   if (file_exists(locker)) {
+      obj = find_object(locker);
+      if (!obj) {
+      }
+   } else {
+      obj = clone_object(REQDIR + "obj/locker.c");
+      obj->set_player_name(this_player()->query_name());
+      obj->save_me();
+   }
+
+   /* XXX Do move to obj.... here */
 }
