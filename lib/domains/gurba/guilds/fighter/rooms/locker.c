@@ -4,9 +4,9 @@ inherit ROOM;
 string player_name;
 
 void restore_me(void) {
-   if (!unguarded("restore_object", DIR + "data/lockers/" +
+   if (!unguarded("restore_object", DIR + "/data/lockers/" +
       player_name + ".o")) {
-      write("Error while restoring " + DIR + "data/lockers/" +
+      write("Error while restoring " + DIR + "/data/lockers/" +
          player_name + ".o");
       write("Please notify the administration.");
       return;
@@ -15,7 +15,7 @@ void restore_me(void) {
 }
 
 void save_me(void) {
-   unguarded("save_object", DIR + "data/lockers/" + player_name + ".o");
+   unguarded("save_object", DIR + "/data/lockers/" + player_name + ".o");
 }
 
 void set_player_name(string str) {
