@@ -61,6 +61,7 @@ void do_drop(object obj, int loud) {
 
    if (obj->move(this_environment())) { 
       this_player()->targetted_action("$N $vdrop $o.", nil, obj);
+      obj->post_drop();
    } else {
       this_player()->targetted_action("$N $vtry to drop $o, but $vfail.", 
          nil, obj);
