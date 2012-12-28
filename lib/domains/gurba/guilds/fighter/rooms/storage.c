@@ -18,10 +18,27 @@ void go_locker(string str) {
    string locker;
    object obj;
 
-   locker = DIR + "/data/lockers/" + this_player()->query_name() + ".o";
+   locker = DIR + "/data/lockers/" + this_player()->query_name();
 
-   if (file_exists(locker)) {
-      obj = find_object(locker);
+   if (file_exists(locker + ".o")) {
+/* XXX Need to do this...
+     if (obj = find_object(locker)) {
+         obj->save_me();
+         obj->destruct();
+      }
+*/
+
+      obj = clone_object(DIR + "/guilds/fighter/rooms/locker.c");
+
+      if (!obj) {
+         write("Error: Lockers are messed up.  Please talk to an admin.");
+         return;
+      }
+
+      obj->setup();
+      obj->set_player_name(this_player()->query_name());
+      obj->restore_me();
+
       if (!obj) {
          write("Error: Your locker is nessed up.  Please talk to an admin.");
          return;
@@ -33,9 +50,11 @@ void go_locker(string str) {
       obj->save_me();
    }
 
+/* XXX Need to add this to other moves like summon/goto */
    this_object()->event("body_leave", this_player());
+
    tell_room(this_player(), this_player()->query_Name() + " leaves east.\n");
-   obj->event("body_enter", this_player());
+   this_player()->move(obj);
    obj->tell_room(this_player(), this_player()->query_Name() + " enters.\n");
    this_player()->do_look(0);
 }
