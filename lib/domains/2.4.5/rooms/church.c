@@ -1,5 +1,10 @@
-#include "../domain.h"
 inherit ROOM;
+
+#include "../domain.h"
+#include "el.h"
+
+object el;
+
 
 void setup(void) {
    add_area("2.4.5");
@@ -13,10 +18,18 @@ void setup(void) {
 
    add_exit("north", DIR + "/rooms/vill_shore.c");
    add_exit("south", DIR + "/rooms/vill_green.c");
+
    add_item("clock","The clock appears to be broken, it is stuck at: 1:26");
    add_item("pit","In the middle of the church is a deep pit.  IT was used " +
       "for sacrifice in the old times, but nowadays it is only " +
       "left for tourists to look at.");
+
+   el = get_el();
+   if (el->query_location() == 3) {
+      el_arrives();
+   } else {
+      el_leaves();
+   }
 }
 
 /* XXX Lots of work needed... */
