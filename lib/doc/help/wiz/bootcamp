@@ -1,0 +1,427 @@
+Welcome to wizard boot camp.
+
+The idea behind this document is not to teach you how to program, or answer
+all of your questions. there are other documents that cover that.  
+The idea is to introduce you to the basics of being a wizard and let you 
+jump in and start creating great things as soon as possible.
+
+A word of warning.  Just a reminder you are now a creator of the universe,
+you need to make sure you keep the delicate balance of the game so that
+you don't wreck it for others.  You should not create a new +4 vorpal
+blade that is 10 gold cheaper that the original to make your area more
+liked.  Do not give your best friend free gold, etc...
+Instead strive for distinction, mystery and balance.
+Create a +4 vorpal blade that sometimes flickers out for no apparent reason.
+Make sure an admin has reviewed your work to make sure it is alright to
+release to the general public.
+
+Ok now enough of the lecture, lets get rocking...
+
+
+What is an LPMUD?
+Your coding in an LPMUD using LPC, specifically using DGD as a driver
+and guralib as a MUDLIB.  For those of you that don't know what
+all of this means here is a rundown.
+
+An LPMUD is an interactive multi user environment that can be reprogrammed
+while it's running.
+
+LPC is a programming language similar to C but object oriented and has
+specific features that make it more suitable for a mud.
+
+The driver is a virtual machine that provides our programming language and
+the guts to let users connect etc...  For more info do google search on
+dgd lpmud and you can find lots of great documentation.
+
+A mudlib is a library built on top of the driver to handle user connections
+and really is the meat of the virtual environment.  This is where your going
+to focus on working, but its nice to know how every thing works at a high 
+level.
+
+
+Basic wizard commands:
+Now that you are a wizard, you have a bunch of additional commands that
+are now available to you.  Many of them are based on basic UNIX commands:
+cat, cp, cd, ls, pwd, diff, edit, mkdir, rm to name a few.
+If you type cmds wizard you will get a list of all of the wizard specific 
+commands.  To get more info about a command type: (cmd) -h
+ For the most part we are just going to assume you know what a command does,
+if your not sure look at the help and that should give you an idea of
+how things work.  So you should check things out and don't be afraid to
+experiment.
+
+Quickly we are going to talk about 4 commands that will help you look around
+and explore the mudlib.  They are cd, ls, more and pwd.
+The pwd command prints your current working directory.  You just type pwd
+and it will tell you where you are in the mudlib.  The ls command lists
+what files and directories exist in the current directory.  The more command
+lets you look at specific files and see what that file contains for data.
+The cd command lets you change your current directory to another directory.
+To sum things up try typing the following commands in order:
+	pwd    			
+	ls
+	cd /
+	pwd
+	ls
+	cd /logs
+	ls
+	cd /cmds/player
+	pwd
+	ls
+	more quit.c
+	cd
+	pwd
+
+So you should have just done the following: 
+	print the current working directory
+	list the files in the current working directory
+	cd to the root filesystem  (/)
+	print the current working directory
+	list the files in /
+	cd /logs
+	list the files in /logs
+	cd /cmds/player
+	print the current working directory
+	list the files in /cmds/player
+	look at the file quit.c
+	cd to your home directory  (/wiz/(username))
+	print the current working directory.
+
+
+Basic mudlib objects:
+If you cd /std you can find the basic inheritable objects in our mudlib.
+Inheritable objects are the building blocks of the mud.  In general there
+are 3 different basic object types you will be using: 
+	rooms 		/std/room.c
+	monsters 	/std/monster.c
+	objects		/std/object.c
+
+There are others of course but for now don't worry about the details.  When
+we inherit these base objects we get to use all of the code in these
+files without having to retype them every time.
+
+In /domains we have different areas of the mud split up.  This is a great
+place to find sample code and a good place to start.  Lets look at
+one of each object.  Run the following commands:
+	cd /domains/required/rooms
+	ls
+	more void.c
+
+The void is a special room that you get dumped in if your player gets
+lost (the room they are currently in gets destroyed or something similar).
+The file should look something like this:
+
+	inherit ROOM;
+
+	void setup(void) {
+
+	   add_area("required");
+
+	   set_brief("The void");
+	   set_long("If you're in here unintentionally, " +
+	      "something bugged out. " +
+	      "Report what you did to the staff.");
+
+	   set_exits(([
+	      "out" : STARTING_ROOM,
+	   ]));
+	}
+
+It inherits our room code (ROOM)  If you look at /kernel/include/std.h
+you'll see that ROOM is defined to be /std/room  or /std/room.c
+
+Then we have a function setup which sets our room up.
+It sets the area of our room, a brief and long description for the room
+and adds an exit out which goes to our STARTING_ROOM.
+
+Now lets look at a basic object.  Type the following commands:
+	cd /domains/required/objects/
+	ls
+	more large_rock.c
+
+It should look something like this:
+
+	inherit OBJECT;
+
+	void setup(void) {
+	   set_id("rock");
+	   set_adj("large");
+	   set_long("A pretty boooooring grey rock.");
+	   set_gettable(1);
+	   set_weight(10);
+	   /* This isn't a special rock... */
+	   set_value(0);
+	}
+
+This time we inherit our basic object OBJECT   (or /std/object.c)
+Then we call setup which sets a bunch of things, similar to the room,
+but there are additional properties we set.  We set the weight of
+the object.  We make the object able to be picked up by set_gettable(1);
+And we set the value to 0.
+
+You'll notice from this code we can comment our code by surrounding comments
+with the following special characters: /* */
+Comments can also span multiple lines.  /*  Something like
+						this         */
+
+Now lets look at a basic monster, type the following:
+	cd /domains/required/monsters/
+	ls
+	cat rat.c
+
+It should look something like this:
+	inherit MONSTER;
+
+	void setup() {
+	   set_name("rat");
+	   add_adj("filthy");
+	   set_in_room_desc("A small filthy rat.");
+	   set_long("The rat smells awful.");
+	   set_race("rodent");
+           set_gender("male");
+	   set_level(1);
+	}
+
+Again, we inherit our basic MONSTER code  (/std/monster.c)
+and then we have a function setup that sets our monster up by
+setting a bunch of properties.  
+
+By poking around in the /domains directory and looking at the various
+files, you will quickly get the hang of what you need to set to create
+basic rooms, monsters an objects.
+
+
+Lets create our first object:
+First lets make an obj dir in your wiz directory if one doesn't already
+exist.  Do the following:
+	cd
+	ls
+If your just starting out you should see a rooms dir and thats it.  If so,
+type:
+	mkdir obj
+Lets go into our new obj directory and copy in a basic object:
+	cd obj
+	cp /domains/required/objects/large_rock.c petrock.c
+Before we modify it, lets look at it a little:
+	more petrock.c
+	clone petrock.c
+	inventory
+	look rock
+
+When we clone an object it creates a running copy of that object.  If the
+item is gettable it will appear in our inventory.  If not it will appear in
+the room we are in instead.  You do not need to clone a room, instead just
+goto it and the room will get cloned automatically if it doesn't already 
+exist.
+
+There are a couple of other wizard commands you should learn at this point:
+	check, clean, dest, update, clone are a good start.
+Check will run some basic tests to see if there are any issues you may have
+goofed up on your objects.  Just run check petrock.c to see if there are
+any problems.  Dest will destroy an object you have cloned.  The update
+command will recompile a room.  If you make changes to petrock.c you need
+to first update it before you clone it.  If you forget to update it, the
+mud will not see your changes.
+
+Ok lets get rid of this rock and make a better one, destroy it with:
+	dest rock
+	edit petrock.c
+
+Edit is a really old line editor the predicesor of vi.  Its really not
+very fun to use.  I'll teach you the basics of it here but in general
+you will want to use something else to edit files and only use edit if
+you really have no other choice.  It's much easier if you have shell access
+to the server or can use ftp or scp to transfer the file to your local
+computer and then edit it and re-transfer it back to the mud, instead.
+
+Lets make the following changes:
+change set_adj("large"); to set_adj("special");
+change our set_long() call to:
+	set_long("A special pet rock named harold");
+Lets delete the comment  /* This isn't a special rock... */
+We will set the value to 5.
+Finally we will add another id, "harold"
+Just for fun we will add a typo in the file as well so things won't work.
+Add the following line after set_value(5);  :
+   set_value10);
+
+So we should wind up with something like this:
+	inherit OBJECT;
+
+	void setup(void) {
+	   set_id("rock");
+	   add_id("harold");
+	   set_adj("special");
+	   set_long("A special pet rock named harold.");
+	   set_gettable(1);
+	   set_weight(10);
+	   set_value(5);
+	   set_value10);
+	}
+
+
+edit the easy way:
+	rm petrock.c
+	edit petrock.c
+	i
+        inherit OBJECT;
+
+        void setup(void) {
+           set_id("rock");
+           add_id("harold");
+           set_adj("special");
+           set_long("A special pet rock named harold.");
+           set_gettable(1);
+           set_weight(10);
+           set_value(5);
+           set_value10);
+        }
+	.
+	w
+	q
+
+Ok what we just did is remove the petrock.c file, then edit it.
+edit works on a single line at a time and has a couple of different
+modes to it.  What we did here was enter insert mode : i 
+typed in all of our code.  When were done, to leave insert mode : .
+write the file: w
+quit: q
+
+In a bit, I'll show you the more complicated way to edit a file, when
+we fix our typo, again though if you have a better way to edit files, use
+that instead.  For now, lets look at the typo: 
+	update petrock.c
+You'll notice the mud gave you an error similar to this:
+Compiler error:
+Mon Dec 31 15:41:46 2012:sirdude:/wiz/sirdude/obj/petrock.c, 11: syntax error
+Runtime error: Failed to compile "/wiz/sirdude/obj/petrock.c"
+
+You can find these errors in /logs/errors
+and in the driver log, on my mud I store it in /logs/gurba-driver.log
+	cd /logs/errors
+	cat compile
+	cat runtime
+
+Ok now lets remove the bad line:
+	cd
+	cd obj
+	ls
+	edit petrock.c
+	11
+	.
+	d
+	w
+	q
+
+	First we find our file petrock.c again and edit it.
+	11 jumps to line 11.
+	. prints the current line.
+	d deletes the current line.
+	w writes the file.
+	q quits.
+
+Instead of just deleting the line we could also use i to insert a
+new line and then use . to exit insert mode again.
+
+Now that we have fixed our file lets see if we can clone it now, first
+update it.  Assuming there are no errors then clone it:
+	update petrock.c
+	clone petrock.c
+	i
+	look rock
+	look harold
+
+Ok lets try our luck at creating a room for harold.  Lets add a back room
+to your wizard's work room:
+	cd ~/rooms/
+	cp /domains/required/rooms/void.c backroom.c
+	edit backroom.c
+
+Using the void room as an example, lets modify it to look something 
+like this:
+
+	inherit ROOM;
+
+	void setup(void) {
+
+	   add_area("testing");
+
+	   set_brief("The backroom");
+	   set_long("This is Harold's room.  It's kind of small but at " +
+              "least it is clean.");
+
+	   set_objects(([
+	      "/wiz/sirdude/obj/petrock.c" : 1,
+	   ]));
+
+	   set_exits(([
+	      "south" : "/wiz/sirdude/rooms/workroom.c",
+	   ]));
+	}
+
+Once you have that, you'll of course want to modify it so that it points
+to your workroom and your petrock instead of sirdude's.  When you have it
+cleaned up try going to it with the following command, again replacing 
+'sirdude' with your name:
+	goto /wiz/sirdude/rooms/backroom.c      
+
+If there are errors look at the logs and fix things up.  Once you have
+it working we need to modify your workroom to add a way into the backroom.
+It's also a good idea to modify the long description so that people know
+what is what.  Go ahead and edit the file and add an exit north:
+	"north" : "/wiz/sirdude/rooms/backroom.c",
+and modify the set_long to give a hint what is where..., we can delete the
+following line:
+	   "pretty busy."); 
+and replace it with the following:
+	   "pretty busy.  There is a backroom to the north.");
+
+To do that with edit do something like the following, you'll need to
+check to make sure your on the right line numbers, if your not you can use
++1 or -1 to jump forward or backward one line number.  Or bigger numbers if
+needed as well.
+	edit workroom.c
+	11
+	+1
+	d
+	i
+	"pretty busy.  There is a backroom to the north.");
+	.
+	+2
+	i
+        "north" : "/wiz/sirdude/rooms/backroom.c",
+	.
+	w
+	q
+
+Now update your workroom with the command:
+	update workroom.c
+
+
+Whats next?
+If you have managed to get this far and have a working backroom and a 
+pet rock, you have successfully completed wizard boot camp.
+Now its time for you to grab a sheet of paper and a pencil and do some planing
+for your first area.  You'll probably want to poke around in /domains
+and look at how a proper area is done.  You need to do some thinking though.
+Every good area has some sort of "quest" involved with it.  
+
+What type of a quest are you going to make for your players?  
+Save the old man, kill the dragon, get the sacred item, etc...
+
+What is the theme of your area?  It should be clear to the players when they
+are in your area and when they are entering another area.  Whats the theme?
+Gilligan's Island, an abandoned mine, a swamp, etc...  The theme is closely
+tied to the quest(s) so make sure you have this figured out and try to stick
+to it.
+
+Try to make your rooms/objects and monsters unique.  If every room is
+"a room", things get boring rather quickly...  Try to give your objects
+character.  A "flaming hot sword" is much better than "a sword" even if it
+has the same stats, a player is more likely to use the cool one.
+
+What level player is this area for?  In general you want to pick a range
+say 1-3, 4-6 etc...  Don't try to 
+
+Now get started and make something sweet.
+
