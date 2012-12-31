@@ -12,15 +12,15 @@ blade that is 10 gold cheaper that the original to make your area more
 liked.  Do not give your best friend free gold, etc...
 Instead strive for distinction, mystery and balance.
 Create a +4 vorpal blade that sometimes flickers out for no apparent reason.
-Make sure an admin has reviewed your work to make sure it is alright to
+Make sure an admin has reviewed your work to make sure it is all right to
 release to the general public.
 
 Ok now enough of the lecture, lets get rocking...
 
 
 What is an LPMUD?
-Your coding in an LPMUD using LPC, specifically using DGD as a driver
-and guralib as a MUDLIB.  For those of you that don't know what
+Your coding in an LPMUD using LPC, specifically using DGD as a DRIVER
+and GURBALIB as a MUDLIB.  For those of you that don't know what
 all of this means here is a rundown.
 
 An LPMUD is an interactive multi user environment that can be reprogrammed
@@ -29,15 +29,16 @@ while it's running.
 LPC is a programming language similar to C but object oriented and has
 specific features that make it more suitable for a mud.
 
-The driver is a virtual machine that provides our programming language and
+The DRIVER is a virtual machine that provides our programming language and
 the guts to let users connect etc...  For more info do google search on
 dgd lpmud and you can find lots of great documentation.
 
-A mudlib is a library built on top of the driver to handle user connections
+A MUDLIB is a library built on top of the driver to handle user connections
 and really is the meat of the virtual environment.  This is where your going
 to focus on working, but its nice to know how every thing works at a high 
 level.
 
+GURBALIB can be downloaded from: http://www.github.com/sirdude/gurbalib
 
 Basic wizard commands:
 Now that you are a wizard, you have a bunch of additional commands that
@@ -192,11 +193,11 @@ basic rooms, monsters an objects.
 
 
 Lets create our first object:
-First lets make an obj dir in your wiz directory if one doesn't already
+First lets make an obj directory in your wiz directory if one doesn't already
 exist.  Do the following:
 	cd
 	ls
-If your just starting out you should see a rooms dir and thats it.  If so,
+If your just starting out you should see a rooms directory and thats it.  If so,
 type:
 	mkdir obj
 Lets go into our new obj directory and copy in a basic object:
@@ -227,7 +228,7 @@ Ok lets get rid of this rock and make a better one, destroy it with:
 	dest rock
 	edit petrock.c
 
-Edit is a really old line editor the predicesor of vi.  Its really not
+Edit is a really old line editor the predecessor of vi.  Its really not
 very fun to use.  I'll teach you the basics of it here but in general
 you will want to use something else to edit files and only use edit if
 you really have no other choice.  It's much easier if you have shell access
@@ -237,7 +238,7 @@ computer and then edit it and re-transfer it back to the mud, instead.
 Lets make the following changes:
 change set_adj("large"); to set_adj("special");
 change our set_long() call to:
-	set_long("A special pet rock named harold");
+	set_long("A special pet rock named Harold");
 Lets delete the comment  /* This isn't a special rock... */
 We will set the value to 5.
 Finally we will add another id, "harold"
