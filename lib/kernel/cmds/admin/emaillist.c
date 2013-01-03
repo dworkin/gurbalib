@@ -22,67 +22,36 @@ void usage() {
 
 void create_list(string type, string file) {
    string *names;
-   string *lines;
-   int i, max, temp;
-   object obj;
+   string line;
+   int i, max;
 
    names = USER_D->list_all_users();
    max = sizeof(names);
-   lines = ({ });
+
+   if (type == "wiz") type = "wizards";
+   if (type == "wizard") type = "wizards";
+   if (type == "admin") type = "admins";
 
    for(i=0;i<max;i++) {
-write("Checking XXX " + names[i] + "\n");
-      obj = USER_D->find_player(names[i]);
-      if (!obj) {
-         temp = 1;
-         obj = USER_D->get_data_ob(names[i]);
-      }
-
-      if (obj) {
-         if (!type || type == "") {
-            lines += ({ obj->query_real_name() + "(" + 
-               names[i] + ") <" + 
-               obj->query_email_address() + ">" });
+/* XXX Need to check security for this....  can normal players do this? */
+      line = USER_D->get_email_info(this_player(),names[i], type);
+      if (line && line != "") {
+         if (!file || file == "") {
+            write(line);
          } else {
-            type = lowercase(type);
-            if ((type == "player") || (type == "players")) {
-               lines += ({ obj->query_real_name() + "(" + 
-                  obj->query_name() + ")" +
-                  obj->query_email_address() });
-            } else if ((type == "wiz") || (type == "wizard") || 
-               (type == "wizards")) {
-               if (USER_D->query_wizard(obj)) {
-                  lines += ({ obj->query_real_name() + "(" + 
-                     obj->query_name() + ")" +
-                     obj->query_email_address() });
-               }
-            } else if ((type == "admin") || (type == "admins")) {
-               if (USER_D->query_admin(obj)) {
-                  lines += ({ obj->query_real_name() + "(" + 
-                     obj->query_name() + ")" +
-                     obj->query_email_address() });
-               }
-            }
+            write_file(file, line);
          }
-         if (temp) {
-            temp = 0;
-/* XXX           destruct_object(obj); */
-         }
-      }
-   }
-
-   max = sizeof(lines);
-   for(i=0;i<max;i++) {
-      if (!file || file == "") {
-         write(lines[i]);
-      } else {
-         write_file(file, lines[i]);
       }
    }
 }
 
 void main(string str) {
    string type, file;
+
+   if (!str || str == "") {
+      create_list("","");
+      return;
+   }
 
    if (sscanf(str, "-%s", str)) {
       usage();
@@ -94,16 +63,16 @@ void main(string str) {
       return;
    }
 
-   if (sscanf(str, "%s %s", type, file) != 2) {
-      type = lowercase(str);
-      if ((type == "player")  || (type == "players") ||
-         (type == "wiz") || (type == "wizard") || (type == "wizards") ||
-         (type == "admin") || (type == "admins")) {
-         create_list(type, "");
-      } else {
-         create_list("",type);
-      }
+   if (sscanf(str, "%s %s", type, file) > 0) {
+      type = lowercase(type);
    } else {
-      create_list(type, file);
+      type = lowercase(str);
+   }
+   if ((type == "player")  || (type == "players") ||
+      (type == "wiz") || (type == "wizard") || (type == "wizards") ||
+      (type == "admin") || (type == "admins")) {
+      create_list(type, "");
+   } else {
+      write("Invalid list type.\n");
    }
 }

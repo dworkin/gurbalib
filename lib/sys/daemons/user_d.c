@@ -393,10 +393,18 @@ void print_finger_info(object player, object player2, int cloned) {
    }
 
    if (query_admin(player)) {
-      player->message("%^BLUE%^Real name: %^RESET%^" +
-	 player2->query_real_name() + "\n");
-      player->message("%^BLUE%^Email address: %^RESET%^" +
-	 player2->query_email_address() + "\n");
+      if (player2->query_real_name()) {
+         player->message("%^BLUE%^Real name: %^RESET%^" +
+	    player2->query_real_name() + "\n");
+      } else {
+         player->message("%^BLUE%^Real name: %^RESET%^\n");
+      }
+      if (player2->query_email_address()) {
+         player->message("%^BLUE%^Email address: %^RESET%^" +
+	    player2->query_email_address() + "\n");
+      } else {
+         player->message("%^BLUE%^Email address: %^RESET%^\n");
+      }
    }
 
    if (cloned == 1) {
@@ -431,4 +439,59 @@ void finger(object player, string name) {
    } else {
       print_finger_info(player, obj, 0);
    }
+}
+
+string print_email_info(object player, object obj, string type) {
+   string str;
+   int doit;
+
+   doit = 0;
+   if (type == "wizards") {
+      if (USER_D->query_wizard(obj)) doit = 1;
+      else doit = 0;
+   } else if (type == "admins") {
+      if (USER_D->query_admin(obj)) doit = 1;
+      else doit = 0;
+   } else {
+      doit = 1;
+   }
+
+   if (doit) {
+      if (obj->query_real_name()) {
+         str = obj->query_real_name();
+      } else {
+         str = "";
+      }
+      if (obj->query_name()) {
+         str += "(" + obj->query_name() + ") <" ;
+      } else {
+         str += "() <";
+      }
+      if (obj->query_email_address()) {
+         str += obj->query_email_address() + ">";
+      } else {
+         str += ">";
+      }
+   }
+
+   return str;
+}
+
+string get_email_info(object player, string name, string type) {
+   object obj;
+   string stuff;
+
+   obj = find_player(name);
+   if (!obj) {
+      obj = clone_object(PLAYER_OB);
+      obj->set_name(name);
+      obj->restore_me();
+
+      stuff = print_email_info(player, obj, type);
+      destruct_object(obj);
+   } else {
+      stuff = print_email_info(player, obj, type);
+   }
+
+   return stuff;
 }
