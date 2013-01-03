@@ -185,7 +185,6 @@ void error_loading_object(string name) {
       LOG_D->write_log("rooms", "Error: " + this_object()->base_name() + 
          " loading object:" + filename + "\n");
    }
-
 }
 
 void set_objects(mapping obs) {
