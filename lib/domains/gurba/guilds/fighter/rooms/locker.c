@@ -15,6 +15,7 @@ void restore_me(void) {
 }
 
 void save_me(void) {
+/* XXX Need to figure out saving inventory */
    unguarded("save_object", DIR + "/data/lockers/" + player_name + ".o");
 }
 
@@ -31,3 +32,5 @@ void setup(void) {
       "west" : DIR + "/guilds/fighter/rooms/storage.c",
    ]));
 }
+
+/* On exit need to save_me and destroy this object... XXX */

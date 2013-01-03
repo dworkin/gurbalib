@@ -21,13 +21,6 @@ void go_locker(string str) {
    locker = DIR + "/data/lockers/" + this_player()->query_name();
 
    if (file_exists(locker + ".o")) {
-/* XXX Need to do this...
-     if (obj = find_object(locker)) {
-         obj->save_me();
-         obj->destruct();
-      }
-*/
-
       obj = clone_object(DIR + "/guilds/fighter/rooms/locker.c");
 
       if (!obj) {
@@ -50,11 +43,13 @@ void go_locker(string str) {
       obj->save_me();
    }
 
-/* XXX Need to add this to other moves like summon/goto */
-   this_object()->event("body_leave", this_player());
-
-   tell_room(this_player(), this_player()->query_Name() + " leaves east.\n");
-   this_player()->move(obj);
-   obj->tell_room(this_player(), this_player()->query_Name() + " enters.\n");
-   this_player()->do_look(0);
+   if (this_player()->move(obj)) {
+      /* XXX Need to move this stuff to other move's like summon/goto */
+      this_object()->event("body_leave", this_player());
+      tell_room(this_player(), this_player()->query_Name() + " leaves east.\n");
+      obj->tell_room(this_player(), this_player()->query_Name() + " enters.\n");
+      this_player()->do_look(0);
+   } else {
+      write("Error going there...\n");
+   }
 }
