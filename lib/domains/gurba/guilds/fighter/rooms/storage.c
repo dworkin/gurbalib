@@ -18,7 +18,7 @@ void go_locker(string str) {
    string locker;
    object obj;
 
-   locker = DIR + "/data/lockers/" + this_player()->query_name();
+   locker = DIR + "/data/lockers/" + this_player()->query_name() + "/locker";
 
    if (file_exists(locker + ".o")) {
       obj = clone_object(DIR + "/guilds/fighter/rooms/locker.c");
@@ -37,6 +37,7 @@ void go_locker(string str) {
          return;
       }
    } else {
+      unguarded("make_dir", "/data/lockers/" + this_player()->query_name());
       obj = clone_object(DIR + "/guilds/fighter/rooms/locker.c");
       obj->setup();
       obj->set_player_name(this_player()->query_name());
