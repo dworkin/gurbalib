@@ -37,7 +37,7 @@ void go_locker(string str) {
          return;
       }
    } else {
-      unguarded("make_dir", "/data/lockers/" + this_player()->query_name());
+      SECURE_D->make_lockerdir("gurba",this_player()->query_name());
       obj = clone_object(DIR + "/guilds/fighter/rooms/locker.c");
       obj->setup();
       obj->set_player_name(this_player()->query_name());

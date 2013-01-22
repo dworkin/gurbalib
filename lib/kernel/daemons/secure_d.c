@@ -110,6 +110,31 @@ void delete_homedir(string wiz) {
    }
 }
 
+void make_lockerdir(string domain, string pname) {
+   string path;
+
+   path = "/domains/" + domain + "/";
+
+   if (file_exists(path) == -1) {
+      path = path + "/data/";
+      if (file_exists(path) == 0) {
+         make_dir(path);
+      }
+
+      path = path + "/lockers/";
+      if (file_exists(path) == 0) {
+         make_dir(path);
+      }
+
+      path = path + "/" + pname + "/";
+      if (file_exists(path) == 0) {
+         make_dir(path);
+      }
+   } else {
+      write("Cannot find domain:" + domain + "\n");
+   }
+}
+
 void make_mortal(string name) {
    object player;
 
