@@ -34,12 +34,16 @@ void create_list(string type, string file) {
 
    for(i=0;i<max;i++) {
 /* XXX Need to check security for this....  can normal players do this? */
-      line = USER_D->get_email_info(this_player(),names[i], type);
-      if (line && line != "") {
-         if (!file || file == "") {
-            write(line);
-         } else {
-            write_file(file, line);
+      if (names[i] == "guest") {
+         /* Skip this account it's special */
+      } else {
+         line = USER_D->get_email_info(this_player(),names[i], type);
+         if (line && line != "") {
+            if (!file || file == "") {
+               write(line);
+            } else {
+               write_file(file, line);
+            }
          }
       }
    }
