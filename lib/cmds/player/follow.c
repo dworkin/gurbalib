@@ -29,7 +29,7 @@ void main(string str) {
       return;
    }
 
-   name = this_player()->query_follow();
+   name = this_player()->query_follower();
    if (!str || str == "") {
       if (name && name != "") {
          write("You are currently following: " + name + "\n");
@@ -45,12 +45,13 @@ void main(string str) {
 
    /* Stop following whoever we are following */
    if (str == name) {
-      this_player()->set_follow("");
+      this_player()->set_follower("");
       write("You stop following " + str + ".\n");
       this_environment()->tell_room(this_player(), 
          this_player()->query_Name() + " stops following " + 
          capitalize(str) + ".\n");
-      obj = find_object(name);
+      obj = USER_D->find_player(name);
+
       obj->remove_follower(this_player());
       return;
    }
@@ -58,7 +59,7 @@ void main(string str) {
    /* Actually follow someone */
    obj = this_environment()->present(str);
    if (obj) {
-      this_player()->set_follow(str);
+      this_player()->set_follower(str);
 
       write("You start following " + str + ".\n");
       this_environment()->tell_room(this_player(), 
