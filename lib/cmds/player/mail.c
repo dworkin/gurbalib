@@ -184,6 +184,11 @@ void view_mailbox(string str) {
 }
 
 void main(string str) {
+
+   write("XXX The mail command is still under construction.\n");
+   usage();
+   return;
+
    if (!str || str == "") {
       show_menu();
    } else {
