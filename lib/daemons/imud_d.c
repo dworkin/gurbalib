@@ -97,14 +97,14 @@ private void write_imud_stream(string sType, mixed sTargetMUD,
     */
 
    mpPacket = ( {
-	 sType,			/*The packet type.  Should correspond to one of the services */
-	 5,			/*Always 5. */
-	 IMUD_NAME,		/*Name of the MUD as it should be known over the I-3 network */
-	 sOrigUser,		/*Name of the local user involved in this transaction */
-	 sTargetMUD,		/*Name of the target MUD */
-	 sTargetUser,		/*Name of the target user on the target MUD */
+	 sType,		/*The packet type(correspond to one of the services) */
+	 5,		/*Always 5. */
+	 IMUD_NAME,	/*Name of the MUD as it known over the I-3 network */
+	 sOrigUser,	/*Name of the local user involved in this transaction */
+	 sTargetMUD,	/*Name of the target MUD */
+	 sTargetUser,	/*Name of the target user on the target MUD */
       }
-   ) + mpMessage;		/*Service-specific information */
+   ) + mpMessage;	/*Service-specific information */
 
 /*
   First, I convert the array to a string.  I am currently using a daemon
@@ -179,7 +179,8 @@ void do_tell(string who, string where, string what) {
    string s;
 
    if (catch(s = this_player()->query_Name()))
-      s = object_name(this_object());	/* if not a player sending the tell, identify ourself */
+      /* if not a player sending the tell, identify ourself */
+      s = object_name(this_object());	
 
    send_to_user("tell", where, who, ( { s, what } ) );
 }
@@ -367,13 +368,6 @@ void rcv_chanlist_reply(string origmud, mixed origuser, mixed destuser,
 
    chanlist_id = rest[0];
 
-   /*  chans = map_indices( chanlist );
-      for( i = 0; i < sizeof( chans ); i++ ) {
-      if( rest[1][chans[i]] == 0 ) {
-      chanlist[chans[i]] = 0;
-      }
-      }
-    */
    chans = map_indices(rest[1]);
    for (i = 0; i < sizeof(chans); i++) {
       if (rest[1][chans[i]] == 0) {
@@ -398,14 +392,6 @@ void rcv_mudlist(string origmud, mixed origuser, mixed destuser, mixed rest) {
 
    mudlist_id = rest[0];
 
-/*  muds = map_indices( mudlist ); */
-
-   /*  for( i = 0; i < sizeof( muds ); i++ ) {
-      if( rest[1][muds[i]] == 0 ) {
-      mudlist[muds[i]] = 0;
-      }
-      }
-    */
    muds = map_indices(rest[1]);
 
    for (i = 0; i < sizeof(muds); i++) {
@@ -469,7 +455,9 @@ void rcv_startup_reply(string origmud, mixed origuser, mixed destuser,
       if (current_router < 0) {
 	 disconnect();
 	 current_router++;
-	 error("Could not find the current router in the received routerlist. Maybe you have BELIEVE_ROUTERLIST defined on a router that doesn't support this properly");
+	 error("Could not find the current router in the received " +
+            "routerlist. Maybe you have BELIEVE_ROUTERLIST defined on a " +
+            "router that doesn't support this properly");
       }
 #endif
       last_good_router = current_router;
@@ -589,7 +577,8 @@ void receive_message(string str) {
        */
       buffer += str;
       size = strlen(buffer);
-      /* Do we have the 4 bytes for the packet size and possibly the entire packet? */
+      /* Do we have the 4 bytes for the packet size and 
+	 possibly the entire packet? */
       while (size >= packet_len + 4) {
 	 packet_len =
 	    buffer[3] + (buffer[2] << 8) + (buffer[1] << 16) +
@@ -612,18 +601,14 @@ void receive_message(string str) {
 	    } else {
 	       buffer = "";
 	    }
-	    /*
-	     * reset size to the current length of the buffer
-	     */
+	    /* reset size to the current length of the buffer */
 	    size = strlen(buffer);
-	    /*
-	     * set packet length to zero, will be set to something more useful during next
-	     * iteration of this loop, provided there are at least 4 bytes in the buffer.
-	     */
+	    /* set packet length to zero, will be set to something more 
+             * useful during next iteration of this loop, provided there 
+             * are at least 4 bytes in the buffer.  */
 	    packet_len = 0;
-	    /*
-	     * restore the variable in the packet and send it to the user object.
-	     */
+	    /* restore the variable in the packet and send it to the user 
+             * object.  */
 	    rlimits(2048; -1) {
 	       mixed data;
 	       string rc;
@@ -735,7 +720,6 @@ int query_chanlist_id(void) {
 void keepalive(void) {
    keepalive_handle = call_out("keepalive", KEEPALIVE_INTERVAL);
 
-   /* IMUDLOG("keepalive\n"); */
    if (pingtime && (time() - pingtime >= 180)) {
       if (query_connection()) {
 	 IMUDLOG("Keepalive timeout (last keepalive received at " +
@@ -748,8 +732,8 @@ void keepalive(void) {
 	    reconnect_handle = call_out("reconnect", RECONNECT_INTERVAL);
       }
    } else {
-      /* send an auth packet to ourselves once a minute to try to keep us connected. */
-      /* IMUDLOG("Last keepalive received at "+ctime(pingtime)+".\n"); */
+      /* send an auth packet to ourselves once a minute to try to keep 
+	 us connected. */
       send_to_mud("auth-mud-req", IMUD_NAME, ( { 0 } ) );
    }
 }
@@ -761,19 +745,19 @@ void open() {
    send_to_router("startup-req-3", ( {
 	    password,		/* Password - Send 0 if you're new */
 	    query_mudlist_id(),	/* Mudlist ID - Send 0 if you're new */
-	    query_chanlist_id(),	/* Channel List ID - Send 0 if you're new */
-	    LOGIN_PORT,		/* What port people use to connect to your MUD */
-	    I3_TCP_PORT,	/* The MUD's designated port for Imud TCP comm */
-	    I3_UDP_PORT,	/* The MUD's designated port for Imud UDP/OOB comm */
+	    query_chanlist_id(),/* Channel List ID - Send 0 if you're new */
+	    LOGIN_PORT,		/* What port used to connect to your MUD */
+	    I3_TCP_PORT,	/* The MUD's port for Imud TCP comm */
+	    I3_UDP_PORT,	/* The MUD's port for Imud UDP/OOB */
 	    LIB_NAME + " " + LIB_VERSION,	/*Name of current lib */
 	    LIB_NAME,		/*Name of base lib */
 	    status()[ST_VERSION],	/*Driver version */
 	    "LPMud",		/*MUD Type */
 	    "Mudlib Development",	/*MUD Status */
 	    ADMIN_EMAIL,	/*Email address of the MUD's admin */
-	    /*The following is a list of SUPPORTED services with appropriate values.
-	       Information regarding the various services can be found in the I-3
-	       specification.
+	    /*The following is a list of SUPPORTED services with appropriate 
+               values.  Information regarding the various services can be 
+               found in the I-3 specification.
 	     */
  (["auth": 1, "channel":1,
 		  /*      "emoteto" : 1, */
@@ -784,8 +768,8 @@ void open() {
  "tell": 1, "who":1,
 		  /*      "ucache"  : 1, */
 	       ]),
-	    /*This is a list of custom services that are support by your MUD, but
-	       not by the I-3 protocol.
+	    /*This is a list of custom services that are support by your 
+               MUD, but not by the I-3 protocol.
 	     */
 	 ([]),}));
 
@@ -821,7 +805,8 @@ void create(void) {
 
    if (IMUD_NAME == "GurbaLib") {
       "/kernel/sys/driver"->
-	 message("Please edit kernel/include/mudname.h and change the MUD_NAME and IMUD_NAME defines\n");
+	 message("Please edit kernel/include/mudname.h and change " +
+            "the MUD_NAME and IMUD_NAME defines\n");
       return;
    }
 
