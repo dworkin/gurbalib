@@ -1,7 +1,0 @@
-mpRouterList ({2|({2|"*wpr","195.242.99.94 8080",}),({2|"*i4","204.209.44.3 8080",}),})
-chanlist ([0|])
-mudlist ([0|])
-enabled 1
-current_router 1
-data_version 5
-default_router "*i4"

@@ -793,10 +793,8 @@ void open() {
   with every object).  Things of note that take place here:
 
     * Router list is given a default address and name
-
     * The Services mapping is initialized to reflect supported
       call-back functions for the respective services.
-
     * The connection to the Intermud router is initialized.
 */
 void create(void) {
@@ -810,10 +808,7 @@ void create(void) {
       return;
    }
 
-   /*
-    * Make sure the mudmode parser/generator is loaded
-    *
-    */
+   /* Make sure the mudmode parser/generator is loaded */
    if (!find_object("/daemons/serialize/mudmode")) {
       compile_object("/daemons/serialize/mudmode");
    }
@@ -826,15 +821,17 @@ void create(void) {
    password = 0;
    connected = 0;
    enabled = 1;
+   data_version = DATA_VERSION;
    mpRouterList = ( {
-	 ( { "*wpr", "195.242.99.94 8080" } ), 
-         ( { "*i4", "204.209.44.3 8080" } )
+         ( { "*i4", "204.209.44.3 8080" } ),
+	 ( { "*wpr", "195.242.99.94 8080" } ) 
    } );
 
    mudlist = ([]);
    chanlist = ([]);
    mudlist_id = 0;
    chanlist_id = 0;
+   current_router = 0;
 
 /*
     I went ahead and included this segment to show how I set up the packet-
