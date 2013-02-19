@@ -1,5 +1,6 @@
 bin/*
 lib/data/players/*
+lib/domains/gurba/data
 lib/doc/lpc/*
 lib/kernel/daemons/data/*
 lib/sys/daemons/data/*
@@ -11,8 +12,7 @@ tmp/*
 dump
 dump.old
 mud.dgd
-lib/daemons/data/last.o
-lib/daemons/data/time_d.o
+hydra.dgd
 lib/kernel/include/float.h
 lib/kernel/include/kfun.h
 lib/kernel/include/limits.h
