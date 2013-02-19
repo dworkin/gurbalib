@@ -4,8 +4,11 @@ void save_me(void);
 mapping guilds;
 
 void create(void) {
-   guilds = ([]);
+   /* Create a default list incase we do not already have one. */
+   guilds = (["fighter" : "The Fighters Guild"]);
+
    restore_me();
+   save_me();
 }
 
 static void restore_me(void) {
