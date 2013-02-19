@@ -12,10 +12,10 @@ void usage() {
    lines += ({ "\temote beep sirdude" });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "\tbug, echo, echoto, rsay, say, shout, ssay, sysmsg, " +
-         "tell, translate, whisper, wizcall" });
+      lines += ({ "\tbug, chan, echo, echoto, rsay, shout, ssay, say, " +
+         "sysmsg, tell, translate, whisper, wizcall" });
    } else {
-      lines += ({ "\tbug, rsay, say, shout, tell, whisper, " +
+      lines += ({ "\tbug, chan, rsay, say, shout, tell, whisper, " +
          "wizcall" });
    }
 

@@ -223,16 +223,20 @@ void chan_who(string chan) {
 
    chan = lowercase(chan);
 
-   if (!listeners[chan]) {
+   users = listeners[chan];
+   sz = sizeof(users);
+   if (!users || sz < 1) {
       write("No subscribers.");
       return;
    }
 
    write("Subscribed to " + chan + ":\n");
 
-   users = listeners[chan];
-   for (i = 0, sz = sizeof(users); i < sz; i++) {
-      write("  " + users[i]->query_Name() + "\n");
+   sz = sizeof(users);
+   for (i = 0; i < sz; i++) {
+      if (users[i]) {
+         write("  " + users[i]->query_Name() + "\n");
+      }
    }
 }
 

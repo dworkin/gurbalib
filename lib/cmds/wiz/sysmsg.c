@@ -12,8 +12,8 @@ void usage() {
    lines += ({ "\tsysmsg Let the games begin." });
    lines += ({ "See also:" });
 
-   lines += ({ "\tbug, echo, echoto, emote, rsay, say, ssay, tell, " +
-      "translate, whisper, wizcall" });
+   lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
+      "tell, translate, whisper, wizcall" });
 
    this_player()->more(lines);
 }

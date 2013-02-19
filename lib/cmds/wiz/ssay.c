@@ -12,7 +12,7 @@ void usage() {
    lines += ({ "\tssay sleepily drones|Hiya" });
    lines += ({ "\tssay kicks Dran in the pants and says|Muahhahahaha!" });
    lines += ({ "See also:" });
-   lines += ({ "\tbug, echo, echoto, emote, rsay, say, shout, " +
+   lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, say, " +
       "sysmsg, tell, translate, whisper, wizcall" });
 
    if (query_admin(this_player())) {

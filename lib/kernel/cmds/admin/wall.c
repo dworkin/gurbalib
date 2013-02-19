@@ -12,8 +12,8 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\twall We are upgrading the server in 10 minutes." });
    lines += ({ "See also:" });
-   lines += ({ "\tbug, echo, echoto, emote, rsay, say, ssay, tell, " +
-      "translate, whisper, wizcall" });
+   lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
+      "sysmsg, tell, translate, whisper, wizcall" });
 
    this_player()->more(lines);
 }

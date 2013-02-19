@@ -14,10 +14,10 @@ void usage() {
    lines += ({ "\twizcall I found a bug in the look command." });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "\tbug, echo, echoto, emote, rsay, say, shout, ssay, " +
+      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
          "sysmsg, tell, translate, whisper" });
    } else {
-      lines += ({ "\tbug, emote, rsay, say, shout, tell, whisper" });
+      lines += ({ "\tbug, chan, emote, rsay, say, shout, tell, whisper" });
    }
 
    if (query_admin(this_player())) {

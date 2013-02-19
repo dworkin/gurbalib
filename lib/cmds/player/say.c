@@ -12,10 +12,11 @@ void usage() {
    lines += ({ "\tsay no your not!" });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "\tbug, echo, echoto, emote, rsay, shout, ssay, sysmsg, " +
-         "tell, translate, whisper, wizcall" });
+      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, " +
+         "sysmsg, tell, translate, whisper, wizcall" });
    } else {
-      lines += ({ "\tbug, emote, rsay, shout, tell, whisper, wizcall" });
+      lines += ({ "\tbug, chan, emote, rsay, shout, tell, whisper, " +
+         "wizcall" });
    }
 
    if (query_admin(this_player())) {

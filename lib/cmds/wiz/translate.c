@@ -10,8 +10,8 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tXXX I'm broken get a wiz to fix me..." });
    lines += ({ "See also:" });
-   lines += ({ "\tbug, echo, echoto, emote, rsay, say, shout, " +
-      "ssay, sysmsg, tell, whisper, wizcall" });
+   lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
+      "sysmsg, tell, whisper, wizcall" });
 
    if (query_admin(this_player())) {
       lines += ({ "\twall" });

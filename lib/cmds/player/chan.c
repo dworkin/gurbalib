@@ -18,16 +18,66 @@ void usage() {
       cmds += ", wiz, admin, delete";
    }
 
-   lines = ({ "Usage: chan CHANNEL </command>" });
+   lines = ({ "Usage: chan [-h] [CHANNEL </command>]" });
    lines += ({ "" });
-   lines += ({ "Command can be " + cmds });
+   lines += ({ "List and or interact with channels.  Channels are basically " +
+      "a way to group " });
+   lines += ({ "chat both within the mud and also within the " +
+      "greater mud community." });
+   lines += ({ "If no CHANNEL is given list avaliable channels." });
+   lines += ({ "" });
+   lines += ({ "Command can be: " + cmds });
    lines += ({ "You can also just use <channel> /command" });
    lines += ({ "" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\tchan wiz join" });
-   lines += ({ "\tchan wiz leave" });
+   lines += ({ "\tchan announce /join" });
+   lines += ({ "\tchan announce /leave" });
    lines += ({ "See also:" });
-   lines += ({ "\tchannels" });
+   if (query_wizard(this_player())) {
+      lines += ({ "\tbug, echo, echoto, emote, rsay, shout, ssay, say, " +
+         "sysmsg, tell, translate, whisper, wizcall" });
+   } else {
+      lines += ({ "\tbug, emote, rsay, say, shout, tell, whisper, " +
+         "wizcall" });
+   }
+
+
+   this_player()->more(lines);
+}
+
+void list_channels(void) {
+   string *channels, *schannels;
+   mapping ichans;
+   string *lines;
+   string line;
+   int i, sz;
+
+   channels = CHANNEL_D->query_channels();
+   schannels = this_player()->query_channels();
+
+   lines = ( { "%^BOLD%^%^CYAN%^Available channels: %^RESET%^" } );
+   for (i = 0, sz = sizeof(channels); i < sz; i++) {
+      line = channels[i] + "     \t";   /* very suss formatting */
+      line += (member_array(channels[i], schannels) == -1) ?
+         "%^RED%^OFF" : "%^GREEN%^ON";
+      line += "%^RESET%^";
+      lines += ( { line } );
+   }
+
+   if (query_wizard(this_player())) {
+      ichans = IMUD_D->query_chanlist();
+      channels = map_indices(ichans);
+
+      lines += ( { } );
+      lines += ( { "IMud channels" } );
+      lines += ( { "--------------" } );
+      for (i = 0; i < sizeof(channels); i++) {
+         if (ichans[channels[i]][0] && ichans[channels[i]][0] != -1)
+            lines += ( { channels[i] + ", " + ichans[channels[i]][0] } );
+      }
+   }
 
    this_player()->more(lines);
 }
@@ -37,7 +87,7 @@ void main(string str) {
    string cmd;
 
    if (!str || str == "") {
-      usage();
+      list_channels();
       return;
    }
    if (sscanf(str, "-%s", str)) {
