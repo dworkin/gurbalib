@@ -134,9 +134,16 @@ void main(string str) {
          what = str;
       }
 
+      if (member_array(what, this_environment()->query_items() ) > -1) {
+         this_environment()->tell_room(this_player(), 
+            this_player()->query_Name( ) + " looks at the " + 
+            lowercase(what) + ".\n");
+         write(this_environment()->query_item(what));
+         return;
+      }
+
       obj = this_player()->present(lowercase(what));
       if (!obj) obj = this_environment()->present(lowercase(what));
-
    } 
 
    if (this_environment()->query_dark()) {
