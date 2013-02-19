@@ -6,9 +6,27 @@ void restore_me(void);
 void save_me(void);
 
 void create(void) {
-   player_alias = ([]);
-   wizard_alias = ([]);
+   /* Setup some basic defaults incase we do not have anything setup */
+   player_alias = ([
+      "n": "go north $*",
+      "s": "go south $*",
+      "e": "go east $*",
+      "w": "go west $*",
+      "ne": "go northeast $*",
+      "nw": "go northwest $*",
+      "se": "go southeast $*",
+      "sw": "go southwest $*",
+      "i": "inventory $*",
+      "l": "look $*",
+      "drink": "eat $*",
+      "sc": "score $*"
+   ]);
+   wizard_alias = ([
+      "z": "update $*"
+   ]);
+
    restore_me();
+   save_me();
 }
 
 nomask void restore_me(void) {
