@@ -2,39 +2,45 @@
 mapping player_alias;
 mapping wizard_alias;
 
+#define DATAFILE "/daemons/data/alias_d.o"
+
 void restore_me(void);
 void save_me(void);
 
 void create(void) {
+
+   if (file_exists(DATAFILE)) {
+      restore_me();
+   } else {
    /* Setup some basic defaults incase we do not have anything setup */
    player_alias = ([
-      "n": "go north $*",
-      "s": "go south $*",
-      "e": "go east $*",
-      "w": "go west $*",
-      "ne": "go northeast $*",
-      "nw": "go northwest $*",
-      "se": "go southeast $*",
-      "sw": "go southwest $*",
-      "i": "inventory $*",
-      "l": "look $*",
-      "drink": "eat $*",
-      "sc": "score $*"
-   ]);
-   wizard_alias = ([
-      "z": "update $*"
-   ]);
+         "n": "go north $*",
+         "s": "go south $*",
+         "e": "go east $*",
+         "w": "go west $*",
+         "ne": "go northeast $*",
+         "nw": "go northwest $*",
+         "se": "go southeast $*",
+         "sw": "go southwest $*",
+         "i": "inventory $*",
+         "l": "look $*",
+         "drink": "eat $*",
+         "sc": "score $*"
+      ]);
+      wizard_alias = ([
+         "z": "update $*"
+      ]);
 
-   restore_me();
-   save_me();
+      save_me();
+   }
 }
 
 nomask void restore_me(void) {
-   unguarded("restore_object", "/daemons/data/alias_d.o");
+   unguarded("restore_object", DATAFILE);
 }
 
 nomask void save_me(void) {
-   unguarded("save_object", "/daemons/data/alias_d.o");
+   unguarded("save_object", DATAFILE);
 }
 
 void add_player_alias(string cmd, string alias) {

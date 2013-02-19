@@ -1,39 +1,43 @@
 string *skills;
+#define DATAFILE "/daemons/data/skill_d.o"
 
 static void save_me(void) {
-   unguarded("save_object", "/daemons/data/skill_d.o");
+   unguarded("save_object", DATAFILE);
 }
 
 static void restore_me(void) {
-   unguarded("restore_object", "/daemons/data/skill_d.o");
+   unguarded("restore_object", DATAFILE);
 }
 
 void create(void) {
-   /* Setup a list of default skills incase we do not have a list */
-   skills = ( { 
-      "combat/unarmed",
-      "combat/defense",
-      "combat/edge/small",
-      "combat/edge/medium",
-      "combat/edge/large",
-      "combat/blunt/large",
-      "combat/blunt/medium",
-      "combat/blunt/small",
-      "combat/sharp/small",
-      "combat/sharp/medium",
-      "combat/sharp/large",
-      "language/catfolk",
-      "language/dwarven",
-      "language/elvish",
-      "language/gnomish",
-      "language/grunt",
-      "spell/cure",
-      "spell/missile",
-      "value",
-   } );
+   if (file_exists(DATAFILE)) {
+      restore_me();
+   } else {
+      /* Setup a list of default skills incase we do not have a list */
+      skills = ( { 
+         "combat/unarmed",
+         "combat/defense",
+         "combat/edge/small",
+         "combat/edge/medium",
+         "combat/edge/large",
+         "combat/blunt/large",
+         "combat/blunt/medium",
+         "combat/blunt/small",
+         "combat/sharp/small",
+         "combat/sharp/medium",
+         "combat/sharp/large",
+         "language/catfolk",
+         "language/dwarven",
+         "language/elvish",
+         "language/gnomish",
+         "language/grunt",
+         "spell/cure",
+         "spell/missile",
+         "value",
+      } );
 
-   restore_me();
-   save_me();
+      save_me();
+   }
 }
 
 void add_skill(string skill) {

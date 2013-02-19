@@ -1,23 +1,27 @@
 void restore_me(void);
 void save_me(void);
+#define DATAFILE "/daemons/data/guild_d.o"
 
 mapping guilds;
 
 void create(void) {
-   /* Create a default list incase we do not already have one. */
-   guilds = (["fighter" : "The Fighters Guild"]);
+   if (file_exists(DATAFILE)) {
+      restore_me();
+   } else {
+      /* Create a default list incase we do not already have one. */
+      guilds = (["fighter" : "The Fighters Guild"]);
 
-   restore_me();
-   save_me();
+      save_me();
+   }
 }
 
 static void restore_me(void) {
-   unguarded("restore_object", "/daemons/data/guild_d.o");
+   unguarded("restore_object", DATAFILE);
 
 }
 
 static void save_me(void) {
-   unguarded("save_object", "/daemons/data/guild_d.o");
+   unguarded("save_object", DATAFILE);
 }
 
 void add_guild(string guild, string title) {

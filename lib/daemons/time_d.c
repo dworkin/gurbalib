@@ -14,7 +14,6 @@ int time;
 static void restore_me(void);
 
 void create(void) {
-
    unguarded("restore_me");
 
    months = ({
@@ -24,7 +23,6 @@ void create(void) {
    });
 
    /*These should be randomized or put in some order */
-
    days = ({ 
       "Fire", "Water", "Earth", "Wind",
    });

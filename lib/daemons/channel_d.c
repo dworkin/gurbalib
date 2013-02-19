@@ -3,6 +3,7 @@
 #define NOT_EMOTE   0
 #define EMOTE       (!NOT_EMOTE)
 #define DATA_VERSION 2
+#define DATAFILE "/daemons/data/channel_d.o"
 
 inherit M_MESSAGES;
 
@@ -38,14 +39,49 @@ void create(void) {
    string *chans;
    int i, sz;
 
-   permanent = ([]);
    channels = ([]);
    listeners = ([]);
-   colors = ([]);
-   imud = ([]);
-   guilds = ([]);
    history = ([]);
-   restore_me();
+
+   if (file_exists(DATAFILE)) {
+      restore_me();
+   } else {
+      permanent = ([
+         "admin": 3,
+         "announce": 4,
+         "dchat": 2,
+         "dgd": 2,
+         "dstest": 2,
+         "fighter": 1,
+         "gossip": 1,
+         "icode": 2,
+         "igossip": 2,
+         "wiz": 2,
+      ]);
+      colors = ([
+         "admin": "%^BLUE%^",
+         "announce": "%^CYAN%^",
+         "dchat": "%^CYAN%^",
+         "dgd":"%^BLUE%^",
+         "fighter":"%^BLUE%^",
+         "gossip":"%^GREEN%^",
+         "icode":"%^RED%^",
+         "igossip":"%^GREEN%^",
+         "imud_code":"%^YELLOW%^",
+         "imud_gossip":"%^GREEN%^",
+         "inews":"%^RED%^",
+         "wiz":"%^RED%^"
+      ]);
+      imud = ([
+         "dchat": "dchat",
+         "dgd":"dgd",
+         "imud_code":"icode",
+         "imud_dgd":"idgd",
+         "imud_gossip":"igossip",
+         "inews":"inews"]);
+      guilds = (["fighter": "fighter"]);
+      save_me();
+   }
    chans = map_indices(permanent);
    for (i = 0, sz = sizeof(chans); i < sz; i++) {
       channels[chans[i]] = permanent[chans[i]];
@@ -58,11 +94,11 @@ void create(void) {
 }
 
 static void restore_me(void) {
-   unguarded("restore_object", "/daemons/data/channel_d.o");
+   unguarded("restore_object", DATAFILE);
 }
 
 static void save_me(void) {
-   unguarded("save_object", "/daemons/data/channel_d.o");
+   unguarded("save_object", DATAFILE);
 }
 
 void chan_set_flag(string chan, int flag) {

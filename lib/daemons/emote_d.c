@@ -1,16 +1,25 @@
 mapping emotes;
+#define DATAFILE "/daemons/data/emote_d.o"
 
 static void save_me(void) {
-   unguarded("save_object", "/daemons/data/emote_d.o");
+   unguarded("save_object", DATAFILE);
 }
 
 static void restore_me(void) {
-   unguarded("restore_object", "/daemons/data/emote_d.o");
+   unguarded("restore_object", DATAFILE);
 }
 
 void create(void) {
-   emotes = ([]);
-   restore_me();
+   if (file_exists(DATAFILE) {
+      restore_me();
+   } else {
+      emotes = ([
+         "bow": ([ "":"$N $vbow.",
+                  "LIV":"$N $vbow to $T."
+         ])
+      ]);
+      save_me();
+   }
 }
 
 void add_emote(string name, string rule, string fmt) {
