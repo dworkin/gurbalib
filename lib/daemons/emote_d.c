@@ -10,7 +10,7 @@ static void restore_me(void) {
 }
 
 void create(void) {
-   if (file_exists(DATAFILE) {
+   if (file_exists(DATAFILE)) {
       restore_me();
    } else {
       emotes = ([
