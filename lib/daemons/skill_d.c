@@ -9,8 +9,31 @@ static void restore_me(void) {
 }
 
 void create(void) {
-   skills = ( { } );
+   /* Setup a list of default skills incase we do not have a list */
+   skills = ( { 
+      "combat/unarmed",
+      "combat/defense",
+      "combat/edge/small",
+      "combat/edge/medium",
+      "combat/edge/large",
+      "combat/blunt/large",
+      "combat/blunt/medium",
+      "combat/blunt/small",
+      "combat/sharp/small",
+      "combat/sharp/medium",
+      "combat/sharp/large",
+      "language/catfolk",
+      "language/dwarven",
+      "language/elvish",
+      "language/gnomish",
+      "language/grunt",
+      "spell/cure",
+      "spell/missile",
+      "value",
+   } );
+
    restore_me();
+   save_me();
 }
 
 void add_skill(string skill) {
