@@ -68,20 +68,20 @@ void display_istat() {
       case 1:
 	 r = "loaded and offline\n";
 	 if (IMUD_D->query_enabled()) {
-	    r += "I3 is enabled";
+	    r += "I3 is enabled\n";
 	 } else {
-	    r += "I3 is disabled";
+	    r += "I3 is disabled\n";
 	 }
-	 r += "Default router: " + IMUD_D->query_default_router();
+	 r += "Default router: " + IMUD_D->query_default_router() + "\n"; 
 	 break;
       case 2:
-	 r = "loaded and online";
+	 r = "loaded and online\n";
 	 r +=
-	    "\nConnected to " + IMUD_D->query_current_router_name() + " (" +
-	    IMUD_D->query_current_router_ip() + ")";
+	    "Connected to " + IMUD_D->query_current_router_name() + " (" +
+	    IMUD_D->query_current_router_ip() + ")\n";
 	 break;
    }
-   write("I3 status: " + r);
+   write("I3 status: " + r + "\n");
 }
 
 void main(string str) {

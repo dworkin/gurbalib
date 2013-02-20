@@ -57,6 +57,8 @@ void list_channels(void) {
    channels = CHANNEL_D->query_channels();
    schannels = this_player()->query_channels();
 
+/* Update this so %^BOLD% and friends work... XXX */
+
    lines = ( { "%^BOLD%^%^CYAN%^Available channels: %^RESET%^" } );
    for (i = 0, sz = sizeof(channels); i < sz; i++) {
       line = channels[i] + "     \t";   /* very suss formatting */

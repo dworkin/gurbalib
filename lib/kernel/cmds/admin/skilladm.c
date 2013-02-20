@@ -1,10 +1,10 @@
 void usage() {
    string *lines;
 
-   lines = ({ "Usage: skilladm [-h] [remove SKILL] [add SKILL]" });
+   lines = ({ "Usage: skilladm [-h] [CMD SKILL]" });
    lines += ({ "" });
-   lines += ({ "Remove the specified skill, SKILL." });
-   lines += ({ "Add the specified skill, SKILL." });
+   lines += ({ "Used to add, remove or list available skills on the mud." });
+   lines += ({ "\tCMD can be: add, remove\n"});
    lines += ({ "If no args are given show all skills." });
    lines += ({ "" });
    lines += ({ "Options:" });
