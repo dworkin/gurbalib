@@ -36,6 +36,8 @@ if (-d "lib/domains/gurba") {
    makedir("lib/domains/gurba/data/lockers");
 }
 if (-d "lib/domains/required") {
+   makedir("lib/domains/required/data");
+   makedir("lib/domains/required/data/boards");
    makedir("lib/domains/required/logs");
 }
 if (-d "lib/domains/boothill") {
