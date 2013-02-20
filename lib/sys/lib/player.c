@@ -20,10 +20,13 @@ static int linkdead;		/* Are we linkdead? */
 static int quitting;		/* Are we in the process of quitting? */
 static int timestamp;		/* Last time we got input */
 static int more_line_num;	/* How far in the file we're more'ing are we */
-static object more_caller;	/* Who called more in us (so we can call it back when done */
+static object more_caller;	/* Who called more in us 
+					(so we can call it back when done */
 static string *more_lines;	/* All the lines in the file we're more'ing */
 string last_tell;		/* Who did we get a tell from last? */
-static mapping item_commands;	/* Commands that are local to worn/wielded items. */
+static mapping item_commands;	/* Commands that are local to 
+					worn/wielded items. */
+static int color_more;		/* Flag to specifiy color more */
 
 string real_name;		/* This players real name */
 string email_address;		/* The email address */
@@ -37,7 +40,8 @@ string *channels;		/* Channels we're listening to */
 string *ignored;		/* the users we are ignoring */
 mapping alias;			/* The players aliases */
 int last_login;			/* The last login */
-mapping guilds;			/* The guilds the player is a member of. The values are the guild title. */
+mapping guilds;			/* The guilds the player is a member of. 
+					The values are the guild title. */
 mapping custom_colors;		/* custom color symbols for this player */
 static mixed menu_data;		/* temp storage for menu system */
 int muzzle;			/* if 0 we are allowed to shout. */
@@ -458,13 +462,16 @@ void write_prompt() {
    out(prompt + "%^RESET%^ ");
 }
 
-/* More a set of lines 
-  XXX FIX IT SO More supports COLORS like message....
-   or make a color_more for channels command....
-*/
-void more(string * lines) {
+/* More a set of lines */
+void more(string * lines, varargs int docolor) {
    string msg;
    mixed height;
+
+   if (docolor && (docolor == 1)) {
+      color_more = 1;
+   } else {
+      color_more = 0;
+   }
 
    if (previous_object() != this_object()) {
       more_caller = previous_object();
@@ -487,14 +494,27 @@ void more(string * lines) {
    more_lines = lines;
 
    if (sizeof(lines) > height + more_line_num) {
-      out_unmod(implode(lines[more_line_num..more_line_num + height], "\n"));
-      out("\n%^BOLD%^--More--(" + ((more_line_num +
+
+   msg = implode(lines[more_line_num..more_line_num + height], "\n");
+   if (docolor) {
+      this_object()->query_user()->wrap_message(msg);
+   } else {
+      out_unmod(msg + "\n");
+   }
+
+      out("%^BOLD%^--More--(" + ((more_line_num +
 	       height) * 100) / sizeof(lines) + "%)%^RESET%^");
       more_line_num += height + 1;
       input_to("more_prompt");
    } else {
       msg = implode(lines[more_line_num..], "\n");
-      out_unmod(msg + "\n");
+
+      if (docolor) {
+         this_object()->query_user()->wrap_message(msg);
+      } else {
+         out_unmod(msg + "\n");
+      }
+
       if (more_caller) {
 	 more_caller->more_done();
 	 more_caller = nil;
@@ -536,15 +556,24 @@ void more_prompt(string arg) {
       height = height - 1;
 
    if (sizeof(more_lines) > height + more_line_num) {
-      out_unmod(implode(more_lines[more_line_num..more_line_num + height],
-	    "\n"));
-      out("\n%^BOLD%^--More--(" + ((more_line_num +
+      msg = implode(more_lines[more_line_num..more_line_num + height], "\n");
+      if (color_more) {
+         this_object()->query_user()->wrap_message(msg);
+      } else {
+         out_unmod(msg + "\n");
+      }
+
+      out("%^BOLD%^--More--(" + ((more_line_num +
 	       height) * 100) / sizeof(more_lines) + "%)%^RESET%^");
       more_line_num += height + 1;
       input_to("more_prompt");
    } else {
       msg = implode(more_lines[more_line_num..], "\n");
-      out_unmod(msg + "\n");
+      if (color_more) {
+         this_object()->query_user()->wrap_message(msg);
+      } else {
+         out_unmod(msg + "\n");
+      }
       if (more_caller) {
 	 more_caller->more_done();
 	 more_caller = nil;
