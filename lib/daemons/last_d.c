@@ -22,7 +22,7 @@ void add_entry(string name, int on) {
    object usr;
 
    if ((usr = USER_D->find_player(name))) {
-      ip = query_ip_number(usr);
+      ip = query_ip_number(usr->query_user());
    }
 
    if (!ip) {
