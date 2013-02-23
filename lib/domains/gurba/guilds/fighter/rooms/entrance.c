@@ -33,8 +33,31 @@ void setup(void) {
       "blood.");
 }
 
-int do_listen(object player) {
-   write("To the north you hear metal clanging against metal, and the odd " +
-      "cry in agony. Once in a while you hear muffled laughter as well.");
-   return 1;
+int do_listen(string str) {
+   if (!str || str == "" || str == "room") {
+      write("To the north you hear metal clanging against metal, and the odd " +
+         "cry in agony. Once in a while you hear muffled laughter as well.");
+      this_player()->query_environment()->tell_room(this_player(),
+         this_player()->query_Name() + "Pauses to listen closely.\n");
+      return 1;
+   }
+   return 0;
 }
+
+/*
+int join_guild(string str) {
+   if (!str || str == "" || str == "figher" || str == "fighers") {
+      if (!present()) {
+         write("The guild master is not here, you will have to wait " +
+            "for him to come back.");
+         return 1;
+      } else {
+         if (
+      }
+   }
+   return 0;
+}
+
+int leave_guild(string str) {
+}
+*/

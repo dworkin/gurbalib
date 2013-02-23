@@ -11,7 +11,7 @@ void usage() {
    lines += ({ "\tsell sword" });
    lines += ({ "\tsell helmet" });
    lines += ({ "See also:" });
-   lines += ({ "\tbuy, identify, list, look, sell, value" });
+   lines += ({ "\tbuy, identify, list, listen, look, sell, value" });
 
    this_player()->more(lines);
 }

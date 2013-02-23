@@ -11,7 +11,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tlist" });
    lines += ({ "See also:" });
-   lines += ({ "\tbuy, identify, look, sell, value" });
+   lines += ({ "\tbuy, identify, listen, look, sell, value" });
 
    this_player()->more(lines);
 }
