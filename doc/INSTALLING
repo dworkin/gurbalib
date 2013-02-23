@@ -33,6 +33,10 @@ cd to your gurbalib dir and perform the following actions:
 	cp mudname.h.default mudname.h
 	edit the mudname.h file and change the mudname
 	cd ../../..
+
+	Optionally copy the included emote_d.o file inplace:
+	cp contrib/emote_d.o lib/daemons/data/
+
 	cp scripts/startmud bin/startmud
 	edit bin/startmud and set ROOT
 	bin/startmud

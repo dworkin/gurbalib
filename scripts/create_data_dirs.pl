@@ -22,6 +22,7 @@ makedir("tmp");
 makedir("contrib/DGD/bin");
 makedir("contrib/DGD/tmp");
 # Everything after here is in the actual mudlib
+makedir("lib/daemons/data");
 makedir("lib/data/banished");
 makedir("lib/data/banned");
 makedir("lib/data/banned/a");

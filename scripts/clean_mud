@@ -16,7 +16,8 @@ if (!-f "scripts/create_data_dirs.pl") {
    exit 1;
 }
 
-print "WARNING: You are about to remove all user data on your mud, are you sure you want to continue? (Y/n)";
+print "WARNING: You are about to remove all user data on your mud, are you " .
+   "sure you want to continue? (Y/n)";
 chomp($word = <STDIN>);
 
 if ($word eq "y" || $word eq "Y") {
@@ -25,21 +26,40 @@ if ($word eq "y" || $word eq "Y") {
    exit 1;
 }
 
+rm_dir("lib/daemons/data");
 rm_dir("lib/data/banished");
 rm_dir("lib/data/banned");
 rm_dir("lib/data/banned/a");
 rm_dir("lib/data/banned/b");
 rm_dir("lib/data/banned/c");
 rm_dir("lib/data/players");
-rm_dir("lib/domains/gurba/data");
+rm_dir("lib/data/mail");
+if (-d "lib/domains/gurba") {
+	rm_dir("lib/domains/gurba/logs");
+	rm_dir("lib/domains/gurba/data");
+}
+if (-d "lib/domains/required") {
+   rm_dir("lib/domains/required/data");
+   rm_dir("lib/domains/required/logs");
+}
+if (-d "lib/domains/boothill") {
+   rm_dir("lib/domains/boothill/logs");
+}
+if (-d "lib/domains/newbie") {
+   rm_dir("lib/domains/newbie/logs");
+}
+if (-d "lib/domains/2.4.5") {
+   rm_dir("lib/domains/2.4.5/logs");
+}
+
 rm_dir("lib/kernel/daemons/data");
-rm_dir("lib/kernel/lib/net");
 rm_dir("lib/sys/daemons/data");
-rm_dir("lib/sys/daemons/data/users");
 rm_dir("lib/sys/data");
 rm_dir("lib/tmp");
 rm_dir("lib/logs");
-rm_dir("lib/logs/errors");
 rm_dir("lib/wiz");
 
-print "You should run scripts/create_data_dirs.pl to recreate your data directories.\n";
+print "You should run scripts/create_data_dirs.pl to recreate your " .
+   "data directories.\n";
+print "You should also optionally copy over contrib/emote_d.o to " .
+   "lib/daemons/data\n";
