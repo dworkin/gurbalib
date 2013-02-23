@@ -78,7 +78,9 @@ void create(void) {
 
 /* Save the player */
 void save_me(void) {
-   unguarded("save_object", "/data/players/" + player_name + ".o");
+   if (player_name != "guest") {
+      unguarded("save_object", "/data/players/" + player_name + ".o");
+   }
 }
 
 /* Restore the player */

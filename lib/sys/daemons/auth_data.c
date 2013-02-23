@@ -10,7 +10,9 @@ static void secure() {
 }
 
 static void save_me() {
-   unguarded("save_object", AUTH_DATA_DIR + "/" + name + ".o");
+   if (name != "guest") {
+      unguarded("save_object", AUTH_DATA_DIR + "/" + name + ".o");
+   }
 }
 
 int load(string str) {
