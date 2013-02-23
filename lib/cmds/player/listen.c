@@ -11,7 +11,11 @@ void usage() {
    lines += ({ "\tlisten door" });
    lines += ({ "\tlisten" });
    lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, eat, enter, follow, go, pray, quit" });
+   lines += ({ "\tbuy, identify, list, look, sell, value" });
+   if (query_wizard(this_player())) {
+      lines += ({ "\tlast, locate, mudlist, possess, rwho, snoop, where, who" 
+      });
+   }
 
    this_player()->more(lines);
 }
