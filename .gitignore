@@ -1,4 +1,5 @@
 bin/*
+lib/daemons/data/*
 lib/data/players/*
 lib/domains/gurba/data
 lib/doc/lpc/*
