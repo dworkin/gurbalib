@@ -1,3 +1,0 @@
-long_desc " \nNum    From        Subject                            Date\n------------------------------------------------------------------------------\n[   1]>Fudge       Bleh                               Thu Feb  1 16:35:27 2001  \n"
-board_id "main"
-msgs ({1|({4|"Fudge","Bleh","Thu Feb  1 16:35:27 2001","Deleted the board due to excessive spamming.\n",}),})
