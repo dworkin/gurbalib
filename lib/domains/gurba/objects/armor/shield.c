@@ -3,8 +3,8 @@ inherit SHIELD;
 void setup(void) {
    set_id("shield");
    set_adj("round");
+   set_short("A round shield");
    set_long("A round shield.");
-   set_short("A round shield.");
    set_gettable(1);
 
    set_ac(2);

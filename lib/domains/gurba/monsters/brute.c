@@ -8,7 +8,7 @@ void setup() {
 
    set_gender("male");
    add_adj("huge");
-   set_short("A huge brute.");
+   set_short("A huge brute");
    set_long("The brute looks huge.");
    set_level(15);
    set_hit_skill("combat/unarmed");

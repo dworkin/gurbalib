@@ -8,6 +8,7 @@ void setup(void) {
       "fails to load.  If you see this, let a wizard know where it is so " +
       "they can fix it.");
    set_gettable(1);
+   set_weight(1);
    set_value(50);
 }
 

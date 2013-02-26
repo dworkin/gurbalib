@@ -163,6 +163,7 @@ void do_room_check(object obj) {
 
 void do_monster_check(object obj) {
    string tmp;
+   int x;
 
    write("Doing monster check\n");
 
@@ -170,6 +171,9 @@ void do_monster_check(object obj) {
    if (!tmp || tmp == "") warn("Monster has no name.\n");
 
    if (obj->is_gettable()) warn("Living object is gettable.\n");
+
+   x = obj->query_level();
+   if (x < 1) warn("Monster has no level.\n");
 }
 
 void do_object_check(object obj) {

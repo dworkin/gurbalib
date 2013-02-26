@@ -14,11 +14,15 @@ void set_master(object m) {
 }
 
 void setup(void) {
+   if (!master_name || master_name == "") { /* If no master set a default... */
+      master_name = "sirdude";
+   }
    set_name(master_name + "s page");
    my_name = master_name + "'s page";
    set_gender("male");
+   set_level(1);
    set_adj("slave");
-   set_short(capitalize(master_name) + "'s page.");
+   set_short(capitalize(master_name) + "'s page");
    set_long("The page is wearing a simple robe, and his head is always " +
       "bent in humbleness.");
    set_race("human");

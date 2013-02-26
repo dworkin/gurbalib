@@ -12,7 +12,7 @@ void setup() {
    /*  set_gender(0); */
 
    add_adj("wandering");
-   set_short("A wandering traveller.");
+   set_short("A wandering traveller");
    set_long("This tired-looking person just happens to be passing through " +
       "the area..");
    set_race("human");
