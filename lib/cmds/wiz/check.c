@@ -122,6 +122,32 @@ void check_exits(object obj, mapping myexits) {
    }
 }
 
+void do_standard_checks(object obj) {
+   string tmp, tmp2;
+   int x;
+
+   tmp = obj->query_short();
+   if (!tmp || tmp == "") {
+      warn("Object has no short description.\n");
+   }
+
+   tmp2 = capitalize(tmp);
+   if (tmp2 != tmp) {
+      warn("Object short not capitalized.\n");
+   }
+
+   x = strlen(tmp) -1;
+   if (x < 1) {
+      warn("Object short too short : \'" + obj->query_short() + "\'\n");
+   } else if ((tmp[x] == '.') || (tmp[x] == '?') || tmp[x] == '!') {
+      warn("Object short ends with punctuation.\n");
+   }
+
+   tmp = obj->query_long();
+   if (!tmp || tmp == "") warn("Monster has no long description.\n");
+
+}
+
 void do_room_check(object obj) {
    mapping myexits;
    write("Doing room check\n");
@@ -142,14 +168,6 @@ void do_monster_check(object obj) {
 
    tmp = obj->query_name();
    if (!tmp || tmp == "") warn("Monster has no name.\n");
-   tmp = obj->query_short();
-   if (!tmp || tmp == "") warn("Monster has no short description.\n");
-
-/* XXX Check to see if short starts with capital letter */
-/* XXX Check to make sure short doesn't have . at the end */
-
-   tmp = obj->query_long();
-   if (!tmp || tmp == "") warn("Monster has no long description.\n");
 
    if (obj->is_gettable()) warn("Living object is gettable.\n");
 }
@@ -157,15 +175,6 @@ void do_monster_check(object obj) {
 void do_object_check(object obj) {
    string tmpstr;
    write("Doing object check\n");
-
-   tmpstr = obj->query_short();
-   if (!tmpstr || tmpstr == "") warn("No short description.\n");
-
-/* XXX Check to see if short starts with capital letter */
-/* XXX Check to make sure short doesn't have . at the end */
-
-   tmpstr = obj->query_long();
-   if (!tmpstr || tmpstr == "") warn("No long description.\n");
 
    if (obj->is_gettable() && (obj->query_weight() < 1))
       warn("Object gettable and weight < 1\n");
@@ -191,6 +200,8 @@ void do_check(string str) {
          obj->setup_mudlib();
 
          if (obj) {
+            do_standard_checks(obj);
+
             if (obj->is_room()) {
                do_room_check(obj);
             } else if (obj->is_living()) {
