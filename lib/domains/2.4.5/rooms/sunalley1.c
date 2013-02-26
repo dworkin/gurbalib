@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Sun alley");
+   set_short("Sun alley");
    set_long("Sun alley runs east-west.");
 
    add_exit("east", DIR + "/rooms/eastroad3.c");

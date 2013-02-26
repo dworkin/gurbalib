@@ -2,7 +2,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("Frida's Florist");
+   set_short("Frida's Florist");
    set_long("This small room is the flower shop. Colorful bouquets poke " +
       "out from everywhere in the room. Flowerpots of all colors house " +
       "the dozens of different flowers at sale here. ");

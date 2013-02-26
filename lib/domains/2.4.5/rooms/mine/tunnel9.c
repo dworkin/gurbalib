@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Hole in ceiling");
+   set_short("Hole in ceiling");
    add_room_command("up","do_up");
    add_room_command("climb","do_up");
 }

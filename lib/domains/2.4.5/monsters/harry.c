@@ -10,7 +10,7 @@ void setup() {
    add_id("fjant");
    set_gender( "male" );
    add_adj("affectionate");
-   set_in_room_desc("Harry the affectionate");
+   set_short("Harry the affectionate");
    set_long("Harry has an agreeable look.");
    set_race("human");
    set_level(3);

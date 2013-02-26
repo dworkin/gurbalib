@@ -3,8 +3,8 @@ inherit OBJECT;
 void setup(void) {
    set_id("beer");
    set_adj("classy");
+   set_short("A first class beer");
    set_long("A bottle of beer.");
-   set_in_room_desc("A First Class Beer");
    set_eatable(1);
    set_gettable(1);
    set_value(12);

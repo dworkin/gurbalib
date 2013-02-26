@@ -9,7 +9,7 @@ void setup() {
 
    set_name("octopus");
    add_adj("giant");
-   set_in_room_desc("An octopus");
+   set_short("An octopus");
    set_long("A very big octopus with long arms, reaching for you.");
 
    set_level(10);

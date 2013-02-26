@@ -81,7 +81,7 @@ void main(string str) {
       if (long_flag == 1) {
 	 if (usr[i]->query_environment()) {
 	    write(line + "\n\t" + usr[i]->query_name() + "'s Location: " +
-	       usr[i]->query_environment()->query_brief() + "\n");
+	       usr[i]->query_environment()->query_short() + "\n");
 	 } else {
 	    write(line + "\n\t" + usr[i]->query_name() + "\n");
 	 }

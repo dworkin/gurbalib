@@ -4,7 +4,7 @@ void setup(void) {
    set_id("meal");
    set_adj("merchant's");
    set_long("A small bowl of stew or something, it doesn't look very tasty.");
-   set_in_room_desc("Merchant's meal");
+   set_short("Merchant's meal");
    set_eatable(1);
    set_gettable(1);
    set_value(50);

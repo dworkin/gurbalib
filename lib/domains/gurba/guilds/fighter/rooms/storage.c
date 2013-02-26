@@ -2,7 +2,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("%^BLUE%^Fighters Guild Locker Rooms%^RESET%^");
+   set_short("%^BLUE%^Fighters Guild Locker Rooms%^RESET%^");
    set_long("There are a bunch of lockers here.  Hey there is yours, to " +
       "the east.");
 

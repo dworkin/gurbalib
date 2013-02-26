@@ -65,7 +65,7 @@ void create(void) {
    ignored = ( { } );
    title = "$N the nondescript";
    long_desc = "";
-   set_brief("A nondescript player");
+   set_short("A nondescript player");
    timestamp = time();
    set_env("cwd", "/");
    set_env("pwd", "/");
@@ -147,7 +147,7 @@ void login_player(void) {
    }
    race = query_race();
    set_race(race);
-   set_brief(query_title());
+   set_short(query_title());
    set_hit_skill("combat/unarmed");
    ANSI_D->set_player_translations(custom_colors);
    autoload = query_env("autoload");
@@ -246,7 +246,7 @@ void set_user(object usr) {
 
 void set_title(string t) {
    title = t;
-   set_brief(query_title());
+   set_short(query_title());
 }
 
 string query_title(void) {
@@ -271,10 +271,10 @@ string query_title_string(void) {
 
 void set_linkdead(int flag) {
    if (flag == 1) {
-      set_brief(query_title() + " [link-dead]");
+      set_short(query_title() + " [link-dead]");
       linkdead = call_out("do_quit", LINKDEAD_TIMEOUT);
    } else {
-      set_brief(query_title());
+      set_short(query_title());
       if (linkdead)
 	 remove_call_out(linkdead);
       linkdead = 0;
@@ -283,9 +283,9 @@ void set_linkdead(int flag) {
 
 void set_editing(int flag) {
    if (flag == 1)
-      set_brief(query_title() + " [editing]");
+      set_short(query_title() + " [editing]");
    else
-      set_brief(query_title());
+      set_short(query_title());
 }
 
 int query_linkdead(void) {

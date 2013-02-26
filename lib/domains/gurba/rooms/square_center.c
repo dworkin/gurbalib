@@ -6,7 +6,7 @@ void setup(void) {
    add_area("GurbaSquare");
    add_area("GurbaOutdoor");
 
-   set_brief("Gurba Town Square Center");
+   set_short("Gurba Town Square Center");
    set_long("The center of the Gurba Town Square provides a natural " +
       "meeting place in the heart of the town. The square is large " +
       "and open, and paved with aging red brick. It is extremely busy " +

@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Tunnel");
+   set_short("Tunnel");
    set_long("The tunnel slopes steeply up here.");
 
    add_exit("north", DIR + "/rooms/mine/tunnel26.c");

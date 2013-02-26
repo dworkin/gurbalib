@@ -5,7 +5,7 @@ void setup(void) {
    set_name("innkeeper");
    add_ids("innkeep","tom", "shopkeeper", "merchant");
    set_gender("male");
-   set_in_room_desc("Tom, the innkeeper");
+   set_short("Tom, the innkeeper");
    set_long("He is a large healthy man.");
    set_race("human");
    set_level(15);

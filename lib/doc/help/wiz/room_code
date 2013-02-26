@@ -3,7 +3,7 @@ inherit ROOM;
 
 void setup( void ) {
   add_area( "required" );
-  set_brief( "The void" );
+  set_short( "The void" );
   set_long( "If you're in here unintentionally, something bugged out. " +
     "Report what you did to the staff." );
   set_exits( ([ 
@@ -32,7 +32,7 @@ void add_area(string *area );
 	other nifty tricks.  You could also for example make an object 
 	that only functions in a given area.
 
-void set_brief(string *desc );
+void set_short(string *desc );
 	Set the short description of the room.
 	Sometimes you can only see the short description of the room so
 	you will want to make it descriptive so that users will know where 

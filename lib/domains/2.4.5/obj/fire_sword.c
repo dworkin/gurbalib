@@ -3,7 +3,7 @@ inherit WEAPON;
 void setup(void) {
    set_id("sword");
    set_long("A red hot blade.  It glows with power");
-   set_in_room_desc("Sword of fire");
+   set_short("Sword of fire");
    set_gettable(1);
 
    set_min_damage(5);

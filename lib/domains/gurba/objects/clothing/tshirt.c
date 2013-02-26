@@ -5,7 +5,7 @@ void setup(void) {
    set_adj("gurbalib");
    set_long("It reads: I crashed GurbaLib and all I got was this " +
       "stupid T-Shirt!");
-   set_in_room_desc("A flashy T-shirt.");
+   set_short("A flashy T-shirt.");
    set_gettable(1);
    set_slot("torso");
    set_wear_message("$N $vput on $o, and suddenly $vlook a lot better.");

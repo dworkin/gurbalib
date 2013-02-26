@@ -4,7 +4,7 @@ void setup(void) {
    set_id("sword");
    set_long("A large sword that looks like it could make short " +
       "work of anything.");
-   set_in_room_desc("Stone cutter sword");
+   set_short("Stone cutter sword");
    set_gettable(1);
 
    set_min_damage(5);

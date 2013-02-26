@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Big tree");
+   set_short("Big tree");
    set_long("A big single tree on the plain.");
 
    add_exit("east", DIR + "/rooms/plain7.c");

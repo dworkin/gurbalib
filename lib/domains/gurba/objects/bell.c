@@ -4,7 +4,7 @@ void setup(void) {
    set_id("bell");
    set_adj("small");
    set_long("Your average small bell.");
-   set_in_room_desc("A small bell is floating in the air next to the " +
+   set_short("A small bell is floating in the air next to the " +
       "entrance.");
    set_gettable(0);
 }

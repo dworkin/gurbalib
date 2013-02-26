@@ -8,7 +8,7 @@ int count;
 void setup() {
    set_name("troll");
    add_adj("smelly");
-   set_in_room_desc("A large smelly troll.");
+   set_short("A large smelly troll");
    set_long("The troll looks like a messed up tree.");
    set_race("troll");
    set_hit_skill("combat/unarmed");

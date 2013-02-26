@@ -4,7 +4,7 @@ void setup(void) {
    set_id("sword");
    set_adj("small");
    set_long("Your standard small sword.");
-   set_in_room_desc("A small sword.");
+   set_short("A small sword.");
    set_gettable(1);
 
    set_min_damage(1);

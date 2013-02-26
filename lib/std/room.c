@@ -155,7 +155,7 @@ string query_desc(varargs int brief) {
 
    if (!brief)
       brief = 0;
-   text = "%^ROOM_NAME%^" + query_brief() + "%^RESET%^";
+   text = "%^ROOM_NAME%^" + query_short() + "%^RESET%^";
 
    text += " %^ROOM_EXIT%^[ exits: ";
 
@@ -185,7 +185,7 @@ string query_desc(varargs int brief) {
       for (count = 0; count < sizeof(inventory); count++) {
 	 if (!inventory[count]->is_living()) {
 	    desc =
-	       "  %^OBJ_BRIEF%^" + capitalize(inventory[count]->query_brief()) +
+	       "  %^OBJ_BRIEF%^" + capitalize(inventory[count]->query_short()) +
 	       "%^RESET%^";
 	 } else {
 	    mixed x;
@@ -196,13 +196,13 @@ string query_desc(varargs int brief) {
 	    pc =
 	       inventory[count]->is_player()? "%^PLAYER%^" : "%^NPC_FRIENDLY%^";
 	    if (x && x > 60) {
-	       desc = "  " + pc + capitalize(inventory[count]->query_brief())
+	       desc = "  " + pc + capitalize(inventory[count]->query_short())
 		  + " [idle" +
 		  format_idle_time(inventory[count]->query_idle()) +
 		  "]%^RESET%^";
 	    } else {
 	       desc =
-		  "  " + pc + capitalize(inventory[count]->query_brief()) +
+		  "  " + pc + capitalize(inventory[count]->query_short()) +
 		  "%^RESET%^";
 	    }
 	 }

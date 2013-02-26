@@ -21,7 +21,7 @@ void restore_me(void) {
       unguarded("restore_object", DIR + "/data/lockers/" + player_name + 
          "/" + i + ".o");
    }
-   set_brief(capitalize(player_name) + "'s locker room");
+   set_short(capitalize(player_name) + "'s locker room");
 }
 
 void clean_up(void) {
@@ -76,11 +76,11 @@ void save_me(void) {
 
 void set_player_name(string str) {
    player_name = str;
-   set_brief(capitalize(player_name) + "'s locker room");
+   set_short(capitalize(player_name) + "'s locker room");
 }
 
 void setup(void) {
-   set_brief(" An unknown locker room");
+   set_short(" An unknown locker room");
    set_long("You can store your stuff here.");
 
    add_room_command("save","do_save");

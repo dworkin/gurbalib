@@ -10,7 +10,7 @@ void setup() {
    set_name("giant");
    set_gender( "male" );
    add_adj("stone");
-   set_in_room_desc("A stone giant");
+   set_short("A stone giant");
    set_long("A huge marble skined hulking tower of a man.");
    set_race("giant");
    set_level(15);

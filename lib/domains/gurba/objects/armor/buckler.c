@@ -4,7 +4,7 @@ void setup(void) {
    set_id("buckler");
    set_adj("small", "round");
    set_long("A buckler.");
-   set_in_room_desc("A buckler.");
+   set_short("A buckler.");
    set_gettable(1);
 
    set_ac(1);

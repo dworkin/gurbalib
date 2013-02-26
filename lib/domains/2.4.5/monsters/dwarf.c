@@ -5,7 +5,7 @@ void setup() {
    set_name("dwarf");
    set_gender( "male" );
    add_adj("sturdy");
-   set_in_room_desc("A sturdy looking dwarf");
+   set_short("A sturdy looking dwarf");
    set_long("The dwarf is small, but built like a pile of bricks.");
    set_race("dwarf");
    set_aggressive(1);

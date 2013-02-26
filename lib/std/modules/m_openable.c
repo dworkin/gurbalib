@@ -69,17 +69,17 @@ string query_closed_description(void) {
 void update_description(void) {
 
    if (!open_desc || open_desc == "") {
-      open_desc = this_object()->query_brief() + " %^GREEN%^[open]%^RESET%^";
+      open_desc = this_object()->query_short() + " %^GREEN%^[open]%^RESET%^";
    }
 
    if (!closed_desc || closed_desc == "") {
-      closed_desc = this_object()->query_brief() + " %^RED%^[closed]%^RESET%^";
+      closed_desc = this_object()->query_short() + " %^RED%^[closed]%^RESET%^";
    }
 
    if (open_state == 1) {
-      this_object()->set_in_room_desc(query_open_description());
+      this_object()->set_short(query_open_description());
    } else {
-      this_object()->set_in_room_desc(query_closed_description());
+      this_object()->set_short(query_closed_description());
    }
 }
 

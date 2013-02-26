@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("In a maze");
+   set_short("In a maze");
    set_long("There are four obvious exits: north, south, east, west");
 
 }

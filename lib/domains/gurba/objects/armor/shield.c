@@ -4,7 +4,7 @@ void setup(void) {
    set_id("shield");
    set_adj("round");
    set_long("A round shield.");
-   set_in_room_desc("A round shield.");
+   set_short("A round shield.");
    set_gettable(1);
 
    set_ac(2);

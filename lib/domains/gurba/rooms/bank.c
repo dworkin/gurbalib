@@ -2,7 +2,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("Gurba Bank");
+   set_short("Gurba Bank");
    set_long("This is the main bank branch of Gurba. There are two large " +
       "counters with a clerk behind each.  The floor and " +
       "columns supporting the roof are made of what appears to be marble.");

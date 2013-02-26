@@ -5,7 +5,7 @@ void setup(void) {
    set_adj("commonor's");
    set_long("A small bowl of something on a piece of stale bread. " +
       "it smells awful.");
-   set_in_room_desc("Commonor's meal");
+   set_short("Commonor's meal");
    set_eatable(1);
    set_gettable(1);
    set_value(20);

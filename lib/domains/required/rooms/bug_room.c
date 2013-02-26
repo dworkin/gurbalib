@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("required");
 
-   set_brief("Bug room");
+   set_short("Bug room");
    set_long("The room contains a huge and fluffy chair, since wizards " +
       "spend a lot of time in this room reading the bug reports from the " +
       "players. ");

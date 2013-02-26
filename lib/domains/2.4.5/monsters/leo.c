@@ -9,7 +9,7 @@ int count;
 void setup() {
    set_name("leo");
    set_gender( "male" );
-   set_in_room_desc("Leo the Archwizard");
+   set_short("Leo the Archwizard");
    set_long("Leo the Archwizard.");
    set_race("human");
    set_level(40);

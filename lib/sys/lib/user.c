@@ -256,7 +256,7 @@ void login_user(void) {
    } else {
       player->set_name(user_name);
       USER_D->user_online(user_name, this_object());
-      player->set_brief(capitalize(user_name) + player->query_title());
+      player->set_short(capitalize(user_name) + player->query_title());
       send_message("\n\n");
       send_message(TELNET_D->query_motd());
       player->login_player();

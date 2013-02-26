@@ -11,7 +11,7 @@ void setup() {
    set_name("orc");
    set_gender( "male" );
    add_adj("dirty");
-   set_in_room_desc("An orc");
+   set_short("An orc");
    set_long("A dirty smelly orc.");
    set_race("orc");
    set_aggressive(1);

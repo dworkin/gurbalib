@@ -142,8 +142,12 @@ void do_monster_check(object obj) {
 
    tmp = obj->query_name();
    if (!tmp || tmp == "") warn("Monster has no name.\n");
-   tmp = obj->query_brief();
-   if (!tmp || tmp == "") warn("Monster has no brief description.\n");
+   tmp = obj->query_short();
+   if (!tmp || tmp == "") warn("Monster has no short description.\n");
+
+/* XXX Check to see if short starts with capital letter */
+/* XXX Check to make sure short doesn't have . at the end */
+
    tmp = obj->query_long();
    if (!tmp || tmp == "") warn("Monster has no long description.\n");
 
@@ -154,8 +158,11 @@ void do_object_check(object obj) {
    string tmpstr;
    write("Doing object check\n");
 
-   tmpstr = obj->query_brief();
-   if (!tmpstr || tmpstr == "") warn("No brief description.\n");
+   tmpstr = obj->query_short();
+   if (!tmpstr || tmpstr == "") warn("No short description.\n");
+
+/* XXX Check to see if short starts with capital letter */
+/* XXX Check to make sure short doesn't have . at the end */
 
    tmpstr = obj->query_long();
    if (!tmpstr || tmpstr == "") warn("No long description.\n");
@@ -164,6 +171,8 @@ void do_object_check(object obj) {
       warn("Object gettable and weight < 1\n");
    if (obj->is_gettable() && (obj->query_value() < 1))
       warn("Object gettable and value < 1\n");
+   if (!obj->is_gettable() && (obj->query_value() > 1))
+      warn("Object ungettable and value > 1\n");
 }
 
 void do_check(string str) {

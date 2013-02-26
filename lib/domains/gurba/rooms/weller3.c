@@ -6,7 +6,7 @@ void setup(void) {
    add_area("WellerAve");
    add_area("GurbaOutdoor");
 
-   set_brief("Weller Avenue");
+   set_short("Weller Avenue");
    set_long("You stand at the south end of Weller Avenue.  It is a " +
       "pleasant but (judging by the relatively large houses) probably " +
       "expensive place to live. It is also a bit quieter than some other " +

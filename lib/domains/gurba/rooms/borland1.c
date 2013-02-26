@@ -6,7 +6,7 @@ void setup(void) {
    add_area("BorlandAve");
    add_area("GurbaOutdoor");
 
-   set_brief("Borland Avenue");
+   set_short("Borland Avenue");
    set_long("This is the south end of Borland Avenue, which runs " +
       "through an active residential district of town. Though not " +
       "quite as upscale as Weller Avenue to the south, it nonetheless " +

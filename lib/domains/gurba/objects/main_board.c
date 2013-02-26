@@ -4,7 +4,7 @@ void setup(void) {
    set_id("board");
    set_adj("message", "large");
    set_long("");
-   set_in_room_desc("A huge message board.");
+   set_short("A huge message board.");
    set_board_id("main");
    query_environment()->subscribe_event("body_look");
    query_environment()->subscribe_event("body_look_at");
@@ -17,7 +17,7 @@ void destruct(void) {
 }
 
 void event_body_look(mixed * who) {
-   set_in_room_desc("The General message board [" + query_message_count() +
+   set_short("The General message board [" + query_message_count() +
       " msgs, " + query_new_message_count() + " new]");
 }
 

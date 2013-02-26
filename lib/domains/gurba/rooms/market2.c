@@ -6,7 +6,7 @@ void setup(void) {
    add_area("MarketStreet");
    add_area("GurbaOutdoor");
 
-   set_brief("Market Street");
+   set_short("Market Street");
    set_long("The street grows narrow here, confining the huge crowd " +
       "that habitually populates Market Street in an even smaller " +
       "space. People are yelling and shoving, children are crying, and " +

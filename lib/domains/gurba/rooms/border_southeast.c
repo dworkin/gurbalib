@@ -8,7 +8,7 @@ void setup(void) {
    add_area("BorderWalkSouth");
    add_area("GurbaOutdoor");
 
-   set_brief("Border Walk - Southeast");
+   set_short("Border Walk - Southeast");
    set_long("You are at the southeast corner of the town of Gurba, " +
       "where the eastern and southern sections of the Border Walk meet. " +
       "At this corner there seems to be an entrance to a small watch tower " +

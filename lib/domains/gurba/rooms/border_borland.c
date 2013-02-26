@@ -7,7 +7,7 @@ void setup(void) {
    add_area("BorderWalkNorth");
    add_area("GurbaOutdoor");
 
-   set_brief("Intersection of Border Walk/Borland Avenue");
+   set_short("Intersection of Border Walk/Borland Avenue");
    set_long("Here, the long rectangular Border Walk crosses the end of " +
       "Borland Avenue, a small but well-maintained residental district " +
       "of the town, which leads to the south from here. The sounds of " +

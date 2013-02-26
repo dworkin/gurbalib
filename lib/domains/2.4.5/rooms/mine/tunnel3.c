@@ -5,7 +5,7 @@ int tied_rope;  /* Flag to note if the rope is here and tied or not.. */
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Hole");
+   set_short("Hole");
    set_long("There is a giant hole in the ground here, " +
       "and a large iron ring attached to the wall.");
 

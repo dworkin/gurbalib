@@ -5,7 +5,7 @@ inherit M_BLOCKEXITS;
 
 void setup() {
    set_name("giant");
-   set_in_room_desc("A giant");
+   set_short("A giant");
    set_aggressive(1);
    set_long("A massive giant.");
    set_race("giant");

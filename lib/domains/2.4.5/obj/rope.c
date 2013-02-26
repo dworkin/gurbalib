@@ -20,9 +20,9 @@ string query_long() {
 void set_tied(string str) {
    if (!str || (str == "")) {
       tied_to = "";
-      set_in_room_desc("An old rope.");
+      set_short("An old rope");
    } else {
       tied_to = str;
-      set_in_room_desc("An old rope tied to the " + tied_to + ".");
+      set_short("An old rope tied to the " + tied_to );
    }
 }

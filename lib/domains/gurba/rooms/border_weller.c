@@ -7,7 +7,7 @@ void setup(void) {
    add_area("BorderWalkSouth");
    add_area("GurbaOutdoor");
 
-   set_brief("Intersection of Border Walk/Weller Avenue");
+   set_short("Intersection of Border Walk/Weller Avenue");
    set_long("Here, the long rectangular Border Walk crosses the end of " +
       "Weller Avenue, the home of the more affluent members of Gurba's " +
       "populace, which leads to the north from here. Large trees and " +

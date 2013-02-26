@@ -3,7 +3,7 @@ inherit SIGN;
 
 void setup(void) {
    set_id("book");
-   set_brief("a book in a chain");
+   set_short("a book in a chain");
    set_long("There is a book hanging in a chain from the wall.\n" +
       "The title is: 'ADVENTURING'.\n");
 

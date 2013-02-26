@@ -2,7 +2,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("Chez Mario");
+   set_short("Chez Mario");
    set_long("This is no five star restaurant, but it is indeed a nice " +
       "eating establishment, with a personal and charming touch to it. " +
       "The room has six tables, a small stage, and a bar with a door " +

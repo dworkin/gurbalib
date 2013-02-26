@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Down the well");
+   set_short("Down the well");
    set_long("You are down the well.  It is wet and slippery.  " +
       "There is a lever beside a door to the west.");
 

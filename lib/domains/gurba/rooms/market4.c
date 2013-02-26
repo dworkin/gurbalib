@@ -6,7 +6,7 @@ void setup(void) {
    add_area("MarketStreet");
    add_area("GurbaOutdoor");
 
-   set_brief("Market Street");
+   set_short("Market Street");
    set_long("This is the western end of Market Street, an extremely " +
       "old and narrow road that is known for having some of the best " +
       "deals on all manner of goods. Naturally, the combination has " +

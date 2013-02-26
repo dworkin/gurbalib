@@ -9,7 +9,7 @@ void setup() {
 
    set_name("guard");
    set_gender( "female" );
-   set_in_room_desc("A guard");
+   set_short("A guard");
    set_long("A big and sturdy guard.");
    set_race("human");
    set_level(11);

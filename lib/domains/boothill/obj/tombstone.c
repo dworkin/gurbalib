@@ -2,7 +2,7 @@ inherit OBJECT;
 
 void setup(void) {
    set_id("tombstone");
-   set_in_room_desc("A tombstone.");
+   set_short("A tombstone");
    add_ids("stone", "grave", "gravestone");
 }
 

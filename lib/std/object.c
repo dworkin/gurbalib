@@ -2,7 +2,7 @@
 inherit "/std/body/size";	/* satch */
 inherit "/std/modules/m_autoload_filename";
 
-static string brief_desc;
+static string short_desc;
 string long_desc;
 static object object_environment;
 static string *ids;
@@ -24,7 +24,7 @@ void create(void) {
    if (configured++)
       return;
 
-   brief_desc = "";
+   short_desc = "";
    ids = ( { "nondescript thing" } );
    adjs = ( { } );
 
@@ -141,28 +141,20 @@ int is_adj(string adj) {
    return 0;
 }
 
-void set_brief(string str) {
-   brief_desc = str;
+void set_short(string str) {
+   short_desc = str;
 }
 
-void set_in_room_desc(string str) {
-   brief_desc = str;
-}
-
-string query_in_room_desc(void) {
-   return brief_desc;
-}
-
-string query_brief(void) {
-   if (!brief_desc || brief_desc == "") {
+string query_short(void) {
+   if (!short_desc || short_desc == "") {
       if (!query_adj() || query_adj() == "") {
-	 brief_desc = article(query_id()) + " " + query_id();
+	 short_desc = article(query_id()) + " " + query_id();
       } else {
-	 brief_desc = article(query_adj()) + " " + query_adj() + " "
+	 short_desc = article(query_adj()) + " " + query_adj() + " "
 	    + query_id();
       }
    }
-   return brief_desc;
+   return short_desc;
 }
 
 void set_long(string str) {

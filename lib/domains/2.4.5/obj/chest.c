@@ -2,7 +2,7 @@ inherit CONTAINER;
 
 void setup(void) {
    set_id("chest");
-   set_in_room_desc("a chest");
+   set_short("A chest");
    set_long("A chest that seems to be of a high value.");
    set_weight(8);
    set_gettable(1);

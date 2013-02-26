@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("boothill");
 
-   set_brief("Boothill");
+   set_short("Boothill");
    set_long("If your not sure what boothill is, now you know, its a " +
       "cemetary just outside of town.  There are a bunch of cheap " +
       "graves here.  With Odd looking tombstones.  There is also  a " +

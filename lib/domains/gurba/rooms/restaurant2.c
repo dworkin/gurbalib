@@ -2,7 +2,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("Chez Mario - Kitchen");
+   set_short("Chez Mario's Kitchen");
    set_long("This is the kitchen, the place where Mario's chef makes " +
       "all the food. There is a stove, a sink, some shelves with " +
       "different ingredients, and a box containing knives, forks and " +

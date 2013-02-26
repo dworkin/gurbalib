@@ -6,7 +6,7 @@ void setup(void) {
    string name;
    add_area("2.4.5");
 
-   set_brief("Humpbacked bridge");
+   set_short("Humpbacked bridge");
    set_long("An old humpbacked bridge.");
 
    add_exit("east", DIR + "/rooms/vill_green.c");

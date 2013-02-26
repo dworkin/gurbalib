@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("The local pub");
+   set_short("The local pub");
    set_long("You can order drinks here.");
 
    set_objects(([

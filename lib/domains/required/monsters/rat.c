@@ -8,7 +8,7 @@ void setup() {
    /* Leave out the gender specification, get a random one */
    /*  set_gender( "male" ); */
    add_adj("filthy");
-   set_in_room_desc("A small filthy rat.");
+   set_short("A small filthy rat");
    set_long("The rat smells awful.");
    set_race("rodent");
    set_level(1);

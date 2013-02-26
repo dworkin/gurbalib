@@ -4,7 +4,7 @@ void setup(void) {
    set_id("sword");
    set_long("This is a very fine blade.  It is covered with ancient runes." +
       "Engraved on it is a picture of the sword slicing an orc in half.");
-   set_in_room_desc("Short sword");
+   set_short("Short sword");
    set_gettable(1);
 
    set_min_damage(5);

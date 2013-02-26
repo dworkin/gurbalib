@@ -5,7 +5,7 @@ void setup(void) {
    set_adj("rich man's");
    set_long("A lovely sasuage with some cheese and wine.  " +
       "You mouth waters just looking at it.");
-   set_in_room_desc("Rich Man's Meal");
+   set_short("Rich Man's Meal");
    set_eatable(1);
    set_gettable(1);
    set_value(90);

@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("All at sea");
+   set_short("All at sea");
    set_long("You are swimming out at the sea.");
 
    add_exit("west", DIR + "/rooms/jetty2.c");

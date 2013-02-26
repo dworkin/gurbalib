@@ -2,7 +2,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("Fighters Guild Atrium");
+   set_short("Fighters Guild Atrium");
    set_long("You are standing in the magnificent atrium of the Gurba " +
       "Fighter's Guild. It is a massive room covered by a tall dome; from " +
       "the center of the dome a massive bronze chandelier is hung. There " +

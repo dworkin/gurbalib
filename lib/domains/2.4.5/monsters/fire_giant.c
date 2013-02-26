@@ -10,7 +10,7 @@ void setup() {
    set_name("giant");
    set_gender( "male" );
    add_adj("fire");
-   set_in_room_desc("A fire giant");
+   set_short("A fire giant");
    set_long("A mighty hot big guy.");
    set_race("giant");
    set_level(15);

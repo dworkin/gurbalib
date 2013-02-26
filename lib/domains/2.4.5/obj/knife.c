@@ -3,7 +3,7 @@ inherit WEAPON;
 void setup(void) {
    set_id("knife");
    set_long("A small sharp knife with a well worn wooden handle.");
-   set_in_room_desc("A knife.");
+   set_short("A knife");
    set_gettable(1);
 
    set_min_damage(1);

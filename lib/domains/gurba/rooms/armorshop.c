@@ -2,7 +2,7 @@
 inherit ROOM;
 
 void setup(void) {
-   set_brief("Timoth's Armorarium");
+   set_short("Timoth's Armorarium");
    set_long("This small but well-maintained shop smells strongly of " +
       "armor polish. This is no surprise, since the walls are covered in " +
       "all manner of gleaming plate armor and leather clothing. As the " +

@@ -18,7 +18,7 @@ void setup(void) {
    my_name = master_name + "'s page";
    set_gender("male");
    set_adj("slave");
-   set_in_room_desc(capitalize(master_name) + "'s page.");
+   set_short(capitalize(master_name) + "'s page.");
    set_long("The page is wearing a simple robe, and his head is always " +
       "bent in humbleness.");
    set_race("human");

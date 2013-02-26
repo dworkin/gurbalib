@@ -5,7 +5,8 @@ inherit M_OPENABLE;
 void setup(void) {
    set_id("chest");
    set_adj("wooden", "big");
-   set_long("A big wooden chest.");
+   set_short("A big wooden chest");
+   set_long("This thing looks like it weights a ton.  It's massive.");
    set_open_state(0);
 
    set_objects(([

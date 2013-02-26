@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Room of quests");
+   set_short("Room of quests");
    set_long("This is the room of quests. Every wizard can make at most " +
       "one quest.  When he has made a quest, he should have it approved " +
       "by an arch wizard.  When it is approved, put a permanent object " +

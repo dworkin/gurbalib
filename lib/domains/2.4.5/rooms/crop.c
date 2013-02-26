@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Fields");
+   set_short("Fields");
    set_long("You are in the middle of the fields where the city grows " +
       "all its crops.  A road runs north of here.");
 

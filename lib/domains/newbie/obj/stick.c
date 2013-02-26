@@ -5,7 +5,7 @@ void setup(void) {
    add_id("branch");
    set_adj("short");
    set_long("A rough branch from a tree.");
-   set_in_room_desc("A stick.");
+   set_short("A stick");
    set_gettable(1);
 
    set_min_damage(1);

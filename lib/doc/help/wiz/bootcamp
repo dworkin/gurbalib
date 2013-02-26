@@ -118,7 +118,7 @@ The file should look something like this:
 
 	   add_area("required");
 
-	   set_brief("The void");
+	   set_short("The void");
 	   set_long("If you're in here unintentionally, " +
 	      "something bugged out. " +
 	      "Report what you did to the staff.");
@@ -132,7 +132,7 @@ It inherits our room code (ROOM)  If you look at /kernel/include/std.h
 you'll see that ROOM is defined to be /std/room  or /std/room.c
 
 Then we have a function setup which sets our room up.
-It sets the area of our room, a brief and long description for the room
+It sets the area of our room, a short and long description for the room
 and adds an exit out which goes to our STARTING_ROOM.
 
 Now lets look at a basic object.  Type the following commands:
@@ -176,7 +176,7 @@ It should look something like this:
 	void setup() {
 	   set_name("rat");
 	   add_adj("filthy");
-	   set_in_room_desc("A small filthy rat.");
+	   set_short("A small filthy rat.");
 	   set_long("The rat smells awful.");
 	   set_race("rodent");
            set_gender("male");
@@ -347,7 +347,7 @@ like this:
 
 	   add_area("testing");
 
-	   set_brief("The backroom");
+	   set_short("The backroom");
 	   set_long("This is Harold's room.  It's kind of small but at " +
               "least it is clean.");
 

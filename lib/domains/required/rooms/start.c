@@ -3,7 +3,7 @@ inherit ROOM;
 void setup(void) {
    add_area("required");
 
-   set_brief("A large open field");
+   set_short("A large open field");
    set_long("You are in a large open field.  To the north you see a large " +
       "dead tree with some sort of sign on it.  To the east you see more " +
       "prarie.  To the west you see the ancient city of gurba.  To the " +

@@ -5,7 +5,7 @@ void setup(void) {
    set_name("bogus");
    set_gender("male");
    add_id("shopkeeper", "merchant");
-   set_in_room_desc("Bogus, the merchant");
+   set_short("Bogus, the merchant");
    set_long("He is a bit overweight, and he oozes money.");
    set_race("human");
    set_level(14);

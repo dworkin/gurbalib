@@ -9,7 +9,7 @@ object el;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("The attic");
+   set_short("The attic");
 
    el = get_el();
    if (el->query_location() == 3) {

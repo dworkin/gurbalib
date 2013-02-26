@@ -3,7 +3,7 @@ inherit OBJECT;
 void setup(void) {
    set_id("stethoscope");
    set_adj("old");
-   set_in_room_desc("A stethoscope");
+   set_short("A stethoscope");
    set_long("An old stethoscope.");
    set_gettable(1);
 

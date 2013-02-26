@@ -6,7 +6,7 @@ void setup(void) {
    add_area("GelmirRoad");
    add_area("GurbaOutdoor");
 
-   set_brief("Gelmir Road");
+   set_short("Gelmir Road");
    set_long("This section of Gelmir Road is dominated by a bunch of " +
       "formidable-looking individuals wearing armor and carrying " +
       "weapons.  Most of them seem to be coming and going from the " +

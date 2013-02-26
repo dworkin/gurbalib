@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Village road");
+   set_short("Village road");
    set_long("A long road going east through the village.  There are " +
      "stairs going down.  The road continues to the west.  " +
      "To the north is the shop, and to the south is the adventurers " +

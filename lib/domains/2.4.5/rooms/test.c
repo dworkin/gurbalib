@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Computer room");
+   set_short("Computer room");
    set_long("You are in an old computer room.");
 
    add_exit("east","/domains/2.4.5/rooms/rum2.c");

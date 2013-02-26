@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("The shop");
+   set_short("The shop");
    set_long("You are in a shop.  You can buy or sell things here.  " +
       "There is an opening to the north and a small room to the west.");
 

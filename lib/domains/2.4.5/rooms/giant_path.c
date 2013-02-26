@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("A path");
+   set_short("A path");
    set_long("You are on a path going east-west.  There are some VERY big " +
       "footsteps here.");
 

@@ -5,7 +5,7 @@ void create(void) {
    ::create();
    set_id("door");
    set_long("This force field covers the north entrance.");
-   set_in_room_desc("A shimmering blue force field.");
+   set_short("A shimmering blue force field");
    add_block("north");
    set_gettable(0);
 }

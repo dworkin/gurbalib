@@ -6,7 +6,7 @@ void setup(void) {
    add_area("MarketStreet");
    add_area("GurbaOutdoor");
 
-   set_brief("Market Street");
+   set_short("Market Street");
    set_long("You are near the middle of Market Street, the oldest (and " +
       "most crowded) section of Gurba Town. This particular section of " +
       "the street seems to be a bit wider than the surrounding areas, " +

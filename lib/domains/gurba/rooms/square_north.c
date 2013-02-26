@@ -6,7 +6,7 @@ void setup(void) {
    add_area("GurbaSquare");
    add_area("GurbaOutdoor");
 
-   set_brief("Gurba Town Square - North");
+   set_short("Gurba Town Square - North");
    set_long("The northern side of the town square is full of street " +
       "performers and musicians, all of whom are trying to outdo the " +
       "others. The townfolk watch them, cheering, booing, and " +

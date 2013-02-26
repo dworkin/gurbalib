@@ -1,7 +1,7 @@
 inherit "/std/room";
 
 void setup(void) {
-   set_brief("%^RED%^Fudge's workroom%^RESET%^");
+   set_short("%^RED%^Fudge's workroom%^RESET%^");
    set_long("The room is splashed with gore.  Piles of limbs in one corner " +
       "and piles of guts in another corner.  In the middle of the room " +
       "is a desk.  On the desk are some grotesque looking tools.");

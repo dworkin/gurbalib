@@ -4,7 +4,7 @@ void setup(void) {
    set_id("crown");
    set_adj("small","iron");
    set_long("It looks cute.");
-   set_in_room_desc("A small iron crown");
+   set_short("A small iron crown");
    set_gettable(1);
    set_slot("head");
    set_wear_message("$N $vput on $o.");

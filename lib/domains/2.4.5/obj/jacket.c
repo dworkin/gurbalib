@@ -6,7 +6,7 @@ void setup(void) {
    set_long("This is the kind of leather jacket all %^RED%^bad%^RESET%^ " +
       "dudes wear.  On the back is a lot of rivets making the " +
       "pattern of a star.");
-   set_in_room_desc("A worn but sturdy leather jacket.");
+   set_short("A worn but sturdy leather jacket");
    set_gettable(1);
    set_slot("body");
    set_wear_message("$N $vput on $o. Man, $N $vare cool!");

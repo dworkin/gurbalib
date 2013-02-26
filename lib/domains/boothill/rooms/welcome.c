@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("boothill");
 
-   set_brief("Welcome to town");
+   set_short("Welcome to town");
    set_long("A large sign streaches across the road.  It reads: \"Welcome " +
       "to town\".  The road north, bends to the west here.");
 

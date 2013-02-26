@@ -3,7 +3,7 @@ inherit OBJECT;
 void setup(void) {
    set_id("firebreather");
    set_long("This is an assume drink.");
-   set_in_room_desc("A firebreather");
+   set_short("A firebreather");
    set_eatable(1);
    set_gettable(1);
    set_value(2);

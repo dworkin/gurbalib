@@ -9,7 +9,7 @@ void setup() {
 
    set_name("frog");
    add_adj("cute");
-   set_in_room_desc("A cute little frog");
+   set_short("A cute little frog");
    set_long("It looks a little slimey.");
    set_race("frog");
    set_level(2);

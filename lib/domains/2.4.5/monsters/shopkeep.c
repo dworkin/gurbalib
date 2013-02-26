@@ -5,7 +5,7 @@ void setup(void) {
    set_name("shopkeeper");
    add_ids("shopkeep", "shopkeeper", "merchant");
    set_gender("male");
-   set_in_room_desc("Swill, the shopkeeper");
+   set_short("Swill, the shopkeeper");
    set_long("He is a burly hulk of a man.");
    set_race("human");
    set_level(15);

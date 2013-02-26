@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Giants conference of human bashing");
+   set_short("Giants conference of human bashing");
    set_long("You are at the yearly conference of human bashing, " +
       "organized by the giants");
 

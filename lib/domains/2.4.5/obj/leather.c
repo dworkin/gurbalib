@@ -3,7 +3,8 @@ inherit ARMOR;
 void setup(void) {
    set_id("armour");
    set_adj("leather");
-   set_long("A soft leather armour");
+   set_short("Leather armour");
+   set_long("It looks supple.");
    set_gettable(1);
    set_slot("body");
    set_wear_message("$N $vput on $o.");

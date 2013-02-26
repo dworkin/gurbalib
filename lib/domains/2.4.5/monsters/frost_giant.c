@@ -10,7 +10,7 @@ void setup() {
    set_name("giant");
    set_gender( "male" );
    add_adj("frost");
-   set_in_room_desc("A frost giant");
+   set_short("A frost giant");
    set_long("A frozen mass of muscle.  You really do not want to mess " +
       "with this giant.");
    set_race("giant");

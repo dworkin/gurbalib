@@ -35,7 +35,7 @@ int query_location() {
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Elevator");
+   set_short("Elevator");
 
    location = 1;
    set_floor(1);

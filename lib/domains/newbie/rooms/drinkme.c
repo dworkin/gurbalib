@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("newbie");
 
-   set_brief("Waiting Area");
+   set_short("Waiting area");
    set_long("You are in a small tunnel.  This room looks like a small " +
       "waiting area.  You hear loud noises to the north.");
 

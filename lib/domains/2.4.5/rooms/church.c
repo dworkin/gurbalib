@@ -9,7 +9,7 @@ object el;
 void setup(void) {
    add_area("2.4.5");
 
-   set_brief("Village church");
+   set_short("Village church");
    set_long("You are in the local village church.  There is a huge " +
       "pit in the center, and a door in the west wall.  " +
       "There is a button beside the door.  This church has the service " +

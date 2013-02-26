@@ -7,7 +7,7 @@ void setup(void) {
    add_area("BorderWalk");
    add_area("BorderWalkEast");
 
-   set_brief("Eastern Gate of Gurba Town");
+   set_short("Eastern Gate of Gurba Town");
    set_long("You are at the eastern entrance to the town of Gurba.  " +
       "The gate itself is a large, ancient arch of stone, connected on " +
       "either side to the tall, worn stone wall that marks the perimeter " +

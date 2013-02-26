@@ -6,7 +6,7 @@ void setup(void) {
    add_area("WellerAve");
    add_area("GurbaOutdoor");
 
-   set_brief("Weller Avenue");
+   set_short("Weller Avenue");
    set_long("You are at the northern end of Weller Avenue, a pleasant " +
       "tree-lined walk that seems to be largely surrounded by old and " +
       "well-kept houses. The landscaping is immaculate and the brick on " +

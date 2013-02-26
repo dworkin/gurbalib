@@ -14,7 +14,7 @@ void create(void) {
    ::create();
    set_id("door");
    set_long("Your average wooden door.");
-   set_in_room_desc("A wooden door");
+   set_short("A wooden door");
    set_gettable(0);
    set_open_state(0);
 }

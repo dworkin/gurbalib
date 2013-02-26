@@ -4,7 +4,7 @@ inherit ROOM;
 void setup(void) {
    add_area("boothill");
 
-   set_brief("Outside town");
+   set_short("Outside town");
    set_long("A small dirt road leads north to a small frontier town.");
 
    set_exits(([
