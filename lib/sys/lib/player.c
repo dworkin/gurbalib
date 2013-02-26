@@ -74,6 +74,7 @@ void create(void) {
 
    custom_colors = ([]);
    item_commands = ([]);
+   level = 1;
 }
 
 /* Save the player */

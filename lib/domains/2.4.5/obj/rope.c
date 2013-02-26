@@ -8,6 +8,7 @@ void setup(void) {
    set_gettable(1);
    set_value(15);
    set_weight(10);
+   set_short("An old rope");
 }
 
 string query_long() {

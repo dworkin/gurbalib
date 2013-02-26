@@ -137,7 +137,5 @@ int query_expr(void) {
 }
 
 int query_level(void) {
-   if (level < 1)
-      level = 1;
    return (level);
 }
