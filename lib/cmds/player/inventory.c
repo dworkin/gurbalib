@@ -32,29 +32,14 @@ void main(string str) {
       write("You are carrying:\n");
       for (i = 0; i < sizeof(inv); i++) {
 	 if (inv[i]->is_worn()) {
-
-	    if (inv[i]->query_adj() != "")
-	       write("  " + inv[i]->query_adj() + " " + inv[i]->query_id()
-		  + " %^CYAN%^[" + inv[i]->query_wear_position()
-		  + "]%^RESET%^\n");
-	    else
-	       write("  " + inv[i]->query_id() + " %^CYAN%^["
-		  + inv[i]->query_wear_position() + "]%^RESET%^\n");
-
+	    write("  " + inv[i]->query_short() +
+               " %^CYAN%^[" + inv[i]->query_wear_position() +
+               "]%^RESET%^\n");
 	 } else if (inv[i]->is_wielded()) {
-	    if (inv[i]->query_adj() != "")
-	       write("  " + inv[i]->query_adj() + " " + inv[i]->query_id()
-		  + " %^CYAN%^[" + inv[i]->query_wield_position()
-		  + "]%^RESET%^\n");
-	    else
-	       write("  " + inv[i]->query_id() + " %^CYAN%^["
+	    write("  " + inv[i]->query_short() + " %^CYAN%^["
 		  + inv[i]->query_wield_position() + "]%^RESET%^\n");
 	 } else {
-	    if (inv[i]->query_adj() != "")
-	       write("  " + inv[i]->query_adj() + " " + inv[i]->query_id()
-		  + "\n");
-	    else
-	       write("  " + inv[i]->query_id() + "\n");
+	       write("  " + inv[i]->query_short() + "\n");
 	 }
       }
    }
