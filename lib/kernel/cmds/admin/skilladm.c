@@ -13,7 +13,7 @@ void usage() {
    lines += ({ "\tskilladm remove english" });
    lines += ({ "\tskilladm add dodge" });
    lines += ({ "See also:" });
-   lines += ({ "\tskills, aliasadm, coloradm, emoteadm" });
+   lines += ({ "\taliasadm, coloradm, emoteadm, skills, questadm" });
 
    this_player()->more(lines);
 }
