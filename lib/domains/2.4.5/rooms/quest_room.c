@@ -5,7 +5,12 @@ void setup(void) {
    add_area("2.4.5");
 
    set_short("Room of quests");
-   set_long("This is the room of quests. Every wizard can make at most " +
+   set_long("This was the room of quests.\n" +
+      "It has been replaced by or own quest system.\n" +
+      "What follows are old outdated instructions.  For current info talk to " +
+      "an admin and look at the help for the following commands:\n" +
+      "\tquests, questadm, check\n" +
+      "Begin old instructions:  Every wizard can make at most " +
       "one quest.  When he has made a quest, he should have it approved " +
       "by an arch wizard.  When it is approved, put a permanent object " +
       "in this room, wich has as short description the name of the " +
@@ -20,10 +25,5 @@ void setup(void) {
       "solved by this player, otherwise 0.");
 
    add_exit("south", DIR + "/rooms/wiz_hall.c");
-   add_room_command("quests", "list_quests");
 }
 
-
-/* XXX Need to add show quests.... */
-void list_quests() {
-}
