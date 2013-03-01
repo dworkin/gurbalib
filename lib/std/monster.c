@@ -7,8 +7,6 @@ inherit "/std/body/skills";
 inherit M_MESSAGES;
 inherit M_ACTIONS;
 
-string living_name;
-static object possessor;
 static int aggressive;
 
 void create(void) {
@@ -17,7 +15,6 @@ void create(void) {
    con::create();
    bod::create();
    set_gettable(0);
-   living_name = nil;
 
    x = random(2) + 1;
    switch (x) {
@@ -30,45 +27,8 @@ void create(void) {
    }
 }
 
-int is_player(void) {
-   return 0;
-}
-
-int is_living(void) {
-   return 1;
-}
-
-int is_possessed(void) {
-   if (possessor)
-      return 1;
-   return 0;
-}
-
-void set_possessor(object ob) {
-   possessor = ob;
-}
-
-object query_possessor(void) {
-   return possessor;
-}
-
 int is_attackable(void) {
    return 1;
-}
-
-void set_name(string name) {
-   living_name = name;
-   set_id(name);
-}
-
-string query_name(void) {
-   return (living_name);
-}
-
-/* XXX This should not be here and in player/user.c but its needed 
-   for monsters as well as players...  should fix it */
-string query_Name(void) {
-   return (capitalize(living_name));
 }
 
 void set_wearing(mixed obj) {

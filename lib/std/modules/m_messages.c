@@ -6,7 +6,11 @@ string *compose_message(object who, string msg, object target,
    string us, them, others;
    int punc, i, objnum;
 
-   words = explode(msg, " ");
+   if (msg && msg != "") {
+      words = explode(msg, " ");
+   } else {
+      return ({});
+   }
    us = "";
    them = "";
    others = "";

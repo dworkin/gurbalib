@@ -15,7 +15,6 @@ inherit "/std/body/skills";
 static object user;		/* This players user object */
 static string input_to_func;	/* The function we're redirecting input to */
 static object input_to_obj;	/* The object we're redirecting input to */
-static object possessing;	/* The object this player is possessing */
 static int linkdead;		/* Are we linkdead? */
 static int quitting;		/* Are we in the process of quitting? */
 static int timestamp;		/* Last time we got input */
@@ -33,7 +32,6 @@ string email_address;		/* The email address */
 mapping board_read;		/* Status of messages read */
 mapping environment_variables;	/* The environment variables of the player */
 string title;			/* The title */
-string player_name;		/* The player name */
 string password;		/* The password */
 string *cmd_path;		/* The path which is searched for comands */
 string *channels;		/* Channels we're listening to */
@@ -59,7 +57,7 @@ void create(void) {
    con::create();
    bod::create();
 
-   player_name = "guest";
+   living_name = "guest";
    board_read = ([]);
    channels = ( { "gossip", "announce" } );
    ignored = ( { } );
@@ -79,21 +77,21 @@ void create(void) {
 
 /* Save the player */
 void save_me(void) {
-   if (player_name != "guest") {
-      unguarded("save_object", "/data/players/" + player_name + ".o");
+   if (living_name != "guest") {
+      unguarded("save_object", "/data/players/" + living_name + ".o");
    }
 }
 
 /* Restore the player */
 void restore_me(void) {
-   if (!unguarded("restore_object", "/data/players/" + player_name + ".o")) {
-      write("Error while restoring \"/data/players/" + player_name + ".o");
+   if (!unguarded("restore_object", "/data/players/" + living_name + ".o")) {
+      write("Error while restoring \"/data/players/" + living_name + ".o");
       write("Please notify the administration.");
       return;
    }
    if (!board_read)
       board_read = ([]);
-   set_id(player_name);
+   set_id(living_name);
    if (!alias)
       alias = ([]);
 }
@@ -105,7 +103,7 @@ void login_player(void) {
    string race;
 
    /* If we're a wiz, show the didlog since last login */
-   if (query_user_priv(player_name) > 0) {
+   if (query_user_priv(living_name) > 0) {
       didlog = DID_D->get_entries(last_login);
 
       if (didlog) {
@@ -118,11 +116,11 @@ void login_player(void) {
       }
    }
    if (!last_login) {
-      EVENT_D->event("new_player", player_name);
+      EVENT_D->event("new_player", living_name);
       last_login = time();
    } else {
       last_login = time();
-      EVENT_D->event("player_login", player_name);
+      EVENT_D->event("player_login", living_name);
    }
 
    /* Gender less? Set the player to male */
@@ -171,26 +169,8 @@ string query_last_tell(void) {
    return last_tell;
 }
 
-int is_living(void) {
-   return 1;
-}
-
 int is_player(void) {
    return 1;
-}
-
-int is_possessing(void) {
-   if (possessing)
-      return 1;
-   return 0;
-}
-
-object query_possessing(void) {
-   return possessing;
-}
-
-void set_possessing(object ob) {
-   possessing = ob;
 }
 
 void set_env(string name, mixed value) {
@@ -198,8 +178,7 @@ void set_env(string name, mixed value) {
       environment_variables = ([]);
    }
    environment_variables[name] = value;
-   if (player_name)
-      save_me();
+   if (living_name) save_me();
 }
 
 mixed query_env(string name) {
@@ -260,8 +239,8 @@ string query_title(void) {
 
    if (!t || t == "")
       t = "$N the title less";
-   t2 = replace_string(t, "$N", capitalize(player_name));
-   if (t2 == t)  t2 = capitalize(player_name) + " " + t;
+   t2 = replace_string(t, "$N", capitalize(living_name));
+   if (t2 == t)  t2 = capitalize(living_name) + " " + t;
 
    return t2;
 }
@@ -299,19 +278,6 @@ int query_idle(void) {
 
 object query_user(void) {
    return user;
-}
-
-void set_name(string name) {
-   player_name = name;
-   set_id(name);
-}
-
-string query_name(void) {
-   return player_name;
-}
-
-string query_Name(void) {
-   return capitalize(player_name);
 }
 
 void set_real_name(string str) {
@@ -441,7 +407,7 @@ void write_prompt() {
       prompt = "> ";
    } else {
       prompt = replace_string(prompt, "%t", ctime(time())[11..18]);
-      prompt = replace_string(prompt, "%n", capitalize(player_name));
+      prompt = replace_string(prompt, "%n", capitalize(living_name));
       prompt = replace_string(prompt, "%m", MUD_NAME);
       prompt = replace_string(prompt, "%w", query_env("cwd"));
       prompt = replace_string(prompt, "%_", "\n");
@@ -672,7 +638,7 @@ void do_quit(void) {
 	 channels[i] = nil;
       }
    }
-   EVENT_D->event("player_logout", player_name);
+   EVENT_D->event("player_logout", living_name);
    quitting = 1;
    set_this_player(sp);
    query_user()->quit();
@@ -938,7 +904,7 @@ void receive_message(string message) {
 	 if (CHANNEL_D->query_channel(cmd) == 1) {
 	    /* Okey, it's a channel. Are we priveleged enough to use it? */
 	    if (CHANNEL_D->query_priv(cmd) + 1 == READ_ONLY ||
-	       CHANNEL_D->query_priv(cmd) <= query_user_priv(player_name)) {
+	       CHANNEL_D->query_priv(cmd) <= query_user_priv(living_name)) {
 
 	       flag = 1;
 	       "/cmds/player/chan"->chan_cmd(cmd, arg);
