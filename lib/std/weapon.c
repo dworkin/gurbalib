@@ -7,6 +7,7 @@ int weapon_class;
 int hit_bonus;
 string weapon_skill;
 string weapon_action;
+string weapon_miss;
 
 void create(void) {
    ob::create();
@@ -60,6 +61,14 @@ void set_weapon_action(string verb) {
 
 string query_weapon_action(void) {
    return (weapon_action);
+}
+
+void set_weapon_miss(string verb) {
+   weapon_miss = verb;
+}
+
+string query_weapon_miss(void) {
+   return (weapon_miss);
 }
 
 void set_weapon_skill(string skill) {
