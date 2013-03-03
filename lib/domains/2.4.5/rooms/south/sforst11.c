@@ -9,6 +9,6 @@ void setup(void) {
       "Trails lead north, south and west.");
 
    add_exit("north",DIR + "/rooms/south/sforst10.c");
-   add_exit("south", DIR + "/rooms/south/sforst2.c");
+   add_exit("south", DIR + "/rooms/south/sforst12.c");
    add_exit("west", DIR + "/rooms/south/sshore3.c");
 }
