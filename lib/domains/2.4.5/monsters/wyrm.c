@@ -10,7 +10,7 @@ void setup() {
 
    set_name("wyrm");
    set_short("The wyrm of Arcanarton");
-   set_long("The giant undead dragon wyou see before you is the result " +
+   set_long("The giant undead dragon you see before you is the result " +
        "of one of Arcanarton's magic experiments..");
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 100);
