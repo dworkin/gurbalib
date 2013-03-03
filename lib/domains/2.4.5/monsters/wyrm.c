@@ -1,3 +1,5 @@
+#include "../domain.h"
+
 inherit MONSTER;
 inherit M_ACTIONS;
 inherit M_TRIGGERS;
@@ -18,7 +20,7 @@ void setup() {
    set_level(17);
    set_aggressive(1);
 
-   obj = clone_object(DIR + "/obj/jem");
+   obj = clone_object(DIR + "/obj/gem");
    obj->setup();
    obj->move(this_object());
 
