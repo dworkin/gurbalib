@@ -6,7 +6,7 @@ void setup(void) {
 
    set_short("The bottom of the well");
    set_long("You are standing at the bottom of the well.  " +
-      "About thirty feet below the surface.  Bones lie strwen about in a " +
+      "About thirty feet below the surface.  Bones lie strewn about in a " +
       "random fashion, many of them broken or shattered.  The only way out " +
       "is the way in, back up the ladder.");
 
