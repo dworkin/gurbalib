@@ -6,12 +6,12 @@ void setup(void) {
 
    set_short("The shore of Crescent Lake");
    set_long("You are standing on the shore of Crescent Lake, a beautiful " +
-      "and clear lake.  Out in the centre of the lake stands the Isle " +
+      "and clear lake.  Out in the center of the lake stands the Isle " +
       "of the Magi.  A Trail lead into the forest to the north." +
       "The shore of Crescent Lake continues northeast and northwest.  " +
       "To the southeast, a stone bridge used to cross over to the " +
       "Isle of the Magi, but it has fallen into the lake, making the " +
-      "crossing fo the island impossible by that means.);
+      "crossing to the island impossible by that means.);
 
    add_exit("north", DIR + "/rooms/south/sforst46.c");
    add_exit("northeast", DIR + "/rooms/south/sshore27.c");
@@ -24,12 +24,12 @@ string query_long() {
    string str;
 
    str = "You are standing on the shore of Crescent Lake, a beautiful " +
-      "and clear lake.  Out in the centre of the lake stands the Isle " +
+      "and clear lake.  Out in the center of the lake stands the Isle " +
       "of the Magi.  A Trail lead into the forest to the north." +
       "The shore of Crescent Lake continues northeast and northwest.  " +
       "To the southeast, a stone bridge used to cross over to the " +
       "Isle of the Magi, but it has fallen into the lake, making the " +
-      "crossing fo the island impossible by that means.";
+      "crossing to the island impossible by that means.";
 
    if (this_player()->query_level() > 15) {
       str += "  However, you can make out the faint outline of a magical " +

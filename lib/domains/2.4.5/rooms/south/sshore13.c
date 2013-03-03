@@ -6,7 +6,7 @@ void setup(void) {
 
    set_short("The shore of Crescent Lake");
    set_long("You are standing on the shore of Crescent Lake, a beautiful " +
-      "and clear lake.  Out in the centre of the lake stands the Isle " +
+      "and clear lake.  Out in the center of the lake stands the Isle " +
       "of the Magi.  " +
       "The shore of Crescent Lake continues east and west.");
 
