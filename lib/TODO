@@ -20,20 +20,12 @@ ladders/stairs, portals
 tracking of most used rooms, objects
 auto dest/update of all instances of an object
 
-Why sys/obj/user/telnet.c  it just inherits /sys/lib/user right now ???
 	if you look at kernel/include/std.h it defines:
 kernel/include/std.h:#define TELNET_USER_OB  "/sys/obj/user/telnet"
 kernel/include/std.h:#define SSH_USER_OB     "/sys/obj/user/ssh"
 kernel/include/std.h:#define HTTP_USER_OB    "/sys/obj/user/http"
 kernel/include/std.h:#define FTP_USER_OB     "/sys/obj/user/ftp_command"
 	so it should maybe be more modular???
-
-figure out why query_users, query_players, users()  do we need all of them?
-	query_users() you need to do ->query_player()  why
-	find_user(string str)  you also need to do a ->query_player() odd...
-
-Also look at query_Name vs query_name and friends... 
-seems like there are a few overlaps that are not needed...
 
 fix  You wield your the shield.
 
