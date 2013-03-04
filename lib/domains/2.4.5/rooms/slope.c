@@ -7,7 +7,7 @@ void setup(void) {
    set_short("A slope");
    set_long("The forest gets light here, and slopes down to the west.");
 
-   add_exit("south", DIR + "/rooms/orc_vall.c");
+   add_exit("south", DIR + "/rooms/forest3.c");
    add_exit("east", DIR + "/rooms/forest2.c");
-   add_exit("west", DIR + "/rooms/forest3.c");
+   add_exit("west", DIR + "/rooms/orc_vall.c");
 }

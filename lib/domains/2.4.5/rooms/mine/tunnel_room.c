@@ -7,9 +7,9 @@ void setup(void) {
    set_short("A small room");
    set_long("A small room with rough cut walls.");
 
-   add_exit("south", DIR + "/rooms/tunnel5.c");
+   add_exit("south", DIR + "/rooms/mine/tunnel5.c");
 
    set_objects (([
-      DIR + "/monster/hobgoblin.c": 1,
+      DIR + "/monsters/hobgoblin.c": 1,
    ]));
 }

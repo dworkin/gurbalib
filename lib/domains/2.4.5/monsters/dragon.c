@@ -10,10 +10,9 @@ int count;
 void setup() {
    object obj;
 
-   set_name("wyrm");
-   set_short("The wyrm of Arcanarton");
-   set_long("The giant undead dragon you see before you is the result " +
-       "of one of Arcanarton's magic experiments.");
+   set_name("dragon");
+   set_short("The cave dragon");
+   set_long("A scaley mass of teeth and claws.");
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 100);
    set_skill("combat/defense", 100);
@@ -30,10 +29,3 @@ void setup() {
    obj->setup();
 }
 
-void do_extra_actions() {
-   count = count + 1;
-   if (count >= INTERVAL) {
-/* XXX Do breathe death on you */
-      count = 0;
-   }
-}

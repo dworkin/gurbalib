@@ -5,6 +5,8 @@ void setup(void) {
    add_area("2.4.5");
 
    set_short("Hole in ceiling");
+   add_exit("east", DIR + "/rooms/mine/tunnel14.c");
+   add_exit("west", DIR + "/rooms/mine/tunnel10.c");
    add_room_command("up","do_up");
    add_room_command("climb","do_up");
 }
@@ -18,7 +20,7 @@ string query_long() {
    }
 }
 
-void do_up(string str) {
+int do_up(string str) {
    if (str == "rope" || str == "up") { 
       if (!call_other(DIR + "/rooms/mine/tunnel3","query_tied")) {
          write("You can not climb up, there is not a rope.\n");

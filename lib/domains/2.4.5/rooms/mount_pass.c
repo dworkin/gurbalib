@@ -10,7 +10,9 @@ void setup(void) {
      "is a tunnel entrance to the north.  It might be possible to climb " +
      "up, though.");
 
-   add_exit("north", DIR + "/rooms/vill_shore.c");
+   add_exit("north", DIR + "/rooms/mine/tunnel.c");
+   add_exit("south", DIR + "/rooms/plain11.c");
+   add_exit("up", DIR + "/rooms/ravine.c"); /* XXX Maybe make this like climb */
    add_room_command("climb","do_climb");
 }
 
