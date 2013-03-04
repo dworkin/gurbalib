@@ -107,8 +107,12 @@ void check_exits(object obj, mapping myexits) {
       write("Checking exit: " + indices[x] + " " + exitfile + "\n");
 
       if (!file_exists(exitfile)) {
-         warn("Exit: " + indices[x] + ":" + 
-            myexits[exitfile] + " does not exist.\n");
+         if (myexits[exitfile]) {
+            warn("Exit: " + indices[x] + ":" + 
+               myexits[exitfile] + " does not exist.\n");
+         } else {
+            warn("Exit: " + indices[x] + ": does not exist.\n"); 
+         }
       } else if (invert_exit(indices[x]) != "unknown") {
          filename = obj->base_name();
          filename = add_dotc(filename);

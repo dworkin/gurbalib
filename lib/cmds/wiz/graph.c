@@ -31,6 +31,20 @@ void usage() {
 
 string filename;
 
+int valid_extension(string str) {
+   int x;
+
+   x =strlen(str);
+   if (x < 3) {
+      return 0;
+   }
+   x= x -2;
+   if (str[x..] == ".c") {
+      return 1;
+   }
+   return 0;
+}
+
 void print_node(string room, string dir) {
    mapping exits;
    string *keys, filepath, tmp;
@@ -51,7 +65,10 @@ void print_node(string room, string dir) {
       if (exits) {
 	 maxi = sizeof(keys);
 	 for (i = 0; i < maxi; i++) {
-	    tmp = exits[keys[i]] + ".c";
+	    tmp = exits[keys[i]];
+            if (!valid_extension(tmp)) {
+               tmp += ".c";
+            }
 	    filepath = replace_string(tmp, dir, "");
 	    write_file(filename, "\t\"" + room + "\" -> \"" + filepath +
 	       "\" [label = \"" + keys[i] + "\"];\n");
