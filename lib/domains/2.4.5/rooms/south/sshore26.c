@@ -11,7 +11,7 @@ void setup(void) {
       "The shore of Crescent Lake continues northeast and northwest.  " +
       "To the southeast, a stone bridge used to cross over to the " +
       "Isle of the Magi, but it has fallen into the lake, making the " +
-      "crossing to the island impossible by that means.);
+      "crossing to the island impossible by that means.");
 
    add_exit("north", DIR + "/rooms/south/sforst46.c");
    add_exit("northeast", DIR + "/rooms/south/sshore27.c");
@@ -48,5 +48,4 @@ int go_southeast() {
       "across to the Isle of the Magi.");
    /* XXX do the move stuff  to: sislnd1 */
    return 1;
-   }
 }
