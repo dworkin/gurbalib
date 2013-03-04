@@ -9,7 +9,7 @@ void setup(void) {
       "There is a lever beside a door to the west.");
 
    add_exit("north", DIR + "/rooms/maze/maze1.c");
-   add_exit("up", DIR + "/rooms/alley.c");
+   add_exit("up", DIR + "/rooms/narr_alley.c");
 
 }
 

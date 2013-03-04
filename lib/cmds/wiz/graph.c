@@ -2,6 +2,7 @@
 #include <status.h>
 
 #define TIMEOUT 2000
+string filename;
 
 void usage() {
    string *lines;
@@ -28,8 +29,6 @@ void usage() {
 
    this_player()->more(lines);
 }
-
-string filename;
 
 int valid_extension(string str) {
    int x;
@@ -96,6 +95,7 @@ void print_nodes_step(string * files, string str, int i) {
       if (i >= size) {
 	 write_file(filename, "}\n");
 	 write_file(filename, "# End: size = " + size + " Dir = " + str + "\n");
+         write("Output went to :" + filename + "\n");
       } else {
 	 call_out("print_nodes_step", 0, files, str, i);
       }
@@ -141,7 +141,13 @@ void main(string str) {
    }
    files = dirent[0];
 
-   /* do the work here... */
+   if (file_exists(filename)) {
+      if (!remove_file(filename)) {
+         write("Unable to delete: " + filename + "\n");
+         return;
+      }
+   }
+
    write_file(filename, "# Use neato -Tpng thisfile.dot -o thisfile.png\n");
    write_file(filename, "# Graph of : " + str + "\n");
    write_file(filename, "digraph G {\n");

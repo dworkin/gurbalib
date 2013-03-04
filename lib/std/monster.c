@@ -94,7 +94,7 @@ int query_aggressive() {
 }
 
 int set_level(int x) {
-
+   level = x;
    x = x * 6;
    set_max_hp(x);
    set_hp(x);
@@ -103,4 +103,8 @@ int set_level(int x) {
    set_max_end(x * 2);
    set_end(x * 2);
    return 1;
+}
+
+int query_level() {
+   return level;
 }

@@ -16,7 +16,6 @@ void setup(void) {
       "of reviving ghosts.  Dead people come to the church and pray.  " +
       "there is a clock on the wall.  There is an exit to the south.");
 
-   add_exit("north", DIR + "/rooms/vill_shore.c");
    add_exit("south", DIR + "/rooms/vill_green.c");
 
    add_item("clock","The clock appears to be broken, it is stuck at: 1:26");
@@ -25,10 +24,12 @@ void setup(void) {
       "left for tourists to look at.");
 
    el = get_el();
-   if (el->query_location() == 3) {
-      el_arrives();
-   } else {
-      el_leaves();
+   if (el) {
+      if (el->query_location() == 3) {
+         el_arrives();
+      } else {
+         el_leaves();
+      }
    }
 }
 

@@ -10,5 +10,5 @@ void setup(void) {
    add_exit("north", DIR + "/rooms/plain10.c");
    add_exit("south", DIR + "/rooms/plain5.c");
    add_exit("east", DIR + "/rooms/plain3.c");
-   add_exit("west", DIR + "/rooms/bit_tree.c");
+   add_exit("west", DIR + "/rooms/big_tree.c");
 }

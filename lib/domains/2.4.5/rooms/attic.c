@@ -12,10 +12,12 @@ void setup(void) {
    set_short("The attic");
 
    el = get_el();
-   if (el->query_location() == 3) {
-      el_arrives();
-   } else {
-      el_leaves();
+   if (el) {
+      if (el->query_location() == 3) {
+         el_arrives();
+      } else {
+         el_leaves();
+      }
    }
 }
 
