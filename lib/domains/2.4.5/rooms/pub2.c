@@ -10,7 +10,7 @@ void setup(void) {
    set_objects(([
       DIR + "/monsters/barkeep.c": 1,
       "/domains/required/objects/mer_sign.c": 1,
-   }
+   ]));
 
    add_exit("west", DIR + "/rooms/yard.c");
 }

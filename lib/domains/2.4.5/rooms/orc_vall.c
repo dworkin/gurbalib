@@ -11,6 +11,6 @@ void setup(void) {
    add_exit("east", DIR + "/rooms/slope.c");
 
    set_objects (([
-      "/monsters/orc.c": 1,
+      DIR + "/monsters/orc.c": 1,
    ]));
 }

@@ -7,6 +7,6 @@ void setup(void) {
    set_short("Deep forest");
    set_long("You are in the deep forest.");
 
-   add_exit("north", DIR + "/rooms/slope.c");
+   add_exit("east", DIR + "/rooms/slope.c");
    add_exit("south", DIR + "/rooms/forest4.c");
 }
