@@ -28,6 +28,7 @@ void warn(string str) {
    write("Warning: " + str);
    warn+=1;
 }
+
 void error(string str) {
    write("Warning: " + str);
    error+=1;
@@ -198,7 +199,7 @@ void do_check(string str) {
 
    what = get_what(str);
    if (file_exists(what) == -1) {
-      write("Checking directories unsupported currently: " + what + "\n");
+      error("Checking directories unsupported currently: " + what + "\n");
    } else {
       if (file_exists(what) == 1) {
          write("Looking at file: " + what + "\n");
@@ -220,6 +221,8 @@ void do_check(string str) {
          } else {
             error("Unable to compile: " + str + "\n");
          }
+      } else {
+            error("FIle does not exist: " + str + "\n");
       }
    }
 }
