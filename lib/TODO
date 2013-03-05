@@ -1,9 +1,8 @@
 XXX THIS WHOLE FILE XXX
 
 Just a simple todo list.  If you grep for XXX in the code you'll
-find todo's for individual files.  This here is for
-higher level concepts and ideas that don't translate well to a given
-file currently.
+find todo's for individual files.  This here is for higher level concepts 
+and ideas that don't translate well to a given file currently.
 
 look into using ssh to connect by default.  telnet is dead... ;)
 
@@ -15,8 +14,6 @@ Party system (invite, say, report), Clans, Expand Guilds
 PK system (announcing, death announcing)
 m_lockable, keys
 m_switchable, Levers
-m_throwable
-ladders/stairs, portals
 tracking of most used rooms, objects
 auto dest/update of all instances of an object
 
@@ -27,7 +24,7 @@ kernel/include/std.h:#define HTTP_USER_OB    "/sys/obj/user/http"
 kernel/include/std.h:#define FTP_USER_OB     "/sys/obj/user/ftp_command"
 	so it should maybe be more modular???
 
-fix  You wield your the shield.
+fix: You wield your the shield.
 
 why /daemons, /kernel/daemons, /sys/daemons
     /sys, /kernel/sys, 
