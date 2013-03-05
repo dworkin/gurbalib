@@ -42,6 +42,6 @@ void main(string file) {
 	 out(lines[i] + "\n");
       }
    } else {
-      write("That file doesn't exist.");
+      write("That file: " + file + "  does not exist.");
    }
 }
