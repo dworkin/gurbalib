@@ -17,7 +17,7 @@ void setup(void) {
    add_exit("northeast", DIR + "/rooms/south/sshore27.c");
    add_exit("northwest", DIR + "/rooms/south/sshore25.c");
 /* XXX Need to add this better See original */
-   add_exit("southeast", DIR + "/rooms/south/sshore26.c");
+   add_exit("southeast", DIR + "/rooms/south/sislnd1.c");
 }
 
 string query_long() {
