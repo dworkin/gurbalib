@@ -10,7 +10,6 @@ void setup(void) {
       "of the Magi.  A Trail leads into the forest to the east.  " +
       "The shore of Crescent Lake continues west and southeast.");
 
-   add_exit("east", DIR + "/rooms/south/sforst8.c");
+   add_exit("east", DIR + "/rooms/south/sshore30.c");
    add_exit("west", DIR + "/rooms/south/sshore28.c");
-   add_exit("southeast", DIR + "/rooms/south/sshore1.c");
 }

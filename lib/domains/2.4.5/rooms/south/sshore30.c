@@ -11,6 +11,6 @@ void setup(void) {
       "The shore of Crescent Lake continues west and southeast.");
 
    add_exit("east", DIR + "/rooms/south/sforst8.c");
-   add_exit("west", DIR + "/rooms/south/sshore28.c");
+   add_exit("west", DIR + "/rooms/south/sshore29.c");
    add_exit("southeast", DIR + "/rooms/south/sshore1.c");
 }
