@@ -23,6 +23,8 @@ void usage() {
 #define MODE_READ 0
 
 void main(string arg) {
+   int tmp;
+
    if (!arg || arg == "") {
       arg = "/wiz/" + this_player()->query_name();
    } else if (sscanf(arg, "-%s", arg)) {
@@ -41,8 +43,13 @@ void main(string arg) {
       arg = arg[..strlen(arg) - 2];
    }
 
-   if (file_exists(arg) != -1) {
-      write("Dir not found: " + file_exists(arg) + "\n");
+   tmp = file_exists(arg);
+
+   if (tmp == 1) {
+      write("Can not cd to a file: " + arg + "\n");
+      return;
+   } else if (tmp != -1) {
+      write("Error " + tmp + ": Dir not found: " + arg + "\n");
       return;
    }
 
