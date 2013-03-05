@@ -10,6 +10,6 @@ void setup(void) {
 
    add_exit("north",DIR + "/rooms/south/sshore7.c");
    add_exit("south", DIR + "/rooms/south/sforst18.c");
-   add_exit("east", DIR + "/rooms/south/sshore16.c");
+   add_exit("east", DIR + "/rooms/south/sforst16.c");
    add_exit("west", DIR + "/rooms/south/sshore8.c");
 }

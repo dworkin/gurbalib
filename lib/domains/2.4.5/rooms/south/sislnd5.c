@@ -12,6 +12,6 @@ void setup(void) {
       "Halfway up the hill you can see some sort of crumbled monument.");
 
    add_exit("north", DIR + "/rooms/south/sislnd4.c");
-   add_exit("west", DIR + "/rooms/south/sislnd115.c");
+   add_exit("west", DIR + "/rooms/south/sislnd15.c");
    add_exit("southwest", DIR + "/rooms/south/sislnd6.c");
 }

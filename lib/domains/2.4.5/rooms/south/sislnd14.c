@@ -14,6 +14,6 @@ void setup(void) {
 
    add_exit("north", DIR + "/rooms/south/sislnd2.c");
    add_exit("south", DIR + "/rooms/south/sislnd15.c");
-   add_exit("east", DIR + "/rooms/south/sislnd14.c");
+   add_exit("east", DIR + "/rooms/south/sislnd4.c");
    add_exit("west", DIR + "/rooms/south/sislnd13.c");
 }

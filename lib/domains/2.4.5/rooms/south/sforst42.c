@@ -10,5 +10,5 @@ void setup(void) {
 
    add_exit("north",DIR + "/rooms/south/sforst40.c");
    add_exit("east", DIR + "/rooms/south/sforst41.c");
-   add_exit("west", DIR + "/rooms/south/sforst44.c");
+   add_exit("west", DIR + "/rooms/south/sforst43.c");
 }
