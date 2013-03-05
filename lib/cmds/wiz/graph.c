@@ -148,7 +148,8 @@ void main(string str) {
       }
    }
 
-   write_file(filename, "# Use neato -Tpng thisfile.dot -o thisfile.png\n");
+   write_file(filename, "# Use neato -Tpng " + this_player()->query_name() + 
+      ".dot -o " + this_player()->query_name() + ".png\n");
    write_file(filename, "# Graph of : " + str + "\n");
    write_file(filename, "digraph G {\n");
    write_file(filename, "\toverlap = scale;\n");
