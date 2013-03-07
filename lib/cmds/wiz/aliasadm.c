@@ -70,10 +70,16 @@ void main(string str) {
    string name, fmt;
    string *lines;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (!str || str == "") {
       usage();
       return;
    }
+
    if (sscanf(str, "-%s", str)) {
       usage();
       return;
@@ -102,5 +108,6 @@ void main(string str) {
       usage();
       return;
    }
+
    add_alias(fmt);
 }

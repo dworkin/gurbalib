@@ -43,6 +43,11 @@ void main(string str) {
    mapping edges;
    string *users;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    edges = COMPILER_D->query_upqueue();
 
    if (str && str == "-v") {

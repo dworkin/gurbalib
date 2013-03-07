@@ -47,6 +47,11 @@ void main(string str) {
    string who, what;
    int numargs;
 
+   if (!require_priv("system")) {
+      write("You must be admin to do that.");
+      return;
+   }
+
    if (!str || str == "") {
       usage();
       return;
@@ -70,10 +75,6 @@ void main(string str) {
       return;
    }
 
-   if (!require_priv("system")) {
-      write("You need admin privileges to change someones level.\n");
-      return;
-   }
    what = lowercase(what);
    if (what == "admin") {
       SECURE_D->make_admin(who);

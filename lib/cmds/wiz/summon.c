@@ -19,15 +19,22 @@ void usage() {
 void main(string str) {
    object usr;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (!str || str == "") {
       write("Get whom?");
       usage();
       return;
    }
+
    if (sscanf(str, "-%s", str)) {
       usage();
       return;
    }
+
    usr = USER_D->find_player(lowercase(str));
    if (usr) {
       if (usr->query_environment() != this_player()->query_environment()) {

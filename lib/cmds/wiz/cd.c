@@ -25,6 +25,11 @@ void usage() {
 void main(string arg) {
    int tmp;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (!arg || arg == "") {
       arg = "/wiz/" + this_player()->query_name();
    } else if (sscanf(arg, "-%s", arg)) {

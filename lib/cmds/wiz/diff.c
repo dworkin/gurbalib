@@ -132,6 +132,11 @@ void do_work_toscreen(string file1, string file2) {
 void main(string str) {
    string outfile, file1, file2;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (!str || str == "" || sscanf(str, "-h", str)) {
       usage();
       return;

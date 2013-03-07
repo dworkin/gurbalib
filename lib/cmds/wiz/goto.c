@@ -24,6 +24,11 @@ void usage() {
 void main(string str) {
    object usr;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (!str || str == "") {
       usage();
       return;

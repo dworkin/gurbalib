@@ -52,6 +52,11 @@ void create_list(string type, string file) {
 void main(string str) {
    string type, file;
 
+   if (!require_priv("system")) {
+      write("You must be admin to do that.");
+      return;
+   }
+
    if (!str || str == "") {
       create_list("","");
       return;
@@ -59,11 +64,6 @@ void main(string str) {
 
    if (sscanf(str, "-%s", str)) {
       usage();
-      return;
-   }
-
-   if (!require_priv("system")) {
-      write("You must be admin to do that.");
       return;
    }
 

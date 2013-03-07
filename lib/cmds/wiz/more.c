@@ -52,6 +52,11 @@ void main(string arg) {
    string *lines;
    int where, i, size, length, offset, chopped, maxlines;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (arg == "") {
       arg = this_environment()->file_name();
    }

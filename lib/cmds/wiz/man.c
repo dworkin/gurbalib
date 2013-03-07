@@ -96,6 +96,11 @@ void main(string arg) {
    int i, j, found, where;
    mixed width;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (sscanf(arg, "-%s", arg)) {
       usage();
       return;
@@ -108,10 +113,6 @@ void main(string arg) {
    if (arg == "--reindex") {
       rebuild_topics();
       write(dump_value(topics, ([])) + "\n");
-      return;
-   }
-
-   if (query_wizard(this_player()) != 1) {
       return;
    }
 

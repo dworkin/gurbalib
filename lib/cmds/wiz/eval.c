@@ -35,6 +35,11 @@ void main(string src, varargs mixed args ...) {
    mixed result;
    int str_size;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (src == "-h") {
       usage();
       return;

@@ -20,6 +20,11 @@ void usage() {
 void main(string str) {
    string msg;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (sscanf(str, "-%s", str)) {
       usage();
       return;

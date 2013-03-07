@@ -27,6 +27,11 @@ void main(string str) {
    string cmd, rest, questname, contacts;
    int i, max, level;
 
+   if (!require_priv("system")) {
+      write("You must be admin to do that.");
+      return;
+   }
+
    if (!str || str == "") {
       QUEST_D->query_quests(this_player());
    }
@@ -37,11 +42,6 @@ void main(string str) {
 
    if (sscanf(str, "%s %s", cmd, rest) != 2) {
       usage();
-      return;
-   }
-
-   if (!require_priv("system")) {
-      write("You must be admin to do that.");
       return;
    }
 

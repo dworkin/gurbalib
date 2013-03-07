@@ -20,10 +20,16 @@ void usage() {
 void main(string arg) {
    string file;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (!arg || arg == "") {
       write("Please specify filename to rm.");
       return;
    }
+
    if (sscanf(arg, "-%s", arg)) {
       usage();
       return;

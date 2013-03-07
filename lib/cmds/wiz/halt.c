@@ -19,6 +19,11 @@ void main(string str) {
    int i;
    object *obj;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (str && str != "") {
       usage();
       return;

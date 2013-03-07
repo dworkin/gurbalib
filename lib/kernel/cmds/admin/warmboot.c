@@ -54,6 +54,12 @@ static string validate_upgrade() {
 }
 
 void main(string str) {
+
+   if (!require_priv("system")) {
+      write("You need admin permissions to do that.");
+      return;
+   }
+
    if (sscanf(str, "-%s", str)) {
       usage();
       return;
@@ -61,11 +67,6 @@ void main(string str) {
 
    if (stage) {
       write("busy");
-      return;
-   }
-
-   if (!require_priv("system")) {
-      write("You need admin permissions to do that.");
       return;
    }
 

@@ -20,22 +20,22 @@ void usage() {
    this_player()->more(lines);
 }
 
+void done() {
+   write("Statedump done.");
+}
+
 void main(string str) {
-   if (str && str != "") {
-      usage();
+   if (!require_priv("system")) {
+      write("You must be admin to do that.");
       return;
    }
 
-   if (!require_priv("system")) {
-      write("You must be admin to do that.");
+   if (str && str != "") {
+      usage();
       return;
    }
 
    DRIVER->save_game();
    write("Writing statedump");
    call_out("done", 0);
-}
-
-void done() {
-   write("Statedump done.");
 }

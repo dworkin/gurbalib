@@ -17,6 +17,11 @@ void usage() {
 }
 
 void main(varargs string arg) {
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (sscanf(arg, "-%s", arg)) {
       usage();
       return;

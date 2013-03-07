@@ -78,22 +78,31 @@ void ban_site(string str) {
 }
 
 void main(string str) {
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (!str || str == "") {
       show_banned();
       return;
    }
+
    if (sscanf(str, "-s %s", str)) {
       ban_site(str);
       return;
    }
+
    if (sscanf(str, "-%s", str)) {
       usage();
       return;
    }
+
    if (strstr(str, " ") != -1) {
       write("Cannot include whitespace in banished names.");
       return;
    }
+
    if (query_admin(str) && !query_admin(this_player()->query_name())) {
       write("Wizards are not allowed to ban an admin.\n");
       return;

@@ -22,7 +22,10 @@ void main(string msg) {
    object *usr;
    int i;
 
-   usr = USER_D->query_players();
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
 
    if (!msg || (msg == "")) {
       usage();
@@ -31,6 +34,8 @@ void main(string msg) {
       usage();
       return;
    } else {
+      usr = USER_D->query_players();
+
       for (i = 0; i < sizeof(usr); i++) {
 	 usr[i]->message("\n" +
 	    "%^RED%^System Message from %^GREEN%^" +

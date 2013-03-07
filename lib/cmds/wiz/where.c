@@ -22,6 +22,11 @@ void main(string str) {
    object *usrs;
    object usr;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (!str || (str == "")) {
       usrs = USER_D->query_players();
 

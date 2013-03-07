@@ -16,11 +16,15 @@ void usage() {
 }
 
 void main(string arg) {
-   int i, j;
-   int stat, max_stat;
+   int i, j, stat, max_stat;
    string *stat_abrvs;
    string *stat_names;
    object ob;
+
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
 
    if (sscanf(arg, "-%s", arg)) {
       usage();

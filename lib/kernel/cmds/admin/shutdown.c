@@ -73,6 +73,11 @@ void main(string arg) {
    object *usrs;
    string time;
 
+   if (!require_priv("system")) {
+      write("You need admin permissions to do that.");
+      return;
+   }
+
    if (!arg || arg == "") {
       usage();
       return;
@@ -85,11 +90,6 @@ void main(string arg) {
 
    if (sscanf(arg, "%s %s", time, reason) != 2) {
       usage();
-      return;
-   }
-
-   if (!require_priv("system")) {
-      write("You need admin permissions to do that.");
       return;
    }
 

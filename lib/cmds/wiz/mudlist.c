@@ -25,6 +25,11 @@ void main(string str) {
    string *lines;
    int len, slen, mlen, i, count;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (sscanf(str, "-%s", str)) {
       usage();
       return;

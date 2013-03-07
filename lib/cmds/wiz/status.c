@@ -121,6 +121,11 @@ void main(string str) {
    mixed *stat;
    object obj;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (!str || str == "") {
       stat = status();
       display_driver(stat);

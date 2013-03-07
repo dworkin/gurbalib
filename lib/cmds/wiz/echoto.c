@@ -22,10 +22,13 @@ void usage() {
 
 void main(string who) {
    object *usr;
-   int i;
-   int flag;
-
+   int i, flag;
    string msg;
+
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
 
    if (!who || (who == "")) {
       usage();

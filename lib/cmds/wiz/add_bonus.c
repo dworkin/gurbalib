@@ -14,10 +14,16 @@ void usage() {
 }
 
 void main(string statname) {
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (!statname || statname == "") {
       usage();
       return;
    }
+
    if (sscanf(statname, "-%s", statname)) {
       usage();
       return;

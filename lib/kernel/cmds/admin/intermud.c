@@ -88,6 +88,11 @@ void main(string str) {
    mixed *args;
    string error;
 
+   if (!require_priv("system")) {
+      write("You must be admin to do that.");
+      return;
+   }
+
    if (!str || str == "") {
       usage();
       return;
@@ -95,11 +100,6 @@ void main(string str) {
 
    if (sscanf(str, "-%s", str)) {
       usage();
-      return;
-   }
-
-   if (!require_priv("system")) {
-      write("You must be admin to do that.");
       return;
    }
 

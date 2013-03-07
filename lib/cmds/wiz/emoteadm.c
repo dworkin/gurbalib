@@ -84,6 +84,11 @@ void main(string str) {
    string *lines;
    mixed width;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    width = this_player()->query_env("width");
    if (!intp(width) || width < 2)
       width = DEFAULT_WIDTH;

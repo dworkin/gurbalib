@@ -34,9 +34,13 @@ void usage() {
 
 void main(string str) {
    string *names;
-   string name;
-   string value;
+   string name, value;
    int i;
+
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
 
    if (!str || str == "") {
       /* Print out the list */

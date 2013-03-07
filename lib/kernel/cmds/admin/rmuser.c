@@ -54,6 +54,10 @@ void confirm_remove(string str) {
 }
 
 void main(string str) {
+   if (!require_priv("system")) {
+      write("You must be admin to do that.");
+      return;
+   }
    if (!str || str == "") {
       usage();
       return;
@@ -64,10 +68,6 @@ void main(string str) {
       return;
    }
 
-   if (!require_priv("system")) {
-      write("You must be admin to do that.");
-      return;
-   }
    name = lowercase(str);
 
    if (this_player()->query_name() == str) {

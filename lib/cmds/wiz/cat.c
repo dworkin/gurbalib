@@ -23,6 +23,11 @@ void main(string file) {
    string name;
    int i;
 
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
+
    if (!file || file == "") {
       file = this_player()->query_env("cwf");
    } else if (sscanf(file, "-%s", file)) {
@@ -31,6 +36,7 @@ void main(string file) {
    }
 
    name = normalize_path(file, this_player()->query_env("cwd"));
+
    if (!name || name == "") {
       write("Access denied.\n");
       return;

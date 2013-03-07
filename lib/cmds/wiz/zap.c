@@ -21,15 +21,19 @@ void usage() {
 
 void main(string str) {
    object target;
-   int i, sz;
-   int target_hp, target_damage;
+   int i, sz, perc, target_hp, target_damage;
    string who, target_name;
-   int perc;
+
+   if (!query_wizard(this_player())) {
+      write("You must be a wizard to do that.\n");
+      return;
+   }
 
    if (!str || str == "") {
       usage();
       return;
    }
+
    if (sscanf(str, "-%s", str)) {
       usage();
       return;
