@@ -33,7 +33,6 @@ void create_list(string type, string file) {
    if (type == "admin") type = "admins";
 
    for(i=0;i<max;i++) {
-/* XXX Need to check security for this....  can normal players do this? */
       if (names[i] == "guest") {
          /* Skip this account it's special */
       } else {
