@@ -22,6 +22,8 @@ void create(void) {
          "nw": "go northwest $*",
          "se": "go southeast $*",
          "sw": "go southwest $*",
+         "u": "go up $*",
+         "d": "go down $*",
          "i": "inventory $*",
          "l": "look $*",
          "drink": "eat $*",
