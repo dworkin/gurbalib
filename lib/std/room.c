@@ -10,6 +10,7 @@ static mapping room_commands;
 static int last_exit;
 static int weather;
 static int light;
+string dark_msg;
 
 void setup(void);
 
@@ -38,7 +39,7 @@ void set_light(int flag) {
    light = flag;
 }
 
-int query_dark() {
+int is_dark() {
    object* objs;
    int x;
 
@@ -47,13 +48,24 @@ int query_dark() {
 
    if (is_container()) {
       objs = query_inventory();
-      for (x=sizeof(objs); x >= 0; x--) {
+      for (x=sizeof(objs) -1; x >= 0; x--) {
          /* XXX Need to check for lights in the room... recursively... */
-         if (objs->is_lit()) return 1;
+         if (objs[x]->is_lit()) return 0;
       }
    }
 
    return 1;
+}
+
+string query_dark_msg(void) {
+   if (!dark_msg) {
+      return "It is too dark to see here.\n";
+   }
+   return dark_msg;
+}
+
+void set_dark_msg(string str) {
+   dark_msg = str;
 }
 
 void set_weather(int flag) {
@@ -155,6 +167,10 @@ string query_desc(varargs int brief) {
 
    if (!brief)
       brief = 0;
+
+   if (is_dark()) {
+      return query_dark_msg();
+   }
    text = "%^ROOM_NAME%^" + query_short() + "%^RESET%^";
 
    text += " %^ROOM_EXIT%^[ exits: ";
