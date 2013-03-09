@@ -1,5 +1,7 @@
-#include "../../domain.h"
 inherit ROOM;
+
+#include "../../domain.h"
+#include "maze.h"
 
 void setup(void) {
    add_area("2.4.5");
@@ -7,10 +9,16 @@ void setup(void) {
    set_short("In a maze");
    set_long("There are four obvious exits: north, south, east, west");
 
+   add_exit("north", "#do_movementn");
+   add_exit("south", "#do_movements");
+   add_exit("east", "#do_movemente");
+   add_exit("west", "#do_movementw");
 }
 
-/* XXX Need to figure out fake exits... */
-int do_movement() {
+int do_movementn() {
+   string room;
+   int exit_num;
+
    exit_num = random(4);
    if (exit_num == 2) {
       room = DIR + "/rooms/maze1/maze3.c";
@@ -18,9 +26,27 @@ int do_movement() {
       room = DIR + "/rooms/maze1/maze1.c";
    }
 
+   goto_the(room,"north");
 }
 
-int do_movement2() {
+int do_movements() {
+   string room;
+   int exit_num;
+
+   exit_num = random(4);
+   if (exit_num == 2) {
+      room = DIR + "/rooms/maze1/maze3.c";
+   } else {
+      room = DIR + "/rooms/maze1/maze1.c";
+   }
+
+   goto_the(room,"north");
+}
+
+int do_movemente() {
+   string room;
+   int exit_num;
+
    exit_num = random(4);
    if (exit_num == 2) {
       room = DIR + "/rooms/maze1/maze3.c";
@@ -28,4 +54,19 @@ int do_movement2() {
       room = DIR + "/rooms/well.c";
    }
 
+   goto_the(room,"east");
+}
+
+int do_movementw() {
+   string room;
+   int exit_num;
+
+   exit_num = random(4);
+   if (exit_num == 2) {
+      room = DIR + "/rooms/maze1/maze3.c";
+   } else {
+      room = DIR + "/rooms/well.c";
+   }
+
+   goto_the(room,"east");
 }
