@@ -9,7 +9,7 @@ void setup(void) {
       "here.");
 
    set_exits(([
-      "out" : DIR + "/rooms/tree", 
       "south" : DIR + "/rooms/equipment",
+      "west" : DIR + "/rooms/tree", 
    ]));
 }

@@ -49,7 +49,6 @@ int is_dark() {
    if (is_container()) {
       objs = query_inventory();
       for (x=sizeof(objs) -1; x >= 0; x--) {
-         /* XXX Need to check for lights in the room... recursively... */
          if (objs[x]->is_lit()) return 0;
       }
    }
@@ -349,7 +348,7 @@ string body_exit(object who, string dir) {
    if (query_exit(dir)) {
       /* Is there a fake exit?  XXX what about blocking this??? */
       if (query_exit(dir)[0] == '#') {
-	 return (query_exit(dir)[1..]);
+	 return call_other(this_object(), query_exit(dir)[1..]);
       }
       for (i = 0; i < sizeof(inventory); i++) {
 	 if (inventory[i]->is_blocking(dir)) {
@@ -369,7 +368,7 @@ string body_exit(object who, string dir) {
    } else if (query_hidden_exit(dir)) {
       /* there is a hidden exit XXX what about blocking this??? */
       if (query_hidden_exit(dir)[0] == '#') {
-	 return query_hidden_exit(dir)[1..];
+	 return call_other(this_object(), query_exit(dir)[1..]);
       }
       for (i = 0; i < sizeof(inventory); i++) {
 	 if (inventory[i]->is_blocking(dir)) {

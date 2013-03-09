@@ -1,3 +1,19 @@
+A room in a mud cotains the following basics:
+	Descriptions, Properties, Exits, Objects, Commands
+
+Descriptions:
+You can set the following descriptions in a room:
+	short, long, dark_msg, item
+
+Properties:
+
+Exits:
+
+Items:
+
+Commands:
+
+
 A minimal room object looks like this:
 inherit ROOM;	
 

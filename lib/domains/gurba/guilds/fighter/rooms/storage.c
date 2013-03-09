@@ -11,10 +11,9 @@ void setup(void) {
       "east" : "#go_locker",
    ]));
 
-   add_room_command("locker","go_locker");
 }
 
-void go_locker(string str) {
+void go_locker() {
    string locker;
    object obj;
 

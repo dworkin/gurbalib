@@ -1,5 +1,6 @@
 #include "../domain.h"
 inherit ROOM;
+#define FILE DIR + "/rooms/entrance.c"
 
 void setup(void) {
    add_area("newbie");
@@ -7,11 +8,11 @@ void setup(void) {
    set_short("North end of the field");
    set_long("You are in a large open field, next to an old dead tree. " +
       " To the South you see a road leading to a city.  There is an odd " +
-      "hole in a hill to the north.");
+      "hole in a hill to the east.");
 
    set_exits(([
       "south" : STARTING_ROOM,
-      "hole" : DIR + "/rooms/entrance",
+      "east" : "#enter_hole",
    ]));
 
    set_objects(([
@@ -22,7 +23,6 @@ void setup(void) {
    add_item("hole", "A funny hole in the ground.  You might be able to " +
       "squeeze into it.");
 
-   add_room_command("squeeze", "enter_hole");
    add_room_command("break", "break_branch");
 }
 
@@ -44,4 +44,34 @@ int break_branch(string str) {
    } else {
       return 0;
    }
+}
+
+void enter_hole() {
+   object obj;
+
+   if (this_player()->is_completed_quest("NewbieVille")) {
+      write("You don't seem to fit through the hole anymore.");
+      this_object()->tell_room(this_player(), this_player()->query_Name() + 
+         " tries to squeeze through the hole but can not seem to " +
+         "fit through it.");
+      return;
+   } else {
+      obj = find_object(FILE);
+      if (!obj) {
+         obj = compile_object(FILE);
+         if (!obj) {
+            write("Error in loading destination.\n");
+            return;
+         }
+         obj->setup();
+         obj->setup_mudlib();
+      }
+      if (this_player()->move(obj)) {
+         write("You wriggle through the hole.");
+         this_object()->tell_room(this_player(),
+            this_player()->query_Name() + " squeezes through the hole.\n");
+	 this_player()->do_look(0);
+      }
+   }
+   return;
 }
