@@ -11,7 +11,6 @@ void setup(void) {
       "of Arcanarton, the archmage who used to live on this island.  " +
       "To the north you can see some sort of crumbled monument.");
 
-/*    add_exit("north", DIR + "/rooms/south/sislnd5.c"); XXX */
    add_exit("west", DIR + "/rooms/south/sislnd16.c");
    add_exit("northeast", DIR + "/rooms/south/sislnd5.c");
    add_exit("southwest", DIR + "/rooms/south/sislnd7.c");

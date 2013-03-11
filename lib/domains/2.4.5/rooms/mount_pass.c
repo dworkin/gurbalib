@@ -12,22 +12,16 @@ void setup(void) {
 
    add_exit("north", DIR + "/rooms/mine/tunnel.c");
    add_exit("south", DIR + "/rooms/plain11.c");
-   add_exit("up", DIR + "/rooms/ravine.c"); /* XXX Maybe make this like climb */
+   add_exit("up", "#do_climb"); 
    add_room_command("climb","do_climb");
 }
 
 int do_climb(string str) {
-   object old_room;
-   if (str == "" || str == "up") {
-         old_room = this_player()->query_environment();
-         this_player()->move(DIR + "/rooms/ravine.c");
-         write("You climb up the hill.\n");
-         tell_room(this_player(), this_player()->query_Name() + 
-            " climbs up the ravine.\n");
-         this_player()->query_environment()->tell_room(this_player(),
-            this_player()->query_Name() + " climbs up the ravine.\n");
-         this_player()->do_look(0);
-      return 1;
-   }
-   return 0;
+   string usermsg, othermsg;
+
+   usermsg = "You climb up the hill.";
+   othermsg = this_player()->query_Name() + " climbs up the ravine.";
+
+   /* XXX domove(DIR + "/rooms/ravine.c", usermsg, othermsg);  */
+   return 1;
 }

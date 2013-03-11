@@ -16,8 +16,7 @@ void setup(void) {
    add_exit("north", DIR + "/rooms/south/sforst46.c");
    add_exit("northeast", DIR + "/rooms/south/sshore27.c");
    add_exit("northwest", DIR + "/rooms/south/sshore25.c");
-/* XXX Need to add this better See original */
-   add_exit("southeast", DIR + "/rooms/south/sislnd1.c");
+   add_exit("southeast", "#go_southeast");
 }
 
 string query_long() {
@@ -39,13 +38,19 @@ string query_long() {
 }
 
 int go_southeast() {
+   string usermsg, othermsg;
+
    if (this_player()->query_level() <= 15) {
       write("The bridge to the Isle of the Magi has collapsed, making the " +
          "trip across impossible.");
       return 1;
    }
-   write("Trusting in your faith, you step onto the magical bridge and move " +
-      "across to the Isle of the Magi.");
-   /* XXX do the move stuff  to: sislnd1 */
+   add_exit("southeast", DIR + "/rooms/south/sislnd1.c");
+   usermsg = "Trusting in your faith, you step onto the magical bridge " +
+      "and move across to the Isle of the Magi.";
+   othermsg =  this_player()->query_Name() + walks across a feinghtly " +
+      "glowing bridge.";
+
+   XXX domove(DIR + "/rooms/south/sislnd1.c", usermsg, othermsg);
    return 1;
 }

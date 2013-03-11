@@ -1,5 +1,5 @@
-#include "../../domain.h"
 inherit ROOM;
+#include "../../domain.h"
 
 void setup(void) {
    add_area("2.4.5");
@@ -14,7 +14,16 @@ void setup(void) {
 
    add_exit("south", DIR + "/rooms/south/sislnd13.c");
    add_exit("east", DIR + "/rooms/south/sislnd2.c");
-/* XXX Need to add You trust in your faith and step out .... */
-   add_exit("northwest", DIR + "/rooms/south/sshore26.c");
+   add_exit("northwest", '#go_northwest");
    add_exit("northeast", DIR + "/rooms/south/sislnd12.c");
+}
+
+void go_northwest(void) {
+   string usermsg, othermsg;
+
+   usermsg = "You trust in your faith and step out onto the near invisible " +
+      "bridge."; 
+   $othermsg = this_player()->query_Name() + walks across a feinghtly " +
+      "glowing bridge.";
+   XXX domove(DIR + "/rooms/south/sshore26.c",usermsg, othermsg);
 }
