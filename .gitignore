@@ -1,6 +1,6 @@
 bin/*
 lib/daemons/data/*
-lib/data/players/*
+lib/data/*
 lib/domains/gurba/data
 lib/doc/lpc/*
 lib/kernel/daemons/data/*
