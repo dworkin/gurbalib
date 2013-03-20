@@ -39,9 +39,17 @@ void create() {
 }
 
 string query_banner() {
-   return unguarded("read_file", "/data/messages/login");
+   if (file_exists("/data/messages/login")) {
+      return unguarded("read_file", "/data/messages/login");
+   }
+   return "Missing /data/messages/login you may want to reread " +
+      "gurbalib/doc/INSTALLING";
 }
 
 string query_motd() {
-   return unguarded("read_file", "/data/messages/motd");
+   if (file_exists("/data/messages/motd")) {
+      return unguarded("read_file", "/data/messages/motd");
+   }
+   return "Missing /data/messages/login you may want to reread " +
+      "gurbalib/doc/INSTALLING";
 }

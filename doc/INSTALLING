@@ -34,8 +34,11 @@ cd to your gurbalib dir and perform the following actions:
 	edit the mudname.h file and change the mudname
 	cd ../../..
 
+	cp contrib/data/messages/login lib/data/messages/
+	cp contrib/data/messages/motd lib/data/messages/
+
 	Optionally copy the included emote_d.o file inplace:
-	cp contrib/emote_d.o lib/daemons/data/
+	cp contrib/data/emote_d.o lib/daemons/data/
 
 	cp scripts/startmud bin/startmud
 	edit bin/startmud and set ROOT
