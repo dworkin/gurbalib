@@ -39,17 +39,20 @@ void create() {
 }
 
 string query_banner() {
-   if (file_exists("/data/messages/login")) {
+
+   if (unguarded("file_exists","/data/messages/login")) {
       return unguarded("read_file", "/data/messages/login");
+   } else {
+      return "Missing /data/messages/login you may want to reread " +
+         "gurbalib/doc/INSTALLING";
    }
-   return "Missing /data/messages/login you may want to reread " +
-      "gurbalib/doc/INSTALLING";
 }
 
 string query_motd() {
-   if (file_exists("/data/messages/motd")) {
+   if (unguarded("file_exists","/data/messages/motd")) {
       return unguarded("read_file", "/data/messages/motd");
+   } else {
+      return "Missing /data/messages/login you may want to reread " +
+         "gurbalib/doc/INSTALLING";
    }
-   return "Missing /data/messages/login you may want to reread " +
-      "gurbalib/doc/INSTALLING";
 }
