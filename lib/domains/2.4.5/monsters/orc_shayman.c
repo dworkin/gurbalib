@@ -19,6 +19,10 @@ void setup() {
    set_aggressive(1);
 
    /* XXX add magic missle spell... */
+   set_spell_chance(20);
+   set_spell_mess1("You are hit by a magic missle.");
+   set_spell_mess2("The shayman casts a magic missle.");
+   set_spell_damage(20);
 
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);

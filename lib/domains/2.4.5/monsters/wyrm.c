@@ -28,12 +28,10 @@ void setup() {
    obj->set_amount(random(500) + 1);
    obj->move(this_object());
    obj->setup();
-}
 
-void do_extra_actions() {
-   count = count + 1;
-   if (count >= INTERVAL) {
-/* XXX Do breathe death on you */
-      count = 0;
-   }
+   /* DO backend for this stuff XXX */
+   set_spell_chance(50);
+   set_spell_damage(100);
+   set_spell_message("Arcanarton's wyrm turns his head and " +
+      "breathes death at you.\n");
 }
