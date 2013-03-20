@@ -56,7 +56,7 @@ rm_dir("lib/wiz");
 
 print "You should run scripts/create_data_dirs.pl to recreate your " .
    "data directories.\n";
-print "You should also optionally copy over contrib/data/emote_d.o to " .
+print "You should also optionally copy over contrib/emote_d.o to " .
    "lib/daemons/data\n";
-print "You should also optionally copy over contrib/data/login and motd to " .
+print "You should also optionally copy over contrib/login and motd to " .
    "lib/data/messages\n";

@@ -1,12 +1,6 @@
 Copyright information for Gurbalib 0.41 (and up) for DGD 1.2
 ------------------------------------------------------------
 
-All files in the contrib directory are not part of Gurbalib proper
-and are covered by their own licenses, please see the information
-in that directory.
-
-All remaining files are covered by this Copyright file.
-
 This work is derived from the Gurbalib 0.40 codebase by Erlend Simonsen
 and contains a large number of fixes by Nullinfinite that allow
 Gurbalib to run on modern (experimental) versions of DGD with
@@ -15,13 +9,10 @@ typechecking 2.
 It also contains a number of fixes and modifications by Aidil and Cerihan.
 Some additional code was contributed by Quixadhal and Mordain.
 
-The code from Erlend is available with a 'do whatever you want with it'
-license.
-
-Any code from Nullinfinite is distributed under the same conditions as
-Erlend's code.
-
 Code by Cerihan and Aidil is released as public domain.
+
+The code from Erlend and Nullinfinite is available with a 
+'do whatever you want with it' license.
 
 Additional contributed code may be assumed to fall under a "do what you
 want with it as long as you don't claim you wrote it" license unless

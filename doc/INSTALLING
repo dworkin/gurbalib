@@ -34,11 +34,12 @@ cd to your gurbalib dir and perform the following actions:
 	edit the mudname.h file and change the mudname
 	cd ../../..
 
-	cp contrib/data/messages/login lib/data/messages/
-	cp contrib/data/messages/motd lib/data/messages/
+	cp contrib/login lib/data/messages/
+	cp contrib/motd lib/data/messages/
+	You may want to modify these files as well.
 
 	Optionally copy the included emote_d.o file inplace:
-	cp contrib/data/emote_d.o lib/daemons/data/
+	cp contrib/emote_d.o lib/daemons/data/
 
 	cp scripts/startmud bin/startmud
 	edit bin/startmud and set ROOT
@@ -53,10 +54,6 @@ admin role, so be sure its you.
 
 OTHER THINGS:
 -----------------------------------------------------------------------
-You may want to edit the following files as well:
-lib/data/messages/login
-lib/data/messages/motd
-
 If you want a squeaky clean mud you can also remove the files in
 lib/domains/ execpt for required (I would keep them around for
 	a little while though since they are semi good example code)
