@@ -8,6 +8,7 @@ lib/sys/daemons/data/*
 lib/sys/data/*
 lib/wiz/*
 lib/logs/*
+lib/tmp/*
 src/*
 tmp/*
 dump
