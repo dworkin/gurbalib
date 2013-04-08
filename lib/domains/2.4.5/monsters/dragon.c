@@ -1,9 +1,9 @@
 #include "../domain.h"
 
 inherit MONSTER;
-inherit M_ACTIONS;
 inherit M_TRIGGERS;
 inherit M_BLOCKEXITS;
+
 #define INTERVAL 5
 int count;
 

@@ -1,8 +1,8 @@
+#include "../domain.h"
+
 inherit MONSTER;
-inherit M_ACTIONS;
 inherit M_TRIGGERS;
 inherit M_BLOCKEXITS;
-#include "../domain.h"
 
 void setup() {
    object obj;

@@ -1,4 +1,5 @@
 #include "../domain.h"
+
 inherit M_VENDOR;
 
 void setup(void) {

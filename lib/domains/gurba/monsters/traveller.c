@@ -2,6 +2,8 @@
    Demonstrates use of M_WANDER for testing purposes.
    Cerihan 3/14/09
 */
+#include "../domain.h"
+
 inherit MONSTER;
 inherit M_WANDER;
 

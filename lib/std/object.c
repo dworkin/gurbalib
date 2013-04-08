@@ -313,6 +313,7 @@ void remove_object_command(string command) {
 }
 
 string query_object_command(string command) {
+   if (!object_commands) object_commands = ([ ]);
    return object_commands[command];
 }
 

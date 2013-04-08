@@ -1,3 +1,5 @@
+#include "../domain.h"
+
 inherit MONSTER;
 inherit M_BLOCKEXITS;
 
