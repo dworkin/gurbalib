@@ -2,7 +2,6 @@
 
 inherit MONSTER;
 inherit M_TRIGGERS;
-inherit M_BLOCKEXITS;
 
 #define INTERVAL 8
 int count;

@@ -1,7 +1,6 @@
 #include "../domain.h"
 
 inherit MONSTER;
-inherit M_BLOCKEXITS;
 
 void setup() {
    set_name("wolf");

@@ -2,7 +2,6 @@
 
 inherit MONSTER;
 inherit M_TRIGGERS;
-inherit M_BLOCKEXITS;
 
 void setup() {
    set_name("harry");
