@@ -1,4 +1,3 @@
-inherit OBJECT;
 inherit SIGN;
 
 void setup(void) {
