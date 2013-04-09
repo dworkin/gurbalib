@@ -1,5 +1,6 @@
 #include "../../../domain.h"
-inherit ROOM;
+
+inherit "/std/room";
 
 string player_name;
 string *myitems;

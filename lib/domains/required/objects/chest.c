@@ -1,5 +1,5 @@
-inherit CONTAINER;
-inherit M_OPENABLE;
+inherit "/std/container";
+inherit "/std/modules/m_openable";
 #define DIR "/domains/required"
 
 void setup(void) {

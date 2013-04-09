@@ -1,4 +1,6 @@
-inherit ARMOR;
+#include "../domain.h"
+
+inherit "/std/armor";
 
 void setup(void) {
    set_id("gloves");

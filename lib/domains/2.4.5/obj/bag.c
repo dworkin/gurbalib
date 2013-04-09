@@ -1,4 +1,4 @@
-inherit CONTAINER;
+inherit "/std/container";
 
 void setup(void) {
    set_id("bag");

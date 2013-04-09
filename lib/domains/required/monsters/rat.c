@@ -1,4 +1,4 @@
-inherit MONSTER;
+inherit "/std/monster";
 
 void setup() {
    set_name("rat");

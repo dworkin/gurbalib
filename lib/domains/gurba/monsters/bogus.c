@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit M_VENDOR;
+inherit "/std/modules/m_vendor";
 
 void setup(void) {
    set_name("bogus");
@@ -14,10 +14,10 @@ void setup(void) {
    set_restock_delay(7200);
 
    add_item(DIR + "/objects/rock", 9);
-   add_item(DIR + "/objects/clothing/boots", 5);
-   add_item(DIR + "/objects/clothing/gloves", 6);
-   add_item(DIR + "/objects/clothing/hat", 3);
-   add_item(DIR + "/objects/clothing/jacket", 2);
-   add_item(DIR + "/objects/clothing/tshirt", 1);
-   add_item(DIR + "/objects/weapons/sword", 8);
+   add_item(DIR + "/objects/boots", 5);
+   add_item(DIR + "/objects/gloves", 6);
+   add_item(DIR + "/objects/hat", 3);
+   add_item(DIR + "/objects/jacket", 2);
+   add_item(DIR + "/objects/tshirt", 1);
+   add_item(DIR + "/objects/sword", 8);
 }

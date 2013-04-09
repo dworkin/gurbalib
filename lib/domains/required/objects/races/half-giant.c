@@ -1,5 +1,5 @@
 /* Definition of the half-giant race */
-inherit RACE;
+inherit "/std/race";
 
 void create(void) {
    ::create();

@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit M_VENDOR;
+inherit "/std/modules/m_vendor";
 
 void setup(void) {
    set_name("frida");

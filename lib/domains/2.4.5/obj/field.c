@@ -1,5 +1,5 @@
-inherit OBJECT;
-inherit M_BLOCKEXITS;
+inherit "/std/object";
+inherit "/std/modules/m_blockexits";
 
 void create(void) {
    ::create();

@@ -1,4 +1,4 @@
-inherit OBJECT;
+inherit "/std/object";
 
 void setup(void) {
    set_id("firebreather");

@@ -1,5 +1,5 @@
-inherit obj OBJECT;
-inherit light M_LIGHT;
+inherit obj "/std/object";
+inherit light "/std/modules/m_light";
 
 void create(void) {
    light::create();

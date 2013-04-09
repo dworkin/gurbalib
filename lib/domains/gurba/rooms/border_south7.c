@@ -1,5 +1,5 @@
 #include "../domain.h"
-inherit ROOM;
+inherit "/std/room";
 
 void setup(void) {
    add_area("Gurba");

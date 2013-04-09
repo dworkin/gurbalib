@@ -1,4 +1,4 @@
-inherit CONTAINER;
+inherit "/std/container";
 
 static string orig_name;
 

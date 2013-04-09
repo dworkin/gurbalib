@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit MONSTER;
+inherit "/std/monster";
 
 void setup() {
    object obj;

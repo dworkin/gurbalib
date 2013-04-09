@@ -1,4 +1,4 @@
-inherit ARMOR;
+inherit "/std/armor";
 
 void setup(void) {
    set_id("helmet");

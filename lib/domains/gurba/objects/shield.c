@@ -1,4 +1,6 @@
-inherit SHIELD;
+#include "../domain.h"
+
+inherit "/std/shield";
 
 void setup(void) {
    set_id("shield");

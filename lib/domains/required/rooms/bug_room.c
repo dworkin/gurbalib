@@ -1,4 +1,5 @@
-inherit ROOM;
+inherit "/std/room";
+
 #define DIR "/domains/required"
 
 void setup(void) {

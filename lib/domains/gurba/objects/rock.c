@@ -1,4 +1,6 @@
-inherit OBJECT;
+#include "../domain.h"
+
+inherit "/std/object";
 
 void setup(void) {
    set_id("rock");

@@ -1,4 +1,4 @@
-inherit SIGN;
+inherit "/std/sign";
 
 void setup(void) {
    set_message(" Use 'list' to see the inventory.\n Use 'borrow <item>' " +

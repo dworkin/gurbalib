@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit MONSTER;
+inherit "/std/monster";
 
 void setup() {
    set_name("bunny");

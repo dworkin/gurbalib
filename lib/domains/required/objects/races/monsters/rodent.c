@@ -1,5 +1,5 @@
 /* Definition of the rat race */
-inherit MONSTER_RACE;
+inherit "/std/monster_race";
 
 void create(void) {
    ::create();

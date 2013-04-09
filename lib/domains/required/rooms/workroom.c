@@ -1,4 +1,4 @@
-inherit ROOM;
+inherit "/std/room";
 #define REQDIR "/domains/required"
 
 private string myname() {

@@ -1,4 +1,4 @@
-inherit RACE;
+inherit "/std/race";
 
 void create(void) {
    ::create();

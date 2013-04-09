@@ -1,5 +1,6 @@
 #include "../domain.h"
-inherit M_VENDOR;
+
+inherit "/std/modules/m_vendor";
 
 void setup(void) {
    set_name("grim");
@@ -12,6 +13,6 @@ void setup(void) {
 
    set_restock_delay(7200);
 
-   add_item(DIR + "/objects/weapons/sword", 9);
+   add_item(DIR + "/objects/sword", 9);
    add_item(DIR + "/domains/required/objects/short_sword", 9);
 }

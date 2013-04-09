@@ -1,5 +1,5 @@
-inherit ARMOR;
-inherit M_READABLE;
+inherit "/std/armor";
+inherit "/std/modules/m_readable";
 
 string get_color() {
 

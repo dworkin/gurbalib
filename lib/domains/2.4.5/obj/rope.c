@@ -1,4 +1,5 @@
-inherit OBJECT;
+inherit "/std/object";
+
 string tied_to;
 object tied_to_obj;
 

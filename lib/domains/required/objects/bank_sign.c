@@ -1,4 +1,4 @@
-inherit SIGN;
+inherit "/std/sign";
 
 void setup(void) {
    set_message("The following commands are available at the bank:\n" +

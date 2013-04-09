@@ -1,4 +1,4 @@
-inherit ROOM;
+inherit "/std/room";
 
 void setup(void) {
 

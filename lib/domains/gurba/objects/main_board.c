@@ -1,4 +1,6 @@
-inherit M_BOARD;
+#include "../domain.h"
+
+inherit "/std/modules/m_board";
 
 void setup(void) {
    set_id("board");

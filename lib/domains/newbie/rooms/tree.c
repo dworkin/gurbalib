@@ -1,5 +1,7 @@
 #include "../domain.h"
-inherit ROOM;
+
+inherit "/std/room";
+
 #define FILE DIR + "/rooms/entrance.c"
 
 void setup(void) {

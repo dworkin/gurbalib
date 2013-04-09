@@ -1,4 +1,4 @@
-inherit ob OBJECT;
+inherit ob "/std/object";
 inherit wear M_WIELDABLE;
 inherit ARMOR;
 

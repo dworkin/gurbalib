@@ -4,8 +4,8 @@
 */
 #include "../domain.h"
 
-inherit MONSTER;
-inherit M_WANDER;
+inherit "/std/monster";
+inherit "/std/modules/m_wander";
 
 void setup() {
    set_name("traveller");

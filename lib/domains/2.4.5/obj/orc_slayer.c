@@ -1,4 +1,4 @@
-inherit WEAPON;
+inherit "/std/weapon";
 
 void setup(void) {
    set_id("sword");

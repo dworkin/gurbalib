@@ -1,5 +1,5 @@
 /* Created by Fudge */
-inherit OBJECT;
+inherit "/std/object";
 
 string text;
 int amount;
