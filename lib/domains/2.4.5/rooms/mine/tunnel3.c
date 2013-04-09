@@ -1,5 +1,7 @@
 #include "../../domain.h"
-inherit ROOM;
+
+inherit "/std/room";
+
 int tied_rope;  /* Flag to note if the rope is here and tied or not.. */
 
 void setup(void) {

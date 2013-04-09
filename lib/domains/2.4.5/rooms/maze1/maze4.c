@@ -1,4 +1,4 @@
-inherit ROOM;
+inherit "/std/room";
 
 #include "../../domain.h"
 #include "maze.h"
