@@ -1,5 +1,5 @@
-inherit MONSTER;
-inherit M_ACTIONS;
+inherit "/std/monster";
+inherit "/std/modules/m_actions";
 
 int nFollow;
 

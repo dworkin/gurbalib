@@ -2,7 +2,7 @@ This mud uses a language called LPC its an object oriented language
 similar to C.  
 
 Everything in the mud is an object.  The main base objects are:
-	OBJECT, MONSTER, ROOM, and PLAYER
+	"/std/object", "/std/monster", "/std/room"
 
 objects you create will inherit one of these base classes or another
 class based off of one of these, and then define a function "setup"

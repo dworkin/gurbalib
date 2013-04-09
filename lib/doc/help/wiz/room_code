@@ -15,7 +15,7 @@ Commands:
 
 
 A minimal room object looks like this:
-inherit ROOM;	
+inherit "/std/room";	
 
 void setup( void ) {
   add_area( "required" );
@@ -31,8 +31,7 @@ void setup( void ) {
 Lets step through this file and then we can talk about other things you can do
 as well.
 
-inherit ROOM;    This line inherits our base class ROOM (which is defined
-as /std/room.c in /kernel/include/std.h
+inherit "/std/room";    This line inherits our base class room /std/room.c
 This class handles all of our room specific code and makes it easy to create a
 simple room, you just create a setup function that changes a couple of things
 and you have a working room.

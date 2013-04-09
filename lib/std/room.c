@@ -1,7 +1,7 @@
 #include <type.h>
 
-inherit cont CONTAINER;
-inherit M_FAKE_OBJECT;
+inherit cont "/std/container";
+inherit "/std/modules/m_fake_object";
 
 static mapping exits;
 static mapping hidden_exits;

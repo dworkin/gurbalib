@@ -1,5 +1,5 @@
-inherit ob OBJECT;
-inherit M_WIELDABLE;
+inherit ob "/std/object";
+inherit "/std/modules/m_wieldable";
 
 int max_damage;
 int min_damage;

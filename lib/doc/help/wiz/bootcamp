@@ -112,7 +112,7 @@ The void is a special room that you get dumped in if your player gets
 lost (the room they are currently in gets destroyed or something similar).
 The file should look something like this:
 
-	inherit ROOM;
+	inherit "/std/room";
 
 	void setup(void) {
 
@@ -128,8 +128,7 @@ The file should look something like this:
 	   ]));
 	}
 
-It inherits our room code (ROOM)  If you look at /kernel/include/std.h
-you'll see that ROOM is defined to be /std/room  or /std/room.c
+It inherits our room code: /std/room.c
 
 Then we have a function setup which sets our room up.
 It sets the area of our room, a short and long description for the room
@@ -142,7 +141,7 @@ Now lets look at a basic object.  Type the following commands:
 
 It should look something like this:
 
-	inherit OBJECT;
+	inherit "/std/object";
 
 	void setup(void) {
 	   set_id("rock");
@@ -154,7 +153,7 @@ It should look something like this:
 	   set_value(0);
 	}
 
-This time we inherit our basic object OBJECT   (or /std/object.c)
+This time we inherit our basic object: /std/object.c
 Then we call setup which sets a bunch of things, similar to the room,
 but there are additional properties we set.  We set the weight of
 the object.  We make the object able to be picked up by set_gettable(1);
@@ -171,7 +170,7 @@ Now lets look at a basic monster, type the following:
 	cat rat.c
 
 It should look something like this:
-	inherit MONSTER;
+	inherit "/std/monster";
 
 	void setup() {
 	   set_name("rat");
@@ -183,7 +182,7 @@ It should look something like this:
 	   set_level(1);
 	}
 
-Again, we inherit our basic MONSTER code  (/std/monster.c)
+Again, we inherit our basic monster code: /std/monster.c
 and then we have a function setup that sets our monster up by
 setting a bunch of properties.  
 
@@ -247,7 +246,7 @@ Add the following line after set_value(5);  :
    set_value10);
 
 So we should wind up with something like this:
-	inherit OBJECT;
+	inherit "/std/object";
 
 	void setup(void) {
 	   set_id("rock");
@@ -265,7 +264,7 @@ edit the easy way:
 	rm petrock.c
 	edit petrock.c
 	i
-        inherit OBJECT;
+        inherit "/std/object";
 
         void setup(void) {
            set_id("rock");
@@ -341,7 +340,7 @@ to your wizard's work room:
 Using the void room as an example, lets modify it to look something 
 like this:
 
-	inherit ROOM;
+	inherit "/std/room";
 
 	void setup(void) {
 

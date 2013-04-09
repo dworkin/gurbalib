@@ -1,4 +1,5 @@
-inherit MONSTER_RACE;
+inherit "/std/monster_race";
+
 string language;
 
 void create(void) {

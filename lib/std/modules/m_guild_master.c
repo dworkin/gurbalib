@@ -1,7 +1,7 @@
-inherit MONSTER;
-inherit M_BLOCKEXITS;
-inherit M_TRIGGERS;
-inherit M_ACTIONS;
+inherit "/std/monster";
+inherit "/std/modules/m_blockexits";
+inherit "/std/modules/m_triggers";
+inherit "/std/modules/m_actions";
 
 string guild;
 

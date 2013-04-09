@@ -1,4 +1,4 @@
-inherit M_MESSAGES;
+inherit "/std/modules/m_messages";
 
 #include <type.h>
 

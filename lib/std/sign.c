@@ -1,7 +1,7 @@
 /* Created by Fudge */
 
-inherit OBJECT;
-inherit M_READABLE;
+inherit "/std/object";
+inherit "/std/modules/m_readable";
 
 void create(void) {
    ::create();

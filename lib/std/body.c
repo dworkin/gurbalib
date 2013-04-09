@@ -1,4 +1,4 @@
-inherit ob OBJECT;
+inherit ob "/std/object";
 inherit "/std/body/experience";
 inherit "/std/body/quests";
 inherit "/std/body/size";

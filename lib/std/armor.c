@@ -1,5 +1,5 @@
-inherit ob OBJECT;
-inherit M_WEARABLE;
+inherit ob "/std/object";
+inherit "/std/modules/m_wearable";
 
 int armor_class;
 

@@ -1,6 +1,6 @@
 #include <type.h>
 
-inherit ob OBJECT;
+inherit ob "/std/object";
 
 static object *inventory;
 static mapping inv_map;

@@ -1,6 +1,6 @@
-inherit MONSTER;
-inherit M_MESSAGES;
-inherit M_TRIGGERS;
+inherit "/std/monster";
+inherit "/std/modules/m_messages";
+inherit "/std/modules/m_triggers";
 
 static mapping stored_items;
 static int will_buy;

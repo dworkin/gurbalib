@@ -1,7 +1,8 @@
 #include <mudlib.h>
-inherit MONSTER;
-inherit M_ACTIONS;
-inherit M_TRIGGERS;
+
+inherit "/std/monster";
+inherit "/std/modules/m_actions";
+inherit "/std/modules/m_triggers";
 
 void setup() {
    set_name("kitten");

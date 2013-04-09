@@ -1,4 +1,4 @@
-inherit OBJECT;
+inherit "/std/object";
 
 string board_id;
 string data_dir;

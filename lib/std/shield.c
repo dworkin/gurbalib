@@ -1,6 +1,6 @@
 inherit ob "/std/object";
-inherit wear M_WIELDABLE;
-inherit ARMOR;
+inherit wear "/std/modules/m_wieldable";
+inherit "/std/armor";
 
 void setup(void);
 
