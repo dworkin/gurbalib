@@ -1,7 +1,7 @@
 #include "../domain.h"
 
 inherit "/std/monster";
-inherit "/std/modules/m_blockexits";
+inherit "/std/modules/m_block_exits";
 
 void setup() {
    set_name("dwarf");

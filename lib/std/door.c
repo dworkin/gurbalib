@@ -3,7 +3,7 @@
 inherit "/std/object";
 inherit "/std/modules/m_openable";
 inherit "/std/modules/m_messages";
-inherit "/std/modules/m_blockexits";
+inherit "/std/modules/m_block_exits";
 
 static string our_exit;
 static string our_identity;

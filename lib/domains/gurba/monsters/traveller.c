@@ -1,7 +1,4 @@
-/* 
-   Demonstrates use of M_WANDER for testing purposes.
-   Cerihan 3/14/09
-*/
+/* Demonstrates use of m_wander for testing purposes.  Cerihan 3/14/09 */
 #include "../domain.h"
 
 inherit "/std/monster";

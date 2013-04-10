@@ -1,5 +1,5 @@
 inherit "/std/monster";
-inherit "/std/modules/m_blockexits";
+inherit "/std/modules/m_block_exits";
 inherit "/std/modules/m_triggers";
 inherit "/std/modules/m_actions";
 
