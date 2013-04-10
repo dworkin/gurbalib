@@ -19,5 +19,5 @@ void setup(void) {
 }
 
 /* XXX Need to add functions to light it and extinquish it??? 
-   Should it be here or in the M_LIGHT code????
+   Should it be here or in the m_light code????
 */

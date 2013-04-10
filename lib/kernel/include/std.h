@@ -87,17 +87,11 @@
 
 #define M_CONNECTION    "/std/modules/m_connection"
 #define M_PORT          "/std/modules/m_port"
-#define M_MESSAGES      "/std/modules/m_messages"
-#define M_SAVERESTORE   "/std/modules/m_save_restore"
-#define M_UNDROPPABLE   "/std/modules/m_undroppable"
 #define M_SERIALIZE     "/std/modules/m_serialize"
 #define M_MENU          "/std/modules/m_menu"
-#define M_LIGHT		"/std/modules/m_light"
 
 #define DRIVER          "/kernel/sys/driver"
 #define AUTO            "/kernel/lib/auto"
-
-#define OBJECT          "/std/object"
 
 #define PLAYER          "/sys/lib/player"
 #define USER            "/sys/lib/user"

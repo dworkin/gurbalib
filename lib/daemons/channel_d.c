@@ -5,7 +5,7 @@
 #define DATA_VERSION 2
 #define DATAFILE "/daemons/data/channel_d.o"
 
-inherit M_MESSAGES;
+inherit "/std/modules/m_messages";
 
 mapping permanent, colors, imud, guilds, history;
 int data_version;
