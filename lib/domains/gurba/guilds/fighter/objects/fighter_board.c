@@ -1,4 +1,4 @@
-inherit "/std/modules/m_board";
+inherit "/std/board";
 
 void setup(void) {
    if (clone_num() == 0)

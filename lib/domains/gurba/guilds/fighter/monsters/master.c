@@ -1,4 +1,4 @@
-inherit "/std/modules/m_guild_master";
+inherit "/std/guild_master";
 
 void setup(void) {
    set_guild("fighter");

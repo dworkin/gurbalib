@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit "/std/modules/m_vendor";
+inherit "/std/vendor";
 
 void setup(void) {
    set_name("innkeeper");

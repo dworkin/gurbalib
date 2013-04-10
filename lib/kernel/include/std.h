@@ -87,10 +87,8 @@
 
 #define M_ACTIONS       "/std/modules/m_actions"
 #define M_BLOCKEXITS    "/std/modules/m_block_exits"
-#define M_BOARD         "/std/modules/m_board"
 #define M_CONNECTION    "/std/modules/m_connection"
 #define M_PORT          "/std/modules/m_port"
-#define M_GUILD_MASTER  "/std/modules/m_guild_master"
 #define M_MESSAGES      "/std/modules/m_messages"
 #define M_OPENABLE      "/std/modules/m_openable"
 #define M_PICKABLE      "/std/modules/m_pickable"
@@ -98,7 +96,6 @@
 #define M_SAVERESTORE   "/std/modules/m_save_restore"
 #define M_TRIGGERS      "/std/modules/m_triggers"
 #define M_UNDROPPABLE   "/std/modules/m_undroppable"
-#define M_VENDOR        "/std/modules/m_vendor"
 #define M_WANDER        "/std/modules/m_wander"
 #define M_WEARABLE      "/std/modules/m_wearable"
 #define M_WIELDABLE     "/std/modules/m_wieldable"

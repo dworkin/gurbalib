@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit "/std/modules/m_board";
+inherit "/std/board";
 
 void setup(void) {
    set_id("board");
