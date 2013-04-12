@@ -52,6 +52,12 @@ cd to your gurbalib dir and perform the following actions:
 The first character logging in will automatically get the
 admin role, so be sure its you.
 
+Gurbalib ships with an ftp server which is enabled by default,
+on whatever port you select + 1  if you telnet to 4000
+you ftp to 4001.  If you want to disable it, add the following line
+to lib/std/include/local_config.h:
+#define DISABLE_FTP 1
+
 OTHER THINGS:
 -----------------------------------------------------------------------
 If you want a squeaky clean mud you can also remove the files in
