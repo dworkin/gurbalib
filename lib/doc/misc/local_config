@@ -1,3 +1,4 @@
+/* 
 Gurbalib uses an include file for some local configurable
 options. You'll have to #define things in there to override
 the defaults for those options.
@@ -8,58 +9,52 @@ default for that option will be used.
 
 Useful defines you can put in /std/include/local_config.h and their 
 default values:
+*/
 
-To define your email address:
+/* To define your email address: */
+#define ADMIN_EMAIL             "you@some.place"
 
-ADMIN_EMAIL             "you@some.place"
+/* To set the linkdeadth timeout (after this linkdead players will be 
+   disconnected) */
+#define LINKDEAD_TIMEOUT        10*60
 
-To set the linkdeadth timeout (after this linkdead players will be 
-disconnected)
+/* This defines where players start when they login: */
+#define STARTING_ROOM           "/domains/required/rooms/start"
 
-LINKDEAD_TIMEOUT        10*60
+/* The max stack depth */
+#define MAX_DEPTH               256
 
-This defines where players login:
-
-STARTING_ROOM           "/domains/required/rooms/start"
-
-The max stack depth
-
-MAX_DEPTH               256
-
-This defines how many ticks can be used before an out of ticks
-error occurs.
-
-MAX_TICKS               1000000
+/* This defines how many ticks can be used before an out of ticks
+   error occurs. */
+#define MAX_TICKS               1000000
 
 
-When set to 0, the world will not be persistent, and clean_up and reset
-are used.
+/* When set to 0, the world will not be persistent, and clean_up and reset
+   are used. */
+#define WORLD_PERSIST           0
 
-WORLD_PERSIST           0
+/* The time between calls to event_clean_up */
+#define CLEAN_UP_INTERVAL       7200
 
-The time between calls to event_clean_up
-CLEAN_UP_INTERVAL       7200
+/* The time between calls to event_reset */
+#define RESET_INTERVAL          3600
 
-The time between calls to event_reset
-RESET_INTERVAL          3600
+/* The time between state dumps */
+#define DUMP_INTERVAL           3600
 
-The time between state dumps
-DUMP_INTERVAL           3600
+/* The time between heart beats */
+#define HEART_BEAT_INTERVAL     2
 
-The time between heart beats
-HEART_BEAT_INTERVAL     2
+/* If the following is defined, all FTP functionality will be disabled */
+#define DISABLE_FTP 1
 
-If the following is defined, all FTP functionality will be disabled
-DISABLE_FTP
+/* If the following is defined, anonymous FTP will be disabled */
+#define DISABLE_ANON_FTP 1
 
-If the following is defined, anonymous FTP will be disabled
-DISABLE_ANON_FTP
+/* If the following is defined, room descriptions will show each object
+   individually instead of collating objects with identical short descs.
+*/
+#define LONG_ROOM_INV 1
 
-If the following is defined, room descriptions will show each object
-individually instead of collating objects with identical short descs.
-LONG_ROOM_INV
-
-Default terminal width
-DEFAULT_WIDTH           80
-
-
+/* Default terminal width */
+#define DEFAULT_WIDTH           80
