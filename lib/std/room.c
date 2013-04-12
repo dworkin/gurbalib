@@ -1,12 +1,12 @@
 #include <type.h>
 
 inherit cont "/std/container";
-inherit "/std/modules/m_fake_object";
 
 static mapping exits;
 static mapping hidden_exits;
 static mapping areas;
 static mapping room_commands;
+static mapping items;
 static int last_exit;
 static int weather;
 static int light;
@@ -26,6 +26,7 @@ void create(void) {
    hidden_exits = ([]);
    areas = ([]);
    room_commands = ([]);
+   items = ([]);
    last_exit = 0;
    light = 1;
    setup();
@@ -270,6 +271,82 @@ void remove_room_command(string command) {
 
 string query_room_command(string command) {
    return room_commands[command];
+}
+
+void set_items(string id, varargs mixed args ...) {
+   string description;
+   int i;
+
+   if (!items) items = ([]);
+
+   description = args[sizeof(args) - 1];
+   items[id] = description;
+
+   if (sizeof(args) > 1) {
+      for (i = 0; i < sizeof(args) - 1; i++) {
+         items[args[i]] = description;
+      }
+   }
+}
+
+void add_item(string id, varargs mixed args ...) {
+   string description;
+   int i;
+
+   if (!items) items = ([]);
+
+   description = args[sizeof(args) - 1];
+   items[id] = description;
+
+   if (sizeof(args) > 1) {
+      for (i = 0; i < sizeof(args) - 1; i++) {
+         items[args[i]] = description;
+      }
+   }
+}
+
+void remove_item(string id) {
+   mapping temp_desc;
+   int size, i;
+   string *values;
+   string *indices;
+   string description;
+
+   if (!items) {
+      items = ([]);
+   }
+   temp_desc = ([]);
+   description = items[id];
+   size = map_sizeof(items);
+   values = map_values(items);
+   indices = map_indices(items);
+
+   for (i = 0; i <= size - 1; i++) {
+      if (description != values[i]) {
+         temp_desc[indices[i]] = values[i];
+      }
+   }
+   items = ([]);
+   items = temp_desc;
+}
+
+string *query_item_ids(void) {
+   if (!items) {
+      items = ([]);
+   }
+   return (map_indices(items));
+}
+
+string *query_items(void) {
+   if (!items)
+      items = ([]);
+   return (map_indices(items));
+}
+
+string query_item(string item) {
+   if (!items)
+      items = ([]);
+   return (items[item]);
 }
 
 /*-------------------------------------------------------------------
