@@ -448,11 +448,10 @@ void recompile(object obj) {
 }
 
 object _telnet_connect(mixed * tls, int port) {
-
    object connection;
 
    connection = TELNET_D->connection("<unknown>", port);
-   return (connection);
+   return connection;
 }
 
 object telnet_connect(int port) {
@@ -460,10 +459,14 @@ object telnet_connect(int port) {
 }
 
 object _binary_connect(mixed * tls, int port) {
+   object connection;
+
+   connection = FTP_D->connection("<unknown>", port);
+   return connection;
 }
 
 object binary_connect(int port) {
-   _binary_connect(allocate(query_tls_size()), port);
+   return _binary_connect(allocate(query_tls_size()), port);
 }
 
 void _interrupt(mixed * tls) {

@@ -7,7 +7,7 @@ void initialize(void) {
    open_port("tcp", FTP_PORT);
 }
 
-static object connection(string ip, int port) {
+object connection(string ip, int port) {
    object con, session;
 
    session = clone_object("/daemons/ftp_session");
