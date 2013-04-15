@@ -98,32 +98,37 @@ void check_exits(object obj, mapping myexits) {
    string exit, filename, exitfile;
    int x, len;
 
-   indices = map_indices(myexits);
+   if (!myexits) {
+	return;
+   }
 
-   x = sizeof(indices) -1;
-   while (x > -1) {
-      exitfile = myexits[indices[x]];
-      exitfile = add_dotc(exitfile);
+   if (indices = map_indices(myexits)) {
 
-      write("Checking exit: " + indices[x] + " " + exitfile + "\n");
+      x = sizeof(indices) -1;
+      while (x > -1) {
+         exitfile = myexits[indices[x]];
+         exitfile = add_dotc(exitfile);
 
-      if (!file_exists(exitfile)) {
-         if (myexits[exitfile]) {
-            warn("Exit: " + indices[x] + ":" + 
-               myexits[exitfile] + " does not exist.\n");
+         write("Checking exit: " + indices[x] + " " + exitfile + "\n");
+
+         if (!file_exists(exitfile)) {
+            if (myexits[exitfile]) {
+               warn("Exit: " + indices[x] + ":" + 
+                  myexits[exitfile] + " does not exist.\n");
+            } else {
+               warn("Exit: " + indices[x] + ": does not exist.\n"); 
+            }
+         } else if (invert_exit(indices[x]) != "unknown") {
+            filename = obj->base_name();
+            filename = add_dotc(filename);
+
+            check_remote_exit(exitfile, indices[x], filename);
+
          } else {
-            warn("Exit: " + indices[x] + ": does not exist.\n"); 
+            warn("Nonstandard exit: " + exitfile + " no further checks.\n");
          }
-      } else if (invert_exit(indices[x]) != "unknown") {
-         filename = obj->base_name();
-         filename = add_dotc(filename);
-
-         check_remote_exit(exitfile, indices[x], filename);
-
-      } else {
-	warn("Nonstandard exit: " + exitfile + " no further checks.\n");
+         x = x - 1;
       }
-      x = x - 1;
    }
 }
 
@@ -153,6 +158,33 @@ void do_standard_checks(object obj) {
 
 }
 
+void check_functions(object obj, mapping funs) {
+   string *indices;
+   string funname;
+   int x;
+
+   if (!funs) {
+      return;
+   }
+
+
+   if (indices = map_indices(funs)) {
+      x = sizeof(indices) -1;
+      while (x > -1) {
+         funname = funs[indices[x]];
+
+         write("Checking Function: " + indices[x] + " " + funname + "\n");
+
+         if (!function_object(funname,obj)) {
+            write("Warning: Function " + funname + " not define in: " +
+            obj->file_name() + "\n");
+         }
+
+         x = x - 1;
+      }
+   }
+}
+
 void do_room_check(object obj) {
    mapping myexits;
    write("Doing room check\n");
@@ -164,6 +196,7 @@ void do_room_check(object obj) {
    check_exits(obj,myexits);
 
    myexits = obj->query_room_commands();
+   check_functions(obj,myexits);
 }
 
 void do_monster_check(object obj) {
@@ -183,6 +216,8 @@ void do_monster_check(object obj) {
 
 void do_object_check(object obj) {
    string tmpstr;
+   mapping functions;
+
    write("Doing object check\n");
 
    if (obj->is_gettable() && (obj->query_weight() < 1))
@@ -191,6 +226,9 @@ void do_object_check(object obj) {
       warn("Object gettable and value < 1\n");
    if (!obj->is_gettable() && (obj->query_value() > 1))
       warn("Object ungettable and value > 1\n");
+
+   functions = obj->query_room_commands();
+   check_functions(obj,functions);
 }
 
 void do_check(string str) {
