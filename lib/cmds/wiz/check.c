@@ -93,18 +93,22 @@ void check_remote_exit(string room, string exit, string filename) {
   }
 }
 
-void check_exits(object obj, mapping myexits) {
+int check_exits(object obj, mapping myexits) {
    string *indices;
    string exit, filename, exitfile;
-   int x, len;
+   int x, len, c;
 
    if (!myexits) {
-	return;
+	return -1;
    }
 
+   c = 0;
    if (indices = map_indices(myexits)) {
 
       x = sizeof(indices) -1;
+      if (x < 0) {
+         return -1;
+      }
       while (x > -1) {
          exitfile = myexits[indices[x]];
          exitfile = add_dotc(exitfile);
@@ -115,8 +119,10 @@ void check_exits(object obj, mapping myexits) {
             if (myexits[exitfile]) {
                warn("Exit: " + indices[x] + ":" + 
                   myexits[exitfile] + " does not exist.\n");
+               c = c + 1;
             } else {
                warn("Exit: " + indices[x] + ": does not exist.\n"); 
+               c = c + 1;
             }
          } else if (invert_exit(indices[x]) != "unknown") {
             filename = obj->base_name();
@@ -126,10 +132,14 @@ void check_exits(object obj, mapping myexits) {
 
          } else {
             warn("Nonstandard exit: " + exitfile + " no further checks.\n");
+               c = c + 1;
          }
          x = x - 1;
       }
    }
+
+   if (c > 0) return 0;
+   return 1;
 }
 
 void do_standard_checks(object obj) {
@@ -158,45 +168,81 @@ void do_standard_checks(object obj) {
 
 }
 
-void check_functions(object obj, mapping funs) {
+int check_functions(object obj, mapping funs) {
    string *indices;
    string funname;
-   int x;
+   int x, c;
 
    if (!funs) {
-      return;
+      return -1;
    }
-
+ 
+   c = 0;
 
    if (indices = map_indices(funs)) {
       x = sizeof(indices) -1;
+      if (x < 0) {
+         return -1;
+      }
       while (x > -1) {
          funname = funs[indices[x]];
 
          write("Checking Function: " + indices[x] + " " + funname + "\n");
 
          if (!function_object(funname,obj)) {
-            write("Warning: Function " + funname + " not define in: " +
+            warn("Warning: Function " + funname + " not define in: " +
             obj->file_name() + "\n");
+            c = c + 1;
          }
 
          x = x - 1;
       }
    }
+   if (c > 0) return 0;
+   return 1;
 }
 
 void do_room_check(object obj) {
    mapping myexits;
+   int x;
+
    write("Doing room check\n");
 
+   write("Checking exits:\n");
    myexits = obj->query_exits();
-   check_exits(obj,myexits);
+   x = check_exits(obj,myexits);
 
+   if (x == -1) {
+      write("\tNo visable exits.\n");
+   } else if (x) {
+      write("\tOk.\n");
+   } else {
+      write("\tFail.\n");
+   }
+
+   write("Checking hidden exits: ");
    myexits = obj->query_hidden_exits();
-   check_exits(obj,myexits);
+   x = check_exits(obj,myexits);
 
+   if (x == -1) {
+      write("\tNo hidden exits.\n");
+   } else if (x) {
+      write("\tOk.\n");
+   } else {
+      write("\tFail.\n");
+   }
+
+   write("Checking room commands: ");
    myexits = obj->query_room_commands();
-   check_functions(obj,myexits);
+   x = check_functions(obj,myexits);
+
+   if (x == -1) {
+      write("\tNo room commands.\n");
+   } else if (x) {
+      write("\tOk.\n");
+   } else {
+      write("\tFail.\n");
+   }
 }
 
 void do_monster_check(object obj) {
@@ -217,6 +263,7 @@ void do_monster_check(object obj) {
 void do_object_check(object obj) {
    string tmpstr;
    mapping functions;
+   int x;
 
    write("Doing object check\n");
 
@@ -228,7 +275,16 @@ void do_object_check(object obj) {
       warn("Object ungettable and value > 1\n");
 
    functions = obj->query_room_commands();
-   check_functions(obj,functions);
+   write("Checking object functions.\n");
+   x = check_functions(obj,functions);
+
+   if (x == -1) {
+      write("\tNo object functions.\n");
+   } else if (x) {
+      write("\tOk.\n");
+   } else {
+      write("\tFail.\n");
+   }
 }
 
 void do_check(string str) {
