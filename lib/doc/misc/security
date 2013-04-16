@@ -72,9 +72,16 @@ File system privileges
   Kernel and system can write everywhere, all other privileges can only write
   to files and directories they own.
 
+Layout of privileges
+
+  Things under the directory: kernel have kernel privs.
+  Things under the directories: daemons, sys, std, cmds have system privs.
+  Things under the directories: obj, game, logs data have game privs.
+  Under Wiz or domain, things have the wizard or domain privs.
+  Everything else has the nobody priv.
+
 Other privileges
 
   require_priv() is used in various places, not just for filesystem security.
-
   require_priv() is a somewhat expensive afun, use with care.
 
