@@ -2,6 +2,8 @@
   Defines for MSSP replies
 
   Change these defines to alter what is sent in MSSP replies to MUD crawlers.
+  XXX show where you can find the MSSP specification and see if there is more
+      to do here....
 */
 
 /* Required */
