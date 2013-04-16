@@ -8,7 +8,6 @@
  *
  */
 
-#include <user.h>
 #include <limits.h>
 #include <status.h>
 #include <ports.h>
