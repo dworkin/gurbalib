@@ -99,10 +99,6 @@
 #define USER_OB         "/sys/obj/user/telnet"
 #define PLAYER_OB       "/sys/obj/player"
 #define TELNET_USER_OB  "/sys/obj/user/telnet"
-#define SSH_USER_OB     "/sys/obj/user/ssh"
-#define HTTP_USER_OB    "/sys/obj/user/http"
-#define FTP_USER_OB     "/sys/obj/user/ftp_command"
-#define FTP_DATA_OB     "/sys/obj/user/ftp_data"
 
 #ifndef WIZ_DIR
 #define WIZ_DIR "/wiz/"
