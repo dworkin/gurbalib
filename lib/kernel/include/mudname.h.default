@@ -4,5 +4,19 @@
 /* Name for your mud on Intermud */
 #define IMUD_NAME "GurbaLib"
 
-/* Your contact info..... */
-#define ADMIN_EMAIL "you@some.place"
+/* Who people should contact for help */
+#define ADMIN_EMAIL "you@someplace"
+
+/* Website for the mud if you have one */
+#define WEBSITE "https://github.com/sirdude/gurbalib"
+
+/* Mud Server Status Protocol variables, see sys/lib/user.c for where this 
+   is used */
+#define MSSP_FAMILY "LPMud"
+#define MSSP_STATUS "ALPHA" /* "ALPHA", "CLOSED BETA", "OPEN BETA", "LIVE" */
+#define MSSP_INTERMUD "I3"
+#define MSSP_ANSI "1"
+#define MSSP_MCCP "0"
+#define MSSP_PAY_TO_PLAY "0"
+#define MSSP_PAY_FOR_PERKS "0"
+

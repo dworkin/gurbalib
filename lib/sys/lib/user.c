@@ -11,7 +11,6 @@
 #include <limits.h>
 #include <status.h>
 #include <ports.h>
-#include <mssp.h>
 
 object player;
 object ansid;
@@ -329,22 +328,29 @@ string query_name(void) {
    return (user_name);
 }
 
+/* The MSSP specification can be found here: 
+   http://tintin.sourceforge.net/mssp/
+*/
 void mssp_reply(void) {
    /* Change these values in /include/mssp.h */
 
    send_message("\r\nMSSP-REPLY-START\r\n");
 
    /* These are Required */
-   send_message("NAME\t" + MSSP_NAME + "\r\n");	/* Name of the MUD */
+   send_message("NAME\t" + IMUD_NAME + "\r\n");	/* Name of the MUD */
    /* Current number of logged in players */
-   send_message("PLAYERS\t" + MSSP_PLAYERS + "\r\n");
+   send_message("PLAYERS\t" + sizeof(players()) + "\r\n");
    /* Unix time value of the startup time of the MUD */
-   send_message("UPTIME\t" + MSSP_UPTIME + "\r\n");
+   send_message("UPTIME\t" + status()[ST_STARTTIME] + "\r\n");
 
    /* Generic */
-   send_message("PORT\t" + MSSP_PORT + "\r\n");
-   send_message("CODEBASE\t" + MSSP_CODEBASE + "\r\n");
-   send_message("CONTACT\t" + MSSP_CONTACT + "\r\n");
+   send_message("PORT\t" + LOGIN_PORT + "\r\n");
+   send_message("CODEBASE\t" + LIB_NAME + LIB_VERSION + "/" + 
+	status()[ST_VERSION] + "\r\n");
+   send_message("CONTACT\t" + ADMIN_EMAIL + "\r\n");
+   #ifdef WEBSITE
+   send_message("WEBSITE\t" + WEBSITE + "\r\n");
+   #endif
 
    /* Categorization */
    send_message("FAMILY\t" + MSSP_FAMILY + "\r\n");
