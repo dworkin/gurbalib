@@ -2,12 +2,12 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: git -h [push] [pull] [commit [-m \"Message\"]] " +
-      [status] [dir]" });
+      "[status] [dir]" });
    lines += ({ " " });
    lines += ({ "An iterface to the external git repository system." });
    lines += ({ " " });
    lines += ({ "Options:" });
-   lines += ({ "\t-h\tHelp, this usage message.\n");
+   lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\t-m \"Message\"\tUsed when commiting changes, Message is " +
       "a brief" });
    lines += ({ "\t\tdescription of changes you are commiting." });
