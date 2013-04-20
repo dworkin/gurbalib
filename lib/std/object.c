@@ -244,35 +244,12 @@ nomask int move(mixed destination) {
    }
 
    if (object_environment) {
-      if (object_environment->is_living()) {
-	 if (sizeof(this_object()->query_object_commands()) > 0) {
-	    string *objcmds;
-	    int i;
-
-	    objcmds = this_object()->query_object_commands();
-	    for (i = 0; i < sizeof(objcmds); i++) {
-	       object_environment->remove_item_command(objcmds[i]);
-	    }
-	 }
-      }
-
       object_environment->remove_object(this_object());
    }
 
    object_environment = dest;
 
-   if (object_environment->is_living()) {
-      if (sizeof(this_object()->query_object_commands()) > 0) {
-	 string *objcmds;
-	 int i;
-
-	 objcmds = this_object()->query_object_commands();
-	 for (i = 0; i < sizeof(objcmds); i++) {
-	    object_environment->add_item_command(objcmds[i], this_object());
-	 }
-      }
-   }
-/* XXX Needs review.... work */
+   /* XXX Needs review.... work */
    if (this_object()->is_living()) {
       dest->event("body_enter", this_object());
    }

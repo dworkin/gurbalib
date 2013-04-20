@@ -23,8 +23,6 @@ static object more_caller;	/* Who called more in us
 					(so we can call it back when done */
 static string *more_lines;	/* All the lines in the file we're more'ing */
 string last_tell;		/* Who did we get a tell from last? */
-static mapping item_commands;	/* Commands that are local to 
-					worn/wielded items. */
 static int color_more;		/* Flag to specifiy color more */
 
 string real_name;		/* This players real name */
@@ -71,7 +69,6 @@ void create(void) {
    set_env("height", "23");
 
    custom_colors = ([]);
-   item_commands = ([]);
    level = 1;
 }
 
@@ -622,6 +619,7 @@ void do_quit(void) {
 
    if (query_env("save_on_quit")) {
       object room;
+
       room = this_player()->query_environment();
       if (room) set_env("start", room->file_name());
    }
@@ -685,19 +683,6 @@ mapping query_aliases(void) {
    return alias;
 }
 
-/* Add to the item command mapping */
-void add_item_command(string command, object ob) {
-   if (!item_commands)
-      item_commands = ([]);
-   item_commands[command] = ob;
-}
-
-void remove_item_command(string command) {
-   if (!item_commands)
-      item_commands = ([]);
-   item_commands[command] = nil;
-}
-
 /* Guild routines */
 
 void join_guild(string guild) {
@@ -745,6 +730,7 @@ void receive_message(string message) {
    string func, cmd, arg;
    string *exits;
    int i, flag;
+   object room;
 
    flag = 0;
 
@@ -802,22 +788,72 @@ void receive_message(string message) {
       if (arg == "me")
 	 arg = this_player()->query_id();
 
+      /* Check for an object command in objects in my inv */
       if (!flag) {
-	 /* Check for an item command */
-	 int i;
-	 string *item_cmds;
+	 object player;
+	 string roomcmd_h;
 
-	 item_cmds = map_indices(item_commands);
-	 for (i = 0; i < sizeof(item_cmds); i++) {
-	    if (item_cmds[i] == cmd) {
-	       call_other(item_commands[item_cmds[i]], "do_" + cmd, arg);
-	       flag = 1;
-	    }
-	 }
+         player = this_player();
+         if (player) {
+            object *objs;
+            int y, maxy;
+            objs = player->query_inventory();
+            if (objs) {
+               maxy = sizeof(objs);
+               for(y=0;y<maxy; y++) {
+	          roomcmd_h = objs[y]->query_object_command(cmd);
+
+	          if (roomcmd_h) {
+	             call_other(objs[y], roomcmd_h, arg);
+	             flag = 1;
+	          }
+               }
+            }
+         }
       }
 
+      /* Check for an object command in the room */
       if (!flag) {
-	 /* Check for a room command */
+         object room;
+         string objectcmd_h;
+
+	 room = this_player()->query_environment();
+         if (room) {
+            objectcmd_h = room->query_object_command(cmd);
+
+            if (objectcmd_h) {
+               call_other(room, objectcmd_h, arg);
+               flag = 1;
+            }
+         }
+      }
+
+      /* Check for an object command in objects in the room */
+      if (!flag) {
+	 object room;
+	 string roomcmd_h;
+
+         room = this_player()->query_environment();
+         if (room) {
+            object *objs;
+            int y, maxy;
+            objs = room->query_inventory();
+            if (objs) {
+               maxy = sizeof(objs);
+               for(y=0;y<maxy; y++) {
+	          roomcmd_h = objs[y]->query_object_command(cmd);
+
+	          if (roomcmd_h) {
+	             call_other(objs[y], roomcmd_h, arg);
+	             flag = 1;
+	          }
+               }
+            }
+         }
+      }
+
+      /* Check for a room command */
+      if (!flag) {
 	 object room;
 	 string roomcmd_h;
          room = this_environment();
