@@ -1,5 +1,6 @@
 void usage() {
    string *lines;
+
    lines = ({ "Usage: browse [-h] [dir]" });
    lines += ({ " " });
    lines += ({ "An interactive way to look at files." });

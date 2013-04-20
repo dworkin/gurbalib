@@ -1,5 +1,6 @@
 void usage() {
    string *lines;
+
    lines = ({ "Usage: add_base [-h] STATNAME" });
    lines += ({ " " });
    lines += ({ "Increase stat STATNAME by 1." });

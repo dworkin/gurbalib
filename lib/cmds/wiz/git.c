@@ -1,20 +1,31 @@
 void usage() {
-   write("Usage: git -h [push] [pull] [commit [-m \"Message\"]] [status] " +
-      "[dir]\n");
-   write("An iterface to the external git repository system.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
-   write("\t-m \"Message\"\tUsed when commiting changes, Message is a brief\n" +
-      "\t\tdescription of changes you are commiting.\n");
-   write("\tstatus [dir]\tGives you a summary of uncommitted changes you " +
-      "have made.\n");
-   write("\tpull [dir]\tPulls the latest updates from the external " +
-      "repository.\n");
-   write("\tpush [dir]\tPushes your commits to the external repository.\n");
-   write("\tcommit -m \"Message\" [dir]\tCommit changes you have made back\n" +
-      "\t\tto the external repository.\n");
-   write("[dir] is optional, and will use the current directory" +
-      " if not given.\n");
+   string *lines;
+
+   lines = ({ "Usage: git -h [push] [pull] [commit [-m \"Message\"]] " +
+      [status] [dir]" });
+   lines += ({ " " });
+   lines += ({ "An iterface to the external git repository system." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message.\n");
+   lines += ({ "\t-m \"Message\"\tUsed when commiting changes, Message is " +
+      "a brief" });
+   lines += ({ "\t\tdescription of changes you are commiting." });
+   lines += ({ "\tstatus [dir]\tGives you a summary of uncommitted " +
+      "changes you have made." });
+   lines += ({ "\tpull [dir]\tPulls the latest updates from the external " +
+      "repository." });
+   lines += ({ "\tpush [dir]\tPushes your commits to the external " +
+      "repository." });
+   lines += ({ "\tcommit -m \"Message\" [dir]\tCommit changes you have made " +
+      "back" });
+   lines += ({ "\t\tto the external repository." });
+   lines += ({ "[dir] is optional, and will use the current directory" +
+      " if not given." });
+   lines += ({ "Examples:" });
+   lines += ({ "See also:" });
+
+   this_player()->more(lines);
 }
 
 void main(string str) {

@@ -1,9 +1,7 @@
 void usage() {
    string *lines;
-   lines = ( {
-      });
 
-   lines += ( { "Usage: aliasadm -h" } );
+   lines = ( { "Usage: aliasadm -h" } );
    lines += ( { "Usage: aliasadm show [ALIAS]    show the global entrys " +
       "for ALIAS"
    } );

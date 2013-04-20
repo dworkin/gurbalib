@@ -1,5 +1,6 @@
 void usage() {
    string *lines;
+
    lines = ({ "Usage: aload [-h] [save]" });
    lines += ({ " " });
    lines += ({ "If no arguments are given, load your current autoload " +

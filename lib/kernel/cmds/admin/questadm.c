@@ -7,7 +7,7 @@ void usage() {
    lines += ({ "Used to add, remove or list available quests on the mud." });
    lines += ({ "\tQUEST is a name for your quest, \n"});
    lines += ({ "\tLEVEL is a recomended level for your quest, \n"});
-   lines += ({ "\tCONTACTS is a list of wizards that are incharge of " .
+   lines += ({ "\tCONTACTS is a list of wizards that are incharge of " +
       "the quest.\n"});
    lines += ({ "If no args are given show all quests." });
    lines += ({ "" });
