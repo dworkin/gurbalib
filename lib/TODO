@@ -24,9 +24,6 @@ why /daemons, /kernel/daemons, /sys/daemons
    /sys/lib, /kernel/lib
 /daemons/data /data /kernel/daemons/data /sys/data /sys/daemons/data
 
-Still need to modify add_item_command so that it uses function names from
-add_object_command...
-
 support for getting 2nd or 3rd sword in a room or inv
 Fix it so deep inventory works with autoload.
 

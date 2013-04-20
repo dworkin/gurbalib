@@ -11,6 +11,7 @@ void setup(void) {
    set_long("Bob is wearing a simple robe, and his head is always bent in " +
       "humbleness.");
    set_race("human");
+   set_level(1);
    nFollow = call_out("follow_fudge", 2);
 }
 
