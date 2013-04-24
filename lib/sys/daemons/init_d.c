@@ -12,13 +12,16 @@
 private string *default_init() {
    string *objects;
 
-   objects = ( { SCHEDULE_D, CHANNEL_D, TIME_D, USER_D, IMUD_D } );
+   objects = ( { SCHEDULE_D, CHANNEL_D, TIME_D, USER_D } );
 
 #ifdef SYS_NETWORKING
    objects += ( {
        TELNET_D,
 #ifndef DISABLE_FTP
         FTP_D,
+#endif
+#ifndef DISABLE_IMUD
+	IMUD_D,
 #endif
    } );
 #endif

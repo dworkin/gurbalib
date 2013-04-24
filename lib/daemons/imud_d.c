@@ -92,10 +92,7 @@ private void write_imud_stream(string sType, mixed sTargetMUD,
       }
    }
 
-   /*  The first 6 entries into the outgoing array will always be the
-      same. 
-    */
-
+   /*  The first 6 entries into the outgoing array will always be the same.  */
    mpPacket = ( {
 	 sType,		/*The packet type(correspond to one of the services) */
 	 5,		/*Always 5. */
@@ -166,21 +163,20 @@ static void send_to_all(string sType, mixed * mpMessage) {
 }
 
 void do_channel_m(string chan, string what) {
-
    send_to_all("channel-m", ( { chan, this_player()->query_Name(), what } ) );
 }
 
 void do_channel_e(string chan, string what) {
-
    send_to_all("channel-e", ( { chan, this_player()->query_Name(), what } ) );
 }
 
 void do_tell(string who, string where, string what) {
    string s;
 
-   if (catch(s = this_player()->query_Name()))
+   if (catch(s = this_player()->query_Name())) {
       /* if not a player sending the tell, identify ourself */
       s = object_name(this_object());	
+   }
 
    send_to_user("tell", where, who, ( { s, what } ) );
 }
@@ -199,13 +195,12 @@ void do_locate(string who) {
   to the sender saying that we don't support that service.
 */
 private void handle_router_read(mixed * mpMessage) {
-/*
-  If you don't have support for this service, return an error.  You
-  shouldn't receive packets for unsupported services if you didn't
-  define them in your startup-request-3 packet.
-  Don't respond to broadcasts with an error.
-*/
-
+   /*
+     If you don't have support for this service, return an error.  You
+     shouldn't receive packets for unsupported services if you didn't
+     define them in your startup-request-3 packet.
+     Don't respond to broadcasts with an error.
+   */
    if (!mpMessage || sizeof(mpMessage) == 0) {
       IMUDLOG("Empty packet!");
       return;
@@ -246,11 +241,11 @@ private void handle_router_read(mixed * mpMessage) {
 	 break;
    }
 
-/*
-  This call assumes that you've either #include'ed or inherited the
-  various services into this object.  If not, you'll have to modify
-  this call to reflect your setup.
-*/
+   /*
+     This call assumes that you've either #include'ed or inherited the
+     various services into this object.  If not, you'll have to modify
+     this call to reflect your setup.
+   */
    call_other(this_object(), aServices[mpMessage[0]],
       mpMessage[2], mpMessage[3], mpMessage[5], mpMessage[6..]);
 }
@@ -535,16 +530,12 @@ static string sBuffer;
 */
 
 void receive_message(string str) {
-   /*
-    * If we had no input, return here;
-    */
+   /* If we had no input, return here; */
    if (str == nil) {
       return;
    }
 
-   /*
-    * Initialize the buffer if it doesn't exist yet.
-    */
+   /* Initialize the buffer if it doesn't exist yet.  */
    if (!buffer) {
       buffer = "";
       packet_len = 0;		/* We had no data so reset this as well */
@@ -572,9 +563,7 @@ void receive_message(string str) {
 	 return;
       }
 
-      /*
-       * add the input data to our receive buffer.
-       */
+      /* add the input data to our receive buffer.  */
       buffer += str;
       size = strlen(buffer);
       /* Do we have the 4 bytes for the packet size and 
@@ -884,7 +873,10 @@ void create(void) {
    ] );
 
    spAddress = explode(mpRouterList[current_router][1], " ");
+
+#ifndef DISABLE_IMUD
    connect(spAddress[0], (int)spAddress[1]);
+#endif 
 }
 
 void receive_error(string err) {

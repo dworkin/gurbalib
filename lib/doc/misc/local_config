@@ -51,6 +51,9 @@ default values:
 /* If the following is defined, anonymous FTP will be disabled */
 #define DISABLE_ANON_FTP 1
 
+/* If the following is defined, the INTERMUD Daemon will not be started */
+#define DISABLE_IMUD 1
+
 /* If the following is defined, room descriptions will show each object
    individually instead of collating objects with identical short descs.
 */
