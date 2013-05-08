@@ -11,9 +11,6 @@ void setup(void) {
    add_object_command("loan","do_loan");
 }
 
-/* XXX Fix it so object commands work when the object is in the room with you 
-   as well as when you have the object... */
-
 int do_balance(string str) {
    int amount;
 
@@ -38,7 +35,6 @@ int do_withdraw(string str) {
       return 1;
    }
 }
-
 
 int do_deposit(string str) {
    int amount;
