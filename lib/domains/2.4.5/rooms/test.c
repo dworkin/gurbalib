@@ -5,6 +5,13 @@ inherit "/std/room";
 string east_door_open, name;
 int a, amiga_present, amiga_power;
 
+int do_reset(string str) {
+   amiga_present = 0;
+   amiga_power = 0;
+   a = 0;
+   tell_room(nil, "The lights in the room flicker!\n");
+   return 1;
+}
 
 void setup(void) {
    add_area("2.4.5");
@@ -12,12 +19,33 @@ void setup(void) {
    set_short("Computer room");
 
    add_exit("east","/domains/2.4.5/rooms/rum2.c");
-   add_action("sesam", "sesam");
-   add_action("power", "power");
+   add_room_command("sesam", "sesam");
+   add_room_command("power", "power");
+   add_room_command("test", "test");
+   add_room_command("reset", "do_reset");
+
+/* Make this work XXX */
+   add_item("amiga", "#do_computer");
+   add_item("computer", "#do_computer");
 
    set_objects (([
       DIR + "/obj/jacket.c": 1,
    ]));
+   a = 0;
+   amiga_present = 0;
+   amiga_power = 0;
+}
+
+string do_computer() {
+   if (amiga_present) {
+      if (amiga_power) {
+         return "A powered amiga is here.";
+      } else {
+         return "An amiga is here, it's screen is dark.";
+      }
+   } else {
+      return "You do not see a computer here.";
+   }
 }
 
 string query_long() {
@@ -42,7 +70,6 @@ int sesam(string str) {
    } else {
       write("An amiga materialises!\n");
       amiga_present = 1;
-      add_action("power", "power");
    }
    return 1;
 }
@@ -60,3 +87,18 @@ int power(string str) {
    amiga_power = 1;
    return 1;
 }
+
+int fac(int n) {
+   if (n <= 0) return 1;
+   return n * fac(n-1);
+}
+
+int test(string str) {
+   if (amiga_power) {
+      a = a + 1;
+      write("Fac " + a + " is " + fac(a) + "\n");
+      return 1;
+   }
+   return 0;
+}
+
