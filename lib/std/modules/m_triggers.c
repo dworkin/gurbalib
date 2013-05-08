@@ -12,10 +12,8 @@ void add_pattern(string pattern, string action) {
 
 void outside_message(string msg) {
    string *pats;
-   string left;
-   string right;
-   int i, j;
-   int args;
+   string left, right;
+   int i, j, args, patssize, patsz;
 
    left = "";
    right = "";
@@ -29,9 +27,11 @@ void outside_message(string msg) {
       patterns = ([]);
 
    pats = map_indices(patterns);
-   for (i = 0; i < sizeof(pats); i++) {
+   patssize = sizeof(pats);
+   for (i = 0; i < patssize; i++) {
       args = 0;
-      for (j = 0; j < strlen(pats[i]); j++) {
+      patsz = strlen(pats[i]);
+      for (j = 0; j < patsz; j++) {
 	 if (pats[i][j] == '%')
 	    args++;
       }
