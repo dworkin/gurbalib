@@ -38,16 +38,6 @@ void create(void) {
    }
 }
 
-/* XXX
-int is_living(void) {
-   return 0;
-}
-
-int is_player(void) {
-   return 0;
-}
-*/
-
 void set_id(string str, varargs mixed args ...) {
    int i;
 
