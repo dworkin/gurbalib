@@ -24,7 +24,6 @@ void setup(void) {
    add_room_command("test", "test");
    add_room_command("reset", "do_reset");
 
-/* Make this work XXX */
    add_item("amiga", "#do_computer");
    add_item("computer", "#do_computer");
 

@@ -346,7 +346,10 @@ string *query_items(void) {
 string query_item(string item) {
    if (!items)
       items = ([]);
-   return (items[item]);
+   if (items[item][0..0] == "#") {
+      return call_other(this_object(), items[item][1..]);
+   }
+   return items[item];
 }
 
 /*-------------------------------------------------------------------
