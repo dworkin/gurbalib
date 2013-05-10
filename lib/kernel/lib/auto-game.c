@@ -20,7 +20,8 @@ nomask int is_kernel_object() {
    return 0;
 }
 
-#include "afun-game/variables.c"
+static object monster;
+private object secure_d;
 
 /*
  * Security related overrides.

@@ -14,8 +14,18 @@
 #define LIST_PREV 0
 #define LIST_NEXT 1
 
-#include "afun/variables.c"
-#include "afun/prototypes.c"
+static string dump_value(mixed value, varargs mapping seen);
+static void console_msg(string message);
+
+private mapping ltable;
+static mapping events;
+private object driver;
+private object secure_d;
+private int _clone_count;
+private string _cloner;
+private string _clone_trace;
+private string _owner;
+
 #include "afun/require_priv.c"
 #include "afun/unguarded.c"
 #include "afun/find_object.c"
