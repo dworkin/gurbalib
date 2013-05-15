@@ -30,13 +30,16 @@ int add_quest(string name, int level, string contacts) {
 int remove_quest(string name) {
 }
 
-void list_quests() {
+void list_quests(object thisp) {
    int i, max;
 
    max = sizeof(keys);
+   write("Level: Completed:   Quest:                 Admin\n");
+   write("------------------------------------------------\n");
    for(i=0; i<max; i++) {
       write(levels[keys[i]] + "\t" + keys[i] + "\t" + quests[keys[i]] + "\n");
    }
+/* XXX Need to add completed stuff */
 }
 
 static void restore_me(void) {

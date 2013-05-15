@@ -33,8 +33,10 @@ void main(string str) {
    }
 
    if (!str || str == "") {
-      QUEST_D->query_quests(this_player());
+      QUEST_D->list_quests(this_player());
+      return;
    }
+
    if (sscanf(str, "-%s", str)) {
       usage();
       return;
