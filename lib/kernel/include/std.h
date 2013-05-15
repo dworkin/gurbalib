@@ -40,7 +40,7 @@
 #include <mudname.h>
 
 #define LIB_NAME  "GurbaLib"
-#define LIB_VERSION "v0.43"
+#define LIB_VERSION "v0.50"
 
 #ifndef LINKDEAD_TIMEOUT
 #define LINKDEAD_TIMEOUT 10*60
