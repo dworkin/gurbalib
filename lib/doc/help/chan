@@ -1,3 +1,4 @@
+
 The channels allow group communication between users of the mud. Since
 working with others and communication is the key benefit of an online
 system these functions are highly important.
@@ -7,6 +8,9 @@ The following are the key commands available:
 chan        allows you to use the channels
 channels    list all player channels 
 chanlist    list all channels (wiz only)
+
+XXX Needs an update Maybe remove this if the -h covers everything
+	or provide additional info here and mention it in the -h
 
 The chan command itself is quite powerful and complex. Basic usage will
 be presented below, full syntax will be explained futher down this page.
@@ -109,8 +113,3 @@ emotes / socials
 /guild
     undocumented
 
-
-
-see also
----------
-chanlist, channels, alias

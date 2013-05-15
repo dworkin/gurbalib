@@ -42,7 +42,7 @@ void usage() {
    lines += ({ "\tintermud start" });
    lines += ({ "\tintermud status" });
    lines += ({ "See also:" });
-   lines += ({ "\tchannels, mudlist, rwho" });
+   lines += ({ "\tchan, mudlist, rwho" });
 
    this_player()->more(lines);
 }

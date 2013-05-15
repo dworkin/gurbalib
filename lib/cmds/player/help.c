@@ -15,7 +15,7 @@ void usage() {
    lines += ({ "\tcontact      How can you get ahold of someone if you need " +
       "help." });
    lines += ({ "\ttime         How does time work on the mud?" });
-   lines += ({ "\tchannels     Another way to communicate." });
+   lines += ({ "\tchan         Another way to communicate." });
 
    if (query_wizard(this_player())) {
       lines += ({ "\twizard       If you are a wizard start here" });
