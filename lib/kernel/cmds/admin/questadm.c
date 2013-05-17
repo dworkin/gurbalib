@@ -2,13 +2,12 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: questadm [-h] [remove QUEST]" });
-   lines = ({ "Usage: questadm [-h] [add QUEST LEVEL CONTACTS]" });
+   lines = ({ "Usage: questadm [-h] [add QUEST LEVEL DOMAIN]" });
    lines += ({ "" });
    lines += ({ "Used to add, remove or list available quests on the mud." });
-   lines += ({ "\tQUEST is a name for your quest, \n"});
-   lines += ({ "\tLEVEL is a recomended level for your quest, \n"});
-   lines += ({ "\tCONTACTS is a list of wizards that are incharge of " +
-      "the quest.\n"});
+   lines += ({ "\tQUEST is a name for your quest,"});
+   lines += ({ "\tLEVEL is a recomended level for your quest,"});
+   lines += ({ "\tDOMAIN is the name of the domain the quest is in."});
    lines += ({ "If no args are given show all quests." });
    lines += ({ "" });
    lines += ({ "Options:" });
@@ -24,7 +23,7 @@ void usage() {
 }
 
 void main(string str) {
-   string cmd, rest, questname, contacts;
+   string cmd, rest, questname, domain;
    int i, max, level;
 
    if (!require_priv("system")) {
@@ -49,19 +48,20 @@ void main(string str) {
 
    cmd = lowercase(cmd);
    if (cmd == "add") {
-      if (sscanf(rest,"%s %d %s",questname, level, contacts)) {
-         QUEST_D->add_quest(questname,level,contacts);
+      if (sscanf(rest,"%s %d %s",questname, level, domain) == 3) {
+         QUEST_D->add_quest(questname, level, domain);
       } else {
          usage();
          return;
       }
    } else if (cmd == "del" || cmd == "delete" || cmd == "rm" || 
       cmd == "remove") {
+
       if (!QUEST_D->is_quest(rest)) {
 	 this_player()->write("That is not a valid quest.");
 	 return;
       }
-      if (QUEST_D->remove_skill(rest)) {
+      if (QUEST_D->remove_quest(rest)) {
          write("Quest: " + rest + " removed. ");
       }
    } else {

@@ -1,45 +1,52 @@
-
 mapping quests, levels;
-string *keys;
 
 #define DATAFILE "/daemons/data/quest.o"
 
-int add_quest(string name, int level, string contacts) {
+int add_quest(string name, int level, string domain) {
    int i, max, index;
+   string *keys;
 
    if (quests[name]) {
       write("I'm sorry but there is already a quest titled: " + name + "\n");
       return 0;
    }
 
-   max = sizeof(keys);
-   index = 0;
-   for(i=0; i<max; i++) {
-      if (level > levels[keys[i]]) {
-         index = index + 1;
-      }
-   }
-   /* Put name in keys at index */
-
    /* Add mapping values */
    levels[name] = level;
-   quests[name] = contacts;
+   quests[name] = domain;
 }
 
-/* XXX Not done */
+int is_quest(string name) {
+   if (quests[name]) {
+      return 1;
+   }
+   return 0;
+}
+
 int remove_quest(string name) {
+   if (quests[name]) {
+      levels[name] = nil;
+      quests[name] = nil;
+      return 1;
+   }
+   return 0;
 }
 
 void list_quests(object thisp) {
    int i, max;
+   string *keys;
 
+   keys = map_indices(levels);
    max = sizeof(keys);
-   write("Level: Completed:   Quest:                 Admin\n");
+   write("Level:  Quest:                           Domain:\n");
    write("------------------------------------------------\n");
+
    for(i=0; i<max; i++) {
-      write(levels[keys[i]] + "\t" + keys[i] + "\t" + quests[keys[i]] + "\n");
+      if (keys[i] && levels[keys[i]]) {
+         write(levels[keys[i]] + "\t" + keys[i] + "\t" + quests[keys[i]] + 
+            "\n");
+      }
    }
-/* XXX Need to add completed stuff */
 }
 
 static void restore_me(void) {
@@ -56,8 +63,7 @@ void create(void) {
    } else {
       quests = ([]);
       levels = ([]);
-      keys = ({});
-      add_quest("NewbieVille",1,"sirdude");
+      add_quest("NewbieVille",1,"newbie");
       save_me();
    }
 }
