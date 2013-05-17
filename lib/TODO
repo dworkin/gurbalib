@@ -59,3 +59,8 @@ Document objects and rooms and monters.
 Need to convert Monster item_command stuff to object_commands
 
 Figure out why questadm doesn't save on shutdown, or killing the driver?
+
+Fix intermud so it doesn't spam logging when unable to connect.
+	It shouldn't say its connected when it can't connect and then timeout.
+	chan, and mudlist shouldn't return cached stuff if not connected?
+
