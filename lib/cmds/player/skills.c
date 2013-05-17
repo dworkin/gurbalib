@@ -2,6 +2,9 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: skills [-h] [full]" });
+   if (query_wizard(this_player())) {
+      lines += ({ "Usage: skills [skill value]" });
+   }
    lines += ({ "" });
    lines += ({ "List the skills you know, and how well you know it." });
    lines += ({ "" });
@@ -51,9 +54,20 @@ static int filter_skill(string skill, string str) {
    return sscanf(skill, str + "%*s") != 0;
 }
 
+int set_skill(string skill, int value) {
+   if (SKILL_D->is_skill(skill)) {
+      this_player()->set_skill(skill, value);
+      write("Skill: " + skill + ", set to: " + value + "\n");
+      return 1;
+   } else {
+      write("Error: " + skill + " is not a valid skill currently.\n");
+   }
+   return 0;
+}
+
 void main(string str) {
-   string *skills;
-   int i;
+   string skill, *skills;
+   int i, value;
 
    /*
     * Check to see if the player wants to see all skills in game
@@ -76,6 +90,14 @@ void main(string str) {
    } else if (sscanf(str, "-%s", str)) {
       usage();
       return;
+   } else if (sscanf(str, "set %s %d", skill, value) == 2) {
+      if (query_wizard(this_player())) {
+          set_skill(skill, value);
+          return;
+      } else {
+         usage();
+         return;
+      }
    } else if (sscanf(str, "full %s", str) == 0) {
       /* Filtered list of skills of this_player() */
       skills = this_player()->query_skills();
