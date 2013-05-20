@@ -4,65 +4,38 @@ working with others and communication is the key benefit of an online
 system these functions are highly important.
 
 The following are the key commands available:
+The channel system can be accessed through the chan command:
 
-chan        allows you to use the channels
-channels    list all player channels 
-chanlist    list all channels (wiz only)
+chan        	Display a list of all channels available to you, and if you
+		have them on or off.
+chan /list	Display a list of channels you are subscribed to.
 
-XXX Needs an update Maybe remove this if the -h covers everything
-	or provide additional info here and mention it in the -h
+Most of the channel commands take the form: chan (channel) /(action)
+chan gossip /on		Join the gossip channel
+chan gossip /off	Leave the gossip channel
 
-The chan command itself is quite powerful and complex. Basic usage will
-be presented below, full syntax will be explained futher down this page.
+To say something on the gossip channel you would use:
+	chan gossip Hi how is everyone today?
 
-> chan gossip /on
-
-This will turn the gossip channel on. Note that channel names auto alias to
-commands, so that 
-
-> chan gossip /on
-and
-> gossip /on
-
-are the same.
-
-To speak over the gossip channel, use
-
-> gossip Hello everybody!
-
-
-Full syntax:
-
-chan <channel> [/switch] [parameter]
-
-Available switches:
-
-/on
-    allows players to join a channel
-
-/off
-    allows players to leave a channel
-
-emotes / socials
+emotes and/or socials
     ;   - You can use the semi-colon to send emotes in channel, best shown 
           in example:
 
-    >  gossip hi everyone
+    >  chan gossip hi everyone
     [gossip] Mordain: Hi everyone
-    >  gossip ;smile
+    >  chan gossip ;smile
     [gossip] Mordain smiles.
 
 /hist
-    shows the chat history
+    shows the channel history
 
-    > gossip /hist
+    > chan gossip /hist
     [gossip][Mar 18 19:54:14] Dil@Gev2: will have a laptop and mobile internet
     [gossip][Mar 18 19:54:54] Dil@Gev2: anyway, catch you later.
     [gossip][Mar 18 19:55:07] Han@Era: Have fun.
 
 ""
 /who
-/list
     if no arg, or the /who argument is given, chan will list who is
     subscribed to that channel.
 
@@ -72,11 +45,11 @@ emotes / socials
 
 /admin
     Access level: (ADMIN)
-    set a channel for Admin only access Wiz and users will be denied
+    Toggle a channel as Admin only access Wiz and users will be denied
     
 /wiz
     Access level: (ADMIN)
-    set a channel for Wiz access, player access will be denied
+    Toggle a channel for Wiz access, player access will be denied
 
 /readonly
     Access level: (ADMIN)
@@ -111,5 +84,8 @@ emotes / socials
 
 
 /guild
-    undocumented
+   Access level: (ADMIN)
+   Toggle the channel to be for a specific guild.
 
+   > chan fighters /guild fighters
+   fighers is now a fighers guild only channel.

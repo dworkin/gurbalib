@@ -15,7 +15,7 @@ void usage() {
    lines += ({ "If no CHANNEL is given list avaliable channels." });
    lines += ({ "" });
    lines += ({ "Command can be: " });
-   lines += ({ "\tjoin, list, leave, hist, who, info" });
+   lines += ({ "\ton, off, list, hist, info" });
 
    if (query_wizard(this_player())) {
       lines += ({ "\tnew, delete, readonly, color, guild" });
@@ -29,10 +29,10 @@ void usage() {
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   lines += ({ "\t/join\tJoin a channel." });
-   lines += ({ "\t/leave\tLeave a channel." });
+   lines += ({ "\t/on\tJoin a channel." });
+   lines += ({ "\t/off\tLeave a channel." });
    lines += ({ "\t/history\tShow whats happend in a channel." });
-   lines += ({ "\t/who\tShow who is in a channel." });
+   lines += ({ "\t/list\tShow who is in a channel." });
 
    if (query_wizard(this_player())) {
       lines += ({ "\t/new\tCreate a channel." });
@@ -112,7 +112,7 @@ void main(string str) {
    }
 
    if (sscanf(str, "%s %s", chan, cmd) != 2) {
-      if (str == "/list") {
+      if ((str == "/list") || (str == "/who")) {
          list_channels();
          return;
       } else {
