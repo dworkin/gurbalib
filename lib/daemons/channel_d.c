@@ -515,10 +515,10 @@ void chan_set_guild(string chan, string guild) {
 
    if (guilds[chan] == guild) {
       guilds[chan] == nil;
-      write(chan + " is no longer a " + guild + " only channel.\n");
+      write(chan + " is no longer a " + guild + " guild only channel.\n");
    } else {
       guilds[chan] = guild;
-      write(chan + " is now a " + guild + " only channel.\n");
+      write(chan + " is now a " + guild + " guild only channel.\n");
    }
    save_me();
 }
