@@ -220,6 +220,8 @@ void chan_who(string chan) {
    chan = lowercase(chan);
 
    users = listeners[chan];
+   if (!users) users = ({});
+
    sz = sizeof(users);
    if (!users || sz < 1) {
       write("No subscribers.");
