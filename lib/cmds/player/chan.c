@@ -1,22 +1,10 @@
-/* An interface to the channel daemon
- * 
- * Fudge
- */
+/* An interface to the channel daemon By Fudge */
 #include <channel.h>
 
 void chan_cmd(string chan, string cmd);
 
 void usage() {
-   string cmds;
    string *lines;
-
-   cmds = "join, leave, hist, quit, who, list";
-   if (query_wizard(this_player())) {
-      cmds += ", new";
-   }
-   if (query_admin(this_player())) {
-      cmds += ", wiz, admin, delete";
-   }
 
    lines = ({ "Usage: chan [-h] [CHANNEL </command>]" });
    lines += ({ "" });
@@ -26,11 +14,42 @@ void usage() {
       "greater mud community." });
    lines += ({ "If no CHANNEL is given list avaliable channels." });
    lines += ({ "" });
-   lines += ({ "Command can be: " + cmds });
+   lines += ({ "Command can be: " });
+   lines += ({ "\tjoin, list, leave, hist, who, info" });
+
+   if (query_wizard(this_player())) {
+      lines += ({ "\tnew, delete, readonly, color, guild" });
+   }
+
+   if (query_admin(this_player())) {
+      lines += ({ "\tadmin, wiz, imud, permanent" });
+   }
+
    lines += ({ "You can also just use <channel> /command" });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\t/join\tJoin a channel." });
+   lines += ({ "\t/leave\tLeave a channel." });
+   lines += ({ "\t/history\tShow whats happend in a channel." });
+   lines += ({ "\t/who\tShow who is in a channel." });
+
+   if (query_wizard(this_player())) {
+      lines += ({ "\t/new\tCreate a channel." });
+      lines += ({ "\t/delete\tDelete the channel." });
+      lines += ({ "\t/readonly\tToggle this channel as readonly." });
+      lines += ({ "\t/color\tChange the color of the channel." });
+      lines += ({ "\t/imud\tToggle this channel as an intermud channel ." });
+      lines += ({ "\t/guild\tToggle this channel as a guild channel." });
+   }
+
+   if (query_admin(this_player())) {
+      lines += ({ "\t/admin\tToggle this channel as an admin channel." });
+      lines += ({ "\t/wiz\tToggle this channel as a wizard channel." });
+      lines += ({ "\t/info\tDisplay info about a channel." });
+      lines += ({ "\t/permanent\tToggle this channel as permanent." });
+   }
+
    lines += ({ "Examples:" });
    lines += ({ "\tchan announce /join" });
    lines += ({ "\tchan announce /leave" });
@@ -43,14 +62,12 @@ void usage() {
          "wizcall" });
    }
 
-
    this_player()->more(lines);
 }
 
 void list_channels(void) {
-   string *channels, *schannels;
+   string *channels, *schannels, *lines;
    mapping ichans;
-   string *lines;
    string line;
    int i, sz;
 
@@ -83,11 +100,10 @@ void list_channels(void) {
 }
 
 void main(string str) {
-   string chan;
-   string cmd;
+   string chan, cmd;
 
    if (!str || str == "") {
-      list_channels();
+      usage(); /* Change this to list channels you are a member of XXX */
       return;
    }
    if (sscanf(str, "-%s", str)) {
@@ -96,8 +112,13 @@ void main(string str) {
    }
 
    if (sscanf(str, "%s %s", chan, cmd) != 2) {
-      chan = str;
-      cmd = "/info";
+      if (str == "/list") {
+         list_channels();
+         return;
+      } else {
+         chan = str;
+         cmd = "/info";
+      }
    }
 
    chan_cmd(chan, cmd);
@@ -109,12 +130,10 @@ void chan_cmd(string chan, string cmd) {
       case "/join":
       case "/on":
 	 CHANNEL_D->chan_join(chan, this_player());
-	 this_player()->add_channel(chan);
 	 break;
       case "/leave":
       case "/off":
 	 CHANNEL_D->chan_leave(chan, this_player());
-	 this_player()->remove_channel(chan);
 	 break;
       case "/new":
 	 CHANNEL_D->chan_new(chan, ALL);

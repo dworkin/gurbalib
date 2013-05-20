@@ -13,26 +13,16 @@ int data_version;
 static mapping channels;
 static mapping listeners;
 
-void restore_me(void);
-void save_me(void);
-void chan_new(string name, int flags);
-void chan_join(string chan, object ob);
-void chan_leave(string chan, object ob);
-void chan_say(string chan, string what);
-void chan_emote(string chan, string what);
-void chan_who(string chan);
-int query_subscribed(string chan);
-void chan_make_permanent(string name);
-void chan_set_color(string chan, string col);
-void chan_set_guild(string chan, string guild);
-void chan_set_flag(string chan, int flag);
-void chan_imud(string chan, string name);
-void add_history(string channel, string who, string message);
-void chan_send_string(string chan, string from, string str,
-   varargs int is_emote);
-
 void resubscribe() {
    IMUD_D->subscribe_event("i3_connection");
+}
+
+static void restore_me(void) {
+   unguarded("restore_object", DATAFILE);
+}
+
+static void save_me(void) {
+   unguarded("save_object", DATAFILE);
 }
 
 void create(void) {
@@ -82,7 +72,9 @@ void create(void) {
       guilds = (["fighter": "fighter"]);
       save_me();
    }
+
    chans = map_indices(permanent);
+
    for (i = 0, sz = sizeof(chans); i < sz; i++) {
       channels[chans[i]] = permanent[chans[i]];
    }
@@ -91,14 +83,6 @@ void create(void) {
    EVENT_D->subscribe_event("player_logout");
    EVENT_D->subscribe_event("new_player");
    resubscribe();
-}
-
-static void restore_me(void) {
-   unguarded("restore_object", DATAFILE);
-}
-
-static void save_me(void) {
-   unguarded("save_object", DATAFILE);
 }
 
 void chan_set_flag(string chan, int flag) {
@@ -119,13 +103,17 @@ void chan_make_permanent(string name) {
       return;
    }
 
-   permanent[name] = channels[name];
+   if (permanent[name] == channels[name]) {
+      permanent[name] = nil;
+      write("Channel " + name + " is no longer permanent.\n");
+   } else {
+      permanent[name] = channels[name];
+      write("Channel " + name + " is now permanent.\n");
+   }
    save_me();
-   write("Channel " + name + " is permanent.\n");
 }
 
 void chan_imud(string chan, string name) {
-
    if (query_admin(this_player()->query_name()) != 1) {
       write("Access denied.\n");
       return;
@@ -138,8 +126,13 @@ void chan_imud(string chan, string name) {
 
    if (!imud)
       imud = ([]);
-   imud[name] = chan;
-   chan_make_permanent(chan);
+   if (imud[name] == chan) {
+      imud[name] = nil;
+/* XXX do more here... */
+   } else {
+      imud[name] = chan;
+      chan_make_permanent(chan);
+   }
    save_me();
 }
 
@@ -192,6 +185,9 @@ void chan_join(string chan, object ob) {
    listeners[chan] -= ( { ob } );
    listeners[chan] += ( { ob } );
    write("Subscribed to " + chan + ".\n");
+
+   this_player()->add_channel(chan);
+
    ob->save_me();
 }
 
@@ -213,8 +209,8 @@ void chan_leave(string chan, object ob) {
       listeners[chan] = ( { } );
    }
    listeners[chan] -= ( { ob } );
-
    write("No longer subscribed to " + chan + ".\n");
+   this_player()->remove_channel(chan);
 }
 
 void chan_who(string chan) {
@@ -238,6 +234,53 @@ void chan_who(string chan) {
          write("  " + users[i]->query_Name() + "\n");
       }
    }
+}
+
+void add_history(string channel, string who, string message) {
+   int i, sz;
+   string *temp;
+
+   if (!channel || channel == "")
+      return;
+   if (!message || message == "")
+      return;
+   if (!history)
+      history = ([]);
+
+   temp = history[channel];
+   if (!temp)
+      temp = ( { } );
+   if (sizeof(temp) >= MAX_HIST_SIZE)
+      temp = temp[sizeof(temp) - (MAX_HIST_SIZE - 1)..sizeof(temp) - 1];
+   temp += ( {
+      "%^CHAN_DATE%^[" + (ctime(time())[4..18]) + "]%^RESET%^" +
+	 "[%^CHAN_USER%^" + who + "]%^RESET%^ " +
+	 "%^CHAN_TEXT%^" + message + "%^RESET%^"
+   } );
+   history[channel] = nil;
+   history += ([channel:temp]);
+   return;
+}
+
+string get_history(string channel) {
+   int i, sz;
+   string out;
+
+   out = "";
+   if (catch(sz = sizeof(history[channel])))
+      return out;
+   if (!colors)
+      colors = ([]);
+
+   for (i = 0; i < sz; ++i) {
+      out += "%^CHAN_NAME%^" + (colors[channel] ? colors[channel] : "");
+      out += "[" + channel + "]%^RESET%^" + history[channel][i] + "%^RESET%^\n";
+   }
+   return out;
+}
+
+void show_history(string channel) {
+   this_player()->message(get_history(channel), 1);
 }
 
 void chan_send_string(string chan, string from, string str,
@@ -296,6 +339,16 @@ void chan_imud_rcv_say(string chan, string who, string where, string what) {
       return;
 
    chan_send_string(imud[chan], who + "@" + where, what, NOT_EMOTE);
+}
+
+int query_subscribed(string chan) {
+   chan = lowercase(chan);
+   if (listeners[chan]) {
+      if (member_array(this_player(), listeners[chan]) != -1) {
+	 return 1;
+      }
+   }
+   return 0;
 }
 
 void chan_emote(string chan, string what) {
@@ -411,7 +464,6 @@ void chan_emote(string chan, string what) {
 }
 
 void chan_say(string chan, string what) {
-
    string *ichans;
    int i, sz;
 
@@ -441,7 +493,6 @@ void chan_say(string chan, string what) {
 }
 
 void chan_set_color(string chan, string col) {
-
    if (query_admin(this_player()->query_name()) != 1) {
       write("Access denied.\n");
       return;
@@ -454,7 +505,6 @@ void chan_set_color(string chan, string col) {
 }
 
 void chan_set_guild(string chan, string guild) {
-
    if (query_admin(this_player()->query_name()) != 1) {
       write("Access denied.\n");
       return;
@@ -463,8 +513,13 @@ void chan_set_guild(string chan, string guild) {
    if (!guilds)
       guilds = ([]);
 
-   guilds[chan] = guild;
-   write(chan + " is now a " + guild + " only channel.");
+   if (guilds[chan] == guild) {
+      guilds[chan] == nil;
+      write(chan + " is no longer a " + guild + " only channel.\n");
+   } else {
+      guilds[chan] = guild;
+      write(chan + " is now a " + guild + " only channel.\n");
+   }
    save_me();
 }
 
@@ -499,17 +554,6 @@ int query_channel(string chan) {
 
 string *query_channels(void) {
    return map_indices(channels);
-}
-
-int query_subscribed(string chan) {
-
-   chan = lowercase(chan);
-   if (listeners[chan]) {
-      if (member_array(this_player(), listeners[chan]) != -1) {
-	 return 1;
-      }
-   }
-   return 0;
 }
 
 void event_new_player(string * args) {
@@ -547,53 +591,6 @@ void event_i3_connection(string * args) {
       return;
 
    chan_send_string("announce", "imud_d", args[0], NOT_EMOTE);
-}
-
-void add_history(string channel, string who, string message) {
-   int i, sz;
-   string *temp;
-
-   if (!channel || channel == "")
-      return;
-   if (!message || message == "")
-      return;
-   if (!history)
-      history = ([]);
-
-   temp = history[channel];
-   if (!temp)
-      temp = ( { } );
-   if (sizeof(temp) >= MAX_HIST_SIZE)
-      temp = temp[sizeof(temp) - (MAX_HIST_SIZE - 1)..sizeof(temp) - 1];
-   temp += ( {
-      "%^CHAN_DATE%^[" + (ctime(time())[4..18]) + "]%^RESET%^" +
-	 "[%^CHAN_USER%^" + who + "]%^RESET%^ " +
-	 "%^CHAN_TEXT%^" + message + "%^RESET%^"
-   } );
-   history[channel] = nil;
- history += ([channel:temp]);
-   return;
-}
-
-string get_history(string channel) {
-   int i, sz;
-   string out;
-
-   out = "";
-   if (catch(sz = sizeof(history[channel])))
-      return out;
-   if (!colors)
-      colors = ([]);
-
-   for (i = 0; i < sz; ++i) {
-      out += "%^CHAN_NAME%^" + (colors[channel] ? colors[channel] : "");
-      out += "[" + channel + "]%^RESET%^" + history[channel][i] + "%^RESET%^\n";
-   }
-   return out;
-}
-
-void show_history(string channel) {
-   this_player()->message(get_history(channel), 1);
 }
 
 void upgraded() {
