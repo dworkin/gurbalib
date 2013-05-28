@@ -87,9 +87,6 @@ void display_obj(mixed * stat, object obj) {
       }
    }
 
-   lines += ({ "Inherited? (1=T;0=F)   :" + (string) stat[O_INHERITED] });
-   lines += ({ "Instantiated?          :" + (string) stat[O_INSTANTIATED] });
-
    tmp2 = DRIVER->find_all_depending_programs(obj->file_name());
    if (tmp2) {
       lines += ({ "Depending programs:" });
