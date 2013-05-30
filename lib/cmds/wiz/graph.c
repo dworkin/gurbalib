@@ -129,7 +129,7 @@ void main(string str) {
 
    filename = "/tmp/" + this_player()->query_name() + ".dot";
 
-   if (strlen(str) > 1 && str[strlen(str) - 1] == '/') {
+   if ((strlen(str) > 1) && (str[strlen(str) - 1] == '/')) {
       str = str[..strlen(str) - 2];
    }
 

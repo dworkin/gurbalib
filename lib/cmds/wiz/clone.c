@@ -28,7 +28,7 @@ string get_what(string str) {
    path = this_player()->query_env("cwd");
 
    if (strlen(str) > 2) {
-      if (str[strlen(str) - 2] == '.' && str[strlen(str) - 1] == 'c') {
+      if ((str[strlen(str) - 2] == '.') && (str[strlen(str) - 1] == 'c')) {
 	 /* were good do nothing... */
       } else {
 	 str = str + ".c";

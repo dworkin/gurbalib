@@ -100,12 +100,13 @@ void main(string str) {
    path = this_player()->query_env("cwd");
 
    if (strlen(str) > 2) {
-      if (str[strlen(str) - 2] == '.' && str[strlen(str) - 1] == 'c')
+      if ((str[strlen(str) - 2] == '.') && (str[strlen(str) - 1] == 'c')) {
 	 str = str[..strlen(str) - 3];
+      }
    }
 
    path = normalize_path(str, path);
-   if (!path || path == "") {
+   if (!path || (path == "")) {
       write("Access denied.\n");
       return;
    }

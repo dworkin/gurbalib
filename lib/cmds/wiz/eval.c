@@ -53,8 +53,9 @@ void main(string src, varargs mixed args ...) {
    src = replace_string(src, ".me", "this_player()");
    src = replace_string(src, ".here", "this_environment()");
    str_size = strlen(src);
-   if (str_size && src[(str_size - 1)] != ';')
+   if (str_size && (src[(str_size - 1)] != ';')) {
       src += ";";
+   }
    err = catch(obj =
       compile_object("/wiz/" + this_player()->query_name() + "/obj/eval_ob",
 	 "# include <float.h>\n# include <limits.h>\n" +

@@ -44,7 +44,7 @@ void main(string arg) {
       return;
    }
 
-   if (strlen(arg) > 1 && arg[strlen(arg) - 1] == '/') {
+   if ((strlen(arg) > 1) && (arg[strlen(arg) - 1] == '/')) {
       arg = arg[..strlen(arg) - 2];
    }
 

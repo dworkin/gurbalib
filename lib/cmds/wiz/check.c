@@ -41,7 +41,7 @@ string add_dotc(string input) {
    if (!str || str == "") return "";
 
    if (strlen(str) > 2) {
-      if (str[strlen(str) - 2] == '.' && str[strlen(str) - 1] == 'c') {
+      if ((str[strlen(str) - 2] == '.') && (str[strlen(str) - 1] == 'c')) {
          /* were good do nothing... */
       } else {
          str = str + ".c";
@@ -267,12 +267,15 @@ void do_object_check(object obj) {
 
    write("Doing object check\n");
 
-   if (obj->is_gettable() && (obj->query_weight() < 1))
+   if (obj->is_gettable() && (obj->query_weight() < 1)) {
       warn("Object gettable and weight < 1\n");
-   if (obj->is_gettable() && (obj->query_value() < 1))
+   }
+   if (obj->is_gettable() && (obj->query_value() < 1)) {
       warn("Object gettable and value < 1\n");
-   if (!obj->is_gettable() && (obj->query_value() > 1))
+   }
+   if (!obj->is_gettable() && (obj->query_value() > 1)) {
       warn("Object ungettable and value > 1\n");
+   }
 
    functions = obj->query_room_commands();
    write("Checking object functions.\n");

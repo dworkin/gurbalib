@@ -69,8 +69,8 @@ void add_emote(string str) {
    if (sscanf(tmp, "%s %s", rule, fmt) != 2) {
       fmt = rule;
       rule = "STR";
-   } else if (uppercase(rule) != "LIV" &&
-      uppercase(rule) != "STR" && uppercase(rule) != "OBJ") {
+   } else if ((uppercase(rule) != "LIV") &&
+      (uppercase(rule) != "STR") && (uppercase(rule) != "OBJ")) {
       fmt = rule + " " + fmt;
       rule = "";
    }

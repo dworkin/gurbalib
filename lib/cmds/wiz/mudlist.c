@@ -64,14 +64,15 @@ void main(string str) {
 	 continue;
       }
 
-      if (str && strlen(str) > 0) {
+      if (str && (strlen(str) > 0)) {
 	 slen = strlen(str) - 1;
 	 mlen = strlen(muds[i]) - 1;
 	 len = slen < mlen ? slen : mlen;
 
-	 if ("" + mudlist[muds[i]][1] != str
-	    && "" + uppercase(muds[i][..len]) != uppercase(str[..len]))
+	 if (("" + mudlist[muds[i]][1] != str)
+	    && ("" + uppercase(muds[i][..len]) != uppercase(str[..len]))) {
 	    continue;
+         }
       }
       count++;
 

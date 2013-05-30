@@ -26,7 +26,7 @@ void main(string str) {
       object *pSnooping;
 
       pSnooping = this_player()->query_snooping();
-      if (pSnooping && sizeof(pSnooping) > 0) {
+      if (pSnooping && (sizeof(pSnooping) > 0)) {
 	 this_player()->message("You are snooping:");
 	 for (i = 0; i < sizeof(pSnooping); i++) {
 	    this_player()->message(capitalize(pSnooping[i]->query_name()));
@@ -34,6 +34,7 @@ void main(string str) {
       } else {
 	 this_player()->message("You are snooping no one.");
       }
+      return;
    }
 
    if (sscanf(str, "-%s", str)) {
@@ -60,7 +61,7 @@ void main(string str) {
 	    object *pSnooping;
 
 	    pSnooping = pPlayer->query_snooping();
-	    if (pSnooping && sizeof(pSnooping) > 0) {
+	    if (pSnooping && (sizeof(pSnooping) > 0)) {
 	       for (i = 0; i < sizeof(pSnooping); i++) {
 		  if (pSnooping[i]->query_name() == this_player()->query_name()) {
 		     this_player()->message("He's already snooping you.");

@@ -50,12 +50,12 @@ void main(string str) {
 
    edges = COMPILER_D->query_upqueue();
 
-   if (str && str == "-v") {
+   if (str && (str == "-v")) {
       verbose = 1;
    } else if (sscanf(str, "-%s", str)) {
       usage();
       return;
-   } else if (str && str != "") {
+   } else if (str && (str != "")) {
       usage();
       return;
    }

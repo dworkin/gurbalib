@@ -30,7 +30,7 @@ void main(string str) {
       return;
    }
 
-   if (str && str != "") {
+   if (str && (str != "")) {
       if (str == "save") {
          this_player()->compose_autoload_string();
          str = this_player()->query_autoload_string();
