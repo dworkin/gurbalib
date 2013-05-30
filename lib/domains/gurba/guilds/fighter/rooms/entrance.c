@@ -18,7 +18,8 @@ void setup(void) {
    ]));
 
    set_objects(([
-      DIR + "/guilds/fighter/monsters/master" : 1
+      DIR + "/guilds/fighter/monsters/master" : 1,
+      DIR + "/guilds/fighter/objects/book" : 1
    ]));
 
    add_item("wall", "walls", "stonework", "weapons", "armor",

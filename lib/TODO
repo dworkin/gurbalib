@@ -47,9 +47,6 @@ See play piano in /domains/boothill/rooms/saloon.c for an example.
 
 Fix rooms not loading objects so it loads the singularity(sing.c)
 
-Guild master uses "say join, say leave"  seems odd why not do room_commands
-	(Seems like it doesn't always work as well...)
-
 Fix up Events like body_enter body_leave  good way to do 
 gurba monsters that talk when things happen I think...
 Harry...

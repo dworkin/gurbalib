@@ -1,7 +1,5 @@
-inherit "/std/monster";
-inherit "/std/modules/m_block_exits";
-inherit "/std/modules/m_triggers";
-inherit "/std/modules/m_actions";
+inherit "/std/object";
+inherit "/std/modules/m_readable";
 
 string guild;
 
@@ -13,28 +11,17 @@ string query_guild(void) {
    return (guild);
 }
 
-int do_block(object who) {
-   if (who->guild_member(guild)) {
-      return 0;
-   }
-   this_object()->respond("say Sorry. You need to be a member of this guild " +
-      "to enter.");
-   return 1;
-}
-
 void do_dub(object who) {
    who->set_title("$N the newest member.");
 }
 
-void join_guild(string who) {
+void join_guild(string str) {
    object player;
 
-   player = USER_D->find_player(who);
-   if (!player)
-      return;
+   player = this_player();
 
    if (player->guild_member(guild)) {
-      this_player()->respond("say You're already a member.");
+      write("The guild master says: You're already a member.");
       return;
    }
 
@@ -48,6 +35,7 @@ void join_guild(string who) {
 
    do_dub(player);
 
+/*XXX Need to only do this if channels are active??  same with leaving */
    CHANNEL_D->chan_join(query_guild(), player);
    CHANNEL_D->event_player_join(( {
 	    player->query_name(), GUILD_D->query_guild_title(query_guild())
@@ -55,15 +43,13 @@ void join_guild(string who) {
       ));
 }
 
-void leave_guild(string who) {
+void leave_guild(string str) {
    object player;
 
-   player = USER_D->find_player(who);
-   if (!player)
-      return;
+   player = this_player();
 
    if (!player->guild_member(guild)) {
-      this_player()->respond("say Why do you want to leave, when you're " +
+      write("The guild master says: Why do you want to leave, when you're " +
          "not a member?");
       return;
    }
