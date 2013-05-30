@@ -21,7 +21,7 @@ void main(string str) {
    object obj;
    object *wielded;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

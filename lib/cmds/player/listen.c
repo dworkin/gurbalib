@@ -23,7 +23,7 @@ void usage() {
 void main(string str) {
    object obj;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       if (!this_player()->query_environment()->do_listen()) {
          this_player()->query_environment()->tell_room(this_player(),
            this_player()->query_Name() + "Pauses to listen closely.\n");

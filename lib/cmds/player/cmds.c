@@ -78,8 +78,9 @@ void main(string str) {
    mixed width;
 
    width = this_player()->query_env("width");
-   if (!intp(width) || width < 2)
+   if (!intp(width) || (width < 2)) {
       width = DEFAULT_WIDTH;
+   }
 
    lines = ( { } ); 
 

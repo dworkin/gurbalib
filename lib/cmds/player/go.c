@@ -21,7 +21,7 @@ void main(string str) {
    string error, str2;
    int len;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

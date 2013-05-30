@@ -19,7 +19,7 @@ void usage() {
 void main(string str) {
    string error;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

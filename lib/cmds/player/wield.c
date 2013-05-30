@@ -66,7 +66,7 @@ void main(string str) {
    object *inv;
    int i, max, done;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

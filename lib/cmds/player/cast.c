@@ -86,7 +86,7 @@ void cast_spell(string spell, string who) {
 void main(string str) {
    string spellname, who;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       list_spells();
       return;
    }

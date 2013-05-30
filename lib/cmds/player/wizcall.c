@@ -33,7 +33,7 @@ void main(string str) {
    object *usrs;
    flag = 0;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

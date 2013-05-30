@@ -31,7 +31,7 @@ void main(string who) {
    int i, flag;
    string what;
 
-   if (!who || who == "") {
+   if (!who || (who == "")) {
       usage();
       return;
    }

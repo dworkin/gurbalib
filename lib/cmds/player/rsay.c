@@ -52,8 +52,9 @@ tell_them(string str, string *words, string lang, string *words2) {
          kmax = sizeof(words);
 	 for (k = 0; k < imax; k++) {
              x = random(100) + 1;
-             if (usr[i]->query_language() == lang || usr[i]->query_wizard() ||
-                x < usr[i]->query_skill("language/" + lang)) {
+             if ((usr[i]->query_language() == lang) || 
+                usr[i]->query_wizard() ||
+                (x < usr[i]->query_skill("language/" + lang))) {
                 tmp = tmp + words[k] + " ";
              } else {
                 tmp = tmp + words2[k] + " ";
@@ -71,7 +72,7 @@ void main(string str) {
    string *words, *words2;
    string rest, first, lang;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

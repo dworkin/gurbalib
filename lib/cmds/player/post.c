@@ -29,7 +29,7 @@ void main(string str) {
       ob = ([]);
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    } else if (sscanf(str, "-%s", str)) {

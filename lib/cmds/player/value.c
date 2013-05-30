@@ -23,7 +23,7 @@ void main(string str) {
    int dev;			/*Deviation from the actual value */
    object obj;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

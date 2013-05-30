@@ -115,7 +115,7 @@ void main(string str) {
    string what;
    object obj;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       obj = this_environment();
    } else {
 

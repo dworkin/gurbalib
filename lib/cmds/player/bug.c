@@ -32,7 +32,7 @@ private static mapping ob;
 void main(string str) {
    string player_name;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }
@@ -54,7 +54,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       subject[player_name] = "[" +
 	 this_player()->query_environment()->file_name() + "]";
    } else {

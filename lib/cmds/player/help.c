@@ -45,8 +45,9 @@ void show_file(string filename) {
    mixed width;
 
    width = this_player()->query_env("width");
-   if (!intp(width) || width < 2)
+   if (!intp(width) || (width < 2)) {
       width = DEFAULT_WIDTH;
+   }
 
    lines = ( { "Help for " + capitalize(filename) + "." } );
    blah = "";
@@ -80,7 +81,7 @@ void show_file(string filename) {
 
 void main(string arg) {
    string file;
-   if (!arg || arg == "" || arg == "help") {
+   if (!arg || (arg == "") || (arg == "help")) {
       usage();
       return;
    }

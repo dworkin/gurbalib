@@ -19,7 +19,7 @@ void main(string str) {
    object ob;
    string *lines;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }
@@ -51,7 +51,7 @@ void main(string str) {
 	    return;
          }
 
-         if (!str || str == "") {
+         if (!str || (str == "")) {
 	    write("Read what?");
 	    return;
          }

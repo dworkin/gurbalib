@@ -18,7 +18,7 @@ void usage() {
 void main(string str) {
    object obj;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       write("You pray and feel a shimmering light warm your entire body.");
       this_player()->query_environment()->tell_room(this_player(), 
          this_player()->query_Name() + " prays.\nA shimmering light " +

@@ -28,7 +28,7 @@ void main(string str) {
    int i;
    object *usrs;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

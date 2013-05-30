@@ -103,7 +103,7 @@ void list_channels(void) {
 void main(string str) {
    string chan, cmd;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage(); /* Change this to list channels you are a member of XXX */
       return;
    }
@@ -180,7 +180,7 @@ void chan_cmd(string chan, string cmd) {
 	       CHANNEL_D->chan_set_guild(chan, cmd[7..]);
 	       break;
 	    }
-	 if (cmd[0] == ';' || cmd[0] == ':' || cmd[0] == '!') {
+	 if ((cmd[0] == ';') || (cmd[0] == ':') || (cmd[0] == '!')) {
 	    if (cmd[1] != cmd[0]) {
 	       CHANNEL_D->chan_emote(chan, cmd[1..]);
 	       break;

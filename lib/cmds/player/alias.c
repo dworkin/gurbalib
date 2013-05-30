@@ -28,7 +28,7 @@ void main(string str) {
    string *lines;
    int i;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       alias = this_player()->query_aliases();
       aliases = map_indices(alias);
 

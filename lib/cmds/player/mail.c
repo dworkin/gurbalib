@@ -60,12 +60,12 @@ void show_menu() {
 }
 
 void send_message(string str) {
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       write("Send Message? (Y|N):");
    }
-   if (str == "y" || str == "Y") {
+   if ((str == "y") || (str == "Y")) {
       /* Send the message. */
-   } else if (str == "n" || str == "N") {
+   } else if ((str == "n") || (str == "N")) {
       show_menu();
    } else {
       send_message("");
@@ -73,7 +73,7 @@ void send_message(string str) {
 }
 
 void get_subject(string str) {
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       write("Subject: ");
       this_player()->input_to_object(this_object(), "get_subject");
    }
@@ -86,10 +86,10 @@ void get_subject(string str) {
 }
 
 void continue_mail(string str) {
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       write("Do you want to continue? (Y|N):");
    }
-   if (str == "y" || str == "Y") {
+   if ((str == "y") || (str == "Y")) {
       get_subject("");
    } else {
       show_menu();
@@ -99,7 +99,7 @@ void continue_mail(string str) {
 void verify_to(string str) {
    int x, max, error;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       write("To: ");
       this_player()->input_to_object(this_object(), "verify_to");
    } else {
@@ -142,26 +142,26 @@ void view_mailbox(string str) {
    int x, max;
    string cmd, what;
 
-   if (!str || str == "") {
-   } else if (str == "q" || str == "quit") {
+   if (!str || (str == "")) {
+   } else if ((str == "q") || (str == "quit")) {
       write("Thank you for using mudmail!\n");
       return;
-   } else if (str == "d" || str == "del" || str == "delete") {
+   } else if ((str == "d") || (str == "del") || (str == "delete")) {
       write("What message # do you want to delete:");
       this_player()->input_to_object(this_object(), "delete_message");
-   } else if (str == "l" || str == "list" || str == "list inbox") {
+   } else if ((str == "l") || (str == "list") || (str == "list inbox")) {
       view_mailbox("");
-   } else if (str == "m" || str == "mail") {
+   } else if ((str == "m") || (str == "mail")) {
       verify_to("");
    } else {
       if (sscanf(str, "%s %s", cmd, what) != 2) {
 	 show_menu();
 	 return;
       }
-      if (cmd == "d" || cmd == "del" || cmd == "delete") {
+      if ((cmd == "d") || (cmd == "del") || (cmd == "delete")) {
 	 delete_message(what);
       }
-      if (cmd == "m" || cmd == "mail") {
+      if ((cmd == "m") || (cmd == "mail")) {
 	 verify_to(what);
       }
    }
@@ -189,7 +189,7 @@ void main(string str) {
    usage();
    return;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       show_menu();
    } else {
       if (sscanf(str, "-%s", str)) {

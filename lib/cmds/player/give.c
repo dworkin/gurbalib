@@ -89,7 +89,7 @@ void main(string str) {
    int i, max;
    string what, where;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

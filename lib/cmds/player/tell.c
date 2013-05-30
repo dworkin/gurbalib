@@ -30,7 +30,7 @@ void main(string who) {
    object usr;
    string what, where;
 
-   if (!who || who == "") {
+   if (!who || (who == "")) {
       usage();
       return;
    }
@@ -44,7 +44,7 @@ void main(string who) {
       sscanf(who, "%s %s", who, what);
    }
 
-   if (!what || what == "") {
+   if (!what || (what == "")) {
       write("Tell " + who + " what?\n");
       return;
    }

@@ -64,7 +64,7 @@ mixed *valid_tag_name(mixed * arg) {
 }
 
 mixed *valid_value(mixed * arg) {
-   if (arg[0] == "NIL" || ANSI_D->query_any_symbol(arg[0])) {
+   if ((arg[0] == "NIL") || ANSI_D->query_any_symbol(arg[0])) {
       return arg;
    } else {
       parse_error = "Invalid value: " + arg[0];
@@ -97,7 +97,7 @@ void main(string str) {
    string *values;
    int i, sz, pos;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }
@@ -105,13 +105,13 @@ void main(string str) {
       usage();
       return;
    }
-   if (str == "on" || str == "On" || str == "1") {
+   if ((str == "on") || (str == "On") || (str == "1")) {
       this_player()->set_ansi(1);
       out("Turning on ANSI.\n");
-   } else if (str == "off" || str == "Off" || str == "0") {
+   } else if ((str == "off") || (str == "Off") || (str == "0")) {
       this_player()->set_ansi(0);
       out("Turning off ANSI.\n");
-   } else if (str == "show" || str == "display") {
+   } else if ((str == "show") || (str == "display")) {
       out(ANSI_D->color_table());
    } else {
       str = uppercase(str);

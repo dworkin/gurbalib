@@ -23,7 +23,7 @@ void main(string str) {
    object obj;
    int i;
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

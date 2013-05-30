@@ -33,7 +33,7 @@ void main(string str) {
    string me;			/*what I, the one who's talking, sees */
    string you;			/*what all the others in the room sees */
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }
