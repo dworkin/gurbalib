@@ -73,7 +73,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }
@@ -98,8 +98,8 @@ void main(string str) {
       lines = ALIAS_D->show_alias("", fmt);
       this_player()->more(lines);
       return;
-   } else if (name == "del" || name == "delete" || name == "rm" ||
-      name == "remove") {
+   } else if ((name == "del") || (name == "delete") || (name == "rm") ||
+      (name == "remove")) {
       delete_alias(fmt);
       return;
    } else if (name != "add") {

@@ -64,10 +64,11 @@ static string *dir_index(string what) {
       return ( { } );
 
    width = this_player()->query_env("width");
-   if (!intp(width) || width < 2)
+   if (!intp(width) || (width < 2)) {
       width = 78;
-   else
+   } else {
       width--;
+   }
    ncollumns = width / 19;
 
    dir -= ( { ".svn" } );
@@ -140,10 +141,11 @@ void main(string arg) {
    }
 
    width = this_player()->query_env("width");
-   if (!intp(width) || width < 2)
+   if (!intp(width) || (width < 2)) {
       width = 78;
-   else
+   } else {
       width--;
+   }
 
    if (file_exists(file) > 0) {
       header = "Manpage for " + arg + ".";

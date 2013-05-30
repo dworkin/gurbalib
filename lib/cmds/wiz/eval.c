@@ -40,7 +40,7 @@ void main(string src, varargs mixed args ...) {
       return;
    }
 
-   if (!src || src == "") {
+   if (!src || (src == "")) {
       usage();
       return;
    }

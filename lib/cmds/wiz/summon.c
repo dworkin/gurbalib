@@ -24,7 +24,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       write("Get whom?");
       usage();
       return;

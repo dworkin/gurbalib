@@ -28,7 +28,7 @@ void main(string arg) {
       return;
    }
 
-   if (!arg || arg == "") {
+   if (!arg || (arg == "")) {
       arg = this_environment()->file_name();
    }
 

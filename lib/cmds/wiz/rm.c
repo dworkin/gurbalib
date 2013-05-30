@@ -25,7 +25,7 @@ void main(string arg) {
       return;
    }
 
-   if (!arg || arg == "") {
+   if (!arg || (arg == "")) {
       write("Please specify filename to rm.");
       return;
    }
@@ -36,7 +36,7 @@ void main(string arg) {
    }
 
    file = normalize_path(arg, this_player()->query_env("cwd"));
-   if (!file || file == "") {
+   if (!file || (file == "")) {
       write(arg + ": Permission denied.\n");
       return;
    }

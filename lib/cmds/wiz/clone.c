@@ -49,7 +49,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       str = this_player()->query_env("cwf");
       if (!str) {
 	 usage();
@@ -67,7 +67,7 @@ void main(string str) {
       what = get_what(str);
    }
 
-   if (!what || what == "") {
+   if (!what || (what == "")) {
       write("Access denied or file does not exist.\n");
       return;
    }

@@ -90,10 +90,11 @@ void main(string str) {
    }
 
    width = this_player()->query_env("width");
-   if (!intp(width) || width < 2)
+   if (!intp(width) || (width < 2)) {
       width = DEFAULT_WIDTH;
+   }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }
@@ -118,8 +119,8 @@ void main(string str) {
 
       this_player()->more(lines);
       return;
-   } else if (name == "del" || name == "delete" || name == "rm" ||
-      name == "remove") {
+   } else if ((name == "del") || (name == "delete") || (name == "rm") ||
+      (name == "remove")) {
       delete_emote(fmt);
       return;
    } else if (name != "add") {

@@ -39,7 +39,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       /* Not starting with a file */
       this_player()->edit("");
       this_player()->edit("file");

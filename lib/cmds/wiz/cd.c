@@ -30,7 +30,7 @@ void main(string arg) {
       return;
    }
 
-   if (!arg || arg == "") {
+   if (!arg || (arg == "")) {
       arg = "/wiz/" + this_player()->query_name();
    } else if (sscanf(arg, "-%s", arg)) {
       usage();
@@ -39,7 +39,7 @@ void main(string arg) {
 
    arg = normalize_path(arg, this_player()->query_env("cwd"));
 
-   if (!arg || arg == "") {
+   if (!arg || (arg == "")) {
       write("Access denied.\n");
       return;
    }

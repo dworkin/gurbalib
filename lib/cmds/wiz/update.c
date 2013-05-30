@@ -83,11 +83,11 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       str = this_player()->query_env("cwf");
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

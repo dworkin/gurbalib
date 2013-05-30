@@ -32,7 +32,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       where = this_environment();
    } else {
       where = this_player()->query_environment()->present(str);

@@ -24,7 +24,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       write("Your current title is: " + this_player()->query_title_string() +
 	 "\n");
       return;

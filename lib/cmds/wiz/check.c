@@ -38,7 +38,7 @@ string add_dotc(string input) {
    string str;
 
    str = input;
-   if (!str || str == "") return "";
+   if (!str || (str == "")) return "";
 
    if (strlen(str) > 2) {
       if ((str[strlen(str) - 2] == '.') && (str[strlen(str) - 1] == 'c')) {
@@ -84,7 +84,7 @@ void check_remote_exit(string room, string exit, string filename) {
   tmp = obj->query_exit(myexit);
   tmp = add_dotc(tmp);
 
-  if (!tmp || tmp == "") {
+  if (!tmp || (tmp == "")) {
      warn("No reverse exit: " + obj->base_name() + 
         "(" + myexit + ")\n");
   } else if (tmp != filename) {
@@ -147,7 +147,7 @@ void do_standard_checks(object obj) {
    int x;
 
    tmp = obj->query_short();
-   if (!tmp || tmp == "") {
+   if (!tmp || (tmp == "")) {
       warn("Object has no short description.\n");
    }
 
@@ -159,12 +159,12 @@ void do_standard_checks(object obj) {
    x = strlen(tmp) -1;
    if (x < 1) {
       warn("Object short too short : \'" + obj->query_short() + "\'\n");
-   } else if ((tmp[x] == '.') || (tmp[x] == '?') || tmp[x] == '!') {
+   } else if ((tmp[x] == '.') || (tmp[x] == '?') || (tmp[x] == '!')) {
       warn("Object short ends with punctuation.\n");
    }
 
    tmp = obj->query_long();
-   if (!tmp || tmp == "") warn("Monster has no long description.\n");
+   if (!tmp || (tmp == "")) warn("Monster has no long description.\n");
 
 }
 
@@ -252,7 +252,7 @@ void do_monster_check(object obj) {
    write("Doing monster check\n");
 
    tmp = obj->query_name();
-   if (!tmp || tmp == "") warn("Monster has no name.\n");
+   if (!tmp || (tmp == "")) warn("Monster has no name.\n");
 
    if (obj->is_gettable()) warn("Living object is gettable.\n");
 
@@ -333,7 +333,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    } else if (sscanf(str, "-%s", str)) {

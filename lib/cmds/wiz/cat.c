@@ -28,7 +28,7 @@ void main(string file) {
       return;
    }
 
-   if (!file || file == "") {
+   if (!file || (file == "")) {
       file = this_player()->query_env("cwf");
    } else if (sscanf(file, "-%s", file)) {
       usage();
@@ -37,7 +37,7 @@ void main(string file) {
 
    name = normalize_path(file, this_player()->query_env("cwd"));
 
-   if (!name || name == "") {
+   if (!name || (name == "")) {
       write("Access denied.\n");
       return;
    }

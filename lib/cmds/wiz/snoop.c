@@ -21,7 +21,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       int i;
       object *pSnooping;
 

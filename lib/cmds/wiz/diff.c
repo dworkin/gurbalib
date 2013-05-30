@@ -39,13 +39,13 @@ string *do_work(string file1, string file2) {
    lns2 = ([]);
 
    file1 = normalize_path(file1, this_player()->query_env("cwd"));
-   if (!file1 || file1 == "") {
+   if (!file1 || (file1 == "")) {
       lines = ({ "No such file: $file1\n" });
       return lines;
    }
    file2 = normalize_path(file2, this_player()->query_env("cwd"));
-   if (!file1 || file1 == "") {
-      lines = ({ "No such file: $file1\n" });
+   if (!file2 || (file2 == "")) {
+      lines = ({ "No such file: $file2\n" });
       return lines;
    }
 
@@ -137,7 +137,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "" || sscanf(str, "-h", str)) {
+   if (!str || (str == "") || sscanf(str, "-h", str)) {
       usage();
       return;
    }

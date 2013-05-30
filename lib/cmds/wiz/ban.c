@@ -50,8 +50,8 @@ void show_banned() {
 }
 
 void ban_site(string str) {
-   if (str == "127.*.*.*" || str == "127.0.*.*" || str == "127.0.0.*" ||
-      str == "127.0.0.1") {
+   if ((str == "127.*.*.*") || (str == "127.0.*.*") || (str == "127.0.0.*") ||
+      (str == "127.0.0.1")) {
       write("Ban " + str + "?!? You must be kidding...\n");
       return;
    }
@@ -83,7 +83,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       show_banned();
       return;
    }

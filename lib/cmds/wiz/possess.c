@@ -30,7 +30,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       if (this_user()->query_player()->is_possessing()) {
 	 write("Your release your grasp on " + this_player()->query_name() +
 	    ".");

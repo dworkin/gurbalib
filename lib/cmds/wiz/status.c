@@ -123,7 +123,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       stat = status();
       display_driver(stat);
    } else if (sscanf(str, "-%s", str)) {

@@ -19,7 +19,7 @@ void main(string statname) {
       return;
    }
 
-   if (!statname || statname == "") {
+   if (!statname || (statname == "")) {
       usage();
       return;
    }

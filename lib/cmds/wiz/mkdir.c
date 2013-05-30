@@ -25,7 +25,7 @@ void main(string arg) {
       return;
    }
 
-   if (!arg || arg == "") {
+   if (!arg || (arg == "")) {
       usage();
       return;
    }
@@ -35,7 +35,7 @@ void main(string arg) {
    }
 
    file = normalize_path(arg, this_player()->query_env("cwd"));
-   if (!file || file == "") {
+   if (!file || (file == "")) {
       write("Permission denied.\n");
       return;
    }

@@ -42,7 +42,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       /* Print out the list */
       names = this_player()->query_env_indices();
       for (i = 0; i < sizeof(names); i++) {
