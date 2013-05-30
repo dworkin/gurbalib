@@ -40,6 +40,11 @@ void main(string src, varargs mixed args ...) {
       return;
    }
 
+   if (!src || src == "") {
+      usage();
+      return;
+   }
+
    if (src == "-h") {
       usage();
       return;
