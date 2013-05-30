@@ -20,7 +20,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void do_get(object obj1, object obj2, int loud) {
+int do_get(object obj1, object obj2, int loud) {
    string slot;
    object worn;
 
@@ -28,42 +28,42 @@ void do_get(object obj1, object obj2, int loud) {
       if (loud) {
          write("What are you trying to get?");
       }
-      return;
+      return 0;
    }
 
    if (obj1->is_gettable() != 1) {
       if (loud) {
          write("You can not get the " + obj1->query_id() + ".");
       }
-      return;
+      return 0;
    }
 
    if (!obj2) {
       if (loud) {
          write("Where are you trying to get that?\n");
       }
-      return;
+      return 0;
    }
 
    if (!obj2->is_container()) {
       if (loud) {
          write("You can not get things from there.\n");
       }
-      return;
+      return 0;
    }
 
    if (obj2->is_closed()) {
       if (loud) {
          write("It is not open.\n");
       }
-      return;
+      return 0;
    }
 
    if (!obj1->is_gettable()) {
       if (loud) {
          write("You can not get the " + obj1->query_id() + ".");
       }
-      return;
+      return 0;
    }
 
    if (obj1->move(this_player())) {
@@ -73,6 +73,7 @@ void do_get(object obj1, object obj2, int loud) {
          this_player()->targetted_action("$N $vpick up $o from $o1.", nil, 
             obj1, obj2);
       }
+      return 1;
    } else {
       if (obj2 == this_environment()) {
          this_player()->targetted_action("$N $vtry to get $o, but $vfail.",
@@ -82,12 +83,13 @@ void do_get(object obj1, object obj2, int loud) {
             "but $vfail.", nil, obj1, obj2);
       }
    }
+   return 0;
 }
 
 void main(string str) {
    object obj, obj2;
    object *inv;
-   int i, max;
+   int i, max, done;
    string what, where;
 
    if (!str || str == "") {
@@ -121,8 +123,12 @@ void main(string str) {
    if (what == "all") {
       inv = obj->query_inventory();
       max = sizeof(inv);
+      done = 0;
       for (i = 0; i < max; i++) {
-         do_get(inv[i], obj, 0);
+         if (do_get(inv[i], obj, 0)) done = 1;
+      }
+      if (!done) {
+         write("There is nothing here to get.\n");
       }
       return;
    }

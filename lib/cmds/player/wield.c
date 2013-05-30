@@ -16,7 +16,7 @@ void usage() {
 
    this_player()->more(lines);
 }
-void do_wield(object obj, int loud) {
+int do_wield(object obj, int loud) {
    string slot;
    object* wielded;
 
@@ -24,21 +24,21 @@ void do_wield(object obj, int loud) {
       if (loud) {
          write("Maybe you should get one first?");
       }
-      return;
+      return 0;
    }
 
    if (!obj->is_wieldable()) {
       if (loud) {
          write("You can't wield that.");
       }
-      return;
+      return 0;
    }
 
    if (obj->query_wielded() == 1) {
       if (loud) {
          write("You already are wielding that.");
       }
-      return;
+      return 0;
    }
 
    wielded = this_player()->query_wielded();
@@ -46,24 +46,25 @@ void do_wield(object obj, int loud) {
    if (obj->query_wield_type() == "single") {
       if (sizeof(wielded) >= 2) {
          write("Your hands are full.");
-         return;
+         return 0;
       }
    } else {
       if (sizeof(wielded) != 0) {
          write("You are already wielding something else.");
-         return;
+         return 0;
       }
 
    }
 
    this_player()->do_wield(obj);
    this_player()->targetted_action(obj->query_wield_message(), nil, obj);
+   return 1;
 }
 
 void main(string str) {
    object obj;
    object *inv;
-   int i, max;
+   int i, max, done;
 
    if (!str || str == "") {
       usage();
@@ -78,8 +79,14 @@ void main(string str) {
    if (str == "all") {
       inv = this_player()->query_inventory();
       max = sizeof(inv);
+      done = 0;
       for (i = 0; i < max; i++) {
-         do_wield(inv[i],0);
+         if (do_wield(inv[i],0)) {
+            done = 1;
+         }
+      }
+      if (!done) {
+         write("You have nothing to wield.\n");
       }
       return;
    }
