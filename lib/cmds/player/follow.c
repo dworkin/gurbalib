@@ -30,8 +30,8 @@ void main(string str) {
    }
 
    name = this_player()->query_follower();
-   if (!str || str == "") {
-      if (name && name != "") {
+   if (!str || (str == "")) {
+      if (name && (name != "")) {
          write("You are currently following: " + name + "\n");
       } else {
          write("You are currently not following anyone.\n");

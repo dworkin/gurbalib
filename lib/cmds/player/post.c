@@ -55,7 +55,7 @@ void main(string str) {
 }
 
 void enter_line(string line) {
-   if (line != "." && line != "**" && line != "~a") {
+   if ((line != ".") && (line != "**") && (line != "~a")) {
       if (!msg[this_player()->query_name()]) {
 	 msg[this_player()->query_name()] = line + "\n";
       } else {

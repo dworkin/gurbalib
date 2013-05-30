@@ -42,7 +42,7 @@ void main(string who) {
 
    sscanf(who, "%s %s", who, what);
 
-   if (what && what != "") {
+   if (what && (what != "")) {
       what = capitalize(what);
    }
 

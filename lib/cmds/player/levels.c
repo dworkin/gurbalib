@@ -20,7 +20,7 @@ void main(string str) {
    int i, exp, maxi;
    mixed width;
 
-   if (str && str != "") {
+   if (str && (str != "")) {
       usage();
       return;
    }

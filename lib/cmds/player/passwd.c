@@ -20,7 +20,7 @@ void usage() {
 }
 
 void main(string arg) {
-   if (arg && arg != "") {
+   if (arg && (arg != "")) {
       usage();
       return;
    }

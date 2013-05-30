@@ -74,7 +74,7 @@ void enter_line(string line) {
    string player_name;
 
    player_name = this_player()->query_Name();
-   if (line != "." && line != "**" && line != "~a") {
+   if ((line != ".") && (line != "**") && (line != "~a")) {
       if (!msg[player_name]) {
 	 msg[player_name] = line + "\n";
       } else {

@@ -36,7 +36,7 @@ void main(string str) {
       long_flag = 0;
    }
 
-   if (str && str != "") {
+   if (str && (str != "")) {
       if (sscanf(str, "-%s", str)) {
          usage();
          return;

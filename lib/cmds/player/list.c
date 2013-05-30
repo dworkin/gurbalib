@@ -21,7 +21,7 @@ void main(string str) {
    object *objs;
    int i;
 
-   if (str && str != "") {
+   if (str && (str != "")) {
       usage();
       return;
    }

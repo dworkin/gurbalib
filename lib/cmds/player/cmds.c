@@ -87,7 +87,7 @@ void main(string str) {
       col = 1;
    } else {
       col = 4;
-      if (str && str != "") {
+      if (str && (str != "")) {
 	 switch (str) {
 	    case "player":
 	       show_cmds("/cmds/player");

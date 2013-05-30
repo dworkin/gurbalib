@@ -107,7 +107,7 @@ void main(string str) {
       skills = SKILL_D->query_skills();
    }
 
-   if (str && str != "") {
+   if (str && (str != "")) {
       DBM("Using " + str + " to filter skills.");
       skills = filter_array(skills, "filter_skill", this_object(), str);
    }

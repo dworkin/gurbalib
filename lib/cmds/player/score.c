@@ -50,7 +50,7 @@ void main(string str) {
       return;
    }
 
-   if (str && str != "") {
+   if (str && (str != "")) {
       if (query_wizard(this_player())) {
 	 obj = USER_D->find_player(str);
 	 if (!obj) {

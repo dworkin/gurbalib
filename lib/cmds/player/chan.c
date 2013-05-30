@@ -91,8 +91,9 @@ void list_channels(void) {
       lines += ( { "IMud channels" } );
       lines += ( { "--------------" } );
       for (i = 0; i < sizeof(channels); i++) {
-         if (ichans[channels[i]][0] && ichans[channels[i]][0] != -1)
+         if ((ichans[channels[i]][0]) && (ichans[channels[i]][0] != -1)) {
             lines += ( { channels[i] + ", " + ichans[channels[i]][0] } );
+         }
       }
    }
 
