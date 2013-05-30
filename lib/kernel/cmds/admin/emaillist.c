@@ -37,8 +37,8 @@ void create_list(string type, string file) {
          /* Skip this account it's special */
       } else {
          line = USER_D->get_email_info(this_player(),names[i], type);
-         if (line && line != "") {
-            if (!file || file == "") {
+         if (line && (line != "")) {
+            if (!file || (file == "")) {
                write(line);
             } else {
                write_file(file, line);
@@ -56,7 +56,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       create_list("","");
       return;
    }

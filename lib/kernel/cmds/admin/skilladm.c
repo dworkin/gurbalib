@@ -28,7 +28,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       skills = SKILL_D->query_skills();
       max = sizeof(skills);
       write("Skills:\n");
@@ -55,8 +55,8 @@ void main(string str) {
       }
       SKILL_D->add_skill(skill);
       write("Skill added. ");
-   } else if (cmd == "del" || cmd == "delete" || cmd == "rm" || 
-      cmd == "remove") {
+   } else if ((cmd == "del") || (cmd == "delete") || (cmd == "rm") || 
+      (cmd == "remove")) {
       if (!SKILL_D->is_skill(skill)) {
 	 this_player()->write("That skill does not exist.");
 	 return;

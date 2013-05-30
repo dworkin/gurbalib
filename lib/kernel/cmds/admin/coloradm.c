@@ -79,11 +79,11 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }
-   if (str == "show" || str == "display") {
+   if ((str == "show") || (str == "display")) {
       write(ANSI_D->color_table());
       return;
    }

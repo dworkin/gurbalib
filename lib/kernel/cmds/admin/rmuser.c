@@ -26,11 +26,11 @@ static void rmuser(string name) {
 
 void confirm_remove(string str) {
    string dirname;
-   if (!lock || previous_object() != lock) {
+   if (!lock || (previous_object() != lock)) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       this_player()->input_to_object(this_object(), "confirm_remove");
       write("Removing " + name + ", are you sure? (y/n)");
       return;
@@ -58,7 +58,7 @@ void main(string str) {
       write("You must be admin to do that.");
       return;
    }
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       usage();
       return;
    }

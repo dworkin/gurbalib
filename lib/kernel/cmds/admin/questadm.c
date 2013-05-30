@@ -31,7 +31,7 @@ void main(string str) {
       return;
    }
 
-   if (!str || str == "") {
+   if (!str || (str == "")) {
       QUEST_D->list_quests(this_player());
       return;
    }
@@ -54,8 +54,8 @@ void main(string str) {
          usage();
          return;
       }
-   } else if (cmd == "del" || cmd == "delete" || cmd == "rm" || 
-      cmd == "remove") {
+   } else if ((cmd == "del") || (cmd == "delete") || (cmd == "rm") || 
+      (cmd == "remove")) {
 
       if (!QUEST_D->is_quest(rest)) {
 	 this_player()->write("That is not a valid quest.");

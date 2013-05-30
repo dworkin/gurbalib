@@ -78,7 +78,7 @@ void main(string arg) {
       return;
    }
 
-   if (!arg || arg == "") {
+   if (!arg || (arg == "")) {
       usage();
       return;
    }
