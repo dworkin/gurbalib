@@ -17,7 +17,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void do_wear(object obj, int loud) {
+int do_wear(object obj, int loud) {
    string slot;
    object worn;
 
@@ -25,20 +25,20 @@ void do_wear(object obj, int loud) {
       if (loud) {
          write("what are you trying to wear?");
       }
-      return;
+      return 0;
    }
 
    if (!obj->is_wearable()) {
       if (loud) {
          write("You cannot wear that.");
       }
-      return;
+      return 0;
    }
    if (obj->query_worn() == 1) {
       if (loud) {
          write("You're already wearing the " + obj->query_id() + ".");
       }
-      return;
+      return 0;
    }
 
    slot = obj->query_slot();
@@ -46,25 +46,26 @@ void do_wear(object obj, int loud) {
       if (loud) {
          write("You do not have a place to wear that.\n");
       }
-      return;
+      return 0;
    }
 
    worn = this_player()->query_slot(slot);
    if (worn && (slot != "apparel")) {
       if (loud) {
          write("You are already wearing a " + worn->query_id() + ".");
-         return;
       }
+      return 0;
    }
 
    this_player()->do_wear(obj);
    this_player()->targetted_action(obj->query_wear_message(), nil, obj);
+   return 1;
 }
 
 void main(string str) {
    object obj;
    object *inv;
-   int i, max;
+   int i, max, done;
 
    if (!str || str == "") {
       usage();
@@ -79,8 +80,14 @@ void main(string str) {
    if (str == "all") {
       inv = this_player()->query_inventory();
       max = sizeof(inv);
+      done = 0;
       for (i = 0; i < max; i++) {
-         do_wear(inv[i],0);
+         if (do_wear(inv[i],0)) {
+            done = 1;
+         }
+      }
+      if (!done) {
+         write("You do not have anything to put on.\n");
       }
       return;
    }
