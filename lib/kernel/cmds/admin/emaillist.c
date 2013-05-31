@@ -52,7 +52,7 @@ void main(string str) {
    string type, file;
 
    if (!require_priv("system")) {
-      write("You must be admin to do that.");
+      write("You must be an admin to do that.");
       return;
    }
 

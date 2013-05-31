@@ -27,7 +27,7 @@ void main(string str) {
    int i, max, level;
 
    if (!require_priv("system")) {
-      write("You must be admin to do that.");
+      write("You must be an admin to do that.");
       return;
    }
 
