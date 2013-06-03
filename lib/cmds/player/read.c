@@ -46,30 +46,31 @@ void main(string str) {
          }
       } else {
          ob = this_environment()->present("board");
-         if (!ob) {
-	    write("Try reading a message at a message board.\n");
-	    return;
-         }
+         if (ob) {
+            if (!str || (str == "")) {
+	       write("Read what?");
+	       return;
+            }
 
-         if (!str || (str == "")) {
+            if (str == "next") {
+	       str = "" + 
+                  (this_player()->query_board_read(ob->query_board_id()) + 1);
+            }
+
+            if (ob->query_msg_exists(str) == 1) {
+	       lines = explode(ob->query_message(str), "\n");
+	       write(implode(lines[..3], "\n"));
+	       this_player()->more(lines[4..]);
+   	       this_player()->set_board_read(ob->query_board_id(), 
+                  str2val(str));
+            } else {
+	       write("No such message.\n");
+            }
+            return;
+         } else {
 	    write("Read what?");
 	    return;
          }
-
-         if (str == "next") {
-	    str = "" + 
-               (this_player()->query_board_read(ob->query_board_id()) + 1);
-         }
-
-         if (ob->query_msg_exists(str) == 1) {
-	    lines = explode(ob->query_message(str), "\n");
-	    write(implode(lines[..3], "\n"));
-	    this_player()->more(lines[4..]);
-   	    this_player()->set_board_read(ob->query_board_id(), str2val(str));
-         } else {
-	    write("No such message.\n");
-         }
-         return;
       }
    }
 }
