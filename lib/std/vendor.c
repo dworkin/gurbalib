@@ -55,22 +55,26 @@ void do_sell(object player, string what) {
 	 if (obj->query_id() == what && found != 1) {
             value = obj->query_value();
 
-            if (value <= player->query_total_money() ) {
-               this_object()->other_action(this_object(),
-	          "$N $vgive $t $o", player, obj);
-		value = -1 * value;
-               player->add_money("ducat", value);
-	       obj->move(player);
-	       stored_items[objs[i]] = stored_items[objs[i]] - 1;
-	       found = 1;
-               return;
+            if (stored_items[objs[i]] < 1) {
+               /* Skip here, out of stock... */
             } else {
-               write("You do not have enough money for that.\n");
-	       obj->query_environment()->remove_object(obj);
-	       obj->destruct();
-               return;
+               if (value <= player->query_total_money() ) {
+                  this_object()->other_action(this_object(),
+                     "$N $vgive $t $o", player, obj);
+                  value = -1 * value;
+                  player->add_money("ducat", value);
+	          obj->move(player);
+                  stored_items[objs[i]] = stored_items[objs[i]] - 1;
+                  found = 1;
+                  return;
+               } else {
+                  write("You do not have enough money for that.\n");
+	          obj->query_environment()->remove_object(obj);
+	          obj->destruct();
+                  return;
+               }
             }
-	 } else {
+         } else {
 	    obj->query_environment()->remove_object(obj);
 	    obj->destruct();
 	 }
@@ -139,32 +143,33 @@ string query_list(void) {
 
    for (i = 0; i < sizeof(objs); i++) {
 
-      obj = clone_object(objs[i]);
-      if (obj) {
+      if (stored_items[objs[i]] > 0) {
+         obj = clone_object(objs[i]);
+         if (obj) {
 
-	 obj->move(this_object());
-	 obj->setup();
+            obj->move(this_object());
+            obj->setup();
 
-	 num = "   " + stored_items[objs[i]];
-	 num = num[strlen(num) - 3..];
+            num = "   " + stored_items[objs[i]];
+            num = num[strlen(num) - 3..];
 
-	 if (!obj->query_Name()) {
-	    if (!obj->query_adj() || obj->query_adj() == "") {
-	       str +=
-		  " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_id() + ", " +
-		  obj->query_value() + " ducats.\n";
-	    } else {
-	       str +=
-		  " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_adj() + " " +
-		  obj->query_id() + ", " + obj->query_value() + " ducats.\n";
-	    }
-	 } else {
-	    str +=
-	       " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_Name() +
-	       ", " + objs->query_value() + " ducats.\n";
-	 }
-	 obj->query_environment()->remove_object(obj);
-	 obj->destruct();
+            if (!obj->query_Name()) {
+               if (!obj->query_adj() || obj->query_adj() == "") {
+                  str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_id() + 
+                     ", " + obj->query_value() + " ducats.\n";
+               } else {
+                  str += " %^CYAN%^[" + num + "]%^RESET%^ " + 
+                     obj->query_adj() + " " + obj->query_id() + ", " + 
+                     obj->query_value() + " ducats.\n";
+               }
+            } else {
+               str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_Name() +
+                  ", " + objs->query_value() + " ducats.\n";
+            }
+
+            obj->query_environment()->remove_object(obj);
+            obj->destruct();
+         }
       }
    }
    return str;
