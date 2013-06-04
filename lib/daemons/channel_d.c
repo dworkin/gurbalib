@@ -200,11 +200,6 @@ void chan_leave(string chan, object ob) {
       return;
    }
 
-   if (channels[chan] != READ_ONLY) {
-      /* no point denying leave channel */
-      write( "No such channel.\n" );
-      return;
-   }
    if (!listeners[chan]) {
       listeners[chan] = ( { } );
    }

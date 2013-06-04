@@ -8,7 +8,7 @@ void set_guild(string new_guild) {
 }
 
 string query_guild(void) {
-   return (guild);
+   return guild;
 }
 
 void do_dub(object who) {
@@ -20,13 +20,13 @@ void join_guild(string str) {
 
    player = this_player();
 
-   if (player->guild_member(guild)) {
+   if (player->guild_member(query_guild())) {
       write("The guild master says: You're already a member.");
       return;
    }
 
    if (this_object()->can_join(player)) {
-      player->join_guild(guild);
+      player->join_guild(query_guild());
       this_object()->do_join(player);
    } else {
       this_object()->do_reject(player);
@@ -35,12 +35,12 @@ void join_guild(string str) {
 
    do_dub(player);
 
-/*XXX Need to only do this if channels are active??  same with leaving */
-   CHANNEL_D->chan_join(query_guild(), player);
-   CHANNEL_D->event_player_join(( {
-	    player->query_name(), GUILD_D->query_guild_title(query_guild())
-	 }
-      ));
+   if (CHANNEL_D->query_channel(query_guild())) {
+      CHANNEL_D->chan_join(query_guild(), player);
+      CHANNEL_D->event_player_join(( {
+         player->query_name(), GUILD_D->query_guild_title(query_guild())
+	 }));
+   }
 }
 
 void leave_guild(string str) {
@@ -48,16 +48,23 @@ void leave_guild(string str) {
 
    player = this_player();
 
-   if (!player->guild_member(guild)) {
+   if (!player->guild_member(query_guild())) {
       write("The guild master says: Why do you want to leave, when you're " +
          "not a member?");
       return;
    }
 
    if (this_object()->can_leave(player)) {
-      player->leave_guild(guild);
+
+      player->leave_guild(query_guild());
       this_object()->do_leave(player);
-      CHANNEL_D->chan_leave(query_guild(), player);
+
+      if (CHANNEL_D->query_channel(query_guild())) {
+
+write("Attempting to leave channel " + query_guild() + "\n");
+         CHANNEL_D->chan_leave(query_guild(), player);
+      }
+
       player->set_title("$N the guildless.");
 
    } else {
