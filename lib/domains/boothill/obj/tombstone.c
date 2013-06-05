@@ -1,4 +1,4 @@
-inherit "/std/object";
+inherit "/std/sign";
 
 void setup(void) {
    set_id("tombstone");
@@ -32,4 +32,7 @@ string query_long() {
    return str;
 }
 
+string query_message(void) {
+   return query_long();
+}
 

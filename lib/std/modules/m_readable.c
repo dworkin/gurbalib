@@ -19,6 +19,6 @@ int can_read(object who) {
 }
 
 int do_read(object who) {
-   write(readable_text);
+   write(query_message());
    return 1;
 }
