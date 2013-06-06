@@ -17,6 +17,8 @@ void usage() {
    this_player()->more(lines);
 }
 
+/* Need to add the ability to drop money XXX */
+
 void do_drop(object obj, int loud) {
    string slot;
    object worn;

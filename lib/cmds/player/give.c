@@ -12,6 +12,7 @@ void usage() {
    lines += ({ "\tgive sword to sirdude" });
    lines += ({ "\tgive sword sirdude" });
    lines += ({ "\tgive all to sirdude" });
+   lines += ({ "\tgive 5 ducats to sirdude" });
    lines += ({ "See also:" });
    lines += ({ "\tget, drop" });
 
@@ -83,11 +84,52 @@ void do_give(object obj1, object obj2, int loud) {
    }
 }
 
+int transfer_money(int amount,string cointype, string where) {
+   object obj;
+   int worth;
+
+   obj = this_environment()->present(where);
+
+   if (!obj) {
+      write("Who are you trying to give that to?");
+      return 0;
+   }
+   if (!obj->is_living()) {
+      write("You can not give money to that.\n");
+      return 0;
+   }
+   if (obj == this_player()) {
+      write("You can not give yourself money.\n");
+      return 0;
+   }
+
+   worth = MONEY_D->query_value(cointype);
+   if (worth > 0) {
+      amount = amount * worth;
+      if (this_player()->query_total_money() > amount) {
+         this_player()->add_money("ducat", (amount * -1));
+         obj->add_money("ducat",amount);
+         write("You give " + amount + " ducats to " + obj->query_Name() + ".\n");
+         this_player()->query_environment()->tell_room(this_player(),
+            this_player()->query_Name() + " gives " + amount + " ducats to " + 
+            obj->query_Name() + ".\n");
+         return 1;
+      } else {
+         write("You do not have enough money to give.\n");
+         return 0;
+      }
+   } else {
+      write("Error that is funny money.\n");
+      return 0;
+   }
+   return 0;
+}
+
 void main(string str) {
    object obj, obj2;
    object *inv;
-   int i, max;
-   string what, where;
+   int i, max, amount;
+   string what, where, coin;
 
    if (!str || (str == "")) {
       usage();
@@ -100,6 +142,18 @@ void main(string str) {
    }
 
    if (sscanf(str, "%s to %s",what,where) == 2) {
+      if (sscanf(what, "%d %s",amount, coin) == 2) {
+         if ((coin == "ducat") || (coin == "ducats") || (coin == "coins")) {
+            transfer_money(amount,"ducat",where);
+            return;
+         } else if ((coin == "royal") || (coin == "royals")) {
+            transfer_money(amount,"royal",where);
+            return;
+         } else if ((coin == "crown") || (coin == "crowns")) {
+            transfer_money(amount,"crown",where);
+            return;
+         }
+      }
    } else if (sscanf(str, "%s %s",what,where) == 2) {
    } else {
       write("You want to give what to who?");
