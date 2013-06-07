@@ -17,7 +17,33 @@ void usage() {
    this_player()->more(lines);
 }
 
-/* Need to add the ability to drop money XXX */
+int do_drop_coin(int amount,string type) {
+   object obj;
+
+   if ((type == "ducat") || (type == "ducats") || (type == "coins")) {
+      /* No need to change amount */
+   } else if ((type == "royal") || (type == "royals")) {
+      amount = amount * MONEY_D->query_value("royal");
+   } else if ((type == "crown") || (type == "crowns")) {
+      amount = amount * MONEY_D->query_value("crown");
+   } else {
+      return 0;
+   }
+
+   if (this_player()->query_total_money() > amount) {
+      this_player()->add_money("ducat", (amount * -1));
+      write("you drop " + amount + " ducats.");
+      this_player()->query_environment()->tell_room(this_player(),
+         this_player()->query_Name() + " drops " + amount + "ducats.\n");
+      obj = clone_object("/domains/required/objects/coin.c");
+      obj->set_amount(amount);
+      obj->move(this_player()->query_environment());
+      return 1;
+   } else {
+      write("You do not have that much money.\n");
+      return 0;
+   }
+}
 
 void do_drop(object obj, int loud) {
    string slot;
@@ -73,7 +99,8 @@ void do_drop(object obj, int loud) {
 void main(string str) {
    object obj;
    object *inv;
-   int i, max;
+   int i, max, amount;
+   string type;
 
    if (!str || (str == "")) {
       usage();
@@ -92,6 +119,12 @@ void main(string str) {
          do_drop(inv[i],0);
       }
       return;
+   }
+
+   if (sscanf(str, "%d %s", amount, type) == 2) {
+      if (do_drop_coin(amount,type)) {
+         return;
+      }
    }
 
    obj = this_player()->present(lowercase(str));
