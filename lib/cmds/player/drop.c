@@ -38,11 +38,10 @@ int do_drop_coin(int amount,string type) {
       obj = clone_object("/domains/required/objects/coin.c");
       obj->set_amount(amount);
       obj->move(this_player()->query_environment());
-      return 1;
    } else {
       write("You do not have that much money.\n");
-      return 0;
    }
+   return 1;
 }
 
 void do_drop(object obj, int loud) {

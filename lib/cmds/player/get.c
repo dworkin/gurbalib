@@ -86,11 +86,45 @@ int do_get(object obj1, object obj2, int loud) {
    return 0;
 }
 
+/* XXX Need to fix this and get all for coins... */
+int get_coins(int amount, string type) {
+   object obj;
+   int value;
+
+   if ((type == "ducat") || (type == "ducats") || (type == "coins")) {
+      /* No need to change amount */
+   } else if ((type == "royal") || (type == "royals")) {
+      amount = amount * MONEY_D->query_value("royal");
+   } else if ((type == "crown") || (type == "crowns")) {
+      amount = amount * MONEY_D->query_value("crown");
+   } else {
+      return 0;
+   }
+
+   obj = this_player()->query_environment()->present("coin");
+   value = obj->query_value();
+   if (amount > value) {
+      write("There are not that many coins here.\n");
+   } else {
+      write("You pickup " + amount + " ducats.\n");
+      this_player()->query_environment()->tell_room(this_player(),
+         this_player()->query_Name() + " picks up " + amount + " ducats.\n");
+
+      if (amount == value) {
+         destruct_object(obj);
+      } else {
+         obj->set_value(value - amount);
+      }
+   }
+
+   return 1;
+}
+
 void main(string str) {
    object obj, obj2;
    object *inv;
-   int i, max, done;
-   string what, where;
+   int i, max, done, amount;
+   string what, where, type;
 
    if (!str || (str == "")) {
       usage();
@@ -105,6 +139,12 @@ void main(string str) {
    if (sscanf(str, "%s in %s",what,where) == 2) {
    } else if (sscanf(str, "%s from %s",what,where) == 2) {
    } else if (sscanf(str, "%s %s",what,where) == 2) {
+   } else if (sscanf(str, "%d %s",amount, type) == 2) {
+      if (get_coins(amount,type)) {
+         return;
+      } else {
+         what = str;
+      }
    } else {
       what = str;
    }
