@@ -20,6 +20,40 @@ void usage() {
    this_player()->more(lines);
 }
 
+int get_coins(int amount, string type) {
+   object obj;
+   int value;
+
+   if ((type == "ducat") || (type == "ducats") || (type == "coins")) {
+      /* No need to change amount */
+   } else if ((type == "royal") || (type == "royals")) {
+      amount = amount * MONEY_D->query_value("royal");
+   } else if ((type == "crown") || (type == "crowns")) {
+      amount = amount * MONEY_D->query_value("crown");
+   } else {
+      return 0;
+   }
+
+   obj = this_player()->query_environment()->present("coin");
+   value = obj->query_value();
+   if (amount > value) {
+      write("There are not that many coins here.\n");
+   } else {
+      write("You pickup " + amount + " ducats.\n");
+      this_player()->query_environment()->tell_room(this_player(),
+         this_player()->query_Name() + " picks up " + amount + " ducats.\n");
+
+      if (amount == value) {
+         destruct_object(obj);
+      } else {
+         obj->set_value(value - amount);
+      }
+      this_player()->add_money("ducat",amount);
+   }
+
+   return 1;
+}
+
 int do_get(object obj1, object obj2, int loud) {
    string slot;
    object worn;
@@ -59,11 +93,12 @@ int do_get(object obj1, object obj2, int loud) {
       return 0;
    }
 
-   if (!obj1->is_gettable()) {
-      if (loud) {
-         write("You can not get the " + obj1->query_id() + ".");
-      }
-      return 0;
+   if (obj1->is_money()) {
+      int x;
+
+      x = obj1->query_value();
+      get_coins(x,"ducat");
+      return 1;
    }
 
    if (obj1->move(this_player())) {
@@ -84,40 +119,6 @@ int do_get(object obj1, object obj2, int loud) {
       }
    }
    return 0;
-}
-
-/* XXX Need to fix this and get all for coins... */
-int get_coins(int amount, string type) {
-   object obj;
-   int value;
-
-   if ((type == "ducat") || (type == "ducats") || (type == "coins")) {
-      /* No need to change amount */
-   } else if ((type == "royal") || (type == "royals")) {
-      amount = amount * MONEY_D->query_value("royal");
-   } else if ((type == "crown") || (type == "crowns")) {
-      amount = amount * MONEY_D->query_value("crown");
-   } else {
-      return 0;
-   }
-
-   obj = this_player()->query_environment()->present("coin");
-   value = obj->query_value();
-   if (amount > value) {
-      write("There are not that many coins here.\n");
-   } else {
-      write("You pickup " + amount + " ducats.\n");
-      this_player()->query_environment()->tell_room(this_player(),
-         this_player()->query_Name() + " picks up " + amount + " ducats.\n");
-
-      if (amount == value) {
-         destruct_object(obj);
-      } else {
-         obj->set_value(value - amount);
-      }
-   }
-
-   return 1;
 }
 
 void main(string str) {
