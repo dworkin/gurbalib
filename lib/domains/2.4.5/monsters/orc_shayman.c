@@ -17,7 +17,7 @@ void setup() {
    set_level(10);
    set_aggressive(1);
 
-   /* XXX add magic missle spell... */
+   /* XXX need to do backend for this */
    set_spell_chance(20);
    set_spell_mess1("You are hit by a magic missle.");
    set_spell_mess2("The shayman casts a magic missle.");

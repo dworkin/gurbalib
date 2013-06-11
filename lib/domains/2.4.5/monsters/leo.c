@@ -17,9 +17,14 @@ void setup() {
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 90);
    set_skill("combat/defense", 200);
+
+/* XXX Need to do backend for this */
+   set_spell_chance(50);
+   set_spell_damage(30);
+   set_spell_message("Leo casts a blazing fireball.\n");
 }
 
-/* XXX Need to do fireball spell as an attack option.
+/* 
    XXX Quest for Orc slayer?
    XXX Give user a castle if they ask for one....
 */
