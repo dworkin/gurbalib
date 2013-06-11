@@ -9,7 +9,9 @@
 #endif
 
 #include "AUTO"
-#include "CONFIG"
+
+/* Load the local configuration file if it exists */
+#include "/std/include/local_config.h"
 
 #define SYS_COLOR
 

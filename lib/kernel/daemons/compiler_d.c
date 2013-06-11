@@ -144,10 +144,6 @@ mixed include_file(string file, string path) {
 	    return "/kernel/include/std-game.h";
 	 }
       }
-   } else if (path == "CONFIG") {
-      if (file_exists("/std/include/local_config.h") > 0) {
-	 return "/std/include/local_config.h";
-      }
    }
 
    if (path[0] != '/') {
