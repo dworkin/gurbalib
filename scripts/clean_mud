@@ -49,7 +49,6 @@ if (-d "lib/domains/2.4.5") {
 
 rm_dir("lib/kernel/daemons/data");
 rm_dir("lib/sys/daemons/data");
-rm_dir("lib/sys/data");
 rm_dir("lib/tmp");
 rm_dir("lib/logs");
 rm_dir("lib/wiz");

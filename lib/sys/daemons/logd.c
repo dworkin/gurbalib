@@ -2,11 +2,11 @@ int minlevel;
 mapping special_logs;
 
 static void save_me() {
-   unguarded("save_object", "/sys/data/logd.o");
+   unguarded("save_object", "/sys/daemons/data/logd.o");
 }
 
 static void restore_me() {
-   unguarded("restore_object", "/sys/data/logd.o");
+   unguarded("restore_object", "/sys/daemons/data/logd.o");
 }
 
 static void create() {

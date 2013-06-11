@@ -53,7 +53,6 @@ if (-d "lib/domains/2.4.5") {
 makedir("lib/kernel/daemons/data");
 makedir("lib/sys/daemons/data");
 makedir("lib/sys/daemons/data/users");
-makedir("lib/sys/data");
 makedir("lib/tmp");
 makedir("lib/logs");
 makedir("lib/logs/errors");

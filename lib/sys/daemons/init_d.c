@@ -1,15 +1,7 @@
-/*
- * System and game init
- *
- * Reads /sys/data/init
- * This file should contain a list of objects 
- * that have to be loaded at startup.
- */
-
-#define INIT_LIST "/sys/data/init"
+/* Read in the default objects that are loaded at boot */
 
 /* Returns a default init list. */
-private string *default_init() {
+private string *get_default_objects() {
    string *objects;
 
    objects = ( { SCHEDULE_D, CHANNEL_D, TIME_D, USER_D } );
@@ -42,23 +34,12 @@ private string *default_init() {
    return objects;
 }
 
-/*
- * Get the list of required objects.
- * If it exists, add the contents of the init list file
- * (/sys/data/init) to it.
- * Load all listed objects.
- *
- */
 static void create() {
    string *objects;
    int count;
    int size;
 
-   objects = default_init();
-
-   if (file_exists(INIT_LIST)) {
-      objects += explode(read_file(INIT_LIST), "\n");
-   }
+   objects = get_default_objects();
 
    if (!objects) {
       return;
