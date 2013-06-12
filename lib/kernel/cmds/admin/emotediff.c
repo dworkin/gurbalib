@@ -1,4 +1,4 @@
-#define DUMMY "/domains/required/objects/fake_emote.c"
+#define DUMMY DOMAINS_DIR + "/required/objects/fake_emote.c"
 
 void usage() {
    string *lines;

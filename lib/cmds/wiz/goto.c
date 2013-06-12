@@ -14,7 +14,7 @@ void usage() {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples" });
    lines += ({ "\tgoto sirdude" });
-   lines += ({ "\tgoto /domains/required/rooms/start.c" });
+   lines += ({ "\tgoto " + DOMAINS_DIR + "/required/rooms/start.c" });
    lines += ({ "See also:" });
    lines += ({ "\thome, summon, where" });
 

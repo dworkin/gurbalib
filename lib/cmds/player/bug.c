@@ -48,7 +48,7 @@ void main(string str) {
    }
    player_name = this_player()->query_Name();
 
-   ob[player_name] = "/domains/required/rooms/bug_room"->present("board");
+   ob[player_name] = DOMAINS_DIR + "/required/rooms/bug_room"->present("board");
    if (!ob[player_name]) {
       write("Unable to locate the bug board. Tell a wizard.\n");
       return;

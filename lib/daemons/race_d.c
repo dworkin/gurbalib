@@ -11,22 +11,22 @@ void create(void) {
 
    races = ([]);
 
-   list = get_dir(RACE_DIR + "*.c");
+   list = get_dir(RACE_DIR + "/*.c");
    names = list[0];
 
    for (i = 0; i < sizeof(names); i++) {
       names[i] = names[i][..(strlen(names[i]) - 3)];
-      race = clone_object(RACE_DIR + names[i]);
+      race = clone_object(RACE_DIR + "/" + names[i]);
       races[names[i]] = race;
    }
 
    monster_races = ([]);
-   list = get_dir(RACE_DIR + "monsters/*.c");
+   list = get_dir(RACE_DIR + "/monsters/*.c");
    monster_names = list[0];
 
    for (i = 0; i < sizeof(monster_names); i++) {
       monster_names[i] = monster_names[i][..(strlen(monster_names[i]) - 3)];
-      race = clone_object(RACE_DIR + "monsters/" + monster_names[i]);
+      race = clone_object(RACE_DIR + "/monsters/" + monster_names[i]);
       monster_races[monster_names[i]] = race;
    }
 }

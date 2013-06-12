@@ -176,7 +176,7 @@ void error_loading_object(string name) {
    LOG_D->write_log("rooms", "Error: " + this_object()->base_name() + 
       " loading object:" + name + "\n");
 
-   filename = "/domains/required/objects/sing.c";
+   filename = DOMAINS_DIR + "/required/objects/sing.c";
    ob = clone_object(filename);
    if (ob) {
       ob->move(object_name(this_object()));

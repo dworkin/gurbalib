@@ -15,7 +15,7 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\tgraph /domains/gurba/rooms" });
+   lines += ({ "\tgraph " + DOMAINS_DIR + "/gurba/rooms" });
    lines += ({ "\tgraph rooms" });
    lines += ({ "See also:" });
 

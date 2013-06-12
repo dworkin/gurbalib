@@ -10,7 +10,7 @@ void usage() {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tmore void.c" });
-   lines += ({ "\tmore /domains/required/rooms/void.c" });
+   lines += ({ "\tmore " + DOMAINS_DIR + "/required/rooms/void.c" });
    lines += ({ "See also:" });
    lines += ({ "\tbrowse, cat, cd, cp, diff, edit, ls, mkdir, pwd, " +
       "rm, tail" });

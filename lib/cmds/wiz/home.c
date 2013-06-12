@@ -33,17 +33,17 @@ void main(string str) {
 
    name = this_player()->query_name();
 
-   filename = WIZ_DIR + name + "/rooms/workroom";
+   filename = WIZ_DIR + "/" + name + "/rooms/workroom";
 
    if (!file_exists(filename + ".c")) {
-      filename = WIZ_DIR + name + "/workroom";
+      filename = WIZ_DIR + "/" + name + "/workroom";
 
       if (file_exists(filename + ".c")) {
-	 if (file_exists(WIZ_DIR + name + "/rooms") == 0) {
-	    write("Please create a " + WIZ_DIR + name +
+	 if (file_exists(WIZ_DIR + "/" + name + "/rooms") == 0) {
+	    write("Please create a " + WIZ_DIR + "/" + name +
 	       "/rooms directory and " + "move your workroom into it.");
 	 } else {
-	    write("Please move your workroom into " + WIZ_DIR + name +
+	    write("Please move your workroom into " + WIZ_DIR + "/" + name +
 	       "/rooms/");
 	 }
       }

@@ -79,13 +79,13 @@ You should at least modify the first 3 entries.
 #define DEFAULT_WIDTH           80
 
 /* Location of wizards directory */
-#define WIZ_DIR "/wiz/"
+#define WIZ_DIR "/wiz"
 
 /* Location of the races */
-#define RACE_DIR "/domains/required/objects/races/"
+#define RACE_DIR "/domains/required/objects/races"
 
 /* Location for addon domains */
-#define DOMAINS_DIR "/domains/"
+#define DOMAINS_DIR "/domains"
 
 /* Mud Server Status Protocol variables, see sys/lib/user.c for where this
    is used */

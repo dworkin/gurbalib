@@ -58,7 +58,7 @@ void mkdomains() {
    int i, sz;
    string *names;
 
-   names = get_dir("/domains/*")[0];
+   names = get_dir(DOMAINS_DIR + "/*")[0];
    names -= ( { ".", "..", ".svn", ".cvs" } );
    for (i = 0, sz = sizeof(names); i < sz; i++) {
       unguarded("add_domain", names[i]);
@@ -81,12 +81,13 @@ void create_homedir(string wiz) {
       error("Access denied");
    }
 
-   path = "/wiz/" + wiz + "/";
+   path = WIZ_DIR + "/" + wiz + "/";
 
    if (file_exists(path) == 0) {
       make_dir(path);
       make_dir(path + "rooms/");
-      copy("/domains/required/rooms/workroom.c", path + "rooms/workroom.c");
+      copy(DOMAINS_DIR + "/required/rooms/workroom.c", 
+         path + "rooms/workroom.c");
    }
 }
 
@@ -97,7 +98,7 @@ void delete_homedir(string wiz) {
       error("Access denied");
    }
 
-   path = "/wiz/" + wiz + "/";
+   path = WIZ_DIR + "/" + wiz + "/";
 
    if (file_exists(path) == 0) {
       error("No such directory: " + path + "\n");
@@ -113,7 +114,7 @@ void delete_homedir(string wiz) {
 void make_lockerdir(string domain, string pname) {
    string path;
 
-   path = "/domains/" + domain + "/";
+   path = DOMAINS_DIR + "/" + domain + "/";
 
    if (file_exists(path) == -1) {
       path = path + "/data/";

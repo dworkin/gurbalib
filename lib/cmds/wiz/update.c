@@ -9,7 +9,7 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\tupdate /domains/required/rooms/start.c" });
+   lines += ({ "\tupdate " + DOMAINS_DIR + "/required/rooms/start.c" });
    lines += ({ "\tupdate start.c" });
    lines += ({ "\tupdate here" });
    lines += ({ "\tupdate sword" });

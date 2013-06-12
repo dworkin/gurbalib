@@ -9,7 +9,7 @@ void usage() {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tbrowse void.c" });
-   lines += ({ "\tbrowse /domains/required/rooms" });
+   lines += ({ "\tbrowse " + DOMAINS_DIR + "/required/rooms" });
    lines += ({ "See also:" });
    lines += ({ "\tcat, cd, cp, diff, edit, ls, more, mkdir, pwd, " +
       "rm, tail" });

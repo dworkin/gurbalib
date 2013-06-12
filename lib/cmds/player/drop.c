@@ -35,7 +35,7 @@ int do_drop_coin(int amount,string type) {
       write("you drop " + amount + " ducats.");
       this_player()->query_environment()->tell_room(this_player(),
          this_player()->query_Name() + " drops " + amount + "ducats.\n");
-      obj = clone_object("/domains/required/objects/coin.c");
+      obj = clone_object(DOMAINS_DIR + "/required/objects/coin.c");
       obj->set_amount(amount);
       obj->move(this_player()->query_environment());
    } else {

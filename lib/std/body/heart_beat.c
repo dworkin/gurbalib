@@ -132,7 +132,7 @@ void die(void) {
    object obj, *inv;
    int i;
 
-   obj = clone_object("/domains/required/objects/corpse");
+   obj = clone_object(DOMAINS_DIR + "/required/objects/corpse");
 
    inv = this_object()->query_inventory();
    for(i = sizeof(inv) - 1; i>=0; i--) {

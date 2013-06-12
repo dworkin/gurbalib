@@ -29,12 +29,12 @@ string *query_languages() {
    object obj;
    int i, x;
 
-   files = get_dir(RACE_DIR + "*.c")[0];
+   files = get_dir(RACE_DIR + "/*.c")[0];
    langs = ( { } );
 
    for(i=sizeof(files) - 1; i>=0; i--) {
       x = strlen(files[i]) - 3;
-      obj = find_object(RACE_DIR + files[i][0..x]);
+      obj = find_object(RACE_DIR + "/" + files[i][0..x]);
       if (obj) {
          name = obj->query_language();
       } 

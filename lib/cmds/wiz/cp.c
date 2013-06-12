@@ -8,7 +8,7 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\tcp workroom.c /domains/newbie/rooms/workroom.c" });
+   lines += ({ "\tcp " + DOMAINS_DIR + "/newbie/rooms/workroom.c workroom.c" });
    lines += ({ "See also:" });
    lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, mkdir, pwd, " +
       "rm, tail" });
