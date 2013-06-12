@@ -1,3 +1,20 @@
+When upgrading your mudlib always make a backup of your stuff:
+
+	1. shutdown the mud
+	2. tar cfvz lib.06-11-2013.tgz lib
+	3. run "git log" to see what version of files your currently using
+	4. update your repository with: git pull
+	5. review your file lib/kernel/include/local_config.h against
+		lib/kernel/include/local_config.h.default
+	6. look at the git log to see if there are any incompatabilities
+		listed in the notes.
+	7. Restart the mud.
+	8. If you have problems check the logs to see whats going wrong.
+	9. If you can't figure things out drop me an email:
+		mein@cs.umn.edu
+
+OLD directions follow:
+
 General explanation:
 
   Upgrading without completely restarting the game is possible.

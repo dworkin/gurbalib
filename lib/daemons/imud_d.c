@@ -792,8 +792,8 @@ void create(void) {
 
    if (IMUD_NAME == "GurbaLib") {
       "/kernel/sys/driver"->
-	 message("Please edit kernel/include/mudname.h and change " +
-            "the MUD_NAME and IMUD_NAME defines\n");
+	 message("Please edit kernel/include/local_config.h and change " +
+            "the MUD_NAME, IMUD_NAME and ADMIN_EMAIL defines.\n");
       return;
    }
 

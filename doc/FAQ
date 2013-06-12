@@ -6,10 +6,13 @@ Q: What do I do now that I have this stuff?
    You will also probably want to look at the lib/doc directory
 
 Q: When trying to start the mud, it complains about the file
-   mudname.h not being there and then terminates.
+   local_config.h not being there and then terminates.
 
-A: You didn't follow the directions for  configuring the mud and
+A: You didn't follow the directions for configuring the mud and
    installing the driver. read and follow doc/INSTALLING
+	(Note: This has changed use to be called mudname.h, if your
+	getting this problem now reread INSTALLING and send me an email
+	if your still having problems.)
 
 Q: When starting the mud, I get the following output:
 
@@ -27,7 +30,7 @@ Q: When starting the mud, I get the following output:
   Failed to compile "/daemons/imud_d.c"
   Config error: initialization failed
 
-A: The file lib/kernel/include/mudname.h does not define the
+A: The file lib/kernel/include/local_config.h does not define the
    IMUD_NAME macro, probably because you created an empty file
    there or removed that macro. 
 

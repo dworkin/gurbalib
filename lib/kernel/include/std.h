@@ -10,51 +10,13 @@
 
 #include "AUTO"
 
-/* Load the local configuration file if it exists */
-#include "/std/include/local_config.h"
-
-#define SYS_COLOR
-
-#ifndef SYS_PERSIST
-#define SYS_PERSIST
-#endif
-
-#ifndef WORLD_PERSIST
-#define WORLD_PERSIST 0
-#endif
-
-#ifndef DUMP_INTERVAL
-#define DUMP_INTERVAL 3600
-#endif
-
-#ifndef CLEAN_UP_INTERVAL
-#define CLEAN_UP_INTERVAL 7200
-#endif
-
-#ifndef RESET_INTERVAL
-#define RESET_INTERVAL 3600
-#endif
-
-#ifndef HEART_BEAT_INTERVAL
-#define HEART_BEAT_INTERVAL 2
-#endif
-
-#include <mudname.h>
+#include "/kernel/include/local_config.h"
 
 #define LIB_NAME  "GurbaLib"
 #define LIB_VERSION "v0.50"
 
-#ifndef LINKDEAD_TIMEOUT
-#define LINKDEAD_TIMEOUT 10*60
-#endif
-
 #define TRUE  1
 #define FALSE 0
-
-#ifndef STARTING_ROOM
-#define STARTING_ROOM "/domains/required/rooms/start"
-#endif
-#define VOID "/domains/required/rooms/void"
 
 #define LANGUAGE_D   "/daemons/language_d"
 #define ANSI_D       "/daemons/ansi_d"
@@ -83,7 +45,7 @@
 #define SCHEDULE_D   "/daemons/schedule_d"
 #define LOG_D        "/sys/daemons/logd"
 #define CMD_ERROR_D  "/daemons/cmd_error_d"
-#define QUEST_D "/daemons/quest_d"
+#define QUEST_D      "/daemons/quest_d"
 
 #define CONNECTION      "/kernel/obj/net/connection"
 #define PORT            "/kernel/obj/net/port"
@@ -103,26 +65,3 @@
 #define PLAYER_OB       "/sys/obj/player"
 #define TELNET_USER_OB  "/sys/obj/user/telnet"
 
-#ifndef WIZ_DIR
-#define WIZ_DIR "/wiz/"
-#endif
-
-#ifndef RACE_DIR
-#define RACE_DIR "/domains/required/objects/races/"
-#endif
-
-#ifndef DOMAINS_DIR
-#define DOMAINS_DIR "/domains/"
-#endif
-
-#ifndef MAX_DEPTH
-#define MAX_DEPTH       256
-#endif
-
-#ifndef MAX_TICKS
-#define MAX_TICKS       1000000
-#endif
-
-#ifndef DEFAULT_WIDTH
-#define DEFAULT_WIDTH 80
-#endif

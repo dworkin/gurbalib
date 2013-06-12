@@ -30,8 +30,8 @@ cd to your gurbalib dir and perform the following actions:
 		change the directory entry to where you installed things.
 		Look it over and change other things if you want.
 	cd lib/kernel/include
-	cp mudname.h.default mudname.h
-	edit the mudname.h file and change the mudname
+	cp local_config.h.default local_config.h
+	edit local_config.h file and change at least the first 3 entries
 	cd ../../..
 
 	cp contrib/login lib/data/messages/

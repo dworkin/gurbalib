@@ -1,18 +1,25 @@
 /* 
 Gurbalib uses an include file for some local configurable
-options. You'll have to #define things in there to override
-the defaults for those options.
+options. You'll have to #define things in here to override
+the defaults.
 
-When this file doesn't exist, no error will occur, the defaults
-will be used. When an option is not defined in this file, the
-default for that option will be used.
+When an option is not defined in this file, the default for that option 
+will be used.
 
-Useful defines you can put in /std/include/local_config.h and their 
-default values:
+You should at least modify the first 3 entries. 
 */
+
+/* What you want your mud to be called (avoid spaces) */
+#define MUD_NAME  "GurbaLib"
+
+/* Name for your mud on Intermud (avoid spaces) */
+#define IMUD_NAME "GurbaLib"
 
 /* To define your email address: */
 #define ADMIN_EMAIL             "you@some.place"
+
+/* Website for the mud if you have one */
+#define WEBSITE "https://github.com/sirdude/gurbalib"
 
 /* To set the linkdeadth timeout (after this linkdead players will be 
    disconnected) */
@@ -21,6 +28,9 @@ default values:
 /* This defines where players start when they login: */
 #define STARTING_ROOM           "/domains/required/rooms/start"
 
+/* The void */
+#define VOID "/domains/required/rooms/void"
+
 /* The max stack depth */
 #define MAX_DEPTH               256
 
@@ -28,10 +38,16 @@ default values:
    error occurs. */
 #define MAX_TICKS               1000000
 
-
 /* When set to 0, the world will not be persistent, and clean_up and reset
    are used. */
 #define WORLD_PERSIST           0
+
+/* enable state dumping of the  the world so that we can reload from
+   a cold boot */
+#define SYS_PRESIST	1
+
+/* Enable ansi colors */
+#define SYS_COLOR	1
 
 /* The time between calls to event_clean_up */
 #define CLEAN_UP_INTERVAL       7200
@@ -46,18 +62,37 @@ default values:
 #define HEART_BEAT_INTERVAL     2
 
 /* If the following is defined, all FTP functionality will be disabled */
-#define DISABLE_FTP 1
+/* #define DISABLE_FTP 1 */
 
 /* If the following is defined, anonymous FTP will be disabled */
-#define DISABLE_ANON_FTP 1
+/* #define DISABLE_ANON_FTP 1 */
 
 /* If the following is defined, the INTERMUD Daemon will not be started */
-#define DISABLE_IMUD 1
+/* #define DISABLE_IMUD 1 */
 
 /* If the following is defined, room descriptions will show each object
    individually instead of collating objects with identical short descs.
 */
-#define LONG_ROOM_INV 1
+/* #define LONG_ROOM_INV 1 */
 
 /* Default terminal width */
 #define DEFAULT_WIDTH           80
+
+/* Location of wizards directory */
+#define WIZ_DIR "/wiz/"
+
+/* Location of the races */
+#define RACE_DIR "/domains/required/objects/races/"
+
+/* Location for addon domains */
+#define DOMAINS_DIR "/domains/"
+
+/* Mud Server Status Protocol variables, see sys/lib/user.c for where this
+   is used */
+#define MSSP_FAMILY "LPMud"
+#define MSSP_STATUS "ALPHA" /* "ALPHA", "CLOSED BETA", "OPEN BETA", "LIVE" */
+#define MSSP_INTERMUD "I3"
+#define MSSP_ANSI "1"
+#define MSSP_MCCP "0"
+#define MSSP_PAY_TO_PLAY "0"
+#define MSSP_PAY_FOR_PERKS "0"
