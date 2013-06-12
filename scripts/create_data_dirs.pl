@@ -18,6 +18,7 @@ if (!-f "scripts/create_data_dirs.pl") {
 }
 
 makedir("bin");
+makedir("src");
 makedir("tmp");
 # Everything after here is in the actual mudlib
 makedir("lib/daemons/data");
