@@ -16,8 +16,8 @@ if (!-f "scripts/create_data_dirs.pl") {
    exit 1;
 }
 
-print "WARNING: You are about to remove all user data on your mud, are you " .
-   "sure you want to continue? (Y/n)";
+print "WARNING: You are about to remove all user data on your mud,\nare you " .
+   "Really, I MEAN REALLY? sure you want to continue? (Y/N)";
 chomp($word = <STDIN>);
 
 if ($word eq "y" || $word eq "Y") {
@@ -55,7 +55,3 @@ rm_dir("lib/wiz");
 
 print "You should run scripts/create_data_dirs.pl to recreate your " .
    "data directories.\n";
-print "You should also optionally copy over contrib/emote_d.o to " .
-   "lib/daemons/data\n";
-print "You should also optionally copy over contrib/login and motd to " .
-   "lib/data/messages\n";

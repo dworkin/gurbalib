@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Time::Piece;
+
+my $t = localtime;
+
+if (!-d "backups") {
+   print "No backups directory exists in the current dir. Aborting.\n";
+}
+
+my $name = "backups/" . $t->year . "-" . $t->mon . "-" .
+   $t->mday . ":" . $t->hour . ":" . $t->min . "_mudlib.tgz";
+system("tar cfvz $name lib");
