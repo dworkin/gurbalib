@@ -724,6 +724,23 @@ string *query_guilds(void) {
    return blah;
 }
 
+string random_error() {
+   int randomval;
+
+   randomval = random(3);
+   switch (randomval) {
+      case 0:
+         return ("What?");
+         break;
+      case 1:
+         return ("Que?");
+         break;
+      case 2:
+         return ("Huh?");
+         break;
+   }
+}
+
 /* Process input from the player */
 void receive_message(string message) {
    mixed result;
@@ -960,7 +977,7 @@ void receive_message(string message) {
       }
 
       if (!flag && cmd != "") {
-	 write(CMD_ERROR_D->random_error());
+	 write(random_error());
       }
       if (!quitting && input_to_func == "" && !is_editing())
 	 write_prompt();

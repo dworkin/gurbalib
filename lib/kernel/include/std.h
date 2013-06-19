@@ -44,7 +44,6 @@
 #define PARSE_D      "/daemons/parse_d"
 #define SCHEDULE_D   "/daemons/schedule_d"
 #define LOG_D        "/sys/daemons/logd"
-#define CMD_ERROR_D  "/daemons/cmd_error_d"
 #define QUEST_D      "/daemons/quest_d"
 
 #define CONNECTION      "/kernel/obj/net/connection"
