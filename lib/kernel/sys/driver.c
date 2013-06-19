@@ -32,7 +32,7 @@
  * some common object types and their absolute path
  */
 #define SHORT_OBJECT_TYPE ([\
-  "player"     :"/sys/lib/player",\
+  "player"     :"/sys/obj/player",\
   "user"       :"/sys/lib/user",\
   "connection" :"/kernel/obj/net/connection",\
   "port"       :"/kernel/obj/net/port",\

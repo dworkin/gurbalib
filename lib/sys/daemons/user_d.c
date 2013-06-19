@@ -13,7 +13,7 @@ int logout(string name);
 object find_user(string name);
 
 static void secure() {
-   if (previous_program(1) != USER && !require_priv("system")) {
+   if (previous_program(1) != USER_OB && !require_priv("system")) {
       error("Access denied.");
    }
 }
@@ -66,7 +66,7 @@ static void create() {
    u = users();
 
    for (i = 0, sz = sizeof(u); i < sz; i++) {
-      if (u[i]->query_name() && u[i] <-USER) {
+      if (u[i]->query_name() && u[i] <-USER_OB) {
 	 users[u[i]->query_name()] = u[i];
       }
    }
@@ -368,7 +368,7 @@ void upgraded() {
       users = ([]);
       u = users();
       for (i = 0, sz = sizeof(u); i < sz; i++) {
-	 if (u[i]->query_name() && u[i] <-USER) {
+	 if (u[i]->query_name() && u[i] <-USER_OB) {
 	    users[u[i]->query_name()] = u[i];
 	 }
       }

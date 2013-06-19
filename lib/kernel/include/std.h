@@ -57,9 +57,6 @@
 #define DRIVER          "/kernel/sys/driver"
 #define AUTO            "/kernel/lib/auto"
 
-#define PLAYER          "/sys/lib/player"
-#define USER            "/sys/lib/user"
-
-#define USER_OB         "/sys/obj/user/telnet"
+#define USER_OB         "/sys/obj/user"
 #define PLAYER_OB       "/sys/obj/player"
 
