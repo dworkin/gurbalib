@@ -62,5 +62,4 @@
 
 #define USER_OB         "/sys/obj/user/telnet"
 #define PLAYER_OB       "/sys/obj/player"
-#define TELNET_USER_OB  "/sys/obj/user/telnet"
 
