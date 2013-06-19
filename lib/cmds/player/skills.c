@@ -3,10 +3,12 @@ void usage() {
 
    lines = ({ "Usage: skills [-h] [full]" });
    if (query_wizard(this_player())) {
-      lines += ({ "Usage: skills [skill value]" });
+      lines += ({ "Usage: skills [set SKILL VALUE]" });
    }
    lines += ({ "" });
    lines += ({ "List the skills you know, and how well you know it." });
+   lines += ({ "Wizards can also use this command to set a skill to a " +
+      "specific value" });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
@@ -14,6 +16,9 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tskills" });
    lines += ({ "\tskills full" });
+   if (query_wizard(this_player())) {
+      lines += ({ "\tskills set spell/cure 5" });
+   }
    lines += ({ "See also:" });
    lines += ({ "\thp, inventory, levels, score" });
 
