@@ -1,7 +1,7 @@
 When upgrading your mudlib always make a backup of your stuff:
 
 	1. shutdown the mud
-	2. tar cfvz lib.06-11-2013.tgz lib
+	2. cd gurablib then run: ./scripts/backup_lib
 	3. run "git log" to see what version of files your currently using
 	4. update your repository with: git pull
 	5. review your file lib/kernel/include/local_config.h against
@@ -13,66 +13,10 @@ When upgrading your mudlib always make a backup of your stuff:
 	9. If you can't figure things out drop me an email:
 		mein@cs.umn.edu
 
-OLD directions follow:
-
-General explanation:
-
-  Upgrading without completely restarting the game is possible.
-  Such upgrades take care of recompiling everything and migrating and
-  converting objects and data where needed.  In a few rare cases you
-  may need to shutdown the mud to upgrade things.
-
-  If you intend to start your mud from scratch after an upgrade, you
-  don't need to worry about data and object conversion.
-
-  Whenever you do a git pull to upgrade files, you should review this
-  file and the INSTALLING instructions to see if there are any changes.
-
-upgrading the mudlib with warmboot:
-	in a shell window in the gurbalib dir run: git pull
-	on the mud as an admin run the warmboot command
-	check the docs for updates
-upgrading the mudlib by stoping the server:
-	kill your driver and or run the shutdown command as an admin
-	in a shell run: git pull
-	check the docs for updates
-	restart the server
-
-How a warmboot(live upgrade) works:
-
-  When you perform a warmboot, a number of steps are taken:
-
-  - Recompile of the warmboot command
-    This ensures that any checks and special procedures required for
-    the revision you are upgrading to are known and handled by the
-    warmboot command.
-
-  - Check if upgrade is possible
-
-  - Atomic recompile of critical objects
-    Ensures that critical kernel objects are recompiled properly, will
-    undo everything if a critical kernel object fails to compile.
-
-  - Migration/conversion of kernel data and objects
-
-  - Rebuilding remaining objects
-
-  - Any remaining migration and conversion
-
-Driver upgrades:
-
-  When a new version of dgd becomes available, and you want to upgrade to it.
-
-  You will want to update your driver source, make the new binary.
-
-  After this, you have to shutdown the game, backup your old driver, 
-  copy over the new binary to the bin directory and restart your mud.
-
-  If you restore a statedump after a driver upgrade, it is a very
-  good idea to do a 'warmboot' as the first thing after having
-  restarted the driver.
-
-  Also, it is a very good idea to make a backup of your statedump
-  before this restart, new versions of the driver may change the
-  statedump format in a way that cannot be restored by older versions.
-
+If you need to revert things:
+	1. stop your mud if its semi running.
+	2. verify you have a valid backup in the backups directory
+	3. mv lib lib.foo
+	4. tar xvfz backups/(timestamp)_mudlib.tgz 
+		where (timestamp)_mudlib.tgz is the backup you want to restore.
+	5. start your mud.
