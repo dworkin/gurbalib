@@ -17,3 +17,19 @@ The code from Erlend and Nullinfinite is available with a
 Additional contributed code may be assumed to fall under a "do what you
 want with it as long as you don't claim you wrote it" license unless
 otherwise specified in this file.
+
+Exception!!!!
+----------------------------------------------------------------
+lib/domains/2.4.5 falls under the following license, you can always
+remove it if you do not agree with it:
+
+This domain, is from the 2.4.5 LPmud, it is copyright by Lars Pensj|, 1990.
+It is subject to the following Restrictions:
+
+Source code herein refers to the source code, and any executables
+created from the same source code.
+
+All rights reserved.  Permission is granted to extend and modify the
+source code provided subject to the restriction that the source code may
+not be used in any way whatsoever for monetary gain.
+
