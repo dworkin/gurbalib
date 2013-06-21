@@ -66,7 +66,7 @@ void main(string str) {
       return;
    }
 
-   if (sscanf(str, "-h", str)) {
+   if (sscanf(str, "-h%s", str)) {
       usage();
       return;
    }
@@ -105,7 +105,7 @@ void main(string str) {
    if (i > max ) {
       do_fulldiff(obj, myfile);
    } else {
-      for(i=x;i<max;i++) {
+      for(;i<max;i++) {
          do_diff(obj,tmp[i], myfile);
       }
    }

@@ -19,7 +19,7 @@ auto dest/update of all instances of an object
 
 fix: You wield your the shield.
 
-why multiple daemons, lib, include, data, sys dirs?
+why multiple daemons, lib, data, sys dirs?
 
 support for getting 2nd or 3rd sword in a room or inv
 Fix it so deep inventory works with autoload.
