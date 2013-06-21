@@ -28,7 +28,8 @@ int load(string str) {
 int test(string str) {
    secure();
 
-   return crypt(str, "gurba") == password;
+   if (hash_string("SHA1", str, "gurba") == password) return 1;
+   return (hash_string("crypt", str, "gurba") == password);
 }
 
 void set_name(string str) {
@@ -40,7 +41,7 @@ void set_name(string str) {
 void set_pass(string str) {
    secure();
 
-   password = crypt(str, "gurba");
+   password = hash_string("SHA1", str, "gurba");
    save_me();
 }
 
