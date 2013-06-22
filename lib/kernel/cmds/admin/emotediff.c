@@ -7,6 +7,10 @@ void usage() {
    lines += ({ "" });
    lines += ({ "Compare the current loaded emotes vs FILE" });
    lines += ({ "If EMOTE is given, display EMOTE for both." });
+   lines += ({ "This command uses the following tags to mark differences:" });
+   lines += ({ "\t+\tNew line that doesn't exist in current emoted" });
+   lines += ({ "\t!\tline that does not match current emoted" });
+   lines += ({ "\t-\tline that exists in emoted but not in FILE" });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
@@ -27,12 +31,13 @@ void usage() {
 
 void do_diff(object obj, string emote, string myfile) {
    string *rules1, *rules2;
+   string tag;
    int x, max;
 
    rules1 = EMOTE_D->query_rules(emote);
    max = sizeof(rules1);
 
-   write("EMOTE_D\n");
+   write("EMOTE_D : " + emote + "\n");
    for(x=0; x<max; x++) {
       write(" " + rules1[x] + ": " + EMOTE_D->query_emote(emote,rules1[x]) + 
          "\n");
@@ -40,10 +45,19 @@ void do_diff(object obj, string emote, string myfile) {
 
    rules2 = obj->query_rules(emote);
    max = sizeof(rules2);
-   write(myfile + max +"\n");
+   write(myfile + " : " + emote + " :Max = " + max + "\n");
 
    for(x=0; x<max; x++) {
-      write(" " + rules2[x] + ": " + obj->query_emote(emote,rules2[x]) + "\n");
+      if (!EMOTE_D->query_emote(emote,rules2[x])) {
+         tag = "+ ";
+      } else if (obj->query_emote(emote,rules2[x]) != 
+         EMOTE_D->query_emote(emote,rules2[x])) {
+         tag = "! ";
+      } else {
+         tag = "  ";
+      }
+      write(tag + " " + rules2[x] + ": " + 
+         obj->query_emote(emote,rules2[x]) + "\n");
    }
 }
 
@@ -102,11 +116,11 @@ void main(string str) {
    obj->set_file(myfile);
    obj->restore_me();
 
-   if (i > max ) {
+   if (x >= max ) {
       do_fulldiff(obj, myfile);
    } else {
-      for(;i<max;i++) {
-         do_diff(obj,tmp[i], myfile);
+      for(i=x; i<max; i++) {
+         do_diff(obj, tmp[i], myfile);
       }
    }
    destruct_object(obj);
