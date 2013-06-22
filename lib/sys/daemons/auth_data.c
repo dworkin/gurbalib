@@ -25,10 +25,10 @@ int load(string str) {
    return unguarded("restore_object", file);
 }
 
-int test(string str) {
+int test(string user, string str) {
    secure();
 
-   if (hash_string("SHA1", str, "gurba") == password) return 1;
+   if (hash_string("SHA1", str, user) == password) return 1;
    return (hash_string("crypt", str, "gurba") == password);
 }
 
@@ -38,10 +38,10 @@ void set_name(string str) {
    name = str;
 }
 
-void set_pass(string str) {
+void set_pass(string user, string str) {
    secure();
 
-   password = hash_string("SHA1", str, "gurba");
+   password = hash_string("SHA1", str, user);
    save_me();
 }
 

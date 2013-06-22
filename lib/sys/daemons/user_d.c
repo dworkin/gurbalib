@@ -148,7 +148,7 @@ int set_password(string name, string secret) {
    if (!data) {
       return 0;
    }
-   data->set_pass(secret);
+   data->set_pass(name,secret);
    save_me();
 }
 
@@ -163,7 +163,7 @@ int login(string name, string secret) {
       return 0;
    }
 
-   return data->test(secret);
+   return data->test(name, secret);
 }
 
 int user_exists(string name) {
@@ -181,7 +181,7 @@ static int _new_user(string name, string secret) {
    }
 
    ob->set_name(name);
-   ob->set_pass(secret);
+   ob->set_pass(name,secret);
    return 1;
 }
 
