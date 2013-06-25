@@ -1,13 +1,4 @@
-/*
- * Gurbalib 'user' library
- *
- * This should be inherited by user objects that want to interact with
- * the game.
- * 
- * Thingol, 9/26/2009. Fixed wrap_message() to wrap to the correct length.
- *
- */
-
+/* Thingol, 9/26/2009. Fixed wrap_message() to wrap to the correct length. */
 #include <limits.h>
 #include <status.h>
 #include <ports.h>
@@ -49,6 +40,7 @@ void _open(mixed * tls) {
    send_message(TELNET_D->query_banner());
    send_message("\nEnter your name (or 'who' for a list of players): ");
    send_message(1);
+
    timeout_handle = call_out("login_timeout", 600);
    player = clone_object(PLAYER_OB);
    player->set_user(this_object());
@@ -68,13 +60,13 @@ static void _close(mixed * tls, int ld) {
    string ip;
 
    ip = query_ip_number(this_object());
-   if (!ip)
+   if (!ip) {
       ip = "<NO IP>";
+   }
    if (ld == 0) {
       player->set_linkdead(1);
       log_file("logins", ctime(time()) + "\t" + ip +
 	 "\t\t" + this_object()->query_name() + " disconnects\n");
-
    } else {
       if (player) {
 	 destruct_object(player);
@@ -111,21 +103,24 @@ void quit(void) {
 }
 
 void put_original(string str) {
-   if (!str || str == "")
+   if (!str || str == "") {
       return;
+   }
    send_message(str);
 }
 
 void put_message(string str) {
    string msg;
 
-   if (!str || str == "")
+   if (!str || str == "") {
       return;
+   }
 
-   if (query_player()->query_ansi())
+   if (query_player()->query_ansi()) {
       msg = ansid->parse_colors(str);
-   else
+   } else {
       msg = ansid->strip_colors(str);
+   }
    send_message(msg);
 }
 
@@ -133,20 +128,21 @@ void wrap_message(string str, varargs int chat_flag) {
    string msg;
    string *words;
    string *lines;
-   int width;
-   int i, j;
-   int sz;
+   int width, i, j, sz;
 
-   if (!str || str == "")
+   if (!str || str == "") {
       return;
+   }
 
    width = -1;
    /* Get the width from the player */
-   if (player)
+   if (player) {
       catch(width = str2val((string) player->query_env("width")));
+   }
 
-   if (width < 0)
+   if (width < 0) {
       width = DEFAULT_WIDTH;
+   }
 
    rlimits(MAX_DEPTH; MAX_TICKS * MAX_TICKS) {
       /* Split the string into lines */
@@ -179,8 +175,11 @@ void wrap_message(string str, varargs int chat_flag) {
 		     msg += "  ";
 		  }
 
-		  sz = strlen(word_todo) + 2;	/* add length of word without ansi codes */
-		  msg += words[i];	/* add word with ansi codes */
+                  /* add length of word without ansi codes */
+		  sz = strlen(word_todo) + 2;
+
+                  /* add word with ansi codes */
+		  msg += words[i];
 	       } else {
 		  msg += (adding ? " " : "") + words[i];
 		  sz += strlen(word_todo) + adding;
@@ -189,10 +188,11 @@ void wrap_message(string str, varargs int chat_flag) {
 	       adding = sz == 0 ? 0 : 1;
 	    }
 	 }
-	 if (query_player()->query_ansi())
+	 if (query_player()->query_ansi()) {
 	    msg = ansid->parse_colors(msg);
-	 else
+	 } else {
 	    msg = ansid->strip_colors(msg);
+         }
 
 	 send_message(msg + "\n");
       }
@@ -217,9 +217,7 @@ void receive_message(string message) {
 
 void login_user(void) {
    object usr;
-   int i;
-   int flag;
-   int done;
+   int i, flag, done;
    object tmp_player;
    string start;
 
@@ -266,10 +264,12 @@ void login_user(void) {
 	 if (!done)
 	    send_message("Invalid room env(start)\n");
       }
-      if (!done)
+      if (!done) {
 	 done = player->move(STARTING_ROOM);
-      if (!done)
+      }
+      if (!done) {
 	 player->move(VOID);
+      }
 
       player->simple_action("$N $vlog in.\n");
       player->do_look(0);
@@ -288,10 +288,8 @@ void handle_reconnect(string str) {
       send_message("Please enter y or n : ");
       player->input_to_object(this_object(), "handle_reconnect");
    } else if (lowercase(str) == "y") {
-      object tmp_player;
-      int flag;
-      int i;
-      object usr;
+      object usr, tmp_player;
+      int flag, i;
 
       usr = USER_D->find_user(user_name);
       if (usr) {
@@ -325,7 +323,7 @@ void handle_reconnect(string str) {
 }
 
 string query_name(void) {
-   return (user_name);
+   return user_name;
 }
 
 /* The MSSP specification can be found here: 
@@ -504,50 +502,44 @@ void input_old_passwd(string str) {
 }
 
 void change_passwd(string str) {
-   if (!str || str == "") {
-      send_message("\nPlease enter your password: ");
-      send_message(0);
-      player->input_to_object(this_object(), "change_passwd");
-   } else {
-      if (USER_D->login(this_player()->query_name(), str)) {
-	 send_message("\nPlease enter your new password: ");
-	 player->input_to_object(this_object(), "change_new_passwd");
-      } else {
-	 send_message("\nPasswords don't match!\n");
-	 send_message(1);
-      }
-   }
+   string passwd2;
+
+   send_message("\nPlease enter your password: ");
+   send_message(0);
+   player->input_to_object(this_object(), "change_passwd2");
 }
 
-void change_new_passwd(string str) {
-   if (!str || str == "") {
-      send_message("\nPlease enter your new password: ");
-      player->input_to_object(this_object(), "change_new_passwd");
-   } else {
-      newpass = str;
-      send_message("\nPassword again: ");
-      player->input_to_object(this_object(), "verify_new_passwd");
+void change_passwd2(string str) {
+
+   if (!str || str == "") { 
+      send_message("\nNo password, aborting.\n");
+      send_message(1);
+      return;
    }
+
+   newpass = str;
+   send_message("\nAgain Please enter your password: ");
+   send_message(0);
+   player->input_to_object(this_object(), "change_passwd3");
 }
 
-void verify_new_passwd(string str) {
-   object obj;
+void change_passwd3(string str) {
+   send_message(1);
 
-   if (!str || str == "") {
-      send_message("\nPassword again: ");
-      player->input_to_object(this_object(), "verify_new_passwd");
+   if (!str || str == "") { 
+      send_message("\nNo password, aborting.\n");
+      return;
+   }
+
+   if (newpass != str) {
+      send_message("\nPasswords do not match.\n");
+      return;
    } else {
-      if (str != newpass) {
-	 send_message("\nPassword's do not match, aborting.\n");
-      } else {
-	 log_file("change_passwd", ctime(time()) + "\t" +
-	    query_ip_number(this_object()) + "\t" + query_name() + "\n");
+      log_file("change_passwd", ctime(time()) + "\t" +
+         query_ip_number(this_object()) + "\t" + query_name() + "\n");
 
-	 USER_D->set_password(this_player()->query_name(), str);
-
-	 send_message(1);
-	 send_message("\nPassword successfully changed.\n");
-      }
+      USER_D->set_password(this_player()->query_name(), str);
+      send_message("\nPassword successfully changed.\n");
    }
 }
 
@@ -670,7 +662,7 @@ void set_player(object p) {
 }
 
 object query_player(void) {
-   return (player);
+   return player;
 }
 
 static void _receive_error(mixed * tls, string err) {
