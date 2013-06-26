@@ -504,13 +504,31 @@ void input_old_passwd(string str) {
 void change_passwd(string str) {
    string passwd2;
 
-   send_message("\nNew password: ");
+   send_message("\nOld password: ");
    send_message(0);
    player->input_to_object(this_object(), "change_passwd2");
 }
 
 void change_passwd2(string str) {
+   if (!str || str == "") { 
+      send_message("\nNo password, aborting.\n");
+      send_message(1);
+      return;
+   }
 
+   if (!USER_D->login(user_name, str)) {
+      send_message("\nInvalid password, aborting.\n");
+      send_message(1);
+      return;
+   }
+
+   newpass = str;
+   send_message("\nNew, password: ");
+   send_message(0);
+   player->input_to_object(this_object(), "change_passwd3");
+}
+
+void change_passwd3(string str) {
    if (!str || str == "") { 
       send_message("\nNo password, aborting.\n");
       send_message(1);
@@ -518,12 +536,12 @@ void change_passwd2(string str) {
    }
 
    newpass = str;
-   send_message("\nAgain, password: ");
+   send_message("\nAgain, new password: ");
    send_message(0);
-   player->input_to_object(this_object(), "change_passwd3");
+   player->input_to_object(this_object(), "change_passwd4");
 }
 
-void change_passwd3(string str) {
+void change_passwd4(string str) {
    send_message(1);
 
    if (!str || str == "") { 
