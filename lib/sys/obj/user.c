@@ -504,7 +504,7 @@ void input_old_passwd(string str) {
 void change_passwd(string str) {
    string passwd2;
 
-   send_message("\nPlease enter your password: ");
+   send_message("\nNew password: ");
    send_message(0);
    player->input_to_object(this_object(), "change_passwd2");
 }
@@ -518,7 +518,7 @@ void change_passwd2(string str) {
    }
 
    newpass = str;
-   send_message("\nAgain Please enter your password: ");
+   send_message("\nAgain, password: ");
    send_message(0);
    player->input_to_object(this_object(), "change_passwd3");
 }
