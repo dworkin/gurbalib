@@ -589,9 +589,9 @@ void input_check_passwd(string str) {
 	 player->input_to_object(this_object(), "input_get_gender");
       } else {
 	 send_message("\nThe passwords don't match.\n");
-	 send_message("Enter your password: ");
-	 send_message(0);
-	 player->input_to_object(this_object(), "input_new_passwd");
+         send_message("Goodbye!!!\n");
+         destruct_object(player);
+         destruct_object(this_object());
       }
    }
 }
