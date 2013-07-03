@@ -2,7 +2,7 @@ void usage() {
    string *lines;
 
    if (query_admin(this_player())) {
-      lines = ({ "Usage: passwd [-h] [player]" });
+      lines = ({ "Usage: passwd [-h] [PLAYER PASSWORD]" });
    lines += ({ "" });
    lines += ({ "Allows you to change your password, or the password" });
    lines += ({ " of the specified player." });
@@ -16,6 +16,11 @@ void usage() {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tpasswd" });
+
+   if (query_admin(this_player())) {
+      lines += ({ "\tpasswd sirdude bingo" });
+   }
+
    lines += ({ "See also:" });
    lines += ({ "\talias, ansi, chfn, describe, ignore" });
 
@@ -27,14 +32,19 @@ void usage() {
 }
 
 void main(string arg) {
-   object obj;
+   string who, passwd;
+
    if (arg && (arg != "")) {
-      obj = USER_D->find_player(arg);
-      if (obj) {
-         write("That user is currently logged in you cannot change their " +
-            "password.\n");
+      if (!query_admin(this_player())) {
+         usage();
+         return;
+      }
+      if (sscanf(arg,"%s %s",who,passwd) == 2) {
+	 if (USER_D->reset_password(who,passwd)) {
+	    write("Password for user: " + who + ", set to : " + passwd + "\n");
+            return;
+         }
       } else {
-/* XXX Need to try to load the user and change their password. */
          usage();
          return;
       }

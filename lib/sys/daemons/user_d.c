@@ -152,6 +152,29 @@ int set_password(string name, string secret) {
    save_me();
 }
 
+int reset_password(string who, string passwd) {
+   object obj;
+
+   if (!query_admin(this_player())) {
+      return 0;
+   }
+
+   obj = USER_D->find_player(who);
+   if (obj) {
+      write("That user is currently logged in you cannot change their " +
+         "password.\n");
+   }
+
+   obj = get_data_ob(who);
+   if (!obj) {
+      return 0;
+   }
+   obj->set_pass(who,passwd);
+   obj->save_me();
+   destruct_object(obj);
+   return 1;
+}
+
 int login(string name, string secret) {
    object data;
 
