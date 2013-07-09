@@ -24,6 +24,12 @@ object get_mail(string who, string file) {
    return email_obj;
 }
 
+int check_new_email(object who) {
+   string name;
+
+   name = who->query_name();
+}
+
 string get_filename(string who) {
    string filen;
 
@@ -45,10 +51,15 @@ string *get_index(string who) {
 
 int write_mail(string who, object mail) {
    string filename;
+   object usr;
 
    filename = get_filename(who);
    if (mail->save_me(DATA_DIR + "/" + who + "/" + filename)) {
       if (add_index(who,mail,filename)) {
+
+         if (usr = USER_D->find_player(who)) {
+            usr->message("You have new email.\n");
+         }
          return 1;
       } else {
          return 0;
