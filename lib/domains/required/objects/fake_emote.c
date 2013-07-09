@@ -19,10 +19,11 @@ void create(void) {
 }
 
 int is_emote(string name) {
-   if (!emotes[name])
+   if (!emotes[name]) {
       return 0;
-   else
+   } else {
       return 1;
+   }
 }
 
 string *query_emotes(void) {
