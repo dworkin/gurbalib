@@ -52,17 +52,10 @@ void main(string str) {
 	       return;
             }
 
-            if (str == "next") {
-	       str = "" + 
-                  (this_player()->query_board_read(ob->query_board_id()) + 1);
-            }
-
             if (ob->query_msg_exists(str) == 1) {
 	       lines = explode(ob->query_message(str), "\n");
 	       write(implode(lines[..3], "\n"));
 	       this_player()->more(lines[4..]);
-   	       this_player()->set_board_read(ob->query_board_id(), 
-                  str2val(str));
             } else {
 	       write("No such message.\n");
             }

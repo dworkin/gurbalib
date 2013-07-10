@@ -147,11 +147,7 @@ string query_message_list(string who) {
    msg = " \nNum    From        Subject                            Date\n" +
       "------------------------------------------------------------------------------\n";
 
-   num = this_player()->query_board_read(board_id) - 10;
-   if (num < 0)
-      num = 0;
-
-   for (i = num; i < sizeof(msgs); i++) {
+   for (i = 0; i < sizeof(msgs); i++) {
       tmp = "        " + (i + 1);
       tmp = tmp[strlen(tmp) - 4..];
       from = (string) msgs[i][0] + "                                          ";
@@ -160,11 +156,7 @@ string query_message_list(string who) {
       subj = subj[..32];
       date = msgs[i][2] + "                                    ";
       date = date[..25];
-      if (i == this_player()->query_board_read(board_id)) {
-	 msg += "[" + tmp + "]>" + from + " " + subj + " " + date + "\n";
-      } else {
-	 msg += "[" + tmp + "] " + from + " " + subj + " " + date + "\n";
-      }
+      msg += "[" + tmp + "] " + from + " " + subj + " " + date + "\n";
    }
    return msg;
 }

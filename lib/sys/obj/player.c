@@ -27,7 +27,6 @@ static int color_more;		/* Flag to specifiy color more */
 
 string real_name;		/* This players real name */
 string email_address;		/* The email address */
-mapping board_read;		/* Status of messages read */
 mapping environment_variables;	/* The environment variables of the player */
 string title;			/* The title */
 string password;		/* The password */
@@ -56,7 +55,6 @@ void create(void) {
    bod::create();
 
    living_name = "guest";
-   board_read = ([]);
    channels = ( { "gossip", "announce" } );
    ignored = ( { } );
    title = "$N the nondescript";
@@ -86,8 +84,6 @@ void restore_me(void) {
       write("Please notify the administration.");
       return;
    }
-   if (!board_read)
-      board_read = ([]);
    set_id(living_name);
    if (!alias)
       alias = ([]);
@@ -203,17 +199,6 @@ int query_ansi(void) {
 
 void set_ansi(int state) {
    set_env("ansi", state);
-   save_me();
-}
-
-int query_board_read(string board) {
-   if (!board_read[board])
-      return 0;
-   return board_read[board];
-}
-
-void set_board_read(string board, int num) {
-   board_read[board] = num;
    save_me();
 }
 
