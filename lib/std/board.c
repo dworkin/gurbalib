@@ -105,11 +105,6 @@ void remove_message(string str) {
    write("Deleted message #: " + str + "\n");
 }
 
-int query_new_message_count(void) {
-   check_restore();
-   return (query_message_count() - this_player()->query_board_read(board_id));
-}
-
 int query_msg_exists(string num) {
    int i;
 
