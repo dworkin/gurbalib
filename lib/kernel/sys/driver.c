@@ -1,12 +1,9 @@
-/* $Id: driver.c,v 1.4 1998/02/22 13:43:51 esimonse Exp $ */
-
 /*
  * Major changes by Aidil to support an external compiler_d
  * and error_d.
  *
  * Original changelog from before Gurbalib 0.41:
  *
- * $Log: driver.c,v $
  * Revision 1.4  1998/02/22 13:43:51  esimonse
  * Added support for editing
  *
@@ -99,10 +96,11 @@ void queue_upgrade(object ob) {
       }
    }
 
-   if (ob)
+   if (ob) {
       call_out("continue_queue_upgrade", 0, ob);
-   else
+   } else {
       upgrade_done();
+   }
 }
 
 /* Ensure we have a TLS after the call_out */
@@ -128,8 +126,9 @@ object compile_object(string path, varargs string code) {
 
    ident++;
 
-   if (path != DRIVER && find_object(path))
+   if (path != DRIVER && find_object(path)) {
       mark = 1;
+   }
 
    if (compiler_d) {
       stuff = compiler_d->allow_compile(path, nil);
@@ -196,10 +195,10 @@ void register_secure_d() {
 }
 
 static void _initialize(mixed * tls) {
-
    message(status()[ST_VERSION] + " running " + LIB_NAME + " " + LIB_VERSION +
       ".\n");
    message("Initializing...\n");
+
    /*
     * Order is important.
     * The auto object caches the security daemon
@@ -247,11 +246,13 @@ object clone_object(string path) {
    object ob;
 
    ob = find_object(path);
-   if (!ob)
+   if (!ob) {
       ob = compile_object(path);
+   }
    ob =::clone_object(ob);
    ob->_F_set_cloner("kernel", "");
    ob->_F_create();
+
    return ob;
 }
 
@@ -269,6 +270,7 @@ static void _restored(mixed * tls) {
 	 catch(users[i]->close(0));
       }
    }
+
 #ifdef SYS_NETWORKING
    if (ports) {
       for (i = 0, sz = sizeof(ports); i < sz; i++) {
@@ -285,7 +287,6 @@ static void restored() {
 }
 
 string path_read(string path) {
-
    string file, priv;
 
    if (!secure_d) {
@@ -327,8 +328,9 @@ object call_object(string name) {
 	 name = compiler_d->allow_object(name);
       }
 
-      if (ob = find_object(name))
+      if (ob = find_object(name)) {
 	 return ob;
+      }
       ob = compile_object(name);
       return ob;
    }
@@ -338,9 +340,8 @@ object inherit_program(string file, string program, int priv) {
    object ob;
    string *old_includes;
    object *old_inherits;
-   string old_compiling;
+   string old_compiling, code;
    mixed stuff;
-   string code;
    int c;
 
    c = count++;
@@ -556,11 +557,8 @@ void compile_error(string file, int line, string err) {
 
 /* log a runtime error */
 void runtime_error(string error, int caught, int ticks) {
-
    mixed **trace;
-
    string progname, objname, func, str;
-
    int i, sz, line, len;
    object player;
 
@@ -619,6 +617,7 @@ void runtime_error(string error, int caught, int ticks) {
 
 static void atomic_error(string error, int a, int t) {
    error = "(atom: " + a + ", " + t + " ticks remaining) " + error;
+
    if (error_d) {
       error_d->runtime_error(error, call_trace(), 0, t, a);
    } else {
@@ -647,6 +646,7 @@ int compile_rlimits(string objname) {
 
 int runtime_rlimits(object obj, int stack, int ticks) {
    string *objname;
+
    objname = explode(object_name(obj), "/");
    switch (objname[0]) {
       case "kernel":
@@ -661,12 +661,15 @@ int runtime_rlimits(object obj, int stack, int ticks) {
 }
 
 void remove_program(string ob, int t, int issue) {
+
 #ifdef DEBUG_RECOMPILE
    message("Program " + ob + ", issue:" + issue + " (" + ctime(t) +
       ") is no longer referenced\n");
 #endif
-   if (compiler_d)
+
+   if (compiler_d) {
       compiler_d->clear_inherits(ob, issue);
+   }
 }
 
 void set_tls_size(int s) {
