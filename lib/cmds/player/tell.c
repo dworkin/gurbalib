@@ -3,13 +3,19 @@ void usage() {
 
    lines = ({ "Usage: tell [-h] WHO WHAT" });
    lines += ({ "" });
-   lines += ({ "Send a message WHAT to WHO." });
+   lines += ({ "Send a message WHAT to WHO.  IF you want to tell someone on " 
+      });
+   lines += ({ "another mud a message, you use user@MUD.  If there are spaces "
+      });
+   lines += ({ "in the mudname you need to surround the whole thing in \"'s." 
+      });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\ttell sirdude You have a large nose." });
    lines += ({ "\ttell guest Hi how are you?" });
+   lines += ({ "\ttell \"sirdude@Dead Souls Dev\" Hi how are you?" });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
       lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
