@@ -495,6 +495,7 @@ void start_shutdown() {
    int i;
 
    users = users();
+
    for (i = 0; i < sizeof(users); i++) {
       p = users[i]->query_player();
       if (p)
@@ -502,17 +503,19 @@ void start_shutdown() {
       else
 	 users[i]->_F_destruct();
    }
-   users = users();
-#ifdef SYS_NETWORKING
-   ports = ports();
-#endif
-   shutting_down = call_out("do_shutdown", 0);
 
 #ifdef SYS_PERSIST
    dump_state();
    message("State dumped.\n");
 #endif
    message("Shutting down.\n");
+
+   users = users();
+#ifdef SYS_NETWORKING
+   ports = ports();
+#endif
+
+   shutting_down = call_out("do_shutdown", 0);
 }
 
 static void _do_shutdown(mixed * tls) {
