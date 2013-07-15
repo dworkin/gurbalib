@@ -1,3 +1,5 @@
+#define CHUNK_SIZE 8024
+
 void usage() {
    string *lines;
 
@@ -44,7 +46,11 @@ void main(string arg) {
       return;
    }
 
-   tmp = explode(read_file(file), "\n");
+   start = file_size(file) - CHUNK_SIZE;
+   if (start < 0) {
+      start = 0;
+   }
+   tmp = explode(read_file(file,start,CHUNK_SIZE), "\n");
    lines = ( { } );
    for (i = 0; i < sizeof(tmp); i++) {
       if (strlen(tmp[i]) > 79) {

@@ -56,4 +56,4 @@ Fix intermud so it doesn't spam logging when unable to connect.
 	It shouldn't say its connected when it can't connect and then timeout.
 	chan, and mudlist shouldn't return cached stuff if not connected?
 
-Fix wiz commands: tail.c more.c cat.c so they do not choke on larger files.
+Fix wiz commands: more.c cat.c so they do not choke on larger files.
