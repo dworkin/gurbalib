@@ -9,8 +9,7 @@ void set_file(string str) {
    myfile = str;
 }
 
-static void restore_me(void) {
-   write("Calling restore_object on : " + myfile + "\n");
+void restore_me(void) {
    unguarded("restore_object", myfile);
 }
 
@@ -19,6 +18,10 @@ void create(void) {
 }
 
 int is_emote(string name) {
+   if (!emotes) {
+      return 0;
+   }
+
    if (!emotes[name]) {
       return 0;
    } else {
@@ -35,7 +38,11 @@ string query_emote(string name, string rule) {
 }
 
 string *query_rules(string name) {
-   if (is_emote(emotes[name])) {
+   if (!name || name == "") {
+      return ({ });
+   }
+
+   if (is_emote(name)) {
       return map_indices(emotes[name]);
    }
    return ({ });
@@ -69,7 +76,6 @@ string *show_emote(string str, int width) {
       return lines;
    }
    if (is_emote(str)) {
-
       rules = query_rules(str);
 
       while (sizeof(rules) > 0) {
