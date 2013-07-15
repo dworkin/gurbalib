@@ -1,3 +1,5 @@
+#define CHUNK_SIZE 1024
+
 void usage() {
    string *lines;
 
@@ -18,10 +20,26 @@ void usage() {
    this_player()->more(lines);
 }
 
-void main(string file) {
+void cat_the_file(string file) {
+   int cur, file_size, i, maxi;
    string *lines;
+   string chunk;
+
+   file_size = file_size(file);
+   while (cur < file_size) {
+      chunk = read_file(file, cur, CHUNK_SIZE);
+      cur = cur + CHUNK_SIZE;
+      lines = explode(chunk, "\n");
+      maxi = sizeof(lines) - 1;
+      for (i = 0; i < maxi; i++) {
+         out(lines[i] + "\n");
+      }
+      out(lines[i]);
+   }
+}
+
+void main(string file) {
    string name;
-   int i;
 
    if (!query_wizard(this_player())) {
       write("You must be a wizard to do that.\n");
@@ -43,10 +61,8 @@ void main(string file) {
    }
 
    if (file_exists(name) == 1) {
-      lines = explode(read_file(name), "\n");
-      for (i = 0; i < sizeof(lines); i++) {
-	 out(lines[i] + "\n");
-      }
+      cat_the_file(name);
+      out("\n");
    } else {
       write("That file: " + file + "  does not exist.");
    }
