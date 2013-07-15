@@ -26,7 +26,7 @@ inherit M_SERIALIZE;
 #define MAX_ERRCOUNT 3
 
 /*
- * Define this to use the routerlist provided by the I3 router.
+ * Define this to use the router list provided by the I3 router.
  * Note that this does not work on the *yatmim/*i4/*wpr routers,
  * but it does for example on the WOTF test routers. Enabling this
  * makes the client follow the I3 specification, but will break
@@ -451,7 +451,7 @@ void rcv_startup_reply(string origmud, mixed origuser, mixed destuser,
 	 disconnect();
 	 current_router++;
 	 error("Could not find the current router in the received " +
-            "routerlist. Maybe you have BELIEVE_ROUTERLIST defined on a " +
+            "router list. Maybe you have BELIEVE_ROUTERLIST defined on a " +
             "router that doesn't support this properly");
       }
 #endif
@@ -542,7 +542,7 @@ void receive_message(string str) {
    }
 
    /*
-    * Decode the packets, note that sending each seperate packet to the
+    * Decode the packets, note that sending each separate packet to the
     * user object is handled by send_data which runs with its own
     * rlimits
     */
@@ -830,7 +830,7 @@ void create(void) {
 
     You should only define those functions that you have coded support
     for, though, as defining unsupported ones will lead to router/mud
-    miscommunications.
+    miscommunication.
 */
 
    restore_me();

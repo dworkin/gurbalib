@@ -13,7 +13,7 @@ void create(void) {
    if (file_exists(DATAFILE)) {
       restore_me();
    } else {
-      /* Setup a list of default skills incase we do not have a list */
+      /* Setup a list of default skills encase we do not have a list */
       skills = ( { 
          "combat/unarmed",
          "combat/defense",

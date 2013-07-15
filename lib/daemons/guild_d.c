@@ -8,7 +8,7 @@ void create(void) {
    if (file_exists(DATAFILE)) {
       restore_me();
    } else {
-      /* Create a default list incase we do not already have one. */
+      /* Create a default list encase we do not already have one. */
       guilds = (["fighter" : "The Fighters Guild"]);
 
       save_me();

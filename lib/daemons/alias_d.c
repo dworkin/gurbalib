@@ -12,7 +12,7 @@ void create(void) {
    if (file_exists(DATAFILE)) {
       restore_me();
    } else {
-   /* Setup some basic defaults incase we do not have anything setup */
+   /* Setup some basic defaults encase we do not have anything setup */
    player_alias = ([
          "n": "go north $*",
          "s": "go south $*",

@@ -15,7 +15,7 @@ mapping object_rules;
 string *names;
 string verb_rules; /* the grammar used by parse_string is concatenated from  */
 string grammar;	   /* these strings, and an optional string in between for   */
-		   /* object defined verb rules accessable by this_player(). */
+		   /* object defined verb rules accessible by this_player(). */
 
 void rescan_verbs(void);
 string scan_local_verbs();

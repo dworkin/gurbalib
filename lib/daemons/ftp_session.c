@@ -84,7 +84,7 @@ void FTP_CMD_pass(string arg) {
       connected = 1;
       priv = 0;
       cwd = "/pub";
-      FTPLOG("Anomymous login (" + arg + ")\n");
+      FTPLOG("Anonymous login (" + arg + ")\n");
       return;
    }
 #endif
