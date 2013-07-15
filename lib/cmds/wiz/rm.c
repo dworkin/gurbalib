@@ -17,6 +17,14 @@ void usage() {
    this_player()->more(lines);
 }
 
+int recursive_remove_dir(string file) {
+
+   /* XXX Do this so you can recursively remove a directory... */
+
+   write(file + ": Not empty.\n");
+   return 0;
+}
+
 void main(string arg) {
    string file;
 
@@ -43,7 +51,7 @@ void main(string arg) {
 
    if (file_exists(file) == -1) {
       if (!remove_dir(file)) {
-	 write(arg + ": Not empty.\n");
+         recursive_remove_dir(file));
       } else {
 	 write("Deleted.\n");
       }
