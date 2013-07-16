@@ -12,7 +12,7 @@ void usage() {
       "a way to group " });
    lines += ({ "chat both within the mud and also within the " +
       "greater mud community." });
-   lines += ({ "If no CHANNEL is given list avaliable channels." });
+   lines += ({ "If no CHANNEL is given list available channels." });
    lines += ({ "" });
    lines += ({ "Command can be: " });
    lines += ({ "\ton, off, list, hist, info" });
@@ -31,7 +31,7 @@ void usage() {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\t/on\tJoin a channel." });
    lines += ({ "\t/off\tLeave a channel." });
-   lines += ({ "\t/history\tShow whats happend in a channel." });
+   lines += ({ "\t/history\tShow what has happened in a channel." });
    lines += ({ "\t/list\tShow who is in a channel." });
 
    if (query_wizard(this_player())) {

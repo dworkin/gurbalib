@@ -1,4 +1,4 @@
-A room in a mud cotains the following basics:
+A room in a mud contains the following basics:
 	Descriptions, Properties, Exits, Objects, Commands
 
 Descriptions:
@@ -68,7 +68,7 @@ void set_exists( mapping *ex );
 		...
 	])
 	You in general want to standardize your DIRECTIONS so that the
-	mud is consistant, standard directions are:
+	mud is consistent, standard directions are:
 		north, south, east, west, northeast, northwest, southeast,
 		southwest, up, down, in, out
 	You can use others but its good to update this document and come to
@@ -79,13 +79,13 @@ void set_hidden_exits( mapping *ex );
 	look.
 
 void add_exit( string direction, string filepath );
-	Allows you to add an entry to your existings exits.
+	Allows you to add an entry to your existing exits.
 	You may have some code where someone creates a new exit to a room
 	this function would be used in that case.  Maybe they trigger a
 	cave in which opens up a new cavern to the east.
 
 void add_hidden_exit(string direction, string filepath );
-	Simlar to add_exit but adds a hidden exit.
+	Similar to add_exit but adds a hidden exit.
 
 void remove_exit( string direction );
 	Allows you to remove the exit in a given direction.

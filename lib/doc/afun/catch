@@ -41,7 +41,7 @@ EXAMPLE
           parsing of arguments.
 
           The purpose of this code is to report on invalid characters
-          found on the commandline. Because parse_string throws a runtime
+          found on the command line. Because parse_string throws a runtime
           error when encountering characters that are not part of any
           defined token, we need to wrap it with a catch to detect this 
           situation.

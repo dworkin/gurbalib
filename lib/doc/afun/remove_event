@@ -7,7 +7,7 @@ SYNOPSIS
 
 DESCRIPTION
         Removes the event with the given name, after this the event
-        can no longer be signalled. All subscribers are removed when
+        can no longer be signaled. All subscribers are removed when
         an event is removed, and objects can no longer subscribe to
         it.
 

@@ -1,6 +1,6 @@
 NAME
         query_cloner - return information on how a clone came into
-                       existance
+                       existence
 
 SYNOPSIS
         string query_cloner( varargs int flag )

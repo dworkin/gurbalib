@@ -5,15 +5,15 @@ SYNOPSIS
         compile_object( string filepath )
 
 DESCRIPTION
-        Compiles object at filepath.  If object is already compiled,
-		it will be upgraded if a newer version exists at filepath.  If
-		filepath is not a legal object an error will result.  A filepath
-		must contain a legal subdirectory for an object to be compiled.
-		Filepaths are legal if they contain one of the following
-		subdirectories:
-		  /obj/, /mon/, /objects/, /monsters/, /daemons/, /rooms/, /cmds/
+        Compiles object at filepath.  If object is already compiled, it will 
+	be upgraded if a newer version exists at filepath.  If filepath is 
+	not a legal object an error will result.  A filepath must contain a 
+	legal subdirectory for an object to be compiled.  File paths are 
+	legal if they contain one of the following subdirectories:
+		/obj/, /mon/, /objects/, /monsters/, /daemons/, /rooms/, 
+		/cmds/
 
-	    For more info on objects see /doc/misc/objects.
+	For more info on objects see /doc/misc/objects.
 
 RETURN VALUE
         Returns the compiled object

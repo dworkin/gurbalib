@@ -44,7 +44,7 @@ void do_remove(object obj, int loud) {
          return;
       }
    } else {
-      write("You are not wearning or wielding that.\n");
+      write("You are not wearing or wielding that.\n");
       return;
    }
 

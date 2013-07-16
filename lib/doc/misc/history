@@ -1,7 +1,7 @@
 Gurbalib was started in the second half of the 90s by
 Fudge as a way to learn about lpc and mudlib coding.
 
-Much of the original code of Gurbalib upto and including
+Much of the original code of Gurbalib up to and including
 version 0.40 was done by Fudge, with a few bits of code
 by Jason Cone (intermud daemon and conversion daemon) and
 Greg Lewis (mudmode implementation)
@@ -24,7 +24,7 @@ release.
 
 As of this writing, there have been over 310 new revisions,
 much of the kernel has been reimplemented and extended, and
-the lib had many bugfixes and a number of small extensions.
+the lib had many bug fixes and a number of small extensions.
 
 Many more people got involved, and Gurbalib now contains code
 from a large number of people. Currently there are 4 people

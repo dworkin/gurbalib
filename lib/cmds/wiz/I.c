@@ -4,9 +4,9 @@ void usage() {
    lines = ({ "Usage: I [-h] MSG" });
    lines += ({ " " });
    lines += ({ "Allows a wizard to tell other wizards what they " +
-      "have been upto." });
+      "have been up to." });
    lines += ({ "Use it to explain what you have been working on." });
-   lines += ({ "All wizards will see whats been recorded since they last " +
+   lines += ({ "All wizards will see what has been recorded since they last " +
       "logged in." });
    lines += ({ " " });
    lines += ({ "Options:" });

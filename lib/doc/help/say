@@ -21,7 +21,7 @@ will result in 'You say: Hello.' being written on the screen. However, if you
 say "Hello!" instead of "Hello" (With the exclamation mark) you will see 'You
 exclaim: Hello!'. If you add yet another exclamation point you will yell your
 message, and a third one will make you shout it. 
-	Similarily, if you put a question mark at the end of your statement,
+	Similarly, if you put a question mark at the end of your statement,
 you will ask instead of say. Simple enough so far.
 	But if you want even more control of the way your character says
 something, there are even more characters that can be appended. If you type

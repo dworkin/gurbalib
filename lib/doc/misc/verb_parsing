@@ -65,7 +65,7 @@ The arguments passed to these functions are the values for each element in the
 parsed input array following the verb.  The function naming scheme reflects 
 these arguments as well; abbreviated strings can represent two types of objects,
 a living object or a lifeless one.  Each instance of an object is abbreviated,
-and underscores seperate each of the values.  The parsed input array that fits
+and underscores separate each of the values.  The parsed input array that fits
 can_test_obj_with_liv would look like this: 
   
   ({"test", <an object>, "with", <this_player()>}).

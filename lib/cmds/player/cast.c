@@ -23,7 +23,7 @@ void usage(string str) {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\tcast missle rat" });
+   lines += ({ "\tcast missile rat" });
    lines += ({ "See also:" });
    lines += ({ "\tattack, eat, enter, follow, go, pray, quit" });
 

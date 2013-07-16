@@ -4,7 +4,7 @@ void usage() {
    lines = ({ "Usage: follow [-h] [WHO]" });
    lines += ({ "" });
    lines += ({ "Allows you to follow/unfollow another player." });
-   lines += ({ "If you give no aguments, it will print who you are following." 
+   lines += ({ "If you give no arguments, it will print who you are following." 
       });
    lines += ({ "" });
    lines += ({ "Options:" });

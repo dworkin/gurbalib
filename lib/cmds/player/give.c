@@ -7,7 +7,7 @@ void usage() {
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   lines += ({ "\tall\tGive everything you are carring to PLAYER." });
+   lines += ({ "\tall\tGive everything you are carrying to PLAYER." });
    lines += ({ "Examples:" });
    lines += ({ "\tgive sword to sirdude" });
    lines += ({ "\tgive sword sirdude" });

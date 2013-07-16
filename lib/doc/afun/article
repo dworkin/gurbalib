@@ -6,9 +6,9 @@ SYNOPSIS
         string article( string arg )
 
 DESCRIPTION
-        Determine the indifinite article for the word provided
+        Determine the indefinite article for the word provided
         as argument
 
 RETURN VALUE
-        A string containing the indifinite article is returned
+        A string containing the indefinite article is returned
 

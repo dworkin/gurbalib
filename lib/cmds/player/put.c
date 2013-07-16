@@ -7,7 +7,7 @@ void usage() {
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   lines += ({ "\tall\tPut everything you are carring in OBJ2." });
+   lines += ({ "\tall\tPut everything you are carrying in OBJ2." });
    lines += ({ "Examples:" });
    lines += ({ "\tput sword in chest" });
    lines += ({ "\tput all in chest" });

@@ -5,7 +5,7 @@ SYNOPSIS
         void shutdown(void)
 
 DESCRIPTION
-	Logs out all players, does a statedump if Persistant and then
+	Logs out all players, does a statedump if Persistent and then
 	shutdown the mud.
 
 SEE ALSO

@@ -7,12 +7,12 @@ void usage() {
    lines += ({ "Current topics:" });
    lines += ({ "\tnewbie       If your new to the mud start here." });
    lines += ({ "\tcomm         Basics on communication on the mud." });
-   lines += ({ "\trules        Some basic rules you should be familar with." });
+   lines += ({ "\trules        Some basic rules you should be familiar with." });
    lines += ({ "\tmultis       Our stance on multiple chars per person." });
    lines += ({ "\troleplaying  Some suggestions." });
    lines += ({ "\tabuse        What happens if you abuse the rules." });
    lines += ({ "\tbugs         How to report bugs you may find." });
-   lines += ({ "\tcontact      How can you get ahold of someone if you need " +
+   lines += ({ "\tcontact      How can you get a hold of someone if you need " +
       "help." });
    lines += ({ "\ttime         How does time work on the mud?" });
    lines += ({ "\tchan         Another way to communicate." });

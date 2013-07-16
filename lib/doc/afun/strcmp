@@ -5,10 +5,10 @@ SYNOPSIS
         int strcmp( string one, sting two )
 
 DESCRIPTION
-        Compares two strings lexicographicaly.
+        Compares two strings lexicographically.
 RETURN VALUE
         0 when strings are equal, 1 when string one is
-        larger then strin two, -1 if string one is smaller
+        larger then string two, -1 if string one is smaller
         then string two.
 
 SEE ALSO

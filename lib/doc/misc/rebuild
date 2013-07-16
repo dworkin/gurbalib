@@ -142,7 +142,7 @@ A few notes for properly writing an upgraded() function:
     run again until the define is changed again.
 
   * It may be a very good idea to write your setup function
-    such that it can be called repeatedly without causing probs.
+    such that it can be called repeatedly without causing problems.
 
   * In order to handle changing the name or type of a variable,
     you have to first add a new variable, change upgraded() to

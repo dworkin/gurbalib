@@ -8,7 +8,7 @@ DESCRIPTION
         Checks of 'item' is a member of the array 'arr'.
 
 RETURN VALUE
-        Returns the index of the first occurence of item in array arr. If not found,
+        Returns the index of the first occurrence of item in array arr. If not found,
         then -1 is returned.
 
 

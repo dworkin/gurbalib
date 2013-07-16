@@ -8,7 +8,7 @@ Important commands:
 
 Important documentation:
 
-  General information manpages:
+  General information man pages:
 
     history
 
@@ -16,7 +16,7 @@ Important documentation:
 
     local_config, driver_config
     
-  The following manpages contain important information about coding for 
+  The following man pages contain important information about coding for 
   Gurbalib:
 
     objects, rebuild, security, kfun, afun

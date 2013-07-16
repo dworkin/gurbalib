@@ -6,7 +6,7 @@ Introduction
   only the code inside the object gets changed), a few
   conditions must be met.
 
-  The most important is a strict seperation of 'objects'
+  The most important is a strict separation of 'objects'
   and 'inheritables'.
 
   Objects can be called (ob->function(), call_other(ob, fun)
@@ -37,7 +37,7 @@ Updating and compiling
 
   After an object (not an inheritable) has been recompiled, a
   special function 'upgraded()' will be called in it (actually
-  this doesn't happen inmediately after, it happens just before
+  this doesn't happen immediately after, it happens just before
   the object is referenced next time. You'll see this on the
   console (Touching /path/to/my/object due to a call to <some fun>)
 
@@ -114,7 +114,7 @@ Handling of global variables and upgrading
   A consequence is also that your 'setup()' function should not
   cause problems when being called more then once.
 
-How seperation is handled
+How separation is handled
 =========================
 
   Something is recognized as an object or inheritable based
@@ -137,7 +137,7 @@ How seperation is handled
   /wiz/yourname is not.
 
 
-  Inheritables must come from an inheritable direcory.
+  Inheritables must come from an inheritable directory.
 
   Valid directories for inheritables are:
 

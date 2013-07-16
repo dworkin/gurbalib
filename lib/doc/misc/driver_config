@@ -1,7 +1,7 @@
 Many things about the driver can be configured in the config file (.dgd file)
 used for starting it.
 
-This manpage will explain some of the more important things you can change there
+This man page will explain some of the more important things you can change there
 for tuning your mud.
 
 The numbers provided are for a somewhat larger mud, whereas the default configuration

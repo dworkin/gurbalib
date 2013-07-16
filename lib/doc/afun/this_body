@@ -11,7 +11,7 @@ DESCRIPTION
         player, or a body being possessed by the current player.
 
 RETURN VALUE
-        The bodyobject controlled by the current player is returned.
+        The body object controlled by the current player is returned.
 
 SEE ALSO
         this_player, this_environment

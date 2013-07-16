@@ -7,7 +7,7 @@ SYNOPSIS
 
 DESCRIPTION
         Adds an event with the given name, needed before the 
-        event can be signalled or other objects subscribe to 
+        event can be signaled or other objects subscribe to 
         the event.
 
 SEE ALSO

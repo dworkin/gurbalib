@@ -2,11 +2,11 @@ void usage() {
    string *lines;
 
    lines = ( { "Usage: aliasadm -h" } );
-   lines += ( { "Usage: aliasadm show [ALIAS]    show the global entrys " +
+   lines += ( { "Usage: aliasadm show [ALIAS]    show the global entries " +
       "for ALIAS"
    } );
    lines += ( { "\tIf ALIAS is missing show all global aliases registered." } );
-   lines += ( { "Usage: aliasadm del ALIAS     delete the entrys for ALIAS" } );
+   lines += ( { "Usage: aliasadm del ALIAS     delete the entries for ALIAS" } );
    lines += ( { "Usage: aliasadm add TYPE NAME FORMAT" } );
    lines += ( { " " } );
    lines += ( { "Add an alias to the alias database." } );

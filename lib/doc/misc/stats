@@ -3,8 +3,8 @@ Topic: Stats #1
 Stats are the attributes that players raise by using up experience points,
 as opposed to skills which are improved by doing the skill-action itself.
 
-The actual act of raising stats is totally mud implementation dependant.
-A traditional Adventure's Guild setup, special trainers or anything else
+The actual act of raising stats is totally mud implementation dependent.
+A traditional Adventurers Guild setup, special trainers or anything else
 the imagination brings to mind can be coded as a player interface to raise
 stats.
 
@@ -12,19 +12,19 @@ Since stats by their nature effect a lot of the game code, we need to settle
 at the beginning on the number of stats and their basic utility. We can
 tweak their effect on things as we develop, but I think its impractical to
 try to code too general a case for adding and using new stats. Rather, as
-we code things like combat and other stats dependant features, we should
+we code things like combat and other stats dependent features, we should
 document clearly which stats are used in a given code object.
 
 I also think we should implement the concept of effective_stats, where this
 is calculated for each stat by adding a base_stat and a bonus_stat.
 For example, eff_strength = base_strength + bonus_strength. The base_stat
 would be the permanently stored value that the player has obtained thru
-expending acquired experience. The bonus_stat would be a temprary increase
+expending acquired experience. The bonus_stat would be a temporary increase
 in a given stat that the player obtains by getting items or things during
 a single play session. Bonus_stats are not saved and go back to zero as
 soon as the player goes off line.
 
-The idea of the effective stat makes doing magic effects alot easier, things
+The idea of the effective stat makes doing magic effects a lot easier, things
 like Potions of Strength become trivial to do and need little policing.
 
 On the City mud, we toyed with this idea. The BASE stat maximum was to be
@@ -55,23 +55,23 @@ effects:
     agl : agility;      // foot speed, perhaps effects escaping fights
     aim : aim;          // hand-eye coordination
     int : intelligence; // spell points, raw mental or psi ability
-    wis : wisdom;       // book or acquried learning
+    wis : wisdom;       // book or acquired learning
     per : perception;   // intuition, attention to detail
     cha : charisma;     // force of personality, charm
     luc : luck;         // luck, karma, fate
-    spr : spirituality; // religous ability
+    spr : spirituality; // religious ability
     
-These 12 stats cover alot of ground. I cant really see a need for more 
-stats than about this. They fall into 4 basic catagories that I have
+These 12 stats cover a lot of ground. I cant really see a need for more 
+stats than about this. They fall into 4 basic categories that I have
 assigned working names to to aid in getting a better feel for how they
-should be used. These catagories are:
+should be used. These categories are:
 
 1) BODY: str, con, end  
    Things that effect the body or are effected by physical
    exertion might use these.
          
 2) COORDINATION: dex, agl, aim
-   This will probably be used in conjunction with weapon skills alot,
+   This will probably be used in conjunction with weapon skills a lot,
    but they have a host of other uses too. Like running away. ;)
    
 3) MIND: int, wis, per

@@ -4,13 +4,13 @@ void usage() {
    lines = ({ "Usage: git -h [push] [pull] [commit [-m \"Message\"]] " +
       "[status] [dir]" });
    lines += ({ " " });
-   lines += ({ "An iterface to the external git repository system." });
+   lines += ({ "An interface to the external git repository system." });
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   lines += ({ "\t-m \"Message\"\tUsed when commiting changes, Message is " +
+   lines += ({ "\t-m \"Message\"\tUsed when committing changes, Message is " +
       "a brief" });
-   lines += ({ "\t\tdescription of changes you are commiting." });
+   lines += ({ "\t\tdescription of changes you are committing." });
    lines += ({ "\tstatus [dir]\tGives you a summary of uncommitted " +
       "changes you have made." });
    lines += ({ "\tpull [dir]\tPulls the latest updates from the external " +

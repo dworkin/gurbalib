@@ -6,7 +6,7 @@ void usage() {
    lines += ({ "" });
    lines += ({ "Used to add, remove or list available quests on the mud." });
    lines += ({ "\tQUEST is a name for your quest,"});
-   lines += ({ "\tLEVEL is a recomended level for your quest,"});
+   lines += ({ "\tLEVEL is a recommended level for your quest,"});
    lines += ({ "\tDOMAIN is the name of the domain the quest is in."});
    lines += ({ "If no args are given show all quests." });
    lines += ({ "" });

@@ -8,7 +8,7 @@ DESCRIPTION
         Creates a clone of object at filepath.  If object is not compiled,
 		it will be compiled first.  If filepath is not a legal object an
 		error will result.  A filepath must contain a legal subdirectory
-		for an object to be cloned.  Filepaths are legal if they contain
+		for an object to be cloned.  File paths are legal if they contain
 		one of the following subdirectories:
 		  /obj/, /mon/, /objects/, /monsters/, /daemons/, /rooms/, /cmds/
 

@@ -213,7 +213,7 @@ void do_room_check(object obj) {
    x = check_exits(obj,myexits);
 
    if (x == -1) {
-      write("\tNo visable exits.\n");
+      write("\tNo visible exits.\n");
    } else if (x) {
       write("\tOk.\n");
    } else {

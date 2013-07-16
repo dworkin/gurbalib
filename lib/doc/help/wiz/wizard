@@ -4,10 +4,10 @@ and you can start creating areas on the mud.  Use the 'cmds' command
 to see what extra stuff you can do and use the -h argument to get detailed 
 info on various commands.  Example: ls -h
 
-Some basic wizard commands you should get familar with:
+Some basic wizard commands you should get familiar with:
 	cd, ls, cat, more, edit, clone, update, goto
 
-You should start exploring the documenation
+You should start exploring the documentation
 in /doc, as well as look at lots of sample code in /domains
 
 When your having problems don't forget to look at the logs:

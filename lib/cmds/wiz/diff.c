@@ -4,12 +4,12 @@ void usage() {
    lines = ({ "Usage: diff [-h] [-o FILE] FILE1 FILE2" });
    lines += ({ " " });
    lines += ({ "Print out the differences between FILE1 and FILE2, " +
-      "in std diff format." });
+      "in standard diff format." });
    lines += ({ "This is the poor man's diff. it uses a mapping to store lines."
       });
    lines += ({ "So it only tells you if an exact line is in both files or not."
       });
-   lines += ({ "It will only let you know about the first occurance of a " +
+   lines += ({ "It will only let you know about the first occurrence of a " +
       "line as well." });
    lines += ({ "It works nicely enough for small cases though.  If you " +
       "need more" });
@@ -70,9 +70,9 @@ string *do_work(string file1, string file2) {
    lines = ({ });
 
    if (!c1) {
-      write("File1: " + file1 + " is emtpy.\n");
+      write("File1: " + file1 + " is empty.\n");
    } else if (!c2) {
-      write("File2: " + file2 + " is emtpy.\n");
+      write("File2: " + file2 + " is empty.\n");
    } else if (lns1 == lns2) {
       write("Files match.\n");
    } else {
