@@ -7,7 +7,7 @@ void setup(void) {
 
    set_short("East road");
    set_long("East road runs south from here.  To the west lies the " +
-      "Eastroad Inn.");
+      "East Road Inn.");
 
    add_exit("south", DIR + "/rooms/eastroad4.c");
    add_exit("west", DIR + "/rooms/inn.c");

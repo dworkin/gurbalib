@@ -33,7 +33,7 @@ void go_locker() {
       obj->restore_me();
 
       if (!obj) {
-         write("Error: Your locker is nessed up.  Please talk to an admin.");
+         write("Error: Your locker is messed up.  Please talk to an admin.");
          return;
       }
    } else {

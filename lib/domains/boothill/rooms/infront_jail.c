@@ -6,7 +6,7 @@ void setup(void) {
    add_area("boothill");
 
    set_short("Outside the jail");
-   set_long("You are on main street, infront of the town jail.  Main " +
+   set_long("You are on main street, in front of the town jail.  Main " +
       "runs north and south while the jail is to your east.");
 
    set_exits(([

@@ -9,7 +9,7 @@ void setup() {
    set_gender( "male" );
    add_adj("stone");
    set_short("A stone giant");
-   set_long("A huge marble skined hulking tower of a man.");
+   set_long("A huge marble skinned hulking tower of a man.");
    set_race("giant");
    set_level(15);
    set_aggressive(1);

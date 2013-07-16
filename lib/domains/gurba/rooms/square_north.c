@@ -10,7 +10,7 @@ void setup(void) {
    set_short("Gurba Town Square - North");
    set_long("The northern side of the town square is full of street " +
       "performers and musicians, all of whom are trying to outdo the " +
-      "others. The townfolk watch them, cheering, booing, and " +
+      "others. The townsfolk watch them, cheering, booing, and " +
       "occasionally giving them some money. The area is a whirling, " +
       "loud amalgam of sound and color, full of dancing and mildly " +
       "clashing notes from a wide array of musical instruments. " +

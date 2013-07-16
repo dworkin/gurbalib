@@ -39,7 +39,7 @@ void setup(void) {
    add_object_command("shake","do_shakeit");
 
    set_message("The label on the bandana reads: Hand wash only.\n" +
-      "Shake vigirisly to dry.");
+      "Shake vigorously to dry.");
    set_weight(3);
    set_value(5);
 }

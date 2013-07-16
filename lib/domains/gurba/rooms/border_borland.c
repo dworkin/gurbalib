@@ -10,7 +10,7 @@ void setup(void) {
 
    set_short("Intersection of Border Walk/Borland Avenue");
    set_long("Here, the long rectangular Border Walk crosses the end of " +
-      "Borland Avenue, a small but well-maintained residental district " +
+      "Borland Avenue, a small but well-maintained residential district " +
       "of the town, which leads to the south from here. The sounds of " +
       "children playing can be heard. The Border Walk continues to the " +
       "east and west.");

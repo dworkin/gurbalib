@@ -14,7 +14,7 @@ void setup(void) {
       "Begin old instructions:  Every wizard can make at most " +
       "one quest.  When he has made a quest, he should have it approved " +
       "by an arch wizard.  When it is approved, put a permanent object " +
-      "in this room, wich has as short description the name of the " +
+      "in this room, which has as short description the name of the " +
       "wizard.  All objects in this room will be checked when a player " +
       "wants to become a wizard. The player must have solved ALL quests.  " +
       "To mark that a quest is solved, call 'set_quest(\"name\")' "+

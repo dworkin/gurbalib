@@ -19,7 +19,7 @@ void setup(void) {
       "of the ruins, the hill slopes down to the bridge to the mainland.  " +
       "To the east stands a crumbling monument.  To the west and old, " +
       "disused well.  To the south of the ruins, the hill slopes away, down " +
-      "to the edge of Cresent Lake.");
+      "to the edge of Crescent Lake.");
 
    add_exit("north", DIR + "/rooms/south/sislnd13.c");
    add_exit("south", DIR + "/rooms/south/sislnd16.c");

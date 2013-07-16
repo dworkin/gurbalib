@@ -8,7 +8,7 @@ void setup() {
    set_name("frog");
    add_adj("cute");
    set_short("A cute little frog");
-   set_long("It looks a little slimey.");
+   set_long("It looks a little slimy.");
    set_race("frog");
    set_level(2);
    set_hit_skill("combat/unarmed");

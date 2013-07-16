@@ -14,7 +14,7 @@ void setup(void) {
    add_exit("west", DIR + "/rooms/sub/door_trap.c");
    add_exit("up", DIR + "/rooms/narr_alley.c");
 
-   add_item("lever", "A short wooden handle, prehaps you can pull it.");
+   add_item("lever", "A short wooden handle, perhaps you can pull it.");
 
    add_room_command("pull", "pull_lever");
    add_room_command("turn", "pull_lever");

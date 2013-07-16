@@ -48,7 +48,7 @@ int do_listen(string str) {
 
 /*
 int join_guild(string str) {
-   if (!str || str == "" || str == "figher" || str == "fighers") {
+   if (!str || str == "" || str == "fighter" || str == "fighters") {
       if (!present()) {
          write("The guild master is not here, you will have to wait " +
             "for him to come back.");

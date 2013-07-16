@@ -24,7 +24,7 @@ void go_northwest(void) {
 
    usermsg = "You trust in your faith and step out onto the near invisible " +
       "bridge."; 
-   $othermsg = this_player()->query_Name() + walks across a feinghtly " +
+   $othermsg = this_player()->query_Name() + walks across a faintly " +
       "glowing bridge.";
    XXX domove(DIR + "/rooms/south/sshore26.c",usermsg, othermsg);
 }

@@ -15,7 +15,7 @@ void setup(void) {
       "catch a bit of fresh air. The buildings here are tall and crooked, " +
       "and merchants are set up all along the road with their wares. The " +
       "town square can barely be seen through the sea of people to the " +
-      "east, while the westen gate lies in the opposite direction.");
+      "east, while the western gate lies in the opposite direction.");
 
    set_exits(([
       "east" : DIR + "/rooms/market2",

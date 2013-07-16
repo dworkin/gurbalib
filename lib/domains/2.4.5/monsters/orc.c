@@ -43,7 +43,7 @@ void do_extra_actions() {
             respond("say Kill him!");
             break;
          case 1:
-            respond("say Bloddy humans!");
+            respond("say Bloody humans!");
             break;
          case 2:
             respond("say Stop him!");

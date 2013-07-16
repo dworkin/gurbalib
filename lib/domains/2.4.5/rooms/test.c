@@ -19,7 +19,7 @@ void setup(void) {
    set_short("Computer room");
 
    add_exit("east","/domains/2.4.5/rooms/rum2.c");
-   add_room_command("sesam", "sesam");
+   add_room_command("sesame", "sesame");
    add_room_command("power", "power");
    add_room_command("test", "test");
    add_room_command("reset", "do_reset");
@@ -63,11 +63,11 @@ string query_long() {
 
 /* XXX Need to work on exits, computer and a bunch of other stuff. */
 
-int sesam(string str) {
+int sesame(string str) {
    if (amiga_present) {
       write("The amiga is already here!\n");
    } else {
-      write("An amiga materialises!\n");
+      write("An amiga materializes!\n");
       amiga_present = 1;
    }
    return 1;

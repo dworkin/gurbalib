@@ -6,7 +6,7 @@ void setup(void) {
    add_area("boothill");
 
    set_short("Main street");
-   set_long("You are on main street, infront of a large saloon, to your " +
+   set_long("You are on main street, in front of a large saloon, to your " +
       "east.");
 
    set_exits(([

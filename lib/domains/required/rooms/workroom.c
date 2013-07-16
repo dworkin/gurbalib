@@ -16,7 +16,7 @@ void setup(void) {
       "east" : REQDIR + "/rooms/bug_room",
    ]));
 
-   add_item("desk", "The desk is a huge and made of mahogny. " +
+   add_item("desk", "The desk is a huge and made of mahogany. " +
       "It's the central piece of furniture of the room, and it is clear that " +
       myname() + " spends a lot of time behind it.");
 

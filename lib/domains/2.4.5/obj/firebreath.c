@@ -14,7 +14,7 @@ int do_eat(void) {
    int x;
 
    x = random(2) + 1;
-   write("A shockwave runs through your body.");
+   write("A shock wave runs through your body.");
    this_player()->query_environment()->tell_room(this_player(),
       this_player()->query_Name() + 
       " gulps down a flaming brew that looks wicked.\n");

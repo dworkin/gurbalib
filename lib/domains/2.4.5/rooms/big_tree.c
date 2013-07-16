@@ -23,6 +23,6 @@ void setup(void) {
 int climb(string arg) {
    this_player()->query_environment()->tell_room(this_player(),
       this_player()->query_Name() + " looks up at the tree.\n");
-   write("There are no branches low enough for you to grab ahold of.\n");
+   write("There are no branches low enough for you to grab a hold of.\n");
    return 1;
 }

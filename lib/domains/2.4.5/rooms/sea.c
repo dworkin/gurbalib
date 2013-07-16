@@ -40,6 +40,6 @@ int dive(string str) {
    write("You can not breathe under water.  You should try to get " +
       "some portable air supply!");
    this_player()->query_environment()->tell_room(this_player(),
-      this_player()->query_Name() + " sputers as they attempt to swim.\n");
+      this_player()->query_Name() + " sputters as they attempt to swim.\n");
    return 1;
 }

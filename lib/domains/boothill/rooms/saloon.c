@@ -6,7 +6,7 @@ void setup(void) {
    add_area("boothill");
 
    set_short("Ye old saloon");
-   set_long("A large wooden bar streaches across the back of the room.  " +
+   set_long("A large wooden bar stretches across the back of the room.  " +
       "Other than that the room is currently pretty empty.  There are " +
       "a bunch of chairs pushed up against tables scattered about the room.");
 
@@ -43,7 +43,7 @@ int do_play(string str) {
             write("You bring it home.");
             this_environment()->tell_room(this_player(), 
                this_player()->query_Name() + " stuns you with their " + 
-               "rendition of chopin.");
+               "rendition of Chopin.");
             break;
          default:
             write("You work the keyboard like it was your best friend.");

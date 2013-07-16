@@ -3,7 +3,7 @@ inherit "/std/object";
 void setup(void) {
    set_id("meal");
    set_adj("rich man's");
-   set_long("A lovely sasuage with some cheese and wine.  " +
+   set_long("A lovely sausage with some cheese and wine.  " +
       "You mouth waters just looking at it.");
    set_short("Rich Man's Meal");
    set_eatable(1);

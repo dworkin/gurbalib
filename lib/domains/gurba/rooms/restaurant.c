@@ -17,7 +17,7 @@ void setup(void) {
    ]));
 
    add_item("tables", "table", "Each of the six wooden tables has four " +
-      "chairs, and is clad in a big red'n'white chequered tablecloth.");
+      "chairs, and is clad in a big red'n'white checkered tablecloth.");
    add_item("bar", "At the opposite side of the entrance is a bar, " +
       "rising one and a half meters. In front of the bar are five " +
       "wooden barstools. Behind the bar are several shelves of beverages.");
