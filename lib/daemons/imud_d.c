@@ -556,7 +556,7 @@ void receive_message(string str) {
        * we failed to detect the end of the previous package.
        * Buffer and expected packet size are reset here.
        */
-      if (strlen(buffer) + strlen(str) > MAX_STRING_SIZE) {
+      if (strlen(buffer) + strlen(str) > status()[ST_STRSIZE]) {
 	 buffer = "";
 	 packet_len = 0;
 	 errcount++;
