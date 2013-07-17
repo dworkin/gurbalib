@@ -32,12 +32,7 @@ cd to your gurbalib dir and perform the following actions:
 	edit local_config.h file and change at least the first 3 entries
 	cd ../../..
 
-	cp contrib/login lib/data/messages/
-	cp contrib/motd lib/data/messages/
-	You may want to modify these files as well.
-
-	Optionally copy the included emote_d.o file inplace:
-	cp contrib/emote_d.o lib/daemons/data/
+	You may want to edit the files in lib/data/messages/
 
 	cp scripts/startmud bin/startmud
 	edit bin/startmud and set ROOT
