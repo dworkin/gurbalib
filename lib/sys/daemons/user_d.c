@@ -214,11 +214,12 @@ int new_user(string name, string secret) {
    return unguarded("_new_user", name, secret);
 }
 
-void delete_user(string name) {
+int _delete_user(string name) {
    object u, p;
 
    if (!require_priv("system")) {
       error("Access denied.");
+      return 0;
    }
 
    if (u = find_user(name)) {
@@ -242,6 +243,14 @@ void delete_user(string name) {
 
    unguarded("remove_file", AUTH_DATA_DIR + "/" + name + ".o");
    unguarded("remove_file", "/data/players/" + name + ".o");
+
+   return 1;
+}
+
+int delete_user(string name) {
+   secure();
+
+   return unguarded("_delete_user", name);
 }
 
 static void convert_users() {

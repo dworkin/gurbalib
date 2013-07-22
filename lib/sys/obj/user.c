@@ -584,12 +584,13 @@ void input_check_passwd(string str) {
       player->input_to_object(this_object(), "input_check_passwd");
    } else {
       if (USER_D->login(user_name, str)) {
-	 send_message("\nEnter your gender (male/female) : ");
-	 send_message(1);
-	 player->input_to_object(this_object(), "input_get_gender");
+         send_message("\nEnter your gender (male/female) : ");
+         send_message(1);
+         player->input_to_object(this_object(), "input_get_gender");
       } else {
-	 send_message("\nThe passwords don't match.\n");
+         send_message("\nThe passwords don't match.\n");
          send_message("Goodbye!!!\n");
+         USER_D->delete_user(user_name);
          destruct_object(player);
          destruct_object(this_object());
       }
