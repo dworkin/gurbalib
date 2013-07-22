@@ -62,3 +62,5 @@ Fix wiz commands: more.c cat.c so they do not choke on larger files.
 
 write a showtree command that shows an objects inherit list?
 See indent command as well on deadsouls
+
+Add [link-dead] stuff to who maybe also last?
