@@ -1,4 +1,12 @@
 #define DUMMY DOMAINS_DIR + "/required/objects/fake_emote.c"
+string *keys;
+
+void init_keys() {
+   keys = ({ "" });
+   keys += ({ "LIV" });
+   keys += ({ "STR" });
+   keys += ({ "OBJ" });
+}
 
 void usage() {
    string *lines;
@@ -30,39 +38,78 @@ void usage() {
 /* XXX Need to add -i stuff  and get other stuff working */
 
 void do_diff(object obj, string emote, string myfile) {
-   string *rules1, *rules2;
-   string tag;
+   string tag, value,value2;
    int x, max;
 
-   rules1 = EMOTE_D->query_rules(emote);
-   max = sizeof(rules1);
+   max = sizeof(keys);
 
    write("EMOTE_D : " + emote + "\n");
-   for(x=0; x<max; x++) {
-      write(" " + rules1[x] + ": " + EMOTE_D->query_emote(emote,rules1[x]) + 
-         "\n");
+
+   for(x = 0; x < max; x++) {
+      value = EMOTE_D->query_emote(emote,keys[x]);
+      if (!value) {
+         value = " ";
+      }
+      write("   " + keys[x] + ": " + value + "\n");
    }
 
-   rules2 = obj->query_rules(emote);
-   max = sizeof(rules2);
-   write(myfile + " : " + emote + " :Max = " + max + "\n");
+   write(myfile + " : " + emote + "\n");
 
-   for(x=0; x<max; x++) {
-      if (!EMOTE_D->query_emote(emote,rules2[x])) {
+   for(x = 0; x < max; x++) {
+      value = EMOTE_D->query_emote(emote,keys[x]);
+      value2 = obj->query_emote(emote,keys[x]);
+      if (!value && value2) {
          tag = "+ ";
-      } else if (obj->query_emote(emote,rules2[x]) != 
-         EMOTE_D->query_emote(emote,rules2[x])) {
+      } else if (value && !value2) {
+         tag = "- ";
+      } else if ((value || value2) && (value != value2)) {
          tag = "! ";
       } else {
          tag = "  ";
       }
-      write(tag + " " + rules2[x] + ": " + 
-         obj->query_emote(emote,rules2[x]) + "\n");
+
+      if (!value2) {
+         value2 = " ";
+      }
+      write(tag + " " + keys[x] + ": " + value2 + "\n");
    }
 }
 
 void do_fulldiff(object obj, string myfile) {
-   write("do_fulldiff" + myfile + "\n");
+   mapping big;
+   string *values, *value1, *value2;
+   int x, max;
+   string tag;
+
+   values = EMOTE_D->query_emotes();
+   max = sizeof(values);
+   big = ([ ]);
+   for (x = 0; x < max; x++) {
+      big[values[x]] = 1;
+   }
+
+   values = obj->query_emotes();
+   max = sizeof(values);
+   for (x = 0; x < max; x++) {
+      big[values[x]] = 1;
+   }
+
+   write("Fulldiff EMOTE_D, " + myfile + "\n");
+   max = map_sizeof(big);
+   for (x = 0; x < max; x++) {
+      value1 = EMOTE_D->query_rules(big[x]);
+      value2 = obj->query_rules(big[x]);
+      if (value1 && !value2) {
+         tag = "-  ";
+      } else if (!value1 && value2) {
+         tag = "+  ";
+      } else if ((value1 || value2) && (value1 != value2)) {
+         tag = "!  ";
+      } else {
+         tag = "   ";
+      }
+      write(tag + big[x] + "\n");
+   }
 }
 
 void main(string str) {
@@ -115,6 +162,7 @@ void main(string str) {
    }
    obj->set_file(myfile);
    obj->restore_me();
+   init_keys();
 
    if (x >= max ) {
       do_fulldiff(obj, myfile);

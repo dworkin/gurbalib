@@ -34,8 +34,12 @@ string *query_emotes(void) {
 }
 
 string query_emote(string name, string rule) {
-   return emotes[name][rule];
+   if (member_map(name,emotes) && member_map(rule,emotes[name])) {
+      return emotes[name][rule];
+   }
+   return "";
 }
+
 
 string *query_rules(string name) {
    if (!name || name == "") {
