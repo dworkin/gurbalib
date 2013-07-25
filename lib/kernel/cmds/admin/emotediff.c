@@ -17,8 +17,9 @@ void usage() {
    lines += ({ "If EMOTE is given, display EMOTE for both." });
    lines += ({ "This command uses the following tags to mark differences:" });
    lines += ({ "\t+\tNew line that doesn't exist in current emoted" });
-   lines += ({ "\t!\tline that does not match current emoted" });
    lines += ({ "\t-\tline that exists in emoted but not in FILE" });
+   lines += ({ "\t!\tline that does not match current emoted" });
+   lines += ({ "\t=\tline that matches current emoted" });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
@@ -58,14 +59,14 @@ void do_diff(object obj, string emote, string myfile) {
    for(x = 0; x < max; x++) {
       value = EMOTE_D->query_emote(emote,keys[x]);
       value2 = obj->query_emote(emote,keys[x]);
-      if (!value && value2) {
+      if ((value == "") && (value2 != "")) {
          tag = "+ ";
-      } else if (value && !value2) {
+      } else if ((value != "") && (value2 == "")) {
          tag = "- ";
-      } else if ((value || value2) && (value != value2)) {
+      } else if (value != value2) {
          tag = "! ";
       } else {
-         tag = "  ";
+         tag = "= ";
       }
 
       if (!value2) {
@@ -100,13 +101,13 @@ void do_fulldiff(object obj, string myfile) {
       value1 = EMOTE_D->query_rules(big[x]);
       value2 = obj->query_rules(big[x]);
       if (value1 && !value2) {
-         tag = "-  ";
-      } else if (!value1 && value2) {
          tag = "+  ";
-      } else if ((value1 || value2) && (value1 != value2)) {
+      } else if (!value1 && value2) {
+         tag = "-  ";
+      } else if (value1 != value2) {
          tag = "!  ";
       } else {
-         tag = "   ";
+         tag = "=  ";
       }
       write(tag + big[x] + "\n");
    }
