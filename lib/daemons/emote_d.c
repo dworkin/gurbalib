@@ -62,7 +62,7 @@ void remove_emote(string name) {
 
 string *show_emote(string str, int width) {
    string *rules, *lines;
-   int i, tmp;
+   int i, tmp, max;
    string line;
 
    lines = ({ });
@@ -73,7 +73,8 @@ string *show_emote(string str, int width) {
       lines = ({ "Emotes:" });
 
       line = "   ";
-      for (i = 0; i < sizeof(rules); i++) {
+      max = sizeof(rules) -1;
+      for (i = 0; i < max; i++) {
          tmp = strlen(rules[i]) + 3 + strlen(line);
          if (tmp >= width) {
             lines += ({ line });
@@ -82,6 +83,8 @@ string *show_emote(string str, int width) {
 	    line += rules[i] + ", ";
          }
       }
+      line += rules[max];
+
       lines += ( {line } );
       lines += ( { "Total emotes: " + sizeof(rules) } );
 
