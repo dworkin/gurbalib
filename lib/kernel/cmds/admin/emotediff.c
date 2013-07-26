@@ -97,9 +97,10 @@ void do_fulldiff(object obj, string myfile) {
 
    write("Fulldiff EMOTE_D, " + myfile + "\n");
    max = map_sizeof(big);
+   values = map_indices(big);
    for (x = 0; x < max; x++) {
-      value1 = EMOTE_D->query_rules(big[x]);
-      value2 = obj->query_rules(big[x]);
+      value1 = EMOTE_D->query_rules(values[x]);
+      value2 = obj->query_rules(values[x]);
       if (value1 && !value2) {
          tag = "+  ";
       } else if (!value1 && value2) {
@@ -109,7 +110,8 @@ void do_fulldiff(object obj, string myfile) {
       } else {
          tag = "=  ";
       }
-      write(tag + big[x] + "\n");
+
+      write(tag + values[x] + "\n");
    }
 }
 

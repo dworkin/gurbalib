@@ -48,11 +48,14 @@ string query_emote(string name, string rule) {
    if (member_map(name,emotes) && member_map(rule,emotes[name])) {
       return emotes[name][rule];
    } 
-   return "";
+   return nil;
 }
 
 string *query_rules(string name) {
-   return map_indices(emotes[name]);
+   if (member_map(name,emotes)) {
+      return map_indices(emotes[name]);
+   }
+   return nil;
 }
 
 void remove_emote(string name) {
