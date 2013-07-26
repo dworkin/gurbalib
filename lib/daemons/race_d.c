@@ -6,7 +6,6 @@ string *monster_names;
 void create(void) {
    mixed *list;
    object race;
-
    int i;
 
    races = ([]);
@@ -32,34 +31,35 @@ void create(void) {
 }
 
 string *query_races(void) {
-   return (names);
+   return names;
 }
 
 int is_race(string race) {
-   if (member_array(race, map_indices(races)) != -1)
-      return (1);
-   return (0);
+   if (member_array(race, map_indices(races)) != -1) {
+      return 1;
+   }
+   return 0;
 }
 
 object query_race_object(string race) {
 
    if (!races[race]) {
-      return (monster_races[race]);
+      return monster_races[race];
    }
 
-   return (races[race]);
+   return races[race];
 }
 
 string query_race_short(string race) {
    if (!races[race]) {
-      return (monster_races[race]->query_race_short_desc());
+      return monster_races[race]->query_race_short_desc();
    }
-   return (races[race]->query_race_short_desc());
+   return races[race]->query_race_short_desc();
 }
 
 string query_race_long(string race) {
    if (!races[race]) {
-      return (monster_races[race]->query_race_long_desc());
+      return monster_races[race]->query_race_long_desc();
    }
-   return (races[race]->query_race_long_desc());
+   return races[race]->query_race_long_desc();
 }

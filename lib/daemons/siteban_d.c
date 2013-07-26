@@ -4,6 +4,7 @@ string *c_banned_sites;		/*   C class subnet 1.2.3.*    */
 
 void create(void) {
    mixed *list;
+
    list = get_dir("/data/banned/a/*");
    a_banned_sites = list[0];
    list = get_dir("/data/banned/b/*");
@@ -26,6 +27,7 @@ string *query_c_banned_sites(void) {
 
 string *query_banned_sites(void) {
    string *tmp;
+
    tmp = a_banned_sites + b_banned_sites + c_banned_sites;
    return tmp;
 }
@@ -33,78 +35,101 @@ string *query_banned_sites(void) {
 int is_a_banned(string name) {
    string *tmp;
    string tmp_name;
-   if (strlen(name) == 0)
+
+   if (strlen(name) == 0) {
       return 0;
+   }
    tmp = explode(name, ".");
-   if (!sizeof(tmp))
+   if (!sizeof(tmp)) {
       return 0;
+   }
    tmp_name = tmp[0] + ".*.*.*";
-   if (member_array(tmp_name, a_banned_sites) != -1)
+
+   if (member_array(tmp_name, a_banned_sites) != -1) {
       return 1;
+   }
    return 0;
 }
 
 int is_a_newbanned(string name) {
    string *tmp;
    string tmp_name;
-   if (member_array("new.new.new.new", a_banned_sites) != -1)
+
+   if (member_array("new.new.new.new", a_banned_sites) != -1) {
       return 1;
+   }
    tmp = explode(name, ".");
-   if (!sizeof(tmp))
+   if (!sizeof(tmp)) {
       return 0;
+   }
    tmp_name = tmp[0] + ".new.new.new";
-   if (member_array(tmp_name, a_banned_sites) != -1)
+
+   if (member_array(tmp_name, a_banned_sites) != -1) {
       return 1;
+   }
    return 0;
 }
 
 int is_b_banned(string name) {
    string *tmp;
    string tmp_name;
-   if (!name)
+
+   if (!name) {
       return 0;
+   }
    tmp = explode(name, ".");
-   if (sizeof(tmp) < 2)
+   if (sizeof(tmp) < 2) {
       return 0;
+   }
    tmp_name = tmp[0] + "." + tmp[1] + ".*.*";
-   if (member_array(tmp_name, b_banned_sites) != -1)
+   if (member_array(tmp_name, b_banned_sites) != -1) {
       return 1;
+   }
    return 0;
 }
 
 int is_b_newbanned(string name) {
    string *tmp;
    string tmp_name;
+
    tmp = explode(name, ".");
-   if (sizeof(tmp) < 2)
+   if (sizeof(tmp) < 2) {
       return 0;
+   }
    tmp_name = tmp[0] + "." + tmp[1] + ".new.new";
-   if (member_array(tmp_name, b_banned_sites) != -1)
+   if (member_array(tmp_name, b_banned_sites) != -1) {
       return 1;
+   }
    return 0;
 }
 
 int is_c_banned(string name) {
    string *tmp;
    string tmp_name;
+
    tmp = explode(name, ".");
-   if (sizeof(tmp) < 3)
+   if (sizeof(tmp) < 3) {
       return 0;
+   }
    tmp_name = tmp[0] + "." + tmp[1] + "." + tmp[2] + ".*";
-   if (member_array(tmp_name, c_banned_sites) != -1)
+   if (member_array(tmp_name, c_banned_sites) != -1) {
       return 1;
+   }
    return 0;
 }
 
 int is_c_newbanned(string name) {
    string *tmp;
    string tmp_name;
+
    tmp = explode(name, ".");
-   if (sizeof(tmp) < 3)
+   if (sizeof(tmp) < 3) {
       return 0;
+   }
    tmp_name = tmp[0] + "." + tmp[1] + "." + tmp[2] + ".new";
-   if (member_array(tmp_name, c_banned_sites) != -1)
+   if (member_array(tmp_name, c_banned_sites) != -1) {
       return 1;
+   }
    return 0;
 }
 
@@ -136,6 +161,7 @@ int siteban(string str) {
    string *tmp;
    string tmp_name;
    int flag;
+
    flag = 0;
    tmp = explode(str, ".");
    if (sizeof(tmp) != 4) {
@@ -181,6 +207,7 @@ int siteban(string str) {
    } else {
       flag = 0;
    }
+
    return flag;
 }
 
@@ -188,6 +215,7 @@ int unsiteban(string str) {
    string *tmp;
    string tmp_name;
    int flag;
+
    flag = 0;
    tmp = explode(str, ".");
 

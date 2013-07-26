@@ -22,9 +22,8 @@ void create(void) {
       "Helethia", "Jaran", "Bethel", "Ilkira", "Yavanna", "Mosisis"
    });
 
-   /*These should be randomized or put in some order */
    days = ({ 
-      "Fire", "Water", "Earth", "Wind",
+      "Earth", "Wind", "Fire", "Water"
    });
 
    call_out("update_time", ZOOM);
@@ -40,8 +39,9 @@ static void restore_me(void) {
 
 void update_time(void) {
    time++;
-   if (!(time % 60))
+   if (!(time % 60)) {
       unguarded("save_me");
+   }
    call_out("update_time", ZOOM);
 }
 
@@ -88,5 +88,5 @@ string query_time(void) {
 
    str = query_weekday_name() + " " + query_month_name() + " " +
       (query_day() + 1) + " " + hour + ":" + minute + " " + query_year();
-   return (str);
+   return str;
 }

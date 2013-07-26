@@ -14,6 +14,7 @@ int add_quest(string name, int level, string domain) {
    /* Add mapping values */
    levels[name] = level;
    quests[name] = domain;
+   return 1;
 }
 
 int is_quest(string name) {

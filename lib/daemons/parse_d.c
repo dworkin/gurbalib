@@ -29,12 +29,13 @@ void create(void) {
 }
 
 string *query_verbs(void) {
-   return (names);
+   return names;
 }
 
 int is_verb(string verb) {
-   if (member_array(verb, map_indices(verbs)) != -1)
+   if (member_array(verb, map_indices(verbs)) != -1) {
       return 1;
+   }
    return 0;
 }
 
@@ -44,8 +45,9 @@ int call_help(string verb) {
    obj = verbs[verb];
    x = call_other(obj, "usage");
 
-   if (!x)
+   if (!x) {
       return 0;
+   }
    return 1;
 }
 
@@ -53,8 +55,10 @@ int call_help(string verb) {
 int query_can(mixed obj, string func, varargs mixed args ...) {
    mixed x;
 
-   if (sizeof(args) && typeof(args[0]) == T_ARRAY)
+   if (sizeof(args) && typeof(args[0]) == T_ARRAY) {
       args = args[0];
+   }
+
    switch (sizeof(args)) {
       case 0:
 	 x = call_other(obj, func);
@@ -85,16 +89,20 @@ object query_verb_object(string rule, varargs mixed results) {
                                            we are scanning */
 
    rule = "can_" + rule;
-   if (!results)
+   if (!results) {
       results = ( { } );
-/* scan player inventory */
+   }
+
+   /* scan player inventory */
    inventory_environment = this_player()->query_inventory();
+
    for (i = 0; i < sizeof(inventory_environment); i++) {
       if (function_object(rule, inventory_environment[i])) {
 	 x = query_can(inventory_environment[i], rule, results);
       }
-      if (x)
+      if (x) {
 	 return inventory_environment[i];
+      }
    }
 
    /* scan player environment */
@@ -103,8 +111,9 @@ object query_verb_object(string rule, varargs mixed results) {
    for (i = 0; i < sizeof(inventory_environment); i++) {
       if (function_object(rule, inventory_environment[i])) {
 	 x = query_can(inventory_environment[i], rule, results);
-	 if (x)
+	 if (x) {
 	    return inventory_environment[i];
+         }
       }
    }
    return nil;			/* no matches */
@@ -114,12 +123,14 @@ void add_object_rules(string * rules) {
    object prev_ob;
 
    prev_ob = previous_object();
-   if (typeof(object_rules[prev_ob]) != T_MAPPING)
+   if (typeof(object_rules[prev_ob]) != T_MAPPING) {
       object_rules[prev_ob] = ([]);
-   if (typeof(object_rules[prev_ob][rules[0]]) != T_MAPPING)
+   }
+   if (typeof(object_rules[prev_ob][rules[0]]) != T_MAPPING) {
  object_rules[prev_ob] = ([rules[0]:rules[1..(sizeof(rules) - 1)]]);
-   else
+   } else {
       object_rules[prev_ob][rules[0]] += rules[1..(sizeof(rules) - 1)];
+   }
 }
 
 mapping query_all_object_rules() {
@@ -127,8 +138,9 @@ mapping query_all_object_rules() {
 }
 
 mapping query_objects_rules(object obj) {
-   if (typeof(object_rules[obj]) == T_MAPPING)
+   if (typeof(object_rules[obj]) == T_MAPPING) {
       return object_rules[obj];
+   }
 }
 
 int parse(string str) {
@@ -160,8 +172,9 @@ int parse(string str) {
       return 0;
    }
 
-   if (!result)
+   if (!result) {
       return 0;
+   }
 
 #ifdef DEBUG_PARSER
    write("parse_string result: " + dump_value(result));
@@ -171,16 +184,18 @@ int parse(string str) {
       for (i = 0; i < sizeof(result); i++) {
 	 switch (typeof(result[i])) {
 	    case T_OBJECT:
-	       if (result[i]->is_living())
+	       if (result[i]->is_living()) {
 		  func += "liv ";
-	       else
+	       } else {
 		  func += "obj ";
+               }
 	       break;
 	    case T_STRING:
-	       if (i == 0)
+	       if (i == 0) {
 		  func += lowercase(result[i]) + " ";
-	       else
+	       } else {
 		  func += "str ";
+               }
 	       break;
 	 }
       }
@@ -193,11 +208,12 @@ int parse(string str) {
    write("Scanning for local verbs matching grammar...");
 #endif
 
-   if (sizeof(result) > 1)
+   if (sizeof(result) > 1) {
       local_verb_object =
 	 query_verb_object(func, result[1..(sizeof(result) - 1)]);
-   else
+   } else {
       local_verb_object = query_verb_object(func);
+   }
 
    if (local_verb_object) {
       obj = local_verb_object;
@@ -213,11 +229,12 @@ int parse(string str) {
       write("Function : 'can_" + func + "' in object " + obj);
 #endif
 
-      if (sizeof(result) > 1)
+      if (sizeof(result) > 1) {
 	 returned =
 	    query_can(obj, "can_" + func, result[1..(sizeof(result) - 1)]);
-      else
+      } else {
 	 returned = query_can(obj, "can_" + func);
+      }
    }
 
    if (returned == 1) {
@@ -243,29 +260,28 @@ int parse(string str) {
 	    break;
       }
    }
-   if (!returned)
+
+   if (!returned) {
       returned = 0;
+   }
 
    return returned;
 }
 
 /* parses an objects verb rules into production rules. */
 string parse_verb_rules(mapping rules) {
-   int i;
+   int i, j, k, ofix;
    string output;
-   string *info;
+   string *info, *words;
 
    output = "";
    info = map_indices(rules);
 
    /* each verb */
    for (i = 0; i < sizeof(info); i++) {
-      int j;
 
       /* each rule for a verb */
       for (j = 0; j < sizeof(rules[info[i]]); j++) {
-	 string *words;
-	 int ofix, k;
 
 	 output += "Sentence: '" + info[i] + "' ";
 	 words = explode(rules[info[i]][j], " ");
@@ -289,8 +305,9 @@ string parse_verb_rules(mapping rules) {
 	    }
 	 }
 
-	 if (ofix)
+	 if (ofix) {
 	    output += "? fix_order ";
+         }
 	 ofix = 0;
       }
    }
@@ -300,8 +317,8 @@ string parse_verb_rules(mapping rules) {
 
 void rescan_verbs(void) {
    mixed *list;
-   string verb;
-   int i, ofix;
+   string verb, *words;
+   int i, j, k, ofix;
    mixed info;
 
    list = get_dir("/cmds/verb/*.c");
@@ -324,12 +341,8 @@ void rescan_verbs(void) {
 
       if (sizeof(info) > 0) {
 	 /* Rules and aliases */
-	 int j;
 
 	 for (j = 0; j < sizeof(info); j++) {
-	    string *words;
-	    int k;
-
 	    verb_rules += "Sentence: '" + names[i] + "' ";
 
 	    words = explode(info[j], " ");
@@ -468,6 +481,7 @@ static mixed *find_container_object(mixed * mpTree) {
    } else {
       ob = get_otlvar("last_obj")->find_object_num(mpTree[2], mpTree[3]);
    }
+
    if (!ob) {
       return nil;
    }
@@ -592,9 +606,9 @@ static mixed *find_environment_object(mixed * mpTree) {
 }
 
 static mixed *define_obj_index(mixed * mpTree) {
-   if (!mpTree || !sizeof(mpTree))
+   if (!mpTree || !sizeof(mpTree)) {
       return (( { 1 } ));
-   else
+   }
    return (( { (int)mpTree[0] } ));
 }
 
@@ -605,6 +619,7 @@ static mixed *group_results(mixed * mpTree) {
 static mixed *fix_order(mixed * mpTree) {
    mixed obj;
    int i;
+
 #ifdef DEBUG_PARSE
    write(dump_value(mpTree) + "\n");
    write("fix_order("
@@ -617,10 +632,13 @@ static mixed *fix_order(mixed * mpTree) {
 #endif
    set_otlvar("last_obj", mpTree[6]);
    obj = find_container_object(mpTree[1..4]);
-   if (typeof(obj) == T_ARRAY)
+
+   if (typeof(obj) == T_ARRAY) {
       mpTree = ( { mpTree[0] } ) + obj + ( { mpTree[5], mpTree[6] } );
-   else
-   mpTree = ( { mpTree[0], mpTree[3] } ) + mpTree[5..6];
+   } else {
+      mpTree = ( { mpTree[0], mpTree[3] } ) + mpTree[5..6];
+   }
+
    return mpTree;
 }
 

@@ -41,8 +41,9 @@ void create(void) {
 }
 
 void add_skill(string skill) {
-   if (!skills)
+   if (!skills) {
       skills = ( { } );
+   }
 
    skill = lowercase(skill);
 
@@ -53,8 +54,9 @@ void add_skill(string skill) {
 }
 
 void remove_skill(string skill) {
-   if (!skills)
+   if (!skills) {
       skills = ( { } );
+   }
 
    skills -= ( { skill } );
    save_me();
@@ -65,7 +67,8 @@ string *query_skills(void) {
 }
 
 int is_skill(string skill) {
-   if (member_array(skill, skills) != -1)
+   if (member_array(skill, skills) != -1) {
       return 1;
+   }
    return 0;
 }
