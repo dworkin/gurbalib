@@ -13,11 +13,26 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
 }
 
+int max_hp(object target) {
+   if (target->query_hp() >= target->query_max_hp()) {
+      return 1;
+   }
+   return 0;
+}
+
 void cure(object thisp, object target) {
    int x;
 
    x = random(5) + 1;
    thisp->decrease_mana(COST);
+
+   if (max_hp(target)) {
+      write("Your spell has no effect.\n");
+      this_object()->targetted_action("A soft glow envelopes $N, " +
+         "and then fizzles out.\n");
+      return;
+   }
+
    if (thisp == target) {
       write("You concentrate and heal yourself for " + x + " hp.\n");
       this_object()->targetted_action("A soft glow envelopes $N, " +
