@@ -41,7 +41,13 @@ int is_emote(string name) {
 }
 
 string *query_emotes(void) {
-   return map_indices(emotes);
+   string *values;
+ 
+   values = map_indices(emotes);
+   if (!values) {
+      return ({ "" });
+   }
+   return values;
 }
 
 string query_emote(string name, string rule) {
@@ -77,16 +83,18 @@ string *show_emote(string str, int width) {
 
       line = "   ";
       max = sizeof(rules) -1;
-      for (i = 0; i < max; i++) {
-         tmp = strlen(rules[i]) + 3 + strlen(line);
-         if (tmp >= width) {
-            lines += ({ line });
-            line = "   " + rules[i] + ", ";
-         } else {
-	    line += rules[i] + ", ";
+      if (max >= 0) {
+         for (i = 0; i < max; i++) {
+            tmp = strlen(rules[i]) + 3 + strlen(line);
+            if (tmp >= width) {
+               lines += ({ line });
+               line = "   " + rules[i] + ", ";
+            } else {
+               line += rules[i] + ", ";
+            }
          }
+         line += rules[max];
       }
-      line += rules[max];
 
       lines += ( {line } );
       lines += ( { "Total emotes: " + sizeof(rules) } );
