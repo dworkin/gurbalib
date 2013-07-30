@@ -51,7 +51,7 @@ void main(string arg) {
 
    if (file_exists(file) == -1) {
       if (!remove_dir(file)) {
-         recursive_remove_dir(file));
+         recursive_remove_dir(file);
       } else {
 	 write("Deleted.\n");
       }
