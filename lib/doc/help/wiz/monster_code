@@ -1,0 +1,22 @@
+A monster in a mud is kind of a robot player:
+
+Descriptions:
+You can set the following descriptions in a monster:
+
+A minimal monster object looks like this:
+inherit "/std/monster";
+
+void setup() {
+   set_name("rat");
+   set_gender( "male" );
+   add_adj("filthy");
+   set_short("A small filthy rat");
+   set_long("The rat smells awful.");
+   set_race("rodent");
+   set_level(1);
+   set_hit_skill("combat/unarmed");
+   set_skill("combat/unarmed", 50);
+   set_skill("combat/defense", 100);
+}
+
+As you can tell this document needs a lot of love... XXX

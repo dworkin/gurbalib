@@ -1,0 +1,21 @@
+Everything in a mud is an object.  The object is the base class for all
+items in the mud.  Rooms and monsters are specialized objects with
+extra settings in them.  This document will focus on the basics and
+show some examples of simple objects.
+
+
+A minimal object looks like this:
+inherit "/std/object";
+
+void setup(void) {
+   set_id("rock");
+   set_adj("small");
+   set_short("A small rock");
+   set_long("A pretty boring grey rock.");
+   set_gettable(1);
+   set_weight(1);
+   /* This isn't a special rock... */
+   set_value(0);
+}
+
+As you can tell, this document needs a lot of love. XXX
