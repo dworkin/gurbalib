@@ -87,6 +87,10 @@ You should at least modify the first 3 entries.
 /* Location for addon domains */
 #define DOMAINS_DIR "/domains"
 
+/* Define this to automatically promote users to a wizard when they 
+   create an account */
+/* #define ALL_USERS_WIZ 1 */
+
 /* Mud Server Status Protocol variables, see sys/lib/user.c for where this
    is used */
 #define MSSP_FAMILY "LPMud"

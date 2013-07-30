@@ -205,6 +205,11 @@ static int _new_user(string name, string secret) {
 
    ob->set_name(name);
    ob->set_pass(name,secret);
+
+   #ifdef ALL_USERS_WIZ
+      SECURE_D->make_wizard(name);
+   #endif
+
    return 1;
 }
 

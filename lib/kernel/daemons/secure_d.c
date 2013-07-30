@@ -138,10 +138,14 @@ void make_lockerdir(string domain, string pname) {
 
 void make_mortal(string name) {
    object player;
+   string prev;
 
-   if (previous_object()->base_name() != "/kernel/cmds/admin/promote") {
-      error("Hey! No cheating!\n" + previous_object()->base_name() +
-	 " != /kernel/cmds/admin/promote\n");
+   prev = previous_object()->base_name();
+   if (prev != "/kernel/cmds/admin/promote") {
+      error("Hey! No cheating!\n" + prev + " != /kernel/cmds/admin/promote\n");
+      LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
+         " was trying to make_mortal(" + name + ") with this object " + 
+         prev + "\n");
    }
 
    if (!require_priv("system")) {
@@ -177,10 +181,15 @@ void make_mortal(string name) {
 
 void make_wizard(string name) {
    object player;
+   string prev;
 
-   if (previous_object()->base_name() != "/kernel/cmds/admin/promote") {
-      error("Hey! No cheating!\n" + previous_object()->base_name() +
-	 " != /kernel/cmds/admin/promote\n");
+   prev = previous_object()->base_name();
+   if (prev != "/kernel/cmds/admin/promote" &&
+       prev != "/sys/daemons/user_d") {
+      error("Hey! No cheating!\n" + prev + " != /kernel/cmds/admin/promote\n");
+      LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
+         " was trying to make_wizard(" + name + ") with this object " + 
+         prev + "\n");
    }
 
    if (!require_priv("system")) {
@@ -217,11 +226,15 @@ void make_wizard(string name) {
 
 void make_admin(string name) {
    object player;
+   string prev;
 
-   if ((previous_object()->base_name() != "/kernel/cmds/admin/promote") &&
-      (previous_object()->base_name() != "/kernel/daemons/secure_d")) {
-      error("Hey! No cheating!\n" + previous_object()->base_name() +
-	 " != /kernel/cmds/admin/promote\n");
+   prev = previous_object()->base_name();
+   if (prev != "/kernel/cmds/admin/promote" && 
+       prev != "/kernel/daemons/secure_d") {
+      error("Hey! No cheating!\n" + prev + " != /kernel/cmds/admin/promote\n");
+      LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
+         " was trying to make_admin(" + name + ") with this object " + 
+         prev + "\n");
    }
 
    if (!require_priv("system")) {

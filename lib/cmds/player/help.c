@@ -16,9 +16,6 @@ void usage() {
    if (query_wizard(this_player())) {
       lines += ({ "\twizard       If you are a wizard start here" });
    }
-   if (query_admin(this_player())) {
-      lines += ({ "\tadmi n       If you are an admin start here" });
-   }
 
    lines += ({ "" });
    lines += ({ "Options:" });
