@@ -7,18 +7,17 @@ void usage() {
    lines += ({ "Current topics:" });
    lines += ({ "\tnewbie       If your new to the mud start here." });
    lines += ({ "\tcomm         Basics on communication on the mud." });
-   lines += ({ "\trules        Some basic rules you should be familiar with." });
-   lines += ({ "\tmultis       Our stance on multiple chars per person." });
-   lines += ({ "\troleplaying  Some suggestions." });
-   lines += ({ "\tabuse        What happens if you abuse the rules." });
+   lines += ({ "\trules        Some basic rules you should be familiar with." 
+      });
    lines += ({ "\tbugs         How to report bugs you may find." });
-   lines += ({ "\tcontact      How can you get a hold of someone if you need " +
-      "help." });
    lines += ({ "\ttime         How does time work on the mud?" });
    lines += ({ "\tchan         Another way to communicate." });
 
    if (query_wizard(this_player())) {
       lines += ({ "\twizard       If you are a wizard start here" });
+   }
+   if (query_admin(this_player())) {
+      lines += ({ "\tadmi n       If you are an admin start here" });
    }
 
    lines += ({ "" });

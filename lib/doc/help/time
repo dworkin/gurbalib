@@ -2,7 +2,8 @@ Usage:
 	time
 
 This command will report the current day and time in the realm. The calendar
-system is as follows.
+system is as follows.  Since this is a learning mud, the time is just an
+example of what you can do with it.
 
 	One year has 17 months, one for each of the deities.
 	One month has 5 weeks, one for each of the Elder Gods.
