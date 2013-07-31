@@ -33,9 +33,38 @@ int check_dir(string dirname) {
 }
 
 void check_domain(string domainname) {
+   if (file_exists("/domains/" + domainname) == -1) {
+      check_dir("/domains/" + domainname);
+   } else {
+      write("No such domain: " + domainname + "\n");
+   }
 }
 
 void check_daemon(string daemon) {
+   int done;
+
+   if (!daemon || daemon == "") {
+      check_dir("/kernel/daemons");
+      check_dir("/sys/daemons");
+      check_dir("/daemons");
+      done = 1;
+   } else {
+      if (file_exists("/kernel/daemons/" + daemon)) {
+         check_dir("/kernel/daemons/" + daemon);
+         done = 1;
+      }
+      if (file_exists("/sys/daemons/" + daemon)) {
+         check_dir("/sys/daemons/" + daemon);
+         done = 1;
+      }
+      if (file_exists("/daemons/" + daemon)) {
+         check_dir("/daemons/" + daemon);
+         done = 1;
+      }
+      if (!done) {
+         write("Unable to find daemon: " + daemon + "\n");
+      }
+   }
 }
 
 void check_command(string type) {
@@ -109,18 +138,18 @@ void main(string str) {
       type = str;
    }
    switch(type) {
-      "domain":
-      "domains":
+      case "domain":
+      case "domains":
          check_domain(value);
          break;
-      "cmd":
-      "cmds":
-      "commands":
-      "command":
+      case "cmd":
+      case "cmds":
+      case "commands":
+      case "command":
          check_command(value);
          break;
-      "daemon":
-      "daemons":
+      case "daemon":
+      case "daemons":
          check_daemon(value);
          break;
       default:
