@@ -13,7 +13,7 @@ void usage() {
    lines += ({ "\twarmboot" });
    lines += ({ "See also:" });
 
-   lines += ({ "\tcheck, clean, clone, dest, eval, graph, rebuild, " +
+   lines += ({ "\tcheck, checkmud, clean, clone, dest, eval, graph, rebuild, " +
          "update" });
 
    this_player()->more(lines);

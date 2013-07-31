@@ -14,7 +14,7 @@ void usage() {
    lines += ({ "See also:" });
 
    if (query_admin(this_player())) {
-      lines += ({ "\tclean, clone, dest, eval, graph, rebuild, " +
+      lines += ({ "\tcheckmud, clean, clone, dest, eval, graph, rebuild, " +
          "update, warmboot" });
    } else {
       lines += ({ "\tclean, clone, dest, eval, graph, rebuild, " +

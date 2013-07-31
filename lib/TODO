@@ -64,3 +64,5 @@ write a showtree command that shows an objects inherit list?
 See indent command as well on deadsouls
 
 Add [link-dead] stuff to who maybe also last?
+
+Need to look at why channels are not preserved when logging out/back in.
