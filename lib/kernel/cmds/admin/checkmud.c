@@ -1,9 +1,14 @@
+int debug, errors;
+
 void usage() {
    string *lines;
 
    lines = ({ "Usage: checkmud [-h] [TYPE [VALUE]]" });
    lines += ({ "" });
-   lines += ({ "Do some basic checking of the mud.  TYPE can be one of the " +
+   lines += ({ "Do some basic checking of the mud, to find any files that " });
+   lines += ({ "obviously do not compile.  For extensive testing of specific " 
+      });
+   lines += ({ "files use the check command instead.  TYPE can be one of the " +
       "following:" });
    lines += ({ "\tcmds domain daemon" });
    lines += ({ "If TYPE == cmds then value can be:" });
@@ -26,10 +31,58 @@ void usage() {
    this_player()->more(lines);
 }
 
-int check_file(string filename) {
+int valid_file(string filename) {
+   int x;
+
+   x = strlen(filename) - 2;
+   if (x < 1) {
+      return 0;
+   }
+   if (filename[x..] == ".c") {
+      return 1;
+   }
+
+   return 0;
 }
 
+int check_file(string filename) {
+   object obj;
+
+   obj = compile_object(filename);
+
+   if (obj) {
+      return 1;
+   }
+
+   errors = errors + 1;
+   write("Error in file: " + filename + "\n");
+
+   return 0;
+}
+
+/* Find all of the .c files in a dir and check them */
 int check_dir(string dirname) {
+   mixed *files;
+   string *names;
+   int max, x;
+   string tmp;
+
+   files = get_dir(dirname + "/*");
+   names = files[0];
+   max = sizeof(names);
+   
+   for(x = 0; x < max; x++) {
+      tmp = dirname + "/" + names[x];
+      if (file_exists(tmp) == -1) {
+         check_dir(tmp);
+      } else if (valid_file(tmp)) {
+         check_file(tmp);
+      } else {
+         if (debug) {
+            write("Unrecongnized file: " + tmp + " skipping it.\n");
+         }
+      }
+   }
 }
 
 void check_domain(string domainname) {
@@ -116,8 +169,7 @@ void do_full_check() {
 
 void main(string str) {
    string type, value;
-
-   write("XXX This is a work in progress.\n");
+   debug = 0;
 
    if (!require_priv("system")) {
       write("You need admin permissions to do that.");
@@ -136,6 +188,9 @@ void main(string str) {
    if (sscanf(str, "%s %s",type, value) == 2) {
    } else {
       type = str;
+   }
+   if (!value) {
+      value = "";
    }
    switch(type) {
       case "domain":
