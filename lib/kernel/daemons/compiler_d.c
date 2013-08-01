@@ -1,8 +1,4 @@
-/*
- * Gurbalib compiler daemon
- *
- * by Aidil
- */
+/* Gurbalib compiler daemon * by Aidil */
 #ifndef __KERNEL__
 #include "/kernel/include/std-kernel.h"
 #endif
@@ -14,7 +10,8 @@
 #undef DEBUG_COMPILER_D
 
 #define INHERIT_DIRS ({ "std", "lib" })
-#define OBJECT_DIRS ({ "obj", "mon", "npc", "vendors", "objects", "monsters", "daemons", "rooms", "tmp", "cmds" })
+#define OBJECT_DIRS ({ "obj", "mon", "npc", "vendors", "objects", \
+   "monsters", "daemons", "rooms", "tmp", "cmds" })
 
 #define DATA_FORMAT 1
 
@@ -37,6 +34,7 @@ static void remove_all_included_by(string by);
 mapping query_inh_list() {
    return inh_list;
 }
+
 mapping query_dep_list() {
    return dep_list;
 }
@@ -153,9 +151,7 @@ mixed include_file(string file, string path) {
    }
 }
 
-/*
- * Include and inheritance tracking
- */
+/* Include and inheritance tracking */
 
 /* Register the compiled object for a program */
 void register_program(object ob) {
@@ -190,27 +186,31 @@ void clear_inherits(string file, int issue) {
    remove_all_included_by(progname);
 
    if (inh_list[progname]) {
-      int c;
+      int c, max;
       string *inh;
       inh = inh_list[progname];
 
-      for (c = 0; c < sizeof(inh); c++) {
-	 if (dep_list[inh[c]])
+      max = sizeof(inh);
+      for (c = 0; c < max; c++) {
+	 if (dep_list[inh[c]]) {
 	    dep_list[inh[c]] -= ( { progname } );
+         }
       }
       inh_list[progname] = nil;
    }
 
    if (dep_list[progname]) {
       string *dep;
-      int c;
+      int c, max;
 
       dep = dep_list[progname];
-      for (c = 0; c < sizeof(dep); c++) {
+      max = sizeof(dep);
+      for (c = 0; c < max; c++) {
 	 if (inh_list[dep[c]]) {
 	    inh_list[dep[c]] -= ( { progname } );
-	    if (sizeof(inh_list[dep[c]]) == 0)
+	    if (sizeof(inh_list[dep[c]]) == 0) {
 	       inh_list[dep[c]] = nil;
+            }
 	 }
       }
       dep_list[progname] = nil;
@@ -248,17 +248,19 @@ static void set_inherits(object ob, object * inherits) {
       }
       iname = fname(inherits[count]) + "#" + status(inherits[count])[O_INDEX];
       inh_list[file] |= ( { iname } );
-      if (!dep_list[iname])
+      if (!dep_list[iname]) {
 	 dep_list[iname] = ( { file } );
-      else
-      dep_list[iname] |= ( { file } );
+      } else {
+         dep_list[iname] |= ( { file } );
+      }
    }
 }
 
 /* Which files inherit the argument ? */
 string *inherits_this(string f, varargs int issue) {
    string *files, *result;
-   int fcount, icount;
+   int fcount, icount, max;
+
    result = ( { } );
 
    files = map_indices(dep_list);
@@ -268,19 +270,16 @@ string *inherits_this(string f, varargs int issue) {
    }
 
    if (issue) {
-      /*
-       * We know the issue, so a simpe map lookup will work
-       */
+      /* We know the issue, so a simpe map lookup will work */
       f += "#" + issue;
       return dep_list[f] ? dep_list[f][..] : ( { } );
    } else {
-      /*
-       * We don't know the issue, so have to go through the keys
-       * and sscanf them to find all issues
-       */
+      /* We don't know the issue, so have to go through the keys
+         and sscanf them to find all issues */
       f += "#%*d";
       rlimits(40; -1) {
-	 for (fcount = 0; fcount < sizeof(files); fcount++) {
+         max = sizeof(files);
+	 for (fcount = 0; fcount < max; fcount++) {
 	    if (sscanf(files[fcount], f) == 1) {
 	       return dep_list[files[fcount]] ? 
                   dep_list[files[fcount]][..] : ( { } );
@@ -313,17 +312,15 @@ static string *get_nodes(string file) {
  * takes the first item from the pile and checks if
  * it is an edge. If so, it is returned. If not,
  * its depends are added to the pile.
- *
  */
 static string filter_for_edges(string * nodes) {
    string *tmp;
    string node;
 
    node = pile[0];
-   if (!stringp(node) || sizeof(( {
-	    node}
-	 ) & nodes) > 0)
+   if (!stringp(node) || sizeof(({node}) & nodes) > 0) {
       return nil;
+   }
    tmp = get_nodes(node);
    if (tmp && sizeof(tmp) > 0) {
       pile += tmp;
@@ -376,7 +373,7 @@ string issue_to_file(string str) {
 
 /* Find all inheritables that have more then one instance registered. */
 mapping find_duplicates() {
-   int i;
+   int i, max, dupesize;
    string *pnames;
    string *dupes;
    mapping seen, result;
@@ -384,7 +381,8 @@ mapping find_duplicates() {
    seen = ([]);
    dupes = ( { } );
    pnames = map_indices(inh_list);
-   for (i = 0; i < sizeof(pnames); i++) {
+   max = sizeof(pnames);
+   for (i = 0; i < max; i++) {
       string pn;
       int issue;
 
@@ -397,7 +395,8 @@ mapping find_duplicates() {
       seen[pn] += ( { pnames[i] } );
    }
    result = ([]);
-   for (i = 0; i < sizeof(dupes); i++) {
+   dupesize = sizeof(dupes);
+   for (i = 0; i < dupesize; i++) {
       result[dupes[i]] = seen[dupes[i]];
    }
    return result;
@@ -424,12 +423,14 @@ static void register_included_by_single(string inc, string by) {
 
 /* Register 'list' as files included by 'what' */
 void register_included_by(string what, string * list) {
-   int i;
+   int i, max;
 
-   if (!list)
+   if (!list) {
       return;
+   }
 
-   for (i = 0; i < sizeof(list); i++) {
+   max = sizeof(list);
+   for (i = 0; i < max; i++) {
       register_included_by_single(list[i], what);
    }
 }
@@ -481,19 +482,17 @@ string *query_included_by(string str) {
  *
  */
 mixed *find_all_depending_programs(string file, varargs string * skip) {
-   string *obs;
-   string *list;
-   string *incl;
-   string *libs;
+   string *obs, *list, *incl, *libs;
    mixed *tmp;
-   int i;
+   int i, max;
 
     /* Is this an include file? */
    list = query_includes(file);
 
     /* Its not, assume its a library and find the depending objects */
-   if (!list)
+   if (!list) {
       return ( { ( { } ), find_depending_objects(file) } );
+   }
 
    /*
     * It is an include file, find all libraries that include it directly,
@@ -505,13 +504,15 @@ mixed *find_all_depending_programs(string file, varargs string * skip) {
    obs = ( { } );
    incl = ( { } );
 
-   if (skip)
+   if (skip) {
       list -= skip;
-   else
+   } else {
       skip = ( { } );
+   }
 
    /* split the list in includes, libraries and objects */
-   for (i = 0; i < sizeof(list); i++) {
+   max = sizeof(list);
+   for (i = 0; i < max; i++) {
       if (query_includes(list[i])) {
 	 incl |= ( { list[i] } );
       } else if (test_inheritable(list[i])) {
@@ -569,14 +570,11 @@ mixed allow_compile(string path, string file) {
       string *code;
       int i, sz;
 
-      code = ( {
-	 "inherit \"/kernel/lib/auto-game\";"});
+      code = ({ "inherit \"/kernel/lib/auto-game\";" });
       files = get_dir("/sys/safun/*.c")[0];
       if (files) {
 	 for (i = 0, sz = sizeof(files); i < sz; i++) {
-	    code += ( {
-	       "#include \"/sys/safun/" + files[i] + "\""}
-	    );
+	    code += ({ "#include \"/sys/safun/" + files[i] + "\"" });
 	 }
       }
 #ifdef DEBUG_COMPILER_D
