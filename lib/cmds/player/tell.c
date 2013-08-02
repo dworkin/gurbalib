@@ -3,11 +3,11 @@ void usage() {
 
    lines = ({ "Usage: tell [-h] WHO WHAT" });
    lines += ({ "" });
-   lines += ({ "Send a message WHAT to WHO.  IF you want to tell someone on " 
+   lines += ({ "Send a message WHAT to WHO.  IF you want to tell someone on "
       });
    lines += ({ "another mud a message, you use user@MUD.  If there are spaces "
       });
-   lines += ({ "in the mudname you need to surround the whole thing in \"'s." 
+   lines += ({ "in the mudname you need to surround the whole thing in \"'s."
       });
    lines += ({ "" });
    lines += ({ "Options:" });
@@ -21,7 +21,7 @@ void usage() {
       lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
          "sysmsg, translate, whisper, wizcall" });
    } else {
-      lines += ({ "\tbug, chan, emote, rsay, say, shout, whisper, " +
+      lines += ({ "\tbug, chan, emote, rsay, say, shout, whisper, " + 
          "wizcall" });
    }
 
@@ -59,19 +59,19 @@ void main(string who) {
       /* intermud tell */
       IMUD_D->do_tell(who, where, what);
       this_player()->message("You tell %^PLAYER%^" + capitalize(who) + "@" +
-	 where + "%^RESET%^: %^TELL_TO%^" + what + "%^RESET%^\n", 1);
+         where + "%^RESET%^: %^TELL_TO%^" + what + "%^RESET%^\n", 1);
    } else {
       who = lowercase(who);
       usr = USER_D->find_player(who);
       if (usr && (!usr->query_ignored(this_player()->query_name())
-	    || query_wizard(this_player()))) {
-	 usr->message("%^PLAYER%^" + this_player()->query_Name() +
-	    "%^RESET%^%^TELL_FROM%^ tells you: " + what + "%^RESET%^\n", 1);
-	 usr->set_last_tell(lowercase(this_player()->query_name()));
-	 this_player()->message("You tell " + "%^PLAYER%^" + capitalize(who) +
-	    "%^RESET%^: %^TELL_TO%^" + what + "%^RESET%^\n", 1);
+            || query_wizard(this_player()))) {
+         usr->message("%^PLAYER%^" + this_player()->query_Name() +
+            "%^RESET%^%^TELL_FROM%^ tells you: " + what + "%^RESET%^\n", 1);
+         usr->set_last_tell(lowercase(this_player()->query_name()));
+         this_player()->message("You tell " + "%^PLAYER%^" + capitalize(who) +
+            "%^RESET%^: %^TELL_TO%^" + what + "%^RESET%^\n", 1);
       } else {
-	 write("You can't seem to reach " + who + ".\n");
+         write("You can't seem to reach " + who + ".\n");
       }
    }
 }

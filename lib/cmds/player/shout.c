@@ -17,7 +17,7 @@ void usage() {
       lines += ({ "\tbug, chan, echo, echoto, emote, rsay, ssay, say, " +
          "sysmsg, tell, translate, whisper, wizcall" });
    } else {
-      lines += ({ "\tbug, chan, emote, rsay, say, tell, whisper, " +
+      lines += ({ "\tbug, chan, emote, rsay, say, tell, whisper, " + 
          "wizcall" });
    }
 
@@ -40,8 +40,8 @@ void main(string str) {
    if (this_player()->query_muzzle()) {
       write("A magical muzzle has been placed on you, you can not shout.\n");
       this_player()->query_environment()->tell_room(this_player(),
-	 this_player()->query_Name() + " tries to shout but " +
-	 "the words will not come out.\n");
+         this_player()->query_Name() + " tries to shout but " +
+         "the words will not come out.\n");
       return;
    }
 
@@ -49,6 +49,6 @@ void main(string str) {
 
    for (i = 0; i < sizeof(usrs); i++) {
       usrs[i]->message("%^RED%^" + "" +
-	 this_player()->query_Name() + " shouts: %^RESET%^" + str + "\n");
+         this_player()->query_Name() + " shouts: %^RESET%^" + str + "\n");
    }
 }

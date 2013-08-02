@@ -4,7 +4,7 @@ void usage() {
    lines = ({ "Usage: value [-h] OBJ" });
    lines += ({ "" });
    lines += ({ "Evaluate the specified object and print out what you " +
-      "think it is worth." });
+         "think it is worth." });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
@@ -19,8 +19,8 @@ void usage() {
 
 void main(string str) {
    int chance, roll, value;
-   int diff;			/*Difference between roll and chance */
-   int dev;			/*Deviation from the actual value */
+   int diff;                    /*Difference between roll and chance */
+   int dev;                     /*Deviation from the actual value */
    object obj;
 
    if (!str || (str == "")) {
@@ -49,18 +49,18 @@ void main(string str) {
       chance = this_player()->query_skill("value");
       roll = random(5000);
       if (roll > chance) {
-	 diff = roll - chance;
-	 dev = random(diff);
-	 if (random(2) == 1) {
-	    value = obj->query_value() * (1 + (diff / 100));
-	 } else {
-	    value = obj->query_value() + (1 - (diff / 100));
-	 }
+         diff = roll - chance;
+         dev = random(diff);
+         if (random(2) == 1) {
+            value = obj->query_value() * (1 + (diff / 100));
+         } else {
+            value = obj->query_value() + (1 - (diff / 100));
+         }
       } else {
-	 value = obj->query_value();
+         value = obj->query_value();
       }
       write("You estimate that the value is about " + value +
-	 " gold pieces.\n");
+         " gold pieces.\n");
    } else {
       write("You can't evaluate that.");
    }

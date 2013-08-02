@@ -13,10 +13,9 @@ void usage() {
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
       lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
-         "sysmsg, tell, translate, wizcall" });
+            "sysmsg, tell, translate, wizcall" });
    } else {
-      lines += ({ "\tbug, chan, emote, rsay, say, shout, tell, " +
-         "wizcall" });
+      lines += ({ "\tbug, chan, emote, rsay, say, shout, tell, " + "wizcall" });
    }
 
    if (query_admin(this_player())) {
@@ -50,14 +49,14 @@ void main(string who) {
    flag = 0;
    for (i = 0; i < sizeof(usr); i++) {
       if ((usr[i]->query_environment() == this_environment()) &&
-	 (usr[i]->query_name() == who)) {
-	 usr[i]->message(this_player()->query_Name() +
-	    " whispers to you: " + what + "\n");
-	 write("You whisper to " + capitalize(who) + ": " + what + "\n");
-	 this_player()->query_environment()->tell_room(this_player(),
-	    this_player()->query_Name() +
-	    " whispers something to " + capitalize(who) + ".\n", usr[i]);
-	 flag = 1;
+         (usr[i]->query_name() == who)) {
+         usr[i]->message(this_player()->query_Name() +
+            " whispers to you: " + what + "\n");
+         write("You whisper to " + capitalize(who) + ": " + what + "\n");
+         this_player()->query_environment()->tell_room(this_player(),
+            this_player()->query_Name() +
+            " whispers something to " + capitalize(who) + ".\n", usr[i]);
+         flag = 1;
       }
    }
    if (!flag) {

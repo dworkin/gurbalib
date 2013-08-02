@@ -46,11 +46,11 @@ private void show_skills(string * skills) {
       return;
    }
 
-   lines = ( { } );
+   lines = ({ });
    for (i = 0; i < sizeof(skills); i++) {
       line = skills[i] + "                                     ";
-      line = line[0..30] + ": " + this_player()->query_skill(skills[i]);
-      lines += ( { line } );
+      line = line[0. .30] + ": " + this_player()->query_skill(skills[i]);
+      lines += ({ line });
    }
    this_player()->more(lines);
 }
@@ -97,8 +97,8 @@ void main(string str) {
       return;
    } else if (sscanf(str, "set %s %d", skill, value) == 2) {
       if (query_wizard(this_player())) {
-          set_skill(skill, value);
-          return;
+         set_skill(skill, value);
+         return;
       } else {
          usage();
          return;

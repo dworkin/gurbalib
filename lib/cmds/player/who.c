@@ -14,7 +14,8 @@ void usage() {
    lines += ({ "\twho sirdude" });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
-      lines += ({ "\tlast, locate, look, mudlist, possess, rwho, snoop, where" });
+      lines += ({ "\tlast, locate, look, mudlist, possess, rwho, snoop, where"
+         });
    } else {
       lines += ({ "\tlook" });
    }
@@ -23,7 +24,6 @@ void usage() {
 }
 
 /* 'who' command Originally by Fudge Improved by Cerihan 3/15/09 */
-
 void main(string str) {
    object *usr;
    int i, long_flag, hidden;
@@ -43,7 +43,7 @@ void main(string str) {
       }
       if (USER_D->player_exists(str)) {
          USER_D->finger(this_player(), str);
-      }  else {
+      } else {
          write(capitalize(str) + " exists only in your dreams.\n");
       }
       return;
@@ -59,35 +59,36 @@ void main(string str) {
       line = usr[i]->query_title();
 
       if (usr[i]->query_env("hidden") == 1) {
-	 hidden = 1;
-	 line += " %^BOLD%^%^RED%^(hidden)%^RESET%^";
+         hidden = 1;
+         line += " %^BOLD%^%^RED%^(hidden)%^RESET%^";
       } else
-	 hidden = 0;
+         hidden = 0;
 
       if (query_admin(usr[i])) {
-	 line += " %^BOLD%^%^BLUE%^(Admin)%^RESET%^";
+         line += " %^BOLD%^%^BLUE%^(Admin)%^RESET%^";
       } else if (query_wizard(usr[i])) {
-	 line += " %^CYAN%^(Wizard)%^RESET%^";
+         line += " %^CYAN%^(Wizard)%^RESET%^";
       }
 
       idletime = format_time(usr[i]->query_idle());
       if (idletime == "") {
-	 idle = "";
+         idle = "";
       } else {
-	 idle = "  (idle " + idletime + ")";
+         idle = "  (idle " + idletime + ")";
       }
       line += idle;
 
       if (long_flag == 1) {
-	 if (usr[i]->query_environment()) {
-	    write(line + "\n\t" + usr[i]->query_name() + "'s Location: " +
-	       usr[i]->query_environment()->query_short() + "\n");
-	 } else {
-	    write(line + "\n\t" + usr[i]->query_name() + "\n");
-	 }
+         if (usr[i]->query_environment()) {
+            write(line + "\n\t" + usr[i]->query_name() + "'s Location: " +
+               usr[i]->query_environment()->query_short() + "\n");
+         } else {
+            write(line + "\n\t" + usr[i]->query_name() + "\n");
+         }
       } else {
-	 if (!hidden)
-	    write(line + "\n");
+         if (!hidden) {
+            write(line + "\n");
+         }
       }
    }
    write("------------------------------------------------------");

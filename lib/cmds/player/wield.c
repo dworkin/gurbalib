@@ -18,7 +18,7 @@ void usage() {
 }
 int do_wield(object obj, int loud) {
    string slot;
-   object* wielded;
+   object *wielded;
 
    if (!obj) {
       if (loud) {
@@ -53,7 +53,6 @@ int do_wield(object obj, int loud) {
          write("You are already wielding something else.");
          return 0;
       }
-
    }
 
    this_player()->do_wield(obj);
@@ -81,7 +80,7 @@ void main(string str) {
       max = sizeof(inv);
       done = 0;
       for (i = 0; i < max; i++) {
-         if (do_wield(inv[i],0)) {
+         if (do_wield(inv[i], 0)) {
             done = 1;
          }
       }
@@ -90,6 +89,7 @@ void main(string str) {
       }
       return;
    }
+
    obj = this_player()->present(lowercase(str));
-   do_wield(obj,1);
+   do_wield(obj, 1);
 }

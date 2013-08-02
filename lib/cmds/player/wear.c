@@ -82,7 +82,7 @@ void main(string str) {
       max = sizeof(inv);
       done = 0;
       for (i = 0; i < max; i++) {
-         if (do_wear(inv[i],0)) {
+         if (do_wear(inv[i], 0)) {
             done = 1;
          }
       }
@@ -93,5 +93,5 @@ void main(string str) {
    }
 
    obj = this_player()->present(lowercase(str));
-   do_wear(obj,1);
+   do_wear(obj, 1);
 }

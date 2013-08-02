@@ -9,7 +9,7 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\twizcall I need help I'm stuck in a room I can not get " +
+   lines += ({ "\twizcall I need help I'm stuck in a room I can not get " + 
       "out of." });
    lines += ({ "\twizcall I found a bug in the look command." });
    lines += ({ "See also:" });
@@ -46,15 +46,15 @@ void main(string str) {
 
    if (str != "") {
       for (i = 0; i < sizeof(usrs); i++) {
-	 if (query_wizard(usrs[i])) {
-	    usrs[i]->message("%^RED%^" + "" + this_player()->query_Name() +
-	       " wizcalls: %^RESET%^" + str + "\n");
-	    LOG_D->write_log("wizcall", this_player()->query_Name() + " on " +
-	       ctime(time()) + ": " + str + "\n");
-	 }
+         if (query_wizard(usrs[i])) {
+            usrs[i]->message("%^RED%^" + "" + this_player()->query_Name() +
+               " wizcalls: %^RESET%^" + str + "\n");
+            LOG_D->write_log("wizcall", this_player()->query_Name() + " on " +
+               ctime(time()) + ": " + str + "\n");
+         }
       }
    } else {
-      write ("The almighty wizards would like a reason for your attempting " +
+      write("The almighty wizards would like a reason for your attempting " +
          "to summon them.");
       flag = 1;
    }
