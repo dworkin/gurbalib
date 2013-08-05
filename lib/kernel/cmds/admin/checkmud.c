@@ -38,6 +38,9 @@ int valid_file(string filename) {
    if (x < 1) {
       return 0;
    }
+
+   write("Checking: " + filename + "\n");
+
    if (filename[x..] == ".c") {
       return 1;
    }
