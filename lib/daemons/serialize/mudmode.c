@@ -26,6 +26,7 @@
 #include        <type.h>
 
 #define GRAMMAR \
+  "whitespace = /[ ]*/\n"+\
   "string = /\"([^\\\\\"\n]*(\\\\.)*)*\"/\n"+\
   "int = /-?[0-9]*/"+\
   "float = /-?[0-9]*\\.[0-9]+/\n"+\
