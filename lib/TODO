@@ -19,8 +19,6 @@ auto dest/update of all instances of an object
 
 fix: You wield your the shield.
 
-why multiple daemons, lib, data, sys dirs?
-
 support for getting 2nd or 3rd sword in a room or inv
 Fix it so deep inventory works with autoload.
 
@@ -52,16 +50,15 @@ Need to convert Monster item_command stuff to object_commands
 
 Figure out why questadm doesn't save on shutdown, or killing the driver?
 
-Fix intermud so it doesn't spam logging when unable to connect.
-	It shouldn't say its connected when it can't connect and then timeout.
-	chan, and mudlist shouldn't return cached stuff if not connected?
+chan, and mudlist shouldn't return cached stuff if not connected?
+
 locate username   (for finding people on other muds, i3locate in dead souls)
 mail "user@mud" support...
 
 Fix wiz commands: more.c cat.c so they do not choke on larger files.
 
 write a showtree command that shows an objects inherit list?
-See indent command as well on deadsouls
+See indent command as well on deadsouls (edit has I command)
 
 Add [link-dead] stuff to who maybe also last?
 
