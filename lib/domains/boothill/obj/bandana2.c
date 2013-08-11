@@ -1,9 +1,12 @@
 inherit "/std/armor";
 inherit "/std/modules/m_readable";
 
-string get_color() {
+string get_color "Return a random color."
+   () {
+   int x "A random number we are going to use to pick a color";
 
-   switch(random(5)) {
+   x = random(5);
+   switch(x) {
       case 0:
 	return "red";
       case 1:
@@ -17,7 +20,9 @@ string get_color() {
    }
 }
 
-int set_color(string str) {
+int set_color "Set the color of your bandana.  If no string is given " +
+   "pick a random color"
+   (string str "The name of the color you are setting.") {
    if (!str || str == "") 
       str = get_color();
 
@@ -27,7 +32,8 @@ int set_color(string str) {
       "a small label attached to it.");
 }
 
-void setup(void) {
+void setup "Function to setup this object"
+   (void) {
    set_id("bandana", "scarf", "label");
    set_color("");
 
@@ -44,7 +50,8 @@ void setup(void) {
    set_value(5);
 }
 
-int do_shakeit(string str) {
+int do_shakeit "A Command to allow the user to change the color of the bandana"
+   (string str "Input from player to this function") {
    if (str == "scarf" || str == "bandana") {
       write("You vigorously shake the bandana.");
       this_player()->query_environment()->tell_room(this_player(),
