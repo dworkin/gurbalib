@@ -206,17 +206,22 @@ static int _new_user(string name, string secret) {
    ob->set_name(name);
    ob->set_pass(name,secret);
 
-   #ifdef ALL_USERS_WIZ
-      SECURE_D->make_wizard(name);
-   #endif
-
    return 1;
 }
 
 int new_user(string name, string secret) {
+   int result;
    secure();
 
-   return unguarded("_new_user", name, secret);
+   unguarded("_new_user", name, secret);
+
+   #ifdef ALL_USERS_WIZ
+      if (!SECURE_D->make_wizard(name)) {
+         write("Error calling make_wizard(name)\n");
+      }
+   #endif
+   
+   return 1;
 }
 
 int _delete_user(string name) {
