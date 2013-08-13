@@ -10,9 +10,9 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "cd /cmds         Change cwd to the /cmds directory." });
-   lines += ({ "cd ..            Move up one directory." });
-   lines += ({ "cd               Change cwd to /wiz/(username)." });
+   lines += ({ "\tcd /cmds         Change cwd to the /cmds directory." });
+   lines += ({ "\tcd ..            Move up one directory." });
+   lines += ({ "\tcd               Change cwd to /wiz/(username)." });
    lines += ({ "See also:" });
    lines += ({ "\tbrowse, cat, cp, diff, edit, ls, more, mkdir, pwd, " +
       "rm, tail" });
