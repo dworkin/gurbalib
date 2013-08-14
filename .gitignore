@@ -2,6 +2,7 @@ bin/*
 lib/daemons/data/*
 lib/data/*
 lib/domains/gurba/data
+lib/domains/required/data
 lib/doc/lpc/*
 lib/kernel/daemons/data/*
 lib/sys/daemons/data/*
