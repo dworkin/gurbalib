@@ -34,12 +34,13 @@ string format_runtime_error(string error, mixed ** trace, int caught, int ticks,
 	 objname = trace[i][0];
 	 line = trace[i][3];
 #ifdef ERROR_SHOW_ARGUMENTS
-	 if (sizeof(trace[i][5..]) != 0)
+	 if (sizeof(trace[i][5..]) != 0) {
 	    args =
 	       sizeof(trace[i][5..]) + " arguments:\n      " +
 	       dump_value(trace[i][5..], ([]));
-	 else
+	 } else {
 	    args = nil;
+         }
 #endif
 	 if (line == 0) {
 	    str = "    ";
@@ -78,8 +79,9 @@ string format_runtime_error(string error, mixed ** trace, int caught, int ticks,
       result = error + "<NO CALL TRACE AVAILABLE>\n";
    }
 
-   if (atom >= 0)
+   if (atom >= 0) {
       result = "[ATOMIC:" + atom + "] " + result;
+   }
    return result;
 }
 
@@ -95,8 +97,9 @@ static void log_runtime_error(string result, int caught) {
 
    if (player) {
       verbose = player->query_env("verbose_errors");
-      if (stringp(verbose) && (verbose == "1" || verbose == "on"))
+      if (stringp(verbose) && (verbose == "1" || verbose == "on")) {
 	 verbose = 1;
+      }
    }
 
    lines = explode(result, "\n");
@@ -107,8 +110,9 @@ static void log_runtime_error(string result, int caught) {
 	 mixed display_caught;
 
 	 display_caught = player->query_env("display_caught");
-	 if (intp(display_caught))
+	 if (intp(display_caught)) {
 	    display_caught = (string) display_caught;
+         }
 
 	 switch (display_caught) {
 	    case "on":
@@ -186,10 +190,11 @@ void compile_error(string file, int line, string err) {
    error = format_compile_error(file, line, err);
    console_msg(error);
 
-   if (!inat)
+   if (!inat) {
       write_file("/logs/errors/compile", error);
-   else
+   } else {
       console_msg("Compile error during atomic execution.\n");
+   }
 
    usr = this_user();
    if (usr) {

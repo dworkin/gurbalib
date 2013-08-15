@@ -270,43 +270,44 @@ void make_admin(string name) {
 }
 
 int query_admin(string name) {
-   if (privs[name] == ADMIN_L)
+   if (privs[name] == ADMIN_L) {
       return 1;
+   }
    return 0;
 }
 
 int query_wiz(string name) {
-   if (privs[name] == ADMIN_L || privs[name] == WIZ_L)
+   if (privs[name] == ADMIN_L || privs[name] == WIZ_L) {
       return 1;
+   }
    return 0;
 }
 
 int query_mortal(string name) {
-   return privs[name] != ADMIN_L && privs[name] != WIZ_L;
+   return ((privs[name] != ADMIN_L) && (privs[name] != WIZ_L));
 }
 
 int query_priv(string name) {
-   if (map_sizeof(privs) == 0)
+   if (map_sizeof(privs) == 0) {
       unguarded("make_admin", name);
-   if (!privs[name])
+   }
+   if (!privs[name]) {
       return 0;
-   return (privs[name]);
+   }
+   return privs[name];
 }
 
 #define ROOT_OVERRIDE ({ })
 
-/*
- * Do the privileges provided in str contain a root privilege?
- */
+/* Do the privileges provided in str contain a root privilege?  */
 int root_priv(string str) {
-   if (sscanf(str, "%*s:system:%*s") != 0 || sscanf(str, "%*s:kernel:%*s") != 0) {
+   if (sscanf(str, "%*s:system:%*s") != 0 || 
+      sscanf(str, "%*s:kernel:%*s") != 0) {
       return 1;
    }
 }
 
-/*
- * Do the privileges provided in str include 'game' privileges?
- */
+/* Do the privileges provided in str include 'game' privileges?  */
 int game_priv(string str) {
    if (sscanf(str, "%*s:game:%*s") != 0) {
       return 1;
@@ -359,16 +360,12 @@ string owner_file(string file) {
    return "nobody";
 }
 
-/*
- * Determine the privileges of an inheritable
- */
+/* Determine the privileges of an inheritable */
 string determine_program_privs(string progname) {
    return ":" + owner_file(progname) + ":";
 }
 
-/*
- * Determine the privileges for the object with the objectid 'objname'
- */
+/* Determine the privileges for the object with the objectid 'objname' */
 string determine_obj_privs(string objname) {
    string name, priv;
    object ob;
@@ -379,9 +376,11 @@ string determine_obj_privs(string objname) {
       return ":nobody:";
    }
 
-   if (sscanf(objname, "/sys/obj/user/%*s") == 1 || (ob <- "/sys/obj/player")) {
+   if (sscanf(objname, "/sys/obj/user/%*s") == 1 || 
+      (ob <- "/sys/obj/player")) {
       if (ob <- "/sys/obj/player") {
 	 object u;
+
 	 u = ob->query_user();
 	 if (u && u->query_player() == ob) {
 	    name = u->query_name();
@@ -431,8 +430,7 @@ int is_domain(string name) {
 static int validate_privilege(string spriv, string rpriv) {
    if (root_priv(spriv) ||
       (game_priv(spriv) && is_domain(rpriv)) ||
-      (sscanf(spriv, "%*s:" + rpriv + ":%*s") != 0)
-      ) {
+      (sscanf(spriv, "%*s:" + rpriv + ":%*s") != 0)) {
       return 1;
    }
 }
@@ -455,7 +453,6 @@ int validate_stack(string priv, varargs int unguarded) {
    cache = ([]);
 
    for (i = sizeof(stack) - 4; (i >= 0) && !deny && (unguarded < 2); i--) {
-
       progname = stack[i][TRACE_PROGNAME];
       objname = stack[i][TRACE_OBJNAME];
       funname = stack[i][TRACE_FUNCTION];
@@ -518,7 +515,6 @@ string query_read_priv(string file) {
     *
     * daemons dir is special. Read access to everything for
     * everyone except for the /daemons/data dir.
-    *
     */
    switch (parts[0]) {
       case "kernel":

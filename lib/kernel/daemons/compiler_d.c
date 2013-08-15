@@ -111,7 +111,7 @@ int test_inheritable(string path) {
 
 /* Is path a valid object? */
 int test_object(string path) {
-   return path == DRIVER || test_path(path, OBJECT_DIRS);
+   return ((path == DRIVER) || test_path(path, OBJECT_DIRS));
 }
 
 /*
@@ -130,10 +130,7 @@ mixed include_file(string file, string path) {
       parts = explode(compiling, "/");
 
       if (parts[0] == "kernel") {
-	 /*
-	  * Don't do anything for auto objects
-	  *
-	  */
+	 /* Don't do anything for auto objects */
 	 if (sscanf(compiling, "/kernel/lib/auto%*s") == 0) {
 	    return "/kernel/include/std-kernel.h";
 	 }
@@ -247,11 +244,11 @@ static void set_inherits(object ob, object * inherits) {
 	 continue;
       }
       iname = fname(inherits[count]) + "#" + status(inherits[count])[O_INDEX];
-      inh_list[file] |= ( { iname } );
+      inh_list[file] |= ({ iname });
       if (!dep_list[iname]) {
-	 dep_list[iname] = ( { file } );
+	 dep_list[iname] = ({ file });
       } else {
-         dep_list[iname] |= ( { file } );
+         dep_list[iname] |= ({ file });
       }
    }
 }
@@ -261,7 +258,7 @@ string *inherits_this(string f, varargs int issue) {
    string *files, *result;
    int fcount, icount, max;
 
-   result = ( { } );
+   result = ({ });
 
    files = map_indices(dep_list);
 
@@ -272,7 +269,7 @@ string *inherits_this(string f, varargs int issue) {
    if (issue) {
       /* We know the issue, so a simpe map lookup will work */
       f += "#" + issue;
-      return dep_list[f] ? dep_list[f][..] : ( { } );
+      return dep_list[f] ? dep_list[f][..] : ({ });
    } else {
       /* We don't know the issue, so have to go through the keys
          and sscanf them to find all issues */
@@ -282,12 +279,12 @@ string *inherits_this(string f, varargs int issue) {
 	 for (fcount = 0; fcount < max; fcount++) {
 	    if (sscanf(files[fcount], f) == 1) {
 	       return dep_list[files[fcount]] ? 
-                  dep_list[files[fcount]][..] : ( { } );
+                  dep_list[files[fcount]][..] : ({ });
 	    }
 	 }
       }
    }
-   return ( { } );
+   return ({ });
 }
 
 /*
@@ -342,7 +339,7 @@ string *find_depending_objects(string file) {
       file = file[..strlen(file) - 3];
    }
 
-   edges = ( { } );
+   edges = ({ });
    pile = get_nodes(file);
 
    rlimits(40; -1) {
@@ -350,10 +347,10 @@ string *find_depending_objects(string file) {
 	 newedge = filter_for_edges(edges);
 
 	 if (newedge) {
-	    edges += ( { newedge } );
+	    edges += ({ newedge });
 	 }
 
-	 pile -= ( { pile[0] } );
+	 pile -= ({ pile[0] });
       }
    }
 
@@ -378,8 +375,8 @@ mapping find_duplicates() {
    string *dupes;
    mapping seen, result;
 
-   seen = ([]);
-   dupes = ( { } );
+   seen = ([ ]);
+   dupes = ({ });
    pnames = map_indices(inh_list);
    max = sizeof(pnames);
    for (i = 0; i < max; i++) {
@@ -388,13 +385,13 @@ mapping find_duplicates() {
 
       sscanf(pnames[i], "%s#%d", pn, issue);
       if (!seen[pn]) {
-	 seen[pn] = ( { } );
+	 seen[pn] = ({ });
       } else {
-	 dupes += ( { pn } );
+	 dupes += ({ pn });
       }
-      seen[pn] += ( { pnames[i] } );
+      seen[pn] += ({ pnames[i] });
    }
-   result = ([]);
+   result = ([ ]);
    dupesize = sizeof(dupes);
    for (i = 0; i < dupesize; i++) {
       result[dupes[i]] = seen[dupes[i]];
@@ -408,17 +405,17 @@ mapping find_duplicates() {
  */
 static void register_included_by_single(string inc, string by) {
    if (!includes) {
-      includes = ([]);
+      includes = ([ ]);
    }
 
    if (!includes[inc]) {
-      includes[inc] = ( { } );
+      includes[inc] = ({ });
    }
-   includes[inc] |= ( { by } );
+   includes[inc] |= ({ by });
    if (!increv[by]) {
-      increv[by] = ( { } );
+      increv[by] = ({ });
    }
-   increv[by] |= ( { inc } );
+   increv[by] |= ({ inc });
 }
 
 /* Register 'list' as files included by 'what' */
@@ -438,10 +435,10 @@ void register_included_by(string what, string * list) {
 /* Unregister 'by' from all files that it includes */
 static void remove_all_included_by(string by) {
    int i;
+   string *stuff;
 
    if (arrayp(increv[by])) {
       for (i = sizeof(increv[by]) - 1; i >= 0; i--) {
-	 string *stuff;
 	 stuff = includes[increv[by][i]];
 	 if (stuff) {
 	    stuff -= ( { by } );
@@ -491,7 +488,7 @@ mixed *find_all_depending_programs(string file, varargs string * skip) {
 
     /* Its not, assume its a library and find the depending objects */
    if (!list) {
-      return ( { ( { } ), find_depending_objects(file) } );
+      return ({ ({ }), find_depending_objects(file) });
    }
 
    /*
@@ -500,35 +497,35 @@ mixed *find_all_depending_programs(string file, varargs string * skip) {
     * that directly included the file.
     *
     */
-   libs = ( { } );
-   obs = ( { } );
-   incl = ( { } );
+   libs = ({ });
+   obs = ({ });
+   incl = ({ });
 
    if (skip) {
       list -= skip;
    } else {
-      skip = ( { } );
+      skip = ({ });
    }
 
    /* split the list in includes, libraries and objects */
    max = sizeof(list);
    for (i = 0; i < max; i++) {
       if (query_includes(list[i])) {
-	 incl |= ( { list[i] } );
+	 incl |= ({ list[i] });
       } else if (test_inheritable(list[i])) {
-	 libs |= ( { issue_to_file(list[i]) } );
+	 libs |= ({ issue_to_file(list[i]) });
 	 obs |= find_depending_objects(list[i]);
       } else {
 	 string str;
 
 	 str = issue_to_file(list[i]);
 	 if (find_object(str)) {
-	    obs |= ( { str } );
+	    obs |= ({ str });
 	 }
       }
    }
 
-   return ( { libs[..], obs[..] } );
+   return ({ libs[..], obs[..] });
 }
 
 void register_includes(object by, string * what) {
@@ -604,9 +601,10 @@ string allow_inherit(string path, string file) {
 	       error("permission denied");
 	    }
 	 case "sys":
-	    if (path != "/sys/lib/auto" &&
+	    if ((path != "/sys/lib/auto") &&
 	       file &&
-	       owner_file(file) != "system" && owner_file(file) != "kernel") {
+	       (owner_file(file) != "system") && 
+               (owner_file(file) != "kernel")) {
 	       return nil;
 	    }
 	    break;
@@ -641,9 +639,9 @@ void add_upqueue(string file) {
 
    owner = owner_file(file);
    if (!upqueue[owner]) {
-      upqueue[owner] = ( { file } );
+      upqueue[owner] = ({ file });
    } else {
-      upqueue[owner] |= ( { file } );
+      upqueue[owner] |= ({ file });
    }
 #ifdef DEBUG_COMPILER_D
    console_msg("add_upqueue: " + "owner: " + owner + ", size: " +
@@ -670,8 +668,8 @@ void clear_upqueue() {
 static void clean_includes() {
    if (data_format != DATA_FORMAT) {
       data_format = DATA_FORMAT;
-      increv = ([]);
-      includes = ([]);
+      increv = ([ ]);
+      includes = ([ ]);
    }
 }
 
