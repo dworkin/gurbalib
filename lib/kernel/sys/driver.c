@@ -36,11 +36,6 @@
   "compiler"   :"/kernel/daemons/compiler_d"\
 ])
 
-int query_tls_size();
-void set_tls_size(int size);
-mixed get_tlvar(int index);
-void set_tlvar(int index, mixed value);
-
 int tls_size, count, ocount, ident, shutting_down;
 object compiler_d, error_d, secure_d, syslog_d;
 object *users;
@@ -54,6 +49,38 @@ object *ports;
 #include "/kernel/lib/afun/argcheck.c"
 #include "/kernel/lib/afun/normalize_path.c"
 #include "/kernel/lib/afun/require_priv.c"
+
+void set_tls_size(int s) {
+   if (KERNEL()) {
+      tls_size = s + 2;
+   }
+}
+
+void update_tls_size() {
+   set_tls_size(DEFAULT_TLS_SIZE);
+}
+
+int query_tls_size() {
+   return tls_size;
+}
+
+mixed *new_tls() {
+   if (KERNEL()) {
+      return allocate(tls_size);
+   }
+}
+
+mixed get_tlvar(int i) {
+   if (KERNEL()) {
+      return call_trace()[1][TRACE_FIRSTARG][i + 2];
+   }
+}
+
+void set_tlvar(int i, mixed v) {
+   if (KERNEL()) {
+      call_trace()[1][TRACE_FIRSTARG][i + 2] = v;
+   }
+}
 
 void direct_message(string str) {
    send_message(str);
@@ -148,7 +175,7 @@ object compile_object(string path, varargs string code) {
    if (ob) {
       if (path != DRIVER && path != AUTO) {
          set_tlvar(TLS_INHERITS, 
-            (( { find_object(AUTO)}) | get_tlvar(TLS_INHERITS)));
+            (({ find_object(AUTO)}) | get_tlvar(TLS_INHERITS)));
       }
 
       ident--;
@@ -158,8 +185,8 @@ object compile_object(string path, varargs string code) {
          compiler_d->register_inherits(ob, get_tlvar(TLS_INHERITS));
       }
 
-      set_tlvar(TLS_INCLUDES, ( { } ) );
-      set_tlvar(TLS_INHERITS, ( { } ) );
+      set_tlvar(TLS_INCLUDES, ({ }));
+      set_tlvar(TLS_INHERITS, ({ }));
       set_tlvar(TLS_COMPILING, nil);
 
       if (mark) {
@@ -195,8 +222,8 @@ void register_secure_d() {
 }
 
 static void _initialize(mixed * tls) {
-   message(status()[ST_VERSION] + " running " + LIB_NAME + " " + LIB_VERSION +
-      ".\n");
+   message(status()[ST_VERSION] + " running " + LIB_NAME + " " + 
+      LIB_VERSION + ".\n");
    message("Initializing...\n");
 
    /*
@@ -260,8 +287,8 @@ static void _restored(mixed * tls) {
    int i, sz;
    object p;
 
-   message(status()[ST_VERSION] + " running " + LIB_NAME + " " + LIB_VERSION +
-      ".\n");
+   message(status()[ST_VERSION] + " running " + LIB_NAME + " " + 
+      LIB_VERSION + ".\n");
 
    shutting_down = 0;
 
@@ -297,7 +324,7 @@ string path_read(string path) {
 
    priv = secure_d->query_read_priv(file);
    if (require_priv(priv)) {
-      return (file);
+      return file;
    } else {
       return "";
    }
@@ -314,7 +341,7 @@ string path_write(string path) {
 
    priv = secure_d->query_write_priv(file);
    if (require_priv(priv)) {
-      return (file);
+      return file;
    } else {
       return "";
    }
@@ -362,8 +389,8 @@ object inherit_program(string file, string program, int priv) {
       old_inherits = get_tlvar(TLS_INHERITS);
       old_compiling = get_tlvar(TLS_COMPILING);
 
-      set_tlvar(TLS_INCLUDES, ( { "/kernel/includes/std.h"} ) );
-      set_tlvar(TLS_INHERITS, ( { } ) );
+      set_tlvar(TLS_INCLUDES, ({ "/kernel/includes/std.h"}));
+      set_tlvar(TLS_INHERITS, ({ }));
       set_tlvar(TLS_COMPILING, program);
 
       if (compiler_d) {
@@ -383,12 +410,12 @@ object inherit_program(string file, string program, int priv) {
 
       if (get_tlvar(TLS_COMPILING) != AUTO) {
 	 set_tlvar(TLS_INHERITS, 
-            ( { find_object(AUTO) } ) | get_tlvar(TLS_INHERITS));
+            (({ find_object(AUTO) }) | get_tlvar(TLS_INHERITS)));
       }
 
       if (program != DRIVER && program != AUTO) {
 	 set_tlvar(TLS_INHERITS, 
-            (( { find_object(AUTO) } ) | get_tlvar(TLS_INHERITS)));
+            (({ find_object(AUTO) }) | get_tlvar(TLS_INHERITS)));
       }
 
       if (compiler_d) {
@@ -402,7 +429,7 @@ object inherit_program(string file, string program, int priv) {
    }
 
    if (ob) {
-      set_tlvar(TLS_INHERITS, get_tlvar(TLS_INHERITS) | ( { ob} ) );
+      set_tlvar(TLS_INHERITS, (get_tlvar(TLS_INHERITS) | ({ ob })));
 
    } else {
       error("NO OB");
@@ -426,7 +453,7 @@ string include_file(string file, string path) {
    }
 
    if (read_file(res)) {
-      set_tlvar(TLS_INCLUDES, get_tlvar(TLS_INCLUDES) | ( { res } ) );
+      set_tlvar(TLS_INCLUDES, (get_tlvar(TLS_INCLUDES) | ({ res })));
    }
    return res;
 }
@@ -444,8 +471,9 @@ void recompile(object obj) {
    message("auto recompile inheritable: " +
       (obj ? object_name(obj) : "<NIL>??") + "\n");
 #endif
-   if (obj)
+   if (obj) {
       destruct_object(obj);
+   }
 }
 
 object _telnet_connect(mixed * tls, int port) {
@@ -478,10 +506,11 @@ void _interrupt(mixed * tls) {
    usrs = users();
    for (i = 0; i < sizeof(usrs); i++) {
       p = usrs[i]->query_player();
-      if (p)
+      if (p) {
 	 p->do_quit();
-      else
+      } else {
 	 usrs[i]->_F_destruct();
+      }
    }
    message("Shutting down.\n");
    shutdown();
@@ -499,10 +528,11 @@ void start_shutdown() {
 
    for (i = 0; i < sizeof(users); i++) {
       p = users[i]->query_player();
-      if (p)
+      if (p) {
 	 p->do_quit();
-      else
+      } else {
 	 users[i]->_F_destruct();
+      }
    }
 
 #ifdef SYS_PERSIST
@@ -520,8 +550,9 @@ void start_shutdown() {
 }
 
 static void _do_shutdown(mixed * tls) {
-   if (shutting_down)
+   if (shutting_down) {
       shutdown();
+   }
 }
 
 static void do_shutdown() {
@@ -606,8 +637,8 @@ void runtime_error(string error, int caught, int ticks) {
 	    if (this_user()) {
 	       player = this_user()->query_player();
 	       if (player) {
-		  player->write(error + "\nObject: " + objname + ", program: " +
-		     progname + ", line " + line + "\n");
+		  player->write(error + "\nObject: " + objname + 
+                     ", program: " + progname + ", line " + line + "\n");
 	       }
 	    }
 	 }
@@ -636,7 +667,8 @@ static string object_type(string from, string obtype) {
 int compile_rlimits(string objname) {
    if (sscanf(objname, "/kernel/%*s") == 1
       || sscanf(objname, "/daemons/%*s") == 1
-      || sscanf(objname, "/sys/%*s") == 1 || sscanf(objname, "/std/%*s") == 1
+      || sscanf(objname, "/sys/%*s") == 1 
+      || sscanf(objname, "/std/%*s") == 1
       || objname == "/cmds/wiz/rebuild") {
       return 1;
    } else {
@@ -669,38 +701,6 @@ void remove_program(string ob, int t, int issue) {
 
    if (compiler_d) {
       compiler_d->clear_inherits(ob, issue);
-   }
-}
-
-void set_tls_size(int s) {
-   if (KERNEL()) {
-      tls_size = s + 2;
-   }
-}
-
-void update_tls_size() {
-   set_tls_size(DEFAULT_TLS_SIZE);
-}
-
-int query_tls_size() {
-   return tls_size;
-}
-
-mixed *new_tls() {
-   if (KERNEL()) {
-      return allocate(tls_size);
-   }
-}
-
-mixed get_tlvar(int i) {
-   if (KERNEL()) {
-      return call_trace()[1][TRACE_FIRSTARG][i + 2];
-   }
-}
-
-void set_tlvar(int i, mixed v) {
-   if (KERNEL()) {
-      call_trace()[1][TRACE_FIRSTARG][i + 2] = v;
    }
 }
 
