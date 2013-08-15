@@ -22,7 +22,10 @@ directories may not exist yet.)
 			in.  If you want a "clean" mud remove everything
 			except for the required subdirectory.  It contains
 			the void and the room you start in etc...
-	kernel		XXX figure out difference between this and sys dir.
+	kernel		This is essential code for booting the mudlib and
+			interfacing with dgd.  It is considered all powerful
+			and anything in here doesn't have security active when
+			its running.
 	logs		If you are a wizard this directory is your best 
 			friend.  It holds error messages and other things 
 			that are recorded by the mud.
@@ -31,8 +34,9 @@ directories may not exist yet.)
 			Note you can not clone things from this directory.
 			For standard objects you can clone, look in:
 				/domains/required/
-	sys		XXX figure out why this and kernel dir...
+	sys		This is similar to the kernel dir but is considered
+			later in the boot process.  Things like the
+			player object are located here.
 	tmp		Temp dir
 	wiz		Home directories for our local wizards.
-
 
