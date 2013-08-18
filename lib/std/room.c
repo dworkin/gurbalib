@@ -21,7 +21,8 @@ void create(void) {
    add_event("body_look");
    add_event("body_look_at");
    add_event("room_message");
-   EVENT_D->subscribe_event("clean_up");
+   if(!WORLD_PERSIST)
+     EVENT_D->subscribe_event("clean_up");
    exits = ([]);
    hidden_exits = ([]);
    areas = ([]);

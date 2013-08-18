@@ -337,15 +337,15 @@ string owner_file(string file) {
 	 break;
       case "":
       case "sys":
-      case "cmds":
+      case "logs":
 	 return "system";
 	 break;
       case "daemons":
       case "std":
       case "obj":
       case "game":
-      case "logs":
       case "data":
+      case "cmds":
 	 return "game";
 	 break;
       case "wiz":
