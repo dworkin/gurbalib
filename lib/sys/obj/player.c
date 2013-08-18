@@ -597,8 +597,9 @@ void do_quit(void) {
 
    objs = query_inventory() + ( { } );
 
+/* XXX this must be changed when command daemon is implemented */
    if (is_possessing()) {
-      call_other("/cmds/wiz/possess", "main", "");
+      call_other("/sys/cmds/wiz/possess", "main", "");
    }
 
    for (i = 0; i < sizeof(objs); i++) {
@@ -707,7 +708,8 @@ void join_guild(string guild) {
    }
 
    guilds[guild] = GUILD_D->query_guild_title(guild);
-   cmd_path += ( {
+/* use |= instead of += to ensure it only gets added once */
+   cmd_path |= ( {
       "/cmds/guild/" + guild}
    );
    save_me();

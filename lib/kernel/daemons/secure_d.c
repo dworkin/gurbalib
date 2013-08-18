@@ -141,8 +141,8 @@ void make_mortal(string name) {
    string prev;
 
    prev = previous_object()->base_name();
-   if (prev != "/kernel/cmds/admin/promote") {
-      error("Hey! No cheating!\n" + prev + " != /kernel/cmds/admin/promote\n");
+   if (prev != "/sys/cmds/admin/promote") {
+      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
       LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
          " was trying to make_mortal(" + name + ") with this object " + 
          prev + "\n");
@@ -162,14 +162,14 @@ void make_mortal(string name) {
 	 player->set_name(name);
 	 player->restore_me();
 	 player->remove_channel("dgd");
-	 player->remove_cmd_path("/kernel/cmds/admin");
-	 player->remove_cmd_path("/cmds/wiz");
+	 player->remove_cmd_path("/sys/cmds/admin");
+	 player->remove_cmd_path("/sys/cmds/wiz");
 	 player->save_me();
 	 destruct_object(player);
       } else {
 	 player->remove_channel("dgd");
-	 player->remove_cmd_path("/kernel/cmds/admin");
-	 player->remove_cmd_path("/cmds/wiz");
+	 player->remove_cmd_path("/sys/cmds/admin");
+	 player->remove_cmd_path("/sys/cmds/wiz");
 	 player->save_me();
       }
       write(capitalize(name) + " has been made a mortal.");
@@ -184,9 +184,9 @@ void make_wizard(string name) {
    string prev;
 
    prev = previous_object()->base_name();
-   if (prev != "/kernel/cmds/admin/promote" &&
+   if (prev != "/sys/cmds/admin/promote" &&
        prev != "/sys/daemons/user_d") {
-      error("Hey! No cheating!\n" + prev + " != /kernel/cmds/admin/promote\n");
+      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
       LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
          " was trying to make_wizard(" + name + ") with this object " + 
          prev + "\n");
@@ -206,14 +206,14 @@ void make_wizard(string name) {
 	 player->set_name(name);
 	 player->restore_me();
 	 player->remove_channel("dgd");
-	 player->remove_cmd_path("/kernel/cmds/admin");
-	 player->add_cmd_path("/cmds/wiz");
+	 player->remove_cmd_path("/sys/cmds/admin");
+	 player->add_cmd_path("/sys/cmds/wiz");
 	 player->save_me();
 	 destruct_object(player);
       } else {
 	 player->remove_channel("dgd");
-	 player->remove_cmd_path("/kernel/cmds/admin");
-	 player->add_cmd_path("/cmds/wiz");
+	 player->remove_cmd_path("/sys/cmds/admin");
+	 player->add_cmd_path("/sys/cmds/wiz");
 	 player->save_me();
       }
       unguarded("create_homedir", name);
@@ -229,9 +229,9 @@ void make_admin(string name) {
    string prev;
 
    prev = previous_object()->base_name();
-   if (prev != "/kernel/cmds/admin/promote" && 
+   if (prev != "/sys/cmds/admin/promote" && 
        prev != "/kernel/daemons/secure_d") {
-      error("Hey! No cheating!\n" + prev + " != /kernel/cmds/admin/promote\n");
+      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
       LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
          " was trying to make_admin(" + name + ") with this object " + 
          prev + "\n");
@@ -250,14 +250,14 @@ void make_admin(string name) {
 	 player = clone_object(PLAYER_OB);
 	 player->set_name(name);
 	 player->restore_me();
-	 player->add_cmd_path("/cmds/wiz");
-	 player->add_cmd_path("/kernel/cmds/admin");
+	 player->add_cmd_path("/sys/cmds/wiz");
+	 player->add_cmd_path("/sys/cmds/admin");
 	 player->add_channel("dgd");
 	 player->save_me();
 	 destruct_object(player);
       } else {
-	 player->add_cmd_path("/cmds/wiz");
-	 player->add_cmd_path("/kernel/cmds/admin");
+	 player->add_cmd_path("/sys/cmds/wiz");
+	 player->add_cmd_path("/sys/cmds/admin");
 	 player->add_channel("dgd");
 	 player->save_me();
       }

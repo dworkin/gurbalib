@@ -99,14 +99,14 @@ void main(string str) {
 	    case "wiz":
 	    case "wizard":
 	       if (query_wizard(this_player())) {
-		  show_cmds("/cmds/wiz");
+		  show_cmds("/sys/cmds/wiz");
 	       } else {
 		  usage();
 	       }
 	       break;
 	    case "admin":
 	       if (query_admin(this_player())) {
-		  show_cmds("/kernel/cmds/admin");
+		  show_cmds("/sys/cmds/admin");
 	       } else {
 		  usage();
 	       }
