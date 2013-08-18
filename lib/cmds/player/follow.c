@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -20,7 +22,7 @@ void usage() {
 
 /* XXX need to still put backend of this in..... */
 
-void main(string str) {
+static void main(string str) {
    string name;
    object obj;
 

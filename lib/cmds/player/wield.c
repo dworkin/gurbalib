@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
     string *lines;
 
@@ -16,7 +18,7 @@ void usage() {
 
     this_player()->more(lines);
 }
-int do_wield(object obj, int loud) {
+static int do_wield(object obj, int loud) {
     string slot;
     object *wielded;
 
@@ -60,7 +62,7 @@ int do_wield(object obj, int loud) {
     return 1;
 }
 
-void main(string str) {
+static void main(string str) {
     object obj;
     object *inv;
     int i, max, done;

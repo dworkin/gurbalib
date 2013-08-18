@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -33,7 +35,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void show_file(string filename) {
+static void show_file(string filename) {
    string *tmp;
    string blah;
    string *lines;
@@ -75,7 +77,7 @@ void show_file(string filename) {
    this_player()->more(lines);
 }
 
-void main(string arg) {
+static void main(string arg) {
    string file;
    if (!arg || (arg == "") || (arg == "help")) {
       usage();

@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -59,7 +61,7 @@ static int filter_skill(string skill, string str) {
    return sscanf(skill, str + "%*s") != 0;
 }
 
-int set_skill(string skill, int value) {
+static int set_skill(string skill, int value) {
    if (SKILL_D->is_skill(skill)) {
       this_player()->set_skill(skill, value);
       write("Skill: " + skill + ", set to: " + value + "\n");
@@ -70,7 +72,7 @@ int set_skill(string skill, int value) {
    return 0;
 }
 
-void main(string str) {
+static void main(string str) {
    string skill, *skills;
    int i, value;
 

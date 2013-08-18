@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -17,7 +19,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void do_put(object obj1, object obj2, int loud) {
+static void do_put(object obj1, object obj2, int loud) {
    string slot;
    object worn;
 
@@ -90,7 +92,7 @@ void do_put(object obj1, object obj2, int loud) {
    }
 }
 
-void main(string str) {
+static void main(string str) {
    object obj, obj2;
    object *inv;
    int i, max;

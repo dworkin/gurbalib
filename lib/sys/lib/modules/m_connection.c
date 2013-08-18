@@ -3,6 +3,9 @@
 private object "connection" connection;
 
 nomask static void connect(string ip, int port, varargs string proto) {
+   if (!require_priv("network")) {
+      error("Permission denied.");
+   }
    if (!connection) {
       connection = clone_object(CONNECTION);
       connection->set_user(this_object());
@@ -23,6 +26,9 @@ nomask static int set_mode(int m) {
 }
 
 nomask static void disconnect() {
+   if (!require_priv("network")) {
+      error("Permission denied.");
+   }
    if (connection) {
       connection->set_mode(MODE_DISCONNECT);
    }
@@ -43,7 +49,11 @@ nomask void set_connection(object con) {
    connection->set_user(this_object());
 }
 
-void destructing() {
+static void destructing() {
+   if (!require_priv("network")) {
+      error("Permission denied.");
+   }
+
    if (connection) {
       connection->set_mode(MODE_DISCONNECT);
    }

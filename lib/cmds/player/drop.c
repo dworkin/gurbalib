@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -17,7 +19,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-int do_drop_coin(int amount,string type) {
+static int do_drop_coin(int amount,string type) {
    object obj;
 
    if ((type == "ducat") || (type == "ducats") || (type == "coins")) {
@@ -44,7 +46,7 @@ int do_drop_coin(int amount,string type) {
    return 1;
 }
 
-void do_drop(object obj, int loud) {
+static void do_drop(object obj, int loud) {
    string slot;
    object worn;
 
@@ -95,7 +97,7 @@ void do_drop(object obj, int loud) {
    }
 }
 
-void main(string str) {
+static void main(string str) {
    object obj;
    object *inv;
    int i, max, amount;

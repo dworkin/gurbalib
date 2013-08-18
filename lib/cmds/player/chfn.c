@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -23,12 +25,12 @@ void usage() {
    this_player()->more(lines);
 }
 
-void show_chfn() {
+static void show_chfn() {
    write("Email: " + this_player()->query_email_address() + "\n");
    write("Real Name: " + this_player()->query_real_name() + "\n");
 }
 
-void main(string str) {
+static void main(string str) {
    string cmd, what;
 
    if (!str || (str == "")) {

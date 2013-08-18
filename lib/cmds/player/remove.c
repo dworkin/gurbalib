@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -18,7 +20,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void do_remove(object obj, int loud) {
+static void do_remove(object obj, int loud) {
    string slot;
    object worn;
 
@@ -52,7 +54,7 @@ void do_remove(object obj, int loud) {
    this_player()->targetted_action(obj->query_remove_message(), nil, obj);
 }
 
-void main(string str) {
+static void main(string str) {
    object obj;
    object *inv;
    int i, max;

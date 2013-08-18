@@ -4,7 +4,7 @@
 private string *get_default_objects() {
    string *objects;
 
-   objects = ( { SCHEDULE_D, CHANNEL_D, TIME_D, USER_D } );
+   objects = ( { SCHEDULE_D, TIME_D, USER_D } );
 
 #ifdef SYS_NETWORKING
    objects += ( {
@@ -19,6 +19,7 @@ private string *get_default_objects() {
 #endif
 
    objects += ( {
+      CHANNEL_D,
       OBJECT_D,
       RACE_D,
       ANSI_D,

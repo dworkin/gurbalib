@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -28,7 +30,7 @@ void usage() {
 
 /* Ok so it isn't the best method in the world for making sure that you 
    get the correct conjugation, but it works.*/
-void main(string str) {
+static void main(string str) {
    int i;
    string me;			/*what I, the one who's talking, sees */
    string you;			/*what all the others in the room sees */

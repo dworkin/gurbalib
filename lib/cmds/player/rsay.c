@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    int x, max;
    string *langs;
@@ -37,7 +39,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-tell_them(string str, string *words, string lang, string *words2) {
+static void tell_them(string str, string *words, string lang, string *words2) {
    object *usr;
    int i, imax, k, kmax, x;
    string tmp;
@@ -67,7 +69,7 @@ tell_them(string str, string *words, string lang, string *words2) {
    }
 }
 
-void main(string str) {
+static void main(string str) {
    int i, k, x, kmax;
    string *words, *words2;
    string rest, first, lang;

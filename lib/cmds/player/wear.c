@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -62,7 +64,7 @@ int do_wear(object obj, int loud) {
    return 1;
 }
 
-void main(string str) {
+static void main(string str) {
    object obj;
    object *inv;
    int i, max, done;

@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 string parse_error;
 
 void usage() {
@@ -90,7 +92,7 @@ mixed *collect_map(mixed * arg) {
     return ( { result } );
 }
 
-void main(string str) {
+static void main(string str) {
     mixed *args;
     string error;
     string *symbols, *values;

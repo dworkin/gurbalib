@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -20,7 +22,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-int get_coins(int amount, string type) {
+static int get_coins(int amount, string type) {
    object obj;
    int value;
 
@@ -54,7 +56,7 @@ int get_coins(int amount, string type) {
    return 1;
 }
 
-int do_get(object obj1, object obj2, int loud) {
+static int do_get(object obj1, object obj2, int loud) {
    string slot;
    object worn;
 
@@ -121,7 +123,7 @@ int do_get(object obj1, object obj2, int loud) {
    return 0;
 }
 
-void main(string str) {
+static void main(string str) {
    object obj, obj2;
    object *inv;
    int i, max, done, amount;

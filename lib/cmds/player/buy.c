@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -19,7 +21,7 @@ void usage() {
 
 /* Created by Fudge */
 
-void main(string str) {
+static void main(string str) {
    object *objs;
    int i;
 

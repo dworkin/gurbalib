@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -21,7 +23,7 @@ private static mapping msg;
 private static mapping subject;
 private static mapping ob;
 
-void main(string str) {
+static void main(string str) {
 
    if (!msg) {
       msg = ([]);

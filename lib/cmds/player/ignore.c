@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -22,7 +24,7 @@ void usage() {
 }
 
 /* Add a user to your ignore list  -- Arron Cusimano (mordain) 20090321 */
-void main(string arg) {
+static void main(string arg) {
    string out;
    int i, sz;
    string *list;

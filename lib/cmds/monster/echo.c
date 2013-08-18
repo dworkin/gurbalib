@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    write("Usage: echo [-h] MSG\n");
    write("Echo the message MSG to the room.\n");
@@ -5,7 +7,7 @@ void usage() {
    write("\t-h\tHelp, this usage message.\n");
 }
 
-void main(string str) {
+static void main(string str) {
    if (!str || str == "") {
       usage();
       return;

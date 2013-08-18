@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -15,7 +17,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void main(string str) {
+static void main(string str) {
    object obj;
 
    if (!str && (str != "")) {

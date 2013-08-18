@@ -438,6 +438,7 @@ void rcv_startup_reply(string origmud, mixed origuser, mixed destuser,
       disconnect();
       connected = 0;
    } else {
+      IMUDLOG("startup_reply received from " + mpRouterList[current_router][0] + "\n" );
       event("i3_connection",
          "I3 connection to " + mpRouterList[current_router][0] + " (" +
          mpRouterList[current_router][1] + ") is now up.");
@@ -772,7 +773,7 @@ void open() {
 
    sBuffer = "";
    IMUDLOG("Connected to " + mpRouterList[current_router][0] + " : " +
-      mpRouterList[current_router][1] + "\n");
+      mpRouterList[current_router][1] + ", awaiting startup-reply.\n");
    if (!keepalive_handle) {
       keepalive_handle = call_out("keepalive", KEEPALIVE_INTERVAL);
    }

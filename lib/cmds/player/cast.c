@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 #define SPELL_DIR "/cmds/spells"
 string find_spell(string spellname);
 
@@ -30,7 +32,7 @@ void usage(string str) {
    this_player()->more(lines);
 }
 
-int has_spell(string spellname) {
+static int has_spell(string spellname) {
    string skill;
 
    if (query_admin(this_player()) || query_wizard(this_player())) {
@@ -42,7 +44,7 @@ int has_spell(string spellname) {
    return 0;
 }
 
-void list_spells() {
+static void list_spells() {
    string *files;
    int i, x;
    string name;
@@ -59,7 +61,7 @@ void list_spells() {
    }
 }
 
-string find_spell(string spellname) {
+static string find_spell(string spellname) {
    string str;
 
    str = SPELL_DIR + "/" + spellname;
@@ -69,7 +71,7 @@ string find_spell(string spellname) {
    return nil;
 }
 
-void cast_spell(string spell, string who) {
+static void cast_spell(string spell, string who) {
    string spellpath;
    object target;
 
@@ -83,7 +85,7 @@ void cast_spell(string spell, string who) {
    call_other(spellpath, "do_spell", this_player(), who);
 }
 
-void main(string str) {
+static void main(string str) {
    string spellname, who;
 
    if (!str || (str == "")) {

@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -16,7 +18,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void do_close(object obj, int loud) {
+static void do_close(object obj, int loud) {
    string slot;
    object worn;
 
@@ -36,7 +38,7 @@ void do_close(object obj, int loud) {
    obj->do_close(this_player());
 }
 
-void main(string str) {
+static void main(string str) {
    object obj;
    object *inv;
    int i, max;

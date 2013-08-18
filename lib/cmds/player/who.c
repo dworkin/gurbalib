@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
     string *lines;
 
@@ -24,7 +26,7 @@ void usage() {
 }
 
 /* 'who' command Originally by Fudge Improved by Cerihan 3/15/09 */
-void main(string str) {
+static void main(string str) {
     object *usr;
     int i, long_flag, hidden;
     mixed idletime;

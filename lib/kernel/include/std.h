@@ -28,6 +28,7 @@
 #define EMOTE_D      "/daemons/emote_d"
 #define TELNET_D     "/sys/daemons/telnet_d"
 #define FTP_D        "/sys/daemons/ftp_d"
+#define COMMAND_D    "/sys/daemons/command_d"
 #define SECURE_D     "/kernel/daemons/secure_d"
 #define COMPILER_D   "/kernel/daemons/compiler_d"
 #define ERROR_D      "/kernel/daemons/error_d"

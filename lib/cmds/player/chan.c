@@ -1,7 +1,9 @@
 /* An interface to the channel daemon By Fudge */
+inherit M_COMMAND;
+
 #include <channel.h>
 
-void chan_cmd(string chan, string cmd);
+static void chan_cmd(string chan, string cmd);
 
 void usage() {
    string *lines;
@@ -65,7 +67,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void list_channels(void) {
+static void list_channels(void) {
    string *channels, *schannels, *lines;
    mapping ichans;
    string line;
@@ -100,7 +102,7 @@ void list_channels(void) {
    this_player()->more(lines,1);
 }
 
-void main(string str) {
+static void main(string str) {
    string chan, cmd;
 
    if (!str || (str == "")) {
@@ -125,7 +127,7 @@ void main(string str) {
    chan_cmd(chan, cmd);
 }
 
-void chan_cmd(string chan, string cmd) {
+static void chan_cmd(string chan, string cmd) {
 
    switch (cmd) {
       case "/join":

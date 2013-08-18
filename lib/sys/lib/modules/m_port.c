@@ -18,6 +18,17 @@ private int port_number;
  *
  */
 nomask static void open_port(string proto, varargs mixed port) {
+   /* 
+    *
+    * there is no privilege network in the default setup, through
+    * one could conceivably create one. However, this does mean
+    * we don't want a wizard called network, or a domain for that
+    * matter.
+    *
+    */
+   if (!require_priv("network")) {
+      error("Permission denied.");
+   }
    if (port_object) {
       console_msg("Port already open: " + proto + ":" +
 	 (intp(port) ? (string) port : "*") + "\n");
@@ -29,6 +40,9 @@ nomask static void open_port(string proto, varargs mixed port) {
 }
 
 nomask static void close_port() {
+   if (!require_priv("network")) {
+      error("Permission denied.");
+   }
    if (port_object) {
       destruct_object(port_object);
    }

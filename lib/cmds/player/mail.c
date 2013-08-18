@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 string subject;
 string *to;
 string msgdate;
@@ -183,7 +185,7 @@ void view_mailbox(string str) {
    show_menu();
 }
 
-void main(string str) {
+static void main(string str) {
 
    write("XXX The mail command is still under construction.\n");
    usage();

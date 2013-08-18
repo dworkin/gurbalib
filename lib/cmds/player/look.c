@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -22,7 +24,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void do_look_obj(object obj) {
+static void do_look_obj(object obj) {
    int i, flag;
    object *objs;
 
@@ -48,7 +50,7 @@ void do_look_obj(object obj) {
    }
 }
 
-void do_look_liv(object obj) {
+static void do_look_liv(object obj) {
    int i, flag;
    object *objs;
 
@@ -88,7 +90,7 @@ void do_look_liv(object obj) {
    }
 }
 
-void do_look(object obj) {
+static void do_look(object obj) {
    int i, flag;
    object *objs;
 
@@ -111,7 +113,7 @@ void do_look(object obj) {
    }
 }
 
-void main(string str) {
+static void main(string str) {
    string what;
    object obj;
 

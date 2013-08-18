@@ -3,7 +3,7 @@
 #define ADMIN_L  2
 
 /* uncomment the line below to get a lot of debug output.. */
-/* #define DEBUG_STACK_SECURITY  */
+/* #define DEBUG_STACK_SECURITY */
 
 #include <trace.h>
 #include <privileges.h>

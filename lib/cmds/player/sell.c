@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
    lines = ({ "Usage: sell [-h] OBJ" });
@@ -18,7 +20,7 @@ void usage() {
 
 /* Created by Fudge */
 
-void main(string str) {
+static void main(string str) {
    object *objs;
    object obj;
    int i;

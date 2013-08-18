@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 int col;
 string *lines;
 
@@ -36,7 +38,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void show_cmds(string dir) {
+static void show_cmds(string dir) {
    string *names;
    mapping cmds;
    int c, d, sz;
@@ -72,7 +74,7 @@ void show_cmds(string dir) {
 
 }
 
-void main(string str) {
+static void main(string str) {
    string *path;
    int c, cmax;
    mixed width;
