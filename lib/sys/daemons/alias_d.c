@@ -2,7 +2,7 @@
 mapping player_alias;
 mapping wizard_alias;
 
-#define DATAFILE "/daemons/data/alias_d.o"
+#define DATAFILE "/sys/daemons/data/alias_d.o"
 
 void restore_me(void);
 void save_me(void);
