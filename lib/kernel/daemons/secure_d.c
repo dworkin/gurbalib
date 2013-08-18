@@ -336,12 +336,12 @@ string owner_file(string file) {
 	 return "kernel";
 	 break;
       case "":
-      case "daemons":
       case "sys":
-      case "std":
       case "cmds":
 	 return "system";
 	 break;
+      case "daemons":
+      case "std":
       case "obj":
       case "game":
       case "logs":
@@ -353,7 +353,7 @@ string owner_file(string file) {
 	 if (sizeof(parts) > 1) {
 	    return parts[1];
 	 } else {
-	    return "system";
+	    return "game";
 	 }
 	 break;
    }

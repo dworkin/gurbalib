@@ -4,7 +4,7 @@ inherit M_CONNECTION;
 
 #include <ports.h>
 
-object "/daemons/ftp_session" prev;
+object "/sys/daemons/ftp_session" prev;
 string callback;
 string read_callback;
 int connected;

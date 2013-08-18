@@ -10,7 +10,7 @@ void initialize(void) {
 object connection(string ip, int port) {
    object con, session;
 
-   session = clone_object("/daemons/ftp_session");
+   session = clone_object("/sys/daemons/ftp_session");
    con = clone_object("/kernel/obj/net/connection");
    session->set_connection(con);
    return (con);

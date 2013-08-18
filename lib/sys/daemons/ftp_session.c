@@ -463,7 +463,7 @@ void FTP_CMD_port(string arg) {
       connection->terminate();
    }
 
-   connection = clone_object("/daemons/ftp_data");
+   connection = clone_object("/sys/daemons/ftp_data");
    connection->start_connection(ip, port, binary);
    FTP_connection_wait();
 }
