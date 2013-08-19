@@ -10,6 +10,7 @@
 #include <tlsvar.h>
 #include <status.h>
 #include <trace.h>
+#include <auto_config.h>
 
 #define LIST_PREV 0
 #define LIST_NEXT 1

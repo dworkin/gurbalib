@@ -13,6 +13,7 @@
  * */
 
 #include <status.h>
+#include <limits.h>
 #include <ports.h>
 #include <type.h>
 #include <trace.h>
@@ -221,10 +222,65 @@ void register_secure_d() {
    }
 }
 
+/*
+ *
+ * auto_config.h contains a number of (un)defines
+ * to allow writing code that optionally uses/supports
+ * operator overloading and function pointers while remaining
+ * backward compatible with earlier versions of the driver.
+ * We don't use the version number for this, as that would
+ * not work for hydra, rather we check if kfun.h was created
+ * by the driver as an indication for operator overloading
+ * support. Without it we can't detect the optional function 
+ * pointer extension.
+ *
+ * the resulting file will be #included from std-kernel.h
+ * and std-game.h and the kernel level auto object
+ *
+ */
+
+static void write_auto_config() {
+   string *lines;
+   string res, opt;
+   int i, sz;
+
+   remove_file ("/kernel/include/auto_config.h");
+
+   res = "#ifndef AUTO_CONFIG_DOT_H\n";
+   res +="#define AUTO_CONFIG_DOT_H\n";
+
+   opt = read_file("/kernel/include/kfun.h");
+   if (opt && strlen(opt)) {
+      lines = explode(opt, "\n");
+      for (i=0, sz=sizeof(lines); i < sz; i++) {
+         if (sscanf(lines[i], "# define KF_%s\t%*s", opt) == 2) {
+            switch(opt) {
+               case "NEW_FUNCTION" :
+                  res +="#define CLOSURES_EXTENSION\n";
+                  break;
+               default :
+                  break;
+            }
+         }
+      }
+      res +="#define OPERATOR_OVERLOADING\n";
+   } else {
+      message("WARNING: operator overloading not available, please " +
+         "upgrade your driver!\n");
+   }
+#ifndef MAX_STRING_SIZE
+   res += "#define MAX_STRING_SIZE " + status()[ST_STRSIZE] + "\n";
+#endif
+   res += "#endif\n";
+   write_file("/kernel/include/auto_config.h", res );
+}
+
 static void _initialize(mixed * tls) {
    message(status()[ST_VERSION] + " running " + LIB_NAME + " " + 
       LIB_VERSION + ".\n");
    message("Initializing...\n");
+
+   write_auto_config();
 
    /*
     * Order is important.
