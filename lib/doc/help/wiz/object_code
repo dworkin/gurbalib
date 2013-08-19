@@ -19,3 +19,16 @@ void setup(void) {
 }
 
 As you can tell, this document needs a lot of love. XXX
+
+Along with rooms and monsters there are some other basic objects that
+repeatedly get used, here are some simple examples:
+
+food:	   lib/domains/newbie/obj/potion.c
+signs:     lib/domains/newbie/sign.c
+weapon:    lib/domains/required/short_sword.c
+armor:     lib/domains/required/helmet.c
+container: lib/domains/required/chest.c
+advanced:  lib/domains/boothill/piano.c
+
+As you can tell from these examples, you should really poke around the
+sample domains to find good examples of how to do things.
