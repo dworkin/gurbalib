@@ -1,4 +1,6 @@
-A monster in a mud is kind of a robot player:
+A monster in a mud is kind of a robot player, there are various types
+of "monsters", you can make them passive, agressive, you can make them
+react to players actions or other environmental effects.
 
 Descriptions:
 You can set the following descriptions in a monster:
