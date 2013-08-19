@@ -44,7 +44,7 @@ You should at least modify the first 3 entries.
 
 /* enable state dumping of the  the world so that we can reload from
    a cold boot */
-#define SYS_PRESIST	1
+#define SYS_PERSIST	1
 
 /* Enable ansi colors */
 #define SYS_COLOR	1
