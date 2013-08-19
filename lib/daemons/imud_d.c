@@ -785,7 +785,7 @@ void open() {
 void set_default_router_list() {
    mpRouterList = ({
       ({ "*i4", "204.209.44.3 8080"}),
-      ({ "*wpr", "195.242.99.94 8080"})
+      ({ "*dalet", "97.107.133.86 8787"})
    });
 }
 
