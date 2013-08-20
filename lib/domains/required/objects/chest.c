@@ -13,5 +13,4 @@ void setup(void) {
       DIR + "/objects/small_rock" : 1, 
       DIR + "/objects/large_rock" : 1,
    ]));
-
 }

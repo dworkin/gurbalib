@@ -19,7 +19,7 @@ int do_eat(void) {
 
    x = random(5) + 1;
    write("You drink the potion.  You feel a warmth in your chest.\n");
-  this_player()->query_environment()->tell_room(this_player(),
+   this_player()->query_environment()->tell_room(this_player(),
       this_player()->query_Name() + " drinks a potion of healing.\n");
    this_player()->increase_hp(x);
    this_object()->destruct();

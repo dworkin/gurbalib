@@ -30,6 +30,7 @@ void setup(void) {
 
 int break_branch(string str) {
    object obj;
+
    if (str == "branch") {
       if (this_player()->is_completed_quest("NewbieVille")) {
 	 write("There are no branches left on the tree that you can reach.\n");
@@ -42,6 +43,7 @@ int break_branch(string str) {
 	 obj->move(this_player());
 	 obj->setup();
       }
+
       return 1;
    } else {
       return 0;
