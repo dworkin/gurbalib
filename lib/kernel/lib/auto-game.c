@@ -125,6 +125,8 @@ private object secure_d;
  * instead?
  */
 
+#include "afun-game/notify_fail.c"
+#include "afun-game/query_notify_fail.c"
 #include "afun-game/random_element.c"
 #include "afun-game/invert_exit.c"
 #include "afun-game/this_body.c"

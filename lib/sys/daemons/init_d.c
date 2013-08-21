@@ -19,6 +19,7 @@ private string *get_default_objects() {
 #endif
 
    objects += ( {
+      COMMAND_D,
       CHANNEL_D,
       OBJECT_D,
       RACE_D,

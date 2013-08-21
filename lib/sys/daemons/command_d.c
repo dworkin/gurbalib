@@ -7,9 +7,8 @@
 
 #define DATA_FILE "/sys/daemons/data/command_d.o"
 
-#undef DEBUG_COMMAND_D
+#define DEBUG_COMMAND_D
 
-string * syspath;
 mapping cmdpriv;
 static mapping commands;
 
@@ -34,20 +33,10 @@ static void create() {
 
   restore_me();
 
-  if( !syspath ) {
-    syspath = ({ 
-      "/kernel/cmds/admin/",
-      "/cmds/admin/",
-      "/cmds/wiz/",
-      "/cmds/player/",
-    });
-  }
-           
   if( !cmdpriv ) {
     cmdpriv = ([
-      "/kernel/cmds/admin/" : "system",
-      "/cmds/admin/"        : "game",
-      "/cmds/wiz/"          : "wizard",
+      "/sys/cmds/admin/"     : "system",
+      "/sys/cmds/wiz/"       : "wizard",
       "/cmds/player/"        : "*",
     ]);
   }
@@ -70,8 +59,10 @@ static string file_to_cmdname( string file ) {
 
 void rehash() {
   int i,sz;
+  string * syspath;
   string * cmds;
 
+  syspath = map_indices( cmdpriv );
   commands = ([ ]);
 
   console_msg( "Rehashing command paths\n" );
@@ -85,11 +76,12 @@ void rehash() {
   console_msg( "Done.\n" );
 }
 
-int exec_command( string cmd, string arg ) {
+int exec_command( string cmd, string *syspath ) {
+  string arg;
   object cmd_ob;
   int i, sz;
 
-  DEBUG( "exec_command: " + ( cmd ? cmd:"<NIL>" ) + " [" + ( arg ? arg:"<NIL>" ) + "]\n");
+  DEBUG( "exec_command: " + ( cmd ? cmd:"<NIL>" ) + " " + dump_value( syspath ) + "\n");
 
   for( i = 0, sz = sizeof( syspath ); ( i < sz ) && !cmd_ob; i++ ) {
     DEBUG( "Locating " + cmd + " in " + syspath[i] + ": " );
@@ -108,7 +100,7 @@ int exec_command( string cmd, string arg ) {
     }
   }
 
-  if( cmd_ob && cmd_ob<-COMMAND_LIB ) {
+  if( cmd_ob && cmd_ob<-M_COMMAND && !function_object( "main", cmd_ob ) ) {
     DEBUG( "Caling " + dump_value( cmd_ob ) +"->_main( " + ( arg ? ( "\"" + arg + "\"" ) : "<NIL>" ) + ", \"" + cmd + "\" )\n");
     cmd_ob->_main( arg, cmd );
     return 1;
@@ -120,11 +112,13 @@ int exec_command( string cmd, string arg ) {
 string cmdstats() {
   int i, sz;
   string r;
+  string *syspath;
 
   if( !require_priv( "system" ) ) {
     error("Permission denied.\n" );
   }
 
+  syspath = map_indices( cmdpriv );
   r = "";
 
   for( i = 0, sz = sizeof( syspath ); i < sz; i++ ) {

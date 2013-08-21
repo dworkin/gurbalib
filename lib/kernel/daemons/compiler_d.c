@@ -602,6 +602,7 @@ string allow_inherit(string path, string file) {
 	    }
 	 case "sys":
 	    if ((path != "/sys/lib/auto") &&
+               (sscanf(path, "/sys/lib/modules/%*s") != 1) &&
 	       file &&
 	       (owner_file(file) != "system") && 
                (owner_file(file) != "kernel")) {

@@ -39,7 +39,7 @@
 #define RACE_D       "/daemons/race_d"
 #define SKILL_D      "/daemons/skill_d"
 #define MONEY_D      "/daemons/money_d"
-#define BANISH_D     "/daemons/banish_d"
+#define BANISH_D     "/sys/daemons/banish_d"
 #define SITEBAN_D    "/daemons/siteban_d"
 #define GUILD_D      "/daemons/guild_d"
 #define PARSE_D      "/daemons/parse_d"
@@ -51,7 +51,7 @@
 #define PORT            "/kernel/obj/net/port"
 
 #define M_CONNECTION    "/sys/lib/modules/m_connection"
-#define M-COMMAND       "/sys/lib/modules/m_command"
+#define M_COMMAND       "/sys/lib/modules/m_command"
 #define M_PORT          "/sys/lib/modules/m_port"
 #define M_SERIALIZE     "/sys/lib/modules/m_serialize"
 
