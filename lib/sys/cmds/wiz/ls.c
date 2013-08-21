@@ -1,6 +1,8 @@
 inherit M_COMMAND;
 /* vim:set ft=lpc: */
 
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
