@@ -11,6 +11,7 @@ inherit "/std/editor";
 inherit "/std/modules/m_autoload_string";
 inherit "/std/modules/m_language";
 inherit "/std/body/skills";
+inherit cmd M_CMDS;
 
 static object user;		/* This players user object */
 static string input_to_func;	/* The function we're redirecting input to */
@@ -53,6 +54,7 @@ int toggle_muzzle();
 void create(void) {
    con::create();
    bod::create();
+   cmd::create();
 
    living_name = "guest";
    channels = ( { "gossip", "announce" } );
@@ -87,6 +89,18 @@ void restore_me(void) {
    set_id(living_name);
    if (!alias)
       alias = ([]);
+   if (cmd_path) {
+      cmd::set_pathkey( cmd_path );
+      cmd_path = nil;
+   }
+
+   if(!query_pathkey_array()) {
+      cmd::create();
+      add_pathkey("/cmds/player/");
+   }
+   add_pathkey("/sys/cmds/wiz/");
+   add_pathkey("/sys/cmds/admin/");
+   call_out( "save_me", 0 );
 }
 
 void login_player(void) {
@@ -279,21 +293,20 @@ string query_email_address(void) {
 }
 
 void initialize_cmd_path(void) {
-   cmd_path = ( { "/cmds/player" } );
+   cmd::set_pathkey( ({ "/cmds/player/" }) );
 }
 
 void remove_cmd_path(string path) {
-   cmd_path -= ( { path } );
+   cmd::remove_pathkey( path );
 }
 
 /* Add a path to the command path */
 void add_cmd_path(string path) {
-   cmd_path -= ( { path } );
-   cmd_path += ( { path } );
+   cmd::add_pathkey( path );
 }
 
 string *query_path(void) {
-   return cmd_path;
+   return cmd::query_pathkey_array();
 }
 
 void add_channel(string chan) {
@@ -599,7 +612,8 @@ void do_quit(void) {
 
 /* XXX this must be changed when command daemon is implemented */
    if (is_possessing()) {
-      call_other("/sys/cmds/wiz/possess", "main", "");
+      /* call_other("/sys/cmds/wiz/possess", "main", ""); */
+      command( "possess", nil );
    }
 
    for (i = 0; i < sizeof(objs); i++) {
@@ -708,10 +722,7 @@ void join_guild(string guild) {
    }
 
    guilds[guild] = GUILD_D->query_guild_title(guild);
-/* use |= instead of += to ensure it only gets added once */
-   cmd_path |= ( {
-      "/cmds/guild/" + guild}
-   );
+   add_cmd_path( "/cmds/guild/" + guild );
    save_me();
 }
 
@@ -721,9 +732,7 @@ void leave_guild(string guild) {
    }
 
    guilds[guild] = nil;
-   cmd_path -= ( {
-      "/cmds/guild/" + guild}
-   );
+   remove_cmd_path( "/cmds/guild/" + guild );
    set_title("$N the guildless");
    save_me();
 }
@@ -919,13 +928,10 @@ void receive_message(string message) {
 
       /* Check for a command, and call the command if it's found */
       if (!flag) {
-	 for (i = 0; i < sizeof(cmd_path); i++) {
-	    if (file_exists(cmd_path[i] + "/" + cmd + ".c")) {
-	       call_other(cmd_path[i] + "/" + cmd, "main", arg);
-	       flag = 1;
-	       break;
-	    }
-	 }
+         i = command( cmd, arg );
+         if( i >= 0 ) {
+            flag = 1;
+         }
       }
 /* XXX why do cmd stuff here and in lib/std/modules/m_actions.c */
 
@@ -1004,7 +1010,7 @@ void receive_message(string message) {
 	 exits = this_environment()->query_exit_indices();
 	 for (i = 0; i < sizeof(exits); i++) {
 	    if (exits[i] == lowercase(cmd)) {
-	       call_other("/cmds/player/go", "main", cmd);
+	       command("go", cmd);
 	       flag = 1;
 	    }
 	 }

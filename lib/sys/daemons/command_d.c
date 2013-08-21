@@ -35,9 +35,9 @@ static void create() {
 
   if( !cmdpriv ) {
     cmdpriv = ([
-      "/sys/cmds/admin/"     : "system",
-      "/sys/cmds/wiz/"       : "wizard",
-      "/cmds/player/"        : "*",
+      "/sys/cmds/admin"     : "system",
+      "/sys/cmds/wiz"       : "wizard",
+      "/cmds/player"        : "*",
     ]);
   }
 
@@ -46,7 +46,7 @@ static void create() {
 }
 
 static int access_check( string path ) {
-  return ( cmdpriv[path] == "*" ) || require_priv( cmdpriv[path] );
+  return ( cmdpriv[path] && ( ( cmdpriv[path] == "*" ) || require_priv( cmdpriv[path] ) ) );
 }
 
 static string file_to_cmdname( string file ) {
@@ -76,8 +76,7 @@ void rehash() {
   console_msg( "Done.\n" );
 }
 
-int exec_command( string cmd, string *syspath ) {
-  string arg;
+int exec_command( string cmd, string arg, string *syspath ) {
   object cmd_ob;
   int i, sz;
 
@@ -105,7 +104,21 @@ int exec_command( string cmd, string *syspath ) {
     cmd_ob->_main( arg, cmd );
     return 1;
   } else {
-    DEBUG( cmd + " not handled by the command daemon: " + dump_value( cmd_ob ) + "\n" );
+    string msg;
+    msg = cmd + " not handled by the command daemon: " + dump_value( cmd_ob ) + "\n";
+    msg += "Reason: ";
+    if (!cmd_ob) {
+      msg += "no matching .c file";
+    } else if (!cmd_ob<-M_COMMAND) {
+      msg += ".c file does not inherit m_command";
+    } else if (function_object("main", cmd_ob)) {
+      msg += "function main() is public";
+    } else {
+      msg += "unknown";
+    }
+    msg += "\n";
+    DEBUG(msg);
+    return -1;
   }
 }
 
@@ -126,3 +139,8 @@ string cmdstats() {
   }
   return r;
 } 
+
+int validate_path( string path ) {
+  return access_check( path );
+}
+

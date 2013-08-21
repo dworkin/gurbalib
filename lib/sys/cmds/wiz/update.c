@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -71,7 +73,7 @@ static object recompile_object(string str) {
    return ob;
 }
 
-void main(string str) {
+static void main(string str) {
    string path;
    object *objs;
    object *players;

@@ -9,10 +9,31 @@
 
 #define DEFAULT_PRIORITY 10
 
-private mapping pathkey;
+mapping pathkey;
 
 static void create() {
    pathkey = ([ ]);
+}
+
+/*
+ * some helper functions
+ *
+ */
+
+static int validate_path( string path ) {
+   int r;
+   r = COMMAND_D->validate_path( path );
+   if(!r) {
+      error("validate_path for " + path + " failed.");
+   }
+   return r;
+}
+
+static string fix_slash( string str ) {
+   if (strlen(str) && str[strlen(str)-1] != '/') {
+      str += "/";
+   }
+   return str;
 }
 
 /*
@@ -24,8 +45,15 @@ static void create() {
 
 /* intended for usage from regular lpc code */
 static void add_pathkey(string path, varargs int prio) {
+   if(!validate_path(path)) return;
+
    if(!prio) prio = DEFAULT_PRIORITY;
-   if(!pathkey[prio]) 
+   path = fix_slash( path );
+
+   if (!validate_path(path)) 
+      return;
+
+   if (!pathkey[prio]) 
       pathkey[prio] = ({ path });
    else 
       pathkey[prio] |= ({ path });
@@ -35,10 +63,25 @@ static void remove_pathkey(string path) {
    int *priorities;
    int i,sz;
 
+   path = fix_slash(path);
+   if (!validate_path(path))
+      return;
+
    priorities = map_indices(pathkey);
    for (i=0, sz=sizeof(priorities); i < sz; i++) {
       pathkey[priorities[i]] -= ({ path });
+      if(sizeof(pathkey[priorities[i]]) == 0) {
+         pathkey[priorities[i]] = nil;
+      }
    }
+}
+
+static void set_pathkey(string *path, varargs int prio) {
+   int i, sz;
+   if(!prio) prio = DEFAULT_PRIORITY;
+   path = map_array( path, "fix_slash", this_object() );
+   path = filter_array( path, "validate_path", this_object() );
+   pathkey = ([ prio : path ]);
 }
 
 /* 2 helper functions for the shell interface below */
@@ -52,7 +95,7 @@ private string map_to_path(mapping stuff) {
 
    for (i=0, sz=sizeof(prio); i<sz; i++) {
       /* will leave a trailing :, we don't care since the reverse function doesn't care either */
-      res += implode( stuff[prio[i], ":" ) + ":";
+      res += implode( stuff[prio[i]], ":" ) + ":";
    }
    return res;
 }
@@ -66,7 +109,7 @@ private mapping path_to_map(string path, varargs int validate) {
    prio = DEFAULT_PRIORITY;
    keys = explode(path, ":");
    /* no empty path components wanted, throw them out */
-   keys -= ({ "" });
+   keys -= ({ "", nil });
    
    /* note, have to check against sizeof() for each iteration as the array may change */
    for (i=0; i<sizeof(keys); i++, prio+=10) {
@@ -77,7 +120,10 @@ private mapping path_to_map(string path, varargs int validate) {
          pstr = map_to_path(pathkey);
          /* explode, as we are not interested in leading/trailing : */
          keys = keys[..i-1] + explode(pstr, ":") + keys[i+1..];
+      } else {
+         keys[i] = fix_slash(keys[i]);
       }
+  
       if(!validate || COMMAND_D->validate_path(keys[i])) {
          result[prio] = ({ keys[i] });
       } else {
@@ -120,8 +166,12 @@ private string *pathkey_to_array( mapping stuff ) {
 }
 
 
-/* for both regular lpc code and shells, execute the argument as a command */
-static int command(string input) {
-   return COMMAND_D->exec_command(input, res);
+static string *query_pathkey_array() {
+   if(!pathkey) return nil;
+   return pathkey_to_array( pathkey );
+}
+
+static int command(string cmd, string arg) {
+   return COMMAND_D->exec_command(cmd, arg, pathkey_to_array( pathkey ) );
 }
 

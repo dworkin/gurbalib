@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
@@ -29,7 +31,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void main(string src, varargs mixed args ...) {
+static void main(string src) {
    object obj;
    string err;
    mixed result;
@@ -61,15 +63,15 @@ void main(string src, varargs mixed args ...) {
 	 "# include <float.h>\n# include <limits.h>\n" +
 	 "# include <status.h>\n# include <trace.h>\n" +
 	 "# include <type.h>\n\n" +
-	 "private mixed exec_fun(mixed args...) {\n" + "    mixed " +
+	 "private mixed exec_fun() {\n" + "    mixed " +
 	 "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;\n" +
-	 "args = args[0];\n" + src + "}\n" +
-	 "mixed *exec(object player, varargs mixed argv...) {\n" +
-	 "int ticks;\n" + "mixed returnval;\n" + "argv = argv[0];\n" +
-	 "ticks = status()[ST_TICKS];\n" + "returnval = exec_fun(argv);\n" +
+	 src + "}\n" +
+	 "mixed *exec(object player) {\n" +
+	 "int ticks;\n" + "mixed returnval;\n" + 
+	 "ticks = status()[ST_TICKS];\n" + "returnval = exec_fun();\n" +
 	 "ticks = ticks - status()[ST_TICKS];\n" +
 	 "return ({ ticks, returnval });\n" + "}\n"), result =
-      obj->exec(this_player(), args));
+      obj->exec(this_player()));
 
    if (obj)
       destruct_object(obj);
