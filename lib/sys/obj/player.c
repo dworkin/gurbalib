@@ -925,7 +925,10 @@ void receive_message(string message) {
 	    }
 	 }
       }
-/* XXX why do cmd stuff here and in lib/std/modules/m_actions.c */
+
+/* XXX In lib/std/modules/m_actions.c we do this also should make
+   it so were not doing the same thing in two places once for
+   users and once for monsters, try to share it */
 
       if (!flag) {
 	 /* Check if the command is an emote */

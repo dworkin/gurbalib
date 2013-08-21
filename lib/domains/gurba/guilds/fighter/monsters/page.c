@@ -1,5 +1,4 @@
 inherit "/std/monster";
-inherit "/std/modules/m_actions";
 
 int nFollow;
 string master_name;
