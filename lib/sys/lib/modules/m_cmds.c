@@ -174,9 +174,9 @@ static string *query_pathkey_array() {
 
 
 /* for both regular lpc code and shells, execute the argument as a command */
-static int command(string input) {
+static int command(string cmd, string arg) {
    /* no direct call_outs to command() allowed for security reasons */
    if(CALLOUT()) return 0;
-   return COMMAND_D->exec_command(input, query_pathkey_array());
+   return COMMAND_D->exec_command(cmd, arg, pathkey_to_array( pathkey ) );
 }
 
