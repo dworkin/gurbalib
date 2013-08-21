@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -20,7 +21,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void main(string who) {
+static void main(string who) {
    object *usr;
    int i, flag;
    string msg;

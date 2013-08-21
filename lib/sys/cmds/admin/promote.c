@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -43,7 +44,7 @@ void display_level(string str) {
    usage();
 }
 
-void main(string str) {
+static void main(string str) {
    string who, what;
    int numargs;
 

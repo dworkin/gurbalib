@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 #include <ports.h>
 
 #define grammar "whitespace=/[ 	]/ "+\
@@ -84,7 +85,7 @@ void display_istat() {
    write("I3 status: " + r + "\n");
 }
 
-void main(string str) {
+static void main(string str) {
    mixed *args;
    string error;
 

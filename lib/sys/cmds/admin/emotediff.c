@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 #define DUMMY DOMAINS_DIR + "/required/objects/fake_emote.c"
 string *keys;
 
@@ -115,7 +116,7 @@ void do_fulldiff(object obj, string myfile) {
    }
 }
 
-void main(string str) {
+static void main(string str) {
    string myfile, *tmp;
    int i,max, x;
    object obj;

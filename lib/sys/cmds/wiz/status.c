@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 #include <status.h>
 
 void usage() {
@@ -114,7 +115,7 @@ void display_obj(mixed * stat, object obj) {
    this_player()->more(lines);
 }
 
-void main(string str) {
+static void main(string str) {
    mixed *stat;
    object obj;
 

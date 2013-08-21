@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -22,7 +23,7 @@ void usage() {
 
 #define MODE_READ 0
 
-void main(string arg) {
+static void main(string arg) {
    int tmp;
 
    if (!query_wizard(this_player())) {

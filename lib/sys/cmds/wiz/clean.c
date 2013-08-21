@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 /* A small command to clear out all the objects in a room
  *
  * Fudge
@@ -27,7 +28,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void main(string arg) {
+static void main(string arg) {
    object *objs;
    int i;
 

@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -25,7 +26,7 @@ int recursive_remove_dir(string file) {
    return 0;
 }
 
-void main(string arg) {
+static void main(string arg) {
    string file;
 
    if (!query_wizard(this_player())) {

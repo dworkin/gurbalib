@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 #include <status.h>
 
 void usage() {
@@ -18,7 +19,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void main(string str) {
+static void main(string str) {
    if (!query_wizard(this_player())) {
       write("You must be a wizard to do that.\n");
       return;

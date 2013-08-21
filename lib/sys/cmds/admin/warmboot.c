@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 #include <type.h>
 
 void usage() {
@@ -53,7 +54,7 @@ static string validate_upgrade() {
    }
 }
 
-void main(string str) {
+static void main(string str) {
 
    if (!require_priv("system")) {
       write("You need admin permissions to do that.");

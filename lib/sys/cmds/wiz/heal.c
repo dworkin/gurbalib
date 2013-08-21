@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
    lines = ({ "Usage: heal [-h] [player]" });
@@ -16,7 +17,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void main(string str) {
+static void main(string str) {
    int max;
    object obj;
    string who;

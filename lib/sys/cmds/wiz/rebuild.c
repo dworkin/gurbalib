@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -38,7 +39,7 @@ static int upgrade_uobj(string * files, int verbose) {
    return pos;
 }
 
-void main(string str) {
+static void main(string str) {
    int pos, sz, total, verbose;
    mapping edges;
    string *users;

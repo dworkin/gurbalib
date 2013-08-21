@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 #define GRAMMAR "whitespace=/[ ]+/\n"+\
                 "TAG=/[A-Z_][A-Z0-9_]*/ \n"+\
                 "TAG=/NIL/\n"+\
@@ -68,7 +69,7 @@ mixed *collect_map(mixed * arg) {
    return ( { result } );
 }
 
-void main(string str) {
+static void main(string str) {
    string error;
    mixed * args;
    string *symbols, *values;

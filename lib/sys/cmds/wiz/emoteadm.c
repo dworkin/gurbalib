@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -79,7 +80,7 @@ void add_emote(string str) {
    write("Emote " + name + " added.\n");
 }
 
-void main(string str) {
+static void main(string str) {
    string name, fmt;
    string *lines;
    mixed width;

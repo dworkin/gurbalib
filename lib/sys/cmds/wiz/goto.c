@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 /*Made by Aphex on Fri 21 Nov 97*/
 /* Fixed to handle goto'ing of room files by Fudge. */
 /* Fixed to properly setup rooms that get loaded by this command */
@@ -21,7 +22,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void main(string str) {
+static void main(string str) {
    object usr;
 
    if (!query_wizard(this_player())) {

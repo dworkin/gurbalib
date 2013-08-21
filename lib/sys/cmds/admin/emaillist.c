@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -48,7 +49,7 @@ void create_list(string type, string file) {
    }
 }
 
-void main(string str) {
+static void main(string str) {
    string type, file;
 
    if (!require_priv("system")) {

@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 #define CHUNK_SIZE 8024
 
 void usage() {
@@ -19,7 +20,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void main(string arg) {
+static void main(string arg) {
    string file;
    string *tmp;
    string *lines;

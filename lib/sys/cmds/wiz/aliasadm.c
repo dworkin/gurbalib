@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -64,7 +65,7 @@ void add_alias(string str) {
    }
 }
 
-void main(string str) {
+static void main(string str) {
    string name, fmt;
    string *lines;
 

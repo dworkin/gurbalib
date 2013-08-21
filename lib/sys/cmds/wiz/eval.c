@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -29,7 +30,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void main(string src, varargs mixed args ...) {
+static void main(string src, varargs mixed args ...) {
    object obj;
    string err;
    mixed result;

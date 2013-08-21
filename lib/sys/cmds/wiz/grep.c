@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    write("Usage: grep [-h] STRING FILE(s)\n");
    write("Find files in the list of FILES that contain STRING.\n");
@@ -6,7 +7,7 @@ void usage() {
    write("See also: diff\n");
 }
 
-void main(string str) {
+static void main(string str) {
    if (!query_wizard(this_player())) {
       write("You must be a wizard to do that.\n");
       return;

@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 int debug, errors;
 
 void usage() {
@@ -170,7 +171,7 @@ void do_full_check() {
    check_domain("");
 }
 
-void main(string str) {
+static void main(string str) {
    string type, value;
    debug = 0;
 

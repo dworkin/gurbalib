@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -24,7 +25,7 @@ void done() {
    write("Statedump done.");
 }
 
-void main(string str) {
+static void main(string str) {
    if (!require_priv("system")) {
       write("You must be an admin to do that.");
       return;

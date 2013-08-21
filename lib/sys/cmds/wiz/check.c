@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 int warn, error;
 
 void usage() {
@@ -324,7 +325,7 @@ void do_check(string str) {
    }
 }
 
-void main(string str) {
+static void main(string str) {
    string *files;
    int x, max;
 

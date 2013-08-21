@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -40,7 +41,7 @@ string get_what(string str) {
    return path;
 }
 
-void main(string str) {
+static void main(string str) {
    string who, what, id;
    object ob, player;
 

@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 /* Fudge created, *  03.08.98  Satch added 'reason' for shutdown.  */
 string reason;
 
@@ -69,7 +70,7 @@ void countdown(int mins) {
    }
 }
 
-void main(string arg) {
+static void main(string arg) {
    object *usrs;
    string time;
 

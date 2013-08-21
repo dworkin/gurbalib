@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 object lock;
 string name;
 
@@ -53,7 +54,7 @@ void confirm_remove(string str) {
    lock = nil;
 }
 
-void main(string str) {
+static void main(string str) {
    if (!require_priv("system")) {
       write("You must be an admin to do that.");
       return;

@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -46,7 +47,7 @@ int file_size(string path) {
    return -1;
 }
 
-void main(string arg) {
+static void main(string arg) {
    string file, file_data;
    string *tmp;
    string *lines;

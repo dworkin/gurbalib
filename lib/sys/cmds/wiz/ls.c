@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 /* vim:set ft=lpc: */
 
 void usage() {
@@ -22,7 +23,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void main(string str) {
+static void main(string str) {
    mixed width;
    mixed *files;
    string *names, timestr, dirlist;

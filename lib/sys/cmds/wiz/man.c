@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -90,7 +91,7 @@ static string *dir_index(string what) {
    return res;
 }
 
-void main(string arg) {
+static void main(string arg) {
    string file, header;
    string *tmp;
    string *lines;

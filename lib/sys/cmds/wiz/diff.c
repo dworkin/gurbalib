@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -129,7 +130,7 @@ void do_work_toscreen(string file1, string file2) {
    this_player()->more(lines);
 }
 
-void main(string str) {
+static void main(string str) {
    string outfile, file1, file2;
 
    if (!query_wizard(this_player())) {

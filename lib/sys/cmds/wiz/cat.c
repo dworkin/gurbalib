@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 #define CHUNK_SIZE 1024
 
 void usage() {
@@ -38,7 +39,7 @@ void cat_the_file(string file) {
    }
 }
 
-void main(string file) {
+static void main(string file) {
    string name;
 
    if (!query_wizard(this_player())) {

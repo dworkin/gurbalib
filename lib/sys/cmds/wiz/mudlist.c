@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 void usage() {
    string *lines;
 
@@ -18,7 +19,7 @@ void usage() {
 }
 
 /* vim:set ft=lpc: */
-void main(string str) {
+static void main(string str) {
    mapping mudlist;
    string *muds;
    string tmp, line;

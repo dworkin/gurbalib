@@ -7,6 +7,8 @@
  *
  */
 
+#include <privileges.h>
+
 #define DEFAULT_PRIORITY 10
 
 private mapping pathkey;
@@ -52,7 +54,7 @@ private string map_to_path(mapping stuff) {
 
    for (i=0, sz=sizeof(prio); i<sz; i++) {
       /* will leave a trailing :, we don't care since the reverse function doesn't care either */
-      res += implode( stuff[prio[i], ":" ) + ":";
+      res += implode( stuff[prio[i]], ":" ) + ":";
    }
    return res;
 }
@@ -122,6 +124,8 @@ private string *pathkey_to_array( mapping stuff ) {
 
 /* for both regular lpc code and shells, execute the argument as a command */
 static int command(string input) {
+   /* no direct call_outs to command() allowed for security reasons */
+   if(CALLOUT()) return 0;
    return COMMAND_D->exec_command(input, res);
 }
 

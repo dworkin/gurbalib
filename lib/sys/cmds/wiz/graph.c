@@ -1,3 +1,4 @@
+inherit M_COMMAND;
 #include <std.h>
 #include <status.h>
 
@@ -102,7 +103,7 @@ void print_nodes_step(string * files, string str, int i) {
    }
 }
 
-void main(string str) {
+static void main(string str) {
    string *files;
    mixed *dirent;
 
