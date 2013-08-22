@@ -1,0 +1,1 @@
+#define DIR "/domains/test"

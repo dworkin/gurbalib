@@ -33,3 +33,26 @@ Just look at /domains/required for how things should be setup.
 If you don't use these sub-directory's the code may not work because of
 the security system built into the mud.
 
+When you are creating an area, its a good idea to do some thinking about
+what type of an area you want to create.  Some things to keep in mind:
+	What level(s) of players will be attracted to your area?
+		It's a good idea to focus on a block of levels, 1-3, 4-6
+	What will players be doing in your area?  
+		You should try to have at least one quest per area.
+		The quest should be something interesting and you want
+		to strike the right balance between difficulty and payoff.
+		The quest should also be something that entertains the player.
+	What is the theme of your area?
+		You want to set your section apart from the rest of the mud,
+		you also want players to know when they are in your area and
+		when they are leaving it.
+
+Some examples can be found in domains:
+	boothill = "A western adventure"
+	gurba = "A medieval adventure"
+	newbie = "A place for new players to learn how to play the game"
+Here are some additional ideas to get you started:
+	Focus on a murder mystery maybe something with a Sherlock Homes
+		environment.
+	A war zone where you have to pick sides and help one side prevail over
+		the other.

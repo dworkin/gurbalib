@@ -66,18 +66,20 @@ int receive_object(object "/std/object" obj) {
 }
 
 int remove_object(object obj) {
-   if (!inv_map)
+   if (!inv_map) {
       return 0;
-   else
+   } else {
       inv_map[obj] = nil;
+   }
    object_removed(obj);
    return 1;
 }
 
 nomask object *query_inventory(void) {
 
-   if (inv_map)
-      return (map_indices(inv_map));
+   if (inv_map) {
+      return map_indices(inv_map);
+   }
    return ( { } );
 }
 
@@ -88,23 +90,36 @@ object find_object_num(string name, int num) {
 
    inv = query_inventory();
 
-   if (inv)
+   if (inv) {
       for (i = 0; i < sizeof(inv); i++) {
 	 ids = inv[i]->query_ids();
 	 if (ids) {
 	    for (j = 0; j < sizeof(ids); j++) {
 	       if (lowercase(ids[j]) == lowercase(name)) {
 		  num--;
-		  if (num == 0)
+		  if (num == 0) {
 		     return (inv[i]);
+                  }
 	       }
 	    }
 	 }
       }
+   }
 }
 
-object present(string name) {
-   return (find_object_num(name, 1));
+object find_object_filename(string name) {
+   int i, max;
+   object *inv;
+   string tmp;
+
+   inv = query_inventory();
+   max = sizeof(inv);
+   for (i=0; i < max; i++) {
+      tmp = inv[i]->base_name() + ".c";
+      if (tmp == name) {
+         return inv[i];
+      }
+   }
 }
 
 object find_adj_object_num(string adj, string name, int num) {
@@ -167,6 +182,15 @@ object find_adjs_object_num(string * adj, string name, int num) {
 
 object find_adjs_object(string * adj, string name) {
    return find_adjs_object_num(adj, name, 1);
+}
+
+object present(string name) {
+   if (file_exists(name)) {
+      return find_object_filename(name);
+   } else if (file_exists(name + ".c")) {
+      return find_object_filename(name + ".c");
+   }
+   return find_object_num(name, 1);
 }
 
 void error_loading_object(string name) {
