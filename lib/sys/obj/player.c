@@ -1000,7 +1000,7 @@ void receive_message(string message) {
 	       CHANNEL_D->query_priv(cmd) <= query_user_priv(living_name)) {
 
 	       flag = 1;
-	       "/cmds/player/chan"->chan_cmd(cmd, arg);
+	       command("chan", cmd + " " + arg);
 	    }
 	 }
       }
