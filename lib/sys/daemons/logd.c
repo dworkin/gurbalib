@@ -24,6 +24,10 @@ int set_minlog_level(int x) {
    return 0;
 }
 
+int query_minlog_level(int x) {
+   return minlevel;
+}
+
 int write_log(string log, string message, varargs int level) {
    string basedir, user;
 
