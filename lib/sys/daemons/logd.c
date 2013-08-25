@@ -1,5 +1,4 @@
 int minlevel;
-mapping special_logs;
 
 static void save_me() {
    unguarded("save_object", "/sys/daemons/data/logd.o");
@@ -10,26 +9,29 @@ static void restore_me() {
 }
 
 static void create() {
+   minlevel = 3;
    restore_me();
-
-   if (!special_logs) {
-      special_logs = ([
-         "compile" : "errors/compile", 
-         "runtime" : "errors/runtime",
-      ]);
-
-      minlevel = 3;
-      save_me();
-   }
+   save_me();
 }
 
-void write_log(string log, string message, varargs int level) {
+int set_minlog_level(int x) {
+   if (query_admin(this_player())) {
+      minlevel = x;
+      save_me();
+      return 1;
+   }
+
+   return 0;
+}
+
+int write_log(string log, string message, varargs int level) {
    string basedir, user;
 
    user = owner_object(previous_object());
 
    if (sscanf(log, "%*s/..%*s") != 0) {
       error("illegal log name");
+      return 0;
    }
 
    if (!level) {
@@ -43,19 +45,21 @@ void write_log(string log, string message, varargs int level) {
 	 basedir = "/logs/";
 	 break;
       default:
-	 if (unguarded("file_exists", WIZ_DIR + "/" + user) == -1) {
+	 if (unguarded("file_exists", WIZ_DIR + "/" + user + "/logs") == -1) {
 	    basedir = WIZ_DIR + "/" + user + "/logs/";
-	 } else if (unguarded("file_exists", DOMAINS_DIR + "/" + user) == -1) {
+	 } else if (unguarded("file_exists", DOMAINS_DIR + "/" + user + 
+            "/logs") == -1) {
 	    basedir = DOMAINS_DIR + "/" + user + "/logs/";
 	 } else {
-	    basedir = "/logs/nobody/";
+	    basedir = "/logs/nobody";
 	 }
 	 break;
    }
 
-   if (special_logs[log]) {
-      log = special_logs[log];
+   if (level >= minlevel) {
+      unguarded("write_file", basedir + log, message);
+      return 1;
    }
 
-   unguarded("write_file", basedir + log, message);
+   return 0;
 }
