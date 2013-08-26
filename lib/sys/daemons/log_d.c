@@ -1,4 +1,4 @@
-int minlevel;
+mapping levels;
 
 static void save_me() {
    unguarded("save_object", "/sys/daemons/data/log_d.o");
@@ -8,24 +8,72 @@ static void restore_me() {
    unguarded("restore_object", "/sys/daemons/data/log_d.o");
 }
 
+string *show_log_levels() {
+   string *logs, *keys;
+   int x, max;
+
+   logs = ({ "Log Levels:" });
+   logs += ({ "\tdefault: " + levels["default"] });
+   keys = map_indices(levels);
+   max = sizeof(keys);
+   for(x = 0 ;x < max; x++) {
+      if (keys[x] != "default") {
+         logs += ({ "\t" + keys[x] + ": " + levels[keys[x]] });
+      }
+   }
+
+   return logs;
+}
+
 static void create() {
-   minlevel = 3;
+   levels = ([ ]);
+   levels["default"] = 1;
+
    restore_me();
    save_me();
 }
 
-int set_minlog_level(int x) {
-   if (query_admin(this_player())) {
-      minlevel = x;
-      save_me();
-      return 1;
+int set_log_level(string name, mixed x) {
+
+   if (!query_admin(this_player())) {
+      return 0;
    }
 
-   return 0;
+   if (x == "default") {
+      if (name == "default") {
+         return 0;
+      }
+      levels[name] = nil;
+   } else {
+/* XXX check x is an int here */
+      levels[name] = x;
+   }
+   save_me();
+   return 1;
 }
 
-int query_minlog_level(int x) {
-   return minlevel;
+int query_log_level(string name) {
+   if (member_map(name, levels)) {
+      return levels[name];
+   } else {
+      return levels["default"];
+   }
+}
+
+int check_level(string name, int x) {
+   if (member_map(name, levels)) {
+      if (levels[name] >= x) {
+         return 1;
+      } else {
+         return 0;
+      }
+   } else {
+      if (levels["default"] >= x) {
+         return 1;
+      } else {
+         return 0;
+      }
+   }
 }
 
 int write_log(string log, string message, varargs int level) {
@@ -38,8 +86,8 @@ int write_log(string log, string message, varargs int level) {
       return 0;
    }
 
-   if (!level) {
-      level = 3;
+   if (!check_level(log,level)) {
+      return 0;
    }
 
    switch (user) {
@@ -60,10 +108,6 @@ int write_log(string log, string message, varargs int level) {
 	 break;
    }
 
-   if (level >= minlevel) {
-      unguarded("write_file", basedir + log, message);
-      return 1;
-   }
-
-   return 0;
+   unguarded("write_file", basedir + log, message);
+   return 1;
 }
