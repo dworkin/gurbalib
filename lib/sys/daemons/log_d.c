@@ -1,11 +1,11 @@
 int minlevel;
 
 static void save_me() {
-   unguarded("save_object", "/sys/daemons/data/logd.o");
+   unguarded("save_object", "/sys/daemons/data/log_d.o");
 }
 
 static void restore_me() {
-   unguarded("restore_object", "/sys/daemons/data/logd.o");
+   unguarded("restore_object", "/sys/daemons/data/log_d.o");
 }
 
 static void create() {
