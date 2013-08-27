@@ -17,7 +17,7 @@ static mapping commands;
 
 void rehash();
 
-static void DEBUG( string str ) {
+static void DBT( string str ) {
   mixed verbose;
   if(this_player()) {
     verbose = this_player()->query_env("debug_commands");
@@ -26,9 +26,9 @@ static void DEBUG( string str ) {
     } else if(!intp(verbose)) {
       verbose = 0;
     }
-    if(verbose) write(str);
+    if(verbose) this_player()->out(str);
   }
-#ifdef DEBUG
+#ifdef DEBUG_COMMAND_D
   console_msg( str );
 #endif
 }
@@ -66,7 +66,7 @@ static string file_to_cmdname( string file ) {
   string r;
 
   sscanf( file, "%s.c", r );
-  DEBUG( "Adding " + file + " : " + dump_value( r ) + "\n" );
+  DBT( "Adding " + file + " : " + dump_value( r ) + "\n" );
   return r;
 }
 
@@ -88,7 +88,7 @@ void rehash() {
     commands[syspath[i]] = cmds;
     console_msg( syspath[i] + "		: " + sizeof( cmds ) + "\n" );
   }
-  DEBUG( dump_value( commands ) + "\n" );
+  DBT( dump_value( commands ) + "\n" );
   console_msg( "Done.\n" );
 }
 
@@ -98,28 +98,28 @@ int exec_command( string cmd, string arg, string *syspath ) {
 
   if(!previous_object()<-"/sys/lib/modules/m_cmds") error("Permission denied.");
 
-  DEBUG( "exec_command: " + ( cmd ? cmd:"<NIL>" ) + " " + dump_value( syspath ) + "\n");
+  DBT( "exec_command: " + ( cmd ? cmd:"<NIL>" ) + " " + dump_value( syspath ) + "\n");
   if(!cmd || cmd == "") return -1;
 
   for( i = 0, sz = sizeof( syspath ); ( i < sz ) && !cmd_ob; i++ ) {
-    DEBUG( "Locating " + cmd + " in " + syspath[i] + ": " );
+    DBT( "Locating " + cmd + " in " + syspath[i] + ": " );
     if( commands[syspath[i]] && sizeof( commands[syspath[i]] & ({ cmd }) ) ) {
-      DEBUG( "found\n" );
+      DBT( "found\n" );
       if( access_check( syspath[i] ) ) {
         cmd_ob = find_object( syspath[i] + cmd );
         if( !cmd_ob ) {
           cmd_ob = compile_object( syspath[i] + cmd );
         }
       } else {
-        DEBUG( "but no access\n" );
+        DBT( "but no access\n" );
       }
     } else {
-      DEBUG( "not found\n" );
+      DBT( "not found\n" );
     }
   }
 
   if( cmd_ob && cmd_ob<-M_COMMAND && !function_object( "main", cmd_ob ) ) {
-    DEBUG( "Caling " + dump_value( cmd_ob ) +"->_main( " + ( arg ? ( "\"" + arg + "\"" ) : "<NIL>" ) + ", \"" + cmd + "\" )\n");
+    DBT( "Caling " + dump_value( cmd_ob ) +"->_main( " + ( arg ? ( "\"" + arg + "\"" ) : "<NIL>" ) + ", \"" + cmd + "\" )\n");
     cmd_ob->_main( arg, cmd );
     return 1;
   } else {
@@ -136,7 +136,7 @@ int exec_command( string cmd, string arg, string *syspath ) {
       msg += "unknown";
     }
     msg += "\n";
-    DEBUG(msg);
+    DBT(msg);
     return -1;
   }
 }
