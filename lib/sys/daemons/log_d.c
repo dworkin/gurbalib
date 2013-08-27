@@ -45,7 +45,9 @@ int set_log_level(string name, mixed x) {
       }
       levels[name] = nil;
    } else {
-/* XXX check x is an int here */
+      if (!intp(x)) {
+         return 0;
+      }
       levels[name] = x;
    }
    save_me();
@@ -84,6 +86,10 @@ int write_log(string log, string message, varargs int level) {
    if (sscanf(log, "%*s/..%*s") != 0) {
       error("illegal log name");
       return 0;
+   }
+
+   if (level == nil) {
+      level = 1;
    }
 
    if (!check_level(log,level)) {
