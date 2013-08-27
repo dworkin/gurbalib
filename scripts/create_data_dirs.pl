@@ -34,7 +34,6 @@ makedir("lib/data/banned/c");
 makedir("lib/data/players");
 makedir("lib/data/mail");
 if (-d "lib/domains/gurba") {
-   makedir("lib/domains/gurba/logs");
    makedir("lib/domains/gurba/data");
    makedir("lib/domains/gurba/data/boards");
    makedir("lib/domains/gurba/data/lockers");
@@ -42,16 +41,6 @@ if (-d "lib/domains/gurba") {
 if (-d "lib/domains/required") {
    makedir("lib/domains/required/data");
    makedir("lib/domains/required/data/boards");
-   makedir("lib/domains/required/logs");
-}
-if (-d "lib/domains/boothill") {
-   makedir("lib/domains/boothill/logs");
-}
-if (-d "lib/domains/newbie") {
-   makedir("lib/domains/newbie/logs");
-}
-if (-d "lib/domains/2.4.5") {
-   makedir("lib/domains/2.4.5/logs");
 }
 makedir("lib/kernel/daemons/data");
 makedir("lib/sys/daemons/data");

@@ -30,21 +30,10 @@ rm_dir("lib/daemons/data");
 rm_dir("lib/data");
 
 if (-d "lib/domains/gurba") {
-	rm_dir("lib/domains/gurba/logs");
 	rm_dir("lib/domains/gurba/data");
 }
 if (-d "lib/domains/required") {
    rm_dir("lib/domains/required/data");
-   rm_dir("lib/domains/required/logs");
-}
-if (-d "lib/domains/boothill") {
-   rm_dir("lib/domains/boothill/logs");
-}
-if (-d "lib/domains/newbie") {
-   rm_dir("lib/domains/newbie/logs");
-}
-if (-d "lib/domains/2.4.5") {
-   rm_dir("lib/domains/2.4.5/logs");
 }
 
 rm_dir("lib/kernel/daemons/data");
