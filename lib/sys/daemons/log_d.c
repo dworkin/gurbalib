@@ -88,7 +88,7 @@ int write_log(string log, string message, varargs int level) {
       return 0;
    }
 
-   if (level == nil) {
+   if (!level) {
       level = 1;
    }
 
