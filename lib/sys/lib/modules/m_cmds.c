@@ -22,9 +22,9 @@ private void DBT(string str) {
    mixed flag;
    if(this_player()) {
       flag = this_player()->get_env("debug_commands");
-      if(flag == "1" || flag == "on") {
+      if(stringp(flag) && (flag == "1" || flag == "on")) {
          flag = 1;
-      } else {
+      } else if(!intp(flag)) {
          flag = 0;
       }
       if(flag) this_player()->out(str);
@@ -36,10 +36,7 @@ private void DBT(string str) {
 
 /* does the command path exist? access checks are done on usage */
 private int validate_cmd_path( string path ) {
-   int r;
-   r = COMMAND_D->cmd_path_exists( path );
-   DBT("validate_cmd_path("+path+"), returning " + r + "\n");
-   return r;
+   return COMMAND_D->cmd_path_exists( path );
 }
 
 /* add a trailing slash if its not there */
