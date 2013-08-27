@@ -25,9 +25,6 @@ static void create() {
 static int validate_path( string path ) {
    int r;
    r = COMMAND_D->validate_path( path );
-   if(!r) {
-      error("validate_path for " + path + " failed.");
-   }
    return r;
 }
 
@@ -126,7 +123,7 @@ private mapping path_to_map(string path, varargs int validate) {
          keys[i] = fix_slash(keys[i]);
       }
   
-      if(!validate || COMMAND_D->validate_path(keys[i])) {
+      if(!validate || validate_path(keys[i])) {
          result[prio] = ({ keys[i] });
       } else {
          /* we didn't use this 'priority' */
