@@ -48,9 +48,12 @@ static void create() {
 
   if( !cmdpriv ) {
     cmdpriv = ([
-      "/sys/cmds/admin"     : "system",
-      "/sys/cmds/wiz"       : "wizard",
-      "/cmds/player"        : "*",
+      "/sys/cmds/admin/"     : "system",
+      "/sys/cmds/wiz/"       : "wizard",
+      "/cmds/player/"        : "*",
+      "/cmds/guild/fighter/" : "*",
+      "/cmds/spells/"        : "*",
+      "/cmds/monster/"       : "*"
     ]);
   }
 

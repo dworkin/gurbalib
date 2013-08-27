@@ -56,7 +56,7 @@
 #define M_PORT          "/sys/lib/modules/m_port"
 #define M_SERIALIZE     "/sys/lib/modules/m_serialize"
 
-#define M_MENU          "/sys/lib/modules/m_menu"
+#define M_MENU          "/std/modules/m_menu"
 
 #define DRIVER          "/kernel/sys/driver"
 #define AUTO            "/kernel/lib/auto"
