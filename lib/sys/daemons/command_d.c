@@ -5,7 +5,10 @@
  *
  */
 
+#include <privileges.h>
+
 #define DATA_FILE "/sys/daemons/data/command_d.o"
+#define secure() require_priv("system")
 
 #define DEBUG_COMMAND_D
 
@@ -15,7 +18,17 @@ static mapping commands;
 void rehash();
 
 static void DEBUG( string str ) {
-#ifdef DEBUG_COMMAND_D
+  mixed verbose;
+  if(this_player()) {
+    verbose = this_player()->query_env("debug_commands");
+    if(stringp(verbose) && (verbose == "on" || verbose == "1")) {
+      verbose = 1;
+    } else if(!intp(verbose)) {
+      verbose = 0;
+    }
+    if(verbose) write(str);
+  }
+#ifdef DEBUG
   console_msg( str );
 #endif
 }
@@ -62,6 +75,9 @@ void rehash() {
   string * syspath;
   string * cmds;
 
+  if(!secure()) {
+    error("Permission denied.");
+  }
   syspath = map_indices( cmdpriv );
   commands = ([ ]);
 
@@ -80,11 +96,14 @@ int exec_command( string cmd, string arg, string *syspath ) {
   object cmd_ob;
   int i, sz;
 
+  if(!previous_object()<-"/sys/lib/modules/m_cmds") error("Permission denied.");
+
   DEBUG( "exec_command: " + ( cmd ? cmd:"<NIL>" ) + " " + dump_value( syspath ) + "\n");
+  if(!cmd || cmd == "") return -1;
 
   for( i = 0, sz = sizeof( syspath ); ( i < sz ) && !cmd_ob; i++ ) {
     DEBUG( "Locating " + cmd + " in " + syspath[i] + ": " );
-    if( sizeof( commands[syspath[i]] & ({ cmd }) ) ) {
+    if( commands[syspath[i]] && sizeof( commands[syspath[i]] & ({ cmd }) ) ) {
       DEBUG( "found\n" );
       if( access_check( syspath[i] ) ) {
         cmd_ob = find_object( syspath[i] + cmd );
@@ -127,7 +146,7 @@ string cmdstats() {
   string r;
   string *syspath;
 
-  if( !require_priv( "system" ) ) {
+  if( !KERNEL() && !SYSTEM() ) {
     error("Permission denied.\n" );
   }
 
@@ -142,5 +161,35 @@ string cmdstats() {
 
 int validate_path( string path ) {
   return access_check( path );
+}
+
+int cmd_path_exists( string path ) {
+  return cmdpriv[path] ? 1 : 0;
+}
+
+/* can only be called from system code, which is trusted with this data
+   especially since we return a copy so it can't be modified */
+mapping query_cmdpriv() {
+  if(!KERNEL() && !SYSTEM()) error("Permission denied");
+
+  if(map_sizeof(cmdpriv)) {
+    return cmdpriv[..];
+  } else {
+    return ([]);
+  }
+}
+
+void add_path(string path, string priv) {
+  if(!secure()) error("Permission denied.");
+  if(path[0] != '/') error("Invalid path");
+  if(path[strlen(path)-1] != '/') path += "/";
+  cmdpriv[path] = priv;
+  save_me();
+}
+
+void remove_path(string path) {
+  if(!secure()) error("Permission denied.");
+  cmdpriv[path] = nil;
+  save_me();
 }
 

@@ -8,172 +8,119 @@
  */
 
 #include <privileges.h>
+#include <type.h>
 
-#define DEFAULT_PRIORITY 10
+#define DEBUG
 
-mapping pathkey;
+string *searchpath;
 
 static void create() {
-   pathkey = ([ ]);
+   searchpath = ({});
 }
 
-/*
- * some helper functions
- *
- */
+private void DBT(string str) {
+   mixed flag;
+   if(this_player()) {
+      flag = this_player()->get_env("debug_commands");
+      if(flag == "1" || flag == "on") {
+         flag = 1;
+      } else {
+         flag = 0;
+      }
+      if(flag) this_player()->out(str);
+   }
+#ifdef DEBUG
+   console_msg(str);
+#endif
+}
 
-static int validate_path( string path ) {
+/* does the command path exist? access checks are done on usage */
+private int validate_cmd_path( string path ) {
    int r;
-   r = COMMAND_D->validate_path( path );
+   r = COMMAND_D->cmd_path_exists( path );
+   DBT("validate_cmd_path("+path+"), returning " + r + "\n");
    return r;
 }
 
-static string fix_slash( string str ) {
+/* add a trailing slash if its not there */
+private string trailing_slash( string str ) {
    if (strlen(str) && str[strlen(str)-1] != '/') {
       str += "/";
    }
    return str;
 }
 
-/*
- * mask those functions in your object and call the inherited
- * versions to make this interface public.
- *
- */
-
-
-/* intended for usage from regular lpc code */
-static void add_pathkey(string path, varargs int prio) {
-   if(!validate_path(path)) return;
-
-   if(!prio) prio = DEFAULT_PRIORITY;
-   path = fix_slash( path );
-
-   if (!validate_path(path)) 
-      return;
-
-   if (!pathkey[prio]) 
-      pathkey[prio] = ({ path });
-   else 
-      pathkey[prio] |= ({ path });
-}
-
-static void remove_pathkey(string path) {
-   int *priorities;
-   int i,sz;
-
-   path = fix_slash(path);
-   if (!validate_path(path))
-      return;
-
-   priorities = map_indices(pathkey);
-   for (i=0, sz=sizeof(priorities); i < sz; i++) {
-      pathkey[priorities[i]] -= ({ path });
-      if(sizeof(pathkey[priorities[i]]) == 0) {
-         pathkey[priorities[i]] = nil;
-      }
-   }
-}
-
-static void set_pathkey(string *path, varargs int prio) {
+static void set_searchpath( mixed path ) {
    int i, sz;
-   if(!prio) prio = DEFAULT_PRIORITY;
-   path = map_array( path, "fix_slash", this_object() );
-   path = filter_array( path, "validate_path", this_object() );
-   pathkey = ([ prio : path ]);
-}
+   DBT("set_searchpath("+dump_value(path)+")\n");
+   switch(typeof(path)) {
+      case T_STRING : path = explode( path, ":" );
+                      break;
 
-/* 2 helper functions for the shell interface below */
-private string map_to_path(mapping stuff) {
-   string res;
-   int i, sz;
-   int *prio;
+      case T_ARRAY  : break;
 
-   res = "";
-   prio = map_indices(stuff);
+      case T_NIL    : searchpath = nil;
+                      return;
 
-   for (i=0, sz=sizeof(prio); i<sz; i++) {
-      /* will leave a trailing :, we don't care since the reverse function doesn't care either */
-      res += implode( stuff[prio[i]], ":" ) + ":";
+      default       : error("Bad argument 1 to set_searchpath (string or array of strings expected)");
    }
-   return res;
-}
-
-private mapping path_to_map(string path, varargs int validate) {
-   mapping result;
-   string *keys;
-   int i, prio;
-
-   result = ([ ]);
-   prio = DEFAULT_PRIORITY;
-   keys = explode(path, ":");
-   /* no empty path components wanted, throw them out */
-   keys -= ({ "", nil });
-   
-   /* note, have to check against sizeof() for each iteration as the array may change */
-   for (i=0; i<sizeof(keys); i++, prio+=10) {
-      if (keys[i] == "$PATH") {
-         string *tmp;
-         string pstr;
-
-         pstr = map_to_path(pathkey);
-         /* explode, as we are not interested in leading/trailing : */
-         keys = keys[..i-1] + explode(pstr, ":") + keys[i+1..];
-      } else {
-         keys[i] = fix_slash(keys[i]);
+   /* note, need to recheck size of the array for each iteration */
+   for( i = 0; i < sizeof( path ); i++ ) {
+      if(!path[i]) {
+         continue;
+      } else if(!stringp(path[i])) {
+         error("Bad element in argument 1 to set_searchpath (array of strings expected)");
       }
-  
-      if(!validate || validate_path(keys[i])) {
-         result[prio] = ({ keys[i] });
+      if(path[i][0] == '$') {
+         switch(path[i][1..]) {
+            case "PATH" : DBT("replacing $PATH with " + dump_value( searchpath ) + "\n");
+                          path = path[..i-1] + searchpath + path[i+1..];
+                          i--; /* need to re-iterate over this one as we replaced it */
+                          break;
+            default     : error(path[i][1..] + " not recognized.");
+                          break;
+         }
       } else {
-         /* we didn't use this 'priority' */
-         prio -= 10;
+         string tmpname;
+         path[i] = trailing_slash(path[i]);
+         tmpname = path[i];
+         /* nil this element, we'll remove it later */
+         path[i] = validate_cmd_path( path[i] ) ? path[i] : nil;
+         DBT("validated " + tmpname + ": " + (path[i] ? "ok" : "not found") + "\n");
       }
    }
-   return result;
+
+   /* remove 'removed' paths from the array */
+   path -= ({ nil });
+   searchpath = path;
 }
 
-/* intended for 'shell' objects like the player object */
 static string query_searchpath() {
-   return map_to_path(pathkey);
+   return searchpath ? implode( searchpath, ":" ) : nil;
 }
 
-static void set_searchpath(string str) {
-   pathkey = path_to_map(str, 1);
+static void set_cmd_path( string *path ) {
+   set_searchpath(path);
 }
 
-private string *pathkey_to_array( mapping stuff ) {
-   string *res;
-   int i, sz;
-   int *prio;
-
-   /* if we did this before in this thread, don't do it again */
-   if( res = get_otlvar("pathkey") ) {
-     return res;
-   }
-
-   res = ({ });
-   prio = map_indices(stuff);
-
-   for (i=0, sz=sizeof(prio); i<sz; i++) {
-      /* will leave a trailing :, we don't care since the reverse function doesn't care either */
-      res += stuff[prio[i]];
-   }
-   /* store the result, just in case */
-   set_otlvar("pathkey",res);
-   return res;
+static string *query_cmd_path() {
+   searchpath ? searchpath[..] : ({ });
 }
 
-static string *query_pathkey_array() {
-   if(!pathkey) return nil;
-   return pathkey_to_array( pathkey );
+static void add_cmd_path( string path ) {
+   set_searchpath( searchpath | ({ path }) );
 }
 
+static void remove_cmd_path( string path ) {
+   set_searchpath( searchpath - ({ path }) );
+}
 
-/* for both regular lpc code and shells, execute the argument as a command */
 static int command(string cmd, string arg) {
    /* no direct call_outs to command() allowed for security reasons */
-   if(CALLOUT()) return 0;
-   return COMMAND_D->exec_command(cmd, arg, pathkey_to_array( pathkey ) );
+   if(CALLOUT()) {
+      error("Direct call_outs to command() not allowed");
+   }
+
+   return COMMAND_D->exec_command(cmd, arg, searchpath );
 }
 

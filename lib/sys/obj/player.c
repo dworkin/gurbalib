@@ -15,6 +15,8 @@ inherit cmd M_CMDS;
 
 static object user;		/* This players user object */
 static string input_to_func;	/* The function we're redirecting input to */
+static mixed input_to_arg;      /* Optional extra argument(s) to the function we're
+                                   redirecting input to */
 static object input_to_obj;	/* The object we're redirecting input to */
 static int linkdead;		/* Are we linkdead? */
 static int quitting;		/* Are we in the process of quitting? */
@@ -90,17 +92,28 @@ void restore_me(void) {
    if (!alias)
       alias = ([]);
    if (cmd_path) {
-      cmd::set_pathkey( cmd_path );
+      int i, sz;
+      /* convert cmd_path */
+      for(i = 0, sz = sizeof( cmd_path ); i < sz; i++) {
+         if(cmd_path[i] == "/kernel/cmds/admin") { 
+            cmd_path[i] = "/sys/cmds/admin";
+         } else if(cmd_path[i] == "/cmds/wiz") {
+            cmd_path[i] = "/sys/cmds/wiz";
+         }
+      }
+      cmd::set_cmd_path( cmd_path );
       cmd_path = nil;
+      call_out( "save_me", 0 );
    }
 
-   if(!query_pathkey_array()) {
+   /* recover from lost searchpath array (wotf internal) */
+   if(!query_cmd_path() || sizeof(query_cmd_path()) == 0) {
       cmd::create();
-      add_pathkey("/cmds/player/");
+      cmd::add_cmd_path("/sys/cmds/admin");
+      cmd::add_cmd_path("/sys/cmds/wiz");
+      cmd::add_cmd_path("/cmds/player/");
+      call_out( "save_me", 0 );
    }
-   add_pathkey("/sys/cmds/wiz/");
-   add_pathkey("/sys/cmds/admin/");
-   call_out( "save_me", 0 );
 }
 
 void login_player(void) {
@@ -181,13 +194,23 @@ void set_env(string name, mixed value) {
    if (!environment_variables) {
       environment_variables = ([]);
    }
-   environment_variables[name] = value;
+   if(name == "PATH") {
+      /* we always require the wiz cmdpath so set remains available for changing the path again */
+      if(sizeof(explode(value,":") & ({ "$PATH", "/sys/cmds/wiz", "/sys/cmds/wiz/" }) ) >= 1) {
+         cmd::set_searchpath(value);
+      }
+   } else {
+      environment_variables[name] = value;
+   }
    if (living_name) save_me();
 }
 
 mixed query_env(string name) {
    if (!environment_variables) {
       environment_variables = ([]);
+   }
+   if(name == "PATH") {
+      return cmd::query_searchpath();
    }
    return environment_variables[name];
 }
@@ -196,7 +219,7 @@ string *query_env_indices(void) {
    if (!environment_variables) {
       environment_variables = ([]);
    }
-   return map_indices(environment_variables);
+   return map_indices(environment_variables) + ({ "PATH" });
 }
 
 int query_ansi(void) {
@@ -293,20 +316,20 @@ string query_email_address(void) {
 }
 
 void initialize_cmd_path(void) {
-   cmd::set_pathkey( ({ "/cmds/player/" }) );
+   cmd::set_cmd_path( ({ "/cmds/player/" }) );
 }
 
 void remove_cmd_path(string path) {
-   cmd::remove_pathkey( path );
+   cmd::remove_cmd_path( path );
 }
 
 /* Add a path to the command path */
 void add_cmd_path(string path) {
-   cmd::add_pathkey( path );
+   cmd::add_cmd_path( path );
 }
 
 string *query_path(void) {
-   return cmd::query_pathkey_array();
+   return cmd::query_cmd_path();
 }
 
 void add_channel(string chan) {
@@ -358,15 +381,17 @@ string *query_ignored_all() {
 }
 
 /* Redirect input to another funtion */
-void input_to(string func) {
+void input_to(string func, varargs mixed arg) {
    input_to_obj = this_player();
    input_to_func = func;
+   input_to_arg = arg;
 }
 
 /* Redirect input to another object */
-void input_to_object(object ob, string func) {
+void input_to_object(object ob, string func, varargs mixed arg) {
    input_to_obj = ob;
    input_to_func = func;
+   input_to_arg = arg;
 }
 
 /* Send a message to the player */
@@ -798,7 +823,12 @@ void receive_message(string message) {
    if (input_to_func != "") {
       func = input_to_func;
       input_to_func = "";
-      call_other(input_to_obj, func, message);
+      /* remain compatible with functions only expecting a message argument */
+      if(input_to_arg) {
+         call_other(input_to_obj, func, message, input_to_arg);
+      } else {
+         call_other(input_to_obj, func, message);
+      }
       /* Are we editing? */
    } else if (is_editing()) {
       this_player()->edit(message);
