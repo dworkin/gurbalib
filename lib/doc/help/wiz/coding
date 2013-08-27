@@ -63,12 +63,15 @@ Debugging:
 	How you do this, depends on the type of thing you are trying to 
 	debug.  Here are a couple of examples:
 
-	If your debugging a user command, you can most of the time use
-	write();
+	If your debugging a user command, you can most of the time use.
+	write("The code got to this statement.\n");
 
 	If your debugging an object you may want to use
-	tell_room();  Or you may want to write a simple room command that
-	then can use write and or tell_room.
+	tell_room() instead,  
+	Or you may want to write a simple room command that
+	then can use write and or tell_room.  If you use a room command, you
+	can control who the message goes to as well as when the message is
+	displayed.
 
 	You may also want to use the logs.  To write to a log file use
 	LOG_D->write_log(logname,message,level);
