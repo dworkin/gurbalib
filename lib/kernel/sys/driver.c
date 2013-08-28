@@ -37,7 +37,7 @@
   "compiler"   :"/kernel/daemons/compiler_d"\
 ])
 
-int tls_size, count, ocount, ident, shutting_down;
+int tls_size, count, ocount, ident, shutting_down, boot_complete;
 object compiler_d, error_d, secure_d, syslog_d;
 object *users;
 
@@ -92,6 +92,12 @@ void message(string str) {
       syslog_d->log_message(previous_object(), previous_program(), str);
    } else {
       direct_message(ctime(time())[4..18] + " ** " + str);
+   }
+}
+
+void init_done() {
+   if(previous_object()->base_name() == "/sys/daemons/init_d") {
+      boot_complete = 1;
    }
 }
 
@@ -157,6 +163,12 @@ object compile_object(string path, varargs string code) {
    if (path != DRIVER && find_object(path)) {
       mark = 1;
    }
+
+#ifdef DEBUG_BOOT
+   if(path && !boot_complete) {
+      message("BOOT: loading " + path + "\n");
+   }
+#endif
 
    if (compiler_d) {
       stuff = compiler_d->allow_compile(path, nil);

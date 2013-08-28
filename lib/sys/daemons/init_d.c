@@ -58,4 +58,5 @@ static void create() {
 	 }
       }
    }
+   DRIVER->init_done();
 }
