@@ -56,3 +56,36 @@ Here are some additional ideas to get you started:
 		environment.
 	A war zone where you have to pick sides and help one side prevail over
 		the other.
+
+Debugging:
+	Many times in programming you will need to create temporary output
+	that you will use to debug what is going on.
+	How you do this, depends on the type of thing you are trying to 
+	debug.  Here are a couple of examples:
+
+	If your debugging a user command, you can most of the time use.
+	write("The code got to this statement.\n");
+
+	If your debugging an object you may want to use
+	tell_room() instead,  
+	Or you may want to write a simple room command that
+	then can use write and or tell_room.  If you use a room command, you
+	can control who the message goes to as well as when the message is
+	displayed.
+
+	You may also want to use the logs.  To write to a log file use
+	LOG_D->write_log(logname,message,level);
+	example: LOG_D->write_log("test","This is a test message,1);
+
+	What this will do is create a log named test and append our message 
+	to it, assuming that the log level is >= the current log level 
+	for that log.  In this case it will do that if the log level 
+	for "test" >= 1.  You can check the current log levels with the 
+	loglevel command.  The idea being If I have the following code:
+	LOG_D->write_log("test","Message 1", 1);
+	LOG_D->write_log("test","Message 2", 2);
+
+	If the log level of test is 1, "Message 1" will be recorded while
+	"Message 2" will not.  You can also adjust the log level with the
+	loglevel command if you have sufficient privileges.
+		

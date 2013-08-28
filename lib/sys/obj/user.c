@@ -91,7 +91,7 @@ void quit(void) {
          query_ip_number(this_object()) +
 	 "\t" + this_object()->query_name() + " quits\n");
    } else {
-      LOG_D->wrote_log("logins", ctime(time()) + "\t" +
+      LOG_D->write_log("logins", ctime(time()) + "\t" +
 	 "\t\t" + this_object()->query_name() + " LD quits\n");
    }
 
