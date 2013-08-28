@@ -10,7 +10,7 @@
 #define DATA_FILE "/sys/daemons/data/command_d.o"
 #define secure() require_priv("system")
 
-#define DEBUG_COMMAND_D
+#undef DEBUG_COMMAND_D
 
 mapping cmdpriv;
 static mapping commands;
@@ -92,7 +92,7 @@ void rehash() {
     console_msg( syspath[i] + "		: " + sizeof( cmds ) + "\n" );
   }
   DBT( dump_value( commands ) + "\n" );
-  console_msg( "Done.\n" );
+  console_msg( "Rehash done.\n" );
 }
 
 int exec_command( string cmd, string arg, string *syspath ) {

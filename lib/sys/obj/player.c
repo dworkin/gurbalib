@@ -108,6 +108,7 @@ void restore_me(void) {
 
    /* recover from lost searchpath array (wotf internal) */
    if(!query_cmd_path() || sizeof(query_cmd_path()) == 0) {
+      console_msg("Warning: empty searchpath for " + living_name + "\n");
       cmd::create();
       cmd::add_cmd_path("/sys/cmds/admin");
       cmd::add_cmd_path("/sys/cmds/wiz");
@@ -320,12 +321,20 @@ void initialize_cmd_path(void) {
 }
 
 void remove_cmd_path(string path) {
-   cmd::remove_cmd_path( path );
+   if(require_priv(owner_file(path))) {
+      cmd::remove_cmd_path( path );
+   } else {
+      error("Permission denied.");
+   }
 }
 
 /* Add a path to the command path */
 void add_cmd_path(string path) {
-   cmd::add_cmd_path( path );
+   if(require_priv(owner_file(path))) {
+      cmd::add_cmd_path( path );
+   } else {
+      error("Permission denied.");
+   }
 }
 
 string *query_path(void) {
@@ -635,9 +644,7 @@ void do_quit(void) {
 
    objs = query_inventory() + ( { } );
 
-/* XXX this must be changed when command daemon is implemented */
    if (is_possessing()) {
-      /* call_other("/sys/cmds/wiz/possess", "main", ""); */
       command( "possess", nil );
    }
 
@@ -956,7 +963,7 @@ void receive_message(string message) {
          }
       }
 
-      /* Check for a command, and call the command if it's found */
+      /* Call command_d to check if it handles this command, returns -1 when it doesn't */
       if (!flag) {
          i = command( cmd, arg );
          if( i >= 0 ) {
@@ -967,6 +974,8 @@ void receive_message(string message) {
 /* XXX In lib/std/modules/m_actions.c we do this also should make
    it so were not doing the same thing in two places once for
    users and once for monsters, try to share it */
+/* XXX Aidil: could move all of this to m_cmds and inherit that from
+   m_actions for monsters */
 
       if (!flag) {
 	 /* Check if the command is an emote */

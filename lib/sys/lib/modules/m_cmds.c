@@ -10,8 +10,6 @@
 #include <privileges.h>
 #include <type.h>
 
-#define DEBUG
-
 string *searchpath;
 
 static void create() {
@@ -21,7 +19,7 @@ static void create() {
 private void DBT(string str) {
    mixed flag;
    if(this_player()) {
-      flag = this_player()->get_env("debug_commands");
+      flag = this_player()->query_env("debug_commands");
       if(stringp(flag) && (flag == "1" || flag == "on")) {
          flag = 1;
       } else if(!intp(flag)) {
@@ -47,9 +45,15 @@ private string trailing_slash( string str ) {
    return str;
 }
 
+/* set the searchpath, accepts either : delimited string or array
+   Note that $PATH is replaced by the current search path         */
 static void set_searchpath( mixed path ) {
    int i, sz;
+   string *result;
    DBT("set_searchpath("+dump_value(path)+")\n");
+
+   result = ({ });
+
    switch(typeof(path)) {
       case T_STRING : path = explode( path, ":" );
                       break;
@@ -61,6 +65,7 @@ static void set_searchpath( mixed path ) {
 
       default       : error("Bad argument 1 to set_searchpath (string or array of strings expected)");
    }
+
    /* note, need to recheck size of the array for each iteration */
    for( i = 0; i < sizeof( path ); i++ ) {
       if(!path[i]) {
@@ -78,18 +83,21 @@ static void set_searchpath( mixed path ) {
                           break;
          }
       } else {
-         string tmpname;
+         if(path[i][0] != '/') {
+            error("Command path must start with a / ["+path[i]+"]");
+         }
          path[i] = trailing_slash(path[i]);
-         tmpname = path[i];
-         /* nil this element, we'll remove it later */
-         path[i] = validate_cmd_path( path[i] ) ? path[i] : nil;
-         DBT("validated " + tmpname + ": " + (path[i] ? "ok" : "not found") + "\n");
+         if( validate_cmd_path( path[i] ) ) {
+            /* prevent duplicates */
+            result |= ({ path[i] });
+            DBT("Validate " + path[i] + ": OK\n");
+         } else {
+            DBT("Validate " + path[i] + ": not found.\n");
+         }
       }
    }
 
-   /* remove 'removed' paths from the array */
-   path -= ({ nil });
-   searchpath = path;
+   searchpath = result;
 }
 
 static string query_searchpath() {
@@ -101,7 +109,11 @@ static void set_cmd_path( string *path ) {
 }
 
 static string *query_cmd_path() {
-   searchpath ? searchpath[..] : ({ });
+   if(searchpath && sizeof(searchpath)) {
+      return searchpath[..];
+   } else {
+      return ({ });
+   }
 }
 
 static void add_cmd_path( string path ) {
