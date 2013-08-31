@@ -148,25 +148,27 @@ object query_exit_room(string direction) {
    object qroom;
 
    exit = query_exit(direction);
-   if (!exit)
+   if (!exit) {
       return nil;
+   }
 
    qroom = find_object(exit);
-   if (!qroom)
+   if (!qroom) {
       qroom = compile_object(exit);
+   }
 
    return qroom;
 }
 
 string query_desc(varargs int brief) {
    string text;
-   int count;
-   int size;
+   int count, size;
    object *inventory;
    mapping compacted_inv;
 
-   if (!brief)
+   if (!brief) {
       brief = 0;
+   }
 
    if (is_dark()) {
       return query_dark_msg();
@@ -227,13 +229,9 @@ string query_desc(varargs int brief) {
       }
 #else
 	 if (!compacted_inv[desc]) {
-	    compacted_inv[desc] = ( {
-	       }
-	    );
+	    compacted_inv[desc] = ({ });
 	 }
-	 compacted_inv[desc] += ( {
-	    inventory[count]}
-	 );
+	 compacted_inv[desc] += ({ inventory[count] });
       }
 
       if (compacted_inv && map_sizeof(compacted_inv)) {
@@ -259,10 +257,11 @@ string query_desc(varargs int brief) {
 }
 
 void add_room_command(string command, string func) {
-   if (!room_commands[command])
+   if (!room_commands[command]) {
       room_commands += ([command:func]);
-   else
+   } else {
       room_commands[command] = func;
+   }
 }
 
 void remove_room_command(string command) {
@@ -334,21 +333,24 @@ string *query_item_ids(void) {
    if (!items) {
       items = ([]);
    }
-   return (map_indices(items));
+   return map_indices(items);
 }
 
 string *query_items(void) {
-   if (!items)
+   if (!items) {
       items = ([]);
-   return (map_indices(items));
+   }
+   return map_indices(items);
 }
 
 string query_item(string item) {
-   if (!items)
+   if (!items) {
       items = ([]);
+   }
    if (items[item][0..0] == "#") {
       return call_other(this_object(), items[item][1..]);
    }
+
    return items[item];
 }
 
@@ -366,8 +368,9 @@ void message_room(object originator, string str) {
       return;
    }
    for (i = 0, sz = sizeof(inventory); i < sz; i++) {
-      if (!inventory[i])
+      if (!inventory[i]) {
 	 continue;
+      }
       if (originator != inventory[i]) {
 	 if (inventory[i]->is_living()) {
 	    inventory[i]->message(str);
@@ -387,20 +390,30 @@ void tell_room(object originator, string str, varargs mixed obj ...) {
       return;
    }
    for (i = 0; i < sizeof(inventory); i++) {
-      if (!inventory[i])
+      if (!inventory[i]) {
 	 continue;
+      }
       if (originator != inventory[i] && member_array(inventory[i], obj) == -1) {
 	 if (inventory[i]->is_living() &&
 	    (!originator ||
 	       !inventory[i]->query_ignored(originator->query_name()))) {
-	    if (previous_object()->base_name() == "/cmds/player/say")
+	    if (previous_object()->base_name() == "/cmds/player/say") {
 	       inventory[i]->message(capitalize(str), 1);
-	    else
+	    } else {
 	       inventory[i]->message(capitalize(str));
+            }
 	 }
 	 inventory[i]->outside_message(capitalize(str));
       }
    }
+}
+
+int check_block_object(object obj,string dir,object who) {
+   if (obj->is_blocking(dir) && obj->do_block(who)) {
+      obj->other_action(obj, obj->query_block_action(), who, dir);
+      return 1;
+   }
+   return 0;
 }
 
 string body_exit(object who, string dir) {
@@ -424,17 +437,18 @@ string body_exit(object who, string dir) {
 
    inventory = query_inventory();
 
+   if (query_exit(dir) || query_hidden_exit(dir)) {
+      if (check_block_object(this_object(),dir,who)) {
+         return nil;
+      }
+   }
+
    /* there is a normal exit */
    if (query_exit(dir)) {
       for (i = 0; i < sizeof(inventory); i++) {
-	 if (inventory[i]->is_blocking(dir)) {
-	    /* We've got an object blocking the exit! */
-	    if (inventory[i]->do_block(who)) {
-	       inventory[i]->other_action(inventory[i],
-		  inventory[i]->query_block_action(), who, dir);
-	       return nil;
-	    }
-	 }
+         if (check_block_object(inventory[i],dir,who)) {
+             return nil;
+         }
       }
 
       if (query_exit(dir)[0] == '#') {
@@ -448,14 +462,9 @@ string body_exit(object who, string dir) {
 	 last_exit = time();
    } else if (query_hidden_exit(dir)) {
       for (i = 0; i < sizeof(inventory); i++) {
-	 if (inventory[i]->is_blocking(dir)) {
-	    /* We've got a monster blocking the exit! */
-	    if (inventory[i]->do_block(who)) {
-	       inventory[i]->other_action(inventory[i],
-		  inventory[i]->query_block_action(), who, dir);
-	       return nil;
-	    }
-	 }
+         if (check_block_object(inventory[i],dir,who)) {
+             return nil;
+         }
       }
 
       if (query_hidden_exit(dir)[0] == '#') {
