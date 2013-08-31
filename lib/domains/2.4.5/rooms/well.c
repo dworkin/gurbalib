@@ -15,6 +15,7 @@ void setup(void) {
    add_exit("up", DIR + "/rooms/narr_alley.c");
 
    add_item("lever", "A short wooden handle, perhaps you can pull it.");
+   add_item("door", "#do_look_door");
 
    add_room_command("pull", "pull_lever");
    add_room_command("turn", "pull_lever");
@@ -22,21 +23,67 @@ void setup(void) {
    add_block("west");
 }
 
-/* XXX Need to add the lever and do what it does... */
+object load_traproom() {
+   object traproom;
+   string trapname;
+
+   trapname = DIR + "/rooms/sub/door_trap";
+   traproom = find_object(trapname);
+   if (!traproom) {
+      traproom = compile_object(trapname);
+      traproom->setup();
+      traproom->setup_mudlib();
+   }
+   return traproom;
+}
+
+string do_look_door() {
+   object traproom;
+
+   traproom = load_traproom();
+   if (!traproom || traproom->query_trap()) {
+      return "The door is open.";
+   } else {
+      return "The door is closed.";
+   }
+}
 
 int pull_lever(string str) {
+   object traproom;
+
    if (!str || str != "lever") return 0;
-   if (call_other(this_player(),DIR + "/rooms/sub/door_trap", "toggle_door")) {
+   traproom = load_traproom();
+
+   if (!traproom) {
+      write("The lever appears to be jammed.\n");
+      tell_room(this_player(), this_player()->query_Name() +
+         " attempts to pull the lever, but it's jammed.\n");
+      return 0;
+   }
+
+   if (traproom->toggle_door()) {
+      write("You pull the lever.\n");
+      tell_room(this_player(), this_player()->query_Name() +
+         " pulls the lever.\n");
+      if (traproom->query_trap()) {
+         tell_room(nil, " a bolt slides into place.\n");
+      }
       return 1;
    }
    return 0;
 }
 
 int do_block(object who) {
-   if (!call_other(this_player(),DIR + "/rooms/sub/query_trap", "query_trap")) {
+   object traproom;
+
+   traproom = load_traproom();
+
+   if (!traproom || !traproom->query_trap()) {
       write("The door is blocked.\n");
       return 1;
    } else {
       return 0;
    }
 }
+
+/* XXX Need to add open and close door to this and sub/door_trap.c */

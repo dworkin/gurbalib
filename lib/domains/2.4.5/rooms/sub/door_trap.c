@@ -12,9 +12,10 @@ void setup(void) {
    set_long("A room with black walls.  There is a door to the east, " +
       "and a door to the west.");
 
-   /* Need to do door stuff here XXX */
    add_exit("east", DIR + "/rooms/well.c");
    add_exit("west", DIR + "/rooms/sub/after_trap.c");
+
+   add_item("door", "#do_look_door");
 
    add_block("east");
 }
@@ -28,10 +29,7 @@ int do_block(object who) {
    }
 }
 
-int toggle_door(string str) {
-   write("You pull the lever.\n");
-   this_player()->query_environment()->tell_room(this_player(),
-      this_player()->query_Name() + " pulls the lever.\n");
+int toggle_door(void) {
    if (trap) {
       trap = 0;
    } else {
@@ -40,6 +38,14 @@ int toggle_door(string str) {
    return 1;
 }
 
-int query_trap(string str) {
+int query_trap(void) {
    return trap;
+}
+
+string do_look_door() {
+   if (query_trap()) {
+      return "The door is open.";
+   } else {
+      return "The door is closed.";
+   }
 }

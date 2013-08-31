@@ -1,4 +1,5 @@
-static mixed *map_array(mixed * arr, string fun, mixed ob, varargs mixed extra) {
+static mixed *map_array(mixed * arr, string fun, mixed ob, 
+   varargs mixed extra) {
    mixed *result;
    int i, sz;
 
