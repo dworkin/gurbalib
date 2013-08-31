@@ -256,7 +256,7 @@ static void write_auto_config() {
    string res, opt;
    int i, sz;
 
-   remove_file ("/kernel/include/auto_config.h");
+   rename_file ("/kernel/include/auto_config.h", "/kernel/include/auto_config.h.previous");
 
    res = "#ifndef AUTO_CONFIG_DOT_H\n";
    res +="#define AUTO_CONFIG_DOT_H\n";
@@ -303,17 +303,9 @@ static void _initialize(mixed * tls) {
    call_other(COMPILER_D, "???");
    call_other(ERROR_D, "???");
 
-   message("Setting up events\n");
-   EVENT_D->add_event("player_login");
-   EVENT_D->add_event("player_logout");
-   EVENT_D->add_event("new_player");
-
-   message("Setting up daemons\n");
+   message("Starting init_d\n");
    call_other("/sys/daemons/init_d", "???");
 
-#ifdef SYS_PERSIST
-   call_out("save_game", DUMP_INTERVAL);
-#endif
    message("Done.\n");
 }
 
@@ -337,6 +329,7 @@ void save_game() {
    _save_game(allocate(query_tls_size()));
 }
 
+/*
 object clone_object(string path) {
    object ob;
 
@@ -350,6 +343,7 @@ object clone_object(string path) {
 
    return ob;
 }
+*/
 
 static void _restored(mixed * tls) {
    int i, sz;
@@ -359,6 +353,8 @@ static void _restored(mixed * tls) {
       LIB_VERSION + ".\n");
 
    shutting_down = 0;
+
+   write_auto_config();
 
    if (users) {
       for (i = 0, sz = sizeof(users); i < sz; i++) {

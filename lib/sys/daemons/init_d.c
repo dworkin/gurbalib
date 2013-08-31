@@ -4,19 +4,20 @@
 private string *get_default_objects() {
    string *objects;
 
-   objects = ( { SCHEDULE_D, TIME_D, USER_D } );
+   objects = ( { EVENT_D, SCHEDULE_D, TIME_D, USER_D } );
 
+   objects += ({
 #ifdef SYS_NETWORKING
-   objects += ( {
-       TELNET_D,
+        TELNET_D,
 #ifndef DISABLE_FTP
         FTP_D,
 #endif
+#endif
+
 #ifndef DISABLE_IMUD
 	IMUD_D,
 #endif
    } );
-#endif
 
    objects += ( {
       COMMAND_D,
@@ -47,12 +48,19 @@ static void create() {
       return;
    }
 
+   console_msg("Setting up events\n");
+   EVENT_D->add_event("player_login");
+   EVENT_D->add_event("player_logout");
+   EVENT_D->add_event("new_player");
+
+   console_msg("Loading daemons\n");
    rlimits(MAX_DEPTH; -1) {
       for (count = 0, size = sizeof(objects); count < size; count++) {
 	 object ob;
 
 	 if (!(ob = find_object(objects[count]))) {
 	    rlimits(MAX_DEPTH; MAX_TICKS) {
+               console_msg("init: loading " + objects[count] + "\n");
 	       call_other(objects[count], "???");
 	    }
 	 }
