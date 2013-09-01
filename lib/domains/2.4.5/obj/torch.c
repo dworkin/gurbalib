@@ -1,10 +1,4 @@
-inherit obj "/std/object";
-inherit light "/std/modules/m_light";
-
-void create(void) {
-   light::create();
-   obj::create();
-}
+inherit "/std/light";
 
 void setup(void) {
    set_id("torch");
@@ -18,6 +12,3 @@ void setup(void) {
    set_fuel(1000);
 }
 
-/* XXX Need to add functions to light it and extinguish it??? 
-   Should it be here or in the m_light code????
-*/
