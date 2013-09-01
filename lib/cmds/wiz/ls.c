@@ -25,7 +25,7 @@ void usage() {
 void main(string str) {
    mixed width;
    mixed *files;
-   string *names, timestr, dirlist;
+   string *names, timestr, dirlist, path;
    int *sizes, *times, long, ancient, i, j, sz, max, len, rows, time, color_len;
    string cur_col;
 
@@ -64,7 +64,9 @@ void main(string str) {
       return;
    }
 
-   files = get_dir(str + "/*");
+   path = str + "/";
+
+   files = get_dir(path + "*");
    if (!files) {
       write(str + ": Access denied.\n");
       return;
@@ -114,7 +116,15 @@ void main(string str) {
 
 	    if (sizeof(parts) > 1) {
 	       if (parts[sizeof(parts) - 1] == "c") {
-		  cur_col = "%^YELLOW%^";
+                  string name;
+                  name = path + names[j][..strlen(names[j])-3];
+
+                  if (COMPILER_D->test_object(name) && find_object(name)) {
+                     cur_col = "%^HWHITE%^";
+                     names[i] += "*";
+                  } else {
+                    cur_col = "%^YELLOW%^";
+                  }
 	       } else if (parts[sizeof(parts) - 1] == "o") {
 		  cur_col = "%^BLUE%^";
 	       } else if (strstr(parts[sizeof(parts) - 1], "~") != -1) {
