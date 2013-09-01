@@ -119,12 +119,14 @@ static void main(string str) {
 
 	    if (sizeof(parts) > 1) {
 	       if (parts[sizeof(parts) - 1] == "c") {
-                  if (COMPILER_D->test_object(path + names[i]) && 
-                      find_object(path + names[i][..(strlen(names[i])-3)])) {
+                  string name;
+                  name = path + names[j][..strlen(names[j])-3];
+
+                  if (COMPILER_D->test_object(name) && find_object(name)) {
                      cur_col = "%^HWHITE%^";
-                     names[i] += "*";
+                     names[j] += "*";
                   } else {
-		     cur_col = "%^YELLOW%^";
+                    cur_col = "%^YELLOW%^";
                   }
 	       } else if (parts[sizeof(parts) - 1] == "o") {
 		  cur_col = "%^BLUE%^";

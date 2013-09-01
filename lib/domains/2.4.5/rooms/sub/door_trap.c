@@ -17,6 +17,9 @@ void setup(void) {
 
    add_item("door", "#do_look_door");
 
+   add_room_command("open", "open_door");
+   add_room_command("close", "open_door");
+
    add_block("east");
 }
 
@@ -48,4 +51,15 @@ string do_look_door() {
    } else {
       return "The door is closed.";
    }
+}
+
+int open_door(string str) {
+   str = lowercase(str);
+   if (str == "door") {
+      write("The door doesn't seem to work that way.\n");
+      tell_room(this_player(), this_player()->query_Name() +
+         " looks at the door in confusion.\n");
+      return 1;
+   }
+   return 0;
 }
