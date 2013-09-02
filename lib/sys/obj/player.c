@@ -7,7 +7,7 @@
 inherit con "/std/container";
 inherit bod "/std/body";
 inherit "/std/modules/m_messages";
-inherit "/std/editor";
+inherit "/sys/lib/editor";
 inherit "/std/modules/m_autoload_string";
 inherit "/std/modules/m_language";
 inherit "/std/body/skills";

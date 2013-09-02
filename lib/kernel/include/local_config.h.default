@@ -87,6 +87,9 @@ You should at least modify the first 3 entries.
 /* Location for addon domains */
 #define DOMAINS_DIR "/domains"
 
+/* Do not allow those names as users, add any privileges specific to your mud to this list */
+#define SYS_BANNED_NAMES ({ "kernel", "system", "wizard", "network", "game" })
+
 /* Define this to automatically promote users to a wizard when they 
    create an account */
 /* #define ALL_USERS_WIZ 1 */

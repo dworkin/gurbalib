@@ -22,8 +22,8 @@
 #define C_DECOR        "%^MENU_DECORATE%^"
 #define C_OFF          "%^RESET%^"
 
-#define PAD            "                                                                                                                 "
-#define LINE           "------------------------------------------------------------------------------"
+#define PAD            "                                                                                                                                                                                                            "
+#define LINE           "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
 
 /* prototypes */
 private void exec_menu();
@@ -62,6 +62,14 @@ static mixed *make_fcall(object ob, string fun, mixed args ...) {
 }
 
 /* Private functions */
+
+private int query_width() {
+   int w;
+   w = this_player() ? this_player()->query_env("width") : 78;
+   if(!w) w = 78;
+   return w;
+}
+
 private void prompt(string * keys) {
    string disp;
 
@@ -109,9 +117,16 @@ private mixed FCALL(mixed * fpa) {
    }
 }
 
-private string fixlen(string str, int len) {
-   str += PAD;
-   return str[..len - 1];
+private string fixlen(string str, int len, varargs int flag) {
+   if (flag) {
+      str = PAD + str;
+      if (len > strlen(str)) 
+         len = strlen(str);
+      return str[(strlen(str)-len)..];
+   } else {
+      str += PAD;
+      return str[..len - 1];
+   }
 }
 
 private mixed get_val(mixed item) {
@@ -123,19 +138,70 @@ private mixed get_val(mixed item) {
 }
 
 private string *display_conv(string str) {
-   return ( {
-      ANSI_D->parse_colors(str)}
-   );
+   string *r, *words, line;
+   int width, len, i, sz, total, pos;
+
+   r = ({ });
+   width = query_width();
+   len = strlen(ANSI_D->strip_colors(str));
+   /* stupid line splitter, will split on word breaks, will fail on too long words */
+   /* deal with lines that are too long still, should only happen when width < 40  */
+   if(0 && len > width) {
+      words=rexplode(str," ");
+      line = "";
+      for (i = 0, total = 0, sz = sizeof(words); i < sz; i++) {
+         if (strlen(words[i]) > 0) {
+            total += strlen(ANSI_D->strip_colors(words[i]));
+            if (total > width) {
+               r += ({ line });
+               total = strlen(words[i]);
+               line = "";
+            }
+            line += words[i];
+         }
+         total++;
+         line += " ";
+      }
+      if(strlen(line)) {
+         r += ({ line });
+      }
+   } else {
+      r = ({ str });
+   }
+   
+   return map_array(r, "parse_colors", ANSI_D);
 }
 
 private string make_display_line(mixed * m) {
    string result, tmp;
+   int width;
+
+   width = this_player()->query_env("width");
+   if(!width) width = 78;
+   if(width > 132) width = 132;
+   if(width < 40) width = 40; /* we'll deal with smaller displays later */
 
    result = C_KEY + fixlen(get_val(m[KEY]), 3) + C_OFF;
    result += " : ";
-   result += C_DESC + fixlen(get_val(m[DESC]), 40) + C_OFF;
    if (m[OPT_DESC]) {
-      result += "(" + C_OPT_DESC + get_val(m[OPT_DESC]) + "%^RESET%^)";
+      int dlen, olen;
+      string desc, opt;
+
+      desc = get_val(m[DESC]);
+      opt = get_val(m[OPT_DESC]);
+
+      olen = 8 + strlen(opt);
+      if (olen > ((width - 8) / 2)) {
+         olen = (width - 8) / 2;
+         opt = opt[..olen-5];
+         opt += "...";
+         olen = 8 + strlen(opt);
+      }
+      dlen = width - olen;
+      result += C_DESC + fixlen(desc, dlen) + C_OFF;
+      result += "(" + C_OPT_DESC + opt + C_OFF + ")";
+   } else {
+      result += C_DESC + fixlen(get_val(m[DESC]), width-7) + C_OFF;
    }
 
    return result;
@@ -143,11 +209,16 @@ private string make_display_line(mixed * m) {
 
 private void display_menu(mixed header, mixed * menu, mixed footer,
    string * keys) {
-   int i, sz;
+   int i, sz, width;
 
    string *output;
 
    output = ( { } ); 
+   width = (int) this_player()->query_env("width");
+   if(!width) width = 78;
+   if(width > 132) width = 132;
+
+   width--;
 
    if (arrayp(header)) {
       header = FCALL(header);
@@ -160,11 +231,11 @@ private void display_menu(mixed header, mixed * menu, mixed footer,
    if (header) {
       output += display_conv(header);
    }
-   output += display_conv(C_DECOR + LINE + C_OFF);
+   output += display_conv(C_DECOR + LINE[..width] + C_OFF);
    for (i = 0, sz = sizeof(menu); i < sz; i++) {
       output += display_conv(make_display_line(menu[i]));
    }
-   output += display_conv(C_DECOR + LINE + C_OFF);
+   output += display_conv(C_DECOR + LINE[..width] + C_OFF);
    if (footer) {
       output += display_conv(footer);
    }

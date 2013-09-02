@@ -7,6 +7,7 @@ void create() {
 
    list = get_dir(BAN_DIR + "*");
    banished_names = list[0];
+   banished_names |= SYS_BANNED_NAMES;
 }
 
 string *query_banished_names() {

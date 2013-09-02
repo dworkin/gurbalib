@@ -18,13 +18,13 @@ void usage() {
    this_player()->more(lines);
 }
 
-static void main(varargs string arg) {
+static void main(string arg) {
    if (!query_wizard(this_player())) {
       write("You must be a wizard to do that.\n");
       return;
    }
 
-   if (sscanf(arg, "-%s", arg)) {
+   if (arg && sscanf(arg, "-%s", arg)) {
       usage();
       return;
    }

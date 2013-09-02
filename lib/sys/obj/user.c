@@ -436,6 +436,7 @@ void input_name(string str) {
 	    "' is reserved and not available for use.\n");
 	 destruct_object(player);
 	 destruct_object(this_object());
+         return;
       }
       if (USER_D->player_exists(str)) {
 	 /* Player exists */

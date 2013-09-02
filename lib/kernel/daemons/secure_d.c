@@ -394,7 +394,7 @@ string determine_obj_privs(string objname) {
       } else {
 	 priv = name;
 	 if (query_wiz(name)) {
-	    priv += ":wiz";
+	    priv += ":wizard";
 	 }
 
 	 if (query_admin(name)) {
