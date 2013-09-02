@@ -411,7 +411,6 @@ void input_name(string str) {
       send_message("\r\nPlease enter your name : ");
       player->input_to_object(this_object(), "input_name");
    } else {
-
       str = lowercase(str);
 
       if (strlen(str) > 16) {
@@ -458,6 +457,7 @@ void input_name(string str) {
 	       " about future access from your site.\n");
 	    destruct_object(player);
 	    destruct_object(this_object());
+            return;
 	 }
 	 send_message("Ah. New player.\n");
 	 send_message("Is '" + user_name + "' correct (y/n)? : ");

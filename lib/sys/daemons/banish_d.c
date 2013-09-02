@@ -2,12 +2,16 @@ string *banished_names;
 
 #define BAN_DIR     "/data/banished/"
 
+#ifndef SYS_RESERVED_NAMES                                 
+#define SYS_RESERVED_NAMES ({ "kernel", "system", "network", "wiz", "game" })
+#endif               
+
 void create() {
    mixed *list;
 
+   banished_names = SYS_RESERVED_NAMES + SECURE_D->query_domains();          
    list = get_dir(BAN_DIR + "*");
-   banished_names = list[0];
-   banished_names |= SYS_BANNED_NAMES;
+   banished_names |= list[0];                  
 }
 
 string *query_banished_names() {

@@ -35,6 +35,9 @@ int add_domain(string name) {
 
    if (!domains[name]) {
       domains[name] = time();
+      if(find_object(BANISH_D)) {                                            
+         BANISH_D->create();                                                 
+      }                               
       return 1;
    } else {
       return 0;
@@ -415,6 +418,10 @@ string determine_obj_privs(string objname) {
 int is_domain(string name) {
    return domains[name] != nil;
 }
+
+string *query_domains() {                                                    
+   return map_indices(domains);                                              
+}                                 
 
 /*
  * The stack validator, this function is what it is all about..

@@ -11,7 +11,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tcp " + DOMAINS_DIR + "/newbie/rooms/workroom.c workroom.c" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, diff, edit, ls, more, mkdir, pwd, " +
+   lines += ({ "\tbrowse, cat, cd, diff, edit, indent, ls, more, mkdir, pwd, " +
       "rm, tail" });
 
    this_player()->more(lines);
