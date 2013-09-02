@@ -22,7 +22,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tdiff start.c void.c\t" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, cp, edit, ls, more, mkdir, pwd, " +
+   lines += ({ "\tbrowse, cat, cd, cp, edit, indent, ls, more, mkdir, pwd, " +
       "rm, tail" });
 
    this_player()->more(lines);

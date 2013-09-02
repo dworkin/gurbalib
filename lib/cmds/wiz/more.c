@@ -12,7 +12,7 @@ void usage() {
    lines += ({ "\tmore void.c" });
    lines += ({ "\tmore " + DOMAINS_DIR + "/required/rooms/void.c" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, cp, diff, edit, ls, mkdir, pwd, " +
+   lines += ({ "\tbrowse, cat, cd, cp, diff, edit, indent, ls, mkdir, pwd, " +
       "rm, tail" });
 
    this_player()->more(lines);

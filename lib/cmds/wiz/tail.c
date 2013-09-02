@@ -13,8 +13,8 @@ void usage() {
    lines += ({ "\ttail void.c" });
    lines += ({ "\ttail " + DOMAINS_DIR + "/required/rooms/void.c" });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, cp, diff, edit, ls, more, mkdir, pwd, " +
-      "rm" });
+   lines += ({ "\tbrowse, cat, cd, cp, diff, edit, indent, ls, more, " +
+      "mkdir, pwd, rm" });
 
    this_player()->more(lines);
 }

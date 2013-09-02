@@ -14,7 +14,7 @@ void usage() {
    lines += ({ "\tcd ..            Move up one directory." });
    lines += ({ "\tcd               Change cwd to /wiz/(username)." });
    lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cp, diff, edit, ls, more, mkdir, pwd, " +
+   lines += ({ "\tbrowse, cat, cp, diff, edit, indent, ls, more, mkdir, pwd, " +
       "rm, tail" });
 
    this_player()->more(lines);
