@@ -52,7 +52,7 @@ static void main(string str) {
    } else if (sscanf(str, "-%s", str)) {
       usage();
       return;
-   } else if (sscanf(str, "%s %s", name, value) != 2) {
+   } else if ((sscanf(str, "%s %s", name, value) != 2) && (sscanf(str, "%s=%s", name, value) != 2)) {
       usage();
       return;
    } else {
