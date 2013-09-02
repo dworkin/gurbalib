@@ -96,6 +96,7 @@ private string _owner;
 #include "afun/set_this_player.c"
 #include "afun/this_player.c"
 #include "afun/write.c"
+#include "afun/editor.c"
 
 #include "afun/sys/_F_create.c"
 #include "afun/sys/_F_destruct.c"
