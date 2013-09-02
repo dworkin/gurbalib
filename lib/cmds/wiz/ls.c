@@ -121,7 +121,7 @@ void main(string str) {
 
                   if (COMPILER_D->test_object(name) && find_object(name)) {
                      cur_col = "%^HWHITE%^";
-                     names[i] += "*";
+                     names[j] += "*";
                   } else {
                     cur_col = "%^YELLOW%^";
                   }
