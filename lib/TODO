@@ -25,8 +25,8 @@ In combat the bunny does't always attack...
 In combat the monsters get players hp durring battle sometimes???
 	it has to do with shifting of this_player() for messages I think...
 
-Start using weight for picking up things, and for how much a bag
-can hold......
+weight started, need to get it working against str for players and how
+	much they can carry.
 
 set_this_player is used too much... mabye only need it in heart_beat,
 and or in sys/ib/player.c and sys/lib/user.c  Shouldn't need it in

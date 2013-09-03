@@ -59,7 +59,8 @@ void do_give(object obj1, object obj2, int loud) {
          return;
       } else {
          this_player()->do_remove(obj1);
-         this_player()->targetted_action(obj1->query_remove_message(), nil, obj1);
+         this_player()->targetted_action(obj1->query_remove_message(), 
+            nil, obj1);
       }
    }
 
@@ -79,7 +80,7 @@ void do_give(object obj1, object obj2, int loud) {
    if (obj1->move(obj2)) {
       this_player()->targetted_action("$N $vgive $o to $o1.", nil, obj1, obj2);
    } else {
-      this_player()->targetted_action("$N $vtryto give $o to $o1, but $vfail.",
+      this_player()->targetted_action("$N $vtry to give $o to $o1, but $vfail.",
          nil, obj1, obj2);
    }
 }
