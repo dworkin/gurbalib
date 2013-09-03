@@ -9,6 +9,8 @@
 #define DBT(X)
 #endif
 
+#define FCALL call_other
+
 #define KEY            0
 #define DESC           1
 #define OPT_DESC       2
@@ -92,31 +94,6 @@ private void input_to(string fun) {
    this_player()->input_to_object(this_object(), fun);
 }
 
-private mixed FCALL(mixed * fpa) {
-   object ob;
-   string fun;
-   mixed *args;
-
-   if (objectp(fpa[0])) {
-      ob = fpa[0];
-   } else if (stringp(fpa[0])) {
-      ob = find_object(fpa[0]);
-   }
-
-   if (!ob) {
-      error("No object for FCALL");
-   }
-
-   fun = fpa[1];
-
-   if (sizeof(fpa) > 2) {
-      args = fpa[2..];
-      return call_other(ob, fun, args...);
-   } else {
-      return call_other(ob, fun);
-   }
-}
-
 private string fixlen(string str, int len, varargs int flag) {
    if (flag) {
       str = PAD + str;
@@ -131,7 +108,7 @@ private string fixlen(string str, int len, varargs int flag) {
 
 private mixed get_val(mixed item) {
    if (arrayp(item)) {
-      return FCALL(item);
+      return FCALL(item...);
    } else {
       return item;
    }
@@ -146,7 +123,7 @@ private string *display_conv(string str) {
    len = strlen(ANSI_D->strip_colors(str));
    /* stupid line splitter, will split on word breaks, will fail on too long words */
    /* deal with lines that are too long still, should only happen when width < 40  */
-   if(0 && len > width) {
+   if(len > width) {
       words=rexplode(str," ");
       line = "";
       for (i = 0, total = 0, sz = sizeof(words); i < sz; i++) {
@@ -221,11 +198,11 @@ private void display_menu(mixed header, mixed * menu, mixed footer,
    width--;
 
    if (arrayp(header)) {
-      header = FCALL(header);
+      header = FCALL(header...);
    }
 
    if (arrayp(footer)) {
-      footer = FCALL(footer);
+      footer = FCALL(footer...);
    }
 
    if (header) {
@@ -257,7 +234,7 @@ void menu_response(string str) {
    ( { header, menu, footer, actions } ) = this_player()->retrieve_menu();
 
    if (actions[str]) {
-      resp = FCALL(actions[str]);
+      resp = FCALL(actions[str]...);
       if (intp(resp)) {
 	 switch (resp) {
 	    case 0:
