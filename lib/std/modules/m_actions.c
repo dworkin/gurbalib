@@ -1,4 +1,5 @@
 inherit "/std/modules/m_messages";
+inherit "/sys/lib/modules/m_cmds";
 
 #include <type.h>
 
@@ -23,7 +24,7 @@ void remove_item_command(string command) {
 
 void do_game_command(string message) {
    mixed result;
-   string cmd, arg;
+   string cmd, arg, *path;
    int flag;
    object save_player;
 
@@ -43,20 +44,14 @@ void do_game_command(string message) {
 
       flag = 0;
 
-      /* check for non-player cmds first */
-      if (!this_player()->is_player()) {
-	 if (file_exists("/cmds/monster/" + cmd + ".c")) {
-	    call_other("/cmds/monster/" + cmd, "main", arg);
-	    flag = 1;
-	 }
+      if(!this_player()->is_player()) {
+         path = ({ "/cmds/monster/", "/cmds/player/" });
+      } else {
+         path = this_player()->query_path();
       }
 
-      /* check for normal player cmds */
-      if (!flag) {
-	 if (file_exists("/cmds/player/" + cmd + ".c")) {
-	    call_other("/cmds/player/" + cmd, "main", arg);
-	    flag = 1;
-	 }
+      if (command(cmd, arg, path) != -1) {
+         flag = 1;
       }
 
       if (!flag) {

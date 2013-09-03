@@ -9,6 +9,7 @@
 
 #include <privileges.h>
 #include <type.h>
+#define DEFAULT_SEARCHPATH ({ "/cmds/player/" })
 
 string *searchpath;
 
@@ -124,12 +125,14 @@ static void remove_cmd_path( string path ) {
    set_searchpath( searchpath - ({ path }) );
 }
 
-static int command(string cmd, string arg) {
+static int command(string cmd, string arg, varargs string *path) {
    /* no direct call_outs to command() allowed for security reasons */
    if(CALLOUT()) {
       error("Direct call_outs to command() not allowed");
    }
 
-   return COMMAND_D->exec_command(cmd, arg, searchpath );
+   if(!path) path = searchpath;
+   if(!path) path = DEFAULT_SEARCHPATH;
+   return COMMAND_D->exec_command(cmd, arg, path );
 }
 
