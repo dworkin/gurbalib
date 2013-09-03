@@ -3,13 +3,16 @@
 use strict;
 use warnings;
 
-# XXX  doesn't deal well with (( { } ));  or similar statments,
+# XXX
+# This code doesn't deal well with (( { } ));  or similar statments,
 #	like set_exists(["blah" : "wee",]);
 #	also issues with the following operators: ..  and <-
 #	rlimits(VALUE; VALUE)   the ; confuses it...
 #	the : in set_exists is also an issue...
 # So you will need to clean up the code after running it.
 
+# This code uses gnu indent, it starts with the -linux options which are
+# listed here for reference, after this you can see our specific options.
 # -linux options:
 # -nbad -bap -nbc -bbo -hnl -br -brs -c33 -cd33 -ncdb -ce -ci4
 #            -cli0 -d0 -di1 -nfc1 -i8 -ip0 -l80 -lp -npcs -nprs -npsl -sai
@@ -27,9 +30,70 @@ if (!$indent || $indent eq "") {
 
 my ($one) = @ARGV;
 
+sub usage() {
+	print "Usage: $0 file.c\n";
+	print "\tThis script takes an LPC file as input and writes a new ";
+	print "version of the\n";
+	print "file, with the code reformated in our custom format.";
+	print "  It uses gnu indent with\n";
+	print "specific options we have selected.\n\n";
+	print "It does not deal well with the following LPC specific code:\n";
+	print "\t.., <-, ({ }), ([ ]), \"STR\" : \"STR\", rlimits(STR; STR);\n";
+	print "If your code uses these it will attempt to identify them ";
+	print "and warn you that\n";
+	print "you may need to look at the code again after it's indented.\n";
+}
+
+sub find_string {
+	my ($str, $file) = @_;
+	my $ans;
+
+	$ans = `grep \"$str\" $file`;
+
+	if ($ans && ($ans ne "")) {
+		return 1;
+	}
+	return 0;
+}
+
+sub get_warn {
+	my ($file) = @_;
+	my $yes = 0;
+	my ($ans, $res);
+	$res = "";
+
+	if (find_string("\\.\\.", $file)) {
+		$yes = 1;
+		$res = "$res, ..";
+	}
+	if (find_string("<\\-", $file)) {
+		$yes = 1;
+		$res = "$res, <-";
+	}
+	if (find_string("({", $file)) {
+		$yes = 1;
+		$res = "$res, ({";
+	}
+	if (find_string("(\\[", $file)) {
+		$yes = 1;
+		$res = "$res, ([";
+	}
+	if (find_string("set_exists", $file)) {
+		$yes = 1;
+		$res = "$res, \"STR\" : \"STR\"";
+	}
+	if (find_string("rlimits", $file)) {
+		$yes = 1;
+		$res = "$res, rlimits( , )";
+	}
+	if ($yes == 1) {
+		return "WARN: " . $file . " contains: " . substr($res,2);
+	}
+	return "";
+}
+
 if (!$one) {
-	print "Usage: $0 file.c\n" .
-		"\twill create a new file file.c.new that is indented.\n";
+	usage();
 	exit 1;
 }
 
@@ -37,6 +101,11 @@ my $version = `indent --version`;
 
 if ($version =~ /GNU indent (.*)/) {
 	print "Calling indent $options $one -o $one.new\n";
+	my $warn = get_warn($one);
+	if ($warn) {
+		print "$warn\n";
+	}
+        
 	system("indent $options $one -o $one.new\n");
 } else {
 	print "Error unable to find GNU indent in your path.\n";

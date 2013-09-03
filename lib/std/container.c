@@ -4,11 +4,34 @@ inherit ob "/std/object";
 
 static object *inventory;
 static mapping inv_map;
+int internal_weight, internal_max_weight;
 
 void create(void) {
    ob::create();
    inventory = nil;
    inv_map = ([]);
+}
+
+void set_internal_max_weight(int x) {
+   internal_max_weight = x;
+}
+
+int query_internal_max_weight() {
+   return internal_max_weight;
+}
+
+int query_internal_weight() {
+   return internal_weight;
+}
+
+int query_weight() {
+   int x;
+
+   x = ::query_weight();
+   if (internal_max_weight) {
+      return x + internal_weight;
+   }
+   return x;
 }
 
 int is_container(void) {
@@ -52,15 +75,27 @@ void object_arrived(object obj) {
 }
 
 void object_removed(object obj) {
-
 }
 
 int receive_object(object "/std/object" obj) {
-   if (!inv_map)
+   int tmp;
+
+   if (!inv_map) {
       inv_map = ([]);
+   }
 
    inv_map[obj] = time();
 
+   if (internal_max_weight) {
+      tmp = obj->query_weight() + internal_weight;
+      if (internal_max_weight >= tmp) {
+         internal_weight += obj->query_weight();
+         object_arrived(obj);
+
+         return 1;
+      }
+      return 0;
+   }
    object_arrived(obj);
    return 1;
 }
@@ -71,6 +106,11 @@ int remove_object(object obj) {
    } else {
       inv_map[obj] = nil;
    }
+
+   if (internal_max_weight) {
+      internal_weight -= obj->query_weight();
+   }
+
    object_removed(obj);
    return 1;
 }

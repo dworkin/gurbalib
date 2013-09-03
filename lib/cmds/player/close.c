@@ -52,6 +52,7 @@ static void main(string str) {
       usage();
       return;
    }
+   str = lowercase(str);
 
    if (str == "all") {
       inv = this_player()->query_environment()->query_inventory();
@@ -68,9 +69,14 @@ static void main(string str) {
       return;
    }
 
-   obj = this_player()->present(lowercase(str));
+   obj = this_player()->query_environment();
+   if (obj->do_close(str)) {
+      return;
+   }
+
+   obj = this_player()->present(str);
    if (!obj) {
-      obj = this_player()->query_environment()->present(lowercase(str));
+      obj = this_player()->query_environment()->present(str);
    }
    do_close(obj,1);
 }

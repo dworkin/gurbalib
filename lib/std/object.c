@@ -229,7 +229,6 @@ nomask int move(mixed destination) {
 
    if (!err || (err != 1)) {
       if (err) write("Error in move:" + err + "\n");
-      else write("Error in move.\n");
       return 0;
    }
 
