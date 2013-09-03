@@ -19,8 +19,6 @@ void setup(void) {
 
    add_room_command("pull", "pull_lever");
    add_room_command("turn", "pull_lever");
-   add_room_command("open", "open_door");
-   add_room_command("close", "open_door");
 
    add_block("west");
 }
@@ -88,8 +86,7 @@ int do_block(object who) {
    }
 }
 
-int open_door(string str) {
-   str = lowercase(str);
+int do_open(string str) {
    if (str == "door") {
       write("The door doesn't seem to work that way.\n");
       tell_room(this_player(), this_player()->query_Name() +
@@ -98,3 +95,8 @@ int open_door(string str) {
    }
    return 0;
 }
+
+int do_close(string str) {
+   return do_open(str);
+}
+
