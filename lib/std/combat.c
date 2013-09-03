@@ -182,7 +182,7 @@ void attack_with(string skill, object weapon, object target) {
    } else {
       string miss;
 
-      miss = weapon->query_weapon_miss();
+      if (weapon) miss = weapon->query_weapon_miss();
 
       if (!miss) {
          this_object()->targetted_action("$N $vmiss $T.", target);
