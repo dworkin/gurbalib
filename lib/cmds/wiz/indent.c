@@ -3,8 +3,14 @@ void usage() {
 
    lines = ({ "Usage: indent [-h] FILE" });
    lines += ({ " " });
-   lines += ({ "Indents the file specified with the editor's build in indent " +
-      "feature." });
+   lines += ({ "This function uses the default editor's built in indent " +
+      "feature \":I\"" });
+   lines += ({ "to make your code look pretty.  It's not the end all of " +
+      "pretty printers, " });
+   lines += ({ "but it's better than nothing.  For a more serious effort see " +
+      "the included " });
+   lines += ({ "auxillary script: scripts/indent_it provided with the " +
+      "mudlib. " });
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
