@@ -20,7 +20,7 @@ void create(void) {
 }
 
 int query_offensive(void) {
-   return (1);
+   return 1;
 }
 
 void set_max_damage(int dam) {
@@ -44,7 +44,7 @@ void set_weapon_class(int class) {
 }
 
 int query_weapon_class(void) {
-   return (weapon_class);
+   return weapon_class;
 }
 
 void set_hit_bonus(int hb) {
@@ -52,7 +52,7 @@ void set_hit_bonus(int hb) {
 }
 
 int query_hit_bonus(void) {
-   return (hit_bonus);
+   return hit_bonus;
 }
 
 void set_weapon_action(string verb) {
@@ -60,7 +60,7 @@ void set_weapon_action(string verb) {
 }
 
 string query_weapon_action(void) {
-   return (weapon_action);
+   return weapon_action;
 }
 
 void set_weapon_miss(string verb) {
@@ -68,7 +68,7 @@ void set_weapon_miss(string verb) {
 }
 
 string query_weapon_miss(void) {
-   return (weapon_miss);
+   return weapon_miss;
 }
 
 void set_weapon_skill(string skill) {

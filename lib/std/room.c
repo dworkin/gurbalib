@@ -44,13 +44,16 @@ int is_dark() {
    object* objs;
    int x;
 
-   if (light)
+   if (light) {
       return 0;
+   }
 
    if (is_container()) {
       objs = query_inventory();
       for (x=sizeof(objs) -1; x >= 0; x--) {
-         if (objs[x]->is_lit()) return 0;
+         if (objs[x]->is_lit()) {
+            return 0;
+         }
       }
    }
 
@@ -77,14 +80,15 @@ int query_weather(void) {
 }
 
 void add_area(string str) {
- areas += ([str:1]);
+   areas += ([str:1]);
 }
 
 int query_in_area(string str) {
-   if (areas[str])
+   if (areas[str]) {
       return 1;
-   else
+   } else {
       return 0;
+   }
 }
 
 string *query_areas() {
@@ -100,7 +104,7 @@ void set_hidden_exits(mapping ex) {
 }
 
 void add_exit(string direction, string file) {
- exits += ([direction:file]);
+   exits += ([direction:file]);
 }
 
 void remove_exit(string direction) {
@@ -108,7 +112,7 @@ void remove_exit(string direction) {
 }
 
 void add_hidden_exit(string direction, string file) {
- hidden_exits += ([direction:file]);
+   hidden_exits += ([direction:file]);
 }
 
 void remove_hidden_exit(string direction) {
@@ -191,12 +195,11 @@ string query_desc(varargs int brief) {
 
    inventory = query_inventory();
 
+   /* There is something in the room */
    if (inventory && sizeof(inventory) > 1) {
       string desc;
 
       compacted_inv = ([]);
-
-      /* There is something in the room */
 
       text += "\nYou see:\n";
 
@@ -208,8 +211,10 @@ string query_desc(varargs int brief) {
 	 } else {
 	    mixed x;
 	    string pc;
-	    if (inventory[count] == this_player())
+
+	    if (inventory[count] == this_player()) {
 	       continue;
+            }
 	    x = inventory[count]->query_idle();
 	    pc =
 	       inventory[count]->is_player()? "%^PLAYER%^" : "%^NPC_FRIENDLY%^";
@@ -299,7 +304,9 @@ void add_item(string id, varargs mixed args ...) {
    string description;
    int i;
 
-   if (!items) items = ([]);
+   if (!items) {
+      items = ([]);
+   }
 
    description = args[sizeof(args) - 1];
    items[id] = description;
@@ -321,13 +328,14 @@ void remove_item(string id) {
    if (!items) {
       items = ([]);
    }
+
    temp_desc = ([]);
    description = items[id];
    size = map_sizeof(items);
    values = map_values(items);
    indices = map_indices(items);
 
-   for (i = 0; i <= size - 1; i++) {
+   for (i = 0; i < size; i++) {
       if (description != values[i]) {
          temp_desc[indices[i]] = values[i];
       }
@@ -402,7 +410,7 @@ void tell_room(object originator, string str, varargs mixed obj ...) {
       }
       if (originator != inventory[i] && member_array(inventory[i], obj) == -1) {
 	 if (inventory[i]->is_living() &&
-	    (!originator ||
+	       (!originator ||
 	       !inventory[i]->query_ignored(originator->query_name()))) {
 	    if (previous_object()->base_name() == "/cmds/player/say") {
 	       inventory[i]->message(capitalize(str), 1);
@@ -424,7 +432,7 @@ int check_block_object(object obj,string dir,object who) {
 }
 
 string body_exit(object who, string dir) {
-   int i;
+   int i, max;
    string error, lname, aname;
    object *inventory;
    object room;
@@ -452,7 +460,9 @@ string body_exit(object who, string dir) {
 
    /* there is a normal exit */
    if (query_exit(dir)) {
-      for (i = 0; i < sizeof(inventory); i++) {
+      max = sizeof(inventory);
+
+      for (i = 0; i < max; i++) {
          if (check_block_object(inventory[i],dir,who)) {
              return nil;
          }
@@ -468,7 +478,8 @@ string body_exit(object who, string dir) {
       if (who->is_player())
 	 last_exit = time();
    } else if (query_hidden_exit(dir)) {
-      for (i = 0; i < sizeof(inventory); i++) {
+      max = sizeof(inventory);
+      for (i = 0; i < max; i++) {
          if (check_block_object(inventory[i],dir,who)) {
              return nil;
          }
@@ -510,19 +521,22 @@ void destruct(void) {
 }
 
 void event_clean_up(void) {
-   int i;
+   int i, max;
    object *inventory;
 
    if (time() - last_exit < 60 * 15)
       return;
 
    inventory = query_inventory();
-   for (i = 0; i < sizeof(inventory); i++) {
-      if (!inventory[i])
+   max = sizeof(inventory);
+   for (i = 0; i < max; i++) {
+      if (!inventory[i]) {
 	 continue;
+      }
       if (inventory[i]->is_player() || inventory[i]->is_possessed()
-	 || inventory[i]->no_cleanup())
+	 || inventory[i]->no_cleanup()) {
 	 return;
+      }
    }
 
    destruct();
@@ -535,7 +549,9 @@ void upgraded() {
     * setup in clones, while blueprints of rooms are often used
     * and will also require setup.
     */
-   if (clone_num() == 0)
+
+   if (clone_num() == 0) {
       setup();
+   }
 }
 
