@@ -30,9 +30,10 @@ object load_traproom() {
    trapname = DIR + "/rooms/sub/door_trap";
    traproom = find_object(trapname);
    if (!traproom) {
-      traproom = compile_object(trapname);
-      traproom->setup();
-      traproom->setup_mudlib();
+      if (traproom = compile_object(trapname)) {
+         traproom->setup();
+         traproom->setup_mudlib();
+      }
    }
    return traproom;
 }

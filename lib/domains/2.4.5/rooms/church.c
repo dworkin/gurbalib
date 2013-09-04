@@ -5,7 +5,6 @@ inherit "/std/room";
 
 object el;
 
-
 void setup(void) {
    add_area("2.4.5");
 
@@ -18,6 +17,9 @@ void setup(void) {
 
    add_exit("south", DIR + "/rooms/vill_green.c");
 
+   add_room_command("press","press_button");
+   add_room_command("push","press_button");
+
    add_item("clock","The clock appears to be broken, it is stuck at: 1:26");
    add_item("pit","In the middle of the church is a deep pit.  IT was used " +
       "for sacrifice in the old times, but nowadays it is only " +
@@ -25,7 +27,7 @@ void setup(void) {
 
    el = get_el();
    if (el) {
-      if (el->query_location() == 3) {
+      if (el->query_location() == 2) {
          el_arrives();
       } else {
          el_leaves();
