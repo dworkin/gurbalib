@@ -93,18 +93,15 @@ private string trailing_slash( string str ) {
  *
  */
 
-int menu_priv( string priv, string *arg) {
-   string path, prev;
+int menu_priv( string priv, string prev, string path) {
 
    if(!require_priv("system")) {
       error("Permission denied.");
    }
  
-   ({ path, prev }) = arg;
-
    if(!priv || strlen(priv) == 0) {
       this_player()->out("Privilege required for using " + path + "? (* for everyone) : ");
-      this_player()->input_to_object( this_object(), "menu_priv", arg );
+      this_player()->input_to_object( this_object(), "menu_priv", prev, path );
       return 1;
    }
 
@@ -160,7 +157,7 @@ int menu_add(string arg) {
       COMMAND_D->add_path(path,priv);
       return menu_cmdadm();
    } else {
-      return menu_priv( nil, ({ path, "menu_cmdadm" }) );
+      return menu_priv( nil, "menu_cmdadm", path );
    }
 }
 
@@ -238,7 +235,7 @@ static int menu_path(string path) {
    cmdpriv = COMMAND_D->query_cmdpriv();
    do_menu( "Edit " + path, 
       ({
-         ({ "p", "change required privilege", cmdpriv[path], make_fcall( this_object(), "menu_priv", nil, ({ path, "menu_path" }) ) }),
+         ({ "p", "change required privilege", cmdpriv[path], make_fcall( this_object(), "menu_priv", nil, "menu_path", path ) }),
          ({ "r", "remove command path", nil, make_fcall(this_object(), "menu_remove", nil, path) }),
          ({ "q", "main menu", nil, make_fcall( this_object(), "menu_cmdadm" ) })
       })

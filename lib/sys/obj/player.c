@@ -390,14 +390,14 @@ string *query_ignored_all() {
 }
 
 /* Redirect input to another funtion */
-void input_to(string func, varargs mixed arg) {
+void input_to(string func, varargs mixed arg...) {
    input_to_obj = this_player();
    input_to_func = func;
    input_to_arg = arg;
 }
 
 /* Redirect input to another object */
-void input_to_object(object ob, string func, varargs mixed arg) {
+void input_to_object(object ob, string func, varargs mixed arg...) {
    input_to_obj = ob;
    input_to_func = func;
    input_to_arg = arg;
@@ -831,11 +831,15 @@ void receive_message(string message) {
       func = input_to_func;
       input_to_func = "";
       /* remain compatible with functions only expecting a message argument */
+#ifdef OLD_INPUT_TO
       if(input_to_arg) {
-         call_other(input_to_obj, func, message, input_to_arg);
+#endif
+         call_other(input_to_obj, func, message, input_to_arg...);
+#ifdef OLD_INPUT_TO
       } else {
          call_other(input_to_obj, func, message);
       }
+#endif
       /* Are we editing? */
    } else if (is_editing()) {
       this_player()->edit(message);
