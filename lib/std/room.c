@@ -272,6 +272,13 @@ string query_room_command(string command) {
    return room_commands[command];
 }
 
+mapping query_room_commands() {
+   if (!room_commands) {
+      return ([ ]);
+   }
+   return room_commands;
+}
+
 void set_items(string id, varargs mixed args ...) {
    string description;
    int i;
