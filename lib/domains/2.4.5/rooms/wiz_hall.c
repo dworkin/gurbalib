@@ -13,13 +13,16 @@ void setup(void) {
       "the west, with a button next to it, and a shimmering field to " +
       "the north.");
 
+   add_room_command("press","press_button");
+   add_room_command("push","press_button");
+
    set_objects (([
       DIR + "/monsters/leo.c": 1,
    ]));
 
    el = get_el();
    if (el) {
-      if (el->query_location() == 3) {
+      if (el->query_location() == 1) {
          el_arrives();
       } else {
          el_leaves();

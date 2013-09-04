@@ -4,13 +4,9 @@ object get_el() {
    object obj;
    obj = find_object(elfile);
    if (!obj) {
-      catch {
-         obj = compile_object(elfile);
+      if (obj = compile_object(elfile)) {
          obj->setup();
          obj->setup_mudlib();
-      } : {
-         write("The elevator is out of service...\n");
-/* XXX Do something else here */
       }
    }
 
@@ -29,4 +25,17 @@ void el_leaves() {
    remove_exit("west");
    remove_item("door");
    add_item("door","The door is closed.");
+}
+
+int press_button(string str) {
+   str = lowercase(str);
+
+   if (str == "button") {
+      write("You press the button.\n");
+      tell_room(this_player(), this_player()->query_Name() + 
+         " presses the button.\n");
+/* XXX do the work here */
+      return 1;
+   }
+   return 0;
 }
