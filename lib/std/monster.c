@@ -34,8 +34,9 @@ int is_attackable(void) {
 void set_wearing(mixed obj) {
    object armor;
 
-   if (!obj)
+   if (!obj) {
       return;
+   }
 
    if (typeof(obj) == T_STRING) {
       /* We've got to compile our own copy */
@@ -76,13 +77,15 @@ void set_wielding(mixed obj) {
 }
 
 void message(string str, varargs int chat_flag) {
-   if (is_possessed())
+   if (is_possessed()) {
       query_possessor()->message("%^RED%^$%^RESET%^" + str, chat_flag);
+   }
 }
 
 void message_orig(string str) {
-   if (is_possessed())
+   if (is_possessed()) {
       query_possessor()->message_orig("%^RED%^$%^RESET%^" + str);
+   }
 }
 
 void set_aggressive(int x) {
