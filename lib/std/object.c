@@ -21,8 +21,9 @@ void setup();
 void create(void) {
    string tmp;
 
-   if (configured++)
+   if (configured++) {
       return;
+   }
 
    short_desc = "";
    ids = ( { "nondescript thing" } );
@@ -39,14 +40,15 @@ void create(void) {
 }
 
 void set_id(string str, varargs mixed args ...) {
-   int i;
+   int i, max;
 
    if (sizeof(args) && typeof(args[0]) == T_ARRAY) {
       args = args[0];
    }
 
    ids = ( { str } );
-   for (i = 0; i < sizeof(args); i++) {
+   max = sizeof(args);
+   for (i = 0; i < max; i++) {
       ids += ( { (string) args[i] } );
    }
 }
@@ -85,30 +87,36 @@ string *query_ids(void) {
 }
 
 int is_id(string id) {
-   int i;
-   for (i = 0; i < sizeof(ids); i++) {
-      if (ids[i] == id)
+   int i, max;
+
+   max = sizeof(ids);
+   for (i = 0; i < max; i++) {
+      if (ids[i] == id) {
 	 return 1;
+      }
    }
    return 0;
 }
 
 void set_adj(string str, varargs mixed args ...) {
-   int i;
+   int i, max;
 
    adjs = ( { str } );
-   for (i = 0; i < sizeof(args); i++) {
+   max = sizeof(args);
+   for (i = 0; i < max; i++) {
       adjs += ( { (string) args[i] } );
    }
 }
 
 void add_adj(string str, varargs mixed args ...) {
-   int i;
+   int i, max;
 
-   if (!adjs)
+   if (!adjs) {
       adjs = ( { } );
+   }
    adjs += ( { str } );
-   for (i = 0; i < sizeof(args); i++) {
+   max = sizeof(args);
+   for (i = 0; i < max; i++) {
       adjs += ( { (string) args[i] } );
    }
 }
@@ -118,15 +126,17 @@ string *query_adjs(void) {
 }
 
 string query_adj(void) {
-   if (sizeof(adjs) == 0)
+   if (sizeof(adjs) == 0) {
       return "";
+   }
    return adjs[0];
 }
 
 int is_adj(string adj) {
-   int i;
+   int i, max;
 
-   for (i = 0; i < sizeof(adjs); i++) {
+   max = sizeof(adjs);
+   for (i = 0; i < max; i++) {
       if (adjs[i] == adj)
 	 return 1;
    }
@@ -268,10 +278,11 @@ nomask mapping query_verb_rules() {
 
 void add_object_command(string command, string func) {
    if (!object_commands) object_commands = ([ ]);
-   if (!object_commands[command]) 
+   if (!object_commands[command]) {
       object_commands += ([command:func]);
-   else 
+   } else {
       object_commands[command] = func;
+   }
 }
 
 void remove_object_command(string command) {
@@ -286,8 +297,9 @@ string query_object_command(string command) {
 string *query_object_commands(void) {
    string *keys;
 
-   if (!object_commands)
+   if (!object_commands) {
       object_commands = ([ ]);
+   }
    keys = map_indices(object_commands);
 
    return keys;

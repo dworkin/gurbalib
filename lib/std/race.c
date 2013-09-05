@@ -24,7 +24,6 @@ int is_monster_race(void) {
    return 0;
 }
 
-
 string query_language(void) {
    return language;
 }
