@@ -65,14 +65,6 @@ static mixed *make_fcall(object ob, string fun, mixed args ...) {
 
 /* Private functions */
 
-private int query_width() {
-   int w;
-
-   w = this_player() ? this_player()->query_env("width") : 78;
-   if (!w) w = 78;
-   return w;
-}
-
 private void prompt(string * keys) {
    string disp;
 
@@ -120,7 +112,7 @@ private string *display_conv(string str) {
    int width, len, i, sz, total, pos;
 
    r = ({ });
-   width = query_width();
+   width = this_player()->query_width();
    len = strlen(ANSI_D->strip_colors(str));
    /* stupid line splitter, will split on word breaks, but 
       will fail on long words deal with lines that are too long still, 
@@ -155,8 +147,7 @@ private string make_display_line(mixed * m) {
    string result, tmp;
    int width;
 
-   width = this_player()->query_env("width");
-   if(!width) width = 78;
+   width = this_player()->query_width();
    if(width > 132) width = 132;
    if(width < 40) width = 40; /* we'll deal with smaller displays later */
 
@@ -192,8 +183,7 @@ private void display_menu(mixed header, mixed * menu, mixed footer,
    string *output;
 
    output = ( { } ); 
-   width = (int) this_player()->query_env("width");
-   if(!width) width = 78;
+   width = this_player()->query_width();
    if(width > 132) width = 132;
 
    width--;

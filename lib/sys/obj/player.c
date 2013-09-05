@@ -468,6 +468,18 @@ void write_prompt() {
    out(prompt + "%^RESET%^ ");
 }
 
+int query_width() {
+   mixed width;
+   int x;
+
+   width = this_player()->query_env("width");
+   if (!intp(width) || (width < 2)) {
+      width = DEFAULT_WIDTH;
+   }
+   x = width;
+   return x;
+}
+
 /* More a set of lines */
 void more(string * lines, varargs int docolor) {
    string msg;

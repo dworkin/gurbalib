@@ -77,12 +77,9 @@ static void show_cmds(string dir) {
 static void main(string str) {
    string *path;
    int c, cmax;
-   mixed width;
+   int width;
 
-   width = this_player()->query_env("width");
-   if (!intp(width) || (width < 2)) {
-      width = DEFAULT_WIDTH;
-   }
+   width = this_player()->query_width();
 
    lines = ( { } ); 
 

@@ -39,13 +39,9 @@ static void show_file(string filename) {
    string *tmp;
    string blah;
    string *lines;
-   int i, len, where;
-   mixed width;
+   int i, len, where, width;
 
-   width = this_player()->query_env("width");
-   if (!intp(width) || (width < 2)) {
-      width = DEFAULT_WIDTH;
-   }
+   width = this_player()->query_width();
 
    lines = ( { "Help for " + capitalize(filename) + "." } );
    blah = "";

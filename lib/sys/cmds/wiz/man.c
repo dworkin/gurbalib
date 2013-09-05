@@ -50,26 +50,16 @@ void create() {
    rebuild_topics();
 }
 
-static string *dir_index(string what) {
+static string *dir_index(string what, int width) {
    string *res;
    string *dir;
    string line;
-   mixed width;
-   int ncollumns;
-   int i;
-   int j;
-   int sz;
+   int ncollumns, i, j, sz;
 
    dir = get_dir(what + "/*")[0];
    if (!dir)
       return ( { } );
 
-   width = this_player()->query_env("width");
-   if (!intp(width) || (width < 2)) {
-      width = 78;
-   } else {
-      width--;
-   }
    ncollumns = width / 19;
 
    dir -= ( { ".svn" } );
@@ -95,8 +85,7 @@ static void main(string arg) {
    string file, header;
    string *tmp;
    string *lines;
-   int i, j, found, where;
-   mixed width;
+   int i, j, found, where, width;
 
    if (!query_wizard(this_player())) {
       write("You must be a wizard to do that.\n");
@@ -141,19 +130,15 @@ static void main(string arg) {
       return;
    }
 
-   width = this_player()->query_env("width");
-   if (!intp(width) || (width < 2)) {
-      width = 78;
-   } else {
-      width--;
-   }
+   width = this_player()->query_width();
+   width--;
 
    if (file_exists(file) > 0) {
       header = "Manpage for " + arg + ".";
       tmp = explode(read_file(file), "\n");
    } else {
       header = "Index for " + arg + ".";
-      tmp = dir_index(file);
+      tmp = dir_index(file, width);
    }
 
    lines = ( { } );

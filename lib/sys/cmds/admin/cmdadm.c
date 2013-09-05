@@ -1,13 +1,8 @@
 /*
- *
  * Menu interface and CLI for managing the command system.
- *
  * Also a small demo of the menu system itself.
- *
  * August 2013, Aidil@Way of the Force
- *
  * This code is in the public domain.
- *
  */
 
 inherit M_COMMAND;
@@ -23,14 +18,17 @@ string *query_usage() {
    lines += ({ " " });
    lines += ({ "%^BOLD%^add <path> <privilege>%^RESET%^" });
    lines += ({ " " });
-   lines += ({ "  Add a new command path with a privilege to the command daemon." });
+   lines += ({ "  Add a new command path with a privilege to the command " +
+      "daemon." });
    lines += ({ " " });
    lines += ({ "%^BOLD%^remove <path>" });
    lines += ({ "delete <path>%^RESET%^" });
    lines += ({ " " });
    lines += ({ "  Remove an existing command path from the command daemon." });
-   lines += ({ "  This does NOT remove the files in that path, it merely stops" });
-   lines += ({ "  the commands defined in those files from being used as commands." });
+   lines += ({ "  This does NOT remove the files in that path, it merely " +
+      "stops" });
+   lines += ({ "  the commands defined in those files from being used as " +
+      "commands." });
    lines += ({ " " });
    lines += ({ "%^BOLD%^privilege <path> <priv>%^RESET%^" });
    lines += ({ " " });
@@ -48,14 +46,17 @@ string *query_usage() {
    lines += ({ " " });
    lines += ({ "All commands can be abbreviated to their first 2 letters" });
    lines += ({ "so \"remove\" becomes \"re\", \"privilege\" becomes \"pr\"" });
-   lines += ({ "(this does not work for \"menu\", as \"me\" has a special meaning" });
+   lines += ({ "(this does not work for \"menu\", as \"me\" has a special " +
+      "meaning" });
    lines += ({ "but using \"men\" will work)"});
    lines += ({ " " });
    lines += ({ "Privilege can be any valid privilege or * for everyone" });
    lines += ({ " " });
    lines += ({ "Whenever a command expects more then one argument, where one" });
-   lines += ({ "is a path, and the path contains spaces, you will need to quote" });
-   lines += ({ "the path, for example: cmdadm add \"/a path/with spaces/\" *" });
+   lines += ({ "is a path, and the path contains spaces, you will need to " +
+      "quote" });
+   lines += ({ "the path, for example: cmdadm add \"/a path/with spaces/\" *" 
+      });
 
    return lines;
 }
@@ -64,11 +65,7 @@ void usage() {
    this_player()->more(map_array(query_usage(), "parse_colors", ANSI_D));
 }
 
-/*
- * utility function, ensure every command path has a trailing slash.
- *
- */
-   
+/* utility function, ensure every command path has a trailing slash.  */
 private string trailing_slash( string str ) {
    if(str && strlen(str) && str[strlen(str)-1] != '/') {
       str += "/";
@@ -100,7 +97,8 @@ int menu_priv( string priv, string prev, string path) {
    }
  
    if(!priv || strlen(priv) == 0) {
-      this_player()->out("Privilege required for using " + path + "? (* for everyone, - for no access) : ");
+      this_player()->out("Privilege required for using " + path + 
+         "? (* for everyone, - for no access) : ");
       this_player()->input_to_object( this_object(), "menu_priv", prev, path );
       return 1;
    }
@@ -126,11 +124,13 @@ int menu_add(string arg) {
    }
 
    if (!arg) {
-      this_player()->out("Path to add? (/path/ or /path/ priv, enter to cancel) : ");
+      this_player()->out("Path to add? (/path/ or /path/ priv, " +
+         "enter to cancel) : ");
       this_player()->input_to_object(this_object(), "menu_add");
       return 1;
    }
-   if((sscanf(arg,"\"%s\" %s", path, priv) != 2) && (sscanf(arg,"%s %s",path,priv) != 2)) {
+   if((sscanf(arg,"\"%s\" %s", path, priv) != 2) && 
+      (sscanf(arg,"%s %s",path,priv) != 2)) {
       path = arg;
       priv = nil;
    }
@@ -186,12 +186,7 @@ int menu_remove( string str, string arg ) {
    }
 }
 
-/*
- *
- * Leave the menu system.
- *
- */
-
+/* Leave the menu system.  */
 static int menu_quit() {
    write("Ok.\n");
    return 1;
@@ -224,12 +219,16 @@ static int menu_cmdadm(varargs mixed junk...) {
       }
       info += cmdpriv[path[i]];
 
-      menu += ({ ({ "" + (i+1), path[i], info, make_fcall(this_object(), "menu_path", path[i]) }) });
+      menu += ({ ({ "" + (i+1), path[i], info, make_fcall(this_object(), 
+         "menu_path", path[i]) }) });
    }
-   menu += ({ ({ "a", "add a new command path", nil, make_fcall( this_object(), "menu_add", nil ) }) });
-   menu += ({ ({ "q", "quit", nil, make_fcall( this_object(), "menu_quit" ) }) });
+   menu += ({ ({ "a", "add a new command path", nil, make_fcall( this_object(),
+      "menu_add", nil ) }) });
+   menu += ({ ({ "q", "quit", nil, make_fcall( this_object(), 
+      "menu_quit" ) }) });
 
-   do_menu( "Command path administration", menu, "select a path to edit or action to take" );
+   do_menu( "Command path administration", menu, "select a path to edit or " +
+      "action to take" );
    return 2;
 }
 
@@ -245,44 +244,44 @@ static int menu_path(string path) {
    int ptype; /* 0 custom, 1 override, 2 predefined */
    string header;
 
-   ptype = ( COMMAND_D->query_override(path) | ( COMMAND_D->query_syspath(path) << 1) );
+   ptype = ( COMMAND_D->query_override(path) | 
+      ( COMMAND_D->query_syspath(path) << 1) );
    cmdpriv = COMMAND_D->query_cmdpriv();
 
    write("ptype: "+ptype+"\n");
    menu = ({ });
    if(ptype != 2) {
-      menu += ({ ({ "p", "change required privilege", cmdpriv[path], make_fcall( this_object(), 
-                  "menu_priv", nil, "menu_path", path ) }) });
+      menu += ({ ({ "p", "change required privilege", cmdpriv[path], 
+         make_fcall( this_object(), "menu_priv", nil, "menu_path", path ) }) });
       if (ptype) {
          header = "Editing override for " + path;
-         menu += ({ ({ "r", "remove privilege override", nil, make_fcall(this_object(), "menu_remove", nil, path) }) });
+         menu += ({ ({ "r", "remove privilege override", nil, 
+            make_fcall(this_object(), "menu_remove", nil, path) }) });
       } else {
          header = "Editing command path " + path;
-         menu += ({ ({ "r", "remove command path", nil, make_fcall(this_object(), "menu_remove", nil, path) }) });
+         menu += ({ ({ "r", "remove command path", nil, 
+            make_fcall(this_object(), "menu_remove", nil, path) }) });
       }
    } else {
       header = "Edit predefined command path " + path;
-      menu += ({ ({ "p", "create privilege override", cmdpriv[path], make_fcall( this_object(), "menu_priv", nil, "menu_path", path ) }) });
+      menu += ({ ({ "p", "create privilege override", cmdpriv[path], 
+         make_fcall( this_object(), "menu_priv", nil, "menu_path", path ) }) });
    }
-   menu += ({ ({ "q", "main menu", nil, make_fcall( this_object(), "menu_cmdadm" ) }) });
+   menu += ({ ({ "q", "main menu", nil, make_fcall( this_object(), 
+      "menu_cmdadm" ) }) });
    do_menu(header, menu);
    return 2;
 }
 
 /*
- *
  * The command line interface.
- * Everything can be private in here except for one function that asks for confirming
- * removal of a path, this function will be called from player or user objects.
- *
+ * Everything can be private in here except for one function that asks 
+ * for confirming * removal of a path, this function will be called from 
+ * player or user objects.
  */
 
-/*
- *
- * Ask for confirmation for removing a command path.
- *
- */
 
+/* Ask for confirmation for removing a command path.  */
 void action_remove_yn( string str, string path ) {
    if(!require_priv("system")) {
       error("Permission denied.");
@@ -329,12 +328,7 @@ private int action_del_path(string str) {
    return 1;
 }
 
-/*
- *
- * Handle the list/show command
- *
- */
-
+/* Handle the list/show command */
 private int action_list_path() {
    int i, sz;
    string *path;
@@ -360,7 +354,8 @@ private int action_list_path() {
 private int action_add_path(string str, int ch) {
    string path, priv;
 
-   if(!str || ((sscanf(str, "%s %s", path, priv) != 2) && (sscanf(str, "\"%s\" %s", path, priv) != 2))) {
+   if(!str || ((sscanf(str, "%s %s", path, priv) != 2) && 
+      (sscanf(str, "\"%s\" %s", path, priv) != 2))) {
       notify_fail("add needs a path and a privilege as arguments");
       return 0;
    }
@@ -440,7 +435,8 @@ static void main(string str) {
          str = query_notify_fail();
 
          if(str) {
-            str = ANSI_D->parse_colors("%^RED%^BOLD%^Error: " + str + "%^RESET%^");
+            str = ANSI_D->parse_colors("%^RED%^BOLD%^Error: " + str + 
+               "%^RESET%^");
             err = ({ str });
          } else {
             err = ({ });

@@ -19,8 +19,7 @@ void usage() {
 
 static void main(string str) {
    string bar, title;
-   int i, exp, maxi;
-   mixed width;
+   int i, exp, width;
 
    if (str && (str != "")) {
       usage();
@@ -29,13 +28,10 @@ static void main(string str) {
 
    write("LEVEL:   EXP     : Title");
 
-   width = this_player()->query_env("width");
-   maxi = intp(width);
-   if (maxi < 2)
-      maxi = DEFAULT_WIDTH;
+   width = this_player()->query_width();
 
    bar = "";
-   for (i = 0; i < maxi; i++) {
+   for (i = 0; i < width; i++) {
       bar += "-";
    }
    write(bar + "\n");

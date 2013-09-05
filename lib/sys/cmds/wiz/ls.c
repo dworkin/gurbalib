@@ -26,7 +26,7 @@ void usage() {
 }
 
 static void main(string str) {
-   mixed width;
+   int width;
    mixed *files;
    string *names, timestr, dirlist, path;
    int *sizes, *times, long, ancient, i, j, sz, max, len, rows, time, color_len;
@@ -55,10 +55,7 @@ static void main(string str) {
       return;
    }
 
-   width = this_player()->query_env("width");
-   if (!intp(width) || (width < 2)) {
-      width = DEFAULT_WIDTH;
-   }
+   width = this_player()->query_width();
 
    files = get_dir(str);
 

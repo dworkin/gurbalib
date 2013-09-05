@@ -83,17 +83,14 @@ void add_emote(string str) {
 static void main(string str) {
    string name, fmt;
    string *lines;
-   mixed width;
+   int width;
 
    if (!query_wizard(this_player())) {
       write("You must be a wizard to do that.\n");
       return;
    }
 
-   width = this_player()->query_env("width");
-   if (!intp(width) || (width < 2)) {
-      width = DEFAULT_WIDTH;
-   }
+   width = this_player()->query_width();
 
    if (!str || (str == "")) {
       usage();
