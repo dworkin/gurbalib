@@ -100,7 +100,7 @@ int menu_priv( string priv, string prev, string path) {
    }
  
    if(!priv || strlen(priv) == 0) {
-      this_player()->out("Privilege required for using " + path + "? (* for everyone) : ");
+      this_player()->out("Privilege required for using " + path + "? (* for everyone, - for no access) : ");
       this_player()->input_to_object( this_object(), "menu_priv", prev, path );
       return 1;
    }
@@ -208,13 +208,23 @@ static int menu_cmdadm(varargs mixed junk...) {
    mapping cmdpriv;
    string *path;
    mixed **menu;
+   string info;
 
    cmdpriv = COMMAND_D->query_cmdpriv();
    path = map_indices(cmdpriv);
    menu = ({ });
 
    for(i=0,sz=sizeof(path); i<sz; i++) {
-      menu += ({ ({ "" + (i+1), path[i], cmdpriv[path[i]], make_fcall(this_object(), "menu_path", path[i]) }) });
+      if (COMMAND_D->query_override(path[i])) {
+         info = "override:";
+      } else if (COMMAND_D->query_syspath(path[i])) {
+         info = "predefined:";
+      } else {
+         info = "custom:";
+      }
+      info += cmdpriv[path[i]];
+
+      menu += ({ ({ "" + (i+1), path[i], info, make_fcall(this_object(), "menu_path", path[i]) }) });
    }
    menu += ({ ({ "a", "add a new command path", nil, make_fcall( this_object(), "menu_add", nil ) }) });
    menu += ({ ({ "q", "quit", nil, make_fcall( this_object(), "menu_quit" ) }) });
@@ -231,15 +241,31 @@ static int menu_cmdadm(varargs mixed junk...) {
 
 static int menu_path(string path) {
    mapping cmdpriv;
+   mixed **menu;
+   int ptype; /* 0 custom, 1 override, 2 predefined */
+   string header;
 
+   ptype = ( COMMAND_D->query_override(path) | ( COMMAND_D->query_syspath(path) << 1) );
    cmdpriv = COMMAND_D->query_cmdpriv();
-   do_menu( "Edit " + path, 
-      ({
-         ({ "p", "change required privilege", cmdpriv[path], make_fcall( this_object(), "menu_priv", nil, "menu_path", path ) }),
-         ({ "r", "remove command path", nil, make_fcall(this_object(), "menu_remove", nil, path) }),
-         ({ "q", "main menu", nil, make_fcall( this_object(), "menu_cmdadm" ) })
-      })
-   );
+
+   write("ptype: "+ptype+"\n");
+   menu = ({ });
+   if(ptype != 2) {
+      menu += ({ ({ "p", "change required privilege", cmdpriv[path], make_fcall( this_object(), 
+                  "menu_priv", nil, "menu_path", path ) }) });
+      if (ptype) {
+         header = "Editing override for " + path;
+         menu += ({ ({ "r", "remove privilege override", nil, make_fcall(this_object(), "menu_remove", nil, path) }) });
+      } else {
+         header = "Editing command path " + path;
+         menu += ({ ({ "r", "remove command path", nil, make_fcall(this_object(), "menu_remove", nil, path) }) });
+      }
+   } else {
+      header = "Edit predefined command path " + path;
+      menu += ({ ({ "p", "create privilege override", cmdpriv[path], make_fcall( this_object(), "menu_priv", nil, "menu_path", path ) }) });
+   }
+   menu += ({ ({ "q", "main menu", nil, make_fcall( this_object(), "menu_cmdadm" ) }) });
+   do_menu(header, menu);
    return 2;
 }
 

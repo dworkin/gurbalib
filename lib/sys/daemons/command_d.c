@@ -7,6 +7,15 @@
 
 #include <privileges.h>
 
+#define SYS_CMDPRIV ([\
+      "/sys/cmds/admin/"     : "system",\
+      "/sys/cmds/wiz/"       : "wizard",\
+      "/cmds/player/"        : "*",\
+      "/cmds/guild/fighter/" : "*",\
+      "/cmds/spells/"        : "*",\
+      "/cmds/monster/"       : "*",\
+])
+
 #define DATA_FILE "/sys/daemons/data/command_d.o"
 #define secure() require_priv("system")
 
@@ -48,12 +57,6 @@ static void create() {
 
   if( !cmdpriv ) {
     cmdpriv = ([
-      "/sys/cmds/admin/"     : "system",
-      "/sys/cmds/wiz/"       : "wizard",
-      "/cmds/player/"        : "*",
-      "/cmds/guild/fighter/" : "*",
-      "/cmds/spells/"        : "*",
-      "/cmds/monster/"       : "*"
     ]);
   }
 
@@ -62,7 +65,14 @@ static void create() {
 }
 
 static int access_check( string path ) {
-  return ( cmdpriv[path] && ( ( cmdpriv[path] == "*" ) || require_priv( cmdpriv[path] ) ) );
+   string priv;
+
+   if(cmdpriv[path]) {
+      priv = cmdpriv[path];
+   } else {
+      priv = SYS_CMDPRIV[path];
+   }
+   return (priv && (priv != "-") && ((priv == "*") || require_priv(priv)));
 }
 
 static string file_to_cmdname( string file ) {
@@ -81,7 +91,7 @@ void rehash() {
   if(!secure()) {
     error("Permission denied.");
   }
-  syspath = map_indices( cmdpriv );
+  syspath = map_indices( cmdpriv ) | map_indices( SYS_CMDPRIV );
   commands = ([ ]);
 
   console_msg( "Rehashing command paths\n" );
@@ -153,7 +163,7 @@ string cmdstats() {
     error("Permission denied.\n" );
   }
 
-  syspath = map_indices( cmdpriv );
+  syspath = map_indices( cmdpriv ) | map_indices( SYS_CMDPRIV );
   r = "";
 
   for( i = 0, sz = sizeof( syspath ); i < sz; i++ ) {
@@ -167,7 +177,7 @@ int validate_path( string path ) {
 }
 
 int cmd_path_exists( string path ) {
-  return cmdpriv[path] ? 1 : 0;
+  return cmdpriv[path] || SYS_CMDPRIV[path];
 }
 
 /* can only be called from system code, which is trusted with this data
@@ -175,11 +185,7 @@ int cmd_path_exists( string path ) {
 mapping query_cmdpriv() {
   if(!KERNEL() && !SYSTEM()) error("Permission denied");
 
-  if(map_sizeof(cmdpriv)) {
-    return cmdpriv[..];
-  } else {
-    return ([]);
-  }
+  return SYS_CMDPRIV + cmdpriv; /* warning, order is important */
 }
 
 void add_path(string path, string priv) {
@@ -194,5 +200,13 @@ void remove_path(string path) {
   if(!secure()) error("Permission denied.");
   cmdpriv[path] = nil;
   save_me();
+}
+
+int query_override(string path) {
+   return cmdpriv[path] && SYS_CMDPRIV[path];
+}
+
+int query_syspath(string path) {
+   return SYS_CMDPRIV[path] != nil;
 }
 
