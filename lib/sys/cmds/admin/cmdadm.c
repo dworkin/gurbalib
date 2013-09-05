@@ -74,6 +74,20 @@ private string trailing_slash( string str ) {
 }
 
 /*
+ * utility function, pad string
+ *
+ */
+
+private string padstr(string str, int len) {
+   string r;
+
+   argcheck(str != nil, 1, "string");
+   r = str + "                                                                                                                                                      ";
+   argcheck((len >= 0 && len < strlen(r)), 2, "ranged int [" + 0 + ".." + (strlen(r)-1) + "], got " + len);
+   return r[..len-1];
+}
+
+/*
  *
  * The menu interface.
  *
@@ -248,7 +262,6 @@ static int menu_path(string path) {
       ( COMMAND_D->query_syspath(path) << 1) );
    cmdpriv = COMMAND_D->query_cmdpriv();
 
-   write("ptype: "+ptype+"\n");
    menu = ({ });
    if(ptype != 2) {
       menu += ({ ({ "p", "change required privilege", cmdpriv[path], 
@@ -330,15 +343,27 @@ private int action_del_path(string str) {
 
 /* Handle the list/show command */
 private int action_list_path() {
-   int i, sz;
-   string *path;
+   int i, sz, ptype, len;
+   string *path, r;
    mapping cmdpriv;
 
    cmdpriv = COMMAND_D->query_cmdpriv();
    path = map_indices(cmdpriv);
 
+   /* determine the longest command path name */
    for(i=0,sz=sizeof(path); i<sz; i++) {
-      write(path[i] + " : " + cmdpriv[path[i]] + "\n");
+      if(strlen(path[i]) > len) {
+         len = strlen(path[i]);
+      }
+   }
+
+   len += 2;
+
+   for(i=0; i<sz; i++) {
+      ptype = (COMMAND_D->query_override(path[i]) | (COMMAND_D->query_syspath(path[i]) << 1));
+      r = padstr(path[i], len) + padstr("(" + (!(ptype & 3) ? "custom" : (ptype & 1) ? "override" : "predefined" ) + ")", 14);
+      r += " : " + cmdpriv[path[i]];
+      write(r + "\n");
    }
    return 1;
 }
@@ -404,48 +429,71 @@ static void main(string str) {
    int r;
    string cmd, arg;
 
+   /* only ever try this when we got at least 2 chars (shortest possible command) */
    if(str && strlen(str) > 1) {
       if(sscanf(str, "%s %s", cmd, arg) != 2) {
          cmd = str;
       }
 
-      switch(cmd[0..1]) {
-         case "ad" : r = action_add_path( arg, 0 );
-                     break;
-         case "re" :
-         case "de" : r = action_del_path( arg );
-                     break;
-         case "pr" : r = action_add_path( arg, 1 );
-                     break;
-         case "sh" :
-         case "li" : r = action_list_path();
-                     break;
-         case "me" : menu_cmdadm();
-                     r = 1;
-         case "he" : r = 0;
-                     break;
-         default   : notify_fail("unknown command");
-                     r = 0;
-                     break;
-      }
-
-      if(!r) {
-         string *err;
-
-         str = query_notify_fail();
-
-         if(str) {
-            str = ANSI_D->parse_colors("%^RED%^BOLD%^Error: " + str + 
-               "%^RESET%^");
-            err = ({ str });
-         } else {
-            err = ({ });
+      /* commands cannot be shorter then 2 chars */
+      if (strlen(cmd) > 1) {
+         switch(cmd[0..1]) {
+            case "ad" : r = action_add_path( arg, 0 );
+                        break;
+            case "re" :                                           
+            case "de" : r = action_del_path( arg );
+                        break;
+            case "pr" : r = action_add_path( arg, 1 );
+                        break;
+            case "sh" :
+            case "li" : if (arg) {
+                           notify_fail(cmd + " does not take any arguments");
+                           r = 0;
+                        } else {
+                           r = action_list_path();
+                        }
+                        break;
+            case "me" : if (arg) {
+                           notify_fail(cmd + " does not take any arguments");
+                           r = 0;
+                        } else {
+                           menu_cmdadm();
+                           r = 1;
+                        }
+                        break;
+            case "-h" :
+            case "he" : r = 0;
+                        break;
+            default   : notify_fail("unknown command");
+                        r = 0;
+                        break;
          }
-         err += map_array(query_usage(), "parse_colors", ANSI_D);
-         this_player()->more( err );
+      } else {
+         r = 0;
+         notify_fail("unknown command");
       }
-   } else if (str != "") {
-      usage();
+   } else if (str && str != "") {
+      r = 0;
+      notify_fail("unknown command");
+   }
+   
+
+   /* check if the command completed, if not display optional error and usage info *
+    * note, this also handles the help and -h commands                             */
+   if (r) {
+      return;
+   } else if (str && str != "") {
+      string *err;
+
+      str = query_notify_fail();
+
+      if(str) {
+         err = ({ ANSI_D->parse_colors("%^RED%^BOLD%^Error: " + str + "%^RESET%^") });
+      } else {
+         err = ({ });
+      }
+      err += map_array(query_usage(), "parse_colors", ANSI_D);
+      this_player()->more( err );
    } else {
       menu_cmdadm();
    }

@@ -160,12 +160,14 @@ private string make_display_line(mixed * m) {
       desc = get_val(m[DESC]);
       opt = get_val(m[OPT_DESC]);
 
-      olen = 8 + strlen(opt);
+      olen = strlen(opt);
       if (olen > ((width - 8) / 2)) {
          olen = (width - 8) / 2;
-         opt = opt[..olen-5];
+         opt = opt[..olen-1];
          opt += "...";
          olen = 8 + strlen(opt);
+      } else {
+         olen += 8;
       }
       dlen = width - olen;
       result += C_DESC + fixlen(desc, dlen) + C_OFF;
