@@ -9,9 +9,17 @@ If you do not have the mud up and running yet, look at ../doc/INSTALLING
 and the other documentation.  (if you do not do this, some of these 
 directories may not exist yet.)
 
+The mudlib has a basic hiearchy for security:
+	Stuff in kernel is trusted and this is where the mudlib starts
+		booting.
+	Stuff in sys is then setup, this is where admin and wizard
+		commands live.
+	Then the rest of the mud is used.
+
+Here is a basic description of how things are laid out:
 	README		This file explaining what each dir has in it.
 	TODO		List of todo items not tied to a specific file.
-	cmds		Wizard, player and monster commands.
+	cmds		player and monster commands live here.
 	daemons		Various processes that run on the mud to handle things.
 			An example is the event daemon, or the telnet daemon.
 	data		Mud specific data files..  Player files, message boards,
@@ -36,7 +44,8 @@ directories may not exist yet.)
 				/domains/required/
 	sys		This is similar to the kernel dir but is considered
 			later in the boot process.  Things like the
-			player object are located here.
+			player object are located here.  Wizard and admin 
+			commands also live here.
 	tmp		Temp dir
 	wiz		Home directories for our local wizards.
 

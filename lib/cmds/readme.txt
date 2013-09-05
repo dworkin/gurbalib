@@ -1,2 +1,2 @@
-ADMIN commands are in kernel/cmds/admin for security reasons.
+Admin and wizard commands are in sys/cmds for security reasons.
 
