@@ -40,10 +40,10 @@ void usage() {
    lines += ( { "\temoteadm add blink $N $sblink." } );
    lines += ( { "\temoteadm add LIV $N $vblink at $t" } );
    lines += ( { "See also:" } );
-   lines += ( { "\talias, aliasadmin, emote" } );
+   lines += ( { "\talias, aliasadmin, cmds, emote, emoteadm, help" });
 
    if (query_admin(this_player())) {
-      lines += ({ "\tcoloradm" });
+      lines += ({ "\tcmdadmin, coloradm" });
    }
 
    this_player()->more(lines);

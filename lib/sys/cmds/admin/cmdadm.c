@@ -12,51 +12,41 @@ static int menu_cmdadm(varargs mixed junk...);
 
 string *query_usage() {
    string *lines;
-   lines = ({ "Usage: cmdadm <cmd> [path] [priv]" });
-   lines += ({ "where cmd is one of add, remove, delete, privilege, show," });
-   lines += ({ "list or menu." });
+
+   lines = ({ "Usage: cmdadm [CMD [PATH] [PRIV]]" });
+   lines += ({ "" });
+   lines += ({ "A tool to modify the command paths for the mudlib." });
+   lines += ({ "If no arguments are given, the tool starts in menu mode." });
+   lines += ({ "if CMD if provided is one of the following:" });
+   lines += ({ "\tadd, remove, delete, privilege, show, list or menu." });
+   lines += ({ "PRIV if provied is one of the following:" });
+   lines += ({ "\tsystem, wizard, *" });
    lines += ({ " " });
-   lines += ({ "%^BOLD%^add <path> <privilege>%^RESET%^" });
-   lines += ({ " " });
-   lines += ({ "  Add a new command path with a privilege to the command " +
-      "daemon." });
-   lines += ({ " " });
-   lines += ({ "%^BOLD%^remove <path>" });
-   lines += ({ "delete <path>%^RESET%^" });
-   lines += ({ " " });
-   lines += ({ "  Remove an existing command path from the command daemon." });
-   lines += ({ "  This does NOT remove the files in that path, it merely " +
-      "stops" });
-   lines += ({ "  the commands defined in those files from being used as " +
-      "commands." });
-   lines += ({ " " });
-   lines += ({ "%^BOLD%^privilege <path> <priv>%^RESET%^" });
-   lines += ({ " " });
-   lines += ({ "  Change the privilege required for using <path>." });
-   lines += ({ " " });
-   lines += ({ "%^BOLD%^list" });
-   lines += ({ "show%^RESET%^" });
-   lines += ({ " " });
-   lines += ({ "  List command paths known to the command daemon." });
-   lines += ({ " " });
-   lines += ({ "%^BOLD%^menu%^RESET%^" });
-   lines += ({ " " });
-   lines += ({ "  Starts the menu driven interface, default action when no" });
-   lines += ({ "  command is specified." });
+
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+
+   lines += ({ "\tadd PATH PRIV\tAdds PATH with privilege PRIV" });
+   lines += ({ "\tremove PATH\tRemove an existing PATH" });
+   lines += ({ "\tdelete PATH\tRemove an existing PATH" });
+   lines += ({ "\tprivilege PATH PRIV\tSet the privilege for PATH" });
+   lines += ({ "\tshow\t\tList the current command paths" });
+   lines += ({ "\tmenu\t\tStart in menu mode" });
    lines += ({ " " });
    lines += ({ "All commands can be abbreviated to their first 2 letters" });
    lines += ({ "so \"remove\" becomes \"re\", \"privilege\" becomes \"pr\"" });
    lines += ({ "(this does not work for \"menu\", as \"me\" has a special " +
       "meaning" });
    lines += ({ "but using \"men\" will work)"});
+   lines += ({ "Whenever a path has spaces in it you should use \"\" around " +
+      "the path." });
    lines += ({ " " });
-   lines += ({ "Privilege can be any valid privilege or * for everyone" });
-   lines += ({ " " });
-   lines += ({ "Whenever a command expects more then one argument, where one" });
-   lines += ({ "is a path, and the path contains spaces, you will need to " +
-      "quote" });
-   lines += ({ "the path, for example: cmdadm add \"/a path/with spaces/\" *" 
-      });
+   lines += ({ "Examples:" });
+   lines += ({ "\tcmdadm add /tmp/cmds system " });
+   lines += ({ "\tcmdadm add \"/tmp/My stuff/cmds\" wizard " });
+   lines += ({ "\tcmdadm delete \"/tmp/cmds\"" });
+   lines += ({ "See also:" });
+   lines += ({ "\talias, aliasadmin, cmds, coloradm, emote, emoteadm, help" });
 
    return lines;
 }
@@ -83,7 +73,8 @@ private string padstr(string str, int len) {
 
    argcheck(str != nil, 1, "string");
    r = str + "                                                                                                                                                      ";
-   argcheck((len >= 0 && len < strlen(r)), 2, "ranged int [" + 0 + ".." + (strlen(r)-1) + "], got " + len);
+   argcheck((len >= 0 && len < strlen(r)), 2, "ranged int [" + 0 + ".." + 
+      (strlen(r)-1) + "], got " + len);
    return r[..len-1];
 }
 
@@ -236,7 +227,7 @@ static int menu_cmdadm(varargs mixed junk...) {
       menu += ({ ({ "" + (i+1), path[i], info, make_fcall(this_object(), 
          "menu_path", path[i]) }) });
    }
-   menu += ({ ({ "a", "add a new command path", nil, make_fcall( this_object(),
+   menu += ({ ({ "a", "add a new command path", nil, make_fcall(this_object(),
       "menu_add", nil ) }) });
    menu += ({ ({ "q", "quit", nil, make_fcall( this_object(), 
       "menu_quit" ) }) });
@@ -265,7 +256,7 @@ static int menu_path(string path) {
    menu = ({ });
    if(ptype != 2) {
       menu += ({ ({ "p", "change required privilege", cmdpriv[path], 
-         make_fcall( this_object(), "menu_priv", nil, "menu_path", path ) }) });
+         make_fcall(this_object(), "menu_priv", nil, "menu_path", path) }) });
       if (ptype) {
          header = "Editing override for " + path;
          menu += ({ ({ "r", "remove privilege override", nil, 
@@ -278,7 +269,7 @@ static int menu_path(string path) {
    } else {
       header = "Edit predefined command path " + path;
       menu += ({ ({ "p", "create privilege override", cmdpriv[path], 
-         make_fcall( this_object(), "menu_priv", nil, "menu_path", path ) }) });
+         make_fcall( this_object(), "menu_priv", nil, "menu_path", path) }) });
    }
    menu += ({ ({ "q", "main menu", nil, make_fcall( this_object(), 
       "menu_cmdadm" ) }) });
@@ -360,8 +351,11 @@ private int action_list_path() {
    len += 2;
 
    for(i=0; i<sz; i++) {
-      ptype = (COMMAND_D->query_override(path[i]) | (COMMAND_D->query_syspath(path[i]) << 1));
-      r = padstr(path[i], len) + padstr("(" + (!(ptype & 3) ? "custom" : (ptype & 1) ? "override" : "predefined" ) + ")", 14);
+      ptype = (COMMAND_D->query_override(path[i]) | 
+         (COMMAND_D->query_syspath(path[i]) << 1));
+      r = padstr(path[i], len) + padstr("(" + 
+         (!(ptype & 3) ? "custom" : (ptype & 1) ? "override" : "predefined" ) +
+         ")", 14);
       r += " : " + cmdpriv[path[i]];
       write(r + "\n");
    }
@@ -429,7 +423,8 @@ static void main(string str) {
    int r;
    string cmd, arg;
 
-   /* only ever try this when we got at least 2 chars (shortest possible command) */
+   /* only ever try this when we got at least 2 chars 
+      (shortest possible command) */
    if(str && strlen(str) > 1) {
       if(sscanf(str, "%s %s", cmd, arg) != 2) {
          cmd = str;
@@ -478,8 +473,8 @@ static void main(string str) {
    }
    
 
-   /* check if the command completed, if not display optional error and usage info *
-    * note, this also handles the help and -h commands                             */
+   /* check if the command completed, if not display optional error and usage 
+    * info.   * note, this also handles the help and -h commands             */
    if (r) {
       return;
    } else if (str && str != "") {
@@ -488,7 +483,8 @@ static void main(string str) {
       str = query_notify_fail();
 
       if(str) {
-         err = ({ ANSI_D->parse_colors("%^RED%^BOLD%^Error: " + str + "%^RESET%^") });
+         err = ({ ANSI_D->parse_colors("%^RED%^BOLD%^Error: " + str + 
+            "%^RESET%^") });
       } else {
          err = ({ });
       }

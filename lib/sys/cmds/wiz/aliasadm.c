@@ -23,10 +23,10 @@ void usage() {
    lines += ( { "\taliasadm show a" } );
    lines += ( { "\taliasadm del a" } );
    lines += ( { "See also:" } );
-   lines += ( { "\talias, emote, emoteadm" } );
+   lines += ( { "\talias, cmds, emote, emoteadm, help" } );
 
    if (query_admin(this_player())) {
-      lines += ({ "\tcoloradm" });
+      lines += ({ "\tcmdadm, coloradm" });
    }
 
    this_player()->more(lines);
