@@ -23,11 +23,6 @@ static void main(string str) {
    object *objs;
    int i, done;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (sscanf(str, "-%s", str)) {
       usage();
       return;

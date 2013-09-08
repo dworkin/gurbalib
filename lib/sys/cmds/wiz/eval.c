@@ -37,11 +37,6 @@ static void main(string src) {
    mixed result;
    int str_size;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (!src || (src == "")) {
       usage();
       return;

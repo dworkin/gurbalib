@@ -45,11 +45,6 @@ static void main(string str) {
    string who, what, id;
    object ob, player;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (!str || (str == "")) {
       str = this_player()->query_env("cwf");
       if (!str) {

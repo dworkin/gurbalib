@@ -42,11 +42,6 @@ void cat_the_file(string file) {
 static void main(string file) {
    string name;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (!file || (file == "")) {
       file = this_player()->query_env("cwf");
    } else if (sscanf(file, "-%s", file)) {

@@ -23,11 +23,6 @@ static void main(string str) {
    object *users;
    int i, max;
 
-   if (!require_priv("system")) {
-      write("You need admin permissions to do that.");
-      return;
-   }
-
    if (!str || (str == "")) {
       usage();
       return;

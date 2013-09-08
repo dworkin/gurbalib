@@ -175,11 +175,6 @@ static void main(string str) {
    string type, value;
    debug = 0;
 
-   if (!require_priv("system")) {
-      write("You need admin permissions to do that.");
-      return;
-   }
-
    if (!str || (str == "")) {
       do_full_check();
       return;

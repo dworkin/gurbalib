@@ -24,11 +24,6 @@ static void main(string str) {
    string *skills;
    int i, max;
 
-   if (!require_priv("system")) {
-      write("You must be an admin to do that.");
-      return;
-   }
-
    if (!str || (str == "")) {
       skills = SKILL_D->query_skills();
       max = sizeof(skills);

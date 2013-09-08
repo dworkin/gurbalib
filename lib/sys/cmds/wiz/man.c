@@ -87,11 +87,6 @@ static void main(string arg) {
    string *lines;
    int i, j, found, where, width;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (sscanf(arg, "-%s", arg)) {
       usage();
       return;

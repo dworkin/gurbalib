@@ -17,10 +17,6 @@ void usage() {
 }
 
 static void main(string statname) {
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
 
    if (!statname || (statname == "")) {
       usage();

@@ -76,11 +76,6 @@ static void main(string str) {
    string *symbols, *values;
    int i, sz, pos;
 
-   if (!require_priv("system")) {
-      write("You must be an admin to do that.");
-      return;
-   }
-
    if (!str || (str == "")) {
       usage();
       return;
@@ -95,7 +90,6 @@ static void main(string str) {
    }
 
    str = uppercase(str);
-write( "Looking at str: " + str + "\n");
 
    error = catch(args = parse_string(GRAMMAR, str));
 

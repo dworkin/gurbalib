@@ -52,11 +52,6 @@ void create_list(string type, string file) {
 static void main(string str) {
    string type, file;
 
-   if (!require_priv("system")) {
-      write("You must be an admin to do that.");
-      return;
-   }
-
    if (!str || (str == "")) {
       create_list("","");
       return;

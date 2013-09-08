@@ -85,11 +85,6 @@ static void main(string str) {
    string *lines;
    int width;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    width = this_player()->query_width();
 
    if (!str || (str == "")) {

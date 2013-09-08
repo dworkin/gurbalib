@@ -121,11 +121,6 @@ static void main(string str) {
    int i,max, x;
    object obj;
 
-   if (!require_priv("system")) {
-      write("You must be an admin to do that.");
-      return;
-   }
-
    if (!str || (str == "")) {
       usage();
       return;

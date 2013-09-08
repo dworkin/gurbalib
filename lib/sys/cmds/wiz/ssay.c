@@ -28,11 +28,6 @@ static void main(string str) {
    string how;			/*It's not what you say, but how you say it. */
    string what;			/*But what you say is important too. */
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    /* Strip trailing whitespaces */
    for (i = strlen(str) - 1; i > 0; i--) {
       if (str[i] != ' ')

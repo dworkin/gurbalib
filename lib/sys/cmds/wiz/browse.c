@@ -19,10 +19,6 @@ void usage() {
 }
 
 static void main(string arg) {
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
 
    if (arg && sscanf(arg, "-%s", arg)) {
       usage();

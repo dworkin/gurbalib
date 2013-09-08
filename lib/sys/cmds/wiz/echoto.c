@@ -26,11 +26,6 @@ static void main(string who) {
    int i, flag;
    string msg;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (!who || (who == "")) {
       usage();
       return;

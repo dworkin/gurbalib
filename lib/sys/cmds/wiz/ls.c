@@ -32,11 +32,6 @@ static void main(string str) {
    int *sizes, *times, long, ancient, i, j, sz, max, len, rows, time, color_len;
    string cur_col;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (!str) {
       str = ".";
    } else if (sscanf(str, "-%s", str)) {

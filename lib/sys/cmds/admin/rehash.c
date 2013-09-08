@@ -22,11 +22,6 @@ void usage() {
 
 static void main(string str) {
 
-   if (!require_priv("system")) {
-      write("You need admin permissions to do that.");
-      return;
-   }
-
    if (str && str != "") {
       usage();
    } else {

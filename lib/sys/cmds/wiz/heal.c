@@ -22,11 +22,6 @@ static void main(string str) {
    object obj;
    string who;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (!str || (str == "")) {
       obj = this_player();
    } else if (sscanf(str, "-%s", str)) {

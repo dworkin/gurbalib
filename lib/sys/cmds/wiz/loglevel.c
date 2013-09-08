@@ -29,11 +29,6 @@ static void main(string msg) {
    string log, *lines;
    mixed x;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (!msg || (msg == "")) {
       lines = LOG_D->show_log_levels();
       this_player()->more(lines);
@@ -44,11 +39,11 @@ static void main(string msg) {
    } else {
       if (sscanf(msg, "%s default", log) == 1) {
          x = "default";
+/* XXX Do some checks against log to see if user has perms... */
          if (!LOG_D->set_log_level(log,x)) {
             write("Unable to set loglevel: " + log + ": " + x  + "\n");
          }
       } else if (sscanf(msg, "%s %d", log, x) == 2) {
-/* Check user to set if they have perm to do this... XXX */
          if (!LOG_D->set_log_level(log,x)) {
             write("Unable to set loglevel: " + log + ": " + x  + "\n");
          }

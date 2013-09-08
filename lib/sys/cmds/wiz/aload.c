@@ -26,11 +26,6 @@ static void main(string str) {
    object *inv;
    int i, max;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (str && (str != "")) {
       if (str == "save") {
          this_player()->compose_autoload_string();

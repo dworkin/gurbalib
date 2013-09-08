@@ -21,11 +21,6 @@ static void main(string str) {
    string file, dest, where, file_name, in;
    string *parts;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (!str || (str == "") || (sscanf(str, "%s %s", str, where) != 2)) {
       write("Please specify a source and a destination.");
       usage();

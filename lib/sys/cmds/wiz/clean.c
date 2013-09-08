@@ -32,11 +32,6 @@ static void main(string arg) {
    object *objs;
    int i;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (arg && (arg != "")) {
       usage();
       return;

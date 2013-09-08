@@ -38,11 +38,6 @@ static void main(string str) {
    string name, value;
    int i;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (!str || (str == "")) {
       /* Print out the list */
       names = this_player()->query_env_indices();

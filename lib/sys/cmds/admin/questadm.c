@@ -27,11 +27,6 @@ static void main(string str) {
    string cmd, rest, questname, domain;
    int i, max, level;
 
-   if (!require_priv("system")) {
-      write("You must be an admin to do that.");
-      return;
-   }
-
    if (!str || (str == "")) {
       QUEST_D->list_quests(this_player());
       return;

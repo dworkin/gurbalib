@@ -26,11 +26,6 @@ static void main(string arg) {
    string *lines;
    int num_lines, start, i, where;
 
-   if (!query_wizard(this_player())) {
-      write("You must be a wizard to do that.\n");
-      return;
-   }
-
    if (!arg || (arg == "")) {
       arg = this_environment()->file_name();
    }
