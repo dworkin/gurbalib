@@ -75,7 +75,7 @@ if (!(-f "lib/data/messages/login")) {
 
 if (!(-f "lib/data/messages/motd")) {
    print "lib/data/messages/motd does not exist, do you want to use " .
-      "contrib/login?\nIf you say no here " .
+      "contrib/motd?\nIf you say no here " .
       "you will need to create that file later.\n(Y/N) ?";
    chomp($word = <STDIN>);
 
