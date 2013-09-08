@@ -37,7 +37,8 @@ void usage() {
    lines += ({ "\tcoloradm ROOM_NAME=RED+REVERSE+UNDERLINE" });
    lines += ({ "See also:" });
    lines += ({ "\tansi, alias, aliasadm, chfn, cmds, cmdadm, " +
-      "describe, emote, emoteadm, ignore, passwd, skilladm, questadm" });
+      "describe, emote, emoteadm, ignore, passwd, skilladm, rehash, " +
+      "questadm" });
 
    this_player()->more(lines);
 }

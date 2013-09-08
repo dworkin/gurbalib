@@ -20,8 +20,11 @@ string *query_usage() {
    lines += ({ "if CMD if provided is one of the following:" });
    lines += ({ "\tadd, remove, delete, privilege, show, list or menu." });
    lines += ({ "PRIV if provied is one of the following:" });
-   lines += ({ "\tsystem, wizard, *" });
+   lines += ({ "\tsystem, wizard, network, domainname, playername, -,*" });
    lines += ({ " " });
+
+/* XXX Need to expand on PRIV documentation a bit mabye make valid entrys
+   a list in a .h file */
 
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
@@ -46,7 +49,8 @@ string *query_usage() {
    lines += ({ "\tcmdadm add \"/tmp/My stuff/cmds\" wizard " });
    lines += ({ "\tcmdadm delete \"/tmp/cmds\"" });
    lines += ({ "See also:" });
-   lines += ({ "\talias, aliasadmin, cmds, coloradm, emote, emoteadm, help" });
+   lines += ({ "\talias, aliasadmin, cmds, coloradm, emote, emoteadm, help, " +
+      "rehash" });
 
    return lines;
 }

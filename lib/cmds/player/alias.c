@@ -17,7 +17,7 @@ void usage() {
     lines += ({ "\tansi, describe, chfn, ignore, passwd" });
 
     if (query_admin(this_player())) {
-	lines += ({ "\tcoloradm" });
+	lines += ({ "\tcmdadm, coloradm, rehash" });
     }
 
     this_player()->more(lines);

@@ -26,7 +26,7 @@ void usage() {
    lines += ( { "\talias, cmds, emote, emoteadm, help" } );
 
    if (query_admin(this_player())) {
-      lines += ({ "\tcmdadm, coloradm" });
+      lines += ({ "\tcmdadm, coloradm, rehash" });
    }
 
    this_player()->more(lines);
