@@ -9,12 +9,12 @@ static object spare;
 
 int data_version;
 
-int logout(string name);
-object find_user(string name);
-
 static void secure() {
-   if (previous_program(1) != USER_OB && !require_priv("system")) {
-      error("Access denied.");
+   string name;
+
+   name = previous_program(1);
+   if ((name != USER_OB) && !require_priv("system")) {
+      error("Access denied: " + name + "\n");
    }
 }
 
@@ -24,6 +24,46 @@ static void save_me() {
 
 static void restore_me() {
    unguarded("restore_object", "/sys/daemons/data/user_d.o");
+}
+
+int logout(string name) {
+   object ob;
+
+   secure();
+
+   ob = cache[name];
+
+   if (ob) {
+      if (!spare) {
+	 spare = ob;
+	 cache[name] = nil;
+      } else {
+	 destruct_object(ob);
+      }
+      return 1;
+   } else {
+      return 0;
+   }
+}
+
+object find_user(string name) {
+   string *names;
+   int i, sz, found;
+
+   found = 0;
+   names = map_indices(users);
+   for (i = 0, sz = sizeof(names); i < sz; i++) {
+      if (name == names[i]) {
+	 found = 1;
+	 break;
+      }
+   }
+
+   if (found == 1) {
+      return users[name];
+   } else {
+      return nil;
+   }
 }
 
 /*
@@ -116,26 +156,6 @@ static void clean_cache() {
    }
 
    call_out("clean_cache", CACHE_INTERVAL);
-}
-
-int logout(string name) {
-   object ob;
-
-   secure();
-
-   ob = cache[name];
-
-   if (ob) {
-      if (!spare) {
-	 spare = ob;
-	 cache[name] = nil;
-      } else {
-	 destruct_object(ob);
-      }
-      return 1;
-   } else {
-      return 0;
-   }
 }
 
 int set_password(string name, string secret) {
@@ -303,26 +323,6 @@ object *query_users(void) {
 
 string *query_user_names(void) {
    return (map_indices(users));
-}
-
-object find_user(string name) {
-   string *names;
-   int i, sz;
-   int found;
-
-   found = 0;
-   names = map_indices(users);
-   for (i = 0, sz = sizeof(names); i < sz; i++) {
-      if (name == names[i]) {
-	 found = 1;
-	 break;
-      }
-   }
-
-   if (found == 1)
-      return (users[name]);
-   else
-      return (nil);
 }
 
 object find_player(string name) {
