@@ -48,8 +48,11 @@ static void save_me(void) {
 }
 
 int add_domain(string name) {
+   string prev;
+
    if (!require_priv("system")) {
-      error("Illegal call to add_domain");
+      prev = previous_object()->base_name();
+      error("Illegal call to add_domain: " + prev + "\n");
    }
 
    if (!domains[name]) {
@@ -65,8 +68,11 @@ int add_domain(string name) {
 }
 
 int remove_domain(string name) {
+   string prev;
+
    if (!require_priv("system")) {
-      error("Illegal call to remove_domain");
+      prev = previous_object()->base_name();
+      error("Illegal call to remove_domain: " + prev + "\n");
    }
 
    if (domains[name] != nil) {
@@ -94,8 +100,11 @@ int is_domain(string name) {
 }
 
 int add_domain_member(string domain, string member) {
+   string prev;
+
    if (!require_priv("system")) {
-      error("Illegal call to add_domain_member");
+      prev = previous_object()->base_name();
+      error("Illegal call to add_domain_member: " + prev + "\n");
    }
 
    if (is_domain(domain)) {
@@ -111,9 +120,11 @@ int add_domain_member(string domain, string member) {
 }
 
 int remove_domain_member(string domain, string member) {
+   string prev;
    /* note, people are allowed to remove themselves from a domain */
    if (!require_priv("system") && !require_priv(member)) {
-      error("Illegal call to remove_domain_member");
+      prev = previous_object()->base_name();
+      error("Illegal call to remove_domain_member: " + prev + "\n");
    }
 
    if (is_domain(domain)) {
@@ -126,8 +137,11 @@ int remove_domain_member(string domain, string member) {
 }
 
 int promote_domain_member(string domain, string member) {
+   string prev;
+
    if(!require_priv("system")) {
-      error("Illegal call to promote_domain_member");
+      prev = previous_object()->base_name();
+      error("Illegal call to promote_domain_member: " + prev + "\n");
    }
    domains[domain][member] = DADMIN;
    save_me();
@@ -135,8 +149,11 @@ int promote_domain_member(string domain, string member) {
 }
 
 int demote_domain_member(string domain, string member) {
+   string prev;
+
    if(!require_priv("system")) {
-      error("Illegal call to promote_domain_member");
+      prev = previous_object()->base_name();
+      error("Illegal call to demote_domain_member: " + prev + "\n");
    }
    domains[domain][member] = DMEMBER;
    save_me();
@@ -224,10 +241,11 @@ static void create(void) {
 }
 
 void create_homedir(string wiz) {
-   string path;
+   string path, prev;
 
    if (!require_priv("system")) {
-      error("Access denied");
+      prev = previous_object()->base_name();
+      error("Access denied: " + prev + "\n");
    }
 
    path = WIZ_DIR + "/" + wiz + "/";
@@ -241,10 +259,11 @@ void create_homedir(string wiz) {
 }
 
 void delete_homedir(string wiz) {
-   string path;
+   string path, prev;
 
    if (!require_priv("system")) {
-      error("Access denied");
+      prev = previous_object()->base_name();
+      error("Access denied: " + prev + "\n");
    }
 
    path = WIZ_DIR + "/" + wiz + "/";
@@ -291,14 +310,14 @@ void make_mortal(string name) {
 
    prev = previous_object()->base_name();
    if (prev != "/sys/cmds/admin/promote") {
-      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
       LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
          " was trying to make_mortal(" + name + ") with this object " + 
          prev + "\n");
+      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
    }
 
    if (!require_priv("system")) {
-      error("Access denied");
+      error("Access denied: " + prev + "\n");
    }
 
    name = lowercase(name);
@@ -335,14 +354,14 @@ void make_wizard(string name) {
    prev = previous_object()->base_name();
    if (prev != "/sys/cmds/admin/promote" &&
        prev != "/sys/daemons/user_d") {
-      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
       LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
          " was trying to make_wizard(" + name + ") with this object " + 
          prev + "\n");
+      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
    }
 
    if (!require_priv("system")) {
-      error("Access denied");
+      error("Access denied: " + prev + "\n");
    }
 
    name = lowercase(name);
@@ -380,14 +399,14 @@ void make_admin(string name) {
    prev = previous_object()->base_name();
    if (prev != "/sys/cmds/admin/promote" && 
        prev != "/kernel/daemons/secure_d") {
-      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
       LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
          " was trying to make_admin(" + name + ") with this object " + 
          prev + "\n");
+      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
    }
 
    if (!require_priv("system")) {
-      error("Access denied");
+      error("Access denied: " + prev + "\n");
    }
 
    name = lowercase(name);
@@ -619,11 +638,12 @@ int validate_stack(string priv, varargs int unguarded) {
    i = sizeof(stack)-5;
    if(i<0) i = 0;
 
-   if(i == 0) 
+   if(i == 0) {
       sz = 0;
-   else
+   } else {
       sz = (stack[i][TRACE_FUNCTION] == "unguarded" && 
          stack[i][TRACE_PROGNAME] == AUTO);
+   }
 
    DB( "validate_stack start : " + stack[i-sz][TRACE_PROGNAME] + ":" +
       stack[i-sz][TRACE_FUNCTION] + " called " + stack[i+1][TRACE_FUNCTION] +
