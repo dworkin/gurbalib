@@ -59,6 +59,4 @@ write a showtree command that shows an objects inherit list?
 
 Add [link-dead] stuff to who maybe also last?
 
-Need to look at why channels are not preserved when logging out/back in.
-
 look for non living obj->query_Name() calls...
