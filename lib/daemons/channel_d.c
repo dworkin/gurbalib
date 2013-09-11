@@ -136,36 +136,38 @@ void chan_imud(string chan, string name) {
    save_me();
 }
 
-void chan_new(string name, int flags) {
+int chan_new(string name, int flags) {
 
    name = lowercase(name);
 
    if (query_wizard(this_player()->query_name()) != 1) {
       write("Access denied.\n");
-      return;
+      return 0;
    }
 
    if (channels[name]) {
       write("Channel already exists.\n");
-      return;
+      return 0;
    }
    channels[name] = flags;
    write("Channel created.\n");
+
+   return 1;
 }
 
-void chan_join(string chan, object ob) {
+int chan_join(string chan, object ob) {
 
    chan = lowercase(chan);
 
    if (!channels[chan]) {
       write("No such channel.");
-      return;
+      return 0;
    }
 
    if (channels[chan] < READ_ONLY) {
       if (query_user_priv(ob->query_name()) < channels[chan] - 1) {
 	 write("No such channel.\n");
-	 return;
+	 return 0;
       }
    }
 
@@ -175,7 +177,7 @@ void chan_join(string chan, object ob) {
    if (guilds[chan]) {
       if (!ob->guild_member(guilds[chan])) {
 	 write("No such channel.\n");
-	 return;
+	 return 0;
       }
    }
 
@@ -189,15 +191,16 @@ void chan_join(string chan, object ob) {
    this_player()->add_channel(chan);
 
    ob->save_me();
+   return 1;
 }
 
-void chan_leave(string chan, object ob) {
+int chan_leave(string chan, object ob) {
 
    chan = lowercase(chan);
 
    if (!channels[chan]) {
       write("No such channel.");
-      return;
+      return 0;
    }
 
    if (!listeners[chan]) {
@@ -206,6 +209,8 @@ void chan_leave(string chan, object ob) {
    listeners[chan] -= ( { ob } );
    write("No longer subscribed to " + chan + ".\n");
    this_player()->remove_channel(chan);
+
+   return 1;
 }
 
 void chan_who(string chan) {

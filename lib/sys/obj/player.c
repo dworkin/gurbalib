@@ -119,7 +119,7 @@ void restore_me(void) {
 
 void login_player(void) {
    int i;
-   string *didlog;
+   string *didlog, *tmpchannels;
    mixed autoload;
    string race;
 
@@ -151,15 +151,20 @@ void login_player(void) {
 
    /* Subscribe to default channels */
    if (!channels) {
-      channels = ( { "gossip", "announce" } );
+      channels = ( { } );
    }
 
+   tmpchannels = channels;
+   channels = ( { } );
    /* Register with the subscribed channels */
-   for (i = 0; i < sizeof(channels); i++) {
-      if (CHANNEL_D->query_channel(channels[i])) {
-	 CHANNEL_D->chan_join(channels[i], this_player());
+   for (i = 0; i < sizeof(tmpchannels); i++) {
+      if (CHANNEL_D->query_channel(tmpchannels[i])) {
+	 if (!CHANNEL_D->chan_join(tmpchannels[i], this_player())) {
+            write("Error joining channel: " + tmpchannels[i] + "\n");
+         }
       } else {
-	 channels[i] = nil;
+         write("Error no such channel: " + tmpchannels[i] + "\n");
+	 tmpchannels[i] = nil;
       }
    }
    race = query_race();
@@ -644,6 +649,7 @@ void do_quit(void) {
    object *objs;
    string quitcmd;
    int i, autoload;
+   string *channelstmp;
 
    sp = this_player();
 
@@ -697,6 +703,8 @@ void do_quit(void) {
       quitcmd = "$N $vquit.";
    }
    this_object()->simple_action(quitcmd);
+
+   channelstmp = channels;
    for (i = 0; i < sizeof(channels); i++) {
       if (CHANNEL_D->query_channel(channels[i])) {
 	 CHANNEL_D->chan_leave(channels[i], this_object());
@@ -704,6 +712,7 @@ void do_quit(void) {
 	 channels[i] = nil;
       }
    }
+   channels = channelstmp;
    EVENT_D->event("player_logout", living_name);
    quitting = 1;
    set_this_player(sp);
