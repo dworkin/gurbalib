@@ -1,5 +1,5 @@
 static mixed *map_array(mixed * arr, string fun, mixed ob, 
-   varargs mixed extra) {
+   varargs mixed extra...) {
    mixed *result;
    int i, sz;
 
@@ -11,7 +11,7 @@ static mixed *map_array(mixed * arr, string fun, mixed ob,
    result = allocate(sz);
 
    for (i = 0; i < sz; i++) {
-      result[i] = call_other(ob, fun, arr[i]);
+      result[i] = call_other(ob, fun, arr[i], extra...);
    }
    return result;
 }

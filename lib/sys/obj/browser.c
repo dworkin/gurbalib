@@ -38,6 +38,12 @@ private string format_file_info(string f, int size, int ts) {
 
    result = "";
 
+
+   tmp = owner_file(normalize_path(f, "/")) + "                ";
+   tmp = tmp[0..11];
+
+   result += tmp + " ";
+
    switch (size) {
       case -2:
 	 tmp = "DIR       ";
@@ -50,11 +56,7 @@ private string format_file_info(string f, int size, int ts) {
 
    result += tmp + " ";
 
-   tmp = owner_file(normalize_path(f, "/")) + "                ";
-   tmp = tmp[0..15];
-
-   result += tmp + " ";
-   result += ctime(ts);
+   result += ctime(ts)[4..];
    return result;
 }
 

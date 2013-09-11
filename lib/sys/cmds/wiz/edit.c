@@ -44,8 +44,28 @@ static void main(string str) {
       usage();
       return;
    } else {
+      int height;
+
+      str = normalize_path(str, this_player()->query_env("cwd"));
+
+      /* not needed for security, but allows giving nicer messages to the user. */
+      if (!valid_read(str)) {
+         this_player()->write("Permission denied.\n");
+         return;
+      }
+
       this_player()->write("Starting editor...");
+
+      /* not needed for security, but warn user that they won't be able to write the file. */
+      if (!valid_write(str)) {
+         this_player()->write("WARNING: read-only file.\n");
+      }
+
       this_player()->edit("e " + str);
-      this_player()->edit("file");
+
+      height = (int) this_player()->query_env("height");
+      if (height < 5) height = 5;
+      this_player()->edit("set window=" + height);
+      this_player()->edit("1");
    }
 }

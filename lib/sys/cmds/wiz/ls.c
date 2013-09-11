@@ -70,6 +70,7 @@ static void main(string str) {
    names = files[0];
    sz = sizeof(names);
    if (sz == 0) {
+      write(str + " is empty.\n");
       return;
    }
    sizes = files[1];
