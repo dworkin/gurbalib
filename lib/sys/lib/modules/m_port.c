@@ -13,10 +13,7 @@
 private object "port" port_object;
 private int port_number;
 
-/*
- * For use by the object inheriting us
- *
- */
+/* For use by the object inheriting us */
 nomask static void open_port(string proto, varargs mixed port) {
    /* 
     *
@@ -54,10 +51,9 @@ nomask static int send_datagram(string str) {
    }
 }
 
-/* 
- * For use by the port object only
- *
- */
+
+/* For use by the port object only */
+
 nomask object _F_connection(string ip, int port) {
    if ((object "port") previous_object() == port_object) {
       return call_other(this_object(), "connection", ip, port);
@@ -77,9 +73,8 @@ nomask void _F_close(varargs int force) {
    }
 }
 
-/*
- * Public functions
- */
+
+/* Public functions */
 
 nomask object "port" query_port_object() {
    return port_object;

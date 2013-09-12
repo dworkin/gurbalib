@@ -15,8 +15,8 @@ inherit cmd M_CMDS;
 
 static object user;		/* This players user object */
 static string input_to_func;	/* The function we're redirecting input to */
-static mixed input_to_arg;      /* Optional extra argument(s) to the function we're
-                                   redirecting input to */
+static mixed input_to_arg;      /* Optional extra argument(s) to the function 
+                                   we're redirecting input to */
 static object input_to_obj;	/* The object we're redirecting input to */
 static int linkdead;		/* Are we linkdead? */
 static int quitting;		/* Are we in the process of quitting? */
@@ -44,14 +44,10 @@ mapping custom_colors;		/* custom color symbols for this player */
 static mixed menu_data;		/* temp storage for menu system */
 int muzzle;			/* if 0 we are allowed to shout. */
 
-void save_me(void);
-void restore_me(void);
 void set_env(string name, mixed value);
 mixed query_env(string name);
 string query_title(void);
 string query_name(void);
-int query_muzzle();
-int toggle_muzzle();
 
 void create(void) {
    con::create();
@@ -988,7 +984,8 @@ void receive_message(string message) {
          }
       }
 
-      /* Call command_d to check if it handles this command, returns -1 when it doesn't */
+      /* Call command_d to check if it handles this command, returns -1 
+         when it doesn't */
       if (!flag) {
          i = command( cmd, arg );
          if( i >= 0 ) {

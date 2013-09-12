@@ -89,3 +89,7 @@ Debugging:
 	"Message 2" will not.  You can also adjust the log level with the
 	loglevel command if you have sufficient privileges.
 		
+	You can also use the error command which will exit the current 
+	function and log a message to the error/runtime log as well as 
+	output to the main driver log.
+
