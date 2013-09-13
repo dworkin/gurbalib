@@ -32,7 +32,7 @@ private static mapping subject;
 private static mapping ob;
 
 static void main(string str) {
-   string player_name;
+   string player_name, tmp;
 
    if (!str || (str == "")) {
       usage();
@@ -50,7 +50,8 @@ static void main(string str) {
    }
    player_name = this_player()->query_Name();
 
-   ob[player_name] = DOMAINS_DIR + "/required/rooms/bug_room"->present("board");
+   tmp = DOMAINS_DIR + "/required/rooms/bug_room";
+   ob[player_name] = tmp->present("board");
    if (!ob[player_name]) {
       write("Unable to locate the bug board. Tell a wizard.\n");
       return;
