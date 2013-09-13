@@ -304,6 +304,21 @@ void make_lockerdir(string domain, string pname) {
    }
 }
 
+void remove_player(string name) {
+   string prev;
+
+   prev = previous_object()->base_name();
+   if (!require_priv("system")) {
+      error("Access denied: " + prev + "\n");
+   }
+
+   name = lowercase(name);
+   privs[name] = nil;
+
+   /* XXX need to look through other privs for name as well domains for 
+       example */
+}
+
 void make_mortal(string name) {
    object player;
    string prev;
@@ -522,13 +537,19 @@ string owner_file(string file) {
 	 return "game";
 	 break;
       case "wiz":
+         if (sizeof(parts) > 1 && query_wiz(parts[1])) {
+            return parts[1];
+         } else {
+            return "game";
+         }
+         break;
       case "domains":
-	 if (sizeof(parts) > 1) {
-	    return parts[1];
-	 } else {
-	    return "game";
-	 }
-	 break;
+         if (sizeof(parts) > 1 && is_domain(parts[1])) {
+            return parts[1];
+         } else {
+            return "game";
+         }
+         break;
       case "tmp":
          if (sizeof(parts) > 1) {
             return "*";
@@ -688,7 +709,7 @@ int validate_stack(string priv, varargs int unguarded) {
 
    /* privilege exists but is orphaned */
    if (privtype & PF_ORPHAN) {
-      error("Orphaned privilege " + priv);
+      console_msg(object_name(previous_object()) + " used orphaned privilege " + priv + "\n");
    /* never heard about this privilege */
    } else if (privtype == PT_UNKNOWN) {
       error("Unknown privilege " + priv);

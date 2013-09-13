@@ -274,6 +274,8 @@ int _delete_user(string name) {
    unguarded("remove_file", AUTH_DATA_DIR + "/" + name + ".o");
    unguarded("remove_file", "/data/players/" + name + ".o");
 
+   SECURE_D->remove_player(name);
+
    return 1;
 }
 
