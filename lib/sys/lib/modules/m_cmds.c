@@ -128,6 +128,7 @@ static void add_cmd_path( string path ) {
 }
 
 static void remove_cmd_path( string path ) {
+/* XXX This doesn't seem to be working right. */
    set_searchpath( searchpath - ({ path }) );
 }
 
