@@ -1,6 +1,4 @@
 inherit M_COMMAND;
-object lock;
-string name;
 
 void usage() {
    string *lines;
@@ -25,17 +23,9 @@ static void rmuser(string name) {
    USER_D->delete_user(name);
 }
 
-void confirm_remove(string str) {
+void confirm_remove(string str, string name) {
    string dirname;
-   if (!lock || (previous_object() != lock)) {
-      return;
-   }
 
-   if (!str || (str == "")) {
-      this_player()->input_to_object(this_object(), "confirm_remove");
-      write("Removing " + name + ", are you sure? (y/n)");
-      return;
-   }
    switch (lowercase(str[0..0])) {
       case "y":
 	 rmuser(name);
@@ -50,11 +40,11 @@ void confirm_remove(string str) {
 	 write("Aborted.");
 	 break;
    }
-   name = nil;
-   lock = nil;
 }
 
 static void main(string str) {
+   string name;
+
    if (!str || (str == "")) {
       usage();
       return;
@@ -77,11 +67,6 @@ static void main(string str) {
       return;
    }
 
-   if (lock) {
-      write(lock->query_name() + " is currently using this command.");
-      return;
-   }
-
-   lock = this_player();
-   confirm_remove("");
+   write("Removing " + name + ", are you sure? (y/n)");
+   this_player()->input_to_object(this_object(), "confirm_remove",name);
 }
