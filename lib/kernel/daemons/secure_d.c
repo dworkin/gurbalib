@@ -339,6 +339,8 @@ void make_mortal(string name) {
 	 player->remove_cmd_path("/sys/cmds/admin");
 	 player->remove_cmd_path("/sys/cmds/wiz");
 	 player->save_me();
+         player->message(this_player()->query_Name() + 
+            " has promoted you to a mortal.");
       }
       write(capitalize(name) + " has been made a mortal.");
       save_me();
@@ -383,6 +385,8 @@ void make_wizard(string name) {
 	 player->remove_cmd_path("/sys/cmds/admin");
 	 player->add_cmd_path("/sys/cmds/wiz");
 	 player->save_me();
+         player->message(this_player()->query_Name() + 
+            " has promoted you to a wizard.");
       }
       unguarded("create_homedir", name);
       write(capitalize(name) + " has been made a wizard.");
@@ -428,6 +432,8 @@ void make_admin(string name) {
 	 player->add_cmd_path("/sys/cmds/admin");
 	 player->add_channel("dgd");
 	 player->save_me();
+         player->message(this_player()->query_Name() + 
+            " has promoted you to an admin.");
       }
       unguarded("create_homedir", name);
       write(capitalize(name) + " has been made an admin.");
