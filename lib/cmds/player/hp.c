@@ -24,11 +24,11 @@ static void main(string str) {
       return;
    }
 
-   write("HP[" + this_player()->query_hp() + "/" +
+   write("HP [" + this_player()->query_hp() + "/" +
       this_player()->query_max_hp() + "] " +
-      "Mana[" + this_player()->query_mana() + "/" +
+      "Mana [" + this_player()->query_mana() + "/" +
       this_player()->query_max_mana() + "] " +
-      "Endurance[" + this_player()->query_end() + "/" +
+      "Endurance [" + this_player()->query_end() + "/" +
       this_player()->query_max_end() + "] " +
       "AC [" + this_player()->query_defense() + "]");
 }
