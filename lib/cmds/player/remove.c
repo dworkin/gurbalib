@@ -23,6 +23,7 @@ void usage() {
 static void do_remove(object obj, int loud) {
    string slot;
    object worn;
+   int wielded;
 
    if (!obj) {
       if (loud) {
@@ -33,25 +34,36 @@ static void do_remove(object obj, int loud) {
 
    if (obj->is_worn()) {
       if (obj->is_cursed()) {
-         this_player()->targetted_action("$N $vtry to remove $o, but $vfumble.",
-            nil, obj);
-         write("Strange... It won't come off.\n");
+         if (loud) {
+            this_player()->targetted_action(
+               "$N $vtry to remove $o, but $vfumble.", nil, obj);
+            write("Strange... It won't come off.\n");
+         }
          return;
       }
    } else if (obj->is_wielded()) {
+      wielded = 1;
       if (obj->is_cursed()) {
-         this_player()->targetted_action("$N $vtry to remove $o, but $vfumble.",
-            nil, obj);
-         write("Strange... It won't come off.\n");
+         if (loud) {
+            this_player()->targetted_action(
+               "$N $vtry to remove $o, but $vfumble.", nil, obj);
+            write("Strange... It won't come off.\n");
+         }
          return;
       }
    } else {
-      write("You are not wearing or wielding that.\n");
+      if (loud) {
+         write("You are not wearing or wielding that.\n");
+      }
       return;
    }
 
    this_player()->do_remove(obj);
-   this_player()->targetted_action(obj->query_remove_message(), nil, obj);
+   if (wielded) {
+      this_player()->targetted_action(obj->query_unwield_message(), nil, obj);
+   } else {
+      this_player()->targetted_action(obj->query_remove_message(), nil, obj);
+   }
 }
 
 static void main(string str) {
