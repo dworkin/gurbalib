@@ -26,8 +26,8 @@
  * privilege is orphaned, ie, domain, wizard or player
  * no longer exists.
  */
-#define PT_DOMAIN_BAD  (PT_DOMAIN & PF_ORPHAN)
-#define PT_WIZARD_BAD  (PT_WIZARD & PF_ORPHAN)
-#define PT_PLAYER_BAD  (PT_PLAYER & PF_ORPHAN)
+#define PT_DOMAIN_BAD  (PT_DOMAIN | PF_ORPHAN)
+#define PT_WIZARD_BAD  (PT_WIZARD | PF_ORPHAN)
+#define PT_PLAYER_BAD  (PT_PLAYER | PF_ORPHAN)
 
 #endif
