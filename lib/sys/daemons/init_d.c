@@ -31,6 +31,7 @@ private string *get_default_objects() {
       SITEBAN_D, 
       GUILD_D, 
       LANGUAGE_D, 
+      EMOTE_D,
       PARSE_D, 
       STARTING_ROOM
    } );

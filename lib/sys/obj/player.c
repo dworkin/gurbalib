@@ -6,6 +6,7 @@
 
 inherit con "/std/container";
 inherit bod "/std/body";
+inherit "/sys/lib/runas";
 inherit "/std/modules/m_messages";
 inherit "/sys/lib/editor";
 inherit "/std/modules/m_autoload_string";
@@ -77,6 +78,19 @@ void save_me(void) {
    }
 }
 
+void restore_privs() {
+   string privs;
+
+   if (user) {
+      user->restore_privs();
+      privs = "game:" + user->_Q_cpriv();
+   } else {
+      privs = "game:nobody";
+   }
+
+   run_as(privs);
+}
+
 /* Restore the player */
 void restore_me(void) {
    if (!unguarded("restore_object", "/data/players/" + living_name + ".o")) {
@@ -84,6 +98,7 @@ void restore_me(void) {
       write("Please notify the administration.");
       return;
    }
+
    set_id(living_name);
    if (!alias)
       alias = ([]);
@@ -101,16 +116,6 @@ void restore_me(void) {
       cmd_path = nil;
       call_out( "save_me", 0 );
    }
-
-   /* recover from lost searchpath array (wotf internal) */
-   if(!query_cmd_path() || sizeof(query_cmd_path()) == 0) {
-      console_msg("Warning: empty searchpath for " + living_name + "\n");
-      cmd::create();
-      cmd::add_cmd_path("/sys/cmds/admin");
-      cmd::add_cmd_path("/sys/cmds/wiz");
-      cmd::add_cmd_path("/cmds/player/");
-      call_out( "save_me", 0 );
-   }
 }
 
 void login_player(void) {
@@ -118,6 +123,8 @@ void login_player(void) {
    string *didlog, *tmpchannels;
    mixed autoload;
    string race;
+
+   restore_privs();
 
    /* If we're a wiz, show the didlog since last login */
    if (query_user_priv(living_name) > 0) {

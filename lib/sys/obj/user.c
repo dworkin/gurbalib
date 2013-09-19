@@ -3,6 +3,8 @@
 #include <status.h>
 #include <ports.h>
 
+inherit "/sys/lib/runas";
+
 object player;
 object ansid;
 
@@ -18,6 +20,7 @@ void create() {
    }
 
    user_name = "Guest";
+   run_as("nobody");
 }
 
 void _open(mixed * tls) {
@@ -212,11 +215,42 @@ void receive_message(string message) {
    _receive_message(allocate(DRIVER->query_tls_size()), message);
 }
 
-void login_user(void) {
+/* query SECURE_D for our privs and setup privileges accordingly */
+void restore_privs() {
+   string privs;
+
+   privs = "";
+
+   if(SECURE_D->query_admin(user_name)) {
+      privs += "system:";
+   }
+
+   if(SECURE_D->query_wiz(user_name)) {
+      int i,sz;
+      string *dn;
+
+      privs += "wizard:";
+      dn = SECURE_D->query_domains();
+
+      for (i=0, sz=sizeof(dn); i<sz; i++) {
+         if (SECURE_D->query_domain_member(dn[i], user_name)) {
+            privs += dn[i] + ":";
+         }
+      }
+   }
+
+   privs += user_name;
+
+   run_as(privs);
+}
+
+static void login_user(void) {
    object usr;
    int i, flag, done;
    object tmp_player;
    string start;
+
+   restore_privs();
 
    send_message(1);
 

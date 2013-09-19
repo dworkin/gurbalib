@@ -5,6 +5,8 @@
  * This code is in the public domain.
  */
 
+#include <privileges.h>
+
 inherit M_COMMAND;
 inherit "/sys/lib/menu";
 
@@ -100,16 +102,24 @@ private string padstr(string str, int len) {
  */
 
 int menu_priv( string priv, string prev, string path) {
+   int pt;
 
    if(!require_priv("system")) {
       error("Permission denied.");
    }
  
-   if(!priv || strlen(priv) == 0) {
+   if(!priv || strlen(priv) == 0 || (pt=SECURE_D->query_priv_type(priv))==PT_UNKNOWN) {
+      if(priv && strlen(priv) && pt == PT_UNKNOWN) {
+         this_player()->write(priv + " is not a recognized privilege.\n");
+      }
       this_player()->out("Privilege required for using " + path + 
          "? (* for everyone, - for no access) : ");
       this_player()->input_to_object( this_object(), "menu_priv", prev, path );
       return 1;
+   }
+
+   if (pt & PF_ORPHAN) {
+      write("WARNING: " + priv + " is orphaned!\n");
    }
 
    write("Setting privilege for " + path + " to " + priv + "\n");
@@ -376,6 +386,7 @@ private int action_list_path() {
 
 private int action_add_path(string str, int ch) {
    string path, priv;
+   int pt;
 
    if(!str || ((sscanf(str, "%s %s", path, priv) != 2) && 
       (sscanf(str, "\"%s\" %s", path, priv) != 2))) {
@@ -401,6 +412,17 @@ private int action_add_path(string str, int ch) {
    if(file_exists(path) != -1) {
       notify_fail("path does not exist");
       return 0;
+   }
+
+   pt = SECURE_D->query_priv_type(priv);
+
+   if (pt == PT_UNKNOWN) {
+      notify_fail(priv + " is not a known privilege.");
+      return 0;
+   }
+
+   if (pt & PF_ORPHAN) {
+      write("WARNING: " + priv + " is orphaned!\n");
    }
 
    COMMAND_D->add_path( path, priv );

@@ -200,6 +200,18 @@ int query_priv_type(string p) {
       r = PT_PREDEF | PF_NO_ACCESS;
    } else if (sizeof(SYS_BANNED_NAMES & ({ p }))) {
       r = PT_PREDEF;
+   /* 
+    * when USER_D is not loaded, we don't try to handle anything beyond 
+    * predefined users. We want to leave loading USER_D to init, and
+    * should ensure we don't rely on anything outside /kernel until
+    * init is ready for that.
+    * XXX shouldn't users and domains be handled in /sys instead of
+    * /kernel anyway? Not handling them unless USER_D is enabled 
+    * ensures we won't end up with dependencies that would prevent
+    * such a move.
+    */
+   } else if (!find_object(USER_D)) {
+      r = PT_UNKNOWN;
    } else if (domains[p]) {
       if (file_exists(DOMAINS_DIR + "/" + p) != 0) {
          r = PT_DOMAIN;
@@ -209,21 +221,17 @@ int query_priv_type(string p) {
    /* note, there is nothing special about the privilege with the 
       name of an admin */
    } else if (privs[p] == WIZ_L || privs[p] == ADMIN_L) {
-      if (file_exists("/data/players/" + p + ".o") == 1) {
+      if (USER_D->player_exists(p)) {
          r = PT_WIZARD;
       } else {
          r = PT_WIZARD_BAD;
       }
-   } else if (privs[p] == PLAYER_L) {
-      if (file_exists("/data/players/" + p + ".o") == 1) {
-         r = PT_PLAYER;
-      } else {
-         r = PT_PLAYER_BAD;
-      }
    } else {
-      if (file_exists("/data/players/" + p + ".o") == 1) {
+      if (USER_D->player_exists(p)) {
          r = PT_PLAYER;
-         privs[p] = PLAYER_L;
+      /* no player savefile, but user does exist */
+      } else if (USER_D->user_exists(p)) {
+         r = PT_PLAYER_BAD;
       } else {
          r = PT_UNKNOWN;
       }
@@ -304,6 +312,24 @@ void make_lockerdir(string domain, string pname) {
    }
 }
 
+int query_admin(string name) {
+   if (privs[name] == ADMIN_L) {
+      return 1;
+   }
+   return 0;
+}
+
+int query_wiz(string name) {
+   if (privs[name] == ADMIN_L || privs[name] == WIZ_L) {
+      return 1;
+   }
+   return 0;
+}
+
+int query_mortal(string name) {
+   return !query_wiz(name);
+}
+
 void remove_player(string name) {
    string prev;
 
@@ -313,6 +339,10 @@ void remove_player(string name) {
    }
 
    name = lowercase(name);
+
+   if (query_wiz(name)) {
+      filter_array(map_indices(domains), "remove_domain_member", this_object(), name);
+   }
    privs[name] = nil;
 
    /* XXX need to look through other privs for name as well domains for 
@@ -324,7 +354,8 @@ void make_mortal(string name) {
    string prev;
 
    prev = previous_object()->base_name();
-   if (prev != "/sys/cmds/admin/promote") {
+   if ((prev != "/sys/cmds/admin/promote") &&
+      (prev != this_object()->base_name())) {
       LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
          " was trying to make_mortal(" + name + ") with this object " + 
          prev + "\n");
@@ -353,10 +384,12 @@ void make_mortal(string name) {
 	 player->remove_channel("dgd");
 	 player->remove_cmd_path("/sys/cmds/admin");
 	 player->remove_cmd_path("/sys/cmds/wiz");
+         player->restore_privs();
 	 player->save_me();
          player->message(this_player()->query_Name() + 
             " has promoted you to a mortal.");
       }
+      filter_array(map_indices(domains), "remove_domain_member", this_object(), name);
       write(capitalize(name) + " has been made a mortal.");
       save_me();
    } else {
@@ -370,7 +403,7 @@ void make_wizard(string name) {
 
    prev = previous_object()->base_name();
    if (prev != "/sys/cmds/admin/promote" &&
-       prev != "/sys/daemons/user_d") {
+       prev != this_object()->base_name()) {
       LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
          " was trying to make_wizard(" + name + ") with this object " + 
          prev + "\n");
@@ -399,6 +432,7 @@ void make_wizard(string name) {
 	 player->remove_channel("dgd");
 	 player->remove_cmd_path("/sys/cmds/admin");
 	 player->add_cmd_path("/sys/cmds/wiz");
+         player->restore_privs();
 	 player->save_me();
          player->message(this_player()->query_Name() + 
             " has promoted you to a wizard.");
@@ -446,6 +480,7 @@ void make_admin(string name) {
 	 player->add_cmd_path("/sys/cmds/wiz");
 	 player->add_cmd_path("/sys/cmds/admin");
 	 player->add_channel("dgd");
+         player->restore_privs();
 	 player->save_me();
          player->message(this_player()->query_Name() + 
             " has promoted you to an admin.");
@@ -458,30 +493,16 @@ void make_admin(string name) {
    }
 }
 
-int query_admin(string name) {
-   if (privs[name] == ADMIN_L) {
-      return 1;
-   }
-   return 0;
-}
-
-int query_wiz(string name) {
-   if (privs[name] == ADMIN_L || privs[name] == WIZ_L) {
-      return 1;
-   }
-   return 0;
-}
-
-int query_mortal(string name) {
-   return ((privs[name] != ADMIN_L) && (privs[name] != WIZ_L));
-}
-
 int query_priv(string name) {
    if (map_sizeof(privs) == 0) {
       unguarded("make_admin", name);
    }
    if (!privs[name]) {
-      return 0;
+#ifdef ALL_USERS_WIZ
+      unguarded("make_wizard", name);
+#else
+      privs[name] = PLAYER_L;
+#endif
    }
    return privs[name];
 }
@@ -560,10 +581,6 @@ string owner_file(string file) {
    if(sizeof(parts) == 1) {
       return "game";
    } else {
-      /* 
-       * unknown location, explicitly return an unknown priv to trigger 
-       * a warning or error depending on SECURITY_NO_UNKNOWN_PRIV 
-       */
       return "nobody";
    }
 }
@@ -584,44 +601,8 @@ string determine_obj_privs(string objname) {
       return ":nobody:";
    }
 
-   if (sscanf(objname, "/sys/obj/user#%*s") == 1 || 
-      (ob <- "/sys/obj/player")) {
-      if (ob <- "/sys/obj/player") {
-	 object u;
-
-	 u = ob->query_user();
-	 if (u && u->query_player() == ob) {
-	    name = u->query_name();
-	 }
-      } else {
-	 name = ob->query_name();
-      }
-
-      if (!name || name == "") {
-	 priv = "nobody";
-      } else {
-         int di, dsz;
-         string *dn;
-
-	 priv = name;
-	 if (query_wiz(name)) {
-	    priv += ":wizard";
-	 }
-
-	 if (query_admin(name)) {
-	    priv += ":system";
-	 }
-         dn = query_domains();
-         for (di=0, dsz=sizeof(dn); di<dsz; di++) {
-            if (query_domain_member(dn[di],name)) {
-               priv += ":"+dn[di];
-            }
-         }
-      }
-
-      if (ob <- "/sys/obj/player") {
-	 priv += ":game";
-      }
+   if (ob <- "/sys/lib/runas") {
+      priv = ob->_Q_cpriv();
    } else {
       priv = owner_file(objname);
    }
@@ -629,17 +610,7 @@ string determine_obj_privs(string objname) {
    return ":" + priv + ":";
 }
 
-/*
- * The stack validator, this function is what it is all about..
- *
- * Gets a call_stack, and loops through it to determine the 
- * privileges of all objects and inheritables that brought us
- * to where we are now. It then matches those privileges against
- * the required privilege provided in the priv argument.
- * Optionally, unguarded can be set, which will cause this function
- * to only check the direct caller for privileges.
- */
-
+/* check if the privileges in spriv are enough to satisfy rpriv */
 static int validate_privilege(string spriv, string rpriv) {
    if (root_priv(spriv) ||
       (game_priv(spriv) && is_domain(rpriv)) ||
@@ -648,6 +619,16 @@ static int validate_privilege(string spriv, string rpriv) {
    }
 }
 
+/*
+ * The stack validator, this is what it is all about..
+ *
+ * Gets a call_stack, and loops through it to determine the 
+ * privileges of all objects and inheritables that brought us
+ * to where we are now. It then matches those privileges against
+ * the required privilege provided in the priv argument.
+ * Optionally, unguarded can be set, which will cause this function
+ * to only check the direct caller for privileges.
+ */
 int validate_stack(string priv, varargs int unguarded) {
    int i, sz, deny, privtype;
    mixed **stack;
@@ -815,10 +796,19 @@ string query_read_priv(string file) {
  * argument.
  */
 string query_write_priv(string file) {
+   string owner;
+
 #ifdef DEBUG_PRIVS
    console_msg("query_write_priv( \"" + file + "\" )\n");
 #endif
-   return owner_file(file);
+
+   owner = owner_file(file);
+#ifdef SECURITY_RO_KERNEL
+   if (owner == "kernel") {
+      return "-";
+   }
+#endif
+   return owner;
 }
 
 static void upgraded() {
