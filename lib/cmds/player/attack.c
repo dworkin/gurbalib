@@ -46,6 +46,11 @@ static void main(string str) {
       return;
    }
 
+   if (obj == this_player()) {
+      write("You can not attack yourself.\n");
+      return;
+   }
+
    this_player()->targetted_action("$N $vattack $t.", obj);
    this_player()->attack(obj);
 }
