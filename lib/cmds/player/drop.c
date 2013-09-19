@@ -46,7 +46,7 @@ static int do_drop_coin(int amount,string type) {
    return 1;
 }
 
-static void do_drop(object obj, int loud) {
+static int do_drop(object obj, int loud) {
    string slot;
    object worn;
 
@@ -54,14 +54,14 @@ static void do_drop(object obj, int loud) {
       if (loud) {
          write("what are you trying to drop?");
       }
-      return;
+      return 0;
    }
 
    if (obj->is_undroppable()) {
       if (loud) {
          write("You cannot drop that.");
       }
-      return;
+      return 0;
    }
    if (obj->query_worn() == 1) {
       if (obj->is_cursed()) {
@@ -70,7 +70,7 @@ static void do_drop(object obj, int loud) {
                "but $vfumble.", nil, obj);
             write("Strange... It won't come off.\n");
          } 
-         return;
+         return 0;
       } 
       this_player()->do_remove(obj);
       this_player()->targetted_action(obj->query_remove_message(), nil, obj);
@@ -82,7 +82,7 @@ static void do_drop(object obj, int loud) {
                "but $vfumble.", nil, obj);
             write("Strange... It won't come off.\n");
          } 
-         return;
+         return 0;
       }
       this_player()->do_unwield(obj);
       this_player()->targetted_action(obj->query_unwield_message(), nil, obj);
@@ -91,16 +91,18 @@ static void do_drop(object obj, int loud) {
    if (obj->move(this_environment())) { 
       this_player()->targetted_action("$N $vdrop $o.", nil, obj);
       obj->post_drop();
+      return 1;
    } else {
       this_player()->targetted_action("$N $vtry to drop $o, but $vfail.", 
          nil, obj);
+      return 0;
    }
 }
 
 static void main(string str) {
    object obj;
    object *inv;
-   int i, max, amount;
+   int i, max, amount, done;
    string type;
 
    if (!str || (str == "")) {
@@ -122,7 +124,13 @@ static void main(string str) {
       inv = this_player()->query_inventory();
       max = sizeof(inv);
       for (i = 0; i < max; i++) {
-         do_drop(inv[i],0);
+         if (do_drop(inv[i],0)) {
+            done = 1;
+         }
+      }
+
+      if (!done) {
+         write("You have nothing to drop.\n");
       }
       return;
    }
