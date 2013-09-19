@@ -19,14 +19,12 @@ void usage() {
 
 static void main(string str) {
    string bar, title;
-   int i, exp, width;
+   int i, exp, width, level;
 
    if (str && (str != "")) {
       usage();
       return;
    }
-
-   write("LEVEL:   EXP     : Title");
 
    width = this_player()->query_width();
 
@@ -34,11 +32,19 @@ static void main(string str) {
    for (i = 0; i < width; i++) {
       bar += "-";
    }
+
+   write("LEVEL:   EXP     : Title");
    write(bar + "\n");
+
+   level = this_player()->query_level();
 
    for (i = 0; i < 20; i++) {
       exp = i * i * 2000;
       title = this_player()->query_level_title(i + 1);
-      write((i + 1) + "\t" + exp + "\t\t" + title);
+      if (i == level) {
+         write((i + 1) + " *\t" + exp + "\t" + title);
+      } else {
+         write((i + 1) + "\t" + exp + "\t" + title);
+      }
    }
 }
