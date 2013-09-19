@@ -256,7 +256,8 @@ static void write_auto_config() {
    string res, opt;
    int i, sz;
 
-   rename_file ("/kernel/include/auto_config.h", "/kernel/include/auto_config.h.previous");
+   remove_file("/kernel/include/auto_config.h.previous");
+   rename_file("/kernel/include/auto_config.h", "/kernel/include/auto_config.h.previous");
 
    res = "#ifndef AUTO_CONFIG_DOT_H\n";
    res +="#define AUTO_CONFIG_DOT_H\n";

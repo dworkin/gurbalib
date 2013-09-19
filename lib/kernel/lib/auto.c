@@ -38,6 +38,9 @@ private string _owner;
 #include "afun/arrayp.c"
 #include "afun/mappingp.c"
 #include "afun/objectp.c"
+#ifdef CLOSURES_EXTENSION
+#include "afun/functionp.c"
+#endif
 #include "afun/stringp.c"
 #include "afun/nilp.c"
 #include "afun/argcheck.c"
