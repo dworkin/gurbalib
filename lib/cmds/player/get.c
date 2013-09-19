@@ -139,6 +139,11 @@ static void main(string str) {
       return;
    }
 
+   if (this_player()->is_dead()) {
+      write("You can not do that when your are not among the living.\n");
+      return;
+   }
+
    if (sscanf(str, "%s in %s",what,where) == 2) {
    } else if (sscanf(str, "%s from %s",what,where) == 2) {
    } else if (sscanf(str, "%s %s",what,where) == 2) {

@@ -144,6 +144,11 @@ static void main(string str) {
       return;
    }
 
+   if (this_player()->is_dead()) {
+      write("You can not do that when your are not among the living.\n");
+      return;
+   }
+
    if (sscanf(str, "%s to %s",what,where) == 2) {
       if (sscanf(what, "%d %s",amount, coin) == 2) {
          if ((coin == "ducat") || (coin == "ducats") || (coin == "coins")) {

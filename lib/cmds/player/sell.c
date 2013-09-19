@@ -35,6 +35,11 @@ static void main(string str) {
       return;
    }
 
+   if (this_player()->is_dead()) {
+      write("You can not do that when your are not among the living.\n");
+      return;
+   }
+
    obj = this_player()->present(str);
    if (obj) {
       /* Found the item */

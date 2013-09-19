@@ -30,14 +30,19 @@ static void main(string str) {
       return;
    }
 
+   if (this_player()->is_dead()) {
+      write("You can not do that when your are not among the living.\n");
+      return;
+   }
+
    obj = this_player()->query_environment()->present(lowercase(str));
    if (!obj) {
       write("Attack what?\n");
       return;
    }
 
-   if (!obj->is_living()) {
-      write(" You can not attack that.\n");
+   if (!obj->is_living() || obj->is_dead()) {
+      write("You can not attack that.\n");
       return;
    }
 

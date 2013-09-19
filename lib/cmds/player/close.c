@@ -52,6 +52,12 @@ static void main(string str) {
       usage();
       return;
    }
+
+   if (this_player()->is_dead()) {
+      write("You can not do that when your are not among the living.\n");
+      return;
+   }
+
    str = lowercase(str);
 
    if (str == "all") {

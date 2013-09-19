@@ -37,6 +37,9 @@ static void main(string str) {
    } else if (sscanf(str, "-%s", str)) {
       usage();
       return;
+   } else if (this_player()->is_dead()) {
+      write("You can not do that when your are not among the living.\n");
+      return;
    } else {
       subject[this_player()->query_name()] = str;
    }
