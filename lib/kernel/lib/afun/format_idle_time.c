@@ -13,14 +13,21 @@ string format_idle_time(int time) {
 
    str = "";
 
-   if (time > 0)
+   if (time > 0) {
       str = " " + time + "s";
-   if (mins > 0)
+   }
+
+   if (mins > 0) {
       str = " " + mins + "m";
-   if (hrs > 0)
+   }
+
+   if (hrs > 0) {
       str = " " + hrs + "h";
-   if (days > 0)
+   }
+
+   if (days > 0) {
       str = " " + days + "d";
+   }
 
    return str;
 }

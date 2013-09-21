@@ -6,12 +6,14 @@ string normalize_path(string file, string dir) {
    argcheck(file, 1, "string");
    argcheck(dir, 2, "string");
 
-   if (!secure_d)
+   if (!secure_d) {
       secure_d =::find_object(SECURE_D);
+   }
 
    if (strlen(file) == 0) {
       file = dir;
    }
+
    switch (file[0]) {
       case '~':
 	 /* ~path */
@@ -38,15 +40,17 @@ string normalize_path(string file, string dir) {
 
 	     /* simple relative path */
 
-	    if (dir[strlen(dir) - 1] == '/')
+	    if (dir[strlen(dir) - 1] == '/') {
 	       path = explode(dir + file, "/");
-	    else
+	    } else {
 	       path = explode(dir + "/" + file, "/");
+            }
 
-	    if (dir[strlen(dir) - 1] == '/')
+	    if (dir[strlen(dir) - 1] == '/') {
 	       return dir + file;
-	    else
+	    } else {
 	       return dir + "/" + file;
+            }
 	 }
 	 /* fall through */
       case '.':

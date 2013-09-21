@@ -3,9 +3,11 @@ int member_array(mixed item, mixed * arr) {
 
    argcheck(arr, 2, "array");
 
-   for (i = 0, sz = sizeof(arr); i < sz; i++) {
-      if (arr[i] == item)
+   sz = sizeof(arr);
+   for (i = 0; i < sz; i++) {
+      if (arr[i] == item) {
 	 return i;
+      }
    }
    return -1;
 }

@@ -3,7 +3,8 @@ string uppercase(string str) {
 
    argcheck(str, 1, "string");
 
-   for (i = 0, sz = strlen(str); i < sz; i++) {
+   sz = strlen(str);
+   for (i = 0; i < sz; i++) {
       if (str[i] >= 'a' && str[i] <= 'z')
 	 str[i] -= 'a' - 'A';
    }

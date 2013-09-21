@@ -1,5 +1,6 @@
 nomask void destruct_object(object ob) {
    argcheck(ob, 1, "object");
+
    if (find_object(COMPILER_D) && COMPILER_D->allow_object(ob->base_name())) {
       ob->_F_destruct();
    } else {
