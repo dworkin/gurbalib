@@ -14,7 +14,8 @@ void usage() {
    lines += ({ "\tidentify sword" });
    lines += ({ "\tidentify helmet" });
    lines += ({ "See also:" });
-   lines += ({ "\tbuy, list, listen, look, sell, value" });
+   lines += ({ "\tbuy, extinguish, light, list, listen, look, " +
+      "sell, value" });
 
    this_player()->more(lines);
 }
