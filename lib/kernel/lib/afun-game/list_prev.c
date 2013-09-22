@@ -2,6 +2,9 @@
 object list_next(string list) {
    object *ptr;
    ptr = get_list(list);
-   if (ptr)
+   if (ptr) {
       return ptr[LIST_PREV];
+   }
+
+   return nil;
 }

@@ -7,10 +7,12 @@ object *players() {
    u = users();
    p = ( { } );
 
-   for (i = 0, sz = sizeof(u); i < sz; i++) {
+   sz = sizeof(u);
+   for (i = 0; i < sz; i++) {
       if (player = u[i]->query_player()) {
-	 if (player->query_Name())
+	 if (player->query_Name()) {
 	    p += ( { player } );
+         }
       }
    }
    return p;

@@ -28,6 +28,7 @@ static void set_otlvar(string name, mixed value) {
     * If we initialized the vars mapping, we have to
     * store the new reference on the tls.
     */
-   if (save)
+   if (save) {
       DRIVER->set_tlvar(TLS_OVARS, vars);
+   }
 }

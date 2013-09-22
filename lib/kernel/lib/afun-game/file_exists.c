@@ -9,9 +9,9 @@ string get_path_to_file(string file) {
 	 done = 1;
       }
    }
-   if (i <= 1)
+   if (i <= 1) {
       return "/";
-   else {
+   } else {
       i--;
       return file[0..i];
    }

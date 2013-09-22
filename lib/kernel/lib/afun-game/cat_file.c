@@ -14,7 +14,8 @@ int cat_file(string filename) {
       return 0;
    }
    lines = explode(read_file(filename), "\n");
-   for (i = 0, sz = sizeof(lines); i < sz; i++) {
+   sz = sizeof(lines);
+   for (i = 0; i < sz; i++) {
       out_unmod(lines[i] + "\n");
    }
    return 1;

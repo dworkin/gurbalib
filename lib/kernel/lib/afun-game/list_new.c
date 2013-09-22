@@ -16,4 +16,5 @@ atomic int list_new(string list) {
    }
 
    set_list(list, ( { this_object(), this_object(), this_object() } ) );
+   return 1;
 }

@@ -7,4 +7,6 @@ int list_append(string list, object member) {
    if (member) {
       return list_insert(list, member);
    }
+
+   return 0;
 }

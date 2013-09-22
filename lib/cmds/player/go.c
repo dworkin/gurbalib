@@ -38,6 +38,7 @@ static void main(string str) {
 
    error = this_environment()->body_exit(this_player(), str);
 
-   if (error)
+   if (error) {
       write(error);
+   }
 }

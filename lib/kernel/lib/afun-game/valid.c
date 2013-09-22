@@ -10,10 +10,11 @@ nomask static string valid(string file, int mode) {
    }
 
    if (secure_d) {
-      if (!mode)
+      if (!mode) {
 	 priv = secure_d->query_read_priv(file);
-      else
+      } else {
 	 priv = secure_d->query_write_priv(file);
+      }
    } else {
       priv = "system";
    }
@@ -21,4 +22,6 @@ nomask static string valid(string file, int mode) {
    if (require_priv(priv)) {
       return file;
    }
+
+   return nil;
 }

@@ -3,8 +3,9 @@
 mixed random_element(mixed * arr) {
    argcheck(arr, 1, "array");
 
-   if (sizeof(arr) < 1)
+   if (sizeof(arr) < 1) {
       return nil;
+   }
 
    return arr[random(sizeof(arr))];
 }
