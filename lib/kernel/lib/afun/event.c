@@ -1,6 +1,6 @@
 void event(string name, varargs mixed args ...) {
    object *obs;
-   int i;
+   int i, sz;
 
    argcheck(name, 1, "string");
 
@@ -9,8 +9,10 @@ void event(string name, varargs mixed args ...) {
 
    obs = map_indices(events[name]);
 
-   for (i = 0; i < sizeof(obs); i++) {
-      if (obs[i])
+   sz = sizeof(obs);
+   for (i = 0; i < sz; i++) {
+      if (obs[i]) {
 	 call_other(obs[i], "event_" + name, args);
+      }
    }
 }

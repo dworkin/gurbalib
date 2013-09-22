@@ -5,14 +5,17 @@
  */
 
 nomask static mixed *uniq_array(mixed * arr) {
-   int i;
+   int i,sz;
    mapping rv;
 
    rv = ([]);
 
-   for (i = 0; i < sizeof(arr); i++)
-      if (!rv[arr[i]])
+   sz = sizeof(arr);
+   for (i = 0; i < sz; i++) {
+      if (!rv[arr[i]]) {
 	 rv[arr[i]] = 1;
+      }
+   }
 
    return map_indices(rv);
 }

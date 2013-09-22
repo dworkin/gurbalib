@@ -1,4 +1,4 @@
-static set_this_player(object ob) {
+static void set_this_player(object ob) {
    switch (owner_file(previous_program())) {
       case "kernel":
       case "system":

@@ -57,5 +57,3 @@ int event_burn_fuel() {
    }
 }
 
-/* XXX Get light and extinguish commands working maybe make them 
-   global commands */

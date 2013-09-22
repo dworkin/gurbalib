@@ -1,10 +1,13 @@
 nomask mixed *get_list(varargs string list) {
    if (KERNEL()) {
       if (ltable) {
-	 if (list)
+	 if (list) {
 	    return ltable[list];
-	 else
+	 } else {
 	    return map_indices(ltable);
+         }
       }
    }
+
+   return nil;
 }

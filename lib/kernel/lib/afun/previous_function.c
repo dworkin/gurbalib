@@ -9,8 +9,9 @@ nomask static string previous_function() {
    t = call_trace();
    i = sizeof(t) - 3;
 
-   if (i < 0)
+   if (i < 0) {
       i = 0;
+   }
 
    t = t[i][TRACE_FUNCTION];
 
