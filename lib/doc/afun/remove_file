@@ -1,0 +1,15 @@
+NAME
+        remove_file - remove a file.
+		
+SYNOPSIS
+        static int remove_file( string filepath )
+
+DESCRIPTION
+	Remove the file pointed to by filepath.
+		
+RETURN VALUE
+         Returns 1 on success and 0 on failure.
+
+SEE ALSO
+        cat_file, editor, read_file, rename_file, write_file
+

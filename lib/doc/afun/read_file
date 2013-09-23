@@ -14,5 +14,5 @@ RETURN VALUE
          Returns the file contents in a string.  If no file is found return nil.
 
 SEE ALSO
-        cat_file, editor, write_file
+        cat_file, editor, rename_file, remove_file, write_file
 

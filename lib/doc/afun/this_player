@@ -12,5 +12,5 @@ RETURN VALUE
         The object representing the current player is returned.
 
 SEE ALSO
-        this_body, this_environment
+        players, this_body, this_environment
 

@@ -1,0 +1,16 @@
+NAME
+        players - Get a list of player objects in use.
+
+SYNOPSIS
+        object * players( )
+
+DESCRIPTION
+        Create an array of player objects and return it.
+
+RETURN VALUE
+        Returns ( { } ); if there are no players otherwise a list of 
+	player objects.
+
+SEE ALSO
+	this_body, this_player, this_environment
+

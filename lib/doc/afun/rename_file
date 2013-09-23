@@ -1,0 +1,15 @@
+NAME
+        rename_file - message entire contents of a file to this_player()
+		
+SYNOPSIS
+        int rename_file(string file1, string file2 )
+
+DESCRIPTION
+        Rename a file file1, to file2.
+		
+RETURN VALUE
+         Returns 1 for success and 0 for failure.
+
+SEE ALSO
+        cat_file, editor, read_file, remove_file, write_file
+

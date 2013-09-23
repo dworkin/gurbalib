@@ -14,5 +14,5 @@ RETURN VALUE
         The body object controlled by the current player is returned.
 
 SEE ALSO
-        this_player, this_environment
+        players, this_player, this_environment
 

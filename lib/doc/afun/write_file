@@ -11,8 +11,8 @@ DESCRIPTION
 	work towards the front to find the location to write the data.
 		
 RETURN VALUE
-         Returns 1 on success, 0 on failure.
+         Returns 1 on success and 0 on failure.
 
 SEE ALSO
-        cat_file, editor, read_file
+        cat_file, editor, read_file, rename_file, remove_file
 
