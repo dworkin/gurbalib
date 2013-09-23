@@ -1,14 +1,14 @@
 NAME
-        out_unmod - send unmodified message to a user
+	out_unmod - send unmodified message to a user
 
 SYNOPSIS
-        void out_unmod( string message )
+	void out_unmod( string message )
 
 DESCRIPTION
-        Send 'message' to this_player().  The message is unmodified.
-		No ansi color codes will be translated, and no lines will be
-		wrapped.
+	Send 'message' to this_player().  The message is unmodified.  
+	No ansi color codes will be translated, and no lines will be 
+	wrapped.
 
 SEE ALSO
-        out, write
+	out, write
 

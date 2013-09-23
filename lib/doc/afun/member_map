@@ -1,16 +1,15 @@
 NAME
-        member_map - see if an element is a key or value in a map
+	member_map - see if an element is a key or value in a map
 
 SYNOPSIS
-        int member_map( mixed item, mapping map )
+	int member_map( mixed item, mapping map )
 
 DESCRIPTION
-        Checks if 'item' is a key or value in the mapping 'map'.
+	Checks if 'item' is a key or value in the mapping 'map'.
 
 RETURN VALUE
-        Returns 1 if 'item' is either a key or a value in 'map',
-        0 otherwise.
-
+	Returns 1 if 'item' is either a key or a value in 'map' and
+	0 otherwise.
 
 SEE ALSO
-        member_array
+	filter_array, map_array, member_array, split_array, uniq_array

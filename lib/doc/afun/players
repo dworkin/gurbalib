@@ -1,16 +1,17 @@
 NAME
-        players - Get a list of player objects in use.
+	players - Get a list of player objects in use.
 
 SYNOPSIS
-        object * players( )
+	object * players( )
 
 DESCRIPTION
-        Create an array of player objects and return it.
+	Create an array of player objects and return it.
 
 RETURN VALUE
-        Returns ( { } ); if there are no players otherwise a list of 
+	Returns ( { } ); if there are no players otherwise a list of 
 	player objects.
 
 SEE ALSO
-	this_body, this_player, this_environment
+	set_this_player, this_body, this_connection, this_environment, 
+	this_player, this_program, this_race, this_user
 

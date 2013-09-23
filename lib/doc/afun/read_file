@@ -1,18 +1,20 @@
 NAME
-        read_file - return the data in a file.
+	read_file - return the data in a file.
 		
 SYNOPSIS
-        static string read_file( string filepath, varargs int offset, int size )
+	static string read_file( string filepath, varargs int offset, 
+	int size )
 
 DESCRIPTION
-        Read in a file and return the contents of it.  If offset is given start
-	there instead of at the beginning of the file.  If offset is negative, 
-	start the offset from the end of the file. If size is given, only 
-	read that much data from the file.
+	Read in a file and return the contents of it.  If offset is given 
+	start there instead of at the beginning of the file.  If offset is 
+	negative, start the offset from the end of the file. If size is 
+	given, only read that much data from the file.
 		
 RETURN VALUE
-         Returns the file contents in a string.  If no file is found return nil.
+	Returns the file contents in a string.  If no file is found 
+	return nil.
 
 SEE ALSO
-        cat_file, editor, rename_file, remove_file, write_file
+	cat_file, copy, editor, rename_file, remove_file, write_file
 

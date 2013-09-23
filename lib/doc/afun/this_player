@@ -1,16 +1,17 @@
 NAME
-        this_player - get the current 'player'
+	this_player - get the current 'player'
 
 SYNOPSIS
-        object this_player()
+	object this_player()
 
 DESCRIPTION
-        Get the object representing the current 'player', i.e. 
-        the living object which has 'given the last command'. 
+	Get the object representing the current 'player', i.e.  the living 
+	object which has 'given the last command'. 
 
 RETURN VALUE
-        The object representing the current player is returned.
+	The object representing the current player is returned.
 
 SEE ALSO
-        players, this_body, this_environment
+	players, set_this_player, this_body, this_connection, 
+	this_environment, this_program, this_race, this_user
 

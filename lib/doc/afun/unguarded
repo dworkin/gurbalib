@@ -1,20 +1,18 @@
 NAME
-        unguarded - restrict stack verification to the calling
-                    object and program
+	unguarded - restrict stack verification to the calling object 
+		and program
 
 SYNOPSIS
-        mixed unguarded( string fun, varargs mixed arg... )
+	mixed unguarded( string fun, varargs mixed arg... )
 
 DESCRIPTION
-        Stack verification will be limited to the calling object
-        and program. 'fun' is the to be called function (which
-        should be using require_priv()), arg... is the list of
-        arguments to 'fun'. 
+	Stack verification will be limited to the calling object and 
+	program. 'fun' is the to be called function (which should be 
+	using require_priv()), arg... is the list of arguments to 'fun'. 
 
 RETURN VALUE
-        Returns whatever 'fun' returns
+	Returns whatever 'fun' returns.
 
 SEE ALSO
-        require_priv
-
+	require_priv
 

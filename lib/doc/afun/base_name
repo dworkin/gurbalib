@@ -4,10 +4,9 @@ NAME
 SYNOPSIS
         void base_name( void )
 
-
 DESCRIPTION
         returns the base, non-clone object path of this_object()
 
 SEE ALSO
-        kfun/object_name
+        clone_num, file_name, kfun/object_name, wiz_dir
 

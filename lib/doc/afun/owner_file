@@ -1,17 +1,15 @@
 NAME
-        owner_file - determine the owner of a file
+	owner_file - determine the owner of a file
 
 SYNOPSIS
-        string owner_file( string file )
+	string owner_file( string file )
 
 DESCRIPTION
-        Determine the owner of a file. The file doesn't
-        have to exist, if it doesn't then the would be
-        owner is returned.
+	Determine the owner of a file. The file doesn't have to exist, 
+	if it doesn't then the would be owner is returned.
 
 RETURN VALUE
-        Returns a string with the name of the owner of 
-        a file.
+	Returns a string with the name of the owner of a file.
 
 SEE ALSO
-        owner_object, file_name
+	owner_object, file_name

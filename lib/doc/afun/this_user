@@ -1,18 +1,19 @@
 NAME
-        this_user - get the current 'user'
+	this_user - get the current 'user'
 
 SYNOPSIS
-        object this_player()
+	object this_player()
 
 DESCRIPTION
-        Get the object representing the current 'user'.
-        A user is not the same as a player, it points to the
-        'session' object for an online player, or to the
-        ftp session object for an ftp user for example
+	Get the object representing the current 'user'.  A user is not 
+	the same as a player, it points to the 'session' object for an 
+	online player, or to the ftp session object for an ftp user for 
+	example.
 
 RETURN VALUE
-        The object representing the current user is returned.
+	The object representing the current user is returned.
 
 SEE ALSO
-        this_player, this_connection
+	players, set_this_player, this_body, this_connection, 
+	this_environment, this_player this_program, this_race
 

@@ -19,4 +19,5 @@ RETURN VALUE
         Returns the compiled object
 
 SEE ALSO
-        clone_object
+        clone_object, compile_library
+

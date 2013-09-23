@@ -1,18 +1,18 @@
 NAME
-        this_body - get the body controlled by the current 
-        'player'
+	this_body - get the body controlled by the current 'player'
 
 SYNOPSIS
-        object this_body()
+	object this_body()
 
 DESCRIPTION
-        Get the object representing the living controlled by 
-        the current 'player', either the same as the current
-        player, or a body being possessed by the current player.
+	Get the object representing the living controlled by the 
+	current 'player', either the same as the current player, or a 
+	body being possessed by the current player.
 
 RETURN VALUE
-        The body object controlled by the current player is returned.
+	The body object controlled by the current player is returned.
 
 SEE ALSO
-        players, this_player, this_environment
+	players, set_this_player, this_connection, this_environment, 
+	this_player, this_program, this_race, this_user
 

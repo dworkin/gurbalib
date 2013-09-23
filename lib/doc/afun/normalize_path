@@ -6,8 +6,8 @@ SYNOPSIS
 
 DESCRIPTION
         The path to filename in the path directory is parsed so
-		that any unnecessary characters in path are removed.  The
-		minimized path is returned as string.
+	that any unnecessary characters in path are removed.  The
+	minimized path is returned as string.
 		
 RETURN VALUE
         Returns a minimized path for arguments.

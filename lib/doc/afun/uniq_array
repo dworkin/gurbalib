@@ -1,14 +1,16 @@
 NAME
-        uniq_array - filter out duplicates from an array
+	uniq_array - filter out duplicates from an array
 
 SYNOPSIS
-        mixed *uniq_array(mixed *arr)
+	mixed *uniq_array(mixed *arr)
 
 DESCRIPTION
-        Function filters through array arr and returns an array where each
-        element is unique.
+	Function filters through array arr and returns an array where each 
+	element is unique.
 
 EXAMPLES
-        uniq_array(({ 1,2,2,3,3,3 })) returns ({ 1,2,3 })
+	uniq_array(({ 1,2,2,3,3,3 })) returns ({ 1,2,3 })
 
+SEE ALSO
+	filter_array, map_array, member_array, member_map, split_array
         

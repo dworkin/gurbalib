@@ -4,13 +4,12 @@ NAME
 SYNOPSIS
         void event( string name, varargs mixed arg... )
 
-
 DESCRIPTION
-        Signals an event with the given name to all objects that
-        subscribed to it. A function event_<name> is called in
-        all those objects, the optional arguments are passed
-        to this function.
+        Signals an event with the given name to all objects that subscribed 
+	to it. A function event_<name> is called in all those objects, 
+	the optional arguments are passed to this function.
 
 SEE ALSO
         afun/add_event, afun/remove_event, afun/subscribe_event,
         afun/unsubscribe_event
+

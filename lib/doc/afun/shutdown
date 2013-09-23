@@ -1,11 +1,11 @@
 NAME
-        shutdown - Shutdown the mud
+	shutdown - Shutdown the mud
 
 SYNOPSIS
-        void shutdown(void)
+	void shutdown(void)
 
 DESCRIPTION
-	Logs out all players, does a statedump if Persistent and then
+	Logs out all players, does a statedump if Persistent and then 
 	shutdown the mud.
 
 SEE ALSO

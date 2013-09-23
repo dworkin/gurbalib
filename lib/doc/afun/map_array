@@ -1,17 +1,19 @@
 NAME
-        map_array - map an array through a function
+	map_array - map an array through a function
 
 SYNOPSIS
-        mixed * map_array( mixed * arr, string fun, varargs object ob, mixed extra... )
+	mixed * map_array( mixed * arr, string fun, varargs object ob, 
+		mixed extra... )
 
 DESCRIPTION
-        Map the array 'arr' through the function fun in the object ob
-        If ob is not provided or is nil, this_object() is used. The optional
-        'extra' arguments are passed to this function.
+	Map the array 'arr' through the function fun in the object ob.
+	If ob is not provided or is nil, this_object() is used. The 
+	optional 'extra' arguments are passed to this function.
 
 RETURN VALUE
-        Returns a new (possibly empty) array containing all elements of arr mapped
-        through ob->fun(elem, extra).
+	Returns a new (possibly empty) array containing all elements of 
+	arr mapped through ob->fun(elem, extra).
 
 SEE ALSO
-        filter_array, member_array, split_array
+	filter_array, member_array, member_map, split_array, uniq_array
+

@@ -1,15 +1,15 @@
 NAME
-        uppercase - convert a string to uppercase
+	uppercase - convert a string to uppercase
 
 SYNOPSIS
-        string uppercase( string arg )
+	string uppercase( string arg )
 
 DESCRIPTION
-        Converts all characters in arg to uppercase
+	Converts all characters in arg to uppercase.
 
 RETURN VALUE
-        A new, converted string is returned
+	A new, converted string is returned.
 
 SEE ALSO
-        lowercase, capitalize
+	lowercase, capitalize
 

@@ -1,21 +1,19 @@
 NAME
-        require_priv - test if all objects and inheritables
-                       on the stack have at least the requested
-                       privilege
+	require_priv - test if all objects and inheritables on the stack 
+	have at least the requested privilege
 
 SYNOPSIS
-        int require_priv( string priv )
+	int require_priv( string priv )
 
 DESCRIPTION
-        Check if all objects and inheritables on the stack have
-        the requested privilege or one superior (that can become
-        the requested privilege)
+	Check if all objects and inheritables on the stack have the 
+	requested privilege or one superior (that can become the 
+	requested privilege)
 
 
 RETURN VALUE
-        Returns 1 if matched, 0 otherwise.
+	Returns 1 if matched, 0 otherwise.
 
 SEE ALSO
-        valid, valid_read, valid_write
-
+	valid, valid_read, valid_write
 

@@ -13,4 +13,3 @@ RETURN VALUE
 SEE ALSO
         arrayp, floatp, functionp, stringp, objectp, mappingp, nilp
 
-

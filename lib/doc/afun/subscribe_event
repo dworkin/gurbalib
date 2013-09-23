@@ -1,14 +1,14 @@
 NAME
-        subscribe_event - subscribe to an event
+	subscribe_event - subscribe to an event
 
 SYNOPSIS
-        ob->subscribe_event( string name )
+	ob->subscribe_event( string name )
 
 
 DESCRIPTION
-        Subscribes this_object() to an event with the given name
-        in the object ob. The event must have been added by 'ob' first
+	Subscribes this_object() to an event with the given name in the 
+	object ob. The event must have been added by 'ob' first.
 
 SEE ALSO
-        afun/event, afun/add_event, afun/remove_event, 
-        afun/unsubscribe_event
+	afun/event, afun/add_event, afun/remove_event, afun/unsubscribe_event
+

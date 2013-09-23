@@ -1,12 +1,13 @@
 NAME
-        set_this_player - sets value for this_player()
+	set_this_player - sets value for this_player()
 
 SYNOPSIS
-        void set_this_player( object ob )
+	void set_this_player( object ob )
 
 DESCRIPTION
-        Sets the return value of this_player() to ob.  
+	Sets the return value of this_player() to ob.  
 
 SEE ALSO
-        this_player
+	players, this_body, this_connection, this_environment, this_player,
+	this_program, this_race, this_user
 

@@ -10,5 +10,5 @@ DESCRIPTION
          created based on the name of the source file.
 		
 SEE ALSO
-        read_file, write_file
+        cat_file, editor, read_file, rename_file, remove_file, write_file
 

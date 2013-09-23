@@ -1,20 +1,18 @@
 NAME
-        query_cloner - return information on how a clone came into
-                       existence
+	query_cloner - return information on how a clone came into existence
 
 SYNOPSIS
-        string query_cloner( varargs int flag )
+	string query_cloner( varargs int flag )
 
 DESCRIPTION
-        Returns the 'owner' of object that caused this
-        clone to exist. If flag is provided, this will
-        return a text representation of the call trace
-        as it was when this object was cloned.
+	Returns the 'owner' of object that caused this clone to exist. 
+	If flag is provided, this will return a text representation of 
+	the call trace as it was when this object was cloned.
 
 RETURN VALUE
-        Returns a string with information on a clone.
-        returns nil when called on a 'blueprint'
+	Returns a string with information on a clone.  returns nil when 
+	called on a 'blueprint'.
 
 SEE ALSO
-        next_clone, prev_clone, num_clones
+	next_clone, prev_clone, num_clones
 

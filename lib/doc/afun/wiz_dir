@@ -1,8 +1,14 @@
 NAME
-        wiz_dir - return a wizards work path
+	wiz_dir - return a wizards work path
 
 SYNOPSIS
-        string wiz_dir( )
+	string wiz_dir( )
 
 DESCRIPTION
-        Returns the path to a wizards work directory.
+	Returns the path to a wizards work directory.
+
+RETURN VALUE
+	A string containing the path to the wizards directory.
+
+SEE ALSO
+	base_name, clone_num, file_name, kfun/object_name, wiz_dir

@@ -1,20 +1,21 @@
 NAME
-        filter_array - filter an array through a function
+	filter_array - filter an array through a function
 
 SYNOPSIS
-        mixed * filter_array( mixed * arr, string fun, varargs object ob, mixed extra... )
+	mixed * filter_array( mixed * arr, string fun, varargs object ob, 
+		mixed extra... )
 
 DESCRIPTION
-        Filter the array 'arr' through the function fun in the object ob
-        If ob is not provided or is nil, this_object() is used. The optional
-        'extra' arguments are passed to this function.
+	Filter the array 'arr' through the function fun in the object ob.
+	If ob is not provided or is nil, this_object() is used. The 
+	optional 'extra' arguments are passed to this function.
 
-        If fun returns 0 or nil, the element passed to it will not be included, 
-        otherwise it will be included in the returned array.
+	If fun returns 0 or nil, the element passed to it will not be 
+	included, otherwise it will be included in the returned array.
 
 RETURN VALUE
-        Returns a new (possibly empty) array containing all elements of arr for
-        which ob->fun(elem, extra) returns something other then 0 or nil.
+	Returns a new (possibly empty) array containing all elements of arr 
+	for which ob->fun(elem, extra) returns something other then 0 or nil.
 
 SEE ALSO
-        map_array, member_array, split array
+        map_array, member_array, member_map, split_array, uniq_array

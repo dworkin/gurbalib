@@ -1,3 +1,15 @@
-int absolute_path(string path)
+NAME
+        absolute_path - test if a provided path is absolute
 
-Returns 1 if the provided argument is an absolute path, 0 otherwise
+SYNOPSIS
+        int absolute_path( string path )
+
+DESCRIPTION
+        Check if 'arg' is an int.
+
+RETURN VALUE
+        Returns 1 if the provided path is a full path in it's simplest form.
+	If the path is not absolute, return 0.
+
+SEE ALSO
+

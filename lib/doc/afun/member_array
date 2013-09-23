@@ -1,16 +1,16 @@
 NAME
-        member_array - see if an element is a member of an array
+	member_array - see if an element is a member of an array
 
 SYNOPSIS
-        int member_array( mixed item, mixed * arr )
+	int member_array( mixed item, mixed * arr )
 
 DESCRIPTION
-        Checks of 'item' is a member of the array 'arr'.
+	Checks of 'item' is a member of the array 'arr'.
 
 RETURN VALUE
-        Returns the index of the first occurrence of item in array arr. If not found,
-        then -1 is returned.
-
+	Returns the index of the first occurrence of item in array arr. 
+	If not found, then -1 is returned.
 
 SEE ALSO
-        map_array, filter_array, member_map, split_array
+	filter_array, map_array, member_map, split_array, uniq_array
+

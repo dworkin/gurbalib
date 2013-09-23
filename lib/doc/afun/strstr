@@ -1,17 +1,17 @@
 NAME
-        strstr - finds location of a substring in a string
+	strstr - finds location of a substring in a string
 
 SYNOPSIS
-        int strstr( string str, sting what )
+	int strstr( string str, sting what )
 
 DESCRIPTION
-        Checks str for a match to what.  The index for the first character 
+	Checks str for a match to what.  The index for the first character 
 	of the first match is returned, or else -1 is returned when no 
 	match is found.
 
 RETURN VALUE
-        Index where what was found in str, or else -1.
+	Index where what was found in str, or else -1.
 
 SEE ALSO
-        replace_string
+	replace_string, strcmp, str2val
 

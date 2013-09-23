@@ -4,9 +4,11 @@ NAME
 SYNOPSIS
 	string this_program()
 
-
 DESCRIPTION
 	Return the name of the current program.
 
 SEE ALSO
+	players, set_this_player, this_body, this_connection, 
+	this_environment, this_player, this_race, this_user 
 	kfun/previous_object, kfun/call_trace
+

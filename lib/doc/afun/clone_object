@@ -6,16 +6,17 @@ SYNOPSIS
 
 DESCRIPTION
         Creates a clone of object at filepath.  If object is not compiled,
-		it will be compiled first.  If filepath is not a legal object an
-		error will result.  A filepath must contain a legal subdirectory
-		for an object to be cloned.  File paths are legal if they contain
-		one of the following subdirectories:
-		  /obj/, /mon/, /objects/, /monsters/, /daemons/, /rooms/, /cmds/
+	it will be compiled first.  If filepath is not a legal object an
+	error will result.  A filepath must contain a legal subdirectory
+	for an object to be cloned.  File paths are legal if they contain
+	one of the following subdirectories:
+		/obj/, /mon/, /objects/, /monsters/, /daemons/, /rooms/, 
+		/cmds/
 
-	    For more info on objects see /doc/misc/objects.
+	For more info on objects see /doc/misc/objects.
 
 RETURN VALUE
         Returns the cloned object
 
 SEE ALSO
-        compile_object
+        compile_library, compile_object

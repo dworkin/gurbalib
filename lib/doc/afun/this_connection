@@ -1,17 +1,18 @@
 NAME
-        this_connection - get the current 'connection'
+	this_connection - get the current 'connection'
 
 SYNOPSIS
-        object this_player()
+	object this_player()
 
 DESCRIPTION
-        Get the object representing the current network connection.
-        This can be the same as the current session object but usually
-        it isn't.
+	Get the object representing the current network connection.  
+	This can be the same as the current session object but usually 
+	it isn't.
 
 RETURN VALUE
-        The object representing the current connection is returned.
+	The object representing the current connection is returned.
 
 SEE ALSO
-        this_user, this_player
+	players, set_this_player, this_body, this_environment, 
+	this_player, this_program, this_race, this_user
 

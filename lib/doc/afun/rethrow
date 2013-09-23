@@ -1,37 +1,31 @@
 NAME
-        rethrow() - rethrow a caught error
+	rethrow() - rethrow a caught error
 
 SYNOPSIS
-        void rethrow( varargs string message )
+	void rethrow( varargs string message )
 
 DESCRIPTION
-        Rethrows the most recently caught runtime error as if it
-        wasn't caught. Execution of the current thread stops after
-        this call.
-        If the optional argument message is provided, the error
-        message will be replaced by it. The call trace cannot
-        be changed.
+	Rethrows the most recently caught runtime error as if it wasn't 
+	caught. Execution of the current thread stops after this call.  
+	If the optional argument message is provided, the error message 
+	will be replaced by it. The call trace cannot be changed.
 
 EXAMPLE
-       int divint(int a, int b) {
-         catch {
-           return a/b;
-         } : {
-           write("Whatever");
-           rethrow();
-         }
-       }
+	int divint(int a, int b) {
+	   catch {
+	      return a/b;
+	   } : {
+	      write("Whatever");
+	      rethrow();
+	   }
+	}
 
-       when calling this with the second argument set to 0,
-       the division will cause a runtime error. This is caught
-       and a message 'Whatever' is written to the current player.
-       After that, the error is 'rethrown' which causes it to be
-       logged as if it wasn't caught at all. Execution will stop
-       after this.
-
-RETURN VALUE
-        none
+	When calling this with the second argument set to 0, the division 
+	will cause a runtime error. This is caught and a message 
+	'Whatever' is written to the current player.  After that, the 
+	error is 'rethrown' which causes it to be logged as if it wasn't 
+	caught at all. Execution will stop after this.
 
 SEE ALSO
-        catch, caught_error
+	catch, caught_error
 

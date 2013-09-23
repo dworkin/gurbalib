@@ -14,5 +14,5 @@ NOTES
         This afun only exists for code outside /kernel
 
 SEE ALSO
-        editor, read_file, rename_file, remove_file, write_file
+        copy, editor, read_file, rename_file, remove_file, write_file
 

@@ -1,14 +1,15 @@
 NAME
-        article - Determine the indefinite article for
-                  a word.
+        article - Determine the indefinite article for a word.
 
 SYNOPSIS
         string article( string arg )
 
 DESCRIPTION
         Determine the indefinite article for the word provided
-        as argument
+        as argument.
 
 RETURN VALUE
-        A string containing the indefinite article is returned
+        A string containing the indefinite article is returned.
+
+SEE ALSO
 

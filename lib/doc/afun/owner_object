@@ -1,18 +1,17 @@
 NAME
-        owner_object - determine the owner of the file
-                       from which an object has been
-                       compiled.
+	owner_object - determine the owner of the file from which an 
+	object has been compiled.
 
 SYNOPSIS
-        string owner_object( object ob )
+	string owner_object( object ob )
 
 DESCRIPTION
-        Determine the owner of the file from which an object
-        has been compiled.
+	Determine the owner of the file from which an object has been 
+	compiled.
 
 RETURN VALUE
-        Returns a string with the name of the owner of 
-        the file from which ob has been compiled.
+	Returns a string with the name of the owner of the file from 
+	which ob has been compiled.
 
 SEE ALSO
-        owner_file, file_name
+	owner_file, file_name

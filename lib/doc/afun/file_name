@@ -5,10 +5,13 @@ SYNOPSIS
         string file_name( varargs object obj )
 
 DESCRIPTION
-        Returns the filename for obj, or if obj is not defined,
-		for this_object().  File_name differs from base_name in
-		that the ".c" extension is included with filename.
+        Returns the filename for obj, or if obj is not defined, for 
+	this_object().  File_name differs from base_name in that the 
+	".c" extension is included with filename.
 		
 RETURN VALUE
-        The filename of obj, or if obj is not defined, for
-		this_object().
+        The filename of obj, or if obj is not defined, for this_object().
+
+SEE ALSO
+	base_name, clone_num, kfun/object_name, wiz_dir
+

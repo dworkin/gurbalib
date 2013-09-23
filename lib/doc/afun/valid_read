@@ -1,22 +1,21 @@
 NAME
-        valid - test read access to a namespace entry
+	valid - test read access to a namespace entry
 
 SYNOPSIS
-        int valid_read( string name )
+	int valid_read( string name )
 
 DESCRIPTION
-        Test read access to a file with the provided name. 
-        This file does not have to exist.
+	Test read access to a file with the provided name.  This file 
+	does not have to exist.
 
 NOTES
-        This afun only exists outside /kernel
+	This afun only exists outside /kernel
 
 RETURN VALUE
-        Returns 1 if the access is to be allowed
+	Returns 1 if the access is to be allowed
 
 SEE ALSO
-        valid, valid_write, read_file, write_file,
-        save_object, restore_object, get_dir, rename_file,
-        make_directory, remove_directory, remove_file
-
+	valid, valid_write, read_file, write_file, save_object, 
+	restore_object, get_dir, rename_file, make_directory, 
+	remove_directory, remove_file
 

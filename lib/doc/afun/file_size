@@ -9,3 +9,6 @@ DESCRIPTION
 		
 RETURN VALUE
         The size of file found at filepath, or 0 if no file found.
+
+SEE ALSO
+	dir_size

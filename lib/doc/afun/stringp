@@ -1,15 +1,15 @@
 NAME
-        stringp - test if a variable is a string
+	stringp - test if a variable is a string
 
 SYNOPSIS
-        int stringp( mixed arg )
+	int stringp( mixed arg )
 
 DESCRIPTION
-        Check if 'arg' is a string.
+	Check if 'arg' is a string.
 
 RETURN VALUE
-        Returns 1 if 'arg' is a string, 0 otherwise.
+	Returns 1 if 'arg' is a string, 0 otherwise.
 
 SEE ALSO
-        arrayp, floatp, functionp, intp, objectp, mappingp, nilp
+	arrayp, floatp, functionp, intp, objectp, mappingp, nilp
 

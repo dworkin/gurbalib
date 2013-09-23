@@ -1,18 +1,15 @@
 NAME
-        set_tlvar - set the value for a tls variable.
+	set_tlvar - set the value for a tls variable.
 
 SYNOPSIS
-        void set_tlvar( string name, mixed value )
+	void set_tlvar( string name, mixed value )
 
 DESCRIPTION
-        Sets the value for tls variable 'name'.
-
-RETURN VALUE
-        none
+	Sets the value for tls variable 'name'.
 
 NOTES
-        This afun only exists for code outside /kernel
+	This afun only exists for code outside /kernel
 
 SEE ALSO
-        get_tlvar, tls
+	get_tlvar, tls
 
