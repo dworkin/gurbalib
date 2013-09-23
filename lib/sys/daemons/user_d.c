@@ -10,8 +10,9 @@ static mapping users;
 static mapping cache;
 static mapping sessions;
 static mapping wizards;
-static object spare;
-static int    auto_admin;
+static object  spare;
+static int     auto_admin;
+static int     handle;
 #ifdef USE_LWO_CACHE
 static object data_ob;
 #endif
@@ -113,7 +114,7 @@ static void create() {
       auto_admin = 1;
    }
 
-   if (!data_version <2) {
+   if (data_version <2) {
       call_out("convert_users", 0);
    }
 
@@ -125,7 +126,11 @@ static void create() {
       string name;
       object uob;
 
-      if (u[i]<-USER_OB) {
+      if (u[i]<-USER_OB) { 
+         if (!u[i]->online()) {
+            /* will go online itself */
+            continue;
+         }
          uob = u[i];
       } else if (u[i]<-CONNECTION) {
          uob = u[i]->query_user();
@@ -146,7 +151,9 @@ static void create() {
       }
    }
 
-   call_out("clean_cache", CACHE_INTERVAL);
+   if (!handle) {
+      handle = call_out("clean_cache", CACHE_INTERVAL);
+   }
    cleanup();
 }
 
@@ -188,6 +195,7 @@ static void clean_cache() {
    int i, sz;
    string *names;
 
+   handle = 0;
    names = map_indices(cache);
 
    for (i = 0, sz = sizeof(names); i < sz; i++) {
@@ -196,7 +204,7 @@ static void clean_cache() {
       }
    }
 
-   call_out("clean_cache", CACHE_INTERVAL);
+   handle = call_out("clean_cache", CACHE_INTERVAL);
 }
 
 int set_password(string name, string secret) {

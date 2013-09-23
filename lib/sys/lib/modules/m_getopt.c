@@ -43,8 +43,34 @@
 #define VREQ 1
 #define VMUL 2
 
+private mapping options;
 private mapping longopts;
 private mapping shortopts;
+
+/*
+ * mask this for custom option checking.
+ *
+ */
+static int test_option_arg(string option, string arg, int type) {
+   string r;
+
+   if (type == SHORT) {
+      if ( 
+         (sscanf(arg,"--%s",r) == 1 && longopts[r]) ||
+         (sscanf(arg,"-%s",r) == 1 && shortopts[r[..0]]) ) {
+         return 0;
+      }
+      if (!options[option][VALUE] && options[option][MULTI]) {
+         return sscanf(arg,"%*d") == 1;
+      }
+      return 1;
+   }
+
+   if (!options[option][VALUE] && options[option][MULTI]) {
+      return sscanf(arg,"%*d") == 1;
+   }
+   return 1;
+}
 
 static void set_options(mapping m) {
    int i,sz, oi, osz;
@@ -53,8 +79,11 @@ static void set_options(mapping m) {
    if (!m) {
       longopts = nil;
       shortopts = nil;
+      options = nil;
       return;
    }
+
+   options = m;
 
    opt = map_indices(m);
    shortopts = ([ ]);
@@ -113,22 +142,32 @@ private mixed *parse_long_option(string opt, string str) {
       if (!longopts[r]) {
          err = "--" + r + " is not a recognized (long) option.";
          end = 1;
-      } else if (!longopts[r][VREQ]) {
+      } else if (!longopts[r][VREQ] && !longopts[r][VMUL]) {
+         write("D: " + dump_value(longopts[r]) + " " + r + ", " + val);
          err = "--" + r + " does not take an argument.";
          end = 1;
       } else {
          mixed m;
 
-         m = get_otlvar("options");
-
-         if (longopts[r][VMUL]) {
-            if (!m[longopts[r][NAME]]) {
-               m[longopts[r][NAME]] = ({ val });
-            } else {
-               m[longopts[r][NAME]] += ({ val });
-            }
+         if (!test_option_arg(longopts[r][NAME], val, LONG)) {
+            err = "Bad argument for option " + longopts[r][NAME] + ".";
+            end = 1;
          } else {
-            m[longopts[r][NAME]] = val;
+            m = get_otlvar("options");
+
+            if (longopts[r][VMUL]) {
+               if (!longopts[r][VREQ]) {
+                  int v;
+                  sscanf(val,"%d",v);
+                  m[longopts[r][NAME]] = v;
+               } else if (!m[longopts[r][NAME]]) {
+                  m[longopts[r][NAME]] = ({ val });
+               } else {
+                  m[longopts[r][NAME]] += ({ val });
+               }
+            } else {
+               m[longopts[r][NAME]] = val;
+            }
          }
       }
    } else {
@@ -150,11 +189,12 @@ private mixed *parse_long_option(string opt, string str) {
    return ({ end, str, err });
 }
 
-private mixed *parse_short_option(string opt, string str) {
+private mixed *parse_short_option(string opt, string str, int lastopt) {
    string r;
    string err;
    string val;
    int end;
+   int v;
    mixed m;
 
    m = get_otlvar("options");
@@ -168,10 +208,13 @@ private mixed *parse_short_option(string opt, string str) {
                str = r;
             } else {
                val = str;
-               end = 1;
                str = "";
             }
-            if (!shortopts[opt][VMUL]) {
+
+            if (!test_option_arg(shortopts[opt][NAME], val, SHORT)) {
+               err = "option " + shortopts[opt][NAME] + " requires an argument.";
+               end = 1;
+            } else if (!shortopts[opt][VMUL]) {
                m[shortopts[opt][NAME]] = val;
             } else { 
                if (!m[shortopts[opt][NAME]]) {
@@ -181,9 +224,17 @@ private mixed *parse_short_option(string opt, string str) {
                }
             }
          } else {
-            err = "option " + shortopts[opt][NAME] + " requires a value";
+            err = "option " + shortopts[opt][NAME] + " requires an argument.";
             end = 1;
          }
+      } else if (lastopt && shortopts[opt][VMUL] && 
+         ((sscanf(str, "%d %s", v, r) == 2) || (sscanf(str,"%d", v) == 1)) && v > 0) {
+         if (r) {
+            str = r;
+         } else {
+            str = "";
+         }
+         m[shortopts[opt][NAME]] = v;
       } else {
          if (!m[shortopts[opt][NAME]]) {
             m[shortopts[opt][NAME]] = 1;
@@ -224,7 +275,7 @@ private mixed *parse_option(string str) {
    }
 
    for (i=0,sz=strlen(opt); i<sz && !end; i++) {
-      ({ end, str, err }) = parse_short_option(opt[i..i], str);
+      ({ end, str, err }) = parse_short_option(opt[i..i], str, (i == sz-1));
    }
 
    if (str == "") {
@@ -268,6 +319,6 @@ static mixed query_option(string n) {
 }
 
 static int test_option(string n) {
-   return 1 && query_option(n);
+   return query_option(n) != nil;
 }
 

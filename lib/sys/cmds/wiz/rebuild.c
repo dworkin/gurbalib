@@ -1,6 +1,14 @@
 inherit M_COMMAND;
 inherit "/sys/lib/modules/m_getopt";
 
+#ifdef SECURITY_RO_KERNEL
+#define CORE_BASE "/sys/lib/auto"
+#define CORE_WANTED ({ "system", "game" })
+#else
+#define CORE_BASE AUTO
+#define CORE_WANTED ({ "kernel", "system", "game" })
+#endif
+
 string *resubmit;
 
 void usage() {
@@ -45,7 +53,7 @@ static int resubmit_upqueue(string f) {
    return 1;
 }
 
-static int upgrade_uobj(string * files, int verbose) {
+atomic static int upgrade_uobj(string * files, int verbose) {
    int pos, sz, uc;
 
    uc = 0;
@@ -70,7 +78,7 @@ static int upgrade_uobj(string * files, int verbose) {
          catch {
 	    compile_object(files[pos]);
          } : {
-            error("Error compiling " + files[pos]);
+            error(files[pos]);
          }
       }
    }
@@ -84,11 +92,13 @@ static void main(string str) {
    string *wanted;
    string tmp;
    string *file;
+   string err;
 
    str = parse_for_options(str);
+   err = query_parse_error();
 
-   if (query_parse_error()) {
-      write("Parse error: " + query_parse_error());
+   if (err) {
+      write("Parse error: " + err);
       return;
    }
 
@@ -104,7 +114,7 @@ static void main(string str) {
 
    if (!all) {
       if (core) {
-         wanted = ({"kernel","system","game"});
+         wanted = CORE_WANTED;
       } else {
          wanted = ({ });
       }
@@ -123,7 +133,7 @@ static void main(string str) {
    resubmit = ({ });
 
    if (core && (!file || !sizeof(file))) {
-      file = ({ AUTO });
+      file = ({ CORE_BASE });
    }
 
    if (verbose) {
@@ -147,10 +157,10 @@ static void main(string str) {
       if (!all) {
          users = wanted;
          if (core) {
-            users -= ({"kernel","system","game"});
+            users -= CORE_WANTED;
          }
          if (sizeof(users)) {
-            write("rebuild all outdated user objects for " + implode(users, ",") + ".");
+            write("rebuild all outdated objects for " + implode(users, ",") + ".");
          }
       }
       write("---");
@@ -177,7 +187,13 @@ static void main(string str) {
 	 if (edges["kernel"] && (!wanted || (sizeof(wanted & ({"kernel"})) != 0)) 
             && valid_write("/kernel/data")) {
 	    if (verbose > 1) write("Rebuilding kernel.");
-	    total += upgrade_uobj(edges["kernel"], verbose);
+	    err = catch(total += upgrade_uobj(edges["kernel"], verbose));
+            if (err) {
+               /* upgrade_uobj will put the filename in the error string.
+                  do a non-atomic, uncaught compile to show compiler errors */
+               compile_object(err);
+               return;
+            }
 	    edges["kernel"] = nil;
 	 } else if (edges["kernel"]) {
             resubmit += edges["kernel"];
@@ -187,7 +203,11 @@ static void main(string str) {
          if (edges["system"] && (!wanted || (sizeof(wanted & ({"system"})) != 0))
             && valid_write("/sys/data")) {
             if (verbose > 1) write("Rebuilding system.");
-            total += upgrade_uobj(edges["system"], verbose);
+            err = catch(total += upgrade_uobj(edges["system"], verbose));
+            if (err) {
+               compile_object(err);
+               return;
+            }
             edges["system"] = nil;
          } else if (edges["system"]) {
             resubmit += edges["system"];
@@ -197,7 +217,11 @@ static void main(string str) {
          if (edges["game"] && (!wanted || (sizeof(wanted & ({"game"})) != 0))
             && valid_write("/daemons/data")) {
             if (verbose > 1) write("Rebuilding game.");
-            total += upgrade_uobj(edges["game"], verbose);
+            err = catch(total += upgrade_uobj(edges["game"], verbose));
+            if (err) {
+               compile_object(err);
+               return;
+            }
             edges["game"] = nil;
          } else if (edges["game"]) {
             resubmit += edges["game"];
@@ -212,10 +236,9 @@ static void main(string str) {
                   write("Rebuilding for user " + users[pos]);
                }
 
-               catch {
-                  total += upgrade_uobj(edges[users[pos]], verbose);
-               } : {
-                  write(caught_error());
+               err = catch(total += upgrade_uobj(edges[users[pos]], verbose));
+               if (err) {
+                  compile_object(err);
                   return;
                }
             } else {
@@ -238,11 +261,19 @@ static void create() {
       "help":({ ({"h", "?"}), "help" }),
       "core":({ "c", "core" }),
       "all":({ "a", "all" }),
-      "verbose":({ ({ "v", "d" }), ({ "verbose", "debug" }) }),
+      "verbose":({ ({ "v", "d" }), ({ "verbose", "debug" }), 0, 1 }),
       "file":({ "f", "file", 1, 1 })
    ]));
 }
 
-static void upgraded() {
+void upgraded() {
    create();
+}
+
+static int test_option_arg(string opt, string arg, int flag) {
+   if (opt == "file" && arg[0] != '/') {
+      return 0;
+   } else {
+      return ::test_option_arg(opt, arg, flag);
+   }
 }

@@ -10,6 +10,8 @@ object ansid;
 
 string user_name;
 string newpass;
+static int logged_in;
+static int data_version;
 static int timeout_handle;
 object query_player(void);
 
@@ -22,6 +24,7 @@ void create() {
    set_property("auto_admin",0,"*","system");
    set_property("auto_wiz",0,"*","system");
    user_name = "Guest";
+   data_version = 1;
    run_as("nobody");
 }
 
@@ -279,6 +282,7 @@ static void login_user(void) {
 	 player->set_linkdead(0);
 	 player->set_user(this_object());
 	 USER_D->user_online(user_name, this_object());
+         logged_in = 1;
 	 player->write_prompt();
 	 remove_call_out(timeout_handle);
       } else {
@@ -288,6 +292,7 @@ static void login_user(void) {
    } else {
       player->set_name(user_name);
       USER_D->user_online(user_name, this_object());
+      logged_in = 1;
       player->set_short(capitalize(user_name) + player->query_title());
       send_message("\n\n");
       send_message(TELNET_D->query_motd());
@@ -344,6 +349,7 @@ void handle_reconnect(string str) {
 	 player->set_linkdead(0);
 	 send_message("Other copy kicked.\n");
 	 USER_D->user_online(user_name, this_object());
+         logged_in = 1;
 	 player->write_prompt();
 	 remove_call_out(timeout_handle);
       }
@@ -730,6 +736,14 @@ void receive_error(string err) {
    _receive_error(allocate(DRIVER->query_tls_size()), err);
 }
 
-void upgraded() {
+static void upgraded() {
    ansid = find_object(ANSI_D);
+   if (data_version) return;
+   if (query_player()) {
+      logged_in = data_version = 1;
+   }
+}
+
+int online() {
+   return logged_in;
 }

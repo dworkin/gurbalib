@@ -67,10 +67,10 @@ void add_id(string str, varargs mixed args ...) {
 	 set_id(str, args);
 	 break;
       case 1:
-	 set_id(ids[0], ( { str } ) + args);
+	 set_id(ids[0], ( { str } ) | args);
 	 break;
       default:
-	 set_id(ids[0], ( { str } ) + args + ids[1..(size - 1)]);
+	 set_id(ids[0], ( { str } ) | args | ids[1..(size - 1)]);
    }
 }
 
@@ -104,7 +104,7 @@ void set_adj(string str, varargs mixed args ...) {
    adjs = ( { str } );
    max = sizeof(args);
    for (i = 0; i < max; i++) {
-      adjs += ( { (string) args[i] } );
+      adjs |= ( { (string) args[i] } );
    }
 }
 
@@ -114,10 +114,10 @@ void add_adj(string str, varargs mixed args ...) {
    if (!adjs) {
       adjs = ( { } );
    }
-   adjs += ( { str } );
+   adjs |= ( { str } );
    max = sizeof(args);
    for (i = 0; i < max; i++) {
-      adjs += ( { (string) args[i] } );
+      adjs |= ( { (string) args[i] } );
    }
 }
 
