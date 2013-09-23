@@ -2,7 +2,8 @@ NAME
         split_array - split an array through a function
 
 SYNOPSIS
-        mixed ** split_array( mixed * arr, string fun, varargs object ob, mixed extra... )
+        mixed ** split_array( mixed * arr, string fun, varargs object ob, 
+		mixed extra... )
 
 DESCRIPTION
         Filter the array 'arr' through the function fun in the object ob
@@ -20,8 +21,8 @@ DESCRIPTION
 
 RETURN VALUE
         Returns a new array containing 2 (possibly empty) arrays containing
-        all elements for which ob->fun(elem, extra) returns something or nothing
-        respectively.
+        all elements for which ob->fun(elem, extra) returns something or 
+	nothing respectively.
 
 SEE ALSO
         map_array, member_array, filter_array

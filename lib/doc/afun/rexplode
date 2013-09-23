@@ -7,8 +7,8 @@ SYNOPSIS
 
 DESCRIPTION
 	Return an array of substrings of str, divided by the given separator.
-	Unlike explode, rexplode will take the separators that str starts and ends 
-        with, if any, into account.
+	Unlike explode, rexplode will take the separators that str starts and 
+	ends with, if any, into account.
 
 ERRORS
 	If the resulting array size is larger than status()[ST_ARRAYSIZE], with

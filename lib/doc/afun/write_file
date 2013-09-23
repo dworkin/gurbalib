@@ -1,0 +1,18 @@
+NAME
+        write_file - write data to a file.
+		
+SYNOPSIS
+	static int write_file(string file, string str, varargs int offset)
+
+DESCRIPTION
+        Write a string to a file.  If the offset is specified, write the string
+	at the given offset, otherwise append the string to the end of the file.
+	If the offset is a negative value, start from the end of the file and
+	work towards the front to find the location to write the data.
+		
+RETURN VALUE
+         Returns 1 on success, 0 on failure.
+
+SEE ALSO
+        cat_file, editor, read_file
+

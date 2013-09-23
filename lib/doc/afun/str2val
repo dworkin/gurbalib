@@ -6,8 +6,8 @@ SYNOPSIS
 
 DESCRIPTION
         Converts a string of numbers into an int value.  The string
-		must only contain numbers, or -1 is returned.
+	must only contain numbers, or -1 is returned.
 
 RETURN VALUE
         An int value representing the number in str, or -1 if str is
-		not a number.
+	not a number.

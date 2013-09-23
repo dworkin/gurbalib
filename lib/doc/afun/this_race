@@ -6,7 +6,7 @@ SYNOPSIS
 
 DESCRIPTION
         If a users race_object is found return that object, or
-		else return the object that called this function.
+	else return the object that called this function.
 
 RETURN VALUE
         A race object, or else the function which called this_race.
