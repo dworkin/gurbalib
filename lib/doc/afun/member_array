@@ -13,4 +13,4 @@ RETURN VALUE
 
 
 SEE ALSO
-        map_array, filter_array, member_map
+        map_array, filter_array, member_map, split_array

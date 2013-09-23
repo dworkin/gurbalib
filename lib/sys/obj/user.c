@@ -19,6 +19,8 @@ void create() {
       ansid = compile_object(ANSI_D);
    }
 
+   set_property("auto_admin",0,"*","system");
+   set_property("auto_wiz",0,"*","system");
    user_name = "Guest";
    run_as("nobody");
 }
@@ -215,25 +217,25 @@ void receive_message(string message) {
    _receive_message(allocate(DRIVER->query_tls_size()), message);
 }
 
-/* query SECURE_D for our privs and setup privileges accordingly */
+/* query USER_D for our privs and setup privileges accordingly */
 void restore_privs() {
    string privs;
 
    privs = "";
 
-   if(SECURE_D->query_admin(user_name)) {
+   if(USER_D->query_admin(user_name)) {
       privs += "system:";
    }
 
-   if(SECURE_D->query_wiz(user_name)) {
+   if(USER_D->query_wiz(user_name)) {
       int i,sz;
       string *dn;
 
       privs += "wizard:";
-      dn = SECURE_D->query_domains();
+      dn = DOMAIN_D->query_domains();
 
       for (i=0, sz=sizeof(dn); i<sz; i++) {
-         if (SECURE_D->query_domain_member(dn[i], user_name)) {
+         if (DOMAIN_D->query_domain_member(dn[i], user_name)) {
             privs += dn[i] + ":";
          }
       }
@@ -242,6 +244,9 @@ void restore_privs() {
    privs += user_name;
 
    run_as(privs);
+   if (player) {
+      player->restore_privs();
+   }
 }
 
 static void login_user(void) {

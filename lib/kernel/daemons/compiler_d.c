@@ -426,6 +426,11 @@ void register_included_by(string what, string * list) {
       return;
    }
 
+   increv = ([ ]);
+   includes = ([ ]);
+   return;
+
+   /* XXX this is currently broken, and not actually used */
    max = sizeof(list);
    for (i = 0; i < max; i++) {
       register_included_by_single(list[i], what);
@@ -627,7 +632,7 @@ string allow_object(string path) {
 void add_upqueue(string file) {
    string owner;
 
-   if (!KERNEL()) {
+   if (!ROOT()) {
       error("Bad call to add_upqueue");
    }
 

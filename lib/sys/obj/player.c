@@ -82,7 +82,6 @@ void restore_privs() {
    string privs;
 
    if (user) {
-      user->restore_privs();
       privs = "game:" + user->_Q_cpriv();
    } else {
       privs = "game:nobody";

@@ -152,62 +152,64 @@ object compile_object(string path, varargs string code) {
    object ob, auto;
    int mark;
 
-   ocount++;
+   rlimits(255;-1) {
+      ocount++;
 
-   set_tlvar(TLS_INCLUDES, ( { "/kernel/include/std.h"}));
-   set_tlvar(TLS_INHERITS, ( { }));
-   set_tlvar(TLS_COMPILING, path);
+      set_tlvar(TLS_INCLUDES, ( { "/kernel/include/std.h"}));
+      set_tlvar(TLS_INHERITS, ( { }));
+      set_tlvar(TLS_COMPILING, path);
 
-   ident++;
+      ident++;
 
-   if (path != DRIVER && find_object(path)) {
-      mark = 1;
-   }
+      if (path != DRIVER && find_object(path)) {
+         mark = 1;
+      }
 
 #ifdef DEBUG_BOOT
-   if(path && !boot_complete) {
-      message("BOOT: loading " + path + "\n");
-   }
+      if(path && !boot_complete) {
+         message("BOOT: loading " + path + "\n");
+      }
 #endif
 
-   if (compiler_d) {
-      stuff = compiler_d->allow_compile(path, nil);
-      if (typeof(stuff) == T_STRING) {
-	 path = stuff;
-      } else if (typeof(stuff) == T_ARRAY) {
-	 code = implode(stuff, "\n") + "\n";
-      }
-   }
-
-   if (code) {
-      ob =::compile_object(path, code);
-   } else {
-      ob =::compile_object(path);
-   }
-
-   if (ob) {
-      if (path != DRIVER && path != AUTO) {
-         set_tlvar(TLS_INHERITS, 
-            (({ find_object(AUTO)}) | get_tlvar(TLS_INHERITS)));
-      }
-
-      ident--;
-
       if (compiler_d) {
-         compiler_d->register_includes(ob, get_tlvar(TLS_INCLUDES));
-         compiler_d->register_inherits(ob, get_tlvar(TLS_INHERITS));
+         stuff = compiler_d->allow_compile(path, nil);
+         if (typeof(stuff) == T_STRING) {
+	    path = stuff;
+         } else if (typeof(stuff) == T_ARRAY) {
+	    code = implode(stuff, "\n") + "\n";
+         }
       }
 
-      set_tlvar(TLS_INCLUDES, ({ }));
-      set_tlvar(TLS_INHERITS, ({ }));
-      set_tlvar(TLS_COMPILING, nil);
-
-      if (mark) {
-         queue_upgrade(ob);
+      if (code) {
+         ob =::compile_object(path, code);
+      } else {
+         ob =::compile_object(path);
       }
+
+      if (ob) {
+         if (path != DRIVER && path != AUTO) {
+            set_tlvar(TLS_INHERITS, 
+               (({ find_object(AUTO)}) | get_tlvar(TLS_INHERITS)));
+         }
+
+         ident--;
+
+         if (compiler_d) {
+            compiler_d->register_includes(ob, get_tlvar(TLS_INCLUDES));
+            compiler_d->register_inherits(ob, get_tlvar(TLS_INHERITS));
+         }
+
+         set_tlvar(TLS_INCLUDES, ({ }));
+         set_tlvar(TLS_INHERITS, ({ }));
+         set_tlvar(TLS_COMPILING, nil);
+
+         if (mark) {
+            queue_upgrade(ob);
+         }
+      }
+
+      return ob;
    }
-
-   return ob;
 }
 
 void register_compiler_d() {
@@ -786,7 +788,7 @@ static int _touch(mixed tls, object ob, string func) {
       "\n");
 #endif
 
-   rlimits(MAX_DEPTH; MAX_TICKS) {
+   rlimits(MAX_DEPTH; -1) {
       ob->_F_upgraded();
    }
 }

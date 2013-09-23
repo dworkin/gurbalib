@@ -73,11 +73,11 @@ static void main(string str) {
 
    what = lowercase(what);
    if (what == "admin") {
-      SECURE_D->make_admin(who);
+      USER_D->make_admin(who);
    } else if ((what == "wiz") || (what == "wizard")) {
-      SECURE_D->make_wizard(who);
+      USER_D->make_wizard(who);
    } else if ((what == "player") || (what == "mortal")) {
-      SECURE_D->make_mortal(who);
+      USER_D->make_mortal(who);
    } else {
       usage();
    }

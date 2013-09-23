@@ -1,7 +1,10 @@
+#include <privileges.h>
+
 #define AUTH_DATA_DIR "/sys/daemons/data/users"
 
 string name;
 string password;
+int    priv;
 
 static void secure() {
    if (previous_program(1) != USER_D && !require_priv("system")) {
@@ -21,6 +24,9 @@ int load(string str) {
    secure();
 
    file = AUTH_DATA_DIR + "/" + str + ".o";
+
+   priv = 0;
+   name = password = nil;
 
    return unguarded("restore_object", file);
 }
@@ -45,10 +51,13 @@ void set_pass(string user, string str) {
    save_me();
 }
 
-void convert_user(string str) {
+void set_priv(int i) {
    secure();
 
-   restore_object("/data/players/" + str + ".o");
-   name = str;
+   priv = i;
    save_me();
+}
+
+int query_priv() {
+   return priv;
 }

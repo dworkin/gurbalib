@@ -9,7 +9,7 @@ string *banished_names;
 void create() {
    mixed *list;
 
-   banished_names = SYS_RESERVED_NAMES + SECURE_D->query_domains();          
+   banished_names = SYS_RESERVED_NAMES + DOMAIN_D->query_domains();          
    list = get_dir(BAN_DIR + "*");
    banished_names |= list[0];                  
 }

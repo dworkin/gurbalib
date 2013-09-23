@@ -127,7 +127,7 @@ int exec_command(string cmd, string arg, string * syspath) {
          if (access_check(syspath[i])) {
             cmd_ob = find_object(syspath[i] + cmd);
             if (!cmd_ob) {
-               cmd_ob = compile_object(syspath[i] + cmd);
+               cmd_ob = unguarded("compile_object", syspath[i] + cmd);
             }
          } else {
             DBT("but no access\n");

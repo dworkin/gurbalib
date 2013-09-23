@@ -1,4 +1,10 @@
 static object compile_object(string path, string code ...) {
+#ifdef SECURITY_COMPILER_RW
+   if (!valid_write(path)) {
+      error("Permission denied.");
+   }
+#endif
+
    if (code && sizeof(code)) {
       if (!valid_write(path)) {
 	 error("Permission denied");
@@ -9,5 +15,7 @@ static object compile_object(string path, string code ...) {
       }
    }
 
-   return::compile_object(path, code...);
+   rlimits(255;-1) {
+      return::compile_object(path, code...);
+   }
 }

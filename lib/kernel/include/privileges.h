@@ -8,6 +8,12 @@
 #define ROOT()    (KERNEL() || SYSTEM())
 #define CALLOUT() ((previous_program()==AUTO) && (previous_function()=="_F_call_out2"))
 
+/* special privilege flags for users */
+
+#define PLAYER_L 0
+#define WIZ_L    1
+#define ADMIN_L  2
+
 /* privilege flags */
 
 #define PF_ORPHAN      32

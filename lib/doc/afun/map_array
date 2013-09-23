@@ -14,4 +14,4 @@ RETURN VALUE
         through ob->fun(elem, extra).
 
 SEE ALSO
-        filter_array, member_array
+        filter_array, member_array, split_array

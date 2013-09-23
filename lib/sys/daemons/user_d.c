@@ -1,11 +1,20 @@
+#include <privileges.h>
+
 #define AUTH_DATA "/sys/daemons/auth_data"
 #define CACHE_INTERVAL 300
 #define AUTH_DATA_DIR "/sys/daemons/data/users"
 
+/* #define USE_LWO_CACHE */
+
 static mapping users;
 static mapping cache;
-static object *pool;
+static mapping sessions;
+static mapping wizards;
 static object spare;
+static int    auto_admin;
+#ifdef USE_LWO_CACHE
+static object data_ob;
+#endif
 
 int data_version;
 
@@ -13,7 +22,9 @@ static void secure() {
    string name;
 
    name = previous_program(1);
-   if ((name != USER_OB) && !require_priv("system")) {
+   if ((name != USER_OB) && (name != this_program())
+      && (name != "/sys/daemons/ftp_session") 
+      && !require_priv("system")) {
       error("Access denied: " + name + "\n");
    }
 }
@@ -31,39 +42,28 @@ int logout(string name) {
 
    secure();
 
-   ob = cache[name];
+   if (!sessions[name] || !sizeof(sessions[name])) {
+      sessions[name] = nil;
+      ob = cache[name];
 
-   if (ob) {
-      if (!spare) {
-	 spare = ob;
-	 cache[name] = nil;
+      if (ob) {
+         if (!spare) {
+	    spare = ob;
+#ifndef USE_LWO_CACHE
+         } else {
+            destruct_object(ob);
+#endif
+         }
+         cache[name] = nil;
+         return 1;
       } else {
-	 destruct_object(ob);
+         return 0;
       }
-      return 1;
-   } else {
-      return 0;
    }
 }
 
 object find_user(string name) {
-   string *names;
-   int i, sz, found;
-
-   found = 0;
-   names = map_indices(users);
-   for (i = 0, sz = sizeof(names); i < sz; i++) {
-      if (name == names[i]) {
-	 found = 1;
-	 break;
-      }
-   }
-
-   if (found == 1) {
-      return users[name];
-   } else {
-      return nil;
-   }
+   return users[name];
 }
 
 /*
@@ -74,6 +74,7 @@ static void cleanup() {
    object c, n;
 
    c = find_object(AUTH_DATA);
+
    if (!c) {
       return;
    }
@@ -95,9 +96,24 @@ static void create() {
    int i, sz;
 
    cache = ([]);
+   sessions = ([]);
+   wizards = ([ ]);
    restore_me();
 
-   if (!data_version) {
+#ifdef USE_LWO_CACHE
+   console_msg("WARNING: LWO cache in use, this is unstable!\n");
+   data_ob = find_object(AUTH_DATA);
+   if (!data_ob) {
+      data_ob = compile_object(AUTH_DATA);
+   }
+#endif
+
+   if (sizeof(unguarded("get_dir", AUTH_DATA_DIR + "/*.o")[0]) == 0) {
+      console_msg("enabling auto_admin\n");
+      auto_admin = 1;
+   }
+
+   if (!data_version <2) {
       call_out("convert_users", 0);
    }
 
@@ -106,8 +122,27 @@ static void create() {
    u = users();
 
    for (i = 0, sz = sizeof(u); i < sz; i++) {
-      if (u[i]->query_name() && u[i] <-USER_OB) {
-	 users[u[i]->query_name()] = u[i];
+      string name;
+      object uob;
+
+      if (u[i]<-USER_OB) {
+         uob = u[i];
+      } else if (u[i]<-CONNECTION) {
+         uob = u[i]->query_user();
+      }
+
+      if (uob) {
+         name = uob->query_name();
+         if (name && name != "Guest") {
+            if (uob<-USER_OB) {
+               users[name] = uob;
+            }
+
+            if (!sessions[name]) {
+               sessions[name] = ({ });
+            }
+            sessions[name] |= ({ uob });
+         }
       }
    }
 
@@ -128,7 +163,11 @@ static object get_data_ob(string name) {
       ob = spare;
       spare = nil;
    } else {
+#ifdef USE_LWO_CACHE
+      ob = new_object(data_ob);
+#else
       ob = clone_object(AUTH_DATA);
+#endif
    }
 
    if (ob->load(name)) {
@@ -137,8 +176,10 @@ static object get_data_ob(string name) {
    } else {
       if (!spare) {
 	 spare = ob;
+#ifndef USE_LWO_CACHE
       } else {
-	 destruct_object(ob);
+         destruct_object(ob);
+#endif
       }
    }
 }
@@ -150,7 +191,7 @@ static void clean_cache() {
    names = map_indices(cache);
 
    for (i = 0, sz = sizeof(names); i < sz; i++) {
-      if (!USER_D->find_user(names[i])) {
+      if (!USER_D->query_sessions(names[i])) {
 	 logout(names[i]);
       }
    }
@@ -191,7 +232,6 @@ int reset_password(string who, string passwd) {
    }
    obj->set_pass(who,passwd);
    obj->save_me();
-   destruct_object(obj);
    return 1;
 }
 
@@ -213,18 +253,34 @@ int user_exists(string name) {
    return unguarded("file_exists", AUTH_DATA_DIR + "/" + name + ".o") == 1;
 }
 
-static int _new_user(string name, string secret) {
+static int _new_user(string name, string secret, object u) {
    object ob;
 
    if (spare) {
       ob = spare;
       spare = nil;
    } else {
+#ifdef USE_LWO_CACHE
+      ob = new_object(data_ob);
+#else
       ob = clone_object(AUTH_DATA);
+#endif
    }
 
+   cache[name] = ob;
    ob->set_name(name);
    ob->set_pass(name,secret);
+
+   if (auto_admin) {
+      u->set_property("auto_admin",1);
+      auto_admin = 0;
+#ifdef ALL_USERS_WIZ
+   } else if (ALL_USERS_WIZ) {
+      u->set_property("auto_wiz",1);
+#endif
+   } else {
+      ob->set_priv(PLAYER_L);
+   }
 
    return 1;
 }
@@ -233,7 +289,7 @@ int new_user(string name, string secret) {
    int result;
    secure();
 
-   unguarded("_new_user", name, secret);
+   unguarded("_new_user", name, secret, previous_object());
    return 1;
 }
 
@@ -245,6 +301,8 @@ int _delete_user(string name) {
       return 0;
    }
 
+   filter_array(DOMAIN_D->query_domains(), "remove_domain_member", DOMAIN_D, name);
+
    if (u = find_user(name)) {
       p = u->query_player();
       destruct_object(u);
@@ -253,11 +311,24 @@ int _delete_user(string name) {
       }
    }
 
+   if (sessions[name]) {
+      int i,sz;
+
+      for (i=0, sz=sizeof(sessions[name]); i<sz; i++) {
+         if (sessions[name][i]) {
+            destruct_object(sessions[name][i]);
+         }
+      }
+      sessions[name] = nil;
+   }
+
    if (cache[name]) {
       if (!spare) {
 	 spare = cache[name];
+#ifndef USE_LWO_CACHE
       } else {
-	 destruct_object(cache[name]);
+         destruct_object(cache[name]);
+#endif
       }
       cache[name] = nil;
    }
@@ -266,8 +337,6 @@ int _delete_user(string name) {
 
    unguarded("remove_file", AUTH_DATA_DIR + "/" + name + ".o");
    unguarded("remove_file", "/data/players/" + name + ".o");
-
-   SECURE_D->remove_player(name);
 
    return 1;
 }
@@ -278,37 +347,39 @@ int delete_user(string name) {
    return unguarded("_delete_user", name);
 }
 
-static void convert_users() {
-   string *names;
-   int i, sz;
-   object c;
-
-   names = get_dir("/data/players/*.o")[0];
-   c = clone_object(AUTH_DATA);
-
-   rlimits(MAX_DEPTH; -1) {
-      for (i = 0, sz = sizeof(names); i < sz; i++) {
-	 string n;
-
-	 sscanf(names[i], "%s.o", n);
-	 c->convert_user(n);
-      }
-   }
-   data_version = 1;
-   save_me();
-   destruct_object(c);
-}
-
 static void destructing() {
    cleanup();
 }
 
 void user_online(string name, object user) {
- users += ([name:user]);
+   secure();
+
+   if (user<-USER_OB) {
+      users[name] = user;
+      if (user->property("auto_admin")) {
+         unguarded("make_admin",name);
+      } else if (user->property("auto_wiz")) {
+         unguarded("make_wizard",name);
+      }
+   }
+
+   if (!sessions[name]) {
+      sessions[name] = ({ });
+   } else {
+      sessions[name] -= ({ nil });
+   }
+   sessions[name] |= ({ user });
 }
 
 void user_offline(string name, object user) {
-   users[name] = nil;
+   secure();
+
+   if (user<-USER_OB) {
+      users[name] = nil;
+   }
+   if (sessions[name]) {
+      sessions[name] -= ({ user, nil });
+   }
    unguarded("logout", name);
 }
 
@@ -377,39 +448,19 @@ string *list_all_users() {
    names = ( { } );
    files = get_dir("/data/players/*.o")[0];
 
-   for (i = sizeof(files) - 1; i >= 0; i--) {
-      x = strlen(files[i]) - 3;
-      name = files[i][..x];
-      names += ( { name } );
+   rlimits(MAX_DEPTH; -1) {
+      for (i = sizeof(files) - 1; i >= 0; i--) {
+         x = strlen(files[i]) - 3;
+         name = files[i][..x];
+         names += ( { name } );
+      }
    }
 
    return names;
 }
 
 void upgraded() {
-   object *u;
-   int i, sz;
-
-   if (pool) {
-      for (i = 0, sz = sizeof(pool); i < sz; i++) {
-	 if (i == 0) {
-	    spare = pool[i];
-	 } else if (objectp(pool[i])) {
-	    destruct_object(pool[i]);
-	 }
-      }
-      pool = nil;
-   }
-
-   if (!users) {
-      users = ([]);
-      u = users();
-      for (i = 0, sz = sizeof(u); i < sz; i++) {
-	 if (u[i]->query_name() && u[i] <-USER_OB) {
-	    users[u[i]->query_name()] = u[i];
-	 }
-      }
-   }
+   create();
 }
 
 void print_finger_info(object player, object player2, int cloned) {
@@ -531,4 +582,323 @@ string get_email_info(object player, string name, string type) {
    }
 
    return stuff;
+}
+
+int restore_privs(string name) {
+   object *ses;
+   int i,sz;
+
+   if (sessions[name]) {
+      ses = sessions[name] - ({ nil });
+      if (!sizeof(ses)) {
+         ses = nil;
+      } else {
+         for (i=0, sz=sizeof(ses); i<sz; i++) {
+            ses[i]->restore_privs();
+         }
+      }
+      sessions[name] = ses;
+      return 1;
+   }
+}
+
+int set_priv(string name, int priv) {
+   object ob;
+
+   secure();
+
+   ob = get_data_ob(name);
+
+   if (ob) {
+      ob->set_priv(priv);
+      restore_privs(name);
+      return 1;
+   }
+}
+
+int query_priv(string name) {
+   object ob;
+
+   ob = get_data_ob(name);
+   if (ob) return ob->query_priv();
+}
+
+int query_admin(mixed what) {
+   if (objectp(what) && (what<-USER_OB || what<-PLAYER_OB)) {
+      what = what->query_name();
+   } 
+   return query_priv(what) == ADMIN_L;
+}
+
+int query_wiz(mixed what) {
+   if (objectp(what) && (what<-USER_OB || what<-PLAYER_OB)) {
+      what = what->query_name();
+   }
+   return query_priv(what) >= WIZ_L;
+}
+
+int query_mortal(mixed what) {
+   return !query_wiz(what);
+}
+
+static string get_player_name(object p) {
+   if (p<-PLAYER_OB) {
+      return p->query_name();
+   }
+}
+
+object **query_all_online() {
+   object *admin, *mortal, *wizard;
+
+   ({ wizard, mortal }) = split_array(players(), "query_wizard");
+   ({ admin, wizard }) = split_array(wizard, "query_admin");
+
+   return ({ admin, wizard, mortal });
+}
+
+string **query_all_online_names() {
+   object *a, *m, *w;
+
+   ({ a, w, m }) = query_all_online();
+
+   if (sizeof(a)) {
+      a = map_array(a, "get_player_name");
+   }
+
+   if (sizeof(w)) {
+      w = map_array(w, "get_player_name");
+   }
+
+   if (sizeof(m)) {
+      m = map_array(m, "get_player_name");
+   }
+
+   return ({ a, w, m });
+}
+
+mixed query_sessions(varargs string name) {
+   if (!name) {
+      return sessions[..];
+   } else if (sessions[name]) {
+      return sessions[name] - ({ nil });
+   }
+}
+
+static void convert_users() {
+   string *names, n;
+   int i, sz;
+   object c;
+
+   names = unguarded( "get_dir", "/data/players/*.o")[0];
+   c = clone_object(AUTH_DATA);
+
+   rlimits(MAX_DEPTH; -1) {
+      for (i = 0, sz = sizeof(names); i < sz; i++) {
+         catch {
+            if (data_version < 2) {
+               sscanf(names[i], "%s.o", n);
+               console_msg("Moving user " + n + " from secure_d to user_d\n");
+               set_priv(n, SECURE_D->query_priv(n));
+            }
+         } : {
+            console_msg("WARNING: " + caught_error() + " while converting " + n + "\n");
+         }
+      }
+   }
+   destruct_object(c);
+
+   data_version = 2;
+
+   if (!catch(save_me())) {
+      SECURE_D->user_d_v2();
+   }
+}
+
+void create_homedir(string wiz) {
+   string path, prev;
+
+   if (!require_priv("system")) {
+      prev = previous_object()->base_name();
+      error("Access denied: " + prev + "\n");
+   }
+
+   path = WIZ_DIR + "/" + wiz + "/";
+
+   if (file_exists(path) == 0) {
+      make_dir(path);
+      make_dir(path + "rooms/");
+      copy(DOMAINS_DIR + "/required/rooms/workroom.c",
+         path + "rooms/workroom.c");
+   }
+}
+
+void delete_homedir(string wiz) {
+   string path, prev;
+
+   if (!require_priv("system")) {
+      prev = previous_object()->base_name();
+      error("Access denied: " + prev + "\n");
+   }
+
+   path = WIZ_DIR + "/" + wiz + "/";
+
+   if (file_exists(path) == 0) {
+      error("No such directory: " + path + "\n");
+   } else {
+      if (remove_dir(path)) {
+         write("Ok.\n");
+      } else {
+         write("Failed to remove: " + path + "\n");
+      }
+   }
+}
+
+
+void make_mortal(string name) {
+   object player;
+   string prev;
+
+   prev = previous_object()->base_name();
+   if ((prev != "/sys/cmds/admin/promote") &&
+      (prev != this_object()->base_name())) {
+      LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() +
+         " was trying to make_mortal(" + name + ") with this object " +
+         prev + "\n");
+      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
+   }
+
+   if (!require_priv("system")) {
+      error("Access denied: " + prev + "\n");
+   }
+
+   name = lowercase(name);
+   if (user_exists(name)) {
+      set_priv(name, PLAYER_L);
+      player = find_player(name);
+      if (!player) {
+         /* Player not active now, load him in and add his paths. */
+         player = clone_object(PLAYER_OB);
+         player->set_name(name);
+         player->restore_me();
+         player->remove_channel("dgd");
+         player->remove_cmd_path("/sys/cmds/admin");
+         player->remove_cmd_path("/sys/cmds/wiz");
+         player->save_me();
+         destruct_object(player);
+      } else {
+         player->remove_channel("dgd");
+         player->remove_cmd_path("/sys/cmds/admin");
+         player->remove_cmd_path("/sys/cmds/wiz");
+         player->save_me();
+         player->message(this_player()->query_Name() +
+            " has promoted you to a mortal.");
+      }
+      filter_array(DOMAIN_D->query_domains(), "remove_domain_member", DOMAIN_D, name);
+      write(capitalize(name) + " has been made a mortal.");
+      save_me();
+   } else {
+      write("No such player.\n");
+   }
+}
+
+void make_wizard(string name) {
+   object player;
+   string prev;
+
+   prev = previous_object()->base_name();
+   if (prev != "/sys/cmds/admin/promote" &&
+       prev != this_object()->base_name()) {
+      LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() +
+         " was trying to make_wizard(" + name + ") with this object " +
+         prev + "\n");
+      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
+   }
+
+   if (!require_priv("system")) {
+      error("Access denied: " + prev + "\n");
+   }
+
+   name = lowercase(name);
+   if (user_exists(name)) {
+      set_priv(name, WIZ_L);
+      player = find_player(name);
+      if (!player) {
+         /* Player not active now, load him in and add his paths. */
+         player = clone_object(PLAYER_OB);
+         player->set_name(name);
+         player->restore_me();
+         player->remove_channel("dgd");
+         player->remove_cmd_path("/sys/cmds/admin");
+         player->add_cmd_path("/sys/cmds/wiz");
+         player->save_me();
+         destruct_object(player);
+      } else {
+         player->remove_channel("dgd");
+         player->remove_cmd_path("/sys/cmds/admin");
+         player->add_cmd_path("/sys/cmds/wiz");
+         player->save_me();
+         if (player != this_player()) {
+            player->message(this_player()->query_Name() +
+               " has promoted you to a wizard.");
+         }
+      }
+      unguarded("create_homedir", name);
+      write(capitalize(name) + " has been made a wizard.");
+      save_me();
+   } else {
+      write("No such player.\n");
+   }
+}
+
+void make_admin(string name) {
+   object player;
+   string prev;
+
+   prev = previous_object()->base_name();
+   if (prev != "/sys/cmds/admin/promote" &&
+       prev != this_object()->base_name()) {
+      LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() +
+         " was trying to make_admin(" + name + ") with this object " +
+         prev + "\n");
+      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
+   }
+
+   if (!require_priv("system")) {
+      error("Access denied: " + prev + "\n");
+   }
+
+   name = lowercase(name);
+   if (user_exists(name)) {
+      set_priv(name, ADMIN_L);
+      player = find_player(name);
+      if (!player) {
+         /* Player not active now, load him in and add his paths. */
+         player = clone_object(PLAYER_OB);
+         player->set_name(name);
+         player->restore_me();
+         player->add_cmd_path("/sys/cmds/wiz");
+         player->add_cmd_path("/sys/cmds/admin");
+         player->add_channel("dgd");
+         player->save_me();
+         destruct_object(player);
+      } else {
+         player->add_cmd_path("/sys/cmds/wiz");
+         player->add_cmd_path("/sys/cmds/admin");
+         player->add_channel("dgd");
+         player->save_me();
+         if (player != this_player()) {
+            player->message(this_player()->query_Name() +
+               " has promoted you to an admin.");
+         }
+      }
+      unguarded("create_homedir", name);
+      write(capitalize(name) + " has been made an admin.");
+      save_me();
+   } else {
+      write("No such player.\n");
+   }
+}
+
+mapping query_cache() {
+   return cache;
 }

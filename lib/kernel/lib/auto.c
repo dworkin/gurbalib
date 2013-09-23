@@ -19,6 +19,7 @@ static string dump_value(mixed value, varargs mapping seen);
 static void console_msg(string message);
 
 private mapping ltable;
+private mapping properties;
 static mapping events;
 private object driver;
 private object secure_d;
@@ -31,6 +32,11 @@ private string _owner;
 #include "afun/unguarded.c"
 #include "afun/find_object.c"
 #include "afun/this_program.c"
+#include "afun/property.c"
+#include "afun/set_property.c"
+#include "afun/remove_property.c"
+#include "afun/this_user.c"
+#include "afun/this_connection.c"
 #include "afun/caught_error.c"
 #include "afun/rethrow.c"
 #include "afun/intp.c"
@@ -64,6 +70,7 @@ private string _owner;
 #include "afun/member_array.c"
 #include "afun/member_map.c"
 #include "afun/filter_array.c"
+#include "afun/split_array.c"
 #include "afun/map_array.c"
 #include "afun/dump_value.c"
 #include "afun/wiz_dir.c"
@@ -94,8 +101,6 @@ private string _owner;
 #include "afun/path_file.c"
 #include "afun/uniq_array.c"
 #include "afun/shutdown.c"
-#include "afun/this_user.c"
-#include "afun/this_connection.c"
 #include "afun/set_this_player.c"
 #include "afun/this_player.c"
 #include "afun/write.c"

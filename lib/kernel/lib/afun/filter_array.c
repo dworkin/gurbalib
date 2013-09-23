@@ -35,7 +35,7 @@ mixed *filter_array(mixed * arr, mixed fun, varargs mixed arg... ) {
 
    sz = sizeof(arr);
    for (i = 0; i < sz; i++) {
-      int r;
+      mixed r;
 #ifdef CLOSURES_EXTENSION
       if (functionp(fun)) {
          r = (*fun)(arr[i], extra...);

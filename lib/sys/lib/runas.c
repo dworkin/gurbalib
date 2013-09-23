@@ -24,6 +24,7 @@ nomask static void run_as(string priv) {
          }
       }
       cpriv = priv;
+      SECURE_D->invalidate_pcache();
    } else {
       error("Illegal call to run_as");
    }

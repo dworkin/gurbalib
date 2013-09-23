@@ -1,6 +1,7 @@
 #ifndef DISABLE_FTP
 
 inherit M_CONNECTION;
+inherit "/sys/lib/runas";
 
 #include <ports.h>
 
@@ -8,6 +9,13 @@ object "/sys/daemons/ftp_session" prev;
 string callback;
 string read_callback;
 int connected;
+
+static void secure() {
+   if (previous_program() != this_program() && 
+      !previous_object()<-"/sys/daemons/ftp_session") {
+      error("Permission denied!");
+   }
+}
 
 void FTPLOG(string str) {
    LOG_D->write_log("ftpd", ctime(time()) + " : " + str);
@@ -18,9 +26,10 @@ void message_done(void) {
       call_other(prev, callback);
 }
 
-void create(void) {
+static void create(void) {
    callback = "FTP_write";
    connected = 0;
+   run_as("network");
 }
 
 void set_callback(string str) {
@@ -43,10 +52,12 @@ void close(varargs int force) {
 }
 
 void start_connection(string ip, int port, int type) {
-   connect(ip, port, "tcp");
+   secure();
+   unguarded("connect", ip, port, "tcp");
 }
 
 void send_data(mixed data) {
+   secure();
    prev = previous_object();
    send_message(data);
 /*
@@ -57,6 +68,7 @@ void send_data(mixed data) {
 }
 
 void set_read_callback(string func) {
+   secure();
    prev = previous_object();
    read_callback = func;
 }
@@ -66,10 +78,11 @@ void receive_message(string str) {
 }
 
 void terminate() {
-   disconnect();
+   secure();
+   unguarded("disconnect");
 }
 
-void destructing() {
+static void destructing() {
    if (connected && query_connection()) {
       query_connection()->set_mode(MODE_DISCONNECT);
    }

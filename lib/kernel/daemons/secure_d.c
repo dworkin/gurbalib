@@ -1,10 +1,3 @@
-#define PLAYER_L 0
-#define WIZ_L    1
-#define ADMIN_L  2
-
-#define DMEMBER  1
-#define DADMIN   2
-
 /* uncomment the line below to get a lot of debug output.. */
 /* #define DEBUG_STACK_SECURITY */
 /* uncomment the line below to get even more debug output.. */
@@ -47,140 +40,26 @@ static void save_me(void) {
    save_object("/kernel/daemons/data/secure_d.o");
 }
 
-int add_domain(string name) {
-   string prev;
-
-   if (!require_priv("system")) {
-      prev = previous_object()->base_name();
-      error("Illegal call to add_domain: " + prev + "\n");
-   }
-
-   if (!domains[name]) {
-      domains[name] = ([]);
-      if(find_object(BANISH_D)) {                                            
-         BANISH_D->create();                                                 
-      }                               
-      save_me();
-      return 1;
-   } else {
-      return 0;
-   }
-}
-
-int remove_domain(string name) {
-   string prev;
-
-   if (!require_priv("system")) {
-      prev = previous_object()->base_name();
-      error("Illegal call to remove_domain: " + prev + "\n");
-   }
-
-   if (domains[name] != nil) {
-      domains[name] = nil;
-      save_me();
-      return 1;
-   } else {
-      return 0;
-   }
-}
-
-void mkdomains() {
-   int i, sz;
-   string *names;
-
-   names = get_dir(DOMAINS_DIR + "/*")[0];
-   names -= ( { ".", "..", ".svn", ".cvs" } );
-   for (i = 0, sz = sizeof(names); i < sz; i++) {
-      unguarded("add_domain", names[i]);
-   }
-}
-
-int is_domain(string name) {
-   return domains[name] != nil;
-}
-
-int add_domain_member(string domain, string member) {
-   string prev;
-
-   if (!require_priv("system")) {
-      prev = previous_object()->base_name();
-      error("Illegal call to add_domain_member: " + prev + "\n");
-   }
-
-   if (is_domain(domain)) {
-      if (!mappingp(domains[domain])) {
-         domains[domain] = ([]);
-      }
-      if (!domains[domain][member]) {
-         domains[domain][member] = DMEMBER;
-         save_me();
-         return 1;
-      }
-   }
-}
-
-int remove_domain_member(string domain, string member) {
-   string prev;
-   /* note, people are allowed to remove themselves from a domain */
-   if (!require_priv("system") && !require_priv(member)) {
-      prev = previous_object()->base_name();
-      error("Illegal call to remove_domain_member: " + prev + "\n");
-   }
-
-   if (is_domain(domain)) {
-      if (mappingp(domains[domain])) {
-         domains[domain][member] = nil;
-         save_me();
-         return 1;
-      }
-   }
-}
-
-int promote_domain_member(string domain, string member) {
-   string prev;
-
-   if(!require_priv("system")) {
-      prev = previous_object()->base_name();
-      error("Illegal call to promote_domain_member: " + prev + "\n");
-   }
-   domains[domain][member] = DADMIN;
-   save_me();
-   return 1;
-}
-
-int demote_domain_member(string domain, string member) {
-   string prev;
-
-   if(!require_priv("system")) {
-      prev = previous_object()->base_name();
-      error("Illegal call to demote_domain_member: " + prev + "\n");
-   }
-   domains[domain][member] = DMEMBER;
-   save_me();
-   return 1;
-}
-
-int query_domain_member(string domain, string member) {
-   return (domains[domain] && mappingp(domains[domain]) && 
-      domains[domain][member]);
-}
-
-int query_domain_admin(string domain, string member) {
-   return (domains[domain] && mappingp(domains[domain]) && 
-      domains[domain][member] == DADMIN);
-}
-
-string *query_domain_members(string domain) {
-   return (domains[domain] && mappingp(domains[domain])) ? 
-      map_indices(domains[domain]) : ({ });
-}
-
 string *query_domains() {
-   return map_indices(domains);
+   return DOMAIN_D->query_domains();
+}
+
+mapping query_domain_data() {
+   if (ROOT()) {
+      return domains;
+   }
+}
+
+void domains_d_v2() {
+   if (ROOT()) domains = nil;
+}
+
+void user_d_v2() {
+   if (ROOT()) privs = nil;
 }
 
 string *query_wizards() {
-   return filter_array(map_indices(privs), "query_wiz", this_object());
+   return filter_array(USER_D->list_all_users(), "query_wiz", USER_D);
 }
 
 string *known_names() {
@@ -192,7 +71,7 @@ string *known_names() {
 }
 
 int query_priv_type(string p) {
-   int r;
+   int r, priv;
 
    if (sizeof(SECURITY_NO_CHECK & ({ p }))) {
       r = PT_PREDEF | PF_NO_CHECK;
@@ -205,14 +84,10 @@ int query_priv_type(string p) {
     * predefined users. We want to leave loading USER_D to init, and
     * should ensure we don't rely on anything outside /kernel until
     * init is ready for that.
-    * XXX shouldn't users and domains be handled in /sys instead of
-    * /kernel anyway? Not handling them unless USER_D is enabled 
-    * ensures we won't end up with dependencies that would prevent
-    * such a move.
     */
    } else if (!find_object(USER_D)) {
       r = PT_UNKNOWN;
-   } else if (domains[p]) {
+   } else if (DOMAIN_D->is_domain(p)) {
       if (file_exists(DOMAINS_DIR + "/" + p) != 0) {
          r = PT_DOMAIN;
       } else {
@@ -220,7 +95,7 @@ int query_priv_type(string p) {
       }
    /* note, there is nothing special about the privilege with the 
       name of an admin */
-   } else if (privs[p] == WIZ_L || privs[p] == ADMIN_L) {
+   } else if (USER_D->query_wiz(p)) {
       if (USER_D->player_exists(p)) {
          r = PT_WIZARD;
       } else {
@@ -240,51 +115,8 @@ int query_priv_type(string p) {
 }
 
 static void create(void) {
-   privs = ([]);
-   domains = ([]);
-   if (!restore_me()) {
-      mkdomains();
-   }
+   restore_me();
    DRIVER->register_secure_d();
-}
-
-void create_homedir(string wiz) {
-   string path, prev;
-
-   if (!require_priv("system")) {
-      prev = previous_object()->base_name();
-      error("Access denied: " + prev + "\n");
-   }
-
-   path = WIZ_DIR + "/" + wiz + "/";
-
-   if (file_exists(path) == 0) {
-      make_dir(path);
-      make_dir(path + "rooms/");
-      copy(DOMAINS_DIR + "/required/rooms/workroom.c", 
-         path + "rooms/workroom.c");
-   }
-}
-
-void delete_homedir(string wiz) {
-   string path, prev;
-
-   if (!require_priv("system")) {
-      prev = previous_object()->base_name();
-      error("Access denied: " + prev + "\n");
-   }
-
-   path = WIZ_DIR + "/" + wiz + "/";
-
-   if (file_exists(path) == 0) {
-      error("No such directory: " + path + "\n");
-   } else {
-      if (remove_dir(path)) {
-	 write("Ok.\n");
-      } else {
-	 write("Failed to remove: " + path + "\n");
-      }
-   }
 }
 
 void make_lockerdir(string domain, string pname) {
@@ -312,24 +144,6 @@ void make_lockerdir(string domain, string pname) {
    }
 }
 
-int query_admin(string name) {
-   if (privs[name] == ADMIN_L) {
-      return 1;
-   }
-   return 0;
-}
-
-int query_wiz(string name) {
-   if (privs[name] == ADMIN_L || privs[name] == WIZ_L) {
-      return 1;
-   }
-   return 0;
-}
-
-int query_mortal(string name) {
-   return !query_wiz(name);
-}
-
 void remove_player(string name) {
    string prev;
 
@@ -340,171 +154,15 @@ void remove_player(string name) {
 
    name = lowercase(name);
 
-   if (query_wiz(name)) {
-      filter_array(map_indices(domains), "remove_domain_member", this_object(), name);
-   }
-   privs[name] = nil;
-
-   /* XXX need to look through other privs for name as well domains for 
-       example */
-}
-
-void make_mortal(string name) {
-   object player;
-   string prev;
-
-   prev = previous_object()->base_name();
-   if ((prev != "/sys/cmds/admin/promote") &&
-      (prev != this_object()->base_name())) {
-      LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
-         " was trying to make_mortal(" + name + ") with this object " + 
-         prev + "\n");
-      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
-   }
-
-   if (!require_priv("system")) {
-      error("Access denied: " + prev + "\n");
-   }
-
-   name = lowercase(name);
-   if (file_exists("/data/players/" + name + ".o")) {
-      privs[name] = PLAYER_L;
-      player = USER_D->find_player(name);
-      if (!player) {
-	 /* Player not active now, load him in and add his paths. */
-	 player = clone_object(PLAYER_OB);
-	 player->set_name(name);
-	 player->restore_me();
-	 player->remove_channel("dgd");
-	 player->remove_cmd_path("/sys/cmds/admin");
-	 player->remove_cmd_path("/sys/cmds/wiz");
-	 player->save_me();
-	 destruct_object(player);
-      } else {
-	 player->remove_channel("dgd");
-	 player->remove_cmd_path("/sys/cmds/admin");
-	 player->remove_cmd_path("/sys/cmds/wiz");
-         player->restore_privs();
-	 player->save_me();
-         player->message(this_player()->query_Name() + 
-            " has promoted you to a mortal.");
-      }
-      filter_array(map_indices(domains), "remove_domain_member", this_object(), name);
-      write(capitalize(name) + " has been made a mortal.");
-      save_me();
-   } else {
-      write("No such player.\n");
-   }
-}
-
-void make_wizard(string name) {
-   object player;
-   string prev;
-
-   prev = previous_object()->base_name();
-   if (prev != "/sys/cmds/admin/promote" &&
-       prev != this_object()->base_name()) {
-      LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
-         " was trying to make_wizard(" + name + ") with this object " + 
-         prev + "\n");
-      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
-   }
-
-   if (!require_priv("system")) {
-      error("Access denied: " + prev + "\n");
-   }
-
-   name = lowercase(name);
-   if (file_exists("/data/players/" + name + ".o")) {
-      privs[name] = WIZ_L;
-      player = USER_D->find_player(name);
-      if (!player) {
-	 /* Player not active now, load him in and add his paths. */
-	 player = clone_object(PLAYER_OB);
-	 player->set_name(name);
-	 player->restore_me();
-	 player->remove_channel("dgd");
-	 player->remove_cmd_path("/sys/cmds/admin");
-	 player->add_cmd_path("/sys/cmds/wiz");
-	 player->save_me();
-	 destruct_object(player);
-      } else {
-	 player->remove_channel("dgd");
-	 player->remove_cmd_path("/sys/cmds/admin");
-	 player->add_cmd_path("/sys/cmds/wiz");
-         player->restore_privs();
-	 player->save_me();
-         player->message(this_player()->query_Name() + 
-            " has promoted you to a wizard.");
-      }
-      unguarded("create_homedir", name);
-      write(capitalize(name) + " has been made a wizard.");
-      save_me();
-   } else {
-      write("No such player.\n");
-   }
-}
-
-void make_admin(string name) {
-   object player;
-   string prev;
-
-   prev = previous_object()->base_name();
-   if (prev != "/sys/cmds/admin/promote" && 
-       prev != "/kernel/daemons/secure_d") {
-      LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() + 
-         " was trying to make_admin(" + name + ") with this object " + 
-         prev + "\n");
-      error("Hey! No cheating!\n" + prev + " != /sys/cmds/admin/promote\n");
-   }
-
-   if (!require_priv("system")) {
-      error("Access denied: " + prev + "\n");
-   }
-
-   name = lowercase(name);
-   if (file_exists("/data/players/" + name + ".o")) {
-      privs[name] = ADMIN_L;
-      player = USER_D->find_player(name);
-      if (!player) {
-	 /* Player not active now, load him in and add his paths. */
-	 player = clone_object(PLAYER_OB);
-	 player->set_name(name);
-	 player->restore_me();
-	 player->add_cmd_path("/sys/cmds/wiz");
-	 player->add_cmd_path("/sys/cmds/admin");
-	 player->add_channel("dgd");
-	 player->save_me();
-	 destruct_object(player);
-      } else {
-	 player->add_cmd_path("/sys/cmds/wiz");
-	 player->add_cmd_path("/sys/cmds/admin");
-	 player->add_channel("dgd");
-         player->restore_privs();
-	 player->save_me();
-         player->message(this_player()->query_Name() + 
-            " has promoted you to an admin.");
-      }
-      unguarded("create_homedir", name);
-      write(capitalize(name) + " has been made an admin.");
-      save_me();
-   } else {
-      write("No such player.\n");
-   }
+   filter_array(map_indices(domains), "remove_domain_member", this_object(), name);
 }
 
 int query_priv(string name) {
-   if (map_sizeof(privs) == 0) {
-      unguarded("make_admin", name);
+   if (previous_program() != USER_D) {
+      return USER_D->query_priv(name);
+   } else {
+      return privs[name];
    }
-   if (!privs[name]) {
-#ifdef ALL_USERS_WIZ
-      unguarded("make_wizard", name);
-#else
-      privs[name] = PLAYER_L;
-#endif
-   }
-   return privs[name];
 }
 
 #define ROOT_OVERRIDE ({ })
@@ -558,14 +216,14 @@ string owner_file(string file) {
 	 return "game";
 	 break;
       case "wiz":
-         if (sizeof(parts) > 1 && query_wiz(parts[1])) {
+         if (sizeof(parts) > 1 && USER_D->query_wiz(parts[1])) {
             return parts[1];
          } else {
             return "game";
          }
          break;
       case "domains":
-         if (sizeof(parts) > 1 && is_domain(parts[1])) {
+         if (sizeof(parts) > 1 && DOMAIN_D->is_domain(parts[1])) {
             return parts[1];
          } else {
             return "game";
@@ -597,11 +255,7 @@ string determine_obj_privs(string objname) {
 
    ob = find_object(objname);
 
-   if (!ob) {
-      return ":nobody:";
-   }
-
-   if (ob <- "/sys/lib/runas") {
+   if (ob && ob <- "/sys/lib/runas") {
       priv = ob->_Q_cpriv();
    } else {
       priv = owner_file(objname);
@@ -613,7 +267,7 @@ string determine_obj_privs(string objname) {
 /* check if the privileges in spriv are enough to satisfy rpriv */
 static int validate_privilege(string spriv, string rpriv) {
    if (root_priv(spriv) ||
-      (game_priv(spriv) && is_domain(rpriv)) ||
+      (game_priv(spriv) && DOMAIN_D->is_domain(rpriv)) ||
       (sscanf(spriv, "%*s:" + rpriv + ":%*s") != 0)) {
       return 1;
    }
@@ -811,9 +465,10 @@ string query_write_priv(string file) {
    return owner;
 }
 
-static void upgraded() {
-   if (!domains) {
-      domains = ([]);
-      mkdomains();
+
+/* invalidate privilege cache */
+void invalidate_pcache() {
+   if(previous_program() == "/sys/lib/runas") {
+      DRIVER->set_tlvar(TLS_CACHE, ([ ]));
    }
 }

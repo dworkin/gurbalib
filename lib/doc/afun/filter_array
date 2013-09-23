@@ -17,4 +17,4 @@ RETURN VALUE
         which ob->fun(elem, extra) returns something other then 0 or nil.
 
 SEE ALSO
-        map_array, member_array
+        map_array, member_array, split array

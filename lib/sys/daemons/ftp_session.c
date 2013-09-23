@@ -3,6 +3,7 @@
 #ifndef DISABLE_FTP
 
 inherit M_CONNECTION;
+inherit "/sys/lib/runas";
 
 int timeout_handle;
 private mapping cmds;
@@ -13,6 +14,39 @@ string store_file_name;
 
 void FTP_connection_wait(void);
 void FTP_CMD_list(string str);
+
+void restore_privs() {
+   string cpriv;
+
+   if (name == "guest") {
+      priv = 0;
+      cpriv = "nobody";
+   } else {
+      cpriv = name;
+
+      if (USER_D->query_wiz(name)) {
+         int i,sz;
+         string *dn;
+
+         priv = 1;
+         cpriv = "wizard:"+cpriv;
+         if (USER_D->query_admin(name)) {
+            cpriv = "system:"+cpriv;
+         }
+
+         dn = DOMAIN_D->query_domains();
+
+         for (i=0, sz=sizeof(dn); i<sz; i++) {
+            if (DOMAIN_D->query_domain_member(dn[i], name)) {
+               cpriv += ":" + dn[i];
+            }
+         }
+      } else {
+         priv = 0;
+      }
+   }
+   run_as(cpriv);
+}
 
 void open(void) {
    send_message("220-GurbaLib FTP daemon v0.01 ready.\n");
@@ -53,6 +87,18 @@ void FTPLOG(string str) {
    LOG_D->write_log("ftpd", ctime(time()) + " : " + str);
 }
 
+static string normalize_path(string file, string dir) {
+   string path;
+
+   path = ::normalize_path(file, dir);
+
+   if ((priv != 0) || (path == "/pub") || (sscanf(path,"/pub/%*s") == 1)) {
+      return path;
+   } else {
+      return nil;
+   }
+}
+
 void FTP_CMD_user(string arg) {
    arg = lowercase(arg);
    if (connected) {
@@ -81,9 +127,10 @@ void FTP_CMD_pass(string arg) {
 #ifndef DISABLE_ANON_FTP
    if (name == "ftp" || name == "anonymous") {
       send_message("230 guest login ok, access restrictions apply.\n");
+      name = "guest";
       connected = 1;
-      priv = 0;
-      cwd = "/pub";
+      restore_privs();
+      cwd = "/pub/";
       FTPLOG("Anonymous login (" + arg + ")\n");
       return;
    }
@@ -97,11 +144,19 @@ void FTP_CMD_pass(string arg) {
    send_message("230 User " + name + " logged in.\n");
    FTPLOG(name + " logged in.\n");
    connected = 1;
-   cwd = "/";
-   priv = query_user_priv(name);
+
+   restore_privs();
+
+   if (priv) {
+      cwd = "/";
+   } else {
+      cwd = "/pub/";
+   }
+   USER_D->user_online(name, this_object());
 }
 
 void FTP_CMD_retr(string str) {
+   string p;
 
    if (!str) {
       send_message("550 No file selected.\n");
@@ -109,9 +164,11 @@ void FTP_CMD_retr(string str) {
       return;
    }
 
+   p = str;
+
    str = normalize_path(str, cwd);
-   if (!str || str == "") {
-      send_message("550 " + str + ": Permission denied.\n");
+   if (!str || str == "" || !valid_read(str)) {
+      send_message("550 " + p + ": Permission denied.\n");
       connection->terminate();
       return;
    }
@@ -161,7 +218,7 @@ void FTP_CMD_stor(string arg) {
    }
 
    path = normalize_path(arg, cwd);
-   if (!path || path == "") {
+   if (!path || path == "" || !valid_write(path)) {
       send_message("550 Permission denied.\n");
       return;
    }
@@ -219,8 +276,8 @@ void FTP_CMD_nlst(string str) {
    }
 
    str = normalize_path(str, cwd);
-   if (!str || str == "") {
-      send_message("550 " + str + ": Permission denied.\n");
+   if (!str || str == "" || !valid_read(str)) {
+      send_message("550 Permission denied.\n");
       connection->terminate();
       return;
    }
@@ -302,8 +359,8 @@ void FTP_CMD_list(string str) {
    }
 
    str = normalize_path(str, cwd);
-   if (!str || str == "") {
-      send_message("550 " + str + ": Permission denied.\n");
+   if (!str || str == "" || !valid_read(str)) {
+      send_message("550 Permission denied.\n");
       connection->terminate();
       return;
    }
@@ -374,11 +431,10 @@ void FTP_CMD_pwd(string arg) {
 }
 
 void FTP_CMD_cwd(string arg) {
-
    arg = normalize_path(arg, cwd);
 
-   if (!arg || arg == "") {
-      send_message("550 " + arg + ": Permission denied.\n");
+   if (!arg || arg == "" || !valid_read(arg)) {
+      send_message("550 Permission denied.\n");
       return;
    }
 
@@ -401,6 +457,7 @@ void FTP_CMD_cdup(string arg) {
 void FTP_CMD_quit(string arg) {
    send_message("221 Goodbye.\n");
    FTPLOG(name + " quit.\n");
+   USER_D->user_offline(name, this_object());
 }
 
 void FTP_CMD_type(string arg) {
@@ -425,7 +482,7 @@ void FTP_CMD_mkd(string arg) {
    string file;
 
    file = normalize_path(arg, cwd);
-   if (!file || file == "" || priv == 0) {
+   if (!file || file == "" || priv == 0 || !valid_write(file)) {
       send_message("550 Permission denied.\n");
       return;
    }
@@ -474,7 +531,7 @@ void FTP_CMD_noop(string arg) {
 void FTP_CMD_dele(string arg) {
    string file;
    file = normalize_path(arg, cwd);
-   if (!file || file == "" || priv == 0) {
+   if (!file || file == "" || priv == 0 || !valid_write(file)) {
       send_message("550 " + arg + ": Permission denied.\n");
       return;
    }

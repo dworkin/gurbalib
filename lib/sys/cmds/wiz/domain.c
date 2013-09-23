@@ -42,16 +42,16 @@ static int action_list_domains() {
    string *dn, name;
    int i, sz;
 
-   dn = SECURE_D->query_domains();
+   dn = DOMAIN_D->query_domains();
    name = this_player()->query_name();
 
    write("We know about the following domains:\n");
 
    for (i = 0, sz = sizeof(dn); i < sz; i++) {
       string opt;
-      if (SECURE_D->query_domain_admin(dn[i], name)) {
+      if (DOMAIN_D->query_domain_admin(dn[i], name)) {
          opt = " (admin)";
-      } else if (SECURE_D->query_domain_member(dn[i], name)) {
+      } else if (DOMAIN_D->query_domain_member(dn[i], name)) {
          opt = " (member)";
       } else {
          opt = "";
@@ -61,19 +61,19 @@ static int action_list_domains() {
 }
 
 static string format_member_display(string member, string domain) {
-   if (SECURE_D->query_domain_admin(domain, member)) {
+   if (DOMAIN_D->query_domain_admin(domain, member)) {
       member += "*";
    }
    return member;
 }
 
 static int action_list_members(string domain) {
-   if (!domain || !SECURE_D->is_domain(domain)) {
+   if (!domain || !DOMAIN_D->is_domain(domain)) {
       notify_fail("No such domain");
    } else {
       string *members;
 
-      members = SECURE_D->query_domain_members(domain);
+      members = DOMAIN_D->query_domain_members(domain);
       if (sizeof(members)) {
          write("Domain " + domain + " has the following members:\n" +
             implode(map_array(members, "format_member_display",
@@ -90,15 +90,15 @@ static int action_del_member(string domain, string member) {
       notify_fail("Domain name missing");
    } else if (!member || !strlen(member)) {
       notify_fail("Member name missing");
-   } else if (!SECURE_D->is_domain(domain)) {
+   } else if (!DOMAIN_D->is_domain(domain)) {
       notify_fail("Domain " + domain + " does not exist");
-   } else if (!SECURE_D->query_domain_member(domain, member)) {
+   } else if (!DOMAIN_D->query_domain_member(domain, member)) {
       notify_fail(member + " is not a member of " + domain);
    } else {
       int i;
       string str;
 
-      str = catch(i = SECURE_D->remove_domain_member(domain, member));
+      str = catch(i = DOMAIN_D->remove_domain_member(domain, member));
       if (str) {
          notify_fail(str);
       } else {
@@ -114,17 +114,17 @@ static int action_add_member(string domain, string member) {
       notify_fail("Domain name missing");
    } else if (!member || !strlen(member)) {
       notify_fail("Member name missing");
-   } else if (!SECURE_D->is_domain(domain)) {
+   } else if (!DOMAIN_D->is_domain(domain)) {
       notify_fail("Domain " + domain + " does not exist");
    } else if (!query_wizard(member)) {
       notify_fail(member + " is not a wizard");
-   } else if (SECURE_D->query_domain_member(domain, member)) {
+   } else if (DOMAIN_D->query_domain_member(domain, member)) {
       notify_fail(member + " is already a member of " + domain);
    } else {
       int i;
       string str;
 
-      str = catch(i = SECURE_D->add_domain_member(domain, member));
+      str = catch(i = DOMAIN_D->add_domain_member(domain, member));
       if (str) {
          notify_fail(str);
       } else {
@@ -136,8 +136,8 @@ static int action_add_member(string domain, string member) {
 }
 
 static int action_promote_member(string domain, string name) {
-   if (SECURE_D->query_domain_member(domain, name)) {
-      SECURE_D->promote_domain_member(domain, name);
+   if (DOMAIN_D->query_domain_member(domain, name)) {
+      DOMAIN_D->promote_domain_member(domain, name);
       return 1;
    } else {
       notify_fail(name + " is not a member of " + domain + "\n");
@@ -146,8 +146,8 @@ static int action_promote_member(string domain, string name) {
 }
 
 static int action_demote_member(string domain, string name) {
-   if (SECURE_D->query_domain_admin(domain, name)) {
-      SECURE_D->demote_domain_member(domain, name);
+   if (DOMAIN_D->query_domain_admin(domain, name)) {
+      DOMAIN_D->demote_domain_member(domain, name);
       return 1;
    } else {
       notify_fail(name + " is not a domain admin for " + domain + "\n");
@@ -157,7 +157,7 @@ static int action_demote_member(string domain, string name) {
 
 static int query_domain_admin(string domain, object player) {
    return (query_admin(player) ||
-      SECURE_D->query_domain_admin(domain, player->query_name()));
+      DOMAIN_D->query_domain_admin(domain, player->query_name()));
 }
 
 static void main(string arg) {
@@ -174,7 +174,7 @@ static void main(string arg) {
       return;
    }
 
-   if (!SECURE_D->is_domain(dname)) {
+   if (!DOMAIN_D->is_domain(dname)) {
       notify_fail("Domain " + dname + " does not exist, use 'domain list' " +
          "for a list of domains.\n");
       r = 0;

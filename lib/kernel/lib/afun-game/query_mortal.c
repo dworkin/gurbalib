@@ -9,5 +9,5 @@ int query_mortal(mixed player) {
       argcheck(stringp(player), 1, "player object or string");
    }
 
-   return SECURE_D->query_mortal(player);
+   return USER_D->query_mortal(player);
 }
