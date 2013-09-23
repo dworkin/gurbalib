@@ -69,3 +69,8 @@ need to look at it closer.
 Fix give jacket to sirdude so it tells sirdude blah gives a jacket to you.
 instead of blah gives a jacket to sirdude.
 
+Ask about: query_mortal.c, query_user_priv.c
+	seems odd that call query_priv in obj if it exists???
+	why declare static?
+	should maybe make others nomask  query_wizard for example...
+
