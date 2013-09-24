@@ -6,6 +6,9 @@ static object target;
 /* Ammount of Endurance required to Attack */
 #define ATTACK_COST 5
 
+/* Uncomment this to get extra info in combat */
+/* #define DEBUG 1 */
+
 void create(void) {
    targets = ( { } );
    fighting = 0;
@@ -81,10 +84,11 @@ int do_swing(int me) {
    opponent = target->query_defense();
    opponent_roll = random(opponent + 1);
 
-/* XXX This is temporary...  */
-   this_object()->message("Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" +
-      me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" +
-      opponent + "%^RESET%^]");
+   if (DEBUG) {
+      this_object()->message("Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" +
+         me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" +
+         opponent + "%^RESET%^]");
+   }
 
    if (me_roll > opponent_roll)
       return 1;
@@ -250,10 +254,14 @@ void do_fight(void) {
 	 }
       }
 
-      this_object()->message("%^CYAN%^HP[" + this_object()->query_hp() + "/" +
-/* XXX	 this_object()->query_max_hp() + "]%^RESET%^"); */
-	 this_object()->query_max_hp() + "] Target HP[" + 
-         target->query_hp() + "/" + target->query_max_hp()  + "]%^RESET%^");
+      if (target && DEBUG) {
+         this_object()->message("%^CYAN%^HP[" + this_object()->query_hp() + 
+            "/" + this_object()->query_max_hp() + "] Target HP[" + 
+            target->query_hp() + "/" + target->query_max_hp()  + "]%^RESET%^");
+      } else {
+         this_object()->message("%^CYAN%^HP[" + this_object()->query_hp() + 
+            "/" + this_object()->query_max_hp() + "]%^RESET%^");
+      }
    }
 }
 
