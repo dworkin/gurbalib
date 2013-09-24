@@ -1,0 +1,152 @@
+NAME
+       m_getopt
+
+SYNOPSIS
+       inherit "/sys/lib/modules/m_getopt";
+
+       void set_options( mapping options );
+
+       string parse_for_options( string str );
+
+       int test_option( string name );
+
+       mixed query_option( string name );
+
+       string query_parse_error();
+
+DESCRIPTION
+       The getopt module allows parsing the arguments
+       to a command for options and return the remaining
+       non-option arguments in a string.
+
+       To use this, you first have to define a list of
+       known options with the set_options() function.
+       The argument to this function is a mapping defining
+       existing options and looks as follows:
+
+       ([ string name : ({ mixed short, mixed long, int arg, int multi }) ])
+
+       name is the name for this option, it is what you will use to test if
+       it has been used on the command line, and to query the value of the
+       option (if it accepts an argument).
+
+       short and long are either a single string that describes the option
+       as used on the command line (without the leading - or --). Those can
+       also be arrays to specify multiple command line options mapping to the
+       same 'real' option.
+
+       The arg and multi elements are optional and assumed 0 when not specified.
+       When arg is set to 1, the option requires an argument.
+       When multi is set to 1, special parsing is done when the option is
+       specified multiple times.
+
+       It is possible to set arg to 0 and multi to 1, in which case getopt
+       will count how often an option is used, and it allows using an optional
+       argument for the option to set this counter.
+
+       When arg and multi are both set to 1, the value returned by query_option()
+       will be an array with all the values that were found on the command line.
+
+       The test_option() function will merely tell you if the option was specified
+       on the command line, not if it has a non 0/nil value.
+
+       The query_option() function will return the value(s) for that option if the
+       option accepts an argument, or the number of times the option appeared when
+       the option does not use an argument.
+
+       The option -- is special, it terminates option parsing.
+
+       After calling parse_for_options(), you should always call query_parse_error()
+       to check for any errors that may have occured during parsing.
+
+EXAMPLES
+       set_options(([ "verbose", ({ "v", "verbose", 0, 1 }) ]))
+       
+       This defines a 'verbose' option that can be specified as either -v or 
+       --verbose. Getopt will count how often the option has been specified, so
+       -vvvv will result in query_option("verbose") returning 4.
+
+       In this case it is also possible to specify -v 4 or --verbose=4, with the
+       same result as -vvvv
+
+       set_options(([ "file", ({ "f", "file", 1, 1 }) ]))
+
+       This defines a 'file' option that can be specified as either -f or 
+       --file. It requires an argument, and can be specified multiple
+       times. query_option("file") will return an array containing the
+       arguments used for the -f/--file option. 
+
+       using -f /path/to/a/file or --file=/path/to/a/file has the same result.
+       using -f 1 -f 2 -f 3 will make query_option("file") return ({ 1, 2, 3 })
+
+       A tyical small command using getopt might look as follows:
+
+       inherit "/sys/lib/modules/m_getopt";
+
+       void create() {
+          set_options(([ "verbose", ({ "v", "verbose", 0, 1 }) ]));
+       }
+
+       void upgraded() {
+          /* ensure we pick up changes to our option definitions */
+          create();
+       }
+
+       static void main(string arg) {
+          string err;
+          int verbose;
+
+          arg = parse_for_options(arg);
+
+          err = query_parse_error();
+
+          if (err) {
+             write("error: " + err);
+             return;
+          }
+
+          /* check if -v/--verbose were specified */
+          if (test_option("verbose")) {
+             /* if so, how often? */
+             verbose = query_option("verbose");
+          } else {
+             verbose = 0;
+          }
+
+          write("Verbosity set to " + verbose);
+       }
+
+       Obviously, this is overly complicated for this very simple case, but
+       keep in mind that much more complex cases will not require much more
+       code.
+
+NOTES
+       For 'counted' options, it is possible to use -o <num> and --o=num. The
+       'long' version --o=<num> does permit using 0 as a number, the short
+       version (-o <num>) only works for positive numbers larger then 0. 
+
+       getopt understands things like -vf <arg> but there are some special
+       rules involved in determining what option <arg> belongs to.
+       - it belongs to the first option that requires an argument. If there
+         is none, then it belongs to the last option, provided that option
+         has the 'multi' flag set, and provided the argument is a positive
+         number. If none is matched, it will be regarded as the start of non
+         option arguments.
+       - options that do not have 'arg' set, but do have 'multi' set only scan
+         for an argument if they are the last option in a string. So, in
+         the -vf example (assuming the v and f options from the example above),
+         -v is not the last option in the string and will never look for any
+         arguments. Compare this with -fv <arg> which behaves differently. -v is now
+         the last option in the string so will scan for an argument. Because -f
+         requires an argument, and appears first, it will 'eat' the first
+         argument after the option string. To provide an argument to -v in this 
+         case, you'd have to use -fv <file> <num>
+
+       It is possible to do custom checking of arguments by overriding the
+       int test_option_arg(string optname, string arg) method, when doing so
+       one should ensure to only handle the case you are interested in, and
+       passing everything else to ::test_option_arg()
+
+ERRORS
+       query_parse_error() will return any error that may have occured during
+       option parsing.      
