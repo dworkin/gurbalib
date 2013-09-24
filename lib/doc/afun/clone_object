@@ -2,7 +2,7 @@ NAME
 	clone_object - clones an object
 
 SYNOPSIS
-	clone_object(string filepath)
+	object clone_object(string filepath)
 
 DESCRIPTION
 	Creates a clone of object at filepath.  If object is not compiled,
@@ -16,7 +16,7 @@ DESCRIPTION
 	For more info on objects see /doc/misc/objects.
 
 RETURN VALUE
-	Returns the cloned object.
+	Returns the cloned object.  Returns nil on failure.
 
 SEE ALSO
-	compile_library, compile_object
+	compile_library, compile_object, find_object

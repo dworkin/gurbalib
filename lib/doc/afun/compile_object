@@ -2,7 +2,7 @@ NAME
 	compile_object - compiles an object
 
 SYNOPSIS
-	compile_object(string filepath)
+	object compile_object(string filepath, string code ...)
 
 DESCRIPTION
 	Compiles object at filepath.  If object is already compiled, it will 
@@ -13,11 +13,15 @@ DESCRIPTION
 		/obj/, /mon/, /objects/, /monsters/, /daemons/, /rooms/, 
 		/cmds/
 
+	If code is supplied, compile the object from code instead of reading
+	it from a file.
+
 	For more info on objects see /doc/misc/objects.
 
 RETURN VALUE
-	Returns the compiled object.
+	Returns the compiled object.  If there is an error, report the
+	error as a runtime error and  return nil.
 
 SEE ALSO
-	clone_object, compile_library
+	clone_object, compile_library, find_object
 

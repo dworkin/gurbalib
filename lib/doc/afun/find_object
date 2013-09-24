@@ -1,0 +1,18 @@
+NAME
+	find_object - locate the object if they file is loaded.
+
+SYNOPSIS
+	object find_object(string filepath, varargs int flag)
+
+DESCRIPTION
+	Locate the object associated with filepath if it is loaded.
+	If flag is set, skip checks for permission to the object.
+
+	For more info on objects see /doc/misc/objects.
+
+RETURN VALUE
+	Returns the object.  If the object does not exist return nil.
+
+SEE ALSO
+	clone_object, compile_library, compile_object
+
