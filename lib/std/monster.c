@@ -8,6 +8,8 @@ inherit "/std/modules/m_messages";
 inherit "/std/modules/m_actions";
 
 static int aggressive;
+int spell_chance, spell_damage;
+string spell_message;
 
 void create(void) {
    int x;
@@ -110,4 +112,31 @@ int set_level(int x) {
 
 int query_level() {
    return level;
+}
+
+/* Simple spell system for monsters */
+
+/* Takes a number 0-100 */
+int set_spell_chance(int x) {
+   spell_chance = x;
+}
+
+int set_spell_damage(int x) {
+   spell_damage = x;
+}
+
+int set_spell_message(string str) {
+   spell_message = str;
+}
+
+int query_spell_chance() {
+   return spell_chance;
+}
+
+int query_spell_damage() {
+   return spell_damage;
+}
+
+string query_spell_message() {
+   return spell_message;
 }

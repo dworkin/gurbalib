@@ -17,11 +17,9 @@ void setup() {
    set_level(10);
    set_aggressive(1);
 
-   /* XXX need to do backend for this */
    set_spell_chance(20);
-   set_spell_mess1("You are hit by a magic missile.");
-   set_spell_mess2("The shayman casts a magic missile.");
    set_spell_damage(20);
+   set_spell_message("The shayman casts a magic missile at $t.");
 
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);

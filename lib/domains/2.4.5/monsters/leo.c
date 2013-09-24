@@ -18,10 +18,9 @@ void setup() {
    set_skill("combat/unarmed", 90);
    set_skill("combat/defense", 200);
 
-/* XXX Need to do backend for this */
    set_spell_chance(50);
    set_spell_damage(30);
-   set_spell_message("Leo casts a blazing fireball.\n");
+   set_spell_message("Leo casts a blazing fireball at $t.\n");
 }
 
 /* 

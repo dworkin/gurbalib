@@ -35,17 +35,17 @@ void receive_damage(object who, int dam) {
 void damage_target(int dam, object who) {
    int target_hp;
 
-   target_hp = this_object()->query_hp();
+   target_hp = who->query_hp();
 
    /* award expr for damage inflicted to target */
    if (dam > target_hp) {
-      who->increase_expr(target_hp);
+      this_object()->increase_expr(target_hp);
    } else {
-      who->increase_expr(dam);
+      this_object()->increase_expr(dam);
    }
 
    /* damage target */
-   this_object()->receive_damage(who, dam);
+   who->receive_damage(this_object(), dam);
 }
 
 int query_defense(void) {
@@ -178,7 +178,7 @@ void attack_with(string skill, object weapon, object target) {
 	    weapon->query_id() + ".", target);
       }
 
-      target->damage_target(damage, this_object());
+      this_object()->damage_target(damage, target);
    } else {
       string miss;
 
@@ -205,13 +205,38 @@ void attack_with(string skill, object weapon, object target) {
    }
 }
 
+void cast_spell(object target) {
+   int damage;
+   string message;
+
+   damage = random(this_object()->query_spell_damage()) + 1;
+
+   message = this_object()->query_spell_message();
+   if (!message || (message == "")) {
+      message = "Casts an unamed spell at $t.";
+   }
+   message =  replace_string(message, "$t", target->query_name());
+
+   target->query_environment()->tell_room(this_object(), message);
+
+   this_object()->damage_target(damage, target);
+}
+
 void do_fight(void) {
-   int i;
+   int i, x;
    object *weapons;
 
    target = get_target(target);
 
    if (target) {
+      if (!this_object()->is_player()) {
+         x = this_object()->query_spell_chance();
+
+         if (x && (random(100) <= x)) {
+            cast_spell(target);
+         }
+      }
+
       weapons = this_object()->query_wielded();
 
       if (sizeof(weapons) == 0) {

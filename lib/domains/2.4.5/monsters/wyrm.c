@@ -28,9 +28,8 @@ void setup() {
    obj->move(this_object());
    obj->setup();
 
-   /* DO backend for this stuff XXX */
    set_spell_chance(50);
    set_spell_damage(100);
    set_spell_message("Arcanarton's wyrm turns his head and " +
-      "breathes death at you.\n");
+      "breathes death at $t.\n");
 }
