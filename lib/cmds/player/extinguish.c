@@ -34,7 +34,7 @@ static void main(string str) {
 
    obj = this_player()->present(lowercase(str));
    if (!obj) {
-      write("Light what?\n");
+      write("Extinguish what?\n");
       return;
    }
 
