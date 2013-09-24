@@ -1,0 +1,17 @@
+NAME
+	remove_dir - Remove a directory.
+		
+SYNOPSIS
+	static int remove_dir(string dir)
+
+DESCRIPTION
+	Remove the directory specified by dir.  Note, the directory must
+	be empty to be removed.
+		
+RETURN VALUE
+	Returns 1 on success and 0 on failure.
+
+SEE ALSO
+	cat_file, copy, editor, read_file, rename_file, remove_file, 
+	write_file
+
