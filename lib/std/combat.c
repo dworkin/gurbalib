@@ -84,11 +84,11 @@ int do_swing(int me) {
    opponent = target->query_defense();
    opponent_roll = random(opponent + 1);
 
-   if (DEBUG) {
+#ifdef DEBUG
       this_object()->message("Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" +
          me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" +
          opponent + "%^RESET%^]");
-   }
+#endif
 
    if (me_roll > opponent_roll)
       return 1;
@@ -227,7 +227,7 @@ void cast_spell(object target) {
 }
 
 void do_fight(void) {
-   int i, x;
+   int i, x, done;
    object *weapons;
 
    target = get_target(target);
@@ -254,11 +254,16 @@ void do_fight(void) {
 	 }
       }
 
-      if (target && DEBUG) {
+#ifdef DEBUG
+      /* Need to check target again, because target may have died. */
+      if (target) {
          this_object()->message("%^CYAN%^HP[" + this_object()->query_hp() + 
             "/" + this_object()->query_max_hp() + "] Target HP[" + 
             target->query_hp() + "/" + target->query_max_hp()  + "]%^RESET%^");
-      } else {
+         done = 1;
+      }
+#endif
+      if (!done) {
          this_object()->message("%^CYAN%^HP[" + this_object()->query_hp() + 
             "/" + this_object()->query_max_hp() + "]%^RESET%^");
       }
