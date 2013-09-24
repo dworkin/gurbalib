@@ -74,3 +74,4 @@ Ask about: query_mortal.c, query_user_priv.c
 	why declare static?
 	should maybe make others nomask  query_wizard for example...
 
+move copy afun to copy_file? 

@@ -1,0 +1,19 @@
+NAME
+	restore_object - read object data from a file.
+		
+SYNOPSIS
+	static int restore_object(string file)
+
+DESCRIPTION
+	Load variables of an object from the specified file.  Note, it will
+	not load object variables or variables that are local to functions
+	defined in the object.  It will also not load private or static 
+	variables.
+
+RETURN VALUE
+	Returns 1 if the access is to be allowed and 0 if not allowed.
+		
+SEE ALSO
+        cat_file, copy, editor, get_dir, make_dir, read_file, rename_file, 
+	remove_dir, remove_file, save_object, valid, valid_read, 
+	valid_write, write_file

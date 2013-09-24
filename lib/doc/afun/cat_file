@@ -14,6 +14,7 @@ NOTES
 	This afun only exists for code outside /kernel.
 
 SEE ALSO
-	copy, editor, read_file, rename_file, remove_dir, remove_file, 
-	write_file
+	copy, editor, get_dir, make_dir, read_file, rename_file, remove_dir, 
+	remove_file, restore_object, save_object, valid, valid_read, 
+	valid_write, write_file
 

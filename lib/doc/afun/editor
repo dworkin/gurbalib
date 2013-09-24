@@ -1,0 +1,18 @@
+NAME
+	editor - Create a directory.
+		
+SYNOPSIS
+	static string editor(string cmd)
+
+DESCRIPTION
+	Create a string using an interactive editor.  If cmd is specified 
+	evaluate the command before starting up the editor.
+		
+RETURN VALUE
+	Returns a string containing the results of the editor command.
+
+SEE ALSO
+	cat_file, copy, get_dir, make_dir, read_file, rename_file, remove_dir, 
+	remove_file, restore_object, save_object, valid, valid_read,
+	valid_write, write_file
+

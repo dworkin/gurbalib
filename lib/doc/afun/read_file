@@ -16,6 +16,7 @@ RETURN VALUE
 	return nil.
 
 SEE ALSO
-	cat_file, copy, editor, rename_file, remove_dir, remove_file, 
-	write_file
+	cat_file, copy, editor, get_dir, make_dir, rename_file, remove_dir, 
+	remove_file, restore_object, save_object, valid, valid_read,
+	valid_write, write_file
 

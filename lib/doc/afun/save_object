@@ -1,0 +1,16 @@
+NAME
+	save_object - write data to a file.
+		
+SYNOPSIS
+	static void save_object(string file)
+
+DESCRIPTION
+	Write variables of an object to the specified file.  Note, it will
+	not save object variables or variables that are local to functions
+	defined in the object.  It will also not save private or static 
+	variables.  An error will occur if there is a problem saving the file.
+		
+SEE ALSO
+        cat_file, copy, editor, get_dir, make_dir, read_file, rename_file, 
+	remove_dir, remove_file, restore_object, valid, valid_read, 
+	valid_write, write_file
