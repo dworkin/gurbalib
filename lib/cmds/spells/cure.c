@@ -26,7 +26,7 @@ void cure(object thisp, object target) {
    x = random(5) + 1;
    thisp->decrease_mana(COST);
 
-   if (max_hp(target)) {
+   if (max_hp(target) || target->is_dead()) {
       write("Your spell has no effect.\n");
       this_object()->targetted_action("A soft glow envelopes $N, " +
          "and then fizzles out.\n");
