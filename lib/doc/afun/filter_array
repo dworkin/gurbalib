@@ -2,8 +2,8 @@ NAME
 	filter_array - filter an array through a function
 
 SYNOPSIS
-	mixed * filter_array( mixed * arr, string fun, varargs object ob, 
-		mixed extra... )
+	mixed *filter_array(mixed *arr, string fun, varargs object ob, 
+		mixed extra...)
 
 DESCRIPTION
 	Filter the array 'arr' through the function fun in the object ob.

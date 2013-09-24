@@ -1,16 +1,15 @@
 NAME
-        capitalize - convert the first letter of a string to 
-        uppercase
+	capitalize - convert the first letter of a string to uppercase
 
 SYNOPSIS
-        string capitalize( string arg )
+	string capitalize(string arg)
 
 DESCRIPTION
-        Converts the first character in arg to uppercase
+	Converts the first character in arg to uppercase.
 
 RETURN VALUE
-        A new, converted string is returned
+	A new, converted string is returned.
 
 SEE ALSO
-        uppercase, lowercase
+	uppercase, lowercase
 

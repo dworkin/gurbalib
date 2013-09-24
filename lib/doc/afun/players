@@ -2,7 +2,7 @@ NAME
 	players - Get a list of player objects in use.
 
 SYNOPSIS
-	object * players( )
+	object *players()
 
 DESCRIPTION
 	Create an array of player objects and return it.

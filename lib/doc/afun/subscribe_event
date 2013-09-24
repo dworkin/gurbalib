@@ -2,7 +2,7 @@ NAME
 	subscribe_event - subscribe to an event
 
 SYNOPSIS
-	ob->subscribe_event( string name )
+	ob->subscribe_event(string name)
 
 
 DESCRIPTION

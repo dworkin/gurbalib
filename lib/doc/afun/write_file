@@ -15,5 +15,6 @@ RETURN VALUE
 	Returns 1 on success and 0 on failure.
 
 SEE ALSO
-	cat_file, copy, editor, read_file, rename_file, remove_file
+	cat_file, copy, editor, read_file, rename_file, remove_dir, 
+	remove_file
 

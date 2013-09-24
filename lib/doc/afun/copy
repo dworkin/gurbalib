@@ -1,14 +1,15 @@
 NAME
-        copy - copy a file
+	copy - copy a file
 		
 SYNOPSIS
-        void( string source, string destination )
+	void(string source, string destination)
 
 DESCRIPTION
-         Copies the source file to the destination.
-         If destination is a directory, a file will be
-         created based on the name of the source file.
+	Copies the source file to the destination.  If destination is a 
+	directory, a file will be created based on the name of the source 
+	file.
 		
 SEE ALSO
-        cat_file, editor, read_file, rename_file, remove_file, write_file
+	cat_file, editor, read_file, rename_file, remove_dir, remove_file, 
+	write_file
 

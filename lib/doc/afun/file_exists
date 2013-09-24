@@ -1,14 +1,14 @@
 NAME
-        file_exists - check if a file exists
+	file_exists - check if a file exists
 
 SYNOPSIS
-        int file_exists( string filepath )
+	int file_exists(string filepath)
 
 DESCRIPTION
-        Checks if a file exists at filepath.
+	Checks if a file exists at filepath.
 		
 RETURN VALUE
-        Returns 1 if a file exists at filepath, -1 if a directory exists 
+	Returns 1 if a file exists at filepath, -1 if a directory exists 
 	at filepath, and 0 if no file found.
 
 SEE ALSO

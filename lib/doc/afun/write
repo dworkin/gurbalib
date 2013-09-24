@@ -2,7 +2,7 @@ NAME
 	write - send a message to a user
 
 SYNOPSIS
-	void write( string message )
+	void write(string message)
 
 DESCRIPTION
 	Send 'message' to this_player().  The message may contain

@@ -1,14 +1,14 @@
 NAME
-        absolute_path - test if a provided path is absolute
+	absolute_path - test if a provided path is absolute
 
 SYNOPSIS
-        int absolute_path( string path )
+	int absolute_path(string path)
 
 DESCRIPTION
-        Check if 'arg' is an int.
+	Check if 'arg' is an int.
 
 RETURN VALUE
-        Returns 1 if the provided path is a full path in it's simplest form.
+	Returns 1 if the provided path is a full path in it's simplest form.
 	If the path is not absolute, return 0.
 
 SEE ALSO

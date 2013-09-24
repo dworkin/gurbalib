@@ -1,11 +1,11 @@
 NAME
-        compile_object - compiles an object
+	compile_object - compiles an object
 
 SYNOPSIS
-        compile_object( string filepath )
+	compile_object(string filepath)
 
 DESCRIPTION
-        Compiles object at filepath.  If object is already compiled, it will 
+	Compiles object at filepath.  If object is already compiled, it will 
 	be upgraded if a newer version exists at filepath.  If filepath is 
 	not a legal object an error will result.  A filepath must contain a 
 	legal subdirectory for an object to be compiled.  File paths are 
@@ -16,8 +16,8 @@ DESCRIPTION
 	For more info on objects see /doc/misc/objects.
 
 RETURN VALUE
-        Returns the compiled object
+	Returns the compiled object.
 
 SEE ALSO
-        clone_object, compile_library
+	clone_object, compile_library
 

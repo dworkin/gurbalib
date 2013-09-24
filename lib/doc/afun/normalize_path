@@ -1,13 +1,13 @@
 NAME
-        normalize_path - reduce a path to its minimal absolute form
+	normalize_path - reduce a path to its minimal absolute form
 		
 SYNOPSIS
-        string normalize_path( string filename, string path )
+	string normalize_path(string filename, string path)
 
 DESCRIPTION
-        The path to filename in the path directory is parsed so
-	that any unnecessary characters in path are removed.  The
-	minimized path is returned as string.
+	The path to filename in the path directory is parsed so that any 
+	unnecessary characters in path are removed.  The minimized path 
+	is returned as string.
 		
 RETURN VALUE
-        Returns a minimized path for arguments.
+	Returns a minimized path for arguments.

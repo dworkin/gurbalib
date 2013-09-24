@@ -3,7 +3,7 @@ NAME
 	have at least the requested privilege
 
 SYNOPSIS
-	int require_priv( string priv )
+	int require_priv(string priv)
 
 DESCRIPTION
 	Check if all objects and inheritables on the stack have the 

@@ -1,15 +1,15 @@
 NAME
-        arrayp - test if a variable is an array
+	arrayp - test if a variable is an array
 
 SYNOPSIS
-        int arrayp( mixed arg )
+	int arrayp(mixed arg)
 
 DESCRIPTION
-        Check if 'arg' is an array.
+	Check if 'arg' is an array.
 
 RETURN VALUE
-        Returns 1 if 'arg' is an array, 0 otherwise.
+	Returns 1 if 'arg' is an array, 0 otherwise.
 
 SEE ALSO
-        floatp, functionp, intp, stringp, objectp, mappingp, nilp
+	floatp, functionp, intp, stringp, objectp, mappingp, nilp
 

@@ -1,18 +1,19 @@
 NAME
-        cat_file - message entire contents of a file to this_player()
+	cat_file - message entire contents of a file to this_player()
 		
 SYNOPSIS
-        int cat_file( string filepath )
+	int cat_file(string filepath)
 
 DESCRIPTION
-        Message the entire contents of a file to this_player().
+	Message the entire contents of a file to this_player().
 		
 RETURN VALUE
-         Returns 1 for success and 0 for failure.
+	Returns 1 for success and 0 for failure.
 
 NOTES
-        This afun only exists for code outside /kernel
+	This afun only exists for code outside /kernel.
 
 SEE ALSO
-        copy, editor, read_file, rename_file, remove_file, write_file
+	copy, editor, read_file, rename_file, remove_dir, remove_file, 
+	write_file
 

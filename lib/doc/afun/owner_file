@@ -2,7 +2,7 @@ NAME
 	owner_file - determine the owner of a file
 
 SYNOPSIS
-	string owner_file( string file )
+	string owner_file(string file)
 
 DESCRIPTION
 	Determine the owner of a file. The file doesn't have to exist, 

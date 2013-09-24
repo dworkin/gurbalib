@@ -3,7 +3,7 @@ NAME
 		and program
 
 SYNOPSIS
-	mixed unguarded( string fun, varargs mixed arg... )
+	mixed unguarded(string fun, varargs mixed arg...)
 
 DESCRIPTION
 	Stack verification will be limited to the calling object and 

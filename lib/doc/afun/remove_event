@@ -2,7 +2,7 @@ NAME
 	remove_event - remove an event
 
 SYNOPSIS
-	void remove_event( string name )
+	void remove_event(string name)
 
 
 DESCRIPTION

@@ -2,7 +2,7 @@ NAME
 	set_this_player - sets value for this_player()
 
 SYNOPSIS
-	void set_this_player( object ob )
+	void set_this_player(object ob)
 
 DESCRIPTION
 	Sets the return value of this_player() to ob.  

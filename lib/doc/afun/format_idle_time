@@ -2,7 +2,7 @@ NAME
         format_idle_time - converts a time integer into a string.
 		
 SYNOPSIS
-        string format_idle_time( int time )
+        string format_idle_time(int time)
 
 DESCRIPTION
         Converts a time integer into a string.  The string is in form of 

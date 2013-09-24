@@ -2,7 +2,7 @@ NAME
 	valid - test read access to a namespace entry
 
 SYNOPSIS
-	int valid_read( string name )
+	int valid_read(string name)
 
 DESCRIPTION
 	Test read access to a file with the provided name.  This file 

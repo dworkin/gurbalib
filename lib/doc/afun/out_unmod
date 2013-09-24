@@ -2,7 +2,7 @@ NAME
 	out_unmod - send unmodified message to a user
 
 SYNOPSIS
-	void out_unmod( string message )
+	void out_unmod(string message)
 
 DESCRIPTION
 	Send 'message' to this_player().  The message is unmodified.  

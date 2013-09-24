@@ -2,7 +2,7 @@ NAME
 	str2val - Converts a string of numbers into an int value
 
 SYNOPSIS
-	int str2val( string str )
+	int str2val(string str)
 
 DESCRIPTION
 	Converts a string of numbers into an int value.  The string must 

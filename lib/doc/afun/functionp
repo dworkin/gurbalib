@@ -2,7 +2,7 @@ NAME
         functionp - test if a variable is a pointer to a function
 
 SYNOPSIS
-        int functionp( mixed arg )
+        int functionp(mixed arg)
 
 DESCRIPTION
         Check if 'arg' is a function.

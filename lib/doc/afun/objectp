@@ -2,7 +2,7 @@ NAME
 	objectp - test if a variable is an object
 
 SYNOPSIS
-	int objectp( mixed arg )
+	int objectp(mixed arg)
 
 DESCRIPTION
 	Check if 'arg' is an object.

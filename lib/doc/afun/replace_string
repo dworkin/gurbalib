@@ -2,11 +2,11 @@ NAME
 	replace_string - replace instances of a substring
 
 SYNOPSIS
-	string replace_string( string str, string old, string new )
+	string replace_string(string str, string old, string new)
 
 DESCRIPTION
 	In str, replace instances of the substring old with new.  
-	Ie replace_string( "old old", "old", "new" ) = "new new".
+	I.E. replace_string("old old", "old", "new") = "new new".
 
 RETURN VALUE
 	Returns the modified string.

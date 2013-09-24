@@ -2,7 +2,7 @@ NAME
 	stringp - test if a variable is a string
 
 SYNOPSIS
-	int stringp( mixed arg )
+	int stringp(mixed arg)
 
 DESCRIPTION
 	Check if 'arg' is a string.

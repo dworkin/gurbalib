@@ -2,8 +2,8 @@ NAME
 	read_file - return the data in a file.
 		
 SYNOPSIS
-	static string read_file( string filepath, varargs int offset, 
-	int size )
+	static string read_file(string filepath, varargs int offset, 
+	int size)
 
 DESCRIPTION
 	Read in a file and return the contents of it.  If offset is given 
@@ -16,5 +16,6 @@ RETURN VALUE
 	return nil.
 
 SEE ALSO
-	cat_file, copy, editor, rename_file, remove_file, write_file
+	cat_file, copy, editor, rename_file, remove_dir, remove_file, 
+	write_file
 

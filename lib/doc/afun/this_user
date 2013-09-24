@@ -2,7 +2,7 @@ NAME
 	this_user - get the current 'user'
 
 SYNOPSIS
-	object this_player()
+	object this_user()
 
 DESCRIPTION
 	Get the object representing the current 'user'.  A user is not 

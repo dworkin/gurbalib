@@ -2,7 +2,7 @@ NAME
 	rethrow() - rethrow a caught error
 
 SYNOPSIS
-	void rethrow( varargs string message )
+	void rethrow(varargs string message)
 
 DESCRIPTION
 	Rethrows the most recently caught runtime error as if it wasn't 

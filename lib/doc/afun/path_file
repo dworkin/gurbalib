@@ -21,4 +21,4 @@ EXAMPLES
 	str = ""; return = ({ "", "" })
 
 SEE ALSO
-
+	base_name, clone_num, file_name, kfun/object_name, wiz_dir

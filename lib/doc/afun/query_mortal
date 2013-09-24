@@ -2,7 +2,7 @@ NAME
 	query_mortal - test if a player is a mortal
 
 SYNOPSIS
-	int query_mortal( object arg )
+	int query_mortal(object arg)
 
 DESCRIPTION
 	Check if 'arg' is a mortal player object.

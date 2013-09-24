@@ -2,7 +2,7 @@ NAME
 	strstr - finds location of a substring in a string
 
 SYNOPSIS
-	int strstr( string str, sting what )
+	int strstr(string str, sting what)
 
 DESCRIPTION
 	Checks str for a match to what.  The index for the first character 

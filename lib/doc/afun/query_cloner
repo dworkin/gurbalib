@@ -2,7 +2,7 @@ NAME
 	query_cloner - return information on how a clone came into existence
 
 SYNOPSIS
-	string query_cloner( varargs int flag )
+	string query_cloner(varargs int flag)
 
 DESCRIPTION
 	Returns the 'owner' of object that caused this clone to exist. 

@@ -2,7 +2,7 @@ NAME
         format_time - converts a time integer into a string.
 		
 SYNOPSIS
-        string format_time( int time )
+        string format_time(int time)
 
 DESCRIPTION
         Converts a time integer into a string.  The returned string is 

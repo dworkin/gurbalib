@@ -3,7 +3,7 @@ NAME
 	object has been compiled.
 
 SYNOPSIS
-	string owner_object( object ob )
+	string owner_object(object ob)
 
 DESCRIPTION
 	Determine the owner of the file from which an object has been 

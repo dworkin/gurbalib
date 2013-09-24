@@ -2,7 +2,7 @@ NAME
 	num_clones - return the number of clones of an object
 
 SYNOPSIS
-	int num_clones( )
+	int num_clones()
 
 DESCRIPTION
 	Returns the number of clones of an object that exist in the 

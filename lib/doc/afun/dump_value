@@ -1,15 +1,15 @@
 NAME
-        dump_value - converts any value to a string
+	dump_value - converts any value to a string
 
 SYNOPSIS
-        string dump_value( mixed arg, varargs mapping seen )
+	string dump_value(mixed arg, varargs mapping seen)
 
 DESCRIPTION
-        Converts the value arg to a string that can be displayed
+	Converts the value arg to a string that can be displayed.
 
 RETURN VALUE
-        Returns a string representing the value of arg
+	Returns a string representing the value of arg.
 
 SEE ALSO
-        arrayp, floatp, intp, stringp, objectp, mappingp, nilp
+	arrayp, floatp, intp, stringp, objectp, mappingp, nilp
 

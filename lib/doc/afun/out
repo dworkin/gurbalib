@@ -2,7 +2,7 @@ NAME
 	out - send message to a user
 
 SYNOPSIS
-	void out( string message )
+	void out(string message)
 
 DESCRIPTION
 	Send 'message' to this_player().  The message may contain color 

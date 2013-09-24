@@ -2,7 +2,7 @@ NAME
         get_tlvar - get the value for a tls variable.
 
 SYNOPSIS
-        mixed get_tlvar( string name )
+        mixed get_tlvar(string name)
 
 DESCRIPTION
         Returns the value for tls variable 'name'.

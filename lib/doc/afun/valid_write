@@ -2,7 +2,7 @@ NAME
 	valid_write - test write access to a namespace entry
 
 SYNOPSIS
-	int valid_write( string name )
+	int valid_write(string name)
 
 DESCRIPTION
 	Test write access to a file with the provided name.  This file 

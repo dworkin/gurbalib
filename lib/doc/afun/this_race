@@ -2,7 +2,7 @@ NAME
 	this_race - returns a users race_object
 
 SYNOPSIS
-	object this_race( )
+	object this_race()
 
 DESCRIPTION
 	If a users race_object is found return that object, or else 

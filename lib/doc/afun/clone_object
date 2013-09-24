@@ -1,11 +1,11 @@
 NAME
-        clone_object - clones an object
+	clone_object - clones an object
 
 SYNOPSIS
-        clone_object( string filepath )
+	clone_object(string filepath)
 
 DESCRIPTION
-        Creates a clone of object at filepath.  If object is not compiled,
+	Creates a clone of object at filepath.  If object is not compiled,
 	it will be compiled first.  If filepath is not a legal object an
 	error will result.  A filepath must contain a legal subdirectory
 	for an object to be cloned.  File paths are legal if they contain
@@ -16,7 +16,7 @@ DESCRIPTION
 	For more info on objects see /doc/misc/objects.
 
 RETURN VALUE
-        Returns the cloned object
+	Returns the cloned object.
 
 SEE ALSO
-        compile_library, compile_object
+	compile_library, compile_object

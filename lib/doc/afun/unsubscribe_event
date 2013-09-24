@@ -2,7 +2,7 @@ NAME
 	unsubscribe_event - unsubscribe from an event
 
 SYNOPSIS
-	ob->unsubscribe_event( string name )
+	ob->unsubscribe_event(string name)
 
 DESCRIPTION
 	Unsubscribes this_object() from an event with the given name 

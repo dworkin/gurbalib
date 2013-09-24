@@ -1,15 +1,15 @@
 NAME
-        mappingp - test if a variable is a mapping
+	mappingp - test if a variable is a mapping
 
 SYNOPSIS
-        int mappingp( mixed arg )
+	int mappingp(mixed arg)
 
 DESCRIPTION
-        Check if 'arg' is a mapping.
+	Check if 'arg' is a mapping.
 
 RETURN VALUE
-        Returns 1 if 'arg' is a mapping, 0 otherwise.
+	Returns 1 if 'arg' is a mapping, 0 otherwise.
 
 SEE ALSO
-        arrayp, floatp, functionp, intp, stringp, objectp, nilp
+	arrayp, floatp, functionp, intp, stringp, objectp, nilp
 

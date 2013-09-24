@@ -1,15 +1,15 @@
 NAME
-        dir_size - get the size of all files in a directory.
+	dir_size - get the size of all files in a directory.
 
 SYNOPSIS
-        dir_size( string path )
+	dir_size(string path)
 
 DESCRIPTION
-        Returns the size of all files in a directory, including all files
-		in directories of path.
+	Returns the size of all files in a directory, including all files 
+	in directories of path.
 		
 RETURN VALUE
-        Size of files in path.
+	Size of files in path.
 
 SEE ALSO
-        file_size
+	file_size

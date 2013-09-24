@@ -2,7 +2,7 @@ NAME
 	strcmp - compare two strings lexicographically
 
 SYNOPSIS
-	int strcmp( string one, sting two )
+	int strcmp(string one, sting two)
 
 DESCRIPTION
 	Compares two strings lexicographically.

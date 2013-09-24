@@ -2,7 +2,7 @@ NAME
 	prev_clone - get the previous object on the clone list
 
 SYNOPSIS
-	object next_clone( )
+	object next_clone()
 
 DESCRIPTION
 	Get the previous object on the clone list or the master of the 

@@ -2,7 +2,7 @@ NAME
         file_size - returns the size of a file
 
 SYNOPSIS
-        int file_size( string filepath )
+        int file_size(string filepath)
 
 DESCRIPTION
         Returns the size of a file, in k's.

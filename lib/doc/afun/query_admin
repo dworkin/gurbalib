@@ -2,7 +2,7 @@ NAME
 	query_admin - test if a player is an admin
 
 SYNOPSIS
-	int query_admin( object arg )
+	int query_admin(object arg)
 
 DESCRIPTION
 	Check if 'arg' is an admin player object.
