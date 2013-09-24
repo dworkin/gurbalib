@@ -1,0 +1,19 @@
+NAME
+	property - query a property 
+
+SYNOPSIS
+	mixed property(string name)
+
+DESCRIPTION
+	Query the value for the named property if it exists and the optional 
+	permission checks succeed.  
+	See lib/doc/misc/properties for more details.
+
+RETURN VALUE
+	Returns the value for the named propery. When the property does 
+	not exist or permission checks fail, nil is returned.  (Note, that 
+	a property can also be set to nil, without removing it.)
+
+SEE ALSO
+	set_property, remove_property, properties
+

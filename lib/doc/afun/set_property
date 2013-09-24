@@ -1,0 +1,30 @@
+NAME
+	set_property - set the value and optional privileges for a property
+
+SYNOPSIS
+	int set_property(string name, mixed value, varargs string rpriv, 
+	string wpriv)
+
+DESCRIPTION
+	Sets or modifies the value for the named property, and optionally, 
+	sets or modifies the privilege required for reading (rpriv) and 
+	writing (wpriv).
+
+	When setting a value for a property that does not exist, and rpriv 
+	and/or wpriv are not provided, the following rules are used:
+
+	When rpriv is not provided, * (always allow) is used. 
+	When wpriv is not provided, the value for rpriv is used.
+
+	When modifying the value of an existing property and rpriv and/or 
+	wpriv are not provided, the pre-existing values are left in place.
+
+        See lib/doc/misc/properties for more details.
+        
+RETURN VALUE
+	Returns 1 on success or 0 when privilege checks do not allow the 
+	changes.
+
+SEE ALSO
+	property, remove_property, properties
+
