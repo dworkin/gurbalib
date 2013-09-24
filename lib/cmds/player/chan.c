@@ -1,4 +1,5 @@
 /* An interface to the channel daemon By Fudge */
+
 inherit M_COMMAND;
 
 #include <channel.h>

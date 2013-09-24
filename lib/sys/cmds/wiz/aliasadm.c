@@ -1,29 +1,30 @@
 inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
-   lines = ( { "Usage: aliasadm -h" } );
-   lines += ( { "Usage: aliasadm show [ALIAS]    show the global entries " +
+   lines = ({ "Usage: aliasadm -h" });
+   lines += ({ "Usage: aliasadm show [ALIAS]    show the global entries " +
       "for ALIAS"
-   } );
-   lines += ( { "\tIf ALIAS is missing show all global aliases registered." } );
-   lines += ( { "Usage: aliasadm del ALIAS     delete the entries for ALIAS" } );
-   lines += ( { "Usage: aliasadm add TYPE NAME FORMAT" } );
-   lines += ( { " " } );
-   lines += ( { "Add an alias to the alias database." } );
-   lines += ( { "TYPE is \"player\" or \"wiz\"" } );
-   lines += ( { "NAME is the new command name for the alias." } );
-   lines += ( { "Format defines what the alias will do." } );
-   lines += ( { " " } );
-   lines += ( { "Options:" } );
-   lines += ( { "\t-h\tHelp, this usage message." } );
-   lines += ( { "Examples:" } );
-   lines += ( { "\taliasadm add player a attack $*" } );
-   lines += ( { "\taliasadm add wiz z update $*" } );
-   lines += ( { "\taliasadm show a" } );
-   lines += ( { "\taliasadm del a" } );
-   lines += ( { "See also:" } );
-   lines += ( { "\talias, cmds, emote, emoteadm, help" } );
+   });
+   lines += ({ "\tIf ALIAS is missing show all global aliases registered." });
+   lines += ({ "Usage: aliasadm del ALIAS     delete the entries for ALIAS" });
+   lines += ({ "Usage: aliasadm add TYPE NAME FORMAT" });
+   lines += ({ " " });
+   lines += ({ "Add an alias to the alias database." });
+   lines += ({ "TYPE is \"player\" or \"wiz\"" });
+   lines += ({ "NAME is the new command name for the alias." });
+   lines += ({ "Format defines what the alias will do." });
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\taliasadm add player a attack $*" });
+   lines += ({ "\taliasadm add wiz z update $*" });
+   lines += ({ "\taliasadm show a" });
+   lines += ({ "\taliasadm del a" });
+   lines += ({ "See also:" });
+   lines += ({ "\talias, cmds, emote, emoteadm, help" });
 
    if (query_admin(this_player())) {
       lines += ({ "\tcmdadm, coloradm, rehash" });

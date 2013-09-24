@@ -1,6 +1,7 @@
 inherit M_COMMAND;
 
 #define SPELL_DIR "/cmds/spells"
+
 string find_spell(string spellname);
 
 void usage(string str) {

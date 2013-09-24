@@ -1,5 +1,7 @@
-inherit M_COMMAND;
 /* Fudge created, *  03.08.98  Satch added 'reason' for shutdown.  */
+
+inherit M_COMMAND;
+
 string reason;
 
 void usage() {

@@ -1,46 +1,47 @@
 inherit M_COMMAND;
+
 void usage() {
    string *lines;
 
-   lines = ( { "Usage: emoteadm -h" } );
-   lines += ( { "Usage: emoteadm show [EMOTE]    show the entries for EMOTE" } );
-   lines += ( { "\tIf EMOTE is missing show all emotes registered." } );
-   lines += ( { "Usage: emoteadm del EMOTE     delete the entries for EMOTE" } );
-   lines += ( { "Usage: emoteadm add NAME [RULE] FORMAT" } );
-   lines += ( { " " } );
-   lines += ( { "Add an emote to the emote database." } );
-   lines += ( { "NAME is the thing players will type for the emote." } );
-   lines += ( { "RULE if provided is one of the following: LIV|STR|OBJ" } );
-   lines += ( { "It only applies if the target of your emote is of that type."
-   } );
-   lines += ( { "For emotes without a target, you do not provide a rule." } );
-   lines += ( { "Format defines what the emote will do." } );
-   lines += ( { "For example, if you do \"add blink $N blink.\"" } );
-   lines += ( { "\tYou will see You blink." } );
-   lines += ( {
+   lines = ({ "Usage: emoteadm -h" });
+   lines += ({ "Usage: emoteadm show [EMOTE]    show the entries for EMOTE" });
+   lines += ({ "\tIf EMOTE is missing show all emotes registered." });
+   lines += ({ "Usage: emoteadm del EMOTE     delete the entries for EMOTE" });
+   lines += ({ "Usage: emoteadm add NAME [RULE] FORMAT" });
+   lines += ({ " " });
+   lines += ({ "Add an emote to the emote database." });
+   lines += ({ "NAME is the thing players will type for the emote." });
+   lines += ({ "RULE if provided is one of the following: LIV|STR|OBJ" });
+   lines += ({ "It only applies if the target of your emote is of that type."
+   });
+   lines += ({ "For emotes without a target, you do not provide a rule." });
+   lines += ({ "Format defines what the emote will do." });
+   lines += ({ "For example, if you do \"add blink $N blink.\"" });
+   lines += ({ "\tYou will see You blink." });
+   lines += ({
       "\tEveryone else will see Sirdude blink. (If your name is sirdude)"
-   } );
+   });
 
-   lines += ( { " " } );
-   lines += ( { "Options:" } );
-   lines += ( { "\t-h\tHelp, this usage message." } );
-   lines += ( { "\t$N\tUpper case name of the player emoting" } );
-   lines += ( { "\t$n\tLower case name of the player emoting" } );
-   lines += ( {
+   lines += ({ " " });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\t$N\tUpper case name of the player emoting" });
+   lines += ({ "\t$n\tLower case name of the player emoting" });
+   lines += ({
       "\t$vVERB\tDefines VERB as a verb and the parser will change output."
-   } );
-   lines += ( { "\t$T\tUpper case name of target." } );
-   lines += ( { "\t$t\tLower case name of target." } );
-   lines += ( { "\t$O\tUpper case name of object." } );
-   lines += ( { "\t$o\tLower case name of object." } );
-   lines += ( { "\t$sSTR\tConvert STR to plural form." } );
-   lines += ( { "\t$p\tPossesive" } );
+   });
+   lines += ({ "\t$T\tUpper case name of target." });
+   lines += ({ "\t$t\tLower case name of target." });
+   lines += ({ "\t$O\tUpper case name of object." });
+   lines += ({ "\t$o\tLower case name of object." });
+   lines += ({ "\t$sSTR\tConvert STR to plural form." });
+   lines += ({ "\t$p\tPossesive" });
 
-   lines += ( { "Examples:" } );
-   lines += ( { "\temoteadm add blink $N $sblink." } );
-   lines += ( { "\temoteadm add LIV $N $vblink at $t" } );
-   lines += ( { "See also:" } );
-   lines += ( { "\talias, aliasadmin, cmds, emote, emoteadm, help" });
+   lines += ({ "Examples:" });
+   lines += ({ "\temoteadm add blink $N $sblink." });
+   lines += ({ "\temoteadm add LIV $N $vblink at $t" });
+   lines += ({ "See also:" });
+   lines += ({ "\talias, aliasadmin, cmds, emote, emoteadm, help" });
 
    if (query_admin(this_player())) {
       lines += ({ "\tcmdadmin, coloradm, rehash" });

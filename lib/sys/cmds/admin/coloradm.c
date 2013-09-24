@@ -1,4 +1,5 @@
 inherit M_COMMAND;
+
 #define GRAMMAR "whitespace=/[ ]+/\n"+\
                 "TAG=/[A-Z_][A-Z0-9_]*/ \n"+\
                 "TAG=/NIL/\n"+\

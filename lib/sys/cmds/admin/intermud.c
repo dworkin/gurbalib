@@ -1,4 +1,5 @@
 inherit M_COMMAND;
+
 #include <ports.h>
 
 #define grammar "whitespace=/[ 	]/ "+\

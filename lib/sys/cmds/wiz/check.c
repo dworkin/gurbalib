@@ -1,4 +1,5 @@
 inherit M_COMMAND;
+
 int warn, error;
 
 void usage() {

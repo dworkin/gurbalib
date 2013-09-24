@@ -16,7 +16,6 @@ void usage() {
    lines += ({ "See also:" });
    lines += ({ "\tattack, cast, eat, enter, follow, go, pray" });
 
-
    this_player()->more(lines);
 }
 

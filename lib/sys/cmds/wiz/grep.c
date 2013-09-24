@@ -1,4 +1,5 @@
 inherit M_COMMAND;
+
 void usage() {
    write("Usage: grep [-h] STRING FILE(s)\n");
    write("Find files in the list of FILES that contain STRING.\n");

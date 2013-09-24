@@ -1,4 +1,5 @@
 inherit M_COMMAND;
+
 void usage() {
    string *lines;
 

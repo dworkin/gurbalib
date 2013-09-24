@@ -1,4 +1,5 @@
 inherit M_COMMAND;
+
 #include <status.h>
 
 void usage() {

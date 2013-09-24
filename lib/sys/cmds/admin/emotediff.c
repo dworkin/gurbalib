@@ -1,5 +1,7 @@
 inherit M_COMMAND;
+
 #define DUMMY DOMAINS_DIR + "/required/objects/fake_emote.c"
+
 string *keys;
 
 void init_keys() {

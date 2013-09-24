@@ -1,8 +1,6 @@
+/* A small command to clear out all the objects in a room - Fudge */
+
 inherit M_COMMAND;
-/* A small command to clear out all the objects in a room
- *
- * Fudge
- */
 
 void usage() {
    string *lines;

@@ -1,7 +1,8 @@
-inherit M_COMMAND;
 /*Made by Aphex on Fri 21 Nov 97*/
 /* Fixed to handle goto'ing of room files by Fudge. */
 /* Fixed to properly setup rooms that get loaded by this command */
+
+inherit M_COMMAND;
 
 void usage() {
    string *lines;

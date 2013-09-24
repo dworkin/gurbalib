@@ -9,7 +9,6 @@ void usage() {
 
 static void main(string arg) {
    string *tmp;
-
    int i;
 
    if (!arg || arg == "") {

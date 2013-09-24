@@ -1,8 +1,10 @@
 inherit M_COMMAND;
+
 #include <std.h>
 #include <status.h>
 
 #define TIMEOUT 2000
+
 string filename;
 
 void usage() {
