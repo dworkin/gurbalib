@@ -190,11 +190,8 @@ private mixed *parse_long_option(string opt, string str) {
 }
 
 private mixed *parse_short_option(string opt, string str, int lastopt) {
-   string r;
-   string err;
-   string val;
-   int end;
-   int v;
+   string r, err, val;
+   int end, v;
    mixed m;
 
    m = get_otlvar("options");
@@ -212,7 +209,8 @@ private mixed *parse_short_option(string opt, string str, int lastopt) {
             }
 
             if (!test_option_arg(shortopts[opt][NAME], val, SHORT)) {
-               err = "option " + shortopts[opt][NAME] + " requires an argument.";
+               err = "option " + shortopts[opt][NAME] + 
+                  " requires an argument.";
                end = 1;
             } else if (!shortopts[opt][VMUL]) {
                m[shortopts[opt][NAME]] = val;
@@ -227,8 +225,9 @@ private mixed *parse_short_option(string opt, string str, int lastopt) {
             err = "option " + shortopts[opt][NAME] + " requires an argument.";
             end = 1;
          }
-      } else if (lastopt && shortopts[opt][VMUL] && 
-         ((sscanf(str, "%d %s", v, r) == 2) || (sscanf(str,"%d", v) == 1)) && v > 0) {
+      } else if (lastopt && shortopts[opt][VMUL] && str &&
+         ((sscanf(str, "%d %s", v, r) == 2) || (sscanf(str,"%d", v) == 1)) && 
+         (v > 0)) {
          if (r) {
             str = r;
          } else {
