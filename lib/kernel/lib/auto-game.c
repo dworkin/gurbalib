@@ -8,6 +8,7 @@
 
 #include <tlsvar.h>
 #include <trace.h>
+#include <privileges.h>
 #ifndef ENABLE_STACK_SECURITY
 #define ENABLE_STACK_SECURITY
 #endif
@@ -92,9 +93,9 @@ private object secure_d;
  */
 
 #include "afun-game/query_user_priv.c"
-#include "afun-game/query_mortal.c"
 #include "afun-game/query_wizard.c"
 #include "afun-game/query_admin.c"
+#include "afun-game/query_mortal.c"
 
 #ifdef ENABLE_USER_LLISTS
 

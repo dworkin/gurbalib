@@ -454,7 +454,7 @@ string *list_all_users() {
    int x, i;
 
    names = ( { } );
-   files = get_dir("/data/players/*.o")[0];
+   files = unguarded( "get_dir", "/data/players/*.o")[0];
 
    rlimits(MAX_DEPTH; -1) {
       for (i = sizeof(files) - 1; i >= 0; i--) {
@@ -543,10 +543,10 @@ string print_email_info(object player, object obj, string type) {
 
    doit = 0;
    if (type == "wizards") {
-      if (USER_D->query_wizard(obj)) doit = 1;
+      if (query_wizard(obj)) doit = 1;
       else doit = 0;
    } else if (type == "admins") {
-      if (USER_D->query_admin(obj)) doit = 1;
+      if (query_admin(obj)) doit = 1;
       else doit = 0;
    } else {
       doit = 1;
@@ -629,24 +629,6 @@ int query_priv(string name) {
 
    ob = get_data_ob(name);
    if (ob) return ob->query_priv();
-}
-
-int query_admin(mixed what) {
-   if (objectp(what) && (what<-USER_OB || what<-PLAYER_OB)) {
-      what = what->query_name();
-   } 
-   return query_priv(what) == ADMIN_L;
-}
-
-int query_wiz(mixed what) {
-   if (objectp(what) && (what<-USER_OB || what<-PLAYER_OB)) {
-      what = what->query_name();
-   }
-   return query_priv(what) >= WIZ_L;
-}
-
-int query_mortal(mixed what) {
-   return !query_wiz(what);
 }
 
 static string get_player_name(object p) {

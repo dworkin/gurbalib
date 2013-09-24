@@ -28,11 +28,11 @@ void usage() {
 
 void display_level(string str) {
 
-   if (USER_D->query_admin(str)) {
+   if (query_admin(str)) {
       write("User: " + str + " is currently a admin\n");
       return;
    }
-   if (USER_D->query_wizard(str)) {
+   if (query_wizard(str)) {
       write("User: " + str + " is currently a wiz\n");
       return;
    }

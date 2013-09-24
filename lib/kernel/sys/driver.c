@@ -642,7 +642,7 @@ void compile_error(string file, int line, string err) {
    if (usr) {
       if (usr->query_player()) {
 	 if (secure_d
-	    && secure_d->query_wiz(usr->query_player()->query_name()) == 1) {
+	    && secure_d->query_wizard(usr->query_player()->query_name()) == 1) {
 	    usr->query_player()->write(error);
 	 } else {
 	    usr->query_player()->

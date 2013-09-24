@@ -1,4 +1,4 @@
-int query_mortal(mixed player) {
+nomask int query_mortal(mixed player) {
 
    if (objectp(player)) {
       if (!player <-"/sys/obj/player") {
@@ -9,5 +9,5 @@ int query_mortal(mixed player) {
       argcheck(stringp(player), 1, "player object or string");
    }
 
-   return USER_D->query_mortal(player);
+   return !query_wizard(player);
 }

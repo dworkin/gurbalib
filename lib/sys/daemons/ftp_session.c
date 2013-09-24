@@ -24,13 +24,13 @@ void restore_privs() {
    } else {
       cpriv = name;
 
-      if (USER_D->query_wiz(name)) {
+      if (query_wizard(name)) {
          int i,sz;
          string *dn;
 
          priv = 1;
          cpriv = "wizard:"+cpriv;
-         if (USER_D->query_admin(name)) {
+         if (query_admin(name)) {
             cpriv = "system:"+cpriv;
          }
 

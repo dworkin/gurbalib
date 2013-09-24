@@ -55,7 +55,7 @@ static void tell_them(string str, string *words, string lang, string *words2) {
 	 for (k = 0; k < imax; k++) {
              x = random(100) + 1;
              if ((usr[i]->query_language() == lang) || 
-                usr[i]->query_wizard() ||
+                query_wizard(usr[i]) ||
                 (x < usr[i]->query_skill("language/" + lang))) {
                 tmp = tmp + words[k] + " ";
              } else {

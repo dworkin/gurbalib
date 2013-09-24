@@ -107,7 +107,7 @@ static void log_runtime_error(string result, int caught) {
    if (caught) {
       if (player && player->query_name()
          && find_object(USER_D) 
-	 && USER_D->query_wiz(player->query_name())) {
+	 && USER_D->query_wizard(player->query_name())) {
 	 mixed display_caught;
 
 	 display_caught = player->query_env("display_caught");
@@ -133,7 +133,7 @@ static void log_runtime_error(string result, int caught) {
       }
       write_file("/logs/errors/runtime", result + "\n");
       if (player && find_object(USER_D)) {
-	 if (USER_D->query_wiz(player->query_name()) == 1) {
+	 if (USER_D->query_wizard(player->query_name()) == 1) {
 	    write("%^RED%^Runtime error: %^RESET%^" +
 	       "%^CYAN%^" + (verbose ? result : lines[0]) + "%^RESET%^");
 	 } else {
@@ -200,7 +200,7 @@ void compile_error(string file, int line, string err) {
    usr = this_user();
    if (usr) {
       if (usr->query_player() && find_object(USER_D)) {
-	 if (USER_D->query_wiz(usr->query_player()->query_name()) == 1) {
+	 if (USER_D->query_wizard(usr->query_player()->query_name()) == 1) {
 	    write("%^RED%^Compiler error:%^RESET%^\n" +
 	       "%^YELLOW%^" + error + "%^RESET%^");
 	 } else {

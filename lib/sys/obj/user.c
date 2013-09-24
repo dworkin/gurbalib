@@ -226,11 +226,11 @@ void restore_privs() {
 
    privs = "";
 
-   if(USER_D->query_admin(user_name)) {
+   if(query_admin(user_name)) {
       privs += "system:";
    }
 
-   if(USER_D->query_wiz(user_name)) {
+   if(query_wizard(user_name)) {
       int i,sz;
       string *dn;
 

@@ -58,8 +58,30 @@ void user_d_v2() {
    if (ROOT()) privs = nil;
 }
 
+/*
+ * Since we are in kernel space, we don't have the query_wizard afun
+ * available. The function below just serves as a redirect to an
+ * object that does have it available and that should always exist
+ * once the mud booted.
+ *
+ * This is required for /kernel/sys/driver.c which doesn't
+ * know about user_d, and which shouldn't depend on anything outside
+ * /kernel
+ *
+ * This is why we must check first if USER_D is loaded, this code 
+ * can be called very early during boot if an error occurs.
+ *
+ */
+int query_wizard(mixed p) {
+   if (find_object(USER_D)) {
+      return USER_D->query_wizard(p);
+   }
+   /* we don't know about wizards without USER_D, be safe */
+   return 0;
+}
+
 string *query_wizards() {
-   return filter_array(USER_D->list_all_users(), "query_wiz", USER_D);
+   return filter_array(USER_D->list_all_users(), "query_wizard");
 }
 
 string *known_names() {
@@ -95,7 +117,7 @@ int query_priv_type(string p) {
       }
    /* note, there is nothing special about the privilege with the 
       name of an admin */
-   } else if (USER_D->query_wiz(p)) {
+   } else if (query_wizard(p)) {
       if (USER_D->player_exists(p)) {
          r = PT_WIZARD;
       } else {
@@ -216,7 +238,7 @@ string owner_file(string file) {
 	 return "game";
 	 break;
       case "wiz":
-         if (sizeof(parts) > 1 && USER_D->query_wiz(parts[1])) {
+         if (sizeof(parts) > 1 && query_wizard(parts[1])) {
             return parts[1];
          } else {
             return "game";

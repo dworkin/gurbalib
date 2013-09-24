@@ -1,4 +1,5 @@
-int query_wizard(mixed player) {
+nomask int query_wizard(mixed player) {
+   int p;
 
    if (objectp(player)) {
       if (!player <-"/sys/obj/player") {
@@ -9,5 +10,6 @@ int query_wizard(mixed player) {
       argcheck(stringp(player), 1, "player object or string");
    }
 
-   return USER_D->query_wiz(player);
+   p = query_user_priv(player);
+   return (p == ADMIN_L || p == WIZ_L);
 }
