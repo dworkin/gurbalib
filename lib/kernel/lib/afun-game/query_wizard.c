@@ -10,6 +10,6 @@ nomask int query_wizard(mixed player) {
       argcheck(stringp(player), 1, "player object or string");
    }
 
-   p = query_user_priv(player);
+   p = query_user_type(player);
    return (p == ADMIN_L || p == WIZ_L);
 }

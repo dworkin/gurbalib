@@ -165,7 +165,8 @@ int chan_join(string chan, object ob) {
    }
 
    if (channels[chan] < READ_ONLY) {
-      if (query_user_priv(ob->query_name()) < channels[chan] - 1) {
+      /* XXX need to rethink this */
+      if (query_user_type(ob->query_name()) < channels[chan] - 1) {
 	 write("No such channel.\n");
 	 return 0;
       }
@@ -539,14 +540,14 @@ int query_channel(string chan) {
 	 return 1;
       if (guilds[chan]) {
 	 /* Guild channel */
-	 if (query_user_priv(this_player()->query_name()) > 0) {
+	 if (query_user_type(this_player()->query_name()) > 0) {
 	    /* A wiz can subscribe to all channels */
 	    return 1;
 	 } else {
 	    return (this_player()->guild_member(guilds[chan]));
 	 }
       }
-      if (query_user_priv(this_player()->query_name()) >= channels[chan] - 1)
+      if (query_user_type(this_player()->query_name()) >= channels[chan] - 1)
 	 return 1;
       else
 	 return 0;

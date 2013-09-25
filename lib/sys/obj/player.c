@@ -126,7 +126,7 @@ void login_player(void) {
    restore_privs();
 
    /* If we're a wiz, show the didlog since last login */
-   if (query_user_priv(living_name) > 0) {
+   if (query_user_type(living_name) > 0) {
       didlog = DID_D->get_entries(last_login);
 
       if (didlog) {
@@ -1067,7 +1067,7 @@ void receive_message(string message) {
 	 if (CHANNEL_D->query_channel(cmd) == 1) {
 	    /* Okey, it's a channel. Are we priveleged enough to use it? */
 	    if (CHANNEL_D->query_priv(cmd) + 1 == READ_ONLY ||
-	       CHANNEL_D->query_priv(cmd) <= query_user_priv(living_name)) {
+	       CHANNEL_D->query_priv(cmd) <= query_user_type(living_name)) {
 
 	       flag = 1;
 	       command("chan", cmd + " " + arg);

@@ -287,7 +287,7 @@ static int _new_user(string name, string secret, object u) {
       u->set_property("auto_wiz",1);
 #endif
    } else {
-      ob->set_priv(PLAYER_L);
+      ob->set_type(PLAYER_L);
    }
 
    return 1;
@@ -610,7 +610,7 @@ int restore_privs(string name) {
    }
 }
 
-int set_priv(string name, int priv) {
+int set_type(string name, int priv) {
    object ob;
 
    secure();
@@ -618,17 +618,17 @@ int set_priv(string name, int priv) {
    ob = get_data_ob(name);
 
    if (ob) {
-      ob->set_priv(priv);
+      ob->set_type(priv);
       restore_privs(name);
       return 1;
    }
 }
 
-int query_priv(string name) {
+int query_type(string name) {
    object ob;
 
    ob = get_data_ob(name);
-   if (ob) return ob->query_priv();
+   if (ob) return ob->query_type();
 }
 
 static string get_player_name(object p) {
@@ -688,7 +688,7 @@ static void convert_users() {
             if (data_version < 2) {
                sscanf(names[i], "%s.o", n);
                console_msg("Moving user " + n + " from secure_d to user_d\n");
-               set_priv(n, SECURE_D->query_priv(n));
+               set_type(n, SECURE_D->query_priv(n));
             }
          } : {
             console_msg("WARNING: " + caught_error() + " while converting " + n + "\n");
@@ -763,7 +763,7 @@ void make_mortal(string name) {
 
    name = lowercase(name);
    if (user_exists(name)) {
-      set_priv(name, PLAYER_L);
+      set_type(name, PLAYER_L);
       player = find_player(name);
       if (!player) {
          /* Player not active now, load him in and add his paths. */
@@ -810,7 +810,7 @@ void make_wizard(string name) {
 
    name = lowercase(name);
    if (user_exists(name)) {
-      set_priv(name, WIZ_L);
+      set_type(name, WIZ_L);
       player = find_player(name);
       if (!player) {
          /* Player not active now, load him in and add his paths. */
@@ -859,7 +859,7 @@ void make_admin(string name) {
 
    name = lowercase(name);
    if (user_exists(name)) {
-      set_priv(name, ADMIN_L);
+      set_type(name, ADMIN_L);
       player = find_player(name);
       if (!player) {
          /* Player not active now, load him in and add his paths. */

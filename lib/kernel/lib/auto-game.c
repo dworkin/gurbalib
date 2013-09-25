@@ -92,7 +92,7 @@ private object secure_d;
  * Allow game objects to query user privileges by object or name
  */
 
-#include "afun-game/query_user_priv.c"
+#include "afun-game/query_user_type.c"
 #include "afun-game/query_wizard.c"
 #include "afun-game/query_admin.c"
 #include "afun-game/query_mortal.c"

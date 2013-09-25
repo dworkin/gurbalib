@@ -1,4 +1,4 @@
-nomask static int query_user_priv(mixed player) {
+nomask static int query_user_type(mixed player) {
 
    if (objectp(player)) {
       if (!player <-PLAYER_OB && !player <-USER_OB) {
@@ -9,5 +9,5 @@ nomask static int query_user_priv(mixed player) {
       argcheck(stringp(player), 1, "player object or string");
    }
 
-   return USER_D->query_priv(player);
+   return USER_D->query_type(player);
 }

@@ -7,6 +7,12 @@ string password;
 int    priv;
 
 static void secure() {
+   /* 
+    * Checking previous_program() is cheap, require_priv isn't.
+    * Since we are normally only called from USER_D, this will
+    * save on a lot of overhead. USER_D could lie about any data
+    * in here to the rest of the lib anyway, so we just trust it.
+    */
    if (previous_program(1) != USER_D && !require_priv("system")) {
       error("Access denied.");
    }
@@ -14,6 +20,7 @@ static void secure() {
 
 static void save_me() {
    if (name != "guest") {
+      /* unguarded so a user can save its own data */
       unguarded("save_object", AUTH_DATA_DIR + "/" + name + ".o");
    }
 }
@@ -28,6 +35,7 @@ int load(string str) {
    priv = 0;
    name = password = nil;
 
+   /* we are either called from USER_D, or did a require_priv("system") already */
    return unguarded("restore_object", file);
 }
 
@@ -51,13 +59,13 @@ void set_pass(string user, string str) {
    save_me();
 }
 
-void set_priv(int i) {
+void set_type(int i) {
    secure();
 
    priv = i;
    save_me();
 }
 
-int query_priv() {
+int query_type() {
    return priv;
 }
