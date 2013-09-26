@@ -13,6 +13,6 @@ RETURN VALUE
 
 SEE ALSO
 	cat_file, copy, editor, get_dir, make_dir, read_file, rename_file, 
-	remove_dir, remove_file, restore_object, save_object, valid,
+	remove_file, restore_object, save_object, valid,
 	valid_read, valid_write, write_file
 

@@ -14,5 +14,5 @@ RETURN VALUE
 	Returns the object.  If the object does not exist return nil.
 
 SEE ALSO
-	clone_object, compile_library, compile_object
+	clone_object, compile_library, compile_object, destruct_object
 

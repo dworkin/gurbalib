@@ -1,0 +1,16 @@
+NAME
+	destruct_object - destroys an object
+
+SYNOPSIS
+	nomask void destruct_object(object obj)
+
+DESCRIPTION
+	Remove an object from the running system.  Anything like a variable
+	pointing to the object will become nil.
+	
+
+	For more info on objects see /doc/misc/objects.
+
+SEE ALSO
+	clone_object, compile_library, compile_object, find_object
+

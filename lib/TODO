@@ -57,8 +57,6 @@ write a showtree command that shows an objects inherit list?
 
 Add [link-dead] stuff to who maybe also last?
 
-look for non living obj->query_Name() calls...
-
 chan dgd /bingo   writes /bingo to the channel should change it so that
 you don't send unintended commands to the channel.  Need to think about
 the best way to do it.  I'm thinking chan /command channel instead but
@@ -67,9 +65,3 @@ need to look at it closer.
 Fix give jacket to sirdude so it tells sirdude blah gives a jacket to you.
 instead of blah gives a jacket to sirdude.
 
-Ask about: query_mortal.c, query_user_priv.c
-	seems odd that call query_priv in obj if it exists???
-	why declare static?
-	should maybe make others nomask  query_wizard for example...
-
-move copy afun to copy_file? 
