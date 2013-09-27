@@ -24,7 +24,7 @@ void setup() {
 }
 
 /* 
-   XXX Quest for Orc slayer?
+   XXX finish Quest for Orc slayer?
    XXX Give user a castle if they ask for one....
 */
 
@@ -33,5 +33,17 @@ void do_extra_actions() {
    if (count >= INTERVAL) {
       respond("smile");
       count = 0;
+   }
+}
+
+int do_quest(string arg) {
+   if (this_player()->is_completed_quest("Orc Slayer")) {
+      return 0;
+   } else {
+      this_player()->add_completed_quest("Orc Slayer");
+      this_player()->increase_expr(200);
+      write("Congratulations!!! You have just completed the Orc Slayer " +
+         "quest.\n");
+      return 1;
    }
 }
