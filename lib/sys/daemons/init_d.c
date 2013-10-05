@@ -33,6 +33,7 @@ private string *get_default_objects() {
       LANGUAGE_D, 
       EMOTE_D,
       PARSE_D, 
+      QUEST_D,
       STARTING_ROOM
    } );
    return objects;

@@ -21,6 +21,10 @@ void setup() {
    set_spell_chance(50);
    set_spell_damage(30);
    set_spell_message("Leo casts a blazing fireball at $t.\n");
+
+/*
+   EVENT_D->subscribe_event("do_give");
+*/
 }
 
 /* 
@@ -36,14 +40,17 @@ void do_extra_actions() {
    }
 }
 
-int do_quest(string arg) {
-   if (this_player()->is_completed_quest("Orc Slayer")) {
+int do_give(object what, object who) {
+   if (what->base_name() != DIR + "obj/gold_staff") {
+      return 0;
+   }
+   if (who->is_completed_quest("Orc Slayer")) {
       return 0;
    } else {
-      this_player()->add_completed_quest("Orc Slayer");
-      this_player()->increase_expr(200);
-      write("Congratulations!!! You have just completed the Orc Slayer " +
-         "quest.\n");
+      who->add_completed_quest("Orc Slayer");
+      who->increase_expr(200);
+      who->message("Congratulations!!! You have just completed the " +
+         "Orc Slayer quest.\n");
       return 1;
    }
 }

@@ -1,6 +1,6 @@
 mapping quests, levels;
 
-#define DATAFILE "/daemons/data/quest.o"
+#define DATAFILE "/daemons/data/quest_d.o"
 
 int add_quest(string name, int level, string domain) {
    int i, max, index;
@@ -64,7 +64,15 @@ void create(void) {
    } else {
       quests = ([]);
       levels = ([]);
-      add_quest("NewbieVille",1,"newbie");
+
+      if (file_exists("/domains/newbie/rooms/quest.c")) {
+         add_quest("NewbieVille",1,"newbie");
+      }
+
+      if (file_exists("/domains/2.4.5/monsters/leo.c")) {
+         add_quest("Orc Slayer",2,"2.4.5");
+      }
+
       save_me();
    }
 }
