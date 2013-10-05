@@ -12,4 +12,6 @@ RETURN VALUE
 	If the path is not absolute, return 0.
 
 SEE ALSO
+	afun/base_name, afun/clone_num, afun/file_name, kfun/object_name,
+	afun/path_file, afun/wiz_dir
 

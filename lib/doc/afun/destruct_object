@@ -12,5 +12,6 @@ DESCRIPTION
 	For more info on objects see /doc/misc/objects.
 
 SEE ALSO
-	clone_object, compile_library, compile_object, find_object
+	afun/clone_object, afun/compile_library, afun/compile_object,
+	afun/find_object
 

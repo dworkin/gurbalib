@@ -11,5 +11,6 @@ RETURN VALUE
 	Returns a string representing the value of arg.
 
 SEE ALSO
-	arrayp, floatp, intp, stringp, objectp, mappingp, nilp
+	afun/arrayp, afun/floatp, afun/functionp, afun/intp, afun/mappingp,
+	afun/nilp, afun/objectp, afun/stringp
 

@@ -11,5 +11,5 @@ DESCRIPTION
 	the message is wrapped, and than it is sent to this_player().
 
 SEE ALSO
-	out, out_unmod
+	afun/out, afun/out_unmod
 

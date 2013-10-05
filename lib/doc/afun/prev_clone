@@ -14,5 +14,5 @@ RETURN VALUE
 	Returns nil if called on the master.
 
 SEE ALSO
-	num_clones, next_clone, query_cloner
+	afun/num_clones, afun/next_clone, afun/query_cloner
 

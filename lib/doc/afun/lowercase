@@ -11,5 +11,5 @@ RETURN VALUE
 	A new, converted string is returned.
 
 SEE ALSO
-	uppercase, capitalize
+	afun/uppercase, afun/capitalize
 

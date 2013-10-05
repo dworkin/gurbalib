@@ -11,5 +11,6 @@ RETURN VALUE
 	Returns 1 if 'arg' is nil, 0 otherwise.
 
 SEE ALSO
-	arrayp, floatp, functionp, intp, stringp, objectp, nilp
+	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp, afun/intp,
+	afun/mappingp, afun/objectp, afun/stringp
 

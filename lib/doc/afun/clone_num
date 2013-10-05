@@ -14,5 +14,6 @@ RETURN VALUE
 	unique to that clone.
 
 SEE ALSO
-	base_name, file_name, kfun/object_name, path_file, wiz_dir
+	afun/absolute_path, afun/base_name, afun/clone_num, afun/file_name, 
+	kfun/object_name, afun/path_file, afun/wiz_dir
 

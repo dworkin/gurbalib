@@ -11,6 +11,6 @@ RETURN VALUE
 	Returns 1 if 'arg' is an admin player object, 0 otherwise.
 
 SEE ALSO
-	query_mortal, query_wizard
+	afun/query_mortal, afun/query_wizard
 
 

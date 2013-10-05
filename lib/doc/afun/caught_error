@@ -14,5 +14,5 @@ RETURN VALUE
 	otherwise.
 
 SEE ALSO
-	catch
+	afun/catch afun/rethrow
 

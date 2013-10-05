@@ -10,5 +10,5 @@ DESCRIPTION
 	wrapped.
 
 SEE ALSO
-	out, write
+	afun/out, afun/write
 

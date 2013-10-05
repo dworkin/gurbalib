@@ -12,5 +12,6 @@ RETURN VALUE
 	If not found, then -1 is returned.
 
 SEE ALSO
-	filter_array, map_array, member_map, split_array, uniq_array
+	afun/filter_array, afun/map_array, afun/member_map, afun/split_array,
+	afun/uniq_array
 

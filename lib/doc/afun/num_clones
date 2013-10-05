@@ -14,5 +14,5 @@ RETURN VALUE
 	Returns the number of clones of an object
 
 SEE ALSO
-	next_clone, prev_clone, query_cloner
+	afun/next_clone, afun/prev_clone, afun/query_cloner
 

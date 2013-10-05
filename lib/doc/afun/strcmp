@@ -11,5 +11,5 @@ RETURN VALUE
 	string two, -1 if string one is smaller then string two.
 
 SEE ALSO
-	replace_string, strstr, str2val
+	afun/replace_string, afun/strstr, afun/str2val
 

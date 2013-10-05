@@ -11,6 +11,8 @@ DESCRIPTION
 	variables.  An error will occur if there is a problem saving the file.
 		
 SEE ALSO
-        cat_file, copy, editor, get_dir, make_dir, read_file, rename_file, 
-	remove_dir, remove_file, restore_object, valid, valid_read, 
-	valid_write, write_file
+	afun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
+	afun/read_file, afun/rename_file, afun/remove_dir, afun/remove_file,
+	afun/require_priv, afun/restore_object, afun/unguarded, 
+	afun/valid, afun/valid_read, afun/valid_write, afun/write_file
+

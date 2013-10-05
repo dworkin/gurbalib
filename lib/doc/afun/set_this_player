@@ -8,6 +8,7 @@ DESCRIPTION
 	Sets the return value of this_player() to ob.  
 
 SEE ALSO
-	players, this_body, this_connection, this_environment, this_player,
-	this_program, this_race, this_user
+	afun/players, afun/this_body, afun/this_connection, 
+	afun/this_environment, afun/this_player, afun/this_program, 
+	afun/this_race, afun/this_user
 

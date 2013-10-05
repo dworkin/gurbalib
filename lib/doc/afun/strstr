@@ -13,5 +13,5 @@ RETURN VALUE
 	Index where what was found in str, or else -1.
 
 SEE ALSO
-	replace_string, strcmp, str2val
+	afun/replace_string, afun/strcmp, afun/str2val
 

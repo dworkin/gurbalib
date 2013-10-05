@@ -27,5 +27,5 @@ EXAMPLE
 	caught at all. Execution will stop after this.
 
 SEE ALSO
-	catch, caught_error
+	afun/catch, afun/caught_error
 

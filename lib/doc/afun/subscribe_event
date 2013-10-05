@@ -10,5 +10,5 @@ DESCRIPTION
 	object ob. The event must have been added by 'ob' first.
 
 SEE ALSO
-	afun/event, afun/add_event, afun/remove_event, afun/unsubscribe_event
+	afun/add_event, afun/event, afun/remove_event, afun/unsubscribe_event
 

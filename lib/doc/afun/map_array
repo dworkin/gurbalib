@@ -15,5 +15,6 @@ RETURN VALUE
 	arr mapped through ob->fun(elem, extra).
 
 SEE ALSO
-	filter_array, member_array, member_map, split_array, uniq_array
+	afun/filter_array, afun/member_array, afun/member_map,
+	afun/split_array, afun/uniq_array
 

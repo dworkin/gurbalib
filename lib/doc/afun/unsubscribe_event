@@ -9,5 +9,5 @@ DESCRIPTION
 	in the object ob.
 
 SEE ALSO
-	afun/event, afun/add_event, afun/remove_event, afun/subscribe_event
+	afun/add_event, afun/event, afun/remove_event, afun/subscribe_event
 

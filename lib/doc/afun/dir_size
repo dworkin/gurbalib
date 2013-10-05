@@ -12,4 +12,5 @@ RETURN VALUE
 	Size of files in path.
 
 SEE ALSO
-	file_size
+	afun/file_size, afun/file_exists
+

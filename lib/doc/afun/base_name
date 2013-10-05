@@ -8,5 +8,6 @@ DESCRIPTION
 	Returns the base, non-clone object path of this_object().
 
 SEE ALSO
-	clone_num, file_name, kfun/object_name, path_file, wiz_dir
+	afun/absolute_path, afun/base_name, afun/clone_num, afun/file_name, 
+	kfun/object_name, afun/path_file, afun/wiz_dir
 

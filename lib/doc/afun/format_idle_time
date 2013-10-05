@@ -14,5 +14,5 @@ RETURN VALUE
         Returns a string expressing an elapsed amount of time.
 
 SEE ALSO
-        format_time
+	afun/format_time
 

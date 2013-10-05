@@ -14,5 +14,5 @@ RETURN VALUE
 	called on a 'blueprint'.
 
 SEE ALSO
-	next_clone, prev_clone, num_clones
+	afun/next_clone, afun/prev_clone, afun/num_clones
 

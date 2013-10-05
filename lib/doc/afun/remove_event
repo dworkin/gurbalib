@@ -11,5 +11,6 @@ DESCRIPTION
 	event is removed, and objects can no longer subscribe to it.
 
 SEE ALSO
-	event, add_event, subscribe_event, unsubscribe_event
+	afun/add_event, afun/event, afun/subscribe_event, 
+	afun/unsubscribe_event
 

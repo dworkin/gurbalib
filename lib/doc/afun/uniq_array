@@ -12,5 +12,6 @@ EXAMPLES
 	uniq_array(({ 1,2,2,3,3,3 })) returns ({ 1,2,3 })
 
 SEE ALSO
-	filter_array, map_array, member_array, member_map, split_array
+	afun/filter_array, afun/map_array, afun/member_array, afun/member_map,
+	afun/split_array
         

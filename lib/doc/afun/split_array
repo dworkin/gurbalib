@@ -25,5 +25,6 @@ RETURN VALUE
 	nothing respectively.
 
 SEE ALSO
-	filter_array, map_array, member_array, member_map, uniq_array
+	afun/filter_array, afun/map_array, afun/member_array, afun/member_map,
+	afun/uniq_array
 

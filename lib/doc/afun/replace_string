@@ -12,5 +12,5 @@ RETURN VALUE
 	Returns the modified string.
 
 SEE ALSO
-	strcmp, strstr, str2val
+	afun/strcmp, afun/strstr, afun/str2val
 

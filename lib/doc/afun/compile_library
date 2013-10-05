@@ -18,5 +18,6 @@ RETURN VALUE
 	Returns 1 on success and 0 on failure.
 
 SEE ALSO
-	clone_object, compile_object, destruct_object, find_object
+	afun/clone_object, afun/compile_object, afun/destruct_object, 
+	afun/find_object
 

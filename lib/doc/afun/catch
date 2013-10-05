@@ -79,5 +79,5 @@ RETURN VALUE
 	A string with the error in case of a runtime error, nil otherwise.
 
 SEE ALSO
-	caught_error, rethrow
+	afun/caught_error, afun/rethrow
 

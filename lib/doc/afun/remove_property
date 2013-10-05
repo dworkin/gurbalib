@@ -6,11 +6,11 @@ SYNOPSIS
 
 DESCRIPTION
 	removes the named property with its access controls.
-        See lib/doc/misc/properties for more details.
 
 RETURN VALUE
 	Returns 1 on success or 0 when privilege checks do not allow the 
 	changes.
 
 SEE ALSO
-	property, set_property, properties
+	afun/property, misc/properties, afun/set_property
+

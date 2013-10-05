@@ -13,4 +13,4 @@ RETURN VALUE
 	not a number.
 
 SEE ALSO
-	 replace_string, strcmp, strstr
+	afun/replace_string, afun/strcmp, afun/strstr

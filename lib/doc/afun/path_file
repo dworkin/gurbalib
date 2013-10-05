@@ -21,4 +21,6 @@ EXAMPLES
 	str = ""; return = ({ "", "" })
 
 SEE ALSO
-	base_name, clone_num, file_name, kfun/object_name, wiz_dir
+	afun/absolute_path, afun/base_name, afun/clone_num, afun/file_name, 
+	kfun/object_name, afun/wiz_dir
+

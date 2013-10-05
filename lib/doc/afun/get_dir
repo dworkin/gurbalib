@@ -13,7 +13,7 @@ RETURN VALUE
 	Returns 1 on success and 0 on failure.
 
 SEE ALSO
-	cat_file, copy, editor, make_dir, read_file, rename_file, 
-	remove_dir, remove_file, restore_object, save_object, valid,
-	valid_read, valid_write, write_file
-
+	afun/cat_file, afun/copy, afun/editor, afun/make_dir, afun/read_file,
+	afun/rename_file, afun/remove_dir, afun/remove_file, afun/require_priv,
+	afun/restore_object, afun/save_object, afun/unguarded, afun/valid,
+	afun/valid_read, afun/valid_write, afun/write_file

@@ -12,6 +12,7 @@ RETURN VALUE
 	A race object, or else the function which called this_race.
 
 SEE ALSO
-	players, set_this_player, this_body, this_connection, 
-	this_environment, this_player, this_program, this_user
+	afun/players, afun/set_this_player, afun/this_body, 
+	afun/this_connection, afun/this_environment, afun/this_player,
+	afun/this_program, afun/this_user
 

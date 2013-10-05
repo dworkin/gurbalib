@@ -12,6 +12,7 @@ RETURN VALUE
 	The object representing the current player is returned.
 
 SEE ALSO
-	players, set_this_player, this_body, this_connection, 
-	this_environment, this_program, this_race, this_user
+	afun/players, afun/set_this_player, afun/this_body,
+	afun/this_connection, afun/this_environment, afun/this_program,
+	afun/this_race, afun/this_user
 
