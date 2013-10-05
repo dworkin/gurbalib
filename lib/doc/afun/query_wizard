@@ -11,5 +11,4 @@ RETURN VALUE
 	Returns 1 if 'arg' is a wizard player object, 0 otherwise.
 
 SEE ALSO
-	afun/query_mortal, afun/query_admin
-
+	afun/query_admin, afun/query_mortal, afun/query_user_type
