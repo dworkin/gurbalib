@@ -14,5 +14,5 @@ NOTES
         This afun only exists for code outside /kernel
 
 SEE ALSO
-        set_tlvar, tls
+        afun/notify_fail, afun/query_notify_fail, afun/set_tlvar, misc/tls
 

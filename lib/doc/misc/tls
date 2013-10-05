@@ -51,4 +51,5 @@ various purposes.
   If the answer to 3 is no, you cannot use a tls variable. Otherwise, if
   2 out of 3 questions get a yes, consider using a tls variable.
 
-  see the get_tlvar and set_tlvar for more information.
+SEE ALSO
+	afun/get_tlvar afun/set_tlvar
