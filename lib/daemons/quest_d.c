@@ -2,6 +2,14 @@ mapping quests, levels;
 
 #define DATAFILE "/daemons/data/quest_d.o"
 
+static void restore_me(void) {
+   unguarded("restore_object", DATAFILE);
+}
+
+static void save_me(void) {
+   unguarded("save_object", DATAFILE);
+}
+
 int add_quest(string name, int level, string domain) {
    int i, max, index;
    string *keys;
@@ -14,6 +22,7 @@ int add_quest(string name, int level, string domain) {
    /* Add mapping values */
    levels[name] = level;
    quests[name] = domain;
+   save_me();
    return 1;
 }
 
@@ -28,6 +37,7 @@ int remove_quest(string name) {
    if (quests[name]) {
       levels[name] = nil;
       quests[name] = nil;
+      save_me();
       return 1;
    }
    return 0;
@@ -50,14 +60,6 @@ void list_quests(object thisp) {
    }
 }
 
-static void restore_me(void) {
-   unguarded("restore_object", DATAFILE);
-}
-
-static void save_me(void) {
-   unguarded("save_object", DATAFILE);
-}
-
 void create(void) {
    if (file_exists(DATAFILE)) {
       restore_me();
@@ -72,8 +74,6 @@ void create(void) {
       if (file_exists("/domains/2.4.5/monsters/leo.c")) {
          add_quest("Orc Slayer",2,"2.4.5");
       }
-
-      save_me();
    }
 }
 

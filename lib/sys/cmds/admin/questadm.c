@@ -16,8 +16,7 @@ void usage() {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tquestadm remove NewbieVille" });
-   lines += ({ "\tquestadm add NewbieVille 1 sirdude" });
-   lines += ({ "\tquestadm add NewbieVille 1 sirdude,fudge" });
+   lines += ({ "\tquestadm add NewbieVille 1 newbie" });
    lines += ({ "See also:" });
    lines += ({ "\taliasadm, coloradm, emoteadm, quests, skilladm, skills" });
 

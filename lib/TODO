@@ -44,8 +44,6 @@ Document objects and rooms and monters.
 
 Need to convert Monster item_command stuff to object_commands
 
-Figure out why questadm doesn't save on shutdown, or killing the driver?
-
 chan, and mudlist shouldn't return cached stuff if not connected?
 
 locate username   (for finding people on other muds, i3locate in dead souls)
