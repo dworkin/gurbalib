@@ -1,0 +1,18 @@
+NAME
+	list_is_sentinel - Check to see if the specified object is the
+	sentinel for the given list.
+
+SYNOPSIS
+	int list_is_sentinel(string list)
+
+DESCRIPTION
+	Check to see if this_object() is the sentinel for the specified list.
+
+RETURN VALUE
+	Return 1 on success, 0 on failure.
+
+SEE ALSO
+	afun/get_list, afun/set_list, afun/list_append, afun/list_insert,
+	afun/list_new, afun/list_next, afun/list_prepend, afun/list_prev,
+	afun/list_remove, afun/list_sentinel, misc/lists
+

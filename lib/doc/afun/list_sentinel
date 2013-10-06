@@ -1,0 +1,17 @@
+NAME
+	list_sentinel - Get the sentinel for a given list.
+
+SYNOPSIS
+	object list_sentinel(string list)
+
+DESCRIPTION
+	Get the sentinel object of a given list.
+
+RETURN VALUE
+	Return the requested object or nil if there is no sentinel.
+
+SEE ALSO
+	afun/get_list, afun/set_list, afun/list_append, afun/list_insert,
+	afun/list_new, afun/list_next, afun/list_prepend, afun/list_prev,
+	afun/list_remove, afun/list_is_sentinel, misc/lists
+
