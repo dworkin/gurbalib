@@ -52,4 +52,5 @@ various purposes.
   2 out of 3 questions get a yes, consider using a tls variable.
 
 SEE ALSO
-	afun/get_tlvar afun/set_tlvar
+	afun/get_otlvar, afun/get_tlvar, afun/notify_fail,
+	afun/query_notify_fail, afun/set_otlvar, afun/set_tlvar
