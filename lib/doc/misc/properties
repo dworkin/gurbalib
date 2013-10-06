@@ -25,4 +25,4 @@ information, setting a property to nil is not the same as
 removing the property.
 
 SEE ALSO
-        property, set_property, remove_property
+        afun/property, afun/set_property, afun/remove_property
