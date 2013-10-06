@@ -8,9 +8,9 @@ DESCRIPTION
 	Return the name of the current program.
 
 SEE ALSO
-	afun/players, afun/set_this_player, afun/this_body, 
+	afun/call_trace, afun/players, afun/set_this_player, afun/this_body, 
 	afun/this_connection, afun/this_environment, afun/this_player, 
 	afun/this_race, afun/this_user,
 
-XXX  kfun/previous_object, kfun/previous_program, kfun/call_trace
+XXX  kfun/previous_object, kfun/previous_program
 

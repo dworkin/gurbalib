@@ -12,5 +12,6 @@ RETURN VALUE
 	The name of the calling function.
 
 SEE ALSO
-	kfun/previous_object, kfun/previous_program, kfun/call_trace
+
+	kfun/previous_object, kfun/previous_program
 

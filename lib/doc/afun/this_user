@@ -14,7 +14,7 @@ RETURN VALUE
 	The object representing the current user is returned.
 
 SEE ALSO
-	afun/players, afun/set_this_player, afun/this_body, 
+	afun/call_trace, afun/players, afun/set_this_player, afun/this_body, 
 	afun/this_connection, afun/this_environment, afun/this_player,
 	afun/this_program, afun/this_race
 

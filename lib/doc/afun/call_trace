@@ -1,0 +1,18 @@
+NAME
+	call_trace - return a function trace.
+
+SYNOPSIS
+	static mixed call_trace()
+
+DESCRIPTION
+	Returns an array of elements that are a trace of a given function.
+	See kernel/include/trace.h for a description of the fields in the
+	array.
+
+SEE ALSO
+	afun/call_trace, afun/players, afun/set_this_player, afun/this_body, 
+	afun/this_connection, afun/this_environment, afun/this_player, 
+	afun/this_program, afun/this_race, afun/this_user,
+
+XXX  kfun/previous_object, kfun/previous_program
+
