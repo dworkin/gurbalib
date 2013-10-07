@@ -16,7 +16,7 @@ void usage() {
    lines += ({ "\tchfn real Kent Mein" });
    lines += ({ "\tchfn email mein@cs.umn.edu" });
    lines += ({ "See also:" });
-   lines += ({ "\talias, ansi, describe, ignore, passwd" });
+   lines += ({ "\talias, ansi, clear, describe, ignore, passwd" });
 
    if (query_admin(this_player())) {
       lines += ({ "\tcoloradm" });

@@ -14,7 +14,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tignore sirdude" });
    lines += ({ "See also:" });
-   lines += ({ "\talias, ansi, describe, chfn, passwd" });
+   lines += ({ "\talias, ansi, chfn, clear, describe, passwd" });
 
    if (query_admin(this_player())) {
       lines += ({ "\tcoloradm" });

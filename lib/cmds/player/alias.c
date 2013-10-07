@@ -14,7 +14,7 @@ void usage() {
     lines += ({ "\talias ga get all" });
     lines += ({ "\talias da drop all" });
     lines += ({ "See also:" });
-    lines += ({ "\tansi, describe, chfn, ignore, passwd" });
+    lines += ({ "\tansi, chfn, clear, describe, ignore, passwd" });
 
     if (query_admin(this_player())) {
 	lines += ({ "\tcmdadm, coloradm, rehash" });

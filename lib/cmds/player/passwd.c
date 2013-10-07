@@ -24,7 +24,7 @@ void usage() {
    }
 
    lines += ({ "See also:" });
-   lines += ({ "\talias, ansi, chfn, describe, ignore" });
+   lines += ({ "\talias, ansi, chfn, clear, describe, ignore" });
 
    if (query_admin(this_player())) {
       lines += ({ "\tcoloradm" });

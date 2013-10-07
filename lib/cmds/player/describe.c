@@ -14,7 +14,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tdescribe The unassuming little elf." });
    lines += ({ "See also:" });
-   lines += ({ "\talias, ansi, chfn, ignore, passwd" });
+   lines += ({ "\talias, ansi, chfn, clear, ignore, passwd" });
 
    if (query_admin(this_player())) {
       lines += ({ "\tcoloradm" });

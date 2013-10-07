@@ -25,7 +25,7 @@ void usage() {
     lines += ({ "\tansi on" });
     lines += ({ "\tansi show" });
     lines += ({ "See also:" });
-    lines += ({ "\talias, describe, chfn, ignore, passwd" });
+    lines += ({ "\talias, chfn, clear, describe, ignore, passwd" });
 
     if (query_admin(this_player())) {
 	lines += ({ "\tcoloradm" });
