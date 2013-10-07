@@ -440,6 +440,7 @@ void message_orig(string str) {
 
 void write_prompt() {
    string prompt;
+   string date;
 
    if (this_object()->is_editing()) {
       out("%^GREEN%^edit> %^RESET%^");
@@ -450,11 +451,14 @@ void write_prompt() {
    if (!prompt) {
       prompt = "> ";
    } else {
+      date = ctime(time());
+      prompt = replace_string(prompt, "%d", date[4..10] + date[20..23]);
       prompt = replace_string(prompt, "%t", ctime(time())[11..18]);
       prompt = replace_string(prompt, "%n", capitalize(living_name));
       prompt = replace_string(prompt, "%m", MUD_NAME);
       prompt = replace_string(prompt, "%w", query_env("cwd"));
       prompt = replace_string(prompt, "%_", "\n");
+
       if (this_environment()) {
 	 prompt = replace_string(prompt, "%l", this_environment()->file_name());
 	 if (!this_environment()->query_area()) {
@@ -468,8 +472,14 @@ void write_prompt() {
 	 prompt = replace_string(prompt, "%a", "(none)");
       }
 
-      prompt = replace_string(prompt, "%h", "" + query_stat("hp"));
-      prompt = replace_string(prompt, "%H", "" + query_stat("max_hp"));
+      prompt = replace_string(prompt, "%h", "" + this_player()->query_hp());
+      prompt = replace_string(prompt, "%H", "" + this_player()->query_max_hp());
+      prompt = replace_string(prompt, "%b", "" + this_player()->query_mana());
+      prompt = replace_string(prompt, "%B", "" + 
+         this_player()->query_max_mana());
+      prompt = replace_string(prompt, "%e", "" + this_player()->query_end());
+      prompt = replace_string(prompt, "%E", "" + 
+         this_player()->query_max_end());
    }
 
    out(prompt + "%^RESET%^ ");

@@ -12,6 +12,7 @@ void usage() {
    lines += ({ "\tstart\t\tyour starting room." });
    lines += ({ "\theight\t\theight of your screen." });
    lines += ({ "\twidth\t\twidth of your screen." });
+   lines += ({ "\tprompt\t\tYour prompt." });
    lines += ({ "\thidden\t\tSet to 1 if you want to hide your login from " +
       "users." });
    lines += ({ "\tautoload\tSet to 1 if you want to save your equipment on " +
