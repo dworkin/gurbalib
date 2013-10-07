@@ -26,3 +26,8 @@ void create(void) {
    set_skill("language/dwarven",100);
    set_skill("value",50);
 }
+
+int has_darkvision() {
+   return 1;
+}
+

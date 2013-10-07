@@ -16,3 +16,7 @@ void create(void) {
    set_language("elvish");
    set_skill("language/elvish",100);
 }
+
+int has_darkvision() {
+   return 1;
+}

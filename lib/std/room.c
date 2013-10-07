@@ -175,10 +175,20 @@ string query_desc(varargs int brief) {
       brief = 0;
    }
 
+   text = "";
+
    if (is_dark()) {
-      return query_dark_msg();
+      if (this_player()->query_race_object()->has_darkvision()) {
+         text += "This room is dark, however, your race allows you to " +
+            "see in the dark.\n";
+      } else if (query_wizard(this_player())) {
+         text += "This room is dark, however, being a wizard allows you to " +
+            "see in the dark.\n";
+      } else {
+         return query_dark_msg();
+      }
    }
-   text = "%^ROOM_NAME%^" + query_short() + "%^RESET%^";
+   text += "%^ROOM_NAME%^" + query_short() + "%^RESET%^";
 
    text += " %^ROOM_EXIT%^[ exits: ";
 
@@ -396,6 +406,7 @@ void message_room(object originator, string str) {
    }
 }
 
+/* XXX handle darkness. */
 void tell_room(object originator, string str, varargs mixed obj ...) {
    int i;
    object *inventory;

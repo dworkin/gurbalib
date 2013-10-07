@@ -12,3 +12,8 @@ void create(void) {
    set_language("catfolk");
    set_skill("language/catfolk",100);
 }
+
+int has_darkvision() {
+   return 1;
+}
+

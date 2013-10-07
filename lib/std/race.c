@@ -32,3 +32,7 @@ string set_language(string str) {
    language = str;
 }
 
+int has_darkvision() {
+   return 0;
+}
+
