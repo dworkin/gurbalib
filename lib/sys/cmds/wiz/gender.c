@@ -3,7 +3,7 @@ inherit M_COMMAND;
 void usage() {
    string *lines;
 
-   lines = ({ "Usage: gender [-h] [male|female]" });
+   lines = ({ "Usage: gender [-h] [male|female|neuter]" });
    lines += ({ " " });
    lines += ({ "Allows you to set your gender." });
    lines += ({ " " });
@@ -36,7 +36,11 @@ static void main(string str) {
       this_player()->set_gender("male");
       write("You are now male.\n");
       this_player()->save_me();
+   } else if (lowercase(str) == "neuter") {
+      this_player()->set_gender("neuter");
+      write("You are now neuter.\n");
+      this_player()->save_me();
    } else {
-      write("Please use \"male\" or \"female\" as argument.\n");
+      write("Please use \"male\", \"female\" or \"neuter\" as an argument.\n");
    }
 }

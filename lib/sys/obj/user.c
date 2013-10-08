@@ -627,7 +627,7 @@ void input_check_passwd(string str) {
       player->input_to_object(this_object(), "input_check_passwd");
    } else {
       if (USER_D->login(user_name, str)) {
-         send_message("\nEnter your gender (male/female) : ");
+         send_message("\nEnter your gender (male/female/neuter) : ");
          send_message(1);
          player->input_to_object(this_object(), "input_get_gender");
       } else {
@@ -643,7 +643,7 @@ void input_check_passwd(string str) {
 void input_get_gender(string str) {
 
    if (!str || str == "") {
-      send_message("Please enter your gender (male/female) : ");
+      send_message("Please enter your gender (male/female/neuter) : ");
       player->input_to_object(this_object(), "input_get_gender");
       return;
    }
@@ -653,9 +653,11 @@ void input_get_gender(string str) {
       player->set_gender("male");
    } else if (str == "f" || str == "female") {
       player->set_gender("female");
+   } else if (str == "n" || str == "neuter") {
+      player->set_gender("neuter");
    } else {
-      send_message("Please use 'male' or 'female'.\n");
-      send_message("Please enter your gender (male/female) : ");
+      send_message("Please use 'male', 'female' or 'neuter'.\n");
+      send_message("Please enter your gender (male/female/neuter) : ");
       player->input_to_object(this_object(), "input_get_gender");
       return;
    }
