@@ -409,29 +409,15 @@ void mssp_reply(void) {
 }
 
 void login_who(void) {
-   object *usr;
-   int i, sz;
-   string out;
+   string *out;
+   int i,max;
 
-   usr = players();
-   sz = sizeof(usr);
+   out = USER_D->list_players(0);
 
-   out = "\n" + MUD_NAME + " currently has " + sz + " users online.\n";
-
-   if (sz > 0)
-      out += "------------------------------------------------------\n";
-   for (i = 0; i < sz; i++) {
-      out += usr[i]->query_Name();
-      if (query_admin(usr[i]) > 0) {
-	 out += " (Admin)";
-      } else if (query_wizard(usr[i]) > 0) {
-	 out += " (Wizard)";
-      }
-      out += "\n";
+   max = sizeof(out);
+   for (i=0;i< max; i++) {
+      write(out[i]);
    }
-   if (sz > 0)
-      out += "------------------------------------------------------\n";
-   send_message(out);
 }
 
 void input_name(string str) {

@@ -309,7 +309,8 @@ int _delete_user(string name) {
       return 0;
    }
 
-   filter_array(DOMAIN_D->query_domains(), "remove_domain_member", DOMAIN_D, name);
+   filter_array(DOMAIN_D->query_domains(), "remove_domain_member", DOMAIN_D,
+      name);
 
    if (u = find_user(name)) {
       p = u->query_player();
@@ -401,9 +402,11 @@ string *query_user_names(void) {
 
 object find_player(string name) {
    object ob;
+
    ob = find_user(lowercase(name));
-   if (ob)
+   if (ob) {
       return (ob->query_player());
+   }
    return (ob);
 }
 
@@ -417,7 +420,7 @@ object *query_players(void) {
    players = ( { } );
 
    for (i = 0, sz = sizeof(usr); i < sz; i++) {
-      players += ( { usr[i]->query_player() } );
+      players += ({ usr[i]->query_player() });
    }
    return players;
 }
@@ -433,7 +436,7 @@ object *query_wizards(void) {
 
    for (i = 0, sz = sizeof(usr); i < sz; i++) {
       if (query_wizard(usr[i]->query_player()->query_name()) > 0) {
-	 wizards += ( { usr[i]->query_player() } );
+	 wizards += ({ usr[i]->query_player() });
       }
    }
    return wizards;
@@ -691,7 +694,8 @@ static void convert_users() {
                set_type(n, SECURE_D->query_priv(n));
             }
          } : {
-            console_msg("WARNING: " + caught_error() + " while converting " + n + "\n");
+            console_msg("WARNING: " + caught_error() + " while converting " + 
+               n + "\n");
          }
       }
    }
@@ -783,7 +787,8 @@ void make_mortal(string name) {
          player->message(this_player()->query_Name() +
             " has promoted you to a mortal.");
       }
-      filter_array(DOMAIN_D->query_domains(), "remove_domain_member", DOMAIN_D, name);
+      filter_array(DOMAIN_D->query_domains(), "remove_domain_member",
+         DOMAIN_D, name);
       write(capitalize(name) + " has been made a mortal.");
       save_me();
    } else {
@@ -891,4 +896,66 @@ void make_admin(string name) {
 
 mapping query_cache() {
    return cache;
+}
+
+string *list_players(int long_flag) {
+   string *lines;
+   object *usr;
+   int i, max, hidden, nump;
+   mixed idletime;
+   string idle;
+
+   usr = players();
+   nump = sizeof(usr);
+
+   if (nump > 1) {
+      lines = ({ MUD_NAME + " currently has " + nump + " users online." });
+   } else {
+      lines = ({ MUD_NAME + " currently has " + nump + " user online." });
+   }
+
+   lines += ({ "------------------------------------------------------" });
+   max = sizeof(usr);
+   for (i = 0; i < max; i++) {
+      string line;
+
+      line = usr[i]->query_title();
+
+      if (usr[i]->query_env("hidden") == 1) {
+         hidden = 1;
+         line += " %^BOLD%^%^RED%^(hidden)%^RESET%^";
+      } else {
+         hidden = 0;
+      }
+
+      if (query_admin(usr[i])) {
+         line += " %^BOLD%^%^BLUE%^(Admin)%^RESET%^";
+      } else if (query_wizard(usr[i])) {
+         line += " %^CYAN%^(Wizard)%^RESET%^";
+      }
+
+      idletime = format_time(usr[i]->query_idle());
+      if (idletime == "") {
+         idle = "";
+      } else {
+         idle = "  (idle " + idletime + ")";
+      }
+      line += idle;
+
+      if (long_flag == 1) {
+         if (usr[i]->query_environment()) {
+            lines += ({ line + "\n\t" + usr[i]->query_name() + "'s Location: " +
+               usr[i]->query_environment()->query_short() });
+         } else {
+                lines += ({ line + "\n\t" + usr[i]->query_name() });
+         }
+      } else {
+         if (!hidden) {
+            lines += ({ line });
+         }
+      }
+   }
+   lines += ({ "------------------------------------------------------" });
+
+   return lines;
 }

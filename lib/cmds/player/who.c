@@ -27,71 +27,36 @@ void usage() {
 
 /* 'who' command Originally by Fudge Improved by Cerihan 3/15/09 */
 static void main(string str) {
-    object *usr;
-    int i, long_flag, hidden;
-    mixed idletime;
-    string idle;
+   object *usr;
+   int long_flag, i, max;
+   string *out;
 
-    if (query_wizard(this_player())) {
-	long_flag = 1;
-    } else {
-	long_flag = 0;
-    }
+   if (query_wizard(this_player())) {
+      long_flag = 1;
+   } else {
+      long_flag = 0;
+   }
 
-    if (str && (str != "")) {
-	if (sscanf(str, "-%s", str)) {
-	    usage();
-	    return;
-	}
-	if (USER_D->player_exists(str)) {
-	    USER_D->finger(this_player(), str);
-	} else {
-	    write(capitalize(str) + " exists only in your dreams.\n");
-	}
-	return;
-    }
+   if (str && (str != "")) {
+      if (sscanf(str, "-%s", str)) {
+         usage();
+         return;
+      }
 
-    usr = players();
+      if (USER_D->player_exists(str)) {
+         USER_D->finger(this_player(), str);
+      } else {
+         write(capitalize(str) + " exists only in your dreams.\n");
+      }
 
-    write(MUD_NAME + " currently has " + sizeof(usr) + " users online.");
-    write("------------------------------------------------------");
-    for (i = 0; i < sizeof(usr); i++) {
-	string line;
+      return;
+   }
 
-	line = usr[i]->query_title();
+   out = USER_D->list_players(long_flag);
 
-	if (usr[i]->query_env("hidden") == 1) {
-	    hidden = 1;
-	    line += " %^BOLD%^%^RED%^(hidden)%^RESET%^";
-	} else
-	    hidden = 0;
+   max = sizeof(out);
 
-	if (query_admin(usr[i])) {
-	    line += " %^BOLD%^%^BLUE%^(Admin)%^RESET%^";
-	} else if (query_wizard(usr[i])) {
-	    line += " %^CYAN%^(Wizard)%^RESET%^";
-	}
-
-	idletime = format_time(usr[i]->query_idle());
-	if (idletime == "") {
-	    idle = "";
-	} else {
-	    idle = "  (idle " + idletime + ")";
-	}
-	line += idle;
-
-	if (long_flag == 1) {
-	    if (usr[i]->query_environment()) {
-		write(line + "\n\t" + usr[i]->query_name() + "'s Location: " +
-		  usr[i]->query_environment()->query_short() + "\n");
-	    } else {
-		write(line + "\n\t" + usr[i]->query_name() + "\n");
-	    }
-	} else {
-	    if (!hidden) {
-		write(line + "\n");
-	    }
-	}
-    }
-    write("------------------------------------------------------");
+   for (i=0; i<max; i++) {
+      write(out[i]);
+   }
 }
