@@ -46,11 +46,11 @@ int delete_index(string who, int num) {
 
    index = load_index(who);
 
-   if (num > index) {
+   max = sizeof(index);
+   if (num > max) {
       return 0;
    }
 
-   max = sizeof(index);
    while (num < max) {
       index[num] = index[num +1];
    }
