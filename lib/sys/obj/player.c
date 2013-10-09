@@ -31,6 +31,7 @@ static int color_more;		/* Flag to specifiy color more */
 
 string real_name;		/* This players real name */
 string email_address;		/* The email address */
+string website;			/* Players webpage */
 mapping environment_variables;	/* The environment variables of the player */
 string title;			/* The title */
 string password;		/* The password */
@@ -312,6 +313,9 @@ void set_real_name(string str) {
 }
 
 string query_real_name(void) {
+   if (!real_name) {
+      return "";
+   }
    return real_name;
 }
 
@@ -320,7 +324,21 @@ void set_email_address(string str) {
 }
 
 string query_email_address(void) {
+   if (!email_address) {
+      return "";
+   }
    return email_address;
+}
+
+void set_website(string str) {
+   website = str;
+}
+
+string query_website() {
+   if (!website) {
+      return "";
+   }
+   return website;
 }
 
 void initialize_cmd_path(void) {

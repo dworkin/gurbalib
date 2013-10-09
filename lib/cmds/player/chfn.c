@@ -3,18 +3,18 @@ inherit M_COMMAND;
 void usage() {
    string *lines;
 
-   lines = ({ "Usage: chfn [-h] [real YOURNAME | email EMAIL]" });
+   lines = ({ "Usage: chfn [-h] [KEY VALUE]" });
    lines += ({ "" });
    lines += ({ "Allows you to change your basic information." });
-   lines += ({ "You can set your realname to YOURNAME or your email to EMAIL."
-      });
+   lines += ({ "Valid KEY's are: email, realname, website" });
    lines += ({ "If no info is given show your current information." });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\tchfn real Kent Mein" });
+   lines += ({ "\tchfn realname Kent Mein" });
    lines += ({ "\tchfn email mein@cs.umn.edu" });
+   lines += ({ "\tchfn website http://www.cs.umn.edu/~mein" });
    lines += ({ "See also:" });
    lines += ({ "\talias, ansi, clear, describe, ignore, passwd" });
 
@@ -27,7 +27,8 @@ void usage() {
 
 static void show_chfn() {
    write("Email: " + this_player()->query_email_address() + "\n");
-   write("Real Name: " + this_player()->query_real_name() + "\n");
+   write("Realname: " + this_player()->query_real_name() + "\n");
+   write("Website: " + this_player()->query_website() + "\n");
 }
 
 static void main(string str) {
@@ -46,11 +47,16 @@ static void main(string str) {
       usage();
       return;
    }
+   cmd = lowercase(cmd);
+
    if (cmd == "email") {
       this_player()->set_email_address(what);
       show_chfn();
-   } else if (cmd == "real") {
+   } else if (cmd == "real" || cmd == "realname") {
       this_player()->set_real_name(what);
+      show_chfn();
+   } else if (cmd == "website" || cmd == "web") {
+      this_player()->set_website(what);
       show_chfn();
    } else {
       usage();

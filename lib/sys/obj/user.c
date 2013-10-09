@@ -690,8 +690,13 @@ void write_races(void) {
 }
 
 void input_get_email(string str) {
-
    player->set_email_address(str);
+   send_message("Please enter your website : ");
+   player->input_to_object(this_object(), "input_get_website");
+}
+
+void input_get_website(string str) {
+   player->set_website(str);
 
    write_races();
    send_message("Choose one of the above races for your character : ");
