@@ -1,0 +1,66 @@
+What is the difference between afun, afun-game and kfun funcitons, and
+how does the mud determine which one to use?
+
+Just so we are all on the same page, a kfun is a kernel function that
+is basically a low level function provided by dgd that the mud can use
+which is not really a part of LPC but it's a needed function for the virtual
+enviornment.
+
+There is also a way to extend DGD by creating non builtin kfun's for more 
+details see: https://github.com/dworkin/lpc-ext
+
+afun's are similar to kfun's but they are functions defined in the mudlib
+and are loaded by the auto object /kernel/lib/auto they are available to
+the mudlib as a whole, but not available to the "kernel" of the mudlib
+since they are not loaded at that stage of the boot process.
+
+afun-game are simulated afun's that are similar to afun's but again at a
+higher level in the boot process.
+
+If you want more details, here is a discussion I had with Aidil that should
+give you all the gory details:
+
+Aidil@WOTF GL tells you: The
+difference between afun and afun-game, been looking a bit more into how dgd
+treats that. The first thing you should know is how calling a function is
+translated into bytecode. There exist 3 different instructions for calling a
+function directly, lets call them call kfun, call afun and call fun. Now,
+when looking at /kernel/lib/auto, the compiler will use call kfun for every
+call to a kfun until an afun with that name is defined, after which it will
+use call afun. The important thing about this is that when the code runs,
+the calls that were translated to call kfun will always call the kfun, even
+if an overload exists, and the same is true for call afun. call fun however
+will always call the highest level overload of a named function. 
+Aidil@WOTF GL tells you: the simple consequence of this is that a static
+function in /kernel/lib/auto cannot be called by call_other() from within
+the same object, but one in /kernel/lib/auto-game can be called with
+call_other from within the same object, even if it is static.
+Aidil@WOTF GL tells you: and by extension, something defined as static in
+/kernel/lib/auto cannot be used with unguarded()
+Aidil@WOTF GL tells you: while something defined as static in
+/kernel/lib/auto-game can be used with unguarded()
+
+Aidil@WOTF GL tells you: on another note.. that all also means that the stuff
+in afun-game are not true afuns.. they mostly simulate the behavior of afuns
+but wiith a desirable difference. Also, it means that much of what is in
+kernel/lib/afun provides the lpc runtime environment that all objects except
+for /kernel/sys/driver.c use, but itself it is somewhere inbetween what dgd
+provides and what is available in the rest of /kernel. /kernel/sys/driver is
+special in that it only has what dgd provides. afun-game behaves for most
+purposes like a normal inherit, through the way in which it gets inherited
+is probably somewhat obscure.
+Aidil@WOTF GL tells you: I didn't call the things in afun-game 'simulated
+afuns', but rather wanted to blur the difference for general use of the lib.
+Aidil@WOTF GL tells you: as for a typical mud admin there isn't really any
+difference. rather, I reserved simulated afun for things you put in
+/sys/safun
+Aidil@WOTF GL tells you: the obscure bit about how /kernel/lib/auto-game gets
+inherited is that there exists a 'virtual' inheritable, /sys/lib/auto, which
+is generated on request from a header (which is where /kernel/lib/auto-game
+gets inherited) and the contents of files in /sys/safun in alphabethical
+order.
+Aidil@WOTF GL tells you: this is the actual so called 'second level auto
+object' in dgd speak.
+Aidil@WOTF GL tells you: and is what I intended for mud admins to use for
+adding or changing existing afuns.
+
