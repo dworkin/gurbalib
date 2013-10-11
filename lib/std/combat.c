@@ -1,6 +1,8 @@
 static object *targets;
 static int fighting;
 static object target;
+int kills;
+mapping killed_by;
 
 #define FIGHTING_TIMEOUT 300
 /* Ammount of Endurance required to Attack */
@@ -18,6 +20,35 @@ int is_fighting(void) {
    return (fighting);
 }
 
+mapping query_killed_by() {
+   if (!killed_by) {
+      killed_by = ([ ]);
+   }
+   return killed_by;
+}
+
+void increment_kills() {
+   kills++;
+}
+
+int query_kills() {
+   return kills;
+}
+
+void killed_by(object who, int t) {
+   if (!killed_by) {
+      killed_by = ([ ]);
+   }
+   killed_by[t] = who;
+}
+
+int query_killed() {
+   if (!killed_by) {
+      killed_by = ([ ]);
+   }
+   return sizeof(map_indices(killed_by));
+}
+
 void halt_fight(void) {
    fighting = 0;
    targets = ( { } );
@@ -32,6 +63,8 @@ void receive_damage(object who, int dam) {
       this_object()->message("You have died.");
       this_object()->halt_fight();
       this_object()->die();
+      this_object()->killed_by(who, time());
+      who->increment_kills();
    }
 }
 

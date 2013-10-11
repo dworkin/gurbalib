@@ -94,6 +94,11 @@ static void main(string str) {
       "\t\t" + "Level       :   " + level + "\n");
    write("Charisma    :  " + obj->query_stat("cha") +
       "\t\t" + "Experience  :   " + expr + "\n\n");
+
+/* XXX Not sure about this one, incourages player killing may remove later */
+   write("Kills: " + obj->query_kills() + " " + "Killed: " +
+      obj->query_killed() + "\n\n");
+
    write("Age:" + age + "\t" + "Money:\n");
 
    for (i = 0; i < sizeof(money); i++) {
