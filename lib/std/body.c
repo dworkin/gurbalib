@@ -46,8 +46,9 @@ string query_Name(void) {
 }
 
 int is_possessed(void) {
-   if (possessor)
+   if (possessor) {
       return 1;
+   }
    return 0;
 }
 
@@ -60,8 +61,9 @@ object query_possessor(void) {
 }
 
 int is_possessing(void) {
-   if (possessing)
+   if (possessing) {
       return 1;
+   }
    return 0;
 }
 
