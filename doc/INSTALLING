@@ -18,7 +18,7 @@ cd to your gurbalib dir and perform the following actions:
 	DEFINES=-D$(HOST)        -DNETWORK_EXTENSIONS #-DCLOSURES -DCO_THROTTLE=50 -DDUMP_FUNCS
 		make
 		make install
-			** Note: you will get 1 error on this when it trys to
+			** Note: you will get 1 error on this when it tries to
 				mv ../bin/driver ../bin/driver.old
 
 	cd ../../..
@@ -48,15 +48,16 @@ admin role, so be sure its you.
 OTHER THINGS:
 -----------------------------------------------------------------------
 Downloading additional documentation.
-	I recommend grabing the LPC-doc documentation which is
+	I recommend grabbing the LPC-doc documentation which is
 	basically dgd extended documentation.  You can grab it by doing
 	the following:
 	cd lib/doc
 	git clone https://github.com/dworkin/lpc-doc dgd
 	ln -s dgd/kfun kfun
+	cd ../..
 
-	You can also run ./scripts/download_lpc_docs.pl to download some extra
-	documentation.
+	You can also run the following script to download yet more docs:
+	./scripts/download_lpc_docs.pl
 
 
 Gurbalib ships with an ftp server which is enabled by default,
@@ -66,7 +67,7 @@ Gurbalib ships with an ftp server which is enabled by default,
 	#define DISABLE_FTP 1
 
 If you want a squeaky clean mud you can also remove the files in
-	lib/domains/ execpt for required (I would keep them around for
+	lib/domains/ except for required (I would keep them around for
 	a little while though since they are semi good example code)
 
 You will want to read the docs that are available and check out the todo list: 
