@@ -4,6 +4,8 @@ lib/data/*
 lib/domains/gurba/data
 lib/domains/required/data
 lib/doc/lpc/*
+lib/doc/dgd/*
+lib/doc/kfun
 lib/kernel/daemons/data/*
 lib/sys/daemons/data/*
 lib/sys/data/*
