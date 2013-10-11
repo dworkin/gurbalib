@@ -1,0 +1,14 @@
+NAME
+	empty_str - determine empty string
+
+SYNOPSIS
+	int empty_str(string str);
+
+DESCRIPTION
+	Checks for !str, nilp(str), and str == "".
+
+RETURN VALUE
+	Returns 1 if any of the conditions are met, else 0.
+
+SEE ALSO
+	XXX

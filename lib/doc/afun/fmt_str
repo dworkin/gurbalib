@@ -1,0 +1,25 @@
+NAME
+	fmt_str - format a string
+
+SYNOPSIS
+	string fmt_str(string str, varargs int length, int indent_first, 
+		int indent_all, int second_indent_length);
+
+DESCRIPTION
+	The argument 'str' is first collapsed using trim_str().  Newlines are
+	added such that the string is no longer than the argument 'length'.
+	If this argument is not given, a default value is used.
+
+	The argument 'indent_first' means to indent the first line of the 
+	output.
+
+	The argument 'indent_all' means to indent all from the lines of output.
+
+	The argument 'second_indent_length' sets how deep to indent the output
+	beyond the first line.
+
+RETURN VALUE
+	The formatted string.
+
+SEE ALSO
+	afun/trim_str XXX

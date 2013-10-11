@@ -1,0 +1,17 @@
+NAME
+	blog_it - posts to the gurbalib blog
+
+SYNOPSIS
+	int blog_it(string title, string html_content, string author);
+
+DESCRIPTION
+	If the mud is configured to use the blog_it LPC extension, then this 
+	function can be used to post to the gurbalib blog. The blog is found
+	at: http://gurbalib.blogspot.com/
+
+RETURN VALUE
+	Returns 1 for success. Returns a negative value if there is a problem
+	with the input.
+
+SEE ALSO
+	XXX

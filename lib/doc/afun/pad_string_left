@@ -1,0 +1,15 @@
+NAME
+	pad_string_left - add whitespace to left of a string
+
+SYNOPSIS
+	string pad_string_left(string str, int spaces);
+
+DESCRIPTION
+	Puts 'spaces' blank spaces in front of a string.
+
+RETURN VALUE
+	The padded string.
+
+SEE ALSO
+	XXX
+

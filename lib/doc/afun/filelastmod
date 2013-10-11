@@ -1,0 +1,21 @@
+NAME
+	filelastmod - retrieves file last modification time
+
+SYNOPSIS
+	int filelastmod(string path_to_file, varargs int seconds_since);
+
+DESCRIPTION
+	This is available only if the mud is configured to use the filelastmod 
+	LPC extension.
+
+	The argument 'path_to_file' may be a directory. This function returns
+	either the file's last modification time or the number of seconds ago
+	it was last modified if the optional argument 'seconds_since' is 
+	supplied and is non-zero.
+
+RETURN VALUE
+	The file's modification time in seconds since epoch or the seconds 
+	since the file's last modification.
+
+SEE ALSO
+	afun/file_size XXX

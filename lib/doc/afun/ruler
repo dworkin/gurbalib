@@ -1,0 +1,14 @@
+NAME
+	ruler - draw a horizontal ruler
+
+SYNOPSIS
+	string ruler(int length);
+
+DESCRIPTION
+	Get a ruler of argument 'length'.
+
+RETURN VALUE
+	A ruler string.
+
+SEE ALSO
+	XXX

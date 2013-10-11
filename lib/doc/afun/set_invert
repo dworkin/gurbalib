@@ -1,0 +1,16 @@
+NAME
+	set_invert - invert a set
+
+SYNOPSIS
+	mixed *set_invert(mixed *a, int dim, varargs int r);
+
+DESCRIPTION
+	Invert elements in a set. The argument 'dim' is usually the size of
+	the set and can be used to restrict the size of the returned set. The
+	optional argument means to remove repeats.
+
+RETURN VALUE
+	The set with inverted elements, optionally with repeats removed.
+
+SEE ALSO
+	XXX

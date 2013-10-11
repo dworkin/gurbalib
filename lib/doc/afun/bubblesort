@@ -1,0 +1,15 @@
+NAME
+	bubblesort - bubblesort a set
+
+SYNOPSIS
+	mixed *bubblesort(mixed *a);
+
+DESCRIPTION
+	Sorts the set using bubblesort.
+
+RETURN VALUE
+	The sorted set.
+
+SEE ALSO
+	XXX
+

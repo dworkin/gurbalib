@@ -1,0 +1,14 @@
+NAME
+	round - rounds float to an integer
+
+SYNOPSIS
+	int round(float f);
+
+DESCRIPTION
+	Simple rounding function for turning floats into integers.
+
+RETURN VALUE
+	The float 3.5 rounds to 4 while -3.5 rounds to 3.
+
+SEE ALSO
+	XXX afun/round_to_next, kfun/floor, kfun,/ceil

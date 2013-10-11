@@ -1,0 +1,16 @@
+NAME
+	set_remove_repeats - remove repeated elements from a set
+
+SYNOPSIS
+	mixed *set_remove_repeats(mixed *a);
+
+DESCRIPTION
+	A function for making a set have unique elements by removing all
+	repeated elements but one.
+
+RETURN VALUE
+	The set with repeated elements but one removed.
+
+SEE ALSO
+	XXX
+
