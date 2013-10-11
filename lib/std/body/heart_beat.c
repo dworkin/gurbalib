@@ -128,6 +128,10 @@ string query_age() {
    return ret;
 }
 
+int query_age_in_seconds() {
+   return player_age;
+}
+
 void die(void) {
    object obj, *inv;
    int i;
