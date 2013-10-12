@@ -53,7 +53,7 @@ void create_list(string type, string file) {
 static void main(string str) {
    string type, file;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       create_list("","");
       return;
    }

@@ -42,14 +42,13 @@ void display_level(string str) {
    }
 
    write("Who are you trying to promote?\n");
-   usage();
 }
 
 static void main(string str) {
    string who, what;
    int numargs;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

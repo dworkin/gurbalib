@@ -449,9 +449,7 @@ static void main(string str) {
    int r;
    string cmd, arg;
 
-   /* only ever try this when we got at least 2 chars 
-      (shortest possible command) */
-   if(str && strlen(str) > 1) {
+   if(!empty_str(str)) {
       if(sscanf(str, "%s %s", cmd, arg) != 2) {
          cmd = str;
       }
@@ -503,7 +501,7 @@ static void main(string str) {
     * info.   * note, this also handles the help and -h commands             */
    if (r) {
       return;
-   } else if (str && str != "") {
+   } else if (!empty_str(str)) {
       string *err;
 
       str = query_notify_fail();

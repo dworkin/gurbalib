@@ -7,7 +7,7 @@ void usage() {
 }
 
 /* moved this from fighters guild specific command.  Need to convert it to
-   a skill and give the skill to fighters...
+   a skill and give the skill to fighters... XXX
 */
 
 void main(string str) {

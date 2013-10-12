@@ -45,7 +45,7 @@ void confirm_remove(string str, string name) {
 static void main(string str) {
    string name;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

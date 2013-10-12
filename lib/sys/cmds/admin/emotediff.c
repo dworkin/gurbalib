@@ -123,7 +123,7 @@ static void main(string str) {
    int i,max, x;
    object obj;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

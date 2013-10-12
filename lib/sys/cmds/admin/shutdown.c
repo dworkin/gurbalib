@@ -76,7 +76,7 @@ static void main(string arg) {
    object *usrs;
    string time;
 
-   if (!arg || (arg == "")) {
+   if (empty_str(arg)) {
       usage();
       return;
    }

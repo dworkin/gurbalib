@@ -25,7 +25,7 @@ static void main(string str) {
    string *skills;
    int i, max;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       skills = SKILL_D->query_skills();
       max = sizeof(skills);
       write("Skills:\n");

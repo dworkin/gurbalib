@@ -90,7 +90,7 @@ static void main(string str) {
    mixed *args;
    string error;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

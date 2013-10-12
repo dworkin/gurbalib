@@ -8,7 +8,7 @@ void usage() {
 }
 
 static void main(string str) {
-   if (!str || str == "") {
+   if (empty_str(str)) {
       usage();
       return;
    }

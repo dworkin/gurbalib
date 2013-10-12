@@ -24,7 +24,7 @@ static void main(string str) {
    object *users;
    int i, max;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

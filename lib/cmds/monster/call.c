@@ -11,7 +11,7 @@ static void main(string arg) {
    string *tmp;
    int i;
 
-   if (!arg || arg == "") {
+   if (empty_str(arg)) {
       usage();
       return;
    }

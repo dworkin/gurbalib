@@ -176,7 +176,7 @@ static void main(string str) {
    string type, value;
    debug = 0;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       do_full_check();
       return;
    }

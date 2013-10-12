@@ -1,12 +1,21 @@
 #define COST 10
 
 void usage() {
-   write("Usage: cast missile [-h] TARGET\n");
-   write("Casts a magic missile at TARGET\n");
-   write("This spell requires " + COST + " mana.\n");
-   write("This spell does 1-5 damage to TARGET.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: cast missile [-h] TARGET" });
+   lines += ({ "" });
+   lines += ({ "Casts a magic missile at TARGET" });
+   lines += ({ "This spell requires " + COST + " mana." });
+   lines += ({ "This spell does 1-5 damage to TARGET." });
+   lines += ({ "" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tcast missle rabbit" });
+   lines += ({ "\tcast missle sirdude" });
+
+   this_player()->more(lines);
 }
 
 void missile(object thisp, object target) {
@@ -24,7 +33,7 @@ void missile(object thisp, object target) {
 void do_spell(object thisp, string target) {
    object tar;
 
-   if (!target || target == "" || target == "-h") {
+   if (empty_str(target) || target == "-h") {
       usage();
       return;
    } else {

@@ -56,7 +56,7 @@ static string validate_upgrade() {
 }
 
 static void main(string str) {
-   if (sscanf(str, "-%s", str)) {
+   if (!empty_str(str)) {
       usage();
       return;
    }

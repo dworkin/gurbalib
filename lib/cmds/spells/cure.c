@@ -2,15 +2,24 @@
 #define SKILLREQUIRED 15
 
 void usage() {
-   write("Usage: cast cure [-h] [TARGET]\n");
-   write("Casts cure light wounds on TARGET\n");
-   write("If no target is given you heal yourself.\n");
-   write("This spell requires " + COST + " mana.\n");
-   write("This spell heals 1-5 hit points on TARGET.\n");
-   write("You need to have a skill level of " + SKILLREQUIRED + " before " +
-      "you can cast this spell on other players.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: cast cure [-h] [TARGET]" });
+   lines += ({ "" });
+   lines += ({ "Casts cure light wounds on TARGET" });
+   lines += ({ "If no target is given you heal yourself." });
+   lines += ({ "This spell requires " + COST + " mana." });
+   lines += ({ "This spell heals 1-5 hit points on TARGET." });
+   lines += ({ "You need to have a skill level of " + SKILLREQUIRED + 
+      " before you can cast this spell on other players." });
+   lines += ({ "" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tcast cure" });
+   lines += ({ "\tcast cure sirdude" });
+
+   this_player()->more(lines);
 }
 
 int max_hp(object target) {
@@ -49,12 +58,11 @@ void cure(object thisp, object target) {
 void do_spell(object thisp, string target) {
    object tar;
 
-   if (target == "-h") {
+   if (empty_str(target)) {
+      tar = thisp;
+   } else if (target == "-h") {
       usage();
       return;
-   }
-   if (!target || target == "") {
-      tar = thisp;
    } else {
       tar = this_environment()->present(target);
    }
