@@ -68,7 +68,7 @@ static void main(string str) {
    object *inv;
    int i, max, done;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

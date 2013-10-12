@@ -20,7 +20,7 @@ void usage() {
 static void main(string str) {
    object obj;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       write("You pray.\n");
       this_player()->query_environment()->tell_room(this_player(), 
          this_player()->query_Name() + " prays.\n");

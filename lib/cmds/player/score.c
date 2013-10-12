@@ -34,9 +34,7 @@ void usage() {
 }
 
 static void main(string str) {
-   int mh, h, expr, level, quest;
-   int mm, m, me, e;
-   int ac, i;
+   int mh, h, expr, level, quest, mm, m, me, e, ac, i;
    mixed *money;
    object obj;
    string age;
@@ -52,7 +50,7 @@ static void main(string str) {
       return;
    }
 
-   if (str && (str != "")) {
+   if (!empty_str(str)) {
       if (query_wizard(this_player())) {
 	 obj = USER_D->find_player(str);
 	 if (!obj) {

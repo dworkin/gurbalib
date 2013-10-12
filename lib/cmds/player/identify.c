@@ -24,7 +24,7 @@ static void main(string str) {
    object obj;
    object *wielded;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

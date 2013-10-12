@@ -23,7 +23,7 @@ static void main(string str) {
    string error, str2;
    int len;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

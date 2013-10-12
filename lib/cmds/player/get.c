@@ -129,7 +129,7 @@ static void main(string str) {
    int i, max, done, amount;
    string what, where, type;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

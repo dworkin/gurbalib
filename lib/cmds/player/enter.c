@@ -21,7 +21,7 @@ void usage() {
 static void main(string str) {
    string error;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

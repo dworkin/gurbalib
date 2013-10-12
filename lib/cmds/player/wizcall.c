@@ -35,7 +35,7 @@ static void main(string str) {
 
     flag = 0;
 
-    if (!str || (str == "")) {
+    if (empty_str(str)) {
 	usage();
 	return;
     }

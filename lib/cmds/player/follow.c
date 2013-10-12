@@ -26,13 +26,8 @@ static void main(string str) {
    string name;
    object obj;
 
-   if (str == this_player()->query_name()) {
-      write("You can not follow yourself.\n");
-      return;
-   }
-
    name = this_player()->query_follower();
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       if (name && (name != "")) {
          write("You are currently following: " + name + "\n");
       } else {
@@ -40,6 +35,12 @@ static void main(string str) {
       }
       return;
    }
+
+   if (str == this_player()->query_name()) {
+      write("You can not follow yourself.\n");
+      return;
+   }
+
    if (sscanf(str, "-%s", str)) {
       usage();
       return;

@@ -82,7 +82,10 @@ static void main(string str) {
     * rather than player skills and show it as normal.
     */
 
-   if (str == "full") {
+   if (empty_str(str)) {
+      /* All skills of this_player() */
+      skills = this_player()->query_skills();
+   } else if (str == "full") {
       /* all game skills */
       DBM("Showing all existing skills.");
       skills = SKILL_D->query_skills();
@@ -91,9 +94,6 @@ static void main(string str) {
        * try to use it as a filter
        */
       str = "";
-   } else if ((str == "") || (!str)) {
-      /* All skills of this_player() */
-      skills = this_player()->query_skills();
    } else if (sscanf(str, "-%s", str)) {
       usage();
       return;
@@ -114,7 +114,7 @@ static void main(string str) {
       skills = SKILL_D->query_skills();
    }
 
-   if (str && (str != "")) {
+   if (!empty_str(str)) {
       DBM("Using " + str + " to filter skills.");
       skills = filter_array(skills, "filter_skill", this_object(), str);
    }

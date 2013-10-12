@@ -31,7 +31,7 @@ static void main(string str) {
       ob = ([]);
    }
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    } else if (sscanf(str, "-%s", str)) {

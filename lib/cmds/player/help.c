@@ -75,7 +75,7 @@ static void show_file(string filename) {
 
 static void main(string arg) {
    string file;
-   if (!arg || (arg == "") || (arg == "help")) {
+   if (empty_str(arg) || (arg == "help")) {
       usage();
       return;
    }

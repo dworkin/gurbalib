@@ -74,7 +74,7 @@ static void main(string str) {
    string *words, *words2;
    string rest, first, lang;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

@@ -98,7 +98,7 @@ static void main(string str) {
     string *symbols, *values;
     int i, sz, pos;
 
-    if (!str || (str == "")) {
+    if (empty_str(str)) {
 	usage();
 	return;
     }

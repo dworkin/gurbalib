@@ -29,7 +29,7 @@ static void main(string arg) {
    int i, sz;
    string *list;
 
-   if (arg == "") {
+   if (empty_str(arg)) {
       out = "Ignored list:\n";
       list = this_player()->query_ignored_all();
       for (i = 0, sz = sizeof(list); i < sz; ++i)

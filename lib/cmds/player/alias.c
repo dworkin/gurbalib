@@ -29,7 +29,7 @@ static void main(string str) {
     string cmd, arg;
     int i;
 
-    if (!str || (str == "")) {
+    if (empty_str(str)) {
 	alias = this_player()->query_aliases();
 	aliases = map_indices(alias);
 

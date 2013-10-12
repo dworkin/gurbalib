@@ -112,7 +112,8 @@ static int transfer_money(int amount,string cointype, string where) {
       if (this_player()->query_total_money() > amount) {
          this_player()->add_money("ducat", (amount * -1));
          obj->add_money("ducat",amount);
-         write("You give " + amount + " ducats to " + obj->query_Name() + ".\n");
+         write("You give " + amount + " ducats to " + obj->query_Name() + 
+            ".\n");
          this_player()->query_environment()->tell_room(this_player(),
             this_player()->query_Name() + " gives " + amount + " ducats to " + 
             obj->query_Name() + ".\n");
@@ -134,7 +135,7 @@ static void main(string str) {
    int i, max, amount;
    string what, where, coin;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

@@ -191,7 +191,7 @@ static void main(string str) {
    usage();
    return;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       show_menu();
    } else {
       if (sscanf(str, "-%s", str)) {

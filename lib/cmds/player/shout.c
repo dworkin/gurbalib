@@ -30,7 +30,7 @@ static void main(string str) {
    int i;
    object *usrs;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

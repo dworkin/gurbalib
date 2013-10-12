@@ -31,7 +31,7 @@ void verify_remove(string str) {
 }
 
 static void main(string str) {
-   if (str && (str != "")) {
+   if (!empty_str(str)) {
       if (str == "-r") {
          write("WARNING!!! this is not reversable.\n");
          write("Are you sure you really want to remove your player? (Y|N)\n");

@@ -34,7 +34,7 @@ private static mapping ob;
 static void main(string str) {
    string player_name, tmp;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

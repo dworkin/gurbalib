@@ -21,7 +21,7 @@ static void main(string str) {
    string bar, title;
    int i, exp, width, level;
 
-   if (str && (str != "")) {
+   if (!empty_str(str)) {
       usage();
       return;
    }

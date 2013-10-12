@@ -98,7 +98,7 @@ static void main(string str) {
    int i, max;
    string what, where;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

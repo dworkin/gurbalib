@@ -34,7 +34,7 @@ static void main(string str) {
    string txt, datetxt;
    string *days, *hours, *years;
 
-   if (str && (str != "")) {
+   if (!empty_str(str)) {
       if ((str == "-s") || (str == "-S")) {
          write(TIME_D->query_time());
       } else {

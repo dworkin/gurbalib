@@ -32,7 +32,7 @@ static void main(string who) {
     int i, flag;
     string what;
 
-    if (!who || (who == "")) {
+    if (empty_str(who)) {
 	usage();
 	return;
     }

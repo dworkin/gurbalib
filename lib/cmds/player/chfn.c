@@ -34,7 +34,7 @@ static void show_chfn() {
 static void main(string str) {
    string cmd, what;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       show_chfn();
       return;
    }

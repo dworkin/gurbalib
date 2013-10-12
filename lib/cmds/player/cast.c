@@ -89,7 +89,7 @@ static void cast_spell(string spell, string who) {
 static void main(string str) {
    string spellname, who;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       list_spells();
       return;
    }

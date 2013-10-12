@@ -21,7 +21,7 @@ static void main(string str) {
    object ob;
    string *lines;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

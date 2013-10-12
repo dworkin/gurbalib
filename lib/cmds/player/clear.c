@@ -32,7 +32,7 @@ int get_height() {
 static void main(string str) {
    int max, i;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       max = get_height();
       str = "\n";
       for(i=0; i < max; i++) {

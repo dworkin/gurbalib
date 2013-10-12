@@ -22,7 +22,7 @@ void usage() {
 static void main(string str) {
    object obj;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

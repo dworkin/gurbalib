@@ -26,7 +26,7 @@ static void main(string str) {
    int dev;                     /*Deviation from the actual value */
    object obj;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

@@ -38,7 +38,7 @@ static void main(string who) {
    object usr;
    string what, where;
 
-   if (!who || (who == "")) {
+   if (empty_str(who)) {
       usage();
       return;
    }

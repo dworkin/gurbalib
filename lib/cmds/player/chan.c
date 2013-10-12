@@ -106,7 +106,7 @@ static void list_channels(void) {
 static void main(string str) {
    string chan, cmd;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage(); /* Change this to list channels you are a member of XXX */
       return;
    }
