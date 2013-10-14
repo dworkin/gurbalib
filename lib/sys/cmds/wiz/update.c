@@ -113,7 +113,7 @@ static void main(string str) {
 
       /* Check for errors before moving people out of the room */
 
-      this_player()->write(str + "\n");
+      this_player()->write("Updating: " + str + "\n");
 
       objs = this_environment()->query_inventory();
       players = ( { } );
@@ -140,7 +140,8 @@ static void main(string str) {
       }
       this_player()->do_look(0);
    } else if (file_exists(path + ".c")) {
-      this_player()->set_env("cwf", path);
+      this_player()->write("Updating: " + path + ".c\n");
+      this_player()->set_env("cwf", path + ".c");
       if (compiler_d->test_inheritable(path)) {
 	 if (recompile_library(path)) {
 	    write("Compilation successful.\n");
@@ -175,6 +176,7 @@ static void main(string str) {
       }
    } else if (ob = this_environment()->present(str)) {
       path = ob->file_name();
+      write("Updating: " + path + "\n");
 
       if (recompile_object(path)) {
          write("Compilation successful.\n");
