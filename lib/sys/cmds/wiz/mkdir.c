@@ -22,7 +22,7 @@ void usage() {
 static void main(string arg) {
    string file;
 
-   if (!arg || (arg == "")) {
+   if (empty_str(arg)) {
       usage();
       return;
    }

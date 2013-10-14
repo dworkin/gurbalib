@@ -330,7 +330,7 @@ static void main(string str) {
    string *files;
    int x, max;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    } else if (sscanf(str, "-%s", str)) {

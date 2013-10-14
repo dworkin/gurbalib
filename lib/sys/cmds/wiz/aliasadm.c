@@ -70,7 +70,7 @@ static void main(string str) {
    string name, fmt;
    string *lines;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

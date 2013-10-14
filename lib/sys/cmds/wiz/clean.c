@@ -30,7 +30,7 @@ static void main(string arg) {
    object *objs;
    int i;
 
-   if (arg && (arg != "")) {
+   if (!empty_str(arg)) {
       usage();
       return;
    }

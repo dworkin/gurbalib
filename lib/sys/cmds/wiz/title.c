@@ -22,7 +22,7 @@ void usage() {
 
 static void main(string str) {
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       write("Your current title is: " + this_player()->query_title_string() +
 	 "\n");
       return;

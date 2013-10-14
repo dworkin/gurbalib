@@ -27,7 +27,7 @@ static void main(string str) {
    object *inv;
    int i, max;
 
-   if (str && (str != "")) {
+   if (!empty_str(str)) {
       if (str == "save") {
          this_player()->compose_autoload_string();
          str = this_player()->query_autoload_string();

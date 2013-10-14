@@ -88,13 +88,13 @@ static void main(string arg) {
    string *lines;
    int i, j, found, where, width;
 
-   if (sscanf(arg, "-%s", arg)) {
-      usage();
-      return;
+   if (empty_str(arg)) {
+      arg = "";
    }
 
-   if (!arg) {
-      arg = "";
+   if (sscanf(arg, "-%s", arg) || arg == "man") {
+      usage();
+      return;
    }
 
    if (arg == "--reindex") {

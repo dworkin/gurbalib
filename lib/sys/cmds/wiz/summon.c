@@ -21,7 +21,7 @@ void usage() {
 static void main(string str) {
    object usr;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       write("Get whom?");
       usage();
       return;

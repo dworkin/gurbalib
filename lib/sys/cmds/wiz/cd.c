@@ -27,7 +27,7 @@ void usage() {
 static void main(string arg) {
    int tmp;
 
-   if (!arg || (arg == "")) {
+   if (empty_str(arg)) {
       arg = "/wiz/" + this_player()->query_name();
    } else if (sscanf(arg, "-%s", arg)) {
       usage();

@@ -80,7 +80,7 @@ static void main(string str) {
    object ob;
    int i;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       str = this_player()->query_env("cwf");
    }
 

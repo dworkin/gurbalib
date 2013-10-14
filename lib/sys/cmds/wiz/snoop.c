@@ -19,7 +19,7 @@ void usage() {
 
 static void main(string str) {
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       int i;
       object *pSnooping;
 

@@ -37,7 +37,7 @@ static void main(string src) {
    mixed result;
    int str_size;
 
-   if (!src || (src == "")) {
+   if (empty_str(src)) {
       usage();
       return;
    }

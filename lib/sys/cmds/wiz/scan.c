@@ -24,13 +24,11 @@ static void main(string str) {
    object *objs;
    int i, done;
 
-   if (sscanf(str, "-%s", str)) {
+   if (empty_str(str)) {
+      where = this_environment();
+   } else if (sscanf(str, "-%s", str)) {
       usage();
       return;
-   }
-
-   if (!str || (str == "")) {
-      where = this_environment();
    } else {
       where = this_player()->query_environment()->present(str);
 

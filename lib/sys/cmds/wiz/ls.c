@@ -31,7 +31,7 @@ static void main(string str) {
    int *sizes, *times, long, ancient, i, j, sz, max, len, rows, time, color_len;
    string cur_col;
 
-   if (!str) {
+   if (empty_str(str)) {
       str = ".";
    } else if (sscanf(str, "-%s", str)) {
       long = 1;

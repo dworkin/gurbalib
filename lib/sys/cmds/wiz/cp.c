@@ -22,7 +22,7 @@ static void main(string str) {
    string file, dest, where, file_name, in;
    string *parts;
 
-   if (!str || (str == "") || (sscanf(str, "%s %s", str, where) != 2)) {
+   if (empty_str(str) || (sscanf(str, "%s %s", str, where) != 2)) {
       write("Please specify a source and a destination.");
       usage();
       return;

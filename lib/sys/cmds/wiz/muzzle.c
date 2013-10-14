@@ -23,7 +23,7 @@ static void main(string str) {
    object *usrs;
    object usr;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       write("You need to specify a player name.\n");
    } else {
       if (sscanf(str, "-%s", str)) {

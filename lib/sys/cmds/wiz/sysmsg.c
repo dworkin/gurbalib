@@ -24,7 +24,7 @@ static void main(string msg) {
    object *usr;
    int i;
 
-   if (!msg || (msg == "")) {
+   if (empty_str(msg)) {
       usage();
       return;
    } else if (sscanf(msg, "-%s", msg)) {

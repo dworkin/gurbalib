@@ -29,7 +29,7 @@ static void main(string msg) {
    string log, *lines;
    mixed x;
 
-   if (!msg || (msg == "")) {
+   if (empty_str(msg)) {
       lines = LOG_D->show_log_levels();
       this_player()->more(lines);
       return;

@@ -30,7 +30,7 @@ int recursive_remove_dir(string file) {
 static void main(string arg) {
    string file;
 
-   if (!arg || (arg == "")) {
+   if (empty_str(arg)) {
       write("Please specify filename to rm.");
       return;
    }

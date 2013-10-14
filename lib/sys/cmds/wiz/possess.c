@@ -22,12 +22,7 @@ void usage() {
 static void main(string str) {
    object ob;
 
-   if (sscanf(str, "-%s", str)) {
-      usage();
-      return;
-   }
-
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       if (this_user()->query_player()->is_possessing()) {
 	 write("Your release your grasp on " + this_player()->query_name() +
 	    ".");
@@ -38,6 +33,11 @@ static void main(string str) {
 	 write("Please specify what to possess.\n");
 	 return;
       }
+   }
+
+   if (sscanf(str, "-%s", str)) {
+      usage();
+      return;
    }
 
    if (this_user()->query_player()->is_possessing()) {

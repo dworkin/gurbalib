@@ -46,7 +46,7 @@ static void main(string str) {
    string who, what, id;
    object ob, player;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       str = this_player()->query_env("cwf");
       if (!str) {
 	 usage();

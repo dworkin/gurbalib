@@ -134,7 +134,7 @@ void do_work_toscreen(string file1, string file2) {
 static void main(string str) {
    string outfile, file1, file2;
 
-   if (!str || (str == "") || sscanf(str, "-h", str)) {
+   if (empty_str(str) || sscanf(str, "-h", str)) {
       usage();
       return;
    }

@@ -23,11 +23,10 @@ void usage() {
 
 static void main(string arg) {
    string file;
-   string *tmp;
-   string *lines;
+   string *tmp, *lines;
    int num_lines, start, i, where;
 
-   if (!arg || (arg == "")) {
+   if (empty_str(arg)) {
       arg = this_environment()->file_name();
    }
 

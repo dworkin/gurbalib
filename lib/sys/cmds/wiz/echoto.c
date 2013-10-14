@@ -27,7 +27,7 @@ static void main(string who) {
    int i, flag;
    string msg;
 
-   if (!who || (who == "")) {
+   if (empty_str(who)) {
       usage();
       return;
    }

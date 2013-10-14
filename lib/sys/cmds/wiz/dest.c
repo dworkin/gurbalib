@@ -27,7 +27,7 @@ void usage() {
 static void main(string str) {
    object ob;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

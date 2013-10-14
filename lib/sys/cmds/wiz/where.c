@@ -24,7 +24,7 @@ static void main(string str) {
    object *usrs;
    object usr;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usrs = USER_D->query_players();
 
       for (i = 0; i < sizeof(usrs); i++) {

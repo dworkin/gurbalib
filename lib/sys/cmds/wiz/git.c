@@ -33,7 +33,7 @@ void usage() {
 static void main(string str) {
    string cmd, dir, arg, message;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

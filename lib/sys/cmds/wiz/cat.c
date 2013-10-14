@@ -43,7 +43,7 @@ void cat_the_file(string file) {
 static void main(string file) {
    string name;
 
-   if (!file || (file == "")) {
+   if (empty_str(file)) {
       file = this_player()->query_env("cwf");
    } else if (sscanf(file, "-%s", file)) {
       usage();

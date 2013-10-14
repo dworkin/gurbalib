@@ -23,7 +23,7 @@ static void main(string str) {
    object obj;
    string who;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       obj = this_player();
    } else if (sscanf(str, "-%s", str)) {
       usage();

@@ -40,7 +40,7 @@ static void main(string str) {
    string name, value;
    int i;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       /* Print out the list */
       names = this_player()->query_env_indices();
       for (i = 0; i < sizeof(names); i++) {

@@ -19,7 +19,7 @@ void usage() {
 
 static void main(string statname) {
 
-   if (!statname || (statname == "")) {
+   if (empty_str(statname)) {
       usage();
       return;
    }

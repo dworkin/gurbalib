@@ -88,11 +88,8 @@ atomic static int upgrade_uobj(string * files, int verbose) {
 static void main(string str) {
    int pos, sz, total, verbose, core, all;
    mapping edges;
-   string *users;
-   string *wanted;
-   string tmp;
-   string *file;
-   string err;
+   string *users, *wanted, *file;
+   string tmp, err;
 
    str = parse_for_options(str);
    err = query_parse_error();

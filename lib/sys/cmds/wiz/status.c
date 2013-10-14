@@ -120,7 +120,7 @@ static void main(string str) {
    mixed *stat;
    object obj;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       stat = status();
       display_driver(stat);
    } else if (sscanf(str, "-%s", str)) {

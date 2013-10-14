@@ -109,7 +109,7 @@ static void main(string str) {
    string *files;
    mixed *dirent;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

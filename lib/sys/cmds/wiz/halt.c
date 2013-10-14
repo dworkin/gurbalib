@@ -21,7 +21,7 @@ static void main(string str) {
    int i;
    object *obj;
 
-   if (str && (str != "")) {
+   if (!empty_str(str)) {
       usage();
       return;
    }

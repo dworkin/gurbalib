@@ -37,7 +37,7 @@ void usage() {
 
 static void main(string str) {
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       /* Not starting with a file */
       this_player()->edit("");
       this_player()->edit("file");

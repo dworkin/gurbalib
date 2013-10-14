@@ -26,7 +26,7 @@ static void main(string str) {
    int i, sz, perc, target_hp, target_damage;
    string who, target_name;
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }

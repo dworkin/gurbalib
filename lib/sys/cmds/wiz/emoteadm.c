@@ -88,7 +88,7 @@ static void main(string str) {
 
    width = this_player()->query_width();
 
-   if (!str || (str == "")) {
+   if (empty_str(str)) {
       usage();
       return;
    }
