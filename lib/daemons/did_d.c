@@ -17,18 +17,18 @@ void add_entry(string str) {
    object *usr;
    int i;
 
-   if (!file_exists(wiz_dir(this_user()))) {
+   if (!query_wizard(this_player())) {
       write("Sorry, only true wizards may add to the did log.\n");
       return;
    }
-   str = this_user()->query_Name() + " " + str;
+   str = this_player()->query_Name() + " " + str;
    did += ( { ( { time(), str } ) });
    save_me();
 
    usr = USER_D->query_users();
    for (i = 0; i < sizeof(usr); i++) {
       if (query_wizard(usr[i]->query_player()->query_name()) > 0
-	 && usr[i] != this_user()) {
+	 && usr[i] != this_player()) {
 	 usr[i]->query_player()->message("** " + str);
       }
    }
