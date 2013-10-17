@@ -13,5 +13,7 @@ RETURN VALUE
 	Index where what was found in str, or else -1.
 
 SEE ALSO
-	afun/replace_string, afun/strcmp, afun/str2val
+	afun/empty_str, afun/fmt_str, afun/pad_string_left,
+	afun/replace_string, afun/strcmp, afun/str2val, afun/trim_str
+
 

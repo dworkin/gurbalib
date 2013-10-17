@@ -22,4 +22,7 @@ RETURN VALUE
 	The formatted string.
 
 SEE ALSO
-	afun/trim_str XXX
+	afun/empty_str, afun/pad_string_left, afun/replace_string, afun/strcmp,
+	afun/strstr, afun/str2val, afun/trim_str
+
+

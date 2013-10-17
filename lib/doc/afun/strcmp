@@ -11,5 +11,6 @@ RETURN VALUE
 	string two, -1 if string one is smaller then string two.
 
 SEE ALSO
-	afun/replace_string, afun/strstr, afun/str2val
+	afun/empty_str, afun/fmt_str, afun/pad_string_left, 
+	afun/replace_string, afun/strstr, afun/str2val, afun/trim_str
 

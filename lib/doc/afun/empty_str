@@ -11,4 +11,6 @@ RETURN VALUE
 	Returns 1 if any of the conditions are met, else 0.
 
 SEE ALSO
-	XXX
+	afun/fmt_str, afun/pad_string_left, afun/replace_string, afun/strcmp,
+	afun/strstr, afun/str2val, afun/trim_str
+

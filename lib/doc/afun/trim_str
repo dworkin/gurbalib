@@ -11,4 +11,6 @@ RETURN VALUE
 	The string with whitespace replaced with a single black space.
 
 SEE ALSO
-	XXX
+	afun/empty_str, afun/fmt_str, afun/pad_string_left,
+	afun/replace_string, afun/strcmp, afun/strstr, afun/str2val
+

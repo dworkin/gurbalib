@@ -11,5 +11,6 @@ RETURN VALUE
 	The padded string.
 
 SEE ALSO
-	XXX
+	afun/empty_str, afun/fmt_str, afun/replace_string, afun/strcmp,
+	afun/strstr, afun/str2val, afun/trim_str
 
