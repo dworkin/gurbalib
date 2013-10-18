@@ -12,6 +12,4 @@ RETURN VALUE
 
 SEE ALSO
 	afun/absolute_path, afun/base_name, afun/clone_num, afun/file_name, 
-	kfun/object_name, afun/path_file, afun/wiz_dir
-
-XXX kfun/object_name???
+	afun/path_file, kfun/find_object, kfun/object_name

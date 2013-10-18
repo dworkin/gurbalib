@@ -13,6 +13,6 @@ RETURN VALUE
 	The filename of obj, or if obj is not defined, for this_object().
 
 SEE ALSO
-	afun/absolute_path, afun/base_name, afun/clone_num, afun/file_name, 
-	kfun/object_name, afun/path_file, afun/wiz_dir
+	afun/absolute_path, afun/base_name, afun/clone_num, afun/path_file,
+	afun/wiz_dir, kfun/find_object, kfun/object_name
 
