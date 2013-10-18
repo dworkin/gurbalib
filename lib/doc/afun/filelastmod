@@ -18,4 +18,4 @@ RETURN VALUE
 	since the file's last modification.
 
 SEE ALSO
-	afun/file_size XXX
+	afun/dir_size, afun/file_size, afun/file_exists

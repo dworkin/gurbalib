@@ -12,5 +12,5 @@ RETURN VALUE
 	at filepath, and 0 if no file found.
 
 SEE ALSO
-	afun/dir_size, afun/file_size
+	afun/dir_size, afun/filelastmod, afun/file_size
 

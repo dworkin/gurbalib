@@ -12,5 +12,5 @@ RETURN VALUE
 	Size of files in path.
 
 SEE ALSO
-	afun/file_size, afun/file_exists
+	afun/filelastmod, afun/file_size, afun/file_exists
 
