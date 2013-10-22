@@ -12,4 +12,6 @@ RETURN VALUE
 	A mixed array of elements.
 
 SEE ALSO
-	XXX
+	afun/bubblesort, afun/set_difference, afun/set_intersection,
+	afun/set_invert, afun/set_remove_repeats, afun/set_union
+

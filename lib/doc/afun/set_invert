@@ -13,4 +13,6 @@ RETURN VALUE
 	The set with inverted elements, optionally with repeats removed.
 
 SEE ALSO
-	XXX
+	afun/bubblesort, afun/set_difference, afun/set_intersection,
+	afun/set_remove_repeats, afun/set_symmetric_difference, afun/set_union
+

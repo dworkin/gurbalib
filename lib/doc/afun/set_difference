@@ -12,7 +12,6 @@ RETURN VALUE
 	The difference, optionally with repeated elements but one removed.
 
 SEE ALSO
-	XXX
-	afun/set_remove_repeats, afun/set_invert, afun/set_intersection, 
-	afun/set_union, afun/set_symmetric_difference, afun/bubblesort
+	afun/bubblesort, afun/set_intersection, afun/set_invert,
+	afun/set_remove_repeats, afun/set_symmetric_difference, afun/set_union
 

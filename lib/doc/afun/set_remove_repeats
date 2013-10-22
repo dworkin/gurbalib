@@ -12,5 +12,6 @@ RETURN VALUE
 	The set with repeated elements but one removed.
 
 SEE ALSO
-	XXX
+	afun/bubblesort, afun/set_difference, afun/set_intersection,
+	afun/set_invert, afun/set_symmetric_difference, afun/set_union
 

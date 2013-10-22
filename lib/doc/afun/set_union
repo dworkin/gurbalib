@@ -12,5 +12,6 @@ RETURN VALUE
 	The union, of the two sets, optionally with repeats removed.
 
 SEE ALSO
-	XXX
+	afun/bubblesort, afun/set_difference, afun/set_intersection,
+	afun/set_invert, afun/set_remove_repeats, afun/set_symmetric_difference
 
