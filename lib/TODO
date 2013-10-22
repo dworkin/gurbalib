@@ -71,5 +71,10 @@ rebuild - doesn't give an error...
 
 rwho sirdude gives a very cryptic error message.
 
-fix ban -s so it works right...
+fix ban -s so it works right, doesn't show up right away when you ban a site.
+
+Also fix it so not all domains are banned, only select list.  Otherwise can't
+have a domain named after a wizard, it auto bans that wizard.
+	Probably not a good solution.
+
 
