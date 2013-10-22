@@ -63,10 +63,6 @@ need to look at it closer.
 Fix give jacket to sirdude so it tells sirdude blah gives a jacket to you.
 instead of blah gives a jacket to sirdude.
 
-ban
-Oct 13 22:43:20 ** Bad argument 2 for kfun +
-Oct 13 22:43:20 ** Sun Oct 13 22:43:20 2013:Object: /sys/cmds/wiz/ban, program: /sys/cmds/wiz/ban, line 50
-
 locate command gives:
 Intermud error 'unk-type' received from Ulario
 Unhandled packet type: locate-req
@@ -74,4 +70,6 @@ Unhandled packet type: locate-req
 rebuild - doesn't give an error...
 
 rwho sirdude gives a very cryptic error message.
+
+fix ban -s so it works right...
 

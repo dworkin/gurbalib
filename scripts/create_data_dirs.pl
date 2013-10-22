@@ -27,20 +27,52 @@ makedir("lib/daemons/data");
 makedir("lib/data");
 makedir("lib/data/messages");
 makedir("lib/data/banished");
+system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+   "lib/data/banished/kernel");
+system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+   "lib/data/banished/system");
+system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+   "lib/data/banished/network");
+system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+   "lib/data/banished/wizard");
+system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+   "lib/data/banished/wiz");
+system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+   "lib/data/banished/game");
 makedir("lib/data/banned");
 makedir("lib/data/banned/a");
 makedir("lib/data/banned/b");
 makedir("lib/data/banned/c");
 makedir("lib/data/players");
 makedir("lib/data/mail");
+if (-d "lib/domains/2.4.5") {
+   system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+      "lib/data/banished/2.4.5");
+}
+if (-d "lib/domains/boothill") {
+   system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+      "lib/data/banished/boothill");
+}
 if (-d "lib/domains/gurba") {
    makedir("lib/domains/gurba/data");
    makedir("lib/domains/gurba/data/boards");
    makedir("lib/domains/gurba/data/lockers");
+   system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+      "lib/data/banished/gurba");
+}
+if (-d "lib/domains/newbie") {
+   system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+      "lib/data/banished/newbie");
 }
 if (-d "lib/domains/required") {
    makedir("lib/domains/required/data");
    makedir("lib/domains/required/data/boards");
+   system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+      "lib/data/banished/required");
+}
+if (-d "lib/domains/test") {
+   system("echo Mon Oct 21 23:46:40 2013	by:  sirdude > " .
+      "lib/data/banished/test");
 }
 makedir("lib/kernel/daemons/data");
 makedir("lib/sys/daemons/data");

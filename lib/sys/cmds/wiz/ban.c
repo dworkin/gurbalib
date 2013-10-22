@@ -36,7 +36,10 @@ void show_banned() {
 
    for (i = 0; i < max; i++) {
       info = SITEBAN_D->get_banned_info(sites[i]);
-      write("\t" + sites[i] + "\t" + info + "\n");
+      if (!info) {
+         info = "\n";
+      }
+      write("\t" + sites[i] + "\t" + info);
    }
 
    write("Players Banned:\n");
@@ -47,7 +50,10 @@ void show_banned() {
    }
    for (i = 0; i < max; i++) {
       info = read_file("/data/banished/" + sites[i]);
-      write("\t" + sites[i] + "\t" + info + "\n");
+      if (!info) {
+         info = "\n";
+      }
+      write("\t" + sites[i] + "\t" + info);
    }
 }
 

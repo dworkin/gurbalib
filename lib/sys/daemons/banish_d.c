@@ -3,7 +3,8 @@ string *banished_names;
 #define BAN_DIR     "/data/banished/"
 
 #ifndef SYS_RESERVED_NAMES                                 
-#define SYS_RESERVED_NAMES ({ "kernel", "system", "network", "wiz", "game" })
+#define SYS_RESERVED_NAMES ({ "kernel", "system", "network", "wizard", "wiz",\
+	 "game" })
 #endif               
 
 void create() {
@@ -26,7 +27,7 @@ int is_banished(string name) {
 }
 
 int banish_name(string str) {
-   if (!require_priv("wiz"))
+   if (!require_priv("wizard"))
       error("Illegal use of banish_d");
 
    if (str == "")
@@ -44,7 +45,7 @@ int banish_name(string str) {
 }
 
 int unbanish_name(string str) {
-   if (!require_priv("wiz"))
+   if (!require_priv("wizard"))
       error("Illegal use of banish_d");
 
    str = lowercase(str);
