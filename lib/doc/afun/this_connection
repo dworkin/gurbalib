@@ -15,5 +15,6 @@ RETURN VALUE
 SEE ALSO
 	afun/call_trace, afun/players, afun/set_this_player, afun/this_body, 
 	afun/this_environment, afun/this_player, afun/this_program, 
-	afun/this_race, afun/this_user
+	afun/this_race, afun/this_user, kfun/call_trace, kfun/previous_object,
+	kfun/previous_program
 
