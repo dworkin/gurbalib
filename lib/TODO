@@ -77,4 +77,11 @@ Also fix it so not all domains are banned, only select list.  Otherwise can't
 have a domain named after a wizard, it auto bans that wizard.
 	Probably not a good solution.
 
+after possess rat
+	$>  cmds
+	$Runtime error: Value is not an int
+	$>  ls
+	$Runtime error: Bad argument 2 to normalize_path (needs string)
+	$>  cd
+	$Runtime error: Bad argument 2 to normalize_path (needs string)
 
