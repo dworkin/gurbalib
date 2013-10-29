@@ -11,5 +11,6 @@ RETURN VALUE
 	A new, converted string is returned.
 
 SEE ALSO
-	afun/uppercase, afun/capitalize
+	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp, afun/intp,
+	afun/mappingp, afun/nilp, afun/objectp, afun/stringp, afun/uppercase
 

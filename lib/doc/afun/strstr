@@ -14,6 +14,8 @@ RETURN VALUE
 
 SEE ALSO
 	afun/empty_str, afun/fmt_str, afun/pad_string_left,
-	afun/replace_string, afun/strcmp, afun/str2val, afun/trim_str
+	afun/replace_string, afun/rexplode, afun/strcmp, afun/str2val,
+	afun/trim_str, kfun/explode, kfun/implode, kfun/parse_string,
+	kfun/sscanf
 
 

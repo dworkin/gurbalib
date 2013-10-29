@@ -12,5 +12,5 @@ RETURN VALUE
 
 SEE ALSO
 	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp, afun/intp,
-	afun/mappingp, afun/nilp, afun/stringp
+	afun/lowercase, afun/mappingp, afun/nilp, afun/stringp, afun/uppercase
 

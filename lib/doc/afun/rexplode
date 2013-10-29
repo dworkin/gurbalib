@@ -16,4 +16,8 @@ ERRORS
 	result.
 
 SEE ALSO
-	XXX kfun/explode, kfun/implode, kfun/parse_string, kfun/sscanf
+	afun/empty_str, afun/fmt_str, afun/pad_string_left,
+	afun/replace_string, afun/strcmp, afun/strstr, afun/str2val,
+	afun/trim_str, kfun/explode, kfun/implode, kfun/parse_string,
+	kfun/sscanf
+
