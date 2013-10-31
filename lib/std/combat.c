@@ -17,7 +17,7 @@ void create(void) {
 }
 
 int is_fighting(void) {
-   return (fighting);
+   return fighting;
 }
 
 mapping query_killed_by() {
@@ -62,8 +62,8 @@ void receive_damage(object who, int dam) {
       this_object()->simple_action("$N $vfall to the ground...dead.");
       this_object()->message("You have died.");
       this_object()->halt_fight();
-      this_object()->die();
       this_object()->killed_by(who, time());
+      this_object()->die();
       who->increment_kills();
    }
 }
@@ -85,20 +85,23 @@ void damage_target(int dam, object who) {
 }
 
 int query_defense(void) {
-   int me, i;
+   int me, i, max;
    object *armor;
 
    me = random(this_object()->query_skill("combat/defense") / 50);
    me += this_object()->query_statbonus("dex");
    armor = this_object()->query_equipment();
-   for (i = 0; i < sizeof(armor); i++) {
+
+   max = sizeof(armor);
+   for (i = 0; i < max; i++) {
       if (armor[i]->is_armor()) {
 	 me += armor[i]->query_ac();
       }
    }
 
    armor = this_object()->query_wielded();
-   for (i = 0; i < sizeof(armor); i++) {
+   max = sizeof(armor);
+   for (i = 0; i < max; i++) {
       if (armor[i]->is_armor()) {
 	 me += armor[i]->query_ac();
       }
@@ -123,8 +126,9 @@ int do_swing(int me) {
          opponent + "%^RESET%^]");
 #endif
 
-   if (me_roll > opponent_roll)
+   if (me_roll > opponent_roll) {
       return 1;
+   }
    return 0;
 }
 
@@ -134,8 +138,9 @@ object get_target(object targ) {
    if (targ) {
       if (targ->is_dead()) {
 	 targets -= ( { targ } );
-	 if (sizeof(targets) == 0)
+	 if (sizeof(targets) == 0) {
 	    fighting = 0;
+         }
       } else if (targ->query_environment() ==
 	 this_object()->query_environment()) {
 	 fighting = FIGHTING_TIMEOUT;
@@ -219,7 +224,9 @@ void attack_with(string skill, object weapon, object target) {
    } else {
       string miss;
 
-      if (weapon) miss = weapon->query_weapon_miss();
+      if (weapon) { 
+         miss = weapon->query_weapon_miss();
+      }
 
       if (!miss) {
          this_object()->targetted_action("$N $vmiss $T.", target);
@@ -260,7 +267,7 @@ void cast_spell(object target) {
 }
 
 void do_fight(void) {
-   int i, x, done;
+   int i, max, x, done;
    object *weapons;
 
    target = get_target(target);
@@ -275,11 +282,12 @@ void do_fight(void) {
       }
 
       weapons = this_object()->query_wielded();
+      max = sizeof(weapons);
 
-      if (sizeof(weapons) == 0) {
+      if (max == 0) {
 	 this_object()->attack_with("combat/unarmed", nil, target);
       } else {
-	 for (i = 0; i < sizeof(weapons); i++) {
+	 for (i = 0; i < max; i++) {
 	    if (!weapons[i]->query_offensive())
 	       continue;
 	    this_object()->attack_with(weapons[i]->query_weapon_skill(), 
@@ -304,16 +312,18 @@ void do_fight(void) {
 }
 
 void attacked_by(object who) {
-   if (!targets)
+   if (!targets) {
       targets = ( { } );
+   }
    targets += ( { who } );
    target = who;
    fighting = FIGHTING_TIMEOUT;
 }
 
 void attack(object who) {
-   if (!targets)
+   if (!targets) {
       targets = ( { } );
+   }
    if (who->is_dead()) {
       return;
    }
