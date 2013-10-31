@@ -10,5 +10,5 @@ DESCRIPTION
 	afun, out does not wrap the message before sending to this_player().
 
 SEE ALSO
-	afun/write, afun/out_unmod
+	afun/console_msg, afun/out_unmod, afun/write
 

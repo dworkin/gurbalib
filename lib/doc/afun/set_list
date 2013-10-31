@@ -1,0 +1,16 @@
+NAME
+	set_list - set the value of a specified list
+
+SYNOPSIS
+	nomask void set_list(string list, object * ptr)
+
+
+DESCRIPTION
+	Assign the object list ptr to the specified list.
+
+SEE ALSO
+	afun/get_list, afun/list_append, afun/list_insert,
+	afun/list_is_sentinel, afun/list_new, afun/list_next,
+	afun/list_prepend, afun/list_prev, afun/list_remove,
+	afun/list_sentinel, misc/lists
+

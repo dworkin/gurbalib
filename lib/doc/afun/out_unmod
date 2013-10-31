@@ -10,5 +10,5 @@ DESCRIPTION
 	wrapped.
 
 SEE ALSO
-	afun/out, afun/write
+	afun/console_msg, afun/out, afun/write
 

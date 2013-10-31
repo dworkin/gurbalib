@@ -1,0 +1,11 @@
+NAME
+	console_msg - Send a message to the driver's std out
+
+SYNOPSIS
+	static void console_msg(string message)
+
+DESCRIPTION
+	Send message to the driver.
+
+SEE ALSO
+	afun/out, afun/out_unmod, afun/write

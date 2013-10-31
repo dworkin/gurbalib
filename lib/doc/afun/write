@@ -11,5 +11,5 @@ DESCRIPTION
 	the message is wrapped, and than it is sent to this_player().
 
 SEE ALSO
-	afun/out, afun/out_unmod
+	afun/console_msg, afun/out, afun/out_unmod
 
