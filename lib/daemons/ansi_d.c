@@ -400,7 +400,7 @@ void set_player_translations(mapping trans) {
 /*
  * Returns 0 on no error
  *         1 on too deep recursion
- *         2 on self refering tag
+ *         2 on self referring tag
  */
 int check_recursion(string tag, string value) {
    int count;

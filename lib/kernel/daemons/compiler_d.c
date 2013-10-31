@@ -267,7 +267,7 @@ string *inherits_this(string f, varargs int issue) {
    }
 
    if (issue) {
-      /* We know the issue, so a simpe map lookup will work */
+      /* We know the issue, so a simple map lookup will work */
       f += "#" + issue;
       return dep_list[f] ? dep_list[f][..] : ({ });
    } else {

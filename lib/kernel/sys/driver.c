@@ -116,7 +116,7 @@ void queue_upgrade(object ob) {
 	 /*
 	  * Note the order here, it is important.
 	  * doing this the other way around would result
-	  * in _F_upgraded() getting called inmediately
+	  * in _F_upgraded() getting called immediately
 	  * instead of on the next call to the object/clone
 	  *
 	  */

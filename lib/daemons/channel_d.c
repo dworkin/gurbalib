@@ -383,7 +383,7 @@ void chan_emote(string chan, string what) {
 
       rules = EMOTE_D->query_rules(cmd);
 
-      /* Targetted emote? Find the target */
+      /* Targeted emote? Find the target */
       if (arg && arg != "") {
 	 target = this_environment()->present(arg);
 	 if (!target) {

@@ -27,7 +27,7 @@ static object more_caller;	/* Who called more in us
 					(so we can call it back when done */
 static string *more_lines;	/* All the lines in the file we're more'ing */
 string last_tell;		/* Who did we get a tell from last? */
-static int color_more;		/* Flag to specifiy color more */
+static int color_more;		/* Flag to specify color more */
 
 string real_name;		/* This players real name */
 string email_address;		/* The email address */
@@ -35,7 +35,7 @@ string website;			/* Players webpage */
 mapping environment_variables;	/* The environment variables of the player */
 string title;			/* The title */
 string password;		/* The password */
-string *cmd_path;		/* The path which is searched for comands */
+string *cmd_path;		/* The path which is searched for commands */
 string *channels;		/* Channels we're listening to */
 string *ignored;		/* the users we are ignoring */
 mapping alias;			/* The players aliases */
@@ -414,7 +414,7 @@ string *query_ignored_all() {
    return ignored;
 }
 
-/* Redirect input to another funtion */
+/* Redirect input to another function */
 void input_to(string func, varargs mixed arg...) {
    input_to_obj = this_player();
    input_to_func = func;
@@ -1042,7 +1042,7 @@ void receive_message(string message) {
 
 	    rules = EMOTE_D->query_rules(cmd);
 
-	    /* Targetted emote? Find the target */
+	    /* Targeted emote? Find the target */
 	    if (arg != "") {
 	       target = this_environment()->present(arg);
 	    } else {
@@ -1093,7 +1093,7 @@ void receive_message(string message) {
       if (!flag) {
 	 /* Is it a channel? */
 	 if (CHANNEL_D->query_channel(cmd) == 1) {
-	    /* Okey, it's a channel. Are we priveleged enough to use it? */
+	    /* Okay, it's a channel. Are we privileged enough to use it? */
 	    if (CHANNEL_D->query_priv(cmd) + 1 == READ_ONLY ||
 	       CHANNEL_D->query_priv(cmd) <= query_user_type(living_name)) {
 

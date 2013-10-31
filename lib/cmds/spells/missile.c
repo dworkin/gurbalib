@@ -12,8 +12,8 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\tcast missle rabbit" });
-   lines += ({ "\tcast missle sirdude" });
+   lines += ({ "\tcast missile rabbit" });
+   lines += ({ "\tcast missile sirdude" });
 
    this_player()->more(lines);
 }

@@ -5,7 +5,7 @@
   from the parser daemon.
   Do NOT enable this here!!!
   Add it to /std/include/local_config.h instead, else you 
-  will spam every gurbalib user with this.
+  will spam every user with this.
 
   #define DEBUG_PARSE
 */
