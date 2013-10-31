@@ -315,7 +315,7 @@ void rcv_who_req(string origmud, mixed origuser, mixed destuser, mixed rest) {
 }
 
 void rcv_channel_t(string origmud, mixed origuser, mixed destuser, mixed rest) {
-   CHANNEL_D->chan_imud_rcv_targetted(rest[0], rest[5], origmud, rest[6],
+   CHANNEL_D->chan_imud_rcv_targeted(rest[0], rest[5], origmud, rest[6],
       rest[1], rest[3]);
 }
 

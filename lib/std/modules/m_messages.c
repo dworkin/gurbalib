@@ -226,7 +226,7 @@ void simple_action(string msg, varargs mixed objs ...) {
    }
 }
 
-void targetted_action(string msg, object target, varargs mixed objs ...) {
+void targeted_action(string msg, object target, varargs mixed objs ...) {
    string *result;
    object room;
 

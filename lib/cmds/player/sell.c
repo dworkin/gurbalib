@@ -52,19 +52,19 @@ static void main(string str) {
 
 	    if (obj->is_worn()) {
 	       this_player()->do_remove(obj);
-	       this_player()->targetted_action(obj->query_remove_message(), nil,
+	       this_player()->targeted_action(obj->query_remove_message(), nil,
 		  obj);
 	    }
 
 	    if (obj->is_wielded()) {
 	       this_player()->do_unwield(obj);
-	       this_player()->targetted_action(obj->query_unwield_message(),
+	       this_player()->targeted_action(obj->query_unwield_message(),
 		  nil, obj);
 	    }
 
 	    if (obj->is_undroppable()) {
 	       this_player()->
-		  targetted_action("$N $vare unable to let go of $o.", nil,
+		  targeted_action("$N $vare unable to let go of $o.", nil,
 		  obj);
 	       return;
 	    }

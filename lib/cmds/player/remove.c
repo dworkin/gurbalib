@@ -35,7 +35,7 @@ static void do_remove(object obj, int loud) {
    if (obj->is_worn()) {
       if (obj->is_cursed()) {
          if (loud) {
-            this_player()->targetted_action(
+            this_player()->targeted_action(
                "$N $vtry to remove $o, but $vfumble.", nil, obj);
             write("Strange... It won't come off.\n");
          }
@@ -45,7 +45,7 @@ static void do_remove(object obj, int loud) {
       wielded = 1;
       if (obj->is_cursed()) {
          if (loud) {
-            this_player()->targetted_action(
+            this_player()->targeted_action(
                "$N $vtry to remove $o, but $vfumble.", nil, obj);
             write("Strange... It won't come off.\n");
          }
@@ -60,9 +60,9 @@ static void do_remove(object obj, int loud) {
 
    this_player()->do_remove(obj);
    if (wielded) {
-      this_player()->targetted_action(obj->query_unwield_message(), nil, obj);
+      this_player()->targeted_action(obj->query_unwield_message(), nil, obj);
    } else {
-      this_player()->targetted_action(obj->query_remove_message(), nil, obj);
+      this_player()->targeted_action(obj->query_remove_message(), nil, obj);
    }
 }
 

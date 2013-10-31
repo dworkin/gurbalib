@@ -55,34 +55,34 @@ static void do_give(object obj1, object obj2, int loud) {
 
    if (obj1->is_worn()) {
       if (obj1->is_cursed()) {
-         this_player()->targetted_action("$N $vtry to remove $o, but $vfumble.",
+         this_player()->targeted_action("$N $vtry to remove $o, but $vfumble.",
             nil, obj1);
          write("Strange... It won't come off.\n");
          return;
       } else {
          this_player()->do_remove(obj1);
-         this_player()->targetted_action(obj1->query_remove_message(), 
+         this_player()->targeted_action(obj1->query_remove_message(), 
             nil, obj1);
       }
    }
 
    if (obj1->is_wielded()) {
       if (obj1->is_cursed()) {
-         this_player()->targetted_action("$N $vtry to unwield $o, " +
+         this_player()->targeted_action("$N $vtry to unwield $o, " +
             "but $vfumble.", nil, obj1);
          write("Strange... You can't unwield that..\n");
          return;
       } else {
          this_player()->do_unwield(obj1);
-         this_player()->targetted_action(obj1->query_unwield_message(), 
+         this_player()->targeted_action(obj1->query_unwield_message(), 
             nil, obj1);
       }
    }
 
    if (obj1->move(obj2)) {
-      this_player()->targetted_action("$N $vgive $o to $o1.", nil, obj1, obj2);
+      this_player()->targeted_action("$N $vgive $o to $o1.", nil, obj1, obj2);
    } else {
-      this_player()->targetted_action("$N $vtry to give $o to $o1, but $vfail.",
+      this_player()->targeted_action("$N $vtry to give $o to $o1, but $vfail.",
          nil, obj1, obj2);
    }
 }

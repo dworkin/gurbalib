@@ -53,7 +53,7 @@ static void main(string str) {
    target = this_environment()->present(who);
 
    if (!target) {
-      write("Cant find " + who + "\n");
+      write("Cant find " + who + ".\n");
       return;
    }
 
@@ -61,41 +61,39 @@ static void main(string str) {
    target_name = target->query_id();
    target_damage = (target_hp * perc) / 100;
 
-   write(target->query_id() + " has " + target_hp + " hit points");
+   write(target->query_id() + " has " + target_hp + " hit points.");
    write(target->query_id() + " is going to receive " + target_damage +
-      " damage");
+      " damage.");
 
    switch (perc) {
       case 1..20:
-	 this_player()->targetted_action("$N $vlook slightly annoyed at $T.",
+	 this_player()->targeted_action("$N $vlook slightly annoyed at $T.",
 	    target);
 	 target->message("You feel uncomfortable.");
 	 break;
       case 21..40:
-	 this_player()->targetted_action("$N $vlook intensely at $T.", target);
+	 this_player()->targeted_action("$N $vlook intensely at $T.", target);
 	 target->message("Your skin burns.");
 	 break;
       case 41..60:
-	 this_player()->targetted_action("$N $vlook angry at $T", target);
+	 this_player()->targeted_action("$N $vlook angrily at $T.", target);
 	 target->message("You feel as if you're hit by a tree.");
 	 break;
       case 61..80:
-	 this_player()->targetted_action("$N $vstare at $T for a while",
+	 this_player()->targeted_action("$N $vstare at $T for a while.",
 	    target);
 	 target->message("Your head hurts, and your nose begins to bleed.");
 	 break;
       case 81..99:
-	 this_player()-> targetted_action("Sparks fly as $N $vstare " +
-            "intensely at $T", target);
+	 this_player()-> targeted_action("Sparks fly as $N $vstare " +
+            "intensely at $T.", target);
 	 target->message("Your brain starts to ooze out of your ears.");
 	 break;
       case 100:
-	 this_player()->targetted_action("$N $vgive $T the evil eye.", target);
+	 this_player()->targeted_action("$N $vgive $T the evil eye.", target);
 	 target->message("Your head explodes.");
 	 break;
    }
-   /*this_player()->simple_action("$N $vgive " + target->query_id() + 
-      " a very nasty look..."); */
    target->decrease_hp(target_damage);
 
    if (target->query_hp() < 1) {

@@ -111,7 +111,7 @@ void do_game_command(string message) {
 	    }
 
 	    if (rule == "LIV") {
-	       targetted_action(EMOTE_D->query_emote(cmd, rule), target);
+	       targeted_action(EMOTE_D->query_emote(cmd, rule), target);
 	    } else if (rule == "OBJ") {
 	       simple_action(EMOTE_D->query_emote(cmd, rule), target);
 	    } else if (rule == "STR") {

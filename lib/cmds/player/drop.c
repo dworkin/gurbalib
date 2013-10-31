@@ -66,34 +66,34 @@ static int do_drop(object obj, int loud) {
    if (obj->query_worn() == 1) {
       if (obj->is_cursed()) {
          if (loud) {
-            this_player()->targetted_action("$N $vtry to remove $o, " +
+            this_player()->targeted_action("$N $vtry to remove $o, " +
                "but $vfumble.", nil, obj);
             write("Strange... It won't come off.\n");
          } 
          return 0;
       } 
       this_player()->do_remove(obj);
-      this_player()->targetted_action(obj->query_remove_message(), nil, obj);
+      this_player()->targeted_action(obj->query_remove_message(), nil, obj);
    }
    if (obj->query_wielded() == 1) {
       if (obj->is_cursed()) {
          if (loud) {
-            this_player()->targetted_action("$N $vtry to remove $o, " +
+            this_player()->targeted_action("$N $vtry to remove $o, " +
                "but $vfumble.", nil, obj);
             write("Strange... It won't come off.\n");
          } 
          return 0;
       }
       this_player()->do_unwield(obj);
-      this_player()->targetted_action(obj->query_unwield_message(), nil, obj);
+      this_player()->targeted_action(obj->query_unwield_message(), nil, obj);
    }
 
    if (obj->move(this_environment())) { 
-      this_player()->targetted_action("$N $vdrop $o.", nil, obj);
+      this_player()->targeted_action("$N $vdrop $o.", nil, obj);
       obj->post_drop();
       return 1;
    } else {
-      this_player()->targetted_action("$N $vtry to drop $o, but $vfail.", 
+      this_player()->targeted_action("$N $vtry to drop $o, but $vfail.", 
          nil, obj);
       return 0;
    }

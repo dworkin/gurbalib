@@ -105,7 +105,7 @@ int do_open(object who) {
    open_state = 1;
    update_description();
    if (who) {
-      who->targetted_action(query_open_message(), nil, this_object());
+      who->targeted_action(query_open_message(), nil, this_object());
    } else {
       this_object()->simple_action("$N $vopen.");
    }
@@ -119,7 +119,7 @@ int do_close(object who) {
    open_state = 0;
    update_description();
    if (who) {
-      who->targetted_action(query_close_message(), nil, this_object());
+      who->targeted_action(query_close_message(), nil, this_object());
    } else {
       this_object()->simple_action("$N $vclose.");
    }

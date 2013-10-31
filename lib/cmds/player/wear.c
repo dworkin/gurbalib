@@ -60,7 +60,7 @@ int do_wear(object obj, int loud) {
    }
 
    this_player()->do_wear(obj);
-   this_player()->targetted_action(obj->query_wear_message(), nil, obj);
+   this_player()->targeted_action(obj->query_wear_message(), nil, obj);
    return 1;
 }
 

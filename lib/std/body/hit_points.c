@@ -129,7 +129,7 @@ string query_status(void) {
       return "dead as a door nail.";
    } else if (max < 5) {
       if (x < (max / 2)) {
-	 return "nocking on deaths door.";
+	 return "knocking on deaths door.";
       }
       return "wounded.";
    } else {
@@ -141,7 +141,7 @@ string query_status(void) {
 	    return "in peak physical condition.";
 	    break;
 	 case 4:
-	    return "bairly scratched.";
+	    return "barely scratched.";
 	    break;
 	 case 3:
 	    return "lightly wounded.";
@@ -153,7 +153,7 @@ string query_status(void) {
 	    return "is in really bad shape.";
 	    break;
 	 default:
-	    return "nocking on deaths door.";
+	    return "knocking on deaths door.";
 	    break;
       }
    }

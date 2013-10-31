@@ -702,17 +702,17 @@ void do_quit(void) {
       } else {
          if (objs[i]->is_worn()) {
             this_player()->do_remove(objs[i]);
-            this_player()->targetted_action(objs[i]->query_remove_message(),
+            this_player()->targeted_action(objs[i]->query_remove_message(),
                nil, objs[i]);
          }
          if (objs[i]->is_wielded()) {
             this_player()->do_unwield(objs[i]);
-            this_player()->targetted_action(objs[i]->query_unwield_message(),
+            this_player()->targeted_action(objs[i]->query_unwield_message(),
                nil, objs[i]);
          }
 
          if (objs[i]->move(this_object()->query_environment())) {
-            this_object()->targetted_action("$N $vdrop $o.", nil, objs[i]);
+            this_object()->targeted_action("$N $vdrop $o.", nil, objs[i]);
          } else {
             objs[i]->destruct();
          }
@@ -1075,7 +1075,7 @@ void receive_message(string message) {
 	    }
 
 	    if (rule == "LIV") {
-	       targetted_action(EMOTE_D->query_emote(cmd, rule), target);
+	       targeted_action(EMOTE_D->query_emote(cmd, rule), target);
 	    } else if (rule == "OBJ") {
 	       simple_action(EMOTE_D->query_emote(cmd, rule), target);
 	    } else if (rule == "STR") {

@@ -55,7 +55,7 @@ void do_snoop(string str) {
 void add_snoopee(object pPlayer) {
    if (!pSnoopees)
       pSnoopees = ( { } );
-   this_object()->message("%^RED%^You are now beeing snooped by " +
+   this_object()->message("%^RED%^You are now being snooped by " +
       pPlayer->query_Name() + ".%^RESET%^");
    pSnoopees += ( { pPlayer } );
 }
@@ -64,7 +64,7 @@ void remove_snoopee(object pPlayer) {
    if (!pSnoopees)
       pSnoopees = ( { } );
    pSnoopees -= ( { pPlayer } );
-   this_object()->message("%^RED%^You are no longer beeing snooped by " +
+   this_object()->message("%^RED%^You are no longer being snooped by " +
       pPlayer->query_Name() + ".%^RESET%^");
 }
 

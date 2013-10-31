@@ -104,7 +104,7 @@ void do_buy(object player, object what) {
       return;
    }
 
-   player->targetted_action("$N $vsell $t $o for " + value + " ducats.", 
+   player->targeted_action("$N $vsell $t $o for " + value + " ducats.", 
       this_object(), what);
    what->query_environment()->remove_object(what);
    what->destruct();

@@ -25,7 +25,7 @@ int query_size() {
    return actual_size;
 }
 
-/* convert_size is used to convert the interger actual_size to a string */
+/* convert_size is used to convert the integer actual_size to a string */
 string convert_size() {
    string desc;
 

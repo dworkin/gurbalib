@@ -316,7 +316,7 @@ void chan_send_string(string chan, string from, string str,
    add_history(chan, from, str);
 }
 
-void chan_imud_rcv_targetted(string chan, string who, string where,
+void chan_imud_rcv_targeted(string chan, string who, string where,
    string target, string targetmud, string what) {
    if (!imud[chan]) {
       return;

@@ -37,19 +37,19 @@ void cure(object thisp, object target) {
 
    if (max_hp(target) || target->is_dead()) {
       write("Your spell has no effect.\n");
-      this_object()->targetted_action("A soft glow envelopes $N, " +
+      this_object()->targeted_action("A soft glow envelopes $N, " +
          "and then fizzles out.\n");
       return;
    }
 
    if (thisp == target) {
       write("You concentrate and heal yourself for " + x + " hp.\n");
-      this_object()->targetted_action("A soft glow envelopes $N, " +
+      this_object()->targeted_action("A soft glow envelopes $N, " +
 	 "as they cure their wounds.\n");
    } else {
       write("You lay your hands on " + target->query_name() +
 	 " healing them for " + x + " hp.\n");
-      this_object()->targetted_action("A soft glow envelopes " +
+      this_object()->targeted_action("A soft glow envelopes " +
 	 target->query_name() + "as $N cures their wounds.\n");
    }
    target->increase_hp(x);

@@ -51,6 +51,6 @@ static void main(string str) {
       return;
    }
 
-   this_player()->targetted_action("$N $vattack $t.", obj);
+   this_player()->targeted_action("$N $vattack $t.", obj);
    this_player()->attack(obj);
 }

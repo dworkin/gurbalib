@@ -105,18 +105,18 @@ static int do_get(object obj1, object obj2, int loud) {
 
    if (obj1->move(this_player())) {
       if (obj2 == this_environment()) {
-         this_player()->targetted_action("$N $vpick up $o.", nil, obj1);
+         this_player()->targeted_action("$N $vpick up $o.", nil, obj1);
       } else {
-         this_player()->targetted_action("$N $vpick up $o from $o1.", nil, 
+         this_player()->targeted_action("$N $vpick up $o from $o1.", nil, 
             obj1, obj2);
       }
       return 1;
    } else {
       if (obj2 == this_environment()) {
-         this_player()->targetted_action("$N $vtry to get $o, but $vfail.",
+         this_player()->targeted_action("$N $vtry to get $o, but $vfail.",
          nil, obj1);
       } else {
-         this_player()->targetted_action("$N $vtry to get $o from $o1, " +
+         this_player()->targeted_action("$N $vtry to get $o from $o1, " +
             "but $vfail.", nil, obj1, obj2);
       }
    }

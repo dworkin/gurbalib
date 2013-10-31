@@ -25,7 +25,7 @@ void missile(object thisp, object target) {
    thisp->decrease_mana(COST);
    write("You shoot a magick missile out your hands at " +
       target->query_name() + " damaging them for " + x + " hp.\n");
-   this_object()->targetted_action("A soft glow shoots from $N's hands and " +
+   this_object()->targeted_action("A soft glow shoots from $N's hands and " +
       "hits " + target->query_name() + ".\n");
    target->decrease_hp(x);
 }

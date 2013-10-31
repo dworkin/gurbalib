@@ -78,7 +78,7 @@ void trim_bonus_stat(string statname) {
    int max, min;
    max = 0;
    min = 0;
-   /* removed, query_bonus_stat_X functions dont exist in std/race
+   /* removed, query_bonus_stat_X functions don't exist in std/race
       max = this_object()->query_race_object()->query_bonus_stat_maximum(statname);    
       min = this_object()->query_race_object()->query_bonus_stat_minimum(statname);
     */

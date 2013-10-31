@@ -201,7 +201,7 @@ void attack_with(string skill, object weapon, object target) {
 	       this_object()->query_skill("combat/unarmed"));
 	 }
 
-	 this_object()->targetted_action("$N $vhit $T.", target);
+	 this_object()->targeted_action("$N $vhit $T.", target);
 
       } else {
 	 damage = this_object()->query_statbonus("str") +
@@ -215,7 +215,7 @@ void attack_with(string skill, object weapon, object target) {
 	       this_object()->query_skill(weapon->query_weapon_skill()));
 	 }
 
-	 this_object()->targetted_action("$N " +
+	 this_object()->targeted_action("$N " +
 	    weapon->query_weapon_action() + " $T with a " +
 	    weapon->query_id() + ".", target);
       }
@@ -229,9 +229,9 @@ void attack_with(string skill, object weapon, object target) {
       }
 
       if (!miss) {
-         this_object()->targetted_action("$N $vmiss $T.", target);
+         this_object()->targeted_action("$N $vmiss $T.", target);
       } else {
-         this_object()->targetted_action("$N " + miss + " $T.", target);
+         this_object()->targeted_action("$N " + miss + " $T.", target);
       }
 
       if (!weapon) {

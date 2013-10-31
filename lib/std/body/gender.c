@@ -16,7 +16,7 @@ string query_gender(void) {
       case "neuter":
          return "neuter";
       default:
-	 return "unkown";
+	 return "unknown";
    }
 }
 

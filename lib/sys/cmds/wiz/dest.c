@@ -59,12 +59,12 @@ static void main(string str) {
 	 } else {
             if (ob->is_worn()) {
                this_player()->do_remove(ob);
-               this_player()->targetted_action(ob->query_remove_message(),
+               this_player()->targeted_action(ob->query_remove_message(),
                   nil, ob);
             }
             if (ob->is_wielded()) {
                this_player()->do_unwield(ob);
-               this_player()->targetted_action(ob->query_unwield_message(),
+               this_player()->targeted_action(ob->query_unwield_message(),
                   nil, ob);
             }
 	    this_player()->simple_action("$N $vtouch the " + ob->query_id() +
