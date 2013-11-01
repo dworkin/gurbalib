@@ -11,6 +11,12 @@ DESCRIPTION
 RETURN VALUE
 	The object representing the current player is returned.
 
+EXAMPLES
+	object player;
+
+	player = this_player();
+	write("Name: " + player->query_Name() + "\n");
+
 SEE ALSO
 	afun/call_trace, afun/players, afun/set_this_player, afun/this_body,
 	afun/this_connection, afun/this_environment, afun/this_program,

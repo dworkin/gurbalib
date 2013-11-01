@@ -11,6 +11,16 @@ RETURN VALUE
 	Returns ( { } ); if there are no players otherwise a list of 
 	player objects.
 
+EXAMPLES
+	object *everyone;
+	int x, max;
+
+	everyone = players();
+	max = sizeof(everyone);
+	for(x=0; x<max; x++) {
+	   write("   " + everyone[x]->query_name() + "\n");
+	}
+
 SEE ALSO
 	afun/call_trace, afun/set_this_player, afun/this_body,
 	afun/this_connection, afun/this_environment, afun/this_player,

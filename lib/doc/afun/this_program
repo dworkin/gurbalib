@@ -5,7 +5,16 @@ SYNOPSIS
 	string this_program()
 
 DESCRIPTION
-	Return the name of the current program.
+	Get the name of the current program.
+
+RETURN VALUE
+	A string that contains the name of the current program.  If
+	undefined nil is returned.
+
+EXAMPLES
+	if (this_program() != "/std/body") {
+	   write("Error wrong program.\n");
+	}
 
 SEE ALSO
 	afun/call_trace, afun/players, afun/set_this_player, afun/this_body, 

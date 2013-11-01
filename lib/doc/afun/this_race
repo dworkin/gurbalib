@@ -11,6 +11,11 @@ DESCRIPTION
 RETURN VALUE
 	A race object, or else the function which called this_race.
 
+EXAMPLES
+	object p;
+	p = this_race();
+	write("Language: " + p->query_language() + "\n");
+
 SEE ALSO
 	afun/call_trace, afun/players, afun/set_this_player, afun/this_body, 
 	afun/this_connection, afun/this_environment, afun/this_player,

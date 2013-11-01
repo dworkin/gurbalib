@@ -10,6 +10,12 @@ DESCRIPTION
 RETURN VALUE
 	A new, converted string is returned.
 
+EXAMPLES
+	string upper;
+
+	upper = uppercase("woohoo");
+	upper = uppercase(this_player()->query_name());
+
 SEE ALSO
 	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp, afun/intp,
 	afun/lowercase, afun/mappingp, afun/nilp, afun/objectp, afun/stringp

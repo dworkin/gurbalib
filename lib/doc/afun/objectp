@@ -10,6 +10,15 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 if 'arg' is an object, 0 otherwise.
 
+EXAMPLES
+	object p;
+
+	p = this_object();
+
+	if (objectp(p)) {
+	   write("Valid object!\n");
+	}
+
 SEE ALSO
 	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp, afun/intp,
 	afun/lowercase, afun/mappingp, afun/nilp, afun/stringp, afun/uppercase

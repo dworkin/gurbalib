@@ -10,6 +10,13 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 if 'arg' is nil, 0 otherwise.
 
+EXAMPLES
+	string x;
+
+	if (nilp(x)) {
+	   write("X is undefined.\n");
+	}
+
 SEE ALSO
 	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp, afun/intp,
 	afun/lowercase, afun/mappingp, afun/objectp, afun/stringp,

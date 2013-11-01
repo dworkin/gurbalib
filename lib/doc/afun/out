@@ -9,6 +9,13 @@ DESCRIPTION
 	codes, as described in /doc/misc/ansi_colors.  Unlike the write 
 	afun, out does not wrap the message before sending to this_player().
 
+EXAMPLES
+	int x;
+
+	x = 5;
+	out("The number is : " + 5 + "\n");
+	out("Hello World\n");
+
 SEE ALSO
 	afun/console_msg, afun/out_unmod, afun/write
 

@@ -10,6 +10,12 @@ DESCRIPTION
 RETURN VALUE
 	A new, converted string is returned.
 
+EXAMPLES
+	string name;
+
+	name = lowercase("WooHoo");
+	name = lowercase(this_player()->query_Name());
+
 SEE ALSO
 	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp, afun/intp,
 	afun/mappingp, afun/nilp, afun/objectp, afun/stringp, afun/uppercase

@@ -13,6 +13,11 @@ DESCRIPTION
 RETURN VALUE
 	The object representing the current user is returned.
 
+EXAMPLES
+	object p;
+	p = this_user();
+	write(p->query_player()->query_name() + "\n");
+
 SEE ALSO
 	afun/call_trace, afun/players, afun/set_this_player, afun/this_body, 
 	afun/this_connection, afun/this_environment, afun/this_player,

@@ -9,6 +9,13 @@ DESCRIPTION
 	No ansi color codes will be translated, and no lines will be 
 	wrapped.
 
+EXAMPLES
+	int x;
+
+	x = 5;
+	out("The number is : " + 5 + "\n");
+	out("Hello World\n");
+
 SEE ALSO
 	afun/console_msg, afun/out, afun/write
 

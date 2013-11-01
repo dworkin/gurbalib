@@ -10,6 +10,12 @@ DESCRIPTION
 RETURN VALUE
 	The string with whitespace replaced with a single black space.
 
+EXAMPLES
+	string x;
+	x = trim_string("       Woo Hoo      ");
+	write("(" + x + ")\n");   /* Should print "(WooHoo)" */
+XXX doesn't match descriptions above but this is what it does.
+
 SEE ALSO
 	afun/empty_str, afun/fmt_str, afun/pad_string_left,
 	afun/replace_string, afun/rexplode, afun/strcmp, afun/strstr,

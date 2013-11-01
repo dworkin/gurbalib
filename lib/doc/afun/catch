@@ -30,7 +30,7 @@ DESCRIPTION
 	valid use, but if you can prevent such a use by adding a simple 
 	check, that is almost always a better solution.       
 
-EXAMPLE
+EXAMPLES
 	How catch should be used:
 
 	The following example is based on commands that do their own 

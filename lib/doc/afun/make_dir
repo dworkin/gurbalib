@@ -10,6 +10,18 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 on success and 0 on failure.
 
+EXAMPLES
+	string name;
+	int x;
+
+	name = "sirdude";
+	x = make_dir("/tmp/" + name);
+	if (x) {
+	   write("Done.\n");
+	} else {
+	   write("Unable to make tempdir.\n");
+	}
+
 SEE ALSO
 	afun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/read_file,
 	afun/rename_file, afun/remove_dir, afun/remove_file, afun/require_priv,

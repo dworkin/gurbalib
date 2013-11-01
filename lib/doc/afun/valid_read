@@ -8,11 +8,17 @@ DESCRIPTION
 	Test read access to a file with the provided name.  This file 
 	does not have to exist.
 
-NOTES
-	This afun only exists outside /kernel
-
 RETURN VALUE
 	Returns 1 if the access is to be allowed
+
+EXAMPLES
+	if (valid_read("/tmp/sirdude.txt")) {
+	   string *lines;
+	   lines = read_file("/tmp/sirdude.txt");
+	}
+
+NOTES
+	This afun only exists outside /kernel
 
 SEE ALSO
 	afun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
