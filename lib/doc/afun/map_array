@@ -14,6 +14,11 @@ RETURN VALUE
 	Returns a new (possibly empty) array containing all elements of 
 	arr mapped through ob->fun(elem, extra).
 
+EXAMPLES
+	mixed *a;
+	a = players();
+	a = map_array(a, "get_player_name");
+
 SEE ALSO
 	afun/filter_array, afun/member_array, afun/member_map,
 	afun/split_array, afun/uniq_array

@@ -15,6 +15,13 @@ RETURN VALUE
 	Returns the file contents in a string.  If no file is found 
 	return nil.
 
+EXAMPLES
+	string data;
+
+	data = read_file("/tmp/sirdude.txt");
+	data = read_file("/std/room.c",10,100);
+	data = read_file("/std/room.c",-10);
+
 SEE ALSO
 	afun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
 	afun/rename_file, afun/remove_dir, afun/remove_file, afun/require_priv,

@@ -13,6 +13,20 @@ RETURN VALUE
 	Returns the pirvilage of the specified player as an int,
 	otherwise returns 0.
 
+EXAMPLES
+	#include "privileges.h";
+	int x;
+
+	x = query_user_type(this_player());
+	switch (x) {
+	   case ADMIN_L:
+		write("Woo\n");
+	   case WIZ_L:
+		write("Hoo\n");
+	   default:
+		write("Ooh\n");
+	}
+
 SEE ALSO
 	afun/query_admin, afun/query_mortal, afun/query_wizard
 

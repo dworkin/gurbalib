@@ -12,5 +12,12 @@ DESCRIPTION
 RETURN VALUE
 	Returns a minimized path for arguments.
 
+EXAMPLES
+	string path;
+
+	path = normalize_path("test.txt","//std/../wiz/../tmp");
+	write("PATH = " + path + "\n");
+
 SEE ALSO
+	XXX
 

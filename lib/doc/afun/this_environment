@@ -11,6 +11,14 @@ DESCRIPTION
 RETURN VALUE
 	The object representing the current player's environment is returned.
 
+EXAMPLES
+	object room;
+
+	room = this_environment();
+	if (room) {
+		write("You are here: " + room->query_short() + "\n");
+	}
+
 SEE ALSO
 	afun/call_trace, afun/players, afun/set_this_player, afun/this_body, 
 	afun/this_connection, afun/this_player, afun/this_program,

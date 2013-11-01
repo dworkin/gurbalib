@@ -10,6 +10,11 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 if 'arg' is an admin player object, 0 otherwise.
 
+EXAMPLES
+	if (query_admin(this_player()) {
+	   write("Welcome the mighty admin!\n");
+	}
+
 SEE ALSO
 	afun/query_mortal, afun/query_user_type, afun/query_wizard
 

@@ -10,6 +10,17 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 on success and 0 on failure.
 
+EXAMPLES
+	string stuff;
+
+	stuff = normalize_path("sirdude.txt","/tmp");
+
+	if (remove_file(stuff) {
+	   write("Removed " + stuff + "\n");
+	} else {
+	   write("Cannot remove " + stuff + "\n");
+	}
+
 SEE ALSO
 	afun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
 	afun/read_file, afun/rename_file, afun/remove_dir, afun/require_priv,

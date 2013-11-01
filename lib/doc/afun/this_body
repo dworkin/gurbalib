@@ -12,6 +12,16 @@ DESCRIPTION
 RETURN VALUE
 	The body object controlled by the current player is returned.
 
+EXAMPLES
+	object b;
+	b = this_body();
+	if (b) {
+	   string web;
+
+	   web = b->query_website();
+	   ...
+	}
+
 SEE ALSO
 	afun/call_trace, afun/players, afun/set_this_player,
 	afun/this_connection, afun/this_environment, afun/this_player,

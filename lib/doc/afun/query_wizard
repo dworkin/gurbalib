@@ -10,5 +10,10 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 if 'arg' is a wizard player object, 0 otherwise.
 
+EXAMPLES
+	if (query_wizard(this_player()) {
+		write("You may pass.\n");
+	}
+
 SEE ALSO
 	afun/query_admin, afun/query_mortal, afun/query_user_type

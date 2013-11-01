@@ -11,6 +11,15 @@ RETURN VALUE
 	Returns the index of the first occurrence of item in array arr. 
 	If not found, then -1 is returned.
 
+EXAMPLES
+	mixed *arr;
+	int x;
+
+	x = member_array("STR", arr);
+	if (x > -1) {
+	   write("Found STR: " + x + "\n");
+	}
+
 SEE ALSO
 	afun/filter_array, afun/map_array, afun/member_map, afun/split_array,
 	afun/uniq_array

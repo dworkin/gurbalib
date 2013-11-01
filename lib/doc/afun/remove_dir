@@ -11,6 +11,13 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 on success and 0 on failure.
 
+EXAMPLES
+	if (remove_dir("/tmp/sirdude")) {
+	   write("OK.\n");
+	} else {
+	   write("Failed to remove dir.\n");
+	}
+
 SEE ALSO
 	afun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
 	afun/read_file, afun/rename_file, afun/remove_file, afun/require_priv,

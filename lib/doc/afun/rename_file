@@ -10,6 +10,13 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 for success and 0 for failure.
 
+EXAMPLES
+	if (rename_file("/tmp/sirdude.txt","/tmp/bingo.txt")) {
+	   write("Ok.\n");
+	} else {
+	   write("Failed.\n");
+	}
+
 SEE ALSO
 	afun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
 	afun/read_file, afun/remove_dir, afun/remove_file, afun/require_priv,
