@@ -2,12 +2,19 @@ NAME
 	copy - copy a file
 		
 SYNOPSIS
-	void(string source, string destination)
+	static void copy(string src, string dst);
+	XXX Why doesn't this return an int?
 
 DESCRIPTION
 	Copies the source file to the destination.  If destination is a 
 	directory, a file will be created based on the name of the source 
 	file.
+
+RETURN VALUE
+	NA (void)
+
+EXAMPLES
+	copy("/wiz/sirdude/rooms/workroom.c","/tmp/workroom.c");
 		
 SEE ALSO
 	afun/cat_file, afun/editor, afun/get_dir, afun/make_dir,

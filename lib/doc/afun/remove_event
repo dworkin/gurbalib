@@ -10,6 +10,9 @@ DESCRIPTION
 	no longer be signaled. All subscribers are removed when an 
 	event is removed, and objects can no longer subscribe to it.
 
+RETURN VALUE
+	NA (void)
+
 SEE ALSO
 	afun/add_event, afun/event, afun/subscribe_event, 
 	afun/unsubscribe_event

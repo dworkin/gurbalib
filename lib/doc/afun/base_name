@@ -2,10 +2,13 @@ NAME
 	base_name - return an object's path
 
 SYNOPSIS
-	void base_name()
+	nomask string base_name(varargs object obj)
 
 DESCRIPTION
 	Returns the base, non-clone object path of this_object().
+
+RETURN VALUE
+	Return the base name of an object.
 
 SEE ALSO
 	afun/absolute_path, afun/clone_num, afun/file_name, 

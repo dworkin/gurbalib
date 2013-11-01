@@ -4,9 +4,11 @@ NAME
 SYNOPSIS
 	nomask void set_list(string list, object * ptr)
 
-
 DESCRIPTION
 	Assign the object list ptr to the specified list.
+
+RETURN VALUE
+	NA (void)
 
 SEE ALSO
 	afun/get_list, afun/list_append, afun/list_insert,

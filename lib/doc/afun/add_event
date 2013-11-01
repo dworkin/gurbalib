@@ -8,6 +8,9 @@ DESCRIPTION
 	Adds an event with the given name, needed before the event can be 
 	signaled or other objects subscribe to the event.
 
+RETURN VALUE
+	NA (void)
+
 SEE ALSO
 	afun/event, afun/remove_event, afun/subscribe_event, 
 	afun/unsubscribe_event

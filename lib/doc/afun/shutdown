@@ -8,5 +8,12 @@ DESCRIPTION
 	Logs out all players, does a statedump if persistent and then 
 	shutdown the mud.
 
+RETURN VALUE
+	NA (void)
+
+EXAMPLES
+	shutdown();
+
 SEE ALSO
+	XXX
 

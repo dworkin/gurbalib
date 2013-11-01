@@ -9,6 +9,9 @@ DESCRIPTION
 	codes, as described in /doc/misc/ansi_colors.  Unlike the write 
 	afun, out does not wrap the message before sending to this_player().
 
+RETURN VALUE
+	NA (void)
+
 EXAMPLES
 	int x;
 

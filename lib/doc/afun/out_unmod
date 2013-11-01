@@ -9,6 +9,9 @@ DESCRIPTION
 	No ansi color codes will be translated, and no lines will be 
 	wrapped.
 
+RETURN VALUE
+	NA (void)
+
 EXAMPLES
 	int x;
 

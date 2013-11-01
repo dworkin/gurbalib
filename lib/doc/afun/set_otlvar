@@ -7,6 +7,9 @@ SYNOPSIS
 DESCRIPTION
 	Sets the value for an objects tls variable 'name'.
 
+RETURN VALUE
+	NA (void)
+
 NOTES
 	This afun only exists for code outside /kernel
 

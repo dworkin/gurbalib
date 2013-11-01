@@ -13,5 +13,11 @@ DESCRIPTION
 	wizards can use git to commit files, and this tool to pull in their 
 	changes, and or push local changes to the bare repository.
 
-SEE ALSO
+RETURN VALUE
+	return 1 on success and 0 on failure.
 
+EXAMPLES
+	XXX
+
+SEE ALSO
+	XXX

@@ -10,6 +10,10 @@ DESCRIPTION
 	optional message is provided, it will be appended to the error as 
 	follows: Bad argument <pos> to function <calling function> 
 		(needs <message>)
+
+RETURN VALUE
+	NA (void)
+
 EXAMPLES
 	void foo(int a, string b) {
 	   argcheck(( a > 10 ), 1, "to be > 10");

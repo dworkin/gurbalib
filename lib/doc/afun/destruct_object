@@ -7,9 +7,17 @@ SYNOPSIS
 DESCRIPTION
 	Remove an object from the running system.  Anything like a variable
 	pointing to the object will become nil.
-	
 
 	For more info on objects see /doc/misc/objects.
+
+RETURN VALUE
+	NA (void)
+
+EXAMPLES
+	object p;
+	p = this_object();
+
+	destruct_object(p);
 
 SEE ALSO
 	afun/clone_object, afun/compile_library, afun/compile_object,

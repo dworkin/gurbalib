@@ -10,6 +10,9 @@ DESCRIPTION
 	If the optional argument message is provided, the error message 
 	will be replaced by it. The call trace cannot be changed.
 
+RETURN VALUE
+	NA (void)
+
 EXAMPLE
 	int divint(int a, int b) {
 	   catch {

@@ -9,6 +9,9 @@ DESCRIPTION
 	not save object variables or variables that are local to functions
 	defined in the object.  It will also not save private or static 
 	variables.  An error will occur if there is a problem saving the file.
+
+RETURN VALUE
+	NA (void)
 		
 SEE ALSO
 	afun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,

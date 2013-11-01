@@ -19,7 +19,7 @@ sub check_file {
 			if ($i eq "SEE") {
 				print("$file is missing SEE ALSO\n");
 			} elsif ($i eq "RETURN") {
-				print("$file is missing RETURN VALUES\n");
+				print("$file is missing RETURN VALUE\n");
 			} else {
 				print("$file is missing $i\n");
 			}

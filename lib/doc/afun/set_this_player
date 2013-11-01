@@ -7,6 +7,9 @@ SYNOPSIS
 DESCRIPTION
 	Sets the return value of this_player() to ob.  
 
+RETURN VALUE
+	NA (void)
+
 SEE ALSO
 	afun/call_trace, afun/players, afun/this_body, afun/this_connection, 
 	afun/this_environment, afun/this_player, afun/this_program, 

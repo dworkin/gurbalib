@@ -7,6 +7,9 @@ SYNOPSIS
 DESCRIPTION
 	Use the tls system to record error messages for the mud.
 
+RETURN VALUE
+	NA (void)
+
 NOTES
 	This afun only exists for code outside /kernel
 

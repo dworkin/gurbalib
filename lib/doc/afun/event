@@ -9,6 +9,9 @@ DESCRIPTION
 	to it. A function event_<name> is called in all those objects, the 
 	optional arguments are passed to this function.
 
+RETURN VALUE
+	NA (void)
+
 SEE ALSO
 	afun/add_event, afun/remove_event, afun/subscribe_event,
 	afun/unsubscribe_event

@@ -7,5 +7,11 @@ SYNOPSIS
 DESCRIPTION
 	Send message to the driver.
 
+RETURN VALUE
+	NA (void)
+
+EXAMPLES
+	console_msg("ERROR: we have an error here.\n");
+
 SEE ALSO
 	afun/out, afun/out_unmod, afun/write

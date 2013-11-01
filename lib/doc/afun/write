@@ -11,7 +11,7 @@ DESCRIPTION
 	the message is wrapped, and than it is sent to this_player().
 
 RETURN VALUE
-	NA
+	NA (void)
 
 EXAMPLES
 	int x;
