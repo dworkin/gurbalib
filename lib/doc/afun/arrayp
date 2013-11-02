@@ -10,6 +10,13 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 if 'arg' is an array, 0 otherwise.
 
+EXAMPLES
+	mixed arg;
+
+	if (!arrayp(arg)) {
+	   write("Error.\n");
+	}
+
 SEE ALSO
 	afun/dump_value, afun/floatp, afun/functionp, afun/intp,
 	afun/lowercase, afun/mappingp, afun/nilp, afun/objectp, afun/stringp,

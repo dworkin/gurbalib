@@ -12,6 +12,13 @@ DESCRIPTION
 
 RETURN VALUE
 	NA (void)
+
+EXAMPLES
+	#define MYDATA "/kernel/daemons/data/domain_d.o"
+
+	static void save_me(void) {
+	   save_object(MYDATA);
+	}
 		
 SEE ALSO
 	afun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,

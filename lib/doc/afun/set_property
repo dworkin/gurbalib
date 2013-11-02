@@ -23,6 +23,12 @@ RETURN VALUE
 	Returns 1 on success or 0 when privilege checks do not allow the 
 	changes.
 
+EXAMPLES
+	object u;
+
+	u = this_player();
+	u->set_property("stuff", 1);
+
 SEE ALSO
 	afun/property, misc/properties, afun/remove_property
 

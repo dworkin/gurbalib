@@ -10,6 +10,14 @@ DESCRIPTION
 RETURN VALUE
         Returns 1 if 'arg' is an int, 0 otherwise.
 
+EXAMPLES
+	mixed stuff;
+
+	if (!intp(stuff)) {
+	   write("Error: stuff is NOT a number.\n");
+	   return 1;
+	}
+
 SEE ALSO
 	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp,
 	afun/lowercase, afun/mappingp, afun/nilp, afun/objectp, afun/stringp,

@@ -9,6 +9,14 @@ DESCRIPTION
 
 RETURN VALUE
 	Return the base name of an object.
+EXAMPLES
+	string str;
+	object obj;
+
+	obj = this_player();
+	str = base_name(obj);
+
+	write(this_player()->query_Name() + " has base object: " + str + "\n");
 
 SEE ALSO
 	afun/absolute_path, afun/clone_num, afun/file_name, 

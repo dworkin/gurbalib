@@ -10,6 +10,13 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 if any of the conditions are met, else 0.
 
+EXAMPLES
+	string str;
+
+	if (empty_str(str)) {
+	   write("Error str undefined.\n");
+	}
+
 SEE ALSO
 	afun/fmt_str, afun/pad_string_left, afun/replace_string,
 	afun/rexplode, afun/strcmp, afun/strstr, afun/str2val, afun/trim_str,

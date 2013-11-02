@@ -13,6 +13,14 @@ RETURN VALUE
 	not exist or permission checks fail, nil is returned.  (Note, that 
 	a property can also be set to nil, without removing it.)
 
+EXAMPLES
+	object u;
+
+	u = this_player();
+	if (u->property("stuff")) {
+	   write(this_player()->query_Name() + " has the stuff.\n");
+	}
+
 SEE ALSO
 	misc/properties, afun/remove_property, afun/set_property
 

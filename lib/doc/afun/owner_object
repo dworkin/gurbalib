@@ -13,5 +13,16 @@ RETURN VALUE
 	Returns a string with the name of the owner of the file from 
 	which ob has been compiled.
 
+EXAMPLES
+	string name;
+	object obj;
+
+	name = owner_object(obj);
+	if (stringp(name)) {
+	   write("The owner of that object is: " + name + "\n");
+	} else {
+	   write("Error unable to determine owner of that object.\n");
+	}
+
 SEE ALSO
 	owner_file, file_name

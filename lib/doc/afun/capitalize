@@ -10,6 +10,12 @@ DESCRIPTION
 RETURN VALUE
 	A new, converted string is returned.
 
+EXAMPLES
+	string name;
+
+	name = capitalize("woohoo");
+	name = capitalize(this_player()->query_name());
+
 SEE ALSO
 	afun/uppercase, afun/lowercase
 

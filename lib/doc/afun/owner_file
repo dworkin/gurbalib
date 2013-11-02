@@ -11,5 +11,11 @@ DESCRIPTION
 RETURN VALUE
 	Returns a string with the name of the owner of a file.
 
+EXAMPLES
+	string name;
+
+	name = owner_file("/tmp/sirdude.txt");
+	write("The owner of that file is: " + name + "\n");
+
 SEE ALSO
 	owner_object, file_name

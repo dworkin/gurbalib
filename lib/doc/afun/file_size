@@ -10,6 +10,16 @@ DESCRIPTION
 RETURN VALUE
         The size of file found at filepath, or 0 if no file found.
 
+EXAMPLES
+	int x;
+
+	x = file_size("/tmp/sirdude.txt");
+	if (x > 0) {
+	   write("The size of that file is: " + x + "\n");
+	} else {
+	   write("No such file.\n");
+	}
+
 SEE ALSO
 	afun/dir_size, afun/filelastmod, afun/file_exists
 

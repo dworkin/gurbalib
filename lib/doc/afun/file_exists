@@ -11,6 +11,11 @@ RETURN VALUE
 	Returns 1 if a file exists at filepath, -1 if a directory exists 
 	at filepath, and 0 if no file found.
 
+EXAMPLES
+	if (file_exists("/tmp/sirdude.txt")) {
+	   write("Error, tmp file for sirdude already exists.\n");
+	}
+
 SEE ALSO
 	afun/dir_size, afun/filelastmod, afun/file_size
 
