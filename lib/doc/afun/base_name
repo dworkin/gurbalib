@@ -19,6 +19,8 @@ EXAMPLES
 	write(this_player()->query_Name() + " has base object: " + str + "\n");
 
 SEE ALSO
-	afun/absolute_path, afun/clone_num, afun/file_name, 
-	afun/path_file, afun/wiz_dir, kfun/find_object, kfun/object_name
+	afun/absolute_path, afun/clone_object, afun/clone_num,
+	afun/compile_library, afun/compile_object, afun/destruct_object,
+	afun/file_name, afun/normalize_path, afun/path_file, afun/wiz_dir,
+	kfun/find_object, kfun/object_name
 

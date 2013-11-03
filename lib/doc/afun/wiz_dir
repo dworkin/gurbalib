@@ -15,5 +15,8 @@ EXAMPLES
 	dirname = wiz_dir(this_player());
 
 SEE ALSO
-	afun/absolute_path, afun/base_name, afun/clone_num, afun/file_name, 
-	afun/path_file, kfun/find_object, kfun/object_name
+	afun/absolute_path, afun/base_name, afun/clone_object, afun/clone_num,
+	afun/compile_library, afun/compile_object, afun/destruct_object,
+	afun/file_name, afun/normalize_path, afun/path_file, kfun/find_object,
+	kfun/object_name
+

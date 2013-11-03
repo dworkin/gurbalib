@@ -11,6 +11,13 @@ DESCRIPTION
 RETURN VALUE
 	Returns the modified string.
 
+EXAMPLES
+	string stuff;
+
+	stuff = "Hello big badddd wolf.";
+	stuff = replace_string(stuff,"badddd","bad");
+	write("Stuff = " + stuff + "\n");
+
 SEE ALSO
 	afun/empty_str, afun/fmt_str, afun/pad_string_left, afun/rexplode,
 	afun/strcmp, afun/strstr, afun/str2val, afun/trim_str, kfun/explode,

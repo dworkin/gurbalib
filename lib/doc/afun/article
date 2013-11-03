@@ -10,5 +10,11 @@ DESCRIPTION
 RETURN VALUE
 	A string containing the indefinite article is returned.
 
-SEE ALSO
+EXAMPLES
+	string art;
 
+	art = article("rock");
+	write("You clone " + art + " rock.\n");
+
+SEE ALSO
+	afun/invert_exit

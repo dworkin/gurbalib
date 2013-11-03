@@ -17,5 +17,11 @@ RETURN VALUE
 	The file's modification time in seconds since epoch or the seconds 
 	since the file's last modification.
 
+EXAMPLES
+	int x;
+
+	x = filelastmod("/tmp/sirdude.txt");
+	x = filelastmod("/tmp/sirdude.txt", 1);
+
 SEE ALSO
 	afun/dir_size, afun/file_size, afun/file_exists

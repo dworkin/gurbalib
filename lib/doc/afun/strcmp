@@ -6,9 +6,20 @@ SYNOPSIS
 
 DESCRIPTION
 	Compares two strings lexicographically.
+
 RETURN VALUE
 	0 when strings are equal, 1 when string one is larger then 
 	string two, -1 if string one is smaller then string two.
+
+EXAMPLES
+	string one,two;
+
+	one = "Hello";
+	two = "hello";
+
+	if (strcmp(one,two) == 0) {
+	   write("The strings are the same.\n");
+	}
 
 SEE ALSO
 	afun/empty_str, afun/fmt_str, afun/pad_string_left, 

@@ -22,6 +22,8 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/clone_object, afun/compile_library, afun/compile_object, 
-	afun/destruct_object
+	afun/absolute_path, afun/base_name, afun/clone_object, afun/clone_num,
+	afun/compile_library, afun/compile_object, afun/destruct_object,
+	afun/file_name, afun/normalize_path, afun/path_file, afun/wiz_dir,
+	kfun/object_name
 

@@ -20,4 +20,4 @@ EXAMPLES
 	x = invert_exit("northwest");
 
 SEE ALSO
-
+	afun/article

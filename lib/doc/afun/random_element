@@ -10,6 +10,13 @@ DESCRIPTION
 
 RETURN VALUE
 	Any single element from given array.
+EXAMPLES
+	object *peoples;
+	object winner;
+
+	peoples = query_users();
+	winner = random_element(peoples);
+	write("The winner is " + winner->query_Name() + "\n");
 
 SEE ALSO
-
+	XXX
