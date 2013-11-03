@@ -13,6 +13,12 @@ DESCRIPTION
 RETURN VALUE
         Returns a string expressing an elapsed amount of time.
 
+EXAMPLES
+	string time;
+
+	time = format_time(this_player()->query_idle());
+	write("Idle time: " + time + "\n");
+
 SEE ALSO
 	afun/format_idle_time
 

@@ -9,7 +9,15 @@ DESCRIPTION
 	arg does not have an opposite. 
 		
 RETURN VALUE
-	opposing exit.
+	Returns a string representing the opposite direciton of the input.
+	Up returns "down", east returns "west".  If the opposite is unknown
+	return "unkown".
+
+EXAMPLES
+	string x;
+
+	x = invert_exit("up");
+	x = invert_exit("northwest");
 
 SEE ALSO
 

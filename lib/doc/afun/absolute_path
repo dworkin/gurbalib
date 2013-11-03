@@ -11,6 +11,14 @@ RETURN VALUE
 	Returns 1 if the provided path is a full path in it's simplest form.
 	If the path is not absolute, return 0.
 
+EXAMPLES
+	int x;
+
+	x = absolute_path("/tmp/myfile.txt");
+		x should be 1.
+	x = absolute_path("/tmp/../domains/required/rooms/start.c");
+		x should be 0.
+
 SEE ALSO
 	afun/base_name, afun/clone_num, afun/file_name, afun/path_file,
 	afun/wiz_dir, kfun/find_object, kfun/object_name

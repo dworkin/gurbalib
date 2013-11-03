@@ -13,6 +13,14 @@ DESCRIPTION
 RETURN VALUE
 	Returns the object.  If the object does not exist return nil.
 
+EXAMPLES
+	object stuff;
+
+	stuff = find_object(this_object()->base_name());
+	if (stuff) {
+		write("Object found.\n");
+	}
+
 SEE ALSO
 	afun/clone_object, afun/compile_library, afun/compile_object, 
 	afun/destruct_object

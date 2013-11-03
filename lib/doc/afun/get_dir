@@ -5,12 +5,24 @@ SYNOPSIS
 	static mixed **get_dir(string dir)
 
 DESCRIPTION
+	Return the files, sizes and modification times of files in a directory.
+
+RETURN VALUES
 	Get_dir returns 3 arrays, file names, filesizes, filemod times.
 	Directories have a file size of -2.  If no file or directory exists
 	the return value will be three empty arrays ({ ({ }), ({ }), ({ }) })
-		
-RETURN VALUE
-	Returns 1 on success and 0 on failure.
+
+EXAMPLES
+	mixed *files;
+	string *names;
+	int x, max;
+
+	files = get_dir(dir);
+	names = files[0];
+	max = sizeof(names);
+	for(x=0; x<max; x++) {
+	   write(files[1][x] + "\t" + names[x] + "\t" + files[2][x] + "\n");
+	}
 
 SEE ALSO
 	afun/cat_file, afun/copy, afun/editor, afun/make_dir, afun/read_file,

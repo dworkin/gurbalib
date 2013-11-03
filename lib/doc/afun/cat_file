@@ -10,6 +10,13 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 for success and 0 for failure.
 
+EXAMPLES
+	int x;
+
+	if (!cat_file("/tmp/sirdude.txt")) {
+	   write("Error\n");
+	}
+
 NOTES
 	This afun only exists for code outside /kernel.
 

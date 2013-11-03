@@ -9,7 +9,11 @@ DESCRIPTION
 	'to_what' is the target integer.
 
 RETURN VALUE
-	For instance, round_to_next(38, 15) returns 45.
+	An int.
+
+EXAMPLES
+	round_to_next(38, 15) returns 45.
+
 
 SEE ALSO
 	afun/round, kfun/ceil, kfun/floor, kfun/fmod
