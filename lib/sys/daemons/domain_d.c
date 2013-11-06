@@ -22,6 +22,7 @@ static void mkdomains() {
    int i, sz;
    string *names;
 
+   domains = ([ ]);
    names = unguarded("get_dir", DOMAINS_DIR + "/*")[0];
    names -= ( { ".", "..", ".svn", ".cvs" } );
    for (i = 0, sz = sizeof(names); i < sz; i++) {
@@ -35,7 +36,7 @@ void create() {
       unguarded("save_me");
    }
 
-   if (domains) {
+   if (!domains) {
       mkdomains();
    }
 }
@@ -48,7 +49,7 @@ int add_domain(string name) {
       error("Illegal call to add_domain: " + prev + "\n");
    }
 
-   if (!domains[name]) {
+   if (!member_map(name,domains)) {
       domains[name] = ([]);
       if(find_object(BANISH_D)) {
          BANISH_D->create();
