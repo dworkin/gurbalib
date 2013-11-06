@@ -12,7 +12,7 @@ RETURN VALUE
 
 EXAMPLES
 	string x;
-	x = trim_string("       Woo Hoo      ");
+	x = trim_str("       Woo Hoo      ");
 	write("(" + x + ")\n");   /* Should print "(WooHoo)" */
 XXX doesn't match descriptions above but this is what it does.
 

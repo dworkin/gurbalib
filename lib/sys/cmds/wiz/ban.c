@@ -86,7 +86,6 @@ void ban_site(string str) {
 }
 
 static void main(string str) {
-
    if (empty_str(str)) {
       show_banned();
       return;

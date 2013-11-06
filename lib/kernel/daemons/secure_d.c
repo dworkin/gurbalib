@@ -176,7 +176,8 @@ void remove_player(string name) {
 
    name = lowercase(name);
 
-   filter_array(map_indices(domains), "remove_domain_member", this_object(), name);
+   filter_array(map_indices(domains), "remove_domain_member", this_object(),
+      name);
 }
 
 int query_priv(string name) {
@@ -366,7 +367,9 @@ int validate_stack(string priv, varargs int unguarded) {
 
    /* privilege exists but is orphaned */
    if (privtype & PF_ORPHAN) {
-      console_msg(object_name(previous_object()) + " used orphaned privilege " + priv + "\n");
+      console_msg(object_name(previous_object()) + " used orphaned privilege " +
+         priv + "\n");
+
    /* never heard about this privilege */
    } else if (privtype == PT_UNKNOWN) {
       error("Unknown privilege " + priv);
