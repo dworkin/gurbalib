@@ -1,4 +1,5 @@
 bin/*
+bin
 lib/daemons/data/*
 lib/data/*
 lib/domains/gurba/data
