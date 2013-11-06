@@ -6,7 +6,7 @@ mapping killed_by;
 
 #define FIGHTING_TIMEOUT 300
 /* Ammount of Endurance required to Attack */
-#define ATTACK_COST 5
+#define ATTACK_COST 1
 
 /* Uncomment this to get extra info in combat */
 /* #define DEBUG 1 */
