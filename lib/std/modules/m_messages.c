@@ -210,18 +210,14 @@ void simple_action(string msg, varargs mixed objs ...) {
    string *result;
    object sp, room;
 
-/* XXX Why set this player here??? */
-   sp = this_player();
-   set_this_player(this_object());
-
    catch {
       result = compose_message(this_object(), msg, nil, objs);
       room = this_object()->this_environment();
-      if (room) room->tell_room(this_object(), result[2]);
+      if (room) {
+         room->tell_room(this_object(), result[2]);
+      }
       write(capitalize(result[0]));
-      set_this_player(sp);
    }:{
-      set_this_player(sp);
       rethrow();
    }
 }
