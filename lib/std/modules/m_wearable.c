@@ -8,8 +8,9 @@ void set_wear_message(string str) {
 }
 
 string query_wear_message(void) {
-   if (!wear_message) 
+   if (!wear_message) {
       return "$N $vwear $o.";
+   }
    return wear_message;
 }
 
@@ -18,8 +19,9 @@ void set_remove_message(string str) {
 }
 
 string query_remove_message(void) {
-   if (!remove_message) 
+   if (!remove_message) {
       return "$N $vremove $o.";
+   }
    return remove_message;
 }
 
@@ -40,7 +42,9 @@ int is_worn(void) {
 }
 
 string query_slot(void) {
-   if (!slot) return "";
+   if (!slot) {
+      return "";
+   }
    return slot;
 }
 
@@ -96,8 +100,9 @@ void set_slot(string str) {
 }
 
 string query_wear_position(void) {
-   if (!slot) 
-	 return "somewhere";
+   if (!slot) {
+      return "somewhere";
+   }
 
    switch (slot) {
       case "torso":

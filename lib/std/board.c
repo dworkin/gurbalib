@@ -20,8 +20,9 @@ string query_data_dir() {
 }
 
 string query_board_id(void) {
-   if (board_id)
+   if (board_id) {
       return board_id;
+   }
    return "undefined_board";
 }
 
@@ -67,8 +68,9 @@ void create(void) {
 }
 
 void check_restore(void) {
-   if (!msgs)
+   if (!msgs) {
       restore_me();
+   }
    if (!msgs) {
       msgs = ( { } );
    }
@@ -121,6 +123,7 @@ int query_msg_exists(string num) {
 string query_message(string num) {
    int i;
    string msg;
+
    i = str2val(num) - 1;
 
    if (i > sizeof(msgs) || i < 0) {
@@ -132,8 +135,8 @@ string query_message(string num) {
    msg = " \nPoster: %^CYAN%^" + msgs[i][0] + "%^RESET%^\n";
    msg += "Subject: %^YELLOW%^" + msgs[i][1] + "%^RESET%^\n";
    msg += "Date: %^GREEN%^" + msgs[i][2] + "%^RESET%^\n";
-   msg +=
-      "------------------------------------------------------------------------------\n";
+   msg += "----------------------------------------------------------------" +
+      "--------------\n";
    msg += msgs[i][3];
    return msg;
 }
@@ -145,7 +148,8 @@ string query_message_list(string who) {
    check_restore();
 
    msg = " \nNum    From        Subject                            Date\n" +
-      "------------------------------------------------------------------------------\n";
+      "-------------------------------------------------------------------" +
+      "-----------\n";
 
    for (i = 0; i < sizeof(msgs); i++) {
       tmp = "        " + (i + 1);

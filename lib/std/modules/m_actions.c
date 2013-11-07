@@ -7,18 +7,22 @@ static string *que;
 static int time;
 static int actionssize;
 static string *actions;
-static mapping item_commands;	/* Commands that are local to worn/wielded items. */
+
+/* Commands that are local to worn/wielded items. */
+static mapping item_commands;
 
 /* Add to the item command mapping */
 void add_item_command(string command, object ob) {
-   if (!item_commands)
+   if (!item_commands) {
       item_commands = ([]);
+   }
    item_commands[command] = ob;
 }
 
 void remove_item_command(string command) {
-   if (!item_commands)
+   if (!item_commands) {
       item_commands = ([]);
+   }
    item_commands[command] = nil;
 }
 
@@ -59,8 +63,9 @@ void do_game_command(string message) {
 	 int i;
 	 string *item_cmds;
 
-	 if (!item_commands)
+	 if (!item_commands) {
 	    item_commands = ([]);
+         }
 	 item_cmds = map_indices(item_commands);
 	 for (i = 0; i < sizeof(item_cmds); i++) {
 	    if (item_cmds[i] == cmd) {
@@ -117,10 +122,11 @@ void do_game_command(string message) {
 	    } else if (rule == "STR") {
 	       simple_action(EMOTE_D->query_emote(cmd, rule), arg);
 	    } else {
-	       if (member_array("", rules) != -1)
+	       if (member_array("", rules) != -1) {
 		  simple_action(EMOTE_D->query_emote(cmd, rule));
-	       else
+	       } else {
 		  write("No such emote.\n");
+               }
 	    }
 	    flag = 1;
 	 }
@@ -139,8 +145,9 @@ void do_respond() {
 }
 
 void respond(string message) {
-   if (!que)
+   if (!que) {
       que = ( { } );
+   }
    que += ( { message } );
 
    call_out("do_respond", random(3));

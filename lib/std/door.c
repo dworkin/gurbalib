@@ -48,11 +48,13 @@ void refresh_sibling(void) {
 
 void update_sibling(void) {
 
-   if (!sibling)
+   if (!sibling) {
       refresh_sibling();
+   }
 
-   if (this_object()->query_open_state() == 1)
+   if (this_object()->query_open_state() == 1) {
       sibling->do_open(0);
+   }
 
    if (sibling) {
       if (sibling->query_open_state() == 1) {
@@ -63,30 +65,35 @@ void update_sibling(void) {
 }
 
 void do_on_open(object who) {
-   if (!sibling)
+   if (!sibling) {
       refresh_sibling();
+   }
 
    if (sibling) {
-      if (sibling->query_open_state() == 1)
+      if (sibling->query_open_state() == 1) {
 	 return;
+      }
       sibling->set_open_state(1);
    }
 }
 
 void do_on_close(object who) {
-   if (!sibling)
+   if (!sibling) {
       refresh_sibling();
+   }
 
    if (sibling) {
-      if (!sibling->query_open_state())
+      if (!sibling->query_open_state()) {
 	 return;
+      }
       sibling->set_open_state(0);
    }
 }
 
 int do_block(object who) {
-   if (this_object()->query_open_state())
+   if (this_object()->query_open_state()) {
       return 0;
+   }
    return 1;
 }
 

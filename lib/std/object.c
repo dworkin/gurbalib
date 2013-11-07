@@ -137,8 +137,9 @@ int is_adj(string adj) {
 
    max = sizeof(adjs);
    for (i = 0; i < max; i++) {
-      if (adjs[i] == adj)
+      if (adjs[i] == adj) {
 	 return 1;
+      }
    }
    return 0;
 }
@@ -177,8 +178,9 @@ void set_environment(object ob) {
 }
 
 void destruct(void) {
-   if (object_environment)
+   if (object_environment) {
       object_environment->remove_object(this_object());
+   }
 
    if (clone_num() == 0) {
       OBJECT_D->unregister_object(this_object());
@@ -207,9 +209,13 @@ nomask int move(mixed destination) {
    mixed err;
    object dest, curr;
 
-   if (!destination) return 0;
+   if (!destination) {
+      return 0;
+   }
 
-   if (!pre_move()) return 1;
+   if (!pre_move()) {
+      return 1;
+   }
    
 /* XXX Needs review.... work */
    curr = this_environment();
@@ -219,8 +225,9 @@ nomask int move(mixed destination) {
 
    if (typeof(destination) == T_STRING) {
       /* Remove trailing .c */
-      if (destination[strlen(destination) - 2..] == ".c")
+      if (destination[strlen(destination) - 2..] == ".c") {
 	 destination = destination[..strlen(destination) - 3];
+      }
       dest = find_object(destination);
       if (!dest) {
          catch {
@@ -230,15 +237,23 @@ nomask int move(mixed destination) {
             dest = nil;
          }
       }
-   } else dest = destination;
+   } else {
+      dest = destination;
+   }
 
-   if (!dest) return 0;
-   if (object_environment == dest) return 0;
+   if (!dest) {
+      return 0;
+   }
+   if (object_environment == dest) {
+      return 0;
+   }
 
    err = dest->receive_object(this_object());
 
    if (!err || (err != 1)) {
-      if (err) write("Error in move:" + err + "\n");
+      if (err) {
+         write("Error in move:" + err + "\n");
+      }
       return 0;
    }
 
@@ -277,7 +292,9 @@ nomask mapping query_verb_rules() {
 }
 
 void add_object_command(string command, string func) {
-   if (!object_commands) object_commands = ([ ]);
+   if (!object_commands) {
+      object_commands = ([ ]);
+   }
    if (!object_commands[command]) {
       object_commands += ([command:func]);
    } else {
@@ -290,7 +307,9 @@ void remove_object_command(string command) {
 }
 
 string query_object_command(string command) {
-   if (!object_commands) object_commands = ([ ]);
+   if (!object_commands) {
+      object_commands = ([ ]);
+   }
    return object_commands[command];
 }
 

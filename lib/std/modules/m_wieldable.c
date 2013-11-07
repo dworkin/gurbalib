@@ -16,8 +16,9 @@ void set_wield_message(string str) {
 }
 
 string query_wield_message(void) {
-   if (!wield_message)
+   if (!wield_message) {
       wield_message = "$N $vwield $o.";
+   }
    return wield_message;
 }
 
@@ -26,8 +27,9 @@ void set_unwield_message(string str) {
 }
 
 string query_unwield_message(void) {
-   if (!unwield_message)
+   if (!unwield_message) {
       unwield_message = "$N $vunwield $o.";
+   }
    return unwield_message;
 }
 
@@ -40,8 +42,9 @@ void set_wield_type(string type) {
 }
 
 string query_wield_type(void) {
-   if (!type || type == "")
+   if (!type || type == "") {
       type = "single";
+   }
    return type;
 }
 

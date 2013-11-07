@@ -14,7 +14,9 @@ int set_currency(string str) {
 }
 
 string query_currency() {
-   if (!currency) return "ducat";
+   if (!currency) {
+      return "ducat";
+   }
    return currency;
 }
 

@@ -21,8 +21,9 @@ void create(void) {
    add_event("body_look");
    add_event("body_look_at");
    add_event("room_message");
-   if(!WORLD_PERSIST)
+   if(!WORLD_PERSIST) {
      EVENT_D->subscribe_event("clean_up");
+   }
    exits = ([]);
    hidden_exits = ([]);
    areas = ([]);
@@ -299,7 +300,9 @@ void set_items(string id, varargs mixed args ...) {
    string description;
    int i;
 
-   if (!items) items = ([]);
+   if (!items) {
+      items = ([]);
+   }
 
    description = args[sizeof(args) - 1];
    items[id] = description;
@@ -487,8 +490,9 @@ string body_exit(object who, string dir) {
       event("body_leave", who);
       tell_room(who, lname + " leaves " + dir + ".\n");
       error = catch(who->move(query_exit(dir)));
-      if (who->is_player())
+      if (who->is_player()) {
 	 last_exit = time();
+      }
    } else if (query_hidden_exit(dir)) {
       max = sizeof(inventory);
       for (i = 0; i < max; i++) {
@@ -504,15 +508,17 @@ string body_exit(object who, string dir) {
       event("body_leave", who);
       tell_room(who, lname + " leaves " + dir + ".\n");
       error = catch(who->move(query_hidden_exit(dir)));
-      if (who->is_player())
+      if (who->is_player()) {
 	 last_exit = time();
+      }
    }
 
    if (error) {
-      if (query_wizard(who) == 1)
+      if (query_wizard(who) == 1) {
 	 return "\nConstruction blocks your path.\n" + "Error: " + error;
-      else
+      } else {
 	 return "\nConstruction blocks your path.\n";
+      }
    }
 
    if (who->is_player() || who->is_possessed()) {
@@ -536,8 +542,9 @@ void event_clean_up(void) {
    int i, max;
    object *inventory;
 
-   if (time() - last_exit < 60 * 15)
+   if (time() - last_exit < 60 * 15) {
       return;
+   }
 
    inventory = query_inventory();
    max = sizeof(inventory);

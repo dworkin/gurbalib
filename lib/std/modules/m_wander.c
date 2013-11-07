@@ -21,17 +21,21 @@ void set_wander_area(string area) {
 void start_wander(int mintime, int maxtime) {
    movement_mintime = mintime;
    movement_maxtime = maxtime;
-   if (mintime < 1)
+
+   if (mintime < 1) {
       movement_mintime = 1;
-   if (maxtime < 1)
+   }
+   if (maxtime < 1) {
       movement_maxtime = 1;
-   if (maxtime < mintime)
+   }
+   if (maxtime < mintime) {
       movement_maxtime = mintime;
+   }
 
    /* start the call_out loop */
    wander_enable = 1;
-   next_move =
-      time() + random(movement_maxtime - movement_mintime) + movement_mintime;
+   next_move = time() + random(movement_maxtime - movement_mintime) + 
+      movement_mintime;
 }
 
 void stop_wander(void) {
@@ -43,9 +47,9 @@ void wander(void) {
    int i;
 
    /*
-    * It is quite normal that the 'master/blueprint' doesn't have an evvironment.
-    * however, this should never happen with a clone. Hence, error if this is a
-    * clone, ignore otherwise.
+    * It is quite normal that the 'master/blueprint' doesn't have an 
+    * environment.  However, this should never happen with a clone. 
+    * Hence, error if this is a clone, ignore otherwise.
     */
    if (!this_object()->query_environment()) {
       if (clone_num() != 0) {
@@ -57,8 +61,7 @@ void wander(void) {
 
    if (wander_count++ < MAX_WANDER) {
       /* Go ahead and set up the next call_out */
-      next_move =
-	 time() + random(movement_maxtime - movement_mintime) +
+      next_move = time() + random(movement_maxtime - movement_mintime) +
 	 movement_mintime;
    } else {
       stop_wander();
@@ -67,6 +70,7 @@ void wander(void) {
 
    /* Get a list of exits */
    exits = map_indices(this_object()->query_environment()->query_exits());
+
    /* try 3 times to find an exit that falls within our wander area. */
    for (i = 0; i < 3; i++) {
       string exit;

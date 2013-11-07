@@ -120,11 +120,13 @@ void do_buy(object player, object what) {
 
 void add_item(string name, int amount) {
 
-   if (amount == 0)
+   if (amount == 0) {
       amount = 1;
+   }
 
-   if (!stored_items)
+   if (!stored_items) {
       stored_items = ([]);
+   }
 
    stored_items[name] = amount;
 }
@@ -135,8 +137,9 @@ string query_list(void) {
    object obj;
    int i;
 
-   if (!stored_items)
+   if (!stored_items) {
       stored_items = ([]);
+   }
 
    objs = map_indices(stored_items);
    str = "";

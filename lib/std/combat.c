@@ -113,7 +113,9 @@ int query_defense(void) {
 int do_swing(int me) {
    int opponent, me_roll, opponent_roll;
 
-   if (me < 3) me = 3;
+   if (me < 3) {
+      me = 3;
+   }
 
    me_roll = random(me + 1);
 
@@ -288,8 +290,9 @@ void do_fight(void) {
 	 this_object()->attack_with("combat/unarmed", nil, target);
       } else {
 	 for (i = 0; i < max; i++) {
-	    if (!weapons[i]->query_offensive())
+	    if (!weapons[i]->query_offensive()) {
 	       continue;
+            }
 	    this_object()->attack_with(weapons[i]->query_weapon_skill(), 
                weapons[i], target);
 	 }

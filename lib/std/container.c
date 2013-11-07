@@ -176,8 +176,9 @@ object find_adj_object_num(string adj, string name, int num) {
 	    if (lowercase(ids[j]) == lowercase(name)) {
 	       if (inv[i]->is_adj(adj) == 1) {
 		  num--;
-		  if (num == 0)
+		  if (num == 0) {
 		     return inv[i];
+                  }
 	       }
 	    }
 	 }
@@ -205,13 +206,15 @@ object find_adjs_object_num(string * adj, string name, int num) {
 	       int nFound;
 	       nFound = 1;
 	       for (k = 0; k < sizeof(adj); k++) {
-		  if (!inv[i]->is_adj(adj[k]))
+		  if (!inv[i]->is_adj(adj[k])) {
 		     nFound = 0;
+                  }
 	       }
 	       if (nFound) {
 		  num--;
-		  if (num == 0)
+		  if (num == 0) {
 		     return inv[i];
+                  }
 	       }
 	    }
 	 }
