@@ -75,8 +75,9 @@ static void save_me(void) {
 void setup(void) {
    mapping tmp;
 
-   if (!player_trans)
+   if (!player_trans) {
       player_trans = ([]);
+   }
 
    color_trans = ([
       "BLACK" : BLACK,
@@ -153,10 +154,11 @@ void setup(void) {
 
    restore_me();
 
-   if (!symbolic_trans)
+   if (!symbolic_trans) {
       symbolic_trans = tmp;
-   else
+   } else {
       symbolic_trans = tmp + symbolic_trans;
+   }
 
    translations = color_trans + attr_trans + terminal_trans;
 }
@@ -178,7 +180,7 @@ string strip_colors(string str) {
       }
    }
    msg = implode(tmp, "");
-   return (msg);
+   return msg;
 }
 
 static string _parse_colors(string str, int curdepth, mapping cache,
@@ -192,8 +194,9 @@ static string _parse_colors(string str, int curdepth, mapping cache,
    return strip_colors(str);
 #endif
 
-   if (!player_trans)
+   if (!player_trans) {
       player_trans = ([]);
+   }
 
    tmp = explode(str, "%^");
 
@@ -226,7 +229,7 @@ static string _parse_colors(string str, int curdepth, mapping cache,
    }
 
    msg = implode(tmp, "");
-   return (msg);
+   return msg;
 }
 
 string parse_colors(string str, varargs int curdepth) {
@@ -234,10 +237,12 @@ string parse_colors(string str, varargs int curdepth) {
    object player;
 
    player = previous_object()->query_player();
-   if (!player)
+   if (!player) {
       player = this_player();
-   if (player && player->base_name() != PLAYER_OB)
+   }
+   if (player && player->base_name() != PLAYER_OB) {
       player = nil;
+   }
 
 /*
  * This makes use of the fact that mappings are references, hence
@@ -286,8 +291,11 @@ string color_table_chunk(mapping m, int codes) {
       msg += reset;
       msg += (i % 4 == 3) ? "\n" : " ";
    }
-   if (sz % 4 != 0)
+
+   if (sz % 4 != 0) {
       msg += "\n";
+   }
+
    return msg;
 }
 
@@ -380,10 +388,12 @@ string query_custom_symbol(string str) {
 }
 
 string query_any_symbol(string str) {
-   if (translations[str])
+   if (translations[str]) {
       return translations[str];
-   if (symbolic_trans[str])
+   }
+   if (symbolic_trans[str]) {
       return symbolic_trans[str];
+   }
 }
 
 void set_player_translations(mapping trans) {
@@ -391,10 +401,11 @@ void set_player_translations(mapping trans) {
 
    player = (object PLAYER_OB) previous_object();
 
-   if (!player_trans)
+   if (!player_trans) {
       player_trans = ([player:trans]);
-   else
+   } else {
       player_trans[player] = trans;
+   }
 }
 
 /*

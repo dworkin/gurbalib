@@ -47,7 +47,7 @@ int remove_entry(string str) {
 }
 
 string query_entry(string name) {
-   return (last[name]);
+   return last[name];
 }
 
 string query_list(void) {

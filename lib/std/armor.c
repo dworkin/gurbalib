@@ -11,7 +11,7 @@ void create(void) {
 }
 
 int is_armor(void) {
-   return (1);
+   return 1;
 }
 
 void set_ac(int ac) {
@@ -19,5 +19,5 @@ void set_ac(int ac) {
 }
 
 int query_ac(void) {
-   return (armor_class);
+   return armor_class;
 }

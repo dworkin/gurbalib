@@ -847,13 +847,13 @@ string random_error() {
    randomval = random(3);
    switch (randomval) {
       case 0:
-         return ("What?");
+         return "What?";
          break;
       case 1:
-         return ("Que?");
+         return "Que?";
          break;
       case 2:
-         return ("Huh?");
+         return "Huh?";
          break;
    }
 }

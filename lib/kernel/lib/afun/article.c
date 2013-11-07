@@ -4,7 +4,7 @@ string article(string name) {
    if ((strlen(name) > 3 && lowercase(name[0..3]) == "hour") ||
       (strlen(name) > 4 && lowercase(name[0..4]) == "honor") ||
       (strlen(name) > 5 && lowercase(name[0..5]) == "honour")) {
-      return ("an");
+      return "an";
    }
 
    switch (name[0]) {
@@ -13,9 +13,9 @@ string article(string name) {
       case 'i':
       case 'o':
       case 'u':
-	 return ("an");
+	 return "an";
       default:
-	 return ("a");
+	 return "a";
    }
 
    return nil;

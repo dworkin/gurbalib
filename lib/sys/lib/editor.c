@@ -12,7 +12,7 @@ void edit(string cmd) {
 
 int is_editing(void) {
    if (query_editor(this_object())) {
-      return (1);
+      return 1;
    }
-   return (0);
+   return 0;
 }

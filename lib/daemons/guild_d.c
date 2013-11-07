@@ -25,38 +25,44 @@ static void save_me(void) {
 }
 
 void add_guild(string guild, string title) {
-   if (!guilds)
+   if (!guilds) {
       guilds = ([]);
+   }
    guilds[guild] = title;
    save_me();
 }
 
 int is_guild(string guild) {
-   if (!guilds)
+   if (!guilds) {
       guilds = ([]);
-   if (guilds[guild])
-      return (1);
+   }
+   if (guilds[guild]) {
+      return 1;
+   }
 
-   return (0);
+   return 0;
 }
 
 void remove_guild(string guild) {
-   if (!guilds)
+   if (!guilds) {
       guilds = ([]);
+   }
    guilds[guild] = nil;
    save_me();
 }
 
 void set_guild_title(string guild, string title) {
-   if (!guilds)
+   if (!guilds) {
       guilds = ([]);
+   }
    guilds[guild] = title;
    save_me();
 }
 
 string query_guild_title(string guild) {
-   if (!guilds)
+   if (!guilds) {
       guilds = ([]);
+   }
    return (guilds[guild]);
 }
 
@@ -66,7 +72,9 @@ void remove_all_guilds(void) {
 }
 
 string *query_guilds(void) {
-   if (!guilds)
+   if (!guilds) {
       guilds = ([]);
-   return (map_indices(guilds));
+   }
+
+   return map_indices(guilds);
 }

@@ -10,6 +10,6 @@ static object this_player(void) {
       if (this_user()->query_player()->is_possessing()) {
 	 return (this_user()->query_player()->query_possessing());
       }
-      return (this_user()->query_player());
+      return this_user()->query_player();
    }
 }

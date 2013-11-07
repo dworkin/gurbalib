@@ -12,7 +12,7 @@ string get_filename(string who) {
    while (file_exists(filen)) {
      filen += "1";
    }
-   return (filen);
+   return filen;
 }
 
 string *load_index(string who) {
