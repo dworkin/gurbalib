@@ -85,3 +85,5 @@ after possess rat
 	$>  cd
 	$Runtime error: Bad argument 2 to normalize_path (needs string)
 
+fix death, need a new state.....
+

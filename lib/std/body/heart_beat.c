@@ -34,7 +34,6 @@ void create() {
 }
 
 void event_heart_beat(void) {
-
    if (this_object()->is_alive()) {
       heal_time++;
       if (heal_time > heal_rate) {
@@ -50,6 +49,11 @@ void event_heart_beat(void) {
          }
       }
 
+      /* allow monsters to talk, cast spells etc... */
+      if (!this_object()->is_player()) {
+         this_object()->do_extra_actions();
+      }
+
       /* Check here to see is we are in combat, if so, continue battle */
       if (this_object()->is_fighting() > 0) {
          this_object()->do_fight();
@@ -59,24 +63,19 @@ void event_heart_beat(void) {
          }
       }
    } else {
-      heal_time++;
-      if (heal_time > heal_rate) {
-         heal_time = 0;
-         write("You are dead.  You must pray to get your body back.\n");
+      if (this_object()->is_dead() && this_object()->is_player()) {
+         heal_time++;
+         if (heal_time > heal_rate) {
+            heal_time = 0;
+            write("You are dead.  You must pray to get your body back.\n");
+         }
+      } else {
+         this_object()->die();
       }
    }
 
-   if (!this_object()->is_player()) {	/* NPC routines */
-      if (this_object()->is_dead()) {
-	 EVENT_D->unsubscribe_event("heart_beat");
-	 this_object()->destruct();
-      } else {
-         /* allow monsters to talk, cast spells etc... */
-         this_object()->do_extra_actions();
-      }
-   } else {			/* Player routines */
-
-      /* A player ages when not idle */
+   /* A player ages when not idle */
+   if (this_object()->is_player()) {
       if (this_object()->query_idle() < 60) {
 	 player_age += HEART_BEAT_INTERVAL;
       }
@@ -139,15 +138,16 @@ void die(void) {
       inv[i]->move(obj);
    }
 
-   if (this_object()->is_player()) {
-      obj->set_name(this_object()->query_Name());
-      obj->move(this_object()->query_environment());
-      this_object()->move(VOID);
-      this_object()->clear_money();
+   this_object()->simple_action("$N $vfall to the ground...dead.");
+   obj->set_name("corpse of " + this_object()->query_Name());
+   obj->move(this_object()->query_environment());
 
+   if (this_object()->is_player()) {
+      this_object()->move(VOID);
+      this_object()->message("You have died.");
+      this_object()->clear_money();
    } else {
-      obj->set_name("a " + this_object()->query_id());
-      obj->move(this_object()->query_environment());
+      EVENT_D->unsubscribe_event("heart_beat");
       this_object()->destruct();
    }
 }

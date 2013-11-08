@@ -218,6 +218,7 @@ void simple_action(string msg, varargs mixed objs ...) {
       }
       write(capitalize(result[0]));
    }:{
+      console_msg("Simple_action ERROR: " + caught_error(1) + "\n");
       rethrow();
    }
 }

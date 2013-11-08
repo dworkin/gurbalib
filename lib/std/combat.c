@@ -55,17 +55,22 @@ void halt_fight(void) {
 }
 
 void receive_damage(object who, int dam) {
+   int x;
+
    this_object()->message("%^RED%^You took " + dam + " damage from " +
       who->query_id() + ".%^RESET%^");
-   this_object()->decrease_hp(dam);
-   if (this_object()->is_dead()) {
-      this_object()->simple_action("$N $vfall to the ground...dead.");
-      this_object()->message("You have died.");
-      this_object()->halt_fight();
+   
+   if (this_object()->query_hp() <= dam) {
+      x = this_object()->query_max_hp();
       this_object()->killed_by(who, time());
-      this_object()->die();
+      this_object()->halt_fight();
       who->increment_kills();
+      who->message("You killed " + this_object()->query_name() + ".\n");
+      who->increase_expr(x);
+      /* make sure they are dead */
+      this_object()->decrease_hp(x);
    }
+   this_object()->decrease_hp(dam);
 }
 
 void damage_target(int dam, object who) {
@@ -168,7 +173,9 @@ object get_target(object targ) {
    fighting = fighting - 1;
    if (fighting < 1) {
       targets = ( { } );
-      this_object()->message("You give up fighting your attacker.\n");
+      /* XXX this shouldn't display when killing a monster and it does
+	this_object()->message("You give up fighting your attacker.\n");
+      */
    }
    return nil;
 }
