@@ -34,7 +34,18 @@ void create() {
 }
 
 void event_heart_beat(void) {
-   if (this_object()->is_alive()) {
+   if (this_object()->query_hp() < 1) {
+      if (this_object()->is_dead() && this_object()->is_player()) {
+         heal_time++;
+         if (heal_time > heal_rate) {
+            heal_time = 0;
+            write("You are dead.  You must pray to get your body back.\n");
+         }
+      } else {
+         this_object()->die();
+         return;
+      }
+   } else {
       heal_time++;
       if (heal_time > heal_rate) {
 	 heal_time = 0;
@@ -61,16 +72,6 @@ void event_heart_beat(void) {
          if (function_object("event_wander", this_object())) {
    	    call_other(this_object(), "event_wander");
          }
-      }
-   } else {
-      if (this_object()->is_dead() && this_object()->is_player()) {
-         heal_time++;
-         if (heal_time > heal_rate) {
-            heal_time = 0;
-            write("You are dead.  You must pray to get your body back.\n");
-         }
-      } else {
-         this_object()->die();
       }
    }
 

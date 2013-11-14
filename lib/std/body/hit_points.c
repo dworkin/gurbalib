@@ -160,19 +160,19 @@ string query_status(void) {
    }
 }
 
-int is_alive(void) {
-   if (cur_hp > 0) {
-      return 1;
-   }
-   return 0;
-}
-
 void set_dead(int x) {
    is_dead = x;
 }
 
 int is_dead(void) {
    if (is_dead == 0) {
+      return 0;
+   }
+   return 1;
+}
+
+int is_alive(void) {
+   if (is_dead()) {
       return 0;
    }
    return 1;
