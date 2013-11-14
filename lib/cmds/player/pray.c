@@ -38,5 +38,6 @@ static void main(string str) {
       this_player()->query_environment()->tell_room(this_player(), 
          "A shimmering light envelopes " + this_player()->query_Name() + ".");
       this_player()->set_hp(1);
+      this_player()->set_dead(0);
    }
 }

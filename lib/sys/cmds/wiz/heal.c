@@ -44,6 +44,7 @@ static void main(string str) {
    obj->set_mana(max);
 
    if (obj->is_player()) {
+      obj->set_dead(0);
       who = obj->query_Name();
    } else {
       who = obj->query_id();

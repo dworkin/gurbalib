@@ -1,6 +1,7 @@
 int cur_hp, max_hp;
 int cur_mana, max_mana;
 int cur_end, max_end;
+int is_dead;
 
 void create(void) {
    cur_hp = 1;
@@ -166,9 +167,13 @@ int is_alive(void) {
    return 0;
 }
 
+void set_dead(int x) {
+   is_dead = x;
+}
+
 int is_dead(void) {
-   if (cur_hp <= 0) {
-      return 1;
+   if (is_dead == 0) {
+      return 0;
    }
-   return 0;
+   return 1;
 }

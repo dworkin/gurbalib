@@ -96,12 +96,10 @@ static void main(string str) {
    }
    target->decrease_hp(target_damage);
 
-   if (target->query_hp() < 1) {
-      target->simple_action("$N $vfall to the ground...dead.");
-      target->message("You have died.");
-      target->die();
-   } else {
+   if (target->query_hp() > 0) {
       write(target->query_id() + " is left with " + target->query_hp() +
 	 " hit points.");
+   } else {
+      write("You zap " + target->query_id() + ", and they are now dead.\n");
    }
 }

@@ -125,6 +125,9 @@ void die(void) {
    object obj, *inv;
    int i;
 
+/* XXX this isn't showing up for 3rd party */
+   this_object()->simple_action("$N $vfall to the ground...dead.");
+
    obj = clone_object(DOMAINS_DIR + "/required/objects/corpse");
 
    inv = this_object()->query_inventory();
@@ -138,11 +141,11 @@ void die(void) {
       inv[i]->move(obj);
    }
 
-   this_object()->simple_action("$N $vfall to the ground...dead.");
    obj->set_name("corpse of " + this_object()->query_Name());
    obj->move(this_object()->query_environment());
 
    if (this_object()->is_player()) {
+      this_object()->set_dead(1);
       this_object()->move(VOID);
       this_object()->message("You have died.");
       this_object()->clear_money();
