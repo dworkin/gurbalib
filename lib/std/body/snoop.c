@@ -7,8 +7,9 @@ void create(void) {
 }
 
 int is_snooped(void) {
-   if (!pSnoopees)
+   if (!pSnoopees) {
       pSnoopees = ( { } );
+   }
    if (sizeof(pSnoopees) > 0) {
       return 1;
    }
@@ -17,8 +18,10 @@ int is_snooped(void) {
 
 int is_snooping(object pPlayer) {
    int i;
-   if (!pSnooping)
+
+   if (!pSnooping) {
       pSnooping = ( { } );
+   }
    for (i = 0; i < sizeof(pSnooping); i++) {
       if (pSnooping[i] == pPlayer)
 	 return 1;
@@ -27,14 +30,16 @@ int is_snooping(object pPlayer) {
 }
 
 object *query_snooping(void) {
-   if (!pSnooping)
+   if (!pSnooping) {
       pSnooping = ( { } );
+   }
    return pSnooping;
 }
 
 object *query_snoopees(void) {
-   if (!pSnoopees)
+   if (!pSnoopees) {
       pSnoopees = ( { } );
+   }
    return pSnoopees;
 }
 
@@ -53,33 +58,37 @@ void do_snoop(string str) {
 }
 
 void add_snoopee(object pPlayer) {
-   if (!pSnoopees)
+   if (!pSnoopees) {
       pSnoopees = ( { } );
+   }
    this_object()->message("%^RED%^You are now being snooped by " +
       pPlayer->query_Name() + ".%^RESET%^");
    pSnoopees += ( { pPlayer } );
 }
 
 void remove_snoopee(object pPlayer) {
-   if (!pSnoopees)
+   if (!pSnoopees) {
       pSnoopees = ( { } );
+   }
    pSnoopees -= ( { pPlayer } );
    this_object()->message("%^RED%^You are no longer being snooped by " +
       pPlayer->query_Name() + ".%^RESET%^");
 }
 
 void add_snooping(object pPlayer) {
-   if (!pSnooping)
+   if (!pSnooping) {
       pSnooping = ( { } );
+   }
    pSnooping += ( { pPlayer } );
-   this_player()->message("%^RED%^You are now snooping " +
+   this_object()->message("%^RED%^You are now snooping " +
       pPlayer->query_Name() + ".%^RESET%^");
 }
 
 void remove_snooping(object pPlayer) {
-   if (!pSnooping)
+   if (!pSnooping) {
       pSnooping = ( { } );
+   }
    pSnooping -= ( { pPlayer } );
-   this_player()->message("%^RED%^You are no longer snooping " +
+   this_object()->message("%^RED%^You are no longer snooping " +
       pPlayer->query_Name() + ".%^RESET%^");
 }

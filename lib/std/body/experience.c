@@ -42,7 +42,7 @@ string query_level_title(int level) {
 	 return "the Great.\n";
 	 break;
       case 9:
-	 if (this_player()->query_race() == "male") {
+	 if (this_object()->query_race() == "male") {
 	    return "the Baron.\n";
 	 } else {
 	    return "the Baroness.\n";
@@ -67,7 +67,7 @@ string query_level_title(int level) {
 	 return "the More than Adequate.\n";
 	 break;
       case 16:
-	 if (this_player()->query_race() == "male") {
+	 if (this_object()->query_race() == "male") {
 	    return "the Grand Baron.\n";
 	 } else {
 	    return "the Grand Baroness.\n";
@@ -90,14 +90,14 @@ string query_level_title(int level) {
 
 void increase_level() {
    level += 1;
-   this_player()->set_max_hp((level *
-	 this_player()->query_base_stat("str")) + 20);
-   this_player()->set_max_mana((level *
-	 this_player()->query_base_stat("wis")) + 20);
-   this_player()->set_max_end((level *
-	 this_player()->query_base_stat("con")) + 20);
+   this_object()->set_max_hp((level *
+	 this_object()->query_base_stat("str")) + 20);
+   this_object()->set_max_mana((level *
+	 this_object()->query_base_stat("wis")) + 20);
+   this_object()->set_max_end((level *
+	 this_object()->query_base_stat("con")) + 20);
    write("Congratulations, you just achieved level: " + level + "\n");
-   this_player()->set_title("$N " + query_level_title(level));
+   this_object()->set_title("$N " + query_level_title(level));
 }
 
 void increase_expr(int expr) {
