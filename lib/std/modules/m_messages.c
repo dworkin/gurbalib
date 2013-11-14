@@ -206,35 +206,31 @@ string *compose_message(object who, string msg, object target,
    return (( { us, them, others } ));
 }
 
-void simple_action(string msg, varargs mixed objs ...) {
+void targeted_action(string msg, object target, varargs mixed objs ...) {
    string *result;
-   object sp, room;
+   object room;
 
    catch {
-      result = compose_message(this_object(), msg, nil, objs);
-      room = this_object()->this_environment();
+      result = compose_message(this_object(), msg, target, objs);
+      room = this_environment();
       if (room) {
-         room->tell_room(this_object(), result[2]);
+         room->tell_room(this_object(), result[2], target);
       }
-      write(capitalize(result[0]));
+
+      this_object()->message(capitalize(result[0]));
+
+      if (target && target->is_living() && target != this_object()) {
+         target->message(capitalize(result[1]));
+         target->outside_message(capitalize(result[1]));
+      }
    }:{
       console_msg("Simple_action ERROR: " + caught_error(1) + "\n");
       rethrow();
    }
 }
 
-void targeted_action(string msg, object target, varargs mixed objs ...) {
-   string *result;
-   object room;
-
-   result = compose_message(this_object(), msg, target, objs);
-   room = this_environment();
-   if (room) room->tell_room(this_object(), result[2], target);
-   this_object()->message(capitalize(result[0]));
-   if (target && target->is_living() && target != this_object()) {
-      target->message(capitalize(result[1]));
-      target->outside_message(capitalize(result[1]));
-   }
+void simple_action(string msg, varargs mixed objs ...) {
+   targeted_action(msg, nil, objs);
 }
 
 void other_action(object who, string msg, object target, 
@@ -244,7 +240,9 @@ void other_action(object who, string msg, object target,
 
    result = compose_message(who, msg, target, objs);
    room = this_object()->query_environment();
-   if (!room) return;
+   if (!room) { 
+      return;
+   }
    room->tell_room(who, result[2], target);
    if (target && target->is_living() && target != who) {
       target->message(capitalize(result[1]));
