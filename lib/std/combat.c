@@ -173,9 +173,6 @@ object get_target(object targ) {
    fighting = fighting - 1;
    if (fighting < 1) {
       targets = ( { } );
-      /* XXX this shouldn't display when killing a monster and it does
-	this_object()->message("You give up fighting your attacker.\n");
-      */
    }
    return nil;
 }
