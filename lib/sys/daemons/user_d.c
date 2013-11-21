@@ -25,6 +25,7 @@ static void secure() {
    name = previous_program(1);
    if ((name != USER_OB) && (name != this_program())
       && (name != "/sys/daemons/ftp_session") 
+      && (name != "/cmds/player/quit") 
       && !require_priv("system")) {
       error("Access denied: " + name + "\n");
    }

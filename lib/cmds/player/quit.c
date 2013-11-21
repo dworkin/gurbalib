@@ -21,10 +21,7 @@ void usage() {
 
 void verify_remove(string str) {
    if (str == "Y" || str == "y") {
-      /* XXX Need to deal with security issues and remove mail and wizdir if
-	 they exist */
       USER_D->delete_user(this_player()->query_name());
-      /* this_player()->do_quit(); */
    } else {
       write("Removal cancelled.\n");
    }
