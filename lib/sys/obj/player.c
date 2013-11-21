@@ -881,21 +881,13 @@ void receive_message(string message) {
    if (input_to_func != "") {
       func = input_to_func;
       input_to_func = "";
-      /* remain compatible with functions only expecting a message argument */
-#ifdef OLD_INPUT_TO
-      if(input_to_arg) {
-#endif
-         call_other(input_to_obj, func, message, input_to_arg...);
-#ifdef OLD_INPUT_TO
-      } else {
-         call_other(input_to_obj, func, message);
-      }
-#endif
-      /* Are we editing? */
+      call_other(input_to_obj, func, message, input_to_arg...);
+   /* Are we editing? */
    } else if (is_editing()) {
       this_player()->edit(message);
    } else {
       string temp;
+
       /* Expand the command */
       temp = ALIAS_D->expand_alias(message);
       if (temp) {
@@ -1027,67 +1019,8 @@ void receive_message(string message) {
          }
       }
 
-/* XXX In lib/std/modules/m_actions.c we do this also should make
-   it so were not doing the same thing in two places once for
-   users and once for monsters, try to share it */
-/* XXX Aidil: could move all of this to m_cmds and inherit that from
-   m_actions for monsters */
-
       if (!flag) {
-	 /* Check if the command is an emote */
-	 if (EMOTE_D->is_emote(cmd)) {
-	    string *rules;
-	    string rule;
-	    object target;
-
-	    rules = EMOTE_D->query_rules(cmd);
-
-	    /* Targeted emote? Find the target */
-	    if (arg != "") {
-	       target = this_environment()->present(arg);
-	    } else {
-	       target = nil;
-	    }
-	    if (target) {
-	       /* We've found our target, check for the correct rule */
-	       if (target->is_living()) {
-		  /* We're looking for a LIV rule */
-		  if (member_array("LIV", rules) != -1) {
-		     rule = "LIV";
-		  } else {
-		     rule = "";
-		  }
-	       } else {
-		  /* We're looking for a OBJ rule */
-		  if (member_array("OBJ", rules) != -1) {
-		     rule = "OBJ";
-		  } else {
-		     rule = "";
-		  }
-	       }
-	    } else {
-	       /* Or are we just looking for a string? */
-	       if (member_array("STR", rules) != -1 && arg != "") {
-		  rule = "STR";
-	       } else {
-		  rule = "";
-	       }
-	    }
-
-	    if (rule == "LIV") {
-	       targeted_action(EMOTE_D->query_emote(cmd, rule), target);
-	    } else if (rule == "OBJ") {
-	       simple_action(EMOTE_D->query_emote(cmd, rule), target);
-	    } else if (rule == "STR") {
-	       simple_action(EMOTE_D->query_emote(cmd, rule), arg);
-	    } else {
-	       if (member_array("", rules) != -1)
-		  simple_action(EMOTE_D->query_emote(cmd, rule));
-	       else
-		  write("No such emote.\n");
-	    }
-	    flag = 1;
-	 }
+         flag = do_game_command(cmd);
       }
 
       if (!flag) {

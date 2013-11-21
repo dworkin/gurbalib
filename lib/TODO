@@ -87,3 +87,5 @@ after possess rat
 
 fix death, need a new state.....
 
+Move more of std/obj/player.c:receive_message() to m_cmds.c:do_game_command()
+
