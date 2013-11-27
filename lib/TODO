@@ -85,7 +85,5 @@ after possess rat
 	$>  cd
 	$Runtime error: Bad argument 2 to normalize_path (needs string)
 
-fix death, need a new state.....
-
 Move more of std/obj/player.c:receive_message() to m_cmds.c:do_game_command()
 

@@ -1020,7 +1020,8 @@ void receive_message(string message) {
       }
 
       if (!flag) {
-         flag = do_game_command(cmd);
+	 /* XXX shouldn't add cmd and arg but have to right now */
+         flag = do_game_command(cmd + " " + arg);
       }
 
       if (!flag) {
