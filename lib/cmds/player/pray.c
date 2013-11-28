@@ -28,6 +28,17 @@ static void main(string str) {
       usage();
       return;
    } else {
+      switch (str[strlen(str) - 1]) {
+         case '.':
+         case '?':
+         case '!':
+         case ',':
+            break;
+         default:
+            str += ".";
+            break;
+      }
+
       write("You pray: " + str + "\n");
       this_player()->query_environment()->tell_room(this_player(), 
          this_player()->query_Name() + " prays: " + str + "\n");
