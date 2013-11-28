@@ -18,6 +18,6 @@ RETURN VALUE
 	for which ob->fun(elem, extra) returns something other then 0 or nil.
 
 SEE ALSO
-	afun/map_array, afun/member_array, afun/member_map, afun/split_array,
-	afun/uniq_array
+	afun/map_array, afun/member_array, afun/member_map,
+	afun/random_element, afun/split_array, afun/uniq_array
 

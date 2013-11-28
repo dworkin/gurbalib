@@ -19,4 +19,6 @@ EXAMPLES
 	write("The winner is " + winner->query_Name() + "\n");
 
 SEE ALSO
-	XXX
+	afun/filter_array, afun/map_array, afun/member_array, afun/member_map,
+	afun/split_array, afun/uniq_array
+

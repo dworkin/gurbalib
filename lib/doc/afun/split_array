@@ -26,5 +26,6 @@ RETURN VALUE
 
 SEE ALSO
 	afun/filter_array, afun/map_array, afun/member_array, afun/member_map,
-	afun/uniq_array
+	afun/random_element, afun/uniq_array
+
 
