@@ -80,10 +80,10 @@ static void do_give(object obj1, object obj2, int loud) {
    }
 
    if (obj1->move(obj2)) {
-      this_player()->targeted_action("$N $vgive $o to $o1.", nil, obj1, obj2);
+      this_player()->targeted_action("$N $vgive $o to $T.", obj2, obj1);
    } else {
-      this_player()->targeted_action("$N $vtry to give $o to $o1, but $vfail.",
-         nil, obj1, obj2);
+      this_player()->targeted_action("$N $vtry to give $o to $T, but $vfail.",
+         obj2, obj1);
    }
 }
 

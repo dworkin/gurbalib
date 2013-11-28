@@ -60,9 +60,6 @@ you don't send unintended commands to the channel.  Need to think about
 the best way to do it.  I'm thinking chan /command channel instead but
 need to look at it closer.
 
-Fix give jacket to sirdude so it tells sirdude blah gives a jacket to you.
-instead of blah gives a jacket to sirdude.
-
 locate command gives:
 Intermud error 'unk-type' received from Ulario
 Unhandled packet type: locate-req

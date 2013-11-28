@@ -87,6 +87,12 @@ static int do_get(object obj1, object obj2, int loud) {
       }
       return 0;
    }
+   if (obj2->is_living()) {
+      if (loud) {
+         write("Why don't you try asking for that.\n");
+      }
+      return 0;
+   }
 
    if (obj2->is_closed()) {
       if (loud) {
@@ -107,8 +113,8 @@ static int do_get(object obj1, object obj2, int loud) {
       if (obj2 == this_environment()) {
          this_player()->targeted_action("$N $vpick up $o.", nil, obj1);
       } else {
-         this_player()->targeted_action("$N $vpick up $o from $o1.", nil, 
-            obj1, obj2);
+         this_player()->targeted_action("$N $vpick up $o from $t.", obj2, 
+            obj1);
       }
       return 1;
    } else {
@@ -116,8 +122,8 @@ static int do_get(object obj1, object obj2, int loud) {
          this_player()->targeted_action("$N $vtry to get $o, but $vfail.",
          nil, obj1);
       } else {
-         this_player()->targeted_action("$N $vtry to get $o from $o1, " +
-            "but $vfail.", nil, obj1, obj2);
+         this_player()->targeted_action("$N $vtry to get $o from $t, " +
+            "but $vfail.", obj2, obj1);
       }
    }
    return 0;
