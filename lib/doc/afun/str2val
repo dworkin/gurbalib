@@ -21,8 +21,8 @@ EXAMPLES
 	write("X = " + x + "\n");
 
 SEE ALSO
-	afun/empty_str, afun/fmt_str, afun/pad_string_left,
-	afun/replace_string, afun/rexplode, afun/strcmp, afun/strstr,
-	afun/trim_str, kfun/explode, kfun/implode, kfun/parse_string,
-	kfun/sscanf
+	afun/empty_str, afun/fmt_str, afun/lowercase, afun/pad_string_left,
+        afun/replace_string, afun/rexplode, afun/strcmp, afun/strstr,
+        kfun/explode, kfun/implode, afun/parse_range, kfun/parse_string,
+	kfun/sscanf, afun/trim_str, afun/uppercase
 

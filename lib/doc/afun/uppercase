@@ -17,6 +17,8 @@ EXAMPLES
 	upper = uppercase(this_player()->query_name());
 
 SEE ALSO
-	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp, afun/intp,
-	afun/lowercase, afun/mappingp, afun/nilp, afun/objectp, afun/stringp
+	afun/empty_str, afun/fmt_str, afun/lowercase, afun/pad_string_left,
+	afun/replace_string, afun/rexplode, afun/strcmp, afun/strstr,
+	afun/str2val, kfun/explode, kfun/implode, afun/parse_range, 
+	kfun/parse_string, kfun/sscanf, afun/trim_str
 
