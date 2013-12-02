@@ -10,9 +10,16 @@ DESCRIPTION
 RETURN VALUE
         Returns 1 if 'arg' is a float, 0 otherwise.
 
+EXAMPLES
+	float x;
+
+	x=5.5;
+	if (floatp(x)) {
+	   write("Valid float X\n");
+	} 
+
 SEE ALSO
 	afun/arrayp, afun/dump_value, afun/functionp, afun/intp,
 	afun/lowercase, afun/mappingp, afun/nilp, afun/objectp, afun/stringp,
 	afun/uppercase
-
 

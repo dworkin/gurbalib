@@ -12,6 +12,12 @@ DESCRIPTION
 RETURN VALUE
 	The filename of obj, or if obj is not defined, for this_object().
 
+EXAMPLES
+	string name;
+
+	name = file_name(this_object());
+	write("My filename is: " + name + "\n");
+
 SEE ALSO
 	afun/absolute_path, afun/base_name, afun/clone_object, afun/clone_num,
 	afun/compile_library, afun/compile_object, afun/destruct_object,
