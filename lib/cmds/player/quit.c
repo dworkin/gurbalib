@@ -14,8 +14,7 @@ void usage() {
    lines += ({ "\tquit" });
    lines += ({ "\tquit -r" });
    lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, eat, enter, follow, go, pray" });
-
+   lines += ({ "\tattack, cast, eat, enter, follow, go, pray, wimpy" });
    this_player()->more(lines);
 }
 

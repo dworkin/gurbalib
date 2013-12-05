@@ -14,7 +14,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tgo north" });
    lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, eat, enter, follow, pray, quit" });
+   lines += ({ "\tattack, cast, eat, enter, follow, pray, wimpy, quit" });
 
    this_player()->more(lines);
 }
