@@ -61,8 +61,6 @@ int run_away() {
 
    dir = this_object()->query_env("wimpydir");
 
-this_object()->message("RUNAWAY RUNAWAY!!!!: " + dir + "\n");
-
    if (!empty_str(dir) && 
       this_object()->query_environment()->query_exit(dir)) {
       write("You attempt to run " + dir + ".\n");
@@ -82,15 +80,16 @@ this_object()->message("RUNAWAY RUNAWAY!!!!: " + dir + "\n");
          return 1;
       }
    } else {
-      exits = this_object()->query_environment()->query_exit_indicies();
+      exits = this_object()->query_environment()->query_exit_indices();
 
       if (exits) {
          x = sizeof(exits);
-         if (x> 1) {
+         if (x < 1) {
             write("You attempt to run away but can not find " +
                "an exit.\n");
          } else {
             y = random(x) + 1;
+this_object()->message("RUNAWAY : " + exits[y] + "\n");
             write("You attempt to run " + exits[y] + ".\n");
             error = this_object()->this_environment()->body_exit(this_object(),
 		exits[y]);
@@ -100,6 +99,9 @@ this_object()->message("RUNAWAY RUNAWAY!!!!: " + dir + "\n");
                return 1;
             }
          }
+      } else {
+            write("You attempt to run away but can not find " +
+               "an exit.\n");
       }
    }
    return 0;
