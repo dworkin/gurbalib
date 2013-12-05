@@ -54,6 +54,57 @@ void halt_fight(void) {
    targets = ( { } );
 }
 
+int run_away() {
+   string dir, error;
+   string *exits;
+   int x, y;
+
+   dir = this_object()->query_env("wimpydir");
+
+this_object()->message("RUNAWAY RUNAWAY!!!!: " + dir + "\n");
+
+   if (!empty_str(dir) && 
+      this_object()->query_environment()->query_exit(dir)) {
+      write("You attempt to run " + dir + ".\n");
+      error = this_object()->this_environment()->body_exit(this_object(), dir);
+      if (error) {
+         write(error);
+      } else {
+         return 1;
+      }
+   } else if (!empty_str(dir) && 
+      this_object()->query_environment()->query_hidden_exit(dir)) {
+      write("You attempt to run " + dir + ".\n");
+      error = this_object()->this_environment()->body_exit(this_object(), dir);
+      if (error) {
+         write(error);
+      } else {
+         return 1;
+      }
+   } else {
+      exits = this_object()->query_environment()->query_exit_indicies();
+
+      if (exits) {
+         x = sizeof(exits);
+         if (x> 1) {
+            write("You attempt to run away but can not find " +
+               "an exit.\n");
+         } else {
+            y = random(x) + 1;
+            write("You attempt to run " + exits[y] + ".\n");
+            error = this_object()->this_environment()->body_exit(this_object(),
+		exits[y]);
+            if (error) {
+               write(error);
+            } else {
+               return 1;
+            }
+         }
+      }
+   }
+   return 0;
+}
+
 void receive_damage(object who, int dam) {
    int x;
 
@@ -180,6 +231,12 @@ object get_target(object targ) {
 void attack_with(string skill, object weapon, object target) {
    int me, tmp, damage;
 
+   if ((this_object()->query_env("wimpy") == "on") &&
+      (this_object()->query_env("wimpyhp") > this_object()->query_hp())) {
+      run_away();
+      return;
+   }
+
    me = this_object()->query_end();
    if (me < ATTACK_COST) {
       this_object()->message("You are too tired to attack.\n");
@@ -196,6 +253,7 @@ void attack_with(string skill, object weapon, object target) {
 	 + this_object()->query_statbonus("str")
 	 + weapon->query_hit_bonus();
    }
+
    if (do_swing(me) == 1) {
       if (!weapon) {
 	 damage = random(3) + this_object()->query_statbonus("str");
