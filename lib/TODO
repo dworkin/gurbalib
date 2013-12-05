@@ -84,3 +84,6 @@ after possess rat
 
 Move more of std/obj/player.c:receive_message() to m_cmds.c:do_game_command()
 
+Modify combat so you can have multiple damage messages for a given weapon???
+	like the swiss army knife in eotl...
+

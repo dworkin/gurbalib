@@ -93,7 +93,6 @@ static void main(string str) {
    write("Charisma    :  " + obj->query_stat("cha") +
       "\t\t" + "Experience  :   " + expr + "\n\n");
 
-/* XXX Not sure about this one, encourages player killing may remove later */
    write("Kills: " + obj->query_kills() + " " + "Killed: " +
       obj->query_killed() + "\n\n");
 
