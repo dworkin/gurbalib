@@ -272,9 +272,51 @@ void cast_spell(object target) {
    this_object()->damage_target(damage, target);
 }
 
+string get_color(int x, int maxx) {
+   int y,z;
+
+   z = (maxx / 3) + 1;
+   y = maxx - z;
+
+   if (x > y) {
+      return "%^GREEN%^";
+   } else if (x <= z) {
+      return "%^RED%^";
+   } else {
+      return "%^YELLOW%^";
+   }
+}
+
+string get_status(object thing) {
+   int tmp, tmpmax;
+   string col, line;
+
+   if (!objectp(thing)) {
+      return "";
+   }
+
+   tmp = thing->query_hp();
+   tmpmax = thing->query_max_hp();
+   col = get_color(tmp,tmpmax);
+   line = col + "HP[" + tmp + "/" + tmpmax + "]%^RESET%^";
+
+   tmp = thing->query_mana();
+   tmpmax = thing->query_max_mana();
+   col = get_color(tmp,tmpmax);
+   line += " " + col + "MANA[" + tmp + "/" + tmpmax + "]%^RESET%^";
+
+   tmp = thing->query_end();
+   tmpmax = thing->query_max_end();
+   col = get_color(tmp,tmpmax);
+   line += " " + col + "END[" + tmp + "/" + tmpmax + "]%^RESET%^";
+
+   return line;
+}
+
 void do_fight(void) {
    int i, max, x, done;
    object *weapons;
+   string line;
 
    target = get_target(target);
 
@@ -304,16 +346,14 @@ void do_fight(void) {
 
 #ifdef DEBUG
       /* Need to check target again, because target may have died. */
-      if (target) {
-         this_object()->message("%^CYAN%^HP[" + this_object()->query_hp() + 
-            "/" + this_object()->query_max_hp() + "] Target HP[" + 
-            target->query_hp() + "/" + target->query_max_hp()  + "]%^RESET%^");
-         done = 1;
-      }
+      line = get_status(this_object());
+      line += " " get_status(target);
+      this_object()->message(line);
+      done = 1;
 #endif
       if (!done) {
-         this_object()->message("%^CYAN%^HP[" + this_object()->query_hp() + 
-            "/" + this_object()->query_max_hp() + "]%^RESET%^");
+         line = get_status(this_object());
+         this_object()->message(line);
       }
    }
 }
