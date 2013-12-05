@@ -32,6 +32,7 @@ void usage() {
 }
 
 static void main(string str) {
+   mixed tmp;
    string dir;
    int hp;
 
@@ -42,14 +43,18 @@ static void main(string str) {
          write("Wimpy mode: off\n");
       }
 
-      dir = this_player()->query_env("wimpydir");
-      if (!dir) {
+      tmp = this_player()->query_env("wimpydir");
+      if (stringp(tmp)) {
+         dir = tmp;
+      } else {
          dir = "\"\"";
       }
       write("Wimpy dir: " + dir + "\n");
 
-      hp = this_player()->query_env("wimpyhp");
-      if (!hp) {
+      tmp = this_player()->query_env("wimpyhp");
+      if (intp(tmp)) {
+         hp = tmp;
+      } else {
          hp = 0;
       }
       write("Wimpy hp: " + hp + "\n");
