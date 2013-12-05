@@ -19,7 +19,8 @@ void usage() {
    lines += ({ "\tbuy, extinguish, identify, light, list, listen, " +
       "sell, value" });
    if (query_wizard(this_player())) {
-      lines += ({ "\tlast, locate, mudlist, possess, rwho, snoop, where, who" });
+      lines += ({ "\tlast, locate, mudlist, possess, rwho, snoop, where, who" 
+         });
    }
 
    this_player()->more(lines);

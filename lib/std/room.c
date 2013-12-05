@@ -189,10 +189,11 @@ string query_desc(varargs int brief) {
          return query_dark_msg();
       }
    }
-   text += "%^ROOM_NAME%^" + query_short() + "%^RESET%^";
+   text += "%^ROOM_NAME%^\t" + query_short() + "%^RESET%^\n";
 
-   text += " %^ROOM_EXIT%^[ exits: ";
+   text += "%^ROOM_DESC%^" + query_long() + "%^RESET%^\n";
 
+   text += "%^ROOM_EXIT%^[ Obvious exits: ";
    if (!exits || map_sizeof(exits) == 0) {
       text += "none ";
    } else {
@@ -200,10 +201,7 @@ string query_desc(varargs int brief) {
 	 text += map_indices(exits)[count] + " ";
       }
    }
-
    text += "]%^RESET%^\n";
-   text += "%^ROOM_DESC%^" + query_long() + "%^RESET%^";
-   text += "\n";
 
    inventory = query_inventory();
 
