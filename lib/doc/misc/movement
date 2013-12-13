@@ -25,6 +25,8 @@ Normal Player movement: This is the standard way players move,
 		ROOMMSGLEAVE
 		PERSONMSGFAIL
 		ROOMMSGFAIL
+	See below for information on what these look like and to see some 
+		examples.
 
 Magical movement: This is for other movement, say a spell or when a
 	wizard summons someone.
@@ -39,6 +41,8 @@ Magical movement: This is for other movement, say a spell or when a
 		MAGICROOMMSGLEAVE
 		MAGICPERSONMSGFAIL
 		MAGICROOMMSGFAIL
+	See below for information on what these look like and to see some 
+		examples.
 
 Custom movement: If you want to do something special you can implement your own movement
 	by calling the custom_move function within the object:
@@ -47,3 +51,5 @@ Custom movement: If you want to do something special you can implement your own 
 		personalmessageonfail, roommessageonfail);
 	For an example look at: domains/2.4.5/rooms/south/sislnd1.c
 
+
+Message format: XXX
