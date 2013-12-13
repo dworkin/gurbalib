@@ -15,7 +15,9 @@ void setup(void) {
    set_restock_delay(7200);
    set_will_buy(1);
 
-   add_item(DIR + "/obj/sweetroll", 9);
-   add_item(DIR + "/obj/lover_locket", 9);
+   add_item(DIR + "/obj/sweetroll", 12);
+   add_item(DIR + "/obj/nails", 20);
+   add_item(DIR + "/obj/hammer", 5);
+   add_item(DIR + "/obj/lovers_locket", 10);
 }
 
