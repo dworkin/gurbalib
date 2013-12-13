@@ -68,17 +68,25 @@ int do_breakit(string str) {
 }
 
 int do_squeezeit(string str) {
+   object tmpobj;
+
    if (str == "locket" || str == "lovers locket") {
       write("You squeeze the locket and dream of your lover.\n");
       this_player()->query_environment()->tell_room(this_player(),
          this_player()->query_Name() + " squeezes their locket and pauses " +
          "for a moment.");
-      if (find_object(twin)) {
-         /* XXX Need to fix movement first...
-         this_player()->magic_move(twin->query_environment()); */
-      } else {
-         write("You miss them.\n");
+      if (twin) {
+         tmpobj = twin->query_environment();
+         if (objectp(tmpobj) && tmpobj->query_player()) {
+            tmpobj = tmpobj->query_environment();
+            if (objectp(tmpobj)) {
+               /* XXX Need to fix movement first...
+               this_player()->magic_move(twin->query_environment()); */
+               return 1;
+            }
+         }
       }
+      write("You miss them.\n");
       return 1;
    }
    return 0;

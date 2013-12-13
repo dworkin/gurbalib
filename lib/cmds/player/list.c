@@ -5,8 +5,8 @@ void usage() {
 
    lines = ({ "Usage: list [-h]" });
    lines += ({ "" });
-   lines += ({ "When in a storage location, allows you to see what you " +
-      "have in storage." });
+   lines += ({ "When in a storage or shop location, " +
+      "allows you to see what shops have on sale, or you have in storage." });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
@@ -22,18 +22,21 @@ void usage() {
 static void main(string str) {
    object vendor;
    object *objs;
-   int i;
+   int i, maxi;
 
-   if (empty_str(str)) {
+   if (!empty_str(str)) {
       usage();
       return;
    }
 
    objs = this_environment()->query_inventory();
 
-   for (i = 0; i < sizeof(objs); i++) {
-      if (objs[i]->is_vendor())
+   maxi = sizeof(objs);
+   for (i = 0; i < maxi; i++) {
+      if (objs[i]->is_vendor()) {
          vendor = objs[i];
+         continue;
+      }
    }
    if (!vendor) {
       write("Perhaps you should try to do this somewhere else?");

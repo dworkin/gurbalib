@@ -10,7 +10,7 @@ void setup(void) {
       "Here in the wild west, if you can't get it at the general store, " +
       "your probably going to have to wait months to get a package.  " +
       "While looking around at the sundry goods, you smell something " +
-      "delicious.");"
+      "delicious.");
 
    set_exits(([
       "east" : DIR + "/rooms/infront_store.c", 
