@@ -1,0 +1,49 @@
+There are 3 basic forms of movement in the mud, if those don't work for
+you, there is a fourth option as well:
+
+Hidden movement: Tipically this is how npc's(monsters) and other objects 
+	arrive in a room they are suppose to start in.
+	This would be how a player could sneak for instance into a room,
+	without being detected.  This should not be the normal way players
+	move around.  
+	Monsters that attack things will not attack the player because they	
+	will not see them.
+	To implement a hidden move just call quite_move within the object:
+	myobject->quite_move(destination);
+	For an example see: set_objects in std/container.c  
+
+Normal Player movement: This is the standard way players move,
+	the go, enter commands and similar things.
+	To implement a normal move just call move within the object:
+	myobject->move(direction, destination);
+	For details on how to do this see: lib/cmds/player/go.c
+	Wizards can set the following ENV variables to modify what messages
+	get sent to players when they enter/leave a room:
+		PERSONMSGENTER
+		ROOMMSGENTER
+		PERSONMSGLEAVE
+		ROOMMSGLEAVE
+		PERSONMSGFAIL
+		ROOMMSGFAIL
+
+Magical movement: This is for other movement, say a spell or when a
+	wizard summons someone.
+	To implement a magical move call magic_move within the object:
+	myobject->magic_move(destination);
+	For details on how to do this see: lib/sys/cmds/wiz/goto.c
+	Wizards can set the following ENV variables to modify what messages
+	get sent to players when they magically enter/leave a room:
+		MAGICPERSONMSGENTER
+		MAGICROOMMSGENTER
+		MAGICPERSONMSGLEAVE
+		MAGICROOMMSGLEAVE
+		MAGICPERSONMSGFAIL
+		MAGICROOMMSGFAIL
+
+Custom movement: If you want to do something special you can implement your own movement
+	by calling the custom_move function within the object:
+	custom_move(direction, destination, personalmessageonleave, 
+		roommessageonleave, personalmessageonenter, roommessageonenter,
+		personalmessageonfail, roommessageonfail);
+	For an example look at: domains/2.4.5/rooms/south/sislnd1.c
+
