@@ -5,8 +5,8 @@ void usage() {
 
    lines = ({ "Usage: junk [-h] [all|OBJECT]" });
    lines += ({ "" });
-   lines += ({ "The junk command allows you to cleann up the mud.  "});
-   lines += ({ "If you have any objects you no longer want you can instanly" +
+   lines += ({ "The junk command allows you to clean up the mud.  "});
+   lines += ({ "If you have any objects you no longer want you can instantly" +
       " vaporize them with the handy junk command." });
    lines += ({ "" });
    lines += ({ "If you want to junk your entire inventory use: junk all" });
