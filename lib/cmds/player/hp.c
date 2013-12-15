@@ -13,7 +13,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\thp" });
    lines += ({ "See also:" });
-   lines += ({ "\tinventory, levels, score, skills" });
+   lines += ({ "\tinventory, junk, levels, score, skills" });
 
    this_player()->more(lines);
 }

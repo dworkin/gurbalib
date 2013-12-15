@@ -22,7 +22,7 @@ void usage() {
       lines += ({ "\tskills set spell/cure 5" });
    }
    lines += ({ "See also:" });
-   lines += ({ "\thp, inventory, levels, score" });
+   lines += ({ "\thp, inventory, junk, levels, score" });
 
    this_player()->more(lines);
 }

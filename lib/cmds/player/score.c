@@ -15,7 +15,7 @@ void usage() {
       lines += ({ "\tscore" });
       lines += ({ "\tscore sirdude" });
       lines += ({ "See also:" });
-      lines += ({ "\thp, inventory, levels, skills, status" });
+      lines += ({ "\thp, inventory, junk, levels, skills, status" });
    } else {
       lines = ({ "Usage: score [-h]" });
       lines += ({ "" });
@@ -27,7 +27,7 @@ void usage() {
       lines += ({ "Examples:" });
       lines += ({ "\tscore" });
       lines += ({ "See also:" });
-      lines += ({ "\thp, inventory, levels, skills" });
+      lines += ({ "\thp, inventory, junk, levels, skills" });
    }
 
    this_player()->more(lines);
