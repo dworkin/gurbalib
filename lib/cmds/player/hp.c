@@ -19,16 +19,12 @@ void usage() {
 }
 
 static void main(string str) {
+   string line;
    if (!empty_str(str)) {
       usage();
       return;
    }
 
-   write("HP [" + this_player()->query_hp() + "/" +
-      this_player()->query_max_hp() + "] " +
-      "Mana [" + this_player()->query_mana() + "/" +
-      this_player()->query_max_mana() + "] " +
-      "Endurance [" + this_player()->query_end() + "/" +
-      this_player()->query_max_end() + "] " +
-      "AC [" + this_player()->query_defense() + "]");
+   line = this_player()->get_status(this_player());
+   write(line);
 }
