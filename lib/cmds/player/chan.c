@@ -9,53 +9,46 @@ static void chan_cmd(string chan, string cmd);
 void usage() {
    string *lines;
 
-   lines = ({ "Usage: chan [-h] [CHANNEL </command>]" });
+   lines = ({ "Usage: chan [-h] [COMMAND CHANNEL | CHANNEL MSG]" });
    lines += ({ "" });
-   lines += ({ "List and or interact with channels.  Channels are basically " +
-      "a way to group " });
-   lines += ({ "chat both within the mud and also within the " +
-      "greater mud community." });
-   lines += ({ "If no CHANNEL is given list available channels." });
+   lines += ({ "The chan command allows you to interact with channels." });
+   lines += ({ "Channels are basically a way to group chat both within the " });
+   lines += ({ "mud and also within the greater mud community." });
+   lines += ({ "If no args are given list channels you are currently on." });
    lines += ({ "" });
    lines += ({ "Command can be: " });
-   lines += ({ "\ton, off, list, hist, info" });
+   lines += ({ "\ton\tJoin a channel" });
+   lines += ({ "\toff\tleave a channel" });
+   lines += ({ "\thist\tDisplay history of a channel" });
+   lines += ({ "\tinfo\tDisplay info on a channel" });
+   lines += ({ "\tlist\tDisplay who is on a channel" });
 
    if (query_wizard(this_player())) {
-      lines += ({ "\tnew, delete, readonly, color, guild" });
+      lines += ({ "\tnew\tCreate a channel." });
+      lines += ({ "\tdelete\tDelete the channel." });
+      lines += ({ "\treadonly\tToggle this channel as readonly." });
+      lines += ({ "\tcolor\tChange the color of the channel." });
+      lines += ({ "\timud\tToggle this channel as an intermud channel ." });
+      lines += ({ "\tguild\tToggle this channel as a guild channel." });
    }
 
    if (query_admin(this_player())) {
-      lines += ({ "\tadmin, wiz, imud, permanent" });
+      lines += ({ "\tadmin\tToggle this channel as an admin channel." });
+      lines += ({ "\twiz\tToggle this channel as a wizard channel." });
+      lines += ({ "\tinfo\tDisplay info about a channel." });
+      lines += ({ "\tpermanent\tToggle this channel as permanent." });
    }
 
-   lines += ({ "You can also just use <channel> /command" });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   lines += ({ "\t/on\tJoin a channel." });
-   lines += ({ "\t/off\tLeave a channel." });
-   lines += ({ "\t/history\tShow what has happened in a channel." });
-   lines += ({ "\t/list\tShow who is in a channel." });
-
-   if (query_wizard(this_player())) {
-      lines += ({ "\t/new\tCreate a channel." });
-      lines += ({ "\t/delete\tDelete the channel." });
-      lines += ({ "\t/readonly\tToggle this channel as readonly." });
-      lines += ({ "\t/color\tChange the color of the channel." });
-      lines += ({ "\t/imud\tToggle this channel as an intermud channel ." });
-      lines += ({ "\t/guild\tToggle this channel as a guild channel." });
-   }
-
-   if (query_admin(this_player())) {
-      lines += ({ "\t/admin\tToggle this channel as an admin channel." });
-      lines += ({ "\t/wiz\tToggle this channel as a wizard channel." });
-      lines += ({ "\t/info\tDisplay info about a channel." });
-      lines += ({ "\t/permanent\tToggle this channel as permanent." });
-   }
+   lines += ({ "" });
 
    lines += ({ "Examples:" });
-   lines += ({ "\tchan announce /join" });
-   lines += ({ "\tchan announce /leave" });
+   lines += ({ "\tchan join announce" });
+   lines += ({ "\tchan leave announce" });
+   lines += ({ "\tchan announce hi all!" });
+   lines += ({ "" });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
       lines += ({ "\tbug, echo, echoto, emote, rsay, shout, ssay, say, " +
@@ -68,7 +61,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-static void list_channels(void) {
+static void list_channels(int x) {
    string *channels, *schannels, *lines;
    mapping ichans;
    string line;
@@ -77,20 +70,32 @@ static void list_channels(void) {
    channels = CHANNEL_D->query_channels();
    schannels = this_player()->query_channels();
 
-   lines = ( { "%^BOLD%^%^CYAN%^Available channels: %^RESET%^" } );
-   for (i = 0, sz = sizeof(channels); i < sz; i++) {
-      line = channels[i] + "     \t";   /* very suss formatting */
-      line += (member_array(channels[i], schannels) == -1) ?
-         "%^RED%^OFF" : "%^GREEN%^ON";
-      line += "%^RESET%^";
-      lines += ( { line } );
+   if (x) {
+      lines = ( { "%^BOLD%^%^CYAN%^Channels your on: %^RESET%^" } );
+   } else {
+      lines = ( { "%^BOLD%^%^CYAN%^Available channels: %^RESET%^" } );
    }
 
+   for (i = 0, sz = sizeof(channels); i < sz; i++) {
+      if (member_array(channels[i], schannels) == -1) {
+         if (!x) {
+            line = channels[i] + "     \t";
+            line += "%^RED%^OFF%^RESET%^";
+            lines += ({ line });
+         }
+      } else {
+         line = channels[i] + "     \t";
+         line += "%^GREEN%^ON%^RESET%^";
+         lines += ( { line } );
+      }
+   }
+
+   /* XXX Need to check for x and only display if your a member */
    if (query_wizard(this_player())) {
       ichans = IMUD_D->query_chanlist();
       channels = map_indices(ichans);
 
-      lines += ( { } );
+      lines += ( { "" } );
       lines += ( { "IMud channels" } );
       lines += ( { "--------------" } );
       for (i = 0; i < sizeof(channels); i++) {
@@ -103,83 +108,73 @@ static void list_channels(void) {
    this_player()->more(lines,1);
 }
 
-static void main(string str) {
-   string chan, cmd;
-
-   if (empty_str(str)) {
-      usage(); /* Change this to list channels you are a member of XXX */
-      return;
-   }
-   if (sscanf(str, "-%s", str)) {
-      usage();
-      return;
-   }
-
-   if (sscanf(str, "%s %s", chan, cmd) != 2) {
-      if ((str == "/list") || (str == "/who")) {
-         list_channels();
-         return;
-      } else {
-         chan = str;
-         cmd = "/info";
-      }
-   }
-
-   chan_cmd(chan, cmd);
-}
-
-static void chan_cmd(string chan, string cmd) {
+static void chan_cmd(string cmd, string chan) {
 
    switch (cmd) {
-      case "/join":
-      case "/on":
+      case "join":
+      case "on":
 	 CHANNEL_D->chan_join(chan, this_player());
 	 break;
-      case "/leave":
-      case "/off":
+      case "leave":
+      case "off":
 	 CHANNEL_D->chan_leave(chan, this_player());
 	 break;
-      case "/new":
+      case "new":
 	 CHANNEL_D->chan_new(chan, ALL);
 	 break;
-      case "/admin":
+      case "admin":
 	 CHANNEL_D->chan_set_flag(chan, ADMIN_ONLY);
 	 break;
-      case "/wiz":
+      case "wiz":
 	 CHANNEL_D->chan_set_flag(chan, WIZ_ONLY);
 	 break;
-      case "/readonly":
+      case "readonly":
 	 CHANNEL_D->chan_set_flag(chan, READ_ONLY);
 	 break;
-      case "/permanent":
+      case "permanent":
 	 CHANNEL_D->chan_make_permanent(chan);
 	 break;
       case "":
-      case "/who":
-      case "/list":
+      case "who":
+      case "list":
 	 CHANNEL_D->chan_who(chan);
 	 break;
-      case "/hist":
+      case "hist":
+      case "history":
 	 CHANNEL_D->show_history(chan);
 	 break;
-      case "/delete":
+      case "delete":
 	 break;
-      case "/info":
-	 /*this_player()->message(CHANNEL_D->query_debug()); */
+      case "info":
+	 this_player()->message(CHANNEL_D->query_debug());
 	 break;
-      case "/help":
+      case "help":
 	 usage();
 	 break;
+/* THESE Need FIXING XXXX */
+      case "color":
+         CHANNEL_D->chan_set_color(chan, cmd[7..]);
+         break;
+      case "imud":
+	 CHANNEL_D->chan_imud(chan, cmd[6..]);
+         break;
+      case "guild":
+	 CHANNEL_D->chan_set_guild(chan, cmd[6..]);
+         break;
+      default:
+	 CHANNEL_D->chan_say(cmd, chan);
+	 return;
+
+/* old stuff that needs converting yet...
       default:
 	 if (strlen(cmd) > 8)
-	    if (cmd[..5] == "/color") {
-	       /* Let's change the color of the channel */
+	    if (cmd[..5] == "color") {
 	       CHANNEL_D->chan_set_color(chan, cmd[7..]);
 	       break;
-	    } else if (cmd[..4] == "/imud") {
+	    } else if (cmd[..4] == "imud") {
 	       CHANNEL_D->chan_imud(chan, cmd[6..]);
 	       break;
-	    } else if (cmd[..5] == "/guild") {
+	    } else if (cmd[..5] == "guild") {
 	       CHANNEL_D->chan_set_guild(chan, cmd[7..]);
 	       break;
 	    }
@@ -191,8 +186,30 @@ static void chan_cmd(string chan, string cmd) {
 	       cmd = cmd[1..];
 	    }
 	 }
-
-	 CHANNEL_D->chan_say(chan, cmd);
-	 return;
+*/
    }
+}
+
+static void main(string str) {
+   string chan, cmd;
+
+   if (empty_str(str)) {
+      list_channels(1);
+      return;
+   }
+   if (sscanf(str, "-%s", str)) {
+      usage();
+      return;
+   }
+   if (str == "list" || str == "who") {
+      list_channels(0);
+      return;
+   }
+
+   if (sscanf(str, "%s %s", cmd, chan) != 2) {
+      usage();
+      return;
+   }
+
+   chan_cmd(cmd, chan);
 }
