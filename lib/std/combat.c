@@ -369,6 +369,7 @@ string get_status(object thing) {
    tmpmax = thing->query_max_end();
    col = get_color(tmp,tmpmax);
    line += " " + col + "END[" + tmp + "/" + tmpmax + "]%^RESET%^";
+   line += "\tEXP: " +  thing->query_expr();
 
    return line;
 }
