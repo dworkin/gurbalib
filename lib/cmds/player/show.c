@@ -22,14 +22,23 @@ static void display_object(object who, object what) {
    object *objs;
    int x, maxx;
 
-   if (this_environment()->query_dark()) {
-      write("It is too dark to see.\n");
-      return;
+   if (this_environment()->is_dark()) {
+      if (this_player()->query_race_object()->has_darkvision()) {
+         who->message("This room is dark, however, your race allows you to " +
+            "see in the dark.\n");
+      } else if (query_wizard(this_player())) {
+         who->message("This room is dark, however, being a wizard allows " +
+            "you to see in the dark.\n");
+      } else {
+         who->message("It is too dark to see.\n");
+         return;
+      }
    }
 
    this_environment()->event("body_look_at", who, what);
    
    who->message(what->query_long());
+
    if (what->is_closed()) {
       who->message("It is closed.");
    } else if (what->is_container()) {
@@ -53,6 +62,10 @@ string get_name(object obj) {
       name = obj->query_id();
    }
 
+   if (!name) {
+      name = "";
+   }
+
    return name;
 }
 
@@ -61,28 +74,21 @@ static void do_show(object obj1, object obj2, int loud) {
 
    if (!obj1) {
       if (loud) {
-         write("What are you trying to put where?");
+         write("What are you trying to show to who?");
       }
       return;
    }
 
    if (!obj2) {
       if (loud) {
-         write("Where are you trying to put that?\n");
-      }
-      return;
-   }
-
-   if (!obj2->is_living()) {
-      if (loud) {
-         write("You can only give things to the living.\n");
+         write("Who are you trying to show that?\n");
       }
       return;
    }
 
    if (obj2 == this_player()) {
       if (loud) {
-         write("You may not give things to yourself.\n");
+         write("You may not show things to yourself.\n");
       }
       return;
    }
@@ -90,10 +96,9 @@ static void do_show(object obj1, object obj2, int loud) {
    name = get_name(obj1);
    name2 = get_name(obj2);
 
-   write("You show " + name + " to " + name2 + "\n");
-   this_player()->query_environement()->tell_room(this_player(), 
-      this_player()->query_Name() + " shows " + name + " to " + 
-      name2 + "\n");
+   write("You show " + name + " to " + name2 + ".\n");
+   this_environment()->tell_room(this_player(), this_player()->query_Name() +
+	" shows " + name + " to " + name2 + ".\n");
 
    display_object(obj2, obj1);
 }
