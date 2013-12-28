@@ -6,6 +6,9 @@ void usage() {
    lines =({ "Usage: quit [-h] [-r]" });
    lines += ({ "" });
    lines += ({ "This is how you leave the game." });
+   lines += ({ "Note: You will keep your money, but you will drop all " +
+      "of your items " });
+   lines += ({ "when you quit." });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
