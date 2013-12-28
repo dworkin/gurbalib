@@ -180,11 +180,7 @@ string query_desc(varargs int brief) {
 
    if (is_dark()) {
       if (this_player()->query_race_object()->has_darkvision()) {
-         text += "This room is dark, however, your race allows you to " +
-            "see in the dark.\n";
       } else if (query_wizard(this_player())) {
-         text += "This room is dark, however, being a wizard allows you to " +
-            "see in the dark.\n";
       } else {
          return query_dark_msg();
       }

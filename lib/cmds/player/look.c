@@ -30,11 +30,6 @@ static void do_look_obj(object obj) {
    int i, flag;
    object *objs;
 
-   if (this_environment()->query_dark()) {
-      write("It is too dark to see.\n");
-      return;
-   }
-
    this_environment()->event("body_look_at", this_player(), obj);
    this_environment()->tell_room(this_player(), this_player()->query_Name() +
       " looks at the " + obj->query_id() + ".\n");
@@ -96,6 +91,19 @@ static void do_look(object obj) {
    int i, flag;
    object *objs;
 
+   if (this_environment()->is_dark()) {
+      if (query_wizard(this_player())) {
+         write("This room is dark, however, being a wizard allows " +
+            "you to see in the dark.\n");
+      } else if (this_player()->query_race_object()->has_darkvision()) {
+         write("This room is dark, however, your race allows " +
+            "you to see in the dark.\n");
+      } else {
+         write("It is too dark to see.\n");
+         return;
+      }
+   }
+
    if (obj == this_environment()) {
       this_environment()->event("body_look", this_player());
       if (this_player()->is_player() == 1) {
@@ -103,11 +111,8 @@ static void do_look(object obj) {
             write("%^BOLD%^" + this_environment()->file_name() + "%^RESET%^");
          }
       }
-      if (this_environment()->query_dark()) {
-         write("It is too dark to see.\n");
-      } else {
-         write(this_environment()->query_desc());
-      }
+
+      write(this_environment()->query_desc());
    } else if (obj->is_living()) {
       do_look_liv(obj);
    } else {
@@ -145,11 +150,6 @@ static void main(string str) {
       obj = this_player()->present(lowercase(what));
       if (!obj) obj = this_environment()->present(lowercase(what));
    } 
-
-   if (this_environment()->query_dark()) {
-      write("It is too dark to see.\n");
-      return;
-   }
 
    if (!obj) {
       write("Look at what?");

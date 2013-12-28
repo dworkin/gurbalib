@@ -23,12 +23,12 @@ static void display_object(object who, object what) {
    int x, maxx;
 
    if (this_environment()->is_dark()) {
-      if (this_player()->query_race_object()->has_darkvision()) {
-         who->message("This room is dark, however, your race allows you to " +
-            "see in the dark.\n");
-      } else if (query_wizard(this_player())) {
+      if (query_wizard(this_player())) {
          who->message("This room is dark, however, being a wizard allows " +
             "you to see in the dark.\n");
+      } else if (this_player()->query_race_object()->has_darkvision()) {
+         who->message("This room is dark, however, your race allows you to " +
+            "see in the dark.\n");
       } else {
          who->message("It is too dark to see.\n");
          return;
