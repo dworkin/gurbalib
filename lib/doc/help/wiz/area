@@ -4,23 +4,26 @@ layout your first area and give you some hints on how to get started.
 Note, this stuff is broken into sections to describe how to create an area
 but at the same time, when you are creating an area for real, you will
 probably want to jump around and make sure your not following this document
-step by step.
+step by step.  If you haven't yet, you may want to read the following
+documents first: bootcamp, coding
 
 Steps were going to cover:
-	1. Planning
-	2. Layout
-	3. Creating basic rooms
-	4. Testing
-	5. Adding some objects
-	6. Adding some monsters
-	7. Quest
-	8. Putting it all togeather
+	1. Planning.
+	2. Layout.
+	3. Creating our first room.
+	4. Testing.
+	5. Creating the rest of our rooms.
+	6. Adding some objects.
+	7. Adding some monsters.
+	8. Adding a quest.
+	9. Fleshing things out.
+	10. Adding your code into the rest of the mud.
 
 1. Planning
 Ok there are lots of things to consider when creating an area.  For this
 example we are going to create a simple small area and I'm going to
 answer the basic questions that are pretty important:
-   Whats the theme?	Abandoned mine
+   What is the theme?	Abandoned mine
    What level(s) of players will want to adventure here?	1-5
    What type of quests will we have? Explore and escape the cave in.
    What kind of story am I trying to tell? 	A ghost story.
@@ -38,8 +41,8 @@ area/domain: http://www.infinitymud.com/area_making.shtml
 
 2. Layout
 It's a good idea to graph out your area on paper.  I'm going to use
-simple asci art here but in general you want to do something more detailed.
-This area is going to break some of the rules, thats ok but the rules are 
+simple ASCII art here but in general you want to do something more detailed.
+This area is going to break some of the rules, thats Ok but the rules are 
 there for a good reason.  Knowing when to break the rules is what makes
 a good area.  Some things to keep in mind:
 
@@ -60,17 +63,17 @@ Map for our area:
               |    |         |    |
 	      4----5----6----9----10----11
 
-	1. Cave in 		2. Split
+	1. Entrance 		2. Split
 	3. Narrow passage	4. Large opening
 	5. Rough spot		6. Tight squeeze
 	7. Cave in		8. Big rock
-	9. Station 1		10. Passages
+	9. The Station		10. Passages
 	11. Dead end		12. Escape
 
 
 Now that we have the start of our layout, its time to start writing some code.
 For now we are going to put this in our wizard's directory.  (For me that 
-is /wiz/sirdude, if your following along just subsitute your name
+is /wiz/sirdude, if your following along just substitute your name
 wherever you see sirdude)
 on the mud issue the following commands:
 cd ~
@@ -88,8 +91,10 @@ The idea behind this domain.h file is, we can make our code portable
 so that once it's done all we need to do is change this one line to 
 move the code to a new location.
 
+You may want to copy the map we have above to a file ~/mein/map.txt just
+to have a copy of it you can reference quickly.
 
-3. Creating basic rooms.
+3. Creating our first room.
 It's a good idea to name your files after your short descriptions, make
 sure you do not use spaces in the names and try to keep them around 8 chars
 or so, but still distinct.  What were going to do in this section is,
@@ -105,7 +110,7 @@ edit entrance.c and add the following:
 	void setup(void) {
 	   add_area("mine");
 
-	   set_short("Cave in");
+	   set_short("Entrance to the mine");
 	   set_long("A cave in.");
 
 	   set_exits(([
@@ -113,11 +118,21 @@ edit entrance.c and add the following:
 	   ]));
 	}
 
+4. Testing.
 This is a good start, it's not a finished product but it has the basics,
 Before we progress we should test things and make sure we have a working room.
 goto ~/mine/rooms/entrance.c  If you have errors look at the logs and
 get your room working before moving to the next step.
 
+Once you are able to goto the room, run the check script on it:
+cd ~/mine/rooms
+check entrance.c
+
+You should get 0 errors and 1 Warning, because the exit east does not
+point to a valid file right now.  If you get something else you should
+figure out what is wrong at this point before continuing.
+
+5. Creating our additional rooms.
 Now lets copy that file to all of the rooms with the following commands:
 	cp entrance.c split.c
 	cp entrance.c narrow.c
@@ -131,3 +146,43 @@ Now lets copy that file to all of the rooms with the following commands:
 	cp entrance.c deadend.c
 	cp entrance.c escape.c
 
+Looking at our map we need to update the set_short lines in each of
+these files.  for split.c we edit it and change this line:
+	   set_short("Entrance to the mine");
+to this:
+	   set_short("Split");
+The rest are left as an exercise for you. :)
+Now we need to edit the files and update the exits, again you should
+be able to figure this out from the maps.  To make sure your on the
+right track I'll show you the exit section for the first two files:
+split.c:
+	   set_exits(([
+	      "east" : DIR + "/rooms/narrow.c",
+	      "west" : DIR + "/rooms/entrance.c",
+	      "south" : DIR + "/rooms/large.c",
+	   ]));
+narrow.c:
+	   set_exits(([
+	      "west" : DIR + "/rooms/split.c",
+	      "south" : DIR + "/rooms/rough.c",
+	   ]));
+
+If you run the check script, once you are done with all of the exits you 
+should get 0 warnings and 0 errors.
+
+Now it's time to add our long descriptions to each of these rooms.
+
+XXX
+
+Again it would be a good idea to check your files and make sure things are 
+working properly.  If not, look at the logs and get things working again.
+
+There are lots of other things to do with rooms for more details look at
+the document: room_code
+
+
+6. Adding some objects.
+7. Adding some monsters.
+8. Adding a quest.
+9. Fleshing things out.
+10. Adding your code to the rest of the mud.
