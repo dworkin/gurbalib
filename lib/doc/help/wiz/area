@@ -1,0 +1,133 @@
+This document is a good intro to creating your first area.  It's not
+going to cover everything but it will give you a good idea how to
+layout your first area and give you some hints on how to get started.
+Note, this stuff is broken into sections to describe how to create an area
+but at the same time, when you are creating an area for real, you will
+probably want to jump around and make sure your not following this document
+step by step.
+
+Steps were going to cover:
+	1. Planning
+	2. Layout
+	3. Creating basic rooms
+	4. Testing
+	5. Adding some objects
+	6. Adding some monsters
+	7. Quest
+	8. Putting it all togeather
+
+1. Planning
+Ok there are lots of things to consider when creating an area.  For this
+example we are going to create a simple small area and I'm going to
+answer the basic questions that are pretty important:
+   Whats the theme?	Abandoned mine
+   What level(s) of players will want to adventure here?	1-5
+   What type of quests will we have? Explore and escape the cave in.
+   What kind of story am I trying to tell? 	A ghost story.
+   How can I get people interested in this area?  Interesting story, and
+	unusual objects.
+   How will I tie this into the larger mud as a whole?	I will put it in
+	a rocky area, and they will be able to enter it but will need to
+	explore it to leave.  It will be short so that people don't get
+	"stuck".
+
+This is just touching on some of the basics but hopefully it will get you
+thinking about what you want to create, and to give you a plan moving forward.
+There are lots of great resources online for guides to creating a good
+area/domain: http://www.infinitymud.com/area_making.shtml
+
+2. Layout
+It's a good idea to graph out your area on paper.  I'm going to use
+simple asci art here but in general you want to do something more detailed.
+This area is going to break some of the rules, thats ok but the rules are 
+there for a good reason.  Knowing when to break the rules is what makes
+a good area.  Some things to keep in mind:
+
+	1. Use standard exit names: north, south, northwest, southeast,
+		up, down, in, out.
+	2. Make sure your exits line up.  If you leave north from room1 
+		to room2, room2 should leave south to room1.
+	3. Make your short descriptions unique.
+	4. Try to be descriptive, and verbose for your long descriptions.  Make
+		it interesting.
+	5. Make your descriptions stateless.  If you say it's dark and you 
+		can't see, it is odd if someone is walking around with a 
+		flashlight.
+Map for our area:
+
+        1-----2----3         7----8-----12
+              |    |         |    |
+              |    |         |    |
+	      4----5----6----9----10----11
+
+	1. Cave in 		2. Split
+	3. Narrow passage	4. Large opening
+	5. Rough spot		6. Tight squeeze
+	7. Cave in		8. Big rock
+	9. Station 1		10. Passages
+	11. Dead end		12. Escape
+
+
+Now that we have the start of our layout, its time to start writing some code.
+For now we are going to put this in our wizard's directory.  (For me that 
+is /wiz/sirdude, if your following along just subsitute your name
+wherever you see sirdude)
+on the mud issue the following commands:
+cd ~
+mkdir mine
+cd mine
+mkdir rooms
+mkdir monsters
+mkdir obj
+Let's edit a file "domain.h" and add the following line to it:
+	#define DIR "/wiz/sirdude/mine"
+You are free to use any editor you choose so I'm not going to go into
+all of the commands to use the mud's built in editor.
+
+The idea behind this domain.h file is, we can make our code portable 
+so that once it's done all we need to do is change this one line to 
+move the code to a new location.
+
+
+3. Creating basic rooms.
+It's a good idea to name your files after your short descriptions, make
+sure you do not use spaces in the names and try to keep them around 8 chars
+or so, but still distinct.  What were going to do in this section is,
+create a basic room, copy it over to all of the files, fix the short 
+descriptions in all of the rooms, fix the exits, then flesh them out with 
+long descriptions.
+	cd ~/mine/rooms
+edit entrance.c and add the following:
+	#include "../domain.h"
+
+	inherit "/std/room";
+
+	void setup(void) {
+	   add_area("mine");
+
+	   set_short("Cave in");
+	   set_long("A cave in.");
+
+	   set_exits(([
+	      "east" : DIR + "/rooms/split.c",
+	   ]));
+	}
+
+This is a good start, it's not a finished product but it has the basics,
+Before we progress we should test things and make sure we have a working room.
+goto ~/mine/rooms/entrance.c  If you have errors look at the logs and
+get your room working before moving to the next step.
+
+Now lets copy that file to all of the rooms with the following commands:
+	cp entrance.c split.c
+	cp entrance.c narrow.c
+	cp entrance.c large.c
+	cp entrance.c rough.c
+	cp entrance.c squeeze.c
+	cp entrance.c cavein.c
+	cp entrance.c bigrock.c
+	cp entrance.c station.c
+	cp entrance.c passages.c
+	cp entrance.c deadend.c
+	cp entrance.c escape.c
+
