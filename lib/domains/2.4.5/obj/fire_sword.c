@@ -2,8 +2,8 @@ inherit "/std/weapon";
 
 void setup(void) {
    set_id("sword");
-   set_long("A red hot blade.  It glows with power");
    set_short("Sword of fire");
+   set_long("A red hot blade.  It glows with power");
    set_gettable(1);
 
    set_min_damage(5);

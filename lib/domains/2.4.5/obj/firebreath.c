@@ -2,8 +2,8 @@ inherit "/std/object";
 
 void setup(void) {
    set_id("firebreather");
-   set_long("This is an assume drink.");
    set_short("A firebreather");
+   set_long("This is an assume drink.");
    set_eatable(1);
    set_gettable(1);
    set_value(2);

@@ -2,8 +2,8 @@ inherit "/std/object";
 
 void setup(void) {
    set_id("special");
-   set_long("The house special, its a fine drink.");
    set_short("Special of the house");
+   set_long("The house special, its a fine drink.");
    set_eatable(1);
    set_gettable(1);
    set_value(20);

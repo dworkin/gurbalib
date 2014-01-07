@@ -4,8 +4,8 @@ inherit "/std/modules/m_block_exits";
 void create(void) {
    ::create();
    set_id("door");
-   set_long("This force field covers the north entrance.");
    set_short("A shimmering blue force field");
+   set_long("This force field covers the north entrance.");
    add_block("north");
    set_gettable(0);
 }

@@ -3,9 +3,9 @@ inherit "/std/weapon";
 void setup(void) {
    set_id("hammer");
    set_adj("small");
+   set_short("A small hammer");
    set_long("A sturdy hammer.  It looks quite small for combat, but it will " +
       "allow you to hang a picture in a pinch.");
-   set_short("A small hammer");
    set_gettable(1);
 
    set_min_damage(1);

@@ -2,8 +2,8 @@ inherit "/std/weapon";
 
 void setup(void) {
    set_id("axe");
-   set_long("A wicked axe with a well worn wooden handle.");
    set_short("An axe");
+   set_long("A wicked axe with a well worn wooden handle.");
    set_gettable(1);
 
    set_min_damage(1);

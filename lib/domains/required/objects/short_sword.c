@@ -3,8 +3,8 @@ inherit "/std/weapon";
 void setup(void) {
    set_id("sword");
    set_adj("short");
-   set_long("Your standard small sword.");
    set_short("A short sword");
+   set_long("Your standard small sword.");
    set_gettable(1);
 
    set_min_damage(1);

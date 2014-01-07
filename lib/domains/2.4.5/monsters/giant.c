@@ -5,8 +5,9 @@ inherit "/std/monster";
 void setup() {
    set_name("giant");
    set_short("A giant");
-   set_aggressive(1);
    set_long("A massive giant.");
+
+   set_aggressive(1);
    set_race("giant");
    set_level(15);
    set_hit_skill("combat/unarmed");

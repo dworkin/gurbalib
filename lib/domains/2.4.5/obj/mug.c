@@ -4,8 +4,8 @@ void setup(void) {
    set_id("beer");
    add_id("mug");
    set_adj("mug of");
-   set_long("A stout mug of beer.");
    set_short("A mug of beer");
+   set_long("A stout mug of beer.");
    set_eatable(1);
    set_gettable(1);
    set_value(2);

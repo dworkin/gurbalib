@@ -5,9 +5,9 @@ inherit "/std/object";
 void setup(void) {
    set_id("potion");
    set_adj("small", "healing", "red");
+   set_short("A small red potion");
    set_long("A small fancy bottle, with a faintly glowing red liquid in it.  " +
       "A label on the bottle says ode de Healing.\n");
-   set_short("A small red potion");
    set_eatable(1);
    set_gettable(1);
    set_value(10);
