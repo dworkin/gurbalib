@@ -13,8 +13,8 @@ static object sibling;
 void create(void) {
    ::create();
    set_id("door");
-   set_long("Your average wooden door.");
    set_short("A wooden door");
+   set_long("Your average wooden door.");
    set_gettable(0);
    set_open_state(0);
 }
