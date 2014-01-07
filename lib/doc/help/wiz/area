@@ -91,7 +91,7 @@ The idea behind this domain.h file is, we can make our code portable
 so that once it's done all we need to do is change this one line to 
 move the code to a new location.
 
-You may want to copy the map we have above to a file ~/mein/map.txt just
+You may want to copy the map we have above to a file ~/mine/map.txt just
 to have a copy of it you can reference quickly.
 
 3. Creating our first room.
@@ -171,8 +171,51 @@ If you run the check script, once you are done with all of the exits you
 should get 0 warnings and 0 errors.
 
 Now it's time to add our long descriptions to each of these rooms.
+Here is a list of each room and the long description it should have.
+Take a look at /domains/requred/rooms/*.c for examples of how to do this.
 
-XXX
+entrance.c
+	You came into the mine and the exit collapsed behind you.  It
+	doesn't look like you'll be getting out of the mine here.  The
+	mine continues deeper into the cave to the east.
+split.c
+	The cavern splits into a fork here.  You can go back west or continue
+	further into the cave east or south.
+narrow.c
+	The cave becomes thiner here.  It takes a sharp turn, it looks pretty 
+	skinny towards the south.  It might be safer to go back west.
+large.c
+	This is a really big room in the mine.  It looks like they must have
+	hit a major vein in this room.  Someone did some major excavation.
+rough.c
+	The walls here are not as clean cut as the rest of the mine.  It
+	looks like they must have struck it rich some where else and decided
+	there were better places to dig.
+squeeze.c
+	The mine is really narrow here.  You wonder why they skimped on
+	this section.  The timer supports are only half the width of 
+	the rest of the mine.
+cavein.c
+	The supports here have collapsed.  There use to be a crawlspace
+	to the west, however it doesn't look like your getting through
+	that way anymore.
+bigrock.c
+	There is a giant rock in the center of the room.  Instead of
+	digging through it they just carved out enough room to wiggle
+	around the thing.
+station.c
+	This use to be the supply station for the mine.  There are a 
+	number of shelves and abandoned mine carts here.  Back in the
+	day you could have stocked up big time.
+passages.c
+	There are multiple passages here, your not sure which way
+	to go.
+deadend.c
+	Who ever was digging this mine hit this passage and just gave up.
+	The walls are roughly cut and ends abruptly.
+escape.c
+	You see the light at the end of the tunnel.  There is a hole 
+	to the east.  To the west the mine crawls deeper into the mountain.
 
 Again it would be a good idea to check your files and make sure things are 
 working properly.  If not, look at the logs and get things working again.
@@ -180,9 +223,111 @@ working properly.  If not, look at the logs and get things working again.
 There are lots of other things to do with rooms for more details look at
 the document: room_code
 
-
 6. Adding some objects.
+So we need to spice this up a bit.  Lets add some objects, were going to
+add some things you can pickup and some things that you cannot.
+
+	a pick axe (a weapon) to station.c
+Start by copying /domains/required/objects/short_sword.c to
+~/mine/obj/pickaxe.c
+Make the following modifications:
+	set_id: pickaxe
+	set_adj: rusty
+	set_short: A rusty pickaxe
+	set_long: This axe has seen better days.  It could use a sharpening and
+	a whole lot of grease.
+	set_value: 8
+	set_weight: 7
+
+We also need to add it to our room.  See /domains/newbie/rooms/tree.c for an
+example of how to do this.  Add it to ~/mine/rooms/station.c and test it to
+make sure it works.
+
+	a big rock (an unmovable object) to bigrock.c
+Start by copying /domains/newbie/obj/tree.c to
+~/mine/obj/bigrock.c
+Make the following modifications:
+	set_id: rock
+	set_adj: big
+	set_short: A big rock
+	set_long: This rock takes up half of the room.  While the walls 
+	have been chipped away with axes, this thing doesn't even have a 
+	scratch on it.  It looks like you would need an elephant or two to
+	move it.
+
+We also need to add it to our room.  See /domains/newbie/rooms/tree.c for an
+example of how to do this.  Add it to ~/mine/rooms/bigrock.c and test it to
+make sure it works.
+
+	and rubble (Something we can search) to cavein.c
+Start by copying /domains/newbie/obj/tree.c to
+~/mine/obj/rubble.c
+Make the following modifications:
+	set_id: rubble
+	remove the set_adj call
+	set_short: A pile of rubble
+	set_long: A large pile of rubble strewn about the room.  It looks
+	like it will take quite a lot of time to clean this mess up.
+
+We also need to add it to our room.  See /domains/newbie/rooms/tree.c for an
+example of how to do this.  Add it to ~/mine/rooms/cavein.c and test it to
+make sure it works.
+
 7. Adding some monsters.
+Again lets spice things up:
+	add a spider to deadend.c
+Start by copying /domains/required/monters/rat.c to
+~/mine/monsters/spider.c
+Make the following modifications:
+	set_name: spider
+	add_adj: large
+	set_short: a very large spider
+	set_long: You thought the small ones were creepy.  This one is at least
+	two feet across, and it looks like it thinks your a snack.
+	set_race: spider
+
+	add a kobold with a miners helmet to squeeze.c
+Start by copying /domains/required/monters/rat.c to
+~/mine/monsters/kobold.c
+Make the following modifications:
+	set_name: kobold
+	set_gender: male
+	set_short: A filthy little kobold
+	set_long: This dirty little creature is not your friend.  Infact he 
+	looks rather grumpy.
+	set_race: kobold
+
+Now we need to create a miners helmet.
+Start by copying /domains/required/objects/helmet.c
+~/mein/obj/minehelm.c
+Make the following modifications:
+	set_adj: rusty 
+	set_short: A rusty miners helmet
+	set_value: 15
+Next we need to make it part of the kobold's gear.  Look at 
+/domains/2.4.5/monters/orc.c for an example.
+We need to add the following line to the top of the setup function:
+   object obj;
+Then we need to add this to the bottom of the setup function.
+        obj = clone_object(DIR + "/obj/minehelm.c");
+	obj->setup();
+	obj->move(this_object());
+	do_wear(obj);
+
+Before moving to our next section you should test these two monters and
+make sure they are working properly.
+Once you have them working, we need to add them to our rooms.  
+You have done this before.
+Add the kobold to: ~/mine/rooms/squeeze.c
+and the spider to: ~/mine/rooms/deadend.c
+If you get stuck look at ~/rooms/workroom.c for an example of how to do
+this.
+
 8. Adding a quest.
+XXX
+
 9. Fleshing things out.
+Need to fix rubble, and some other stuff to make it more interesting.
+
 10. Adding your code to the rest of the mud.
+
