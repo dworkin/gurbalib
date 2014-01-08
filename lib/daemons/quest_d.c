@@ -71,6 +71,10 @@ void create(void) {
          add_quest("NewbieVille",1,"newbie");
       }
 
+      if (file_exists("/domains/boothill/rooms/escape.c")) {
+         add_quest("AbandonedMine",1,"boothill");
+      }
+
       if (file_exists("/domains/2.4.5/monsters/leo.c")) {
          add_quest("Orc Slayer",2,"2.4.5");
       }
