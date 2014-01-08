@@ -102,7 +102,7 @@ create a basic room, copy it over to all of the files, fix the short
 descriptions in all of the rooms, fix the exits, then flesh them out with 
 long descriptions.
 	cd ~/mine/rooms
-edit entrance.c and add the following:
+edit mineent.c and add the following:
 	#include "../domain.h"
 
 	inherit "/std/room";
@@ -121,12 +121,12 @@ edit entrance.c and add the following:
 4. Testing.
 This is a good start, it's not a finished product but it has the basics,
 Before we progress we should test things and make sure we have a working room.
-goto ~/mine/rooms/entrance.c  If you have errors look at the logs and
+goto ~/mine/rooms/mineent.c  If you have errors look at the logs and
 get your room working before moving to the next step.
 
 Once you are able to goto the room, run the check script on it:
 cd ~/mine/rooms
-check entrance.c
+check mineent.c
 
 You should get 0 errors and 1 Warning, because the exit east does not
 point to a valid file right now.  If you get something else you should
@@ -134,17 +134,17 @@ figure out what is wrong at this point before continuing.
 
 5. Creating our additional rooms.
 Now lets copy that file to all of the rooms with the following commands:
-	cp entrance.c split.c
-	cp entrance.c narrow.c
-	cp entrance.c large.c
-	cp entrance.c rough.c
-	cp entrance.c squeeze.c
-	cp entrance.c cavein.c
-	cp entrance.c bigrock.c
-	cp entrance.c station.c
-	cp entrance.c passages.c
-	cp entrance.c deadend.c
-	cp entrance.c escape.c
+	cp mineent.c split.c
+	cp mineent.c narrow.c
+	cp mineent.c large.c
+	cp mineent.c rough.c
+	cp mineent.c squeeze.c
+	cp mineent.c cavein.c
+	cp mineent.c bigrock.c
+	cp mineent.c station.c
+	cp mineent.c passages.c
+	cp mineent.c deadend.c
+	cp mineent.c escape.c
 
 Looking at our map we need to update the set_short lines in each of
 these files.  for split.c we edit it and change this line:
@@ -158,7 +158,7 @@ right track I'll show you the exit section for the first two files:
 split.c:
 	   set_exits(([
 	      "east" : DIR + "/rooms/narrow.c",
-	      "west" : DIR + "/rooms/entrance.c",
+	      "west" : DIR + "/rooms/mineent.c",
 	      "south" : DIR + "/rooms/large.c",
 	   ]));
 narrow.c:
@@ -174,7 +174,7 @@ Now it's time to add our long descriptions to each of these rooms.
 Here is a list of each room and the long description it should have.
 Take a look at /domains/requred/rooms/*.c for examples of how to do this.
 
-entrance.c
+mineent.c
 	You came into the mine and the exit collapsed behind you.  It
 	doesn't look like you'll be getting out of the mine here.  The
 	mine continues deeper into the cave to the east.
@@ -324,10 +324,90 @@ If you get stuck look at ~/rooms/workroom.c for an example of how to do
 this.
 
 8. Adding a quest.
-XXX
+Again this needs a lot of planning and there are lots of opinions on what
+exactly makes a good quest.  This quest provided here isn't great, but it
+is simple and shows you the parts you will need to create a quest.  This
+is one of the key elements to your "area" so you want to make sure you have
+a good quest.  There are some common themes that make up most quests:
+	Recover an item, Rescue someone, got somewhere, preform a task.
+
+Some things to keep in mind:
+	You need some way to start the quest, some conflicts, a clear
+	way to complete the quest, some sort of reward.
+	A good quest will be challenging.
+	A good quest will not use obscurity to make it challenging.
+	A good quest will not become tedius.
+	A good quest will give you a sense of accomplishment when you
+		complete it.
+
+For our quest, when you enter the mine, there is a cave in and you must
+	find a way out.
+
+Starting out:
+When you enter the mine you will not be able to go out the way you came in
+so the quest will start.  The key is you want to give the player enough
+inforation that they know there is a challenge they need to complete.
+We are going to do this simply, we will break one of the rules and make
+an entrance that only goes one way.  Once you walk into the mine
+you'll start your quest.
+
+Conflicts:
+We already have a couple of monters in the mine, but we are still missing 
+something.  What were going to do is add a locked door close to the end of
+the mine, and a key that the players will need to locate to unlock the
+door.
+
+End:
+
+Reward:
+The reward for this quest is that you are no longer trapped.  Not that
+great but at least you'll be free to adventure again.  You'll also
+get a quest completed entry, many mud's will not allow you to be a 
+wizard until you have completed a certain number of quests.  The idea
+behind this is, once you have experienced a number of areas/quests you'll
+have a better idea of what makes a good area and what makes a not so good one.
 
 9. Fleshing things out.
 Need to fix rubble, and some other stuff to make it more interesting.
 
+XXX
+
 10. Adding your code to the rest of the mud.
+There are 3 parts to this, you need to integrate any entrance/exits you
+have to your area with the rest of the mud, you need to register
+any quests you have and finally you need to move your area to /domains
+
+For now lets add the entrances and exits to your workroom.  Later when you
+build your own area you'll want to really add it to the rest of the domains,
+so lets practice doing this here first.
+For the entrance, we will add an exit to your workroom, just add a line
+similar to the following in the exits section of: ~/rooms/workroom.c
+	"mine" : "/wiz/sirdude/mine/rooms/mineent.c",
+	/* Note I used the full path here for my workroom you'll want to 
+		use yours */
+
+Next is the exit function to bring us back to ~/rooms/workroom.c when we 
+are done. XXX
+
+Finally we need to register our quest.  To do that, an admin needs to just
+run the following command:
+questadm add AbandonedMine 1 (area)  
+where (area) is the area you are adding this quest to. Were not going to
+do this though because this quest is already in the mudlib you can
+find everything in /domains/boothill, you should check it out and compare it
+to the work you have done so far.
+The entrance is here: /domains/boothill/rooms/mountain1.c
+
+Now it's time for you to design your own area.
+
+If your looking for more quest ideas look here:
+	NewbieVille: In this quest you just need to push a button.
+	If you have already completed the quest you cannot get back in to
+	the area.
+		Start: /domains/newbie/rooms/tree.c
+		End: /domains/newbie/rooms/quest.c
+	OrcShayman: In this quest you have to aqure a golden staff and
+	return it to leo.  (Note this one isn't fully done right now XXX.)
+		Start: /domains/2.4.5/room/adv_guild.c
+		End: /domains/2.4.5/monsters/leo.c
 
