@@ -58,7 +58,7 @@ a good area.  Some things to keep in mind:
 		flashlight.
 Map for our area:
 
-        1-----2----3         7----8-----12
+        1-----2----3         7----8-----12----13
               |    |         |    |
               |    |         |    |
 	      4----5----6----9----10----11
@@ -68,7 +68,8 @@ Map for our area:
 	5. Rough spot		6. Tight squeeze
 	7. Cave in		8. Big rock
 	9. The Station		10. Passages
-	11. Dead end		12. Escape
+	11. Dead end		12. Mine shaft
+	13. Escape
 
 
 Now that we have the start of our layout, its time to start writing some code.
@@ -144,6 +145,7 @@ Now lets copy that file to all of the rooms with the following commands:
 	cp mineent.c station.c
 	cp mineent.c passages.c
 	cp mineent.c deadend.c
+	cp mineent.c mineshaft.c
 	cp mineent.c escape.c
 
 Looking at our map we need to update the set_short lines in each of
@@ -213,9 +215,13 @@ passages.c
 deadend.c
 	Who ever was digging this mine hit this passage and just gave up.
 	The walls are roughly cut and ends abruptly.
+mineshaft.c
+	You are in the bowels of the mountain now.
+	There is a large rusty Iron door here to the west.  
 escape.c
-	You see the light at the end of the tunnel.  There is a hole 
-	to the east.  To the west the mine crawls deeper into the mountain.
+	After walking down an endless mine shaft, you finally see the 
+	light at the end of the tunnel.  There is a hole to the east.  
+	To the west the mine crawls deeper into the mountain.
 
 Again it would be a good idea to check your files and make sure things are 
 working properly.  If not, look at the logs and get things working again.
@@ -339,6 +345,9 @@ Some things to keep in mind:
 	A good quest will not become tedius.
 	A good quest will give you a sense of accomplishment when you
 		complete it.
+	A good area doesn't depend on making a better sword, or more
+		money for players, it's all about good balance and
+		a fun experience for users.
 
 For our quest, when you enter the mine, there is a cave in and you must
 	find a way out.
@@ -356,6 +365,31 @@ We already have a couple of monters in the mine, but we are still missing
 something.  What were going to do is add a locked door close to the end of
 the mine, and a key that the players will need to locate to unlock the
 door.
+edit ~/mine/obj/irondoor.c and make it look like this:
+	inherit "/std/door";
+
+	void setup(void) {
+ 	   set_short("A sturdy iron door");
+           set_long("This thing is solid, your not getting through it " +
+              "without the key.  What kind of thing needs a heavy door " +
+              "like this?");
+	   mudlib_setup("west","ironminedoor");
+	}
+
+Add our door to ~/mein/rooms/mineshaft.c with the following code:
+	set_objects(([
+	   DIR + "/obj/irondoor.c" : 1,
+	]));
+
+Create a key by copying /domains/2.4.5/obj/bankkey.c to
+~/mine/obj/ironkey.c
+Make the following modifications:
+	set_id("key");
+	add_id("rusky key");
+	set_short("A rusty old key");
+
+XXX Need to attach the key to the door and place the key...
+
 
 End:
 
@@ -368,7 +402,8 @@ behind this is, once you have experienced a number of areas/quests you'll
 have a better idea of what makes a good area and what makes a not so good one.
 
 9. Fleshing things out.
-Need to fix rubble, and some other stuff to make it more interesting.
+Need to fix our rubble, add some red herrings and some other stuff to 
+make it more interesting.
 
 XXX
 
@@ -376,6 +411,9 @@ XXX
 There are 3 parts to this, you need to integrate any entrance/exits you
 have to your area with the rest of the mud, you need to register
 any quests you have and finally you need to move your area to /domains
+
+It is very important to work with others to find a good location for
+integration and to try and improve the experience for users.
 
 For now lets add the entrances and exits to your workroom.  Later when you
 build your own area you'll want to really add it to the rest of the domains,
