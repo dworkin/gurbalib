@@ -78,13 +78,12 @@ is /wiz/sirdude, if your following along just substitute your name
 wherever you see sirdude)
 on the mud issue the following commands:
 cd ~
-mkdir mine
-cd mine
-mkdir rooms
+mkdir rooms/mine
 mkdir monsters
 mkdir obj
+
 Let's edit a file "domain.h" and add the following line to it:
-	#define DIR "/wiz/sirdude/mine"
+	#define DIR "/wiz/sirdude"
 You are free to use any editor you choose so I'm not going to go into
 all of the commands to use the mud's built in editor.
 
@@ -92,7 +91,7 @@ The idea behind this domain.h file is, we can make our code portable
 so that once it's done all we need to do is change this one line to 
 move the code to a new location.
 
-You may want to copy the map we have above to a file ~/mine/map.txt just
+You may want to copy the map we have above to a file ~/minemap.txt just
 to have a copy of it you can reference quickly.
 
 3. Creating our first room.
@@ -102,9 +101,9 @@ or so, but still distinct.  What were going to do in this section is,
 create a basic room, copy it over to all of the files, fix the short 
 descriptions in all of the rooms, fix the exits, then flesh them out with 
 long descriptions.
-	cd ~/mine/rooms
+	cd ~/rooms/mine
 edit mineent.c and add the following:
-	#include "../domain.h"
+	#include "../../domain.h"
 
 	inherit "/std/room";
 
@@ -115,18 +114,18 @@ edit mineent.c and add the following:
 	   set_long("A cave in.");
 
 	   set_exits(([
-	      "east" : DIR + "/rooms/split.c",
+	      "east" : DIR + "/rooms/mine/split.c",
 	   ]));
 	}
 
 4. Testing.
 This is a good start, it's not a finished product but it has the basics,
 Before we progress we should test things and make sure we have a working room.
-goto ~/mine/rooms/mineent.c  If you have errors look at the logs and
+goto ~/rooms/mine/mineent.c  If you have errors look at the logs and
 get your room working before moving to the next step.
 
 Once you are able to goto the room, run the check script on it:
-cd ~/mine/rooms
+cd ~/rooms/mine/
 check mineent.c
 
 You should get 0 errors and 1 Warning, because the exit east does not
@@ -159,14 +158,14 @@ be able to figure this out from the maps.  To make sure your on the
 right track I'll show you the exit section for the first two files:
 split.c:
 	   set_exits(([
-	      "east" : DIR + "/rooms/narrow.c",
-	      "west" : DIR + "/rooms/mineent.c",
-	      "south" : DIR + "/rooms/large.c",
+	      "east" : DIR + "/rooms/mine/narrow.c",
+	      "west" : DIR + "/rooms/mine/mineent.c",
+	      "south" : DIR + "/rooms/mine/large.c",
 	   ]));
 narrow.c:
 	   set_exits(([
-	      "west" : DIR + "/rooms/split.c",
-	      "south" : DIR + "/rooms/rough.c",
+	      "west" : DIR + "/rooms/mine/split.c",
+	      "south" : DIR + "/rooms/mine/rough.c",
 	   ]));
 
 If you run the check script, once you are done with all of the exits you 
@@ -235,7 +234,7 @@ add some things you can pickup and some things that you cannot.
 
 	a pick axe (a weapon) to station.c
 Start by copying /domains/required/objects/short_sword.c to
-~/mine/obj/pickaxe.c
+~/obj/pickaxe.c
 Make the following modifications:
 	set_id: pickaxe
 	set_adj: rusty
@@ -246,12 +245,12 @@ Make the following modifications:
 	set_weight: 7
 
 We also need to add it to our room.  See /domains/newbie/rooms/tree.c for an
-example of how to do this.  Add it to ~/mine/rooms/station.c and test it to
+example of how to do this.  Add it to ~/rooms/mine/station.c and test it to
 make sure it works.
 
 	a big rock (an unmovable object) to bigrock.c
 Start by copying /domains/newbie/obj/tree.c to
-~/mine/obj/bigrock.c
+~/obj/bigrock.c
 Make the following modifications:
 	set_id: rock
 	set_adj: big
@@ -262,12 +261,12 @@ Make the following modifications:
 	move it.
 
 We also need to add it to our room.  See /domains/newbie/rooms/tree.c for an
-example of how to do this.  Add it to ~/mine/rooms/bigrock.c and test it to
+example of how to do this.  Add it to ~/rooms/mine/bigrock.c and test it to
 make sure it works.
 
 	and rubble (Something we can search) to cavein.c
 Start by copying /domains/newbie/obj/tree.c to
-~/mine/obj/rubble.c
+~/obj/rubble.c
 Make the following modifications:
 	set_id: rubble
 	remove the set_adj call
@@ -276,15 +275,16 @@ Make the following modifications:
 	like it will take quite a lot of time to clean this mess up.
 
 We also need to add it to our room.  See /domains/newbie/rooms/tree.c for an
-example of how to do this.  Add it to ~/mine/rooms/cavein.c and test it to
+example of how to do this.  Add it to ~/rooms/mine/cavein.c and test it to
 make sure it works.
 
 7. Adding some monsters.
 Again lets spice things up:
 	add a spider to deadend.c
 Start by copying /domains/required/monters/rat.c to
-~/mine/monsters/spider.c
+~/monsters/spider.c
 Make the following modifications:
+	add #include "../domain.h"
 	set_name: spider
 	add_adj: large
 	set_short: a very large spider
@@ -294,7 +294,7 @@ Make the following modifications:
 
 	add a kobold with a miners helmet to squeeze.c
 Start by copying /domains/required/monters/rat.c to
-~/mine/monsters/kobold.c
+~/monsters/kobold.c
 Make the following modifications:
 	set_name: kobold
 	set_gender: male
@@ -305,7 +305,7 @@ Make the following modifications:
 
 Now we need to create a miners helmet.
 Start by copying /domains/required/objects/helmet.c
-~/mein/obj/minehelm.c
+~/obj/minehelm.c
 Make the following modifications:
 	set_adj: rusty 
 	set_short: A rusty miners helmet
@@ -324,8 +324,8 @@ Before moving to our next section you should test these two monters and
 make sure they are working properly.
 Once you have them working, we need to add them to our rooms.  
 You have done this before.
-Add the kobold to: ~/mine/rooms/squeeze.c
-and the spider to: ~/mine/rooms/deadend.c
+Add the kobold to: ~/rooms/mine/squeeze.c
+and the spider to: ~/rooms/mine/deadend.c
 If you get stuck look at ~/rooms/workroom.c for an example of how to do
 this.
 
@@ -365,7 +365,7 @@ We already have a couple of monters in the mine, but we are still missing
 something.  What were going to do is add a locked door close to the end of
 the mine, and a key that the players will need to locate to unlock the
 door.
-edit ~/mine/obj/irondoor.c and make it look like this:
+edit ~/obj/irondoor.c and make it look like this:
 	inherit "/std/door";
 
 	void setup(void) {
@@ -376,13 +376,13 @@ edit ~/mine/obj/irondoor.c and make it look like this:
 	   mudlib_setup("west","ironminedoor");
 	}
 
-Add our door to ~/mein/rooms/mineshaft.c with the following code:
+Add our door to ~/rooms/mine/mineshaft.c with the following code:
 	set_objects(([
 	   DIR + "/obj/irondoor.c" : 1,
 	]));
 
 Create a key by copying /domains/2.4.5/obj/bankkey.c to
-~/mine/obj/ironkey.c
+~/obj/ironkey.c
 Make the following modifications:
 	set_id("key");
 	add_id("rusky key");
@@ -420,9 +420,7 @@ build your own area you'll want to really add it to the rest of the domains,
 so lets practice doing this here first.
 For the entrance, we will add an exit to your workroom, just add a line
 similar to the following in the exits section of: ~/rooms/workroom.c
-	"mine" : "/wiz/sirdude/mine/rooms/mineent.c",
-	/* Note I used the full path here for my workroom you'll want to 
-		use yours */
+	"mine" : "/wiz/sirdude/rooms/mine/mineent.c",
 
 Next is the exit function to bring us back to ~/rooms/workroom.c when we 
 are done. XXX
