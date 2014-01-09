@@ -1,4 +1,7 @@
+#include "../domain.h"
+
 inherit "/std/room";
+
 int errors, valid;
 string *output;
 

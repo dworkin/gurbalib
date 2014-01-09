@@ -1,3 +1,5 @@
+#include "../domain.h"
+
 inherit "/std/sign";
 
 void setup(void) {

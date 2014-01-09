@@ -1,3 +1,5 @@
+#include "../domain.h"
+
 inherit "/std/armor";
 inherit "/std/modules/m_readable";
 

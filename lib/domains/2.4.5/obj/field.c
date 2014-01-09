@@ -1,3 +1,5 @@
+#include "../domain.h"
+
 inherit "/std/object";
 inherit "/std/modules/m_block_exits";
 

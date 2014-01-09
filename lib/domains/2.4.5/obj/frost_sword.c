@@ -1,3 +1,5 @@
+#include "../domain.h"
+
 inherit "/std/weapon";
 
 void setup(void) {

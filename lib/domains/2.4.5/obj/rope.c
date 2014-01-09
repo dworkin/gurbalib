@@ -1,3 +1,5 @@
+#include "../domain.h"
+
 inherit "/std/object";
 
 string tied_to;

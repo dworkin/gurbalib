@@ -1,3 +1,5 @@
+#include "../domain.h"
+
 inherit "/std/object";
 
 void setup(void) {
