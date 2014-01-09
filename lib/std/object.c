@@ -230,12 +230,9 @@ nomask int move(mixed destination) {
       }
       dest = find_object(destination);
       if (!dest) {
-         catch {
-            dest = compile_object(destination);
-            dest->setup();
-         } : {
-            dest = nil;
-         }
+         dest = compile_object(destination);
+         /* Not sure if we need this or not XXX */
+         dest->setup();
       }
    } else {
       dest = destination;
@@ -244,6 +241,7 @@ nomask int move(mixed destination) {
    if (!dest) {
       return 0;
    }
+
    if (object_environment == dest) {
       return 0;
    }
