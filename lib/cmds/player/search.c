@@ -40,11 +40,14 @@ static void main(string str) {
    }
 
    if (empty_str(str)) {
-      if (!this_player()->query_environment()->do_search()) {
+      if (!call_other(this_player()->query_environment(), "functionp", 
+         "do_search")) {
          this_player()->query_environment()->tell_room(this_player(),
            this_player()->query_Name() + "Maticuliously searches the room.\n");
          write("You find nothing.\n");
-      } 
+      } else {
+         call_other(this_player()->query_environment(),"do_search","");
+      }
       return;
    }
 
@@ -55,15 +58,24 @@ static void main(string str) {
 
    obj = this_player()->present(lowercase(str));
    if (!obj) {
+      obj = this_player()->query_environment()->present(lowercase(str));
+   }
+   if (!obj) {
       write("Search what?\n");
       return;
    }
 
-   if (!obj->do_search()) {
+   if (obj->is_living()) {
+      write("Thats not acceptable behaviour.");
+      return;
+   }
+
+   if (!call_other(obj,"functionp","do_search")) {
       this_player()->query_environment()->tell_room(this_player(),
          this_player()->query_Name() + " searches " + 
          obj->query_id() + "\n");
       write("You find nothing.\n");
-      return;
+   } else {
+      call_other(obj,"do_search", "");
    }
 }
