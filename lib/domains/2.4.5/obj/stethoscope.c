@@ -15,8 +15,7 @@ void setup(void) {
    add_object_command("apply","apply");
 }
 
-/* XXX Need to fix this with the new listen player command... */
-int listen(string str) {
+int do_listen(string str) {
    write("You must apply stethoscope to something.\n");
    this_player()->query_environment()->tell_room(this_player(),
       this_player()->query_Name() + " fiddles with their stethoscope.\n");
