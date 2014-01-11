@@ -14,10 +14,11 @@ void usage() {
    lines += ({ "\tlisten" });
    lines += ({ "See also:" });
    lines += ({ "\tbuy, extinguish, identify, light, list, look, " +
-      "sell, value" });
+      "search, sell, value" });
+
    if (query_wizard(this_player())) {
       lines += ({ "\tlast, locate, mudlist, possess, rwho, snoop, where, who" 
-      });
+         });
    }
 
    this_player()->more(lines);
@@ -29,7 +30,7 @@ static void main(string str) {
    if (empty_str(str)) {
       if (!this_player()->query_environment()->do_listen()) {
          this_player()->query_environment()->tell_room(this_player(),
-           this_player()->query_Name() + "Pauses to listen closely.\n");
+           this_player()->query_Name() + " Pauses to listen closely.\n");
          write("You hear nothing.\n");
       } 
       return;
@@ -48,7 +49,7 @@ static void main(string str) {
 
    if (!obj->do_listen()) {
       this_player()->query_environment()->tell_room(this_player(),
-         this_player()->query_Name() + "Pauses to listens to " + 
+         this_player()->query_Name() + " Pauses to listens to " + 
          obj->query_id() + "\n");
       write("You hear nothing.\n");
       return;

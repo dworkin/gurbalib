@@ -14,7 +14,12 @@ void usage() {
    lines += ({ "\tsell helmet" });
    lines += ({ "See also:" });
    lines += ({ "\tbuy, extinguish, identify, light, list, listen, look, " +
-      "value" });
+      "search, value" });
+
+   if (query_wizard(this_player())) {
+      lines += ({ "\tlast, locate, mudlist, possess, rwho, snoop, where, who"
+         });
+   }
 
    this_player()->more(lines);
 }

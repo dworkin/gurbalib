@@ -14,7 +14,12 @@ void usage() {
    lines += ({ "\textinguish lamp" });
    lines += ({ "See also:" });
    lines += ({ "\tbuy, identify, light, list, listen, look, " +
-      "sell, value" });
+      "search, sell, value" });
+
+   if (query_wizard(this_player())) {
+      lines += ({ "\tlast, locate, mudlist, possess, rwho, snoop, where, who"
+         });
+   }
 
    this_player()->more(lines);
 }

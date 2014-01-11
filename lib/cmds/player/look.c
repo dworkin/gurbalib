@@ -17,7 +17,8 @@ void usage() {
    lines += ({ "See also:" });
 
    lines += ({ "\tbuy, extinguish, identify, light, list, listen, " +
-      "sell, value" });
+      "search, sell, value" });
+
    if (query_wizard(this_player())) {
       lines += ({ "\tlast, locate, mudlist, possess, rwho, snoop, where, who" 
          });
