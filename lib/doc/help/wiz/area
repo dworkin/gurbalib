@@ -291,6 +291,7 @@ Make the following modifications:
 	set_long: You thought the small ones were creepy.  This one is at least
 	two feet across, and it looks like it thinks your a snack.
 	set_race: spider
+	add set_aggressive(1);
 
 	add a kobold with a miners helmet to squeeze.c
 Start by copying /domains/required/monters/rat.c to
@@ -302,6 +303,7 @@ Make the following modifications:
 	set_long: This dirty little creature is not your friend.  Infact he 
 	looks rather grumpy.
 	set_race: kobold
+	set_aggressive(1);
 
 Now we need to create a miners helmet.
 Start by copying /domains/required/objects/helmet.c
