@@ -300,7 +300,7 @@ Make the following modifications:
 	set_name: kobold
 	set_gender: male
 	set_short: A filthy little kobold
-	set_long: This dirty little creature is not your friend.  Infact he 
+	set_long: This dirty little creature is not your friend.  In fact he 
 	looks rather grumpy.
 	set_race: kobold
 	set_aggressive(1);
@@ -337,14 +337,14 @@ exactly makes a good quest.  This quest provided here isn't great, but it
 is simple and shows you the parts you will need to create a quest.  This
 is one of the key elements to your "area" so you want to make sure you have
 a good quest.  There are some common themes that make up most quests:
-	Recover an item, Rescue someone, got somewhere, preform a task.
+	Recover an item, Rescue someone, got somewhere, perform a task.
 
 Some things to keep in mind:
 	You need some way to start the quest, some conflicts, a clear
 	way to complete the quest, some sort of reward.
 	A good quest will be challenging.
 	A good quest will not use obscurity to make it challenging.
-	A good quest will not become tedius.
+	A good quest will not become tedious.
 	A good quest will give you a sense of accomplishment when you
 		complete it.
 	A good area doesn't depend on making a better sword, or more
@@ -357,7 +357,7 @@ For our quest, when you enter the mine, there is a cave in and you must
 Starting out:
 When you enter the mine you will not be able to go out the way you came in
 so the quest will start.  The key is you want to give the player enough
-inforation that they know there is a challenge they need to complete.
+information that they know there is a challenge they need to complete.
 We are going to do this simply, we will break one of the rules and make
 an entrance that only goes one way.  Once you walk into the mine
 you'll start your quest.
@@ -460,7 +460,7 @@ If your looking for more quest ideas look here:
 	the area.
 		Start: /domains/newbie/rooms/tree.c
 		End: /domains/newbie/rooms/quest.c
-	OrcShayman: In this quest you have to aqure a golden staff and
+	OrcShayman: In this quest you have to acquire a golden staff and
 	return it to leo.  (Note this one isn't fully done right now XXX.)
 		Start: /domains/2.4.5/room/adv_guild.c
 		End: /domains/2.4.5/monsters/leo.c
