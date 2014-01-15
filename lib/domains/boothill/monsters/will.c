@@ -8,7 +8,7 @@ void setup(void) {
    add_id("shopkeeper", "merchant", "manager");
    set_short("Will, the manager of the general store");
    set_long("Will is a very stout individual.  It looks like he may " +
-      "partake of granny's sweetrolls a little too much.");
+      "partake of granny's sweet rolls a little too much.");
    set_race("human");
    set_level(15);
 

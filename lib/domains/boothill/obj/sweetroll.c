@@ -5,6 +5,7 @@ inherit "/std/object";
 void setup(void) {
    set_id("sweetroll");
    add_id("roll");
+   add_id("sweet roll");
    set_adj("sweet");
    set_short("A very sweet, sweetroll");
    set_long("This thing looks delicious.");

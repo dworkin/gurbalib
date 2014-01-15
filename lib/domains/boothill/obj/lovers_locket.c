@@ -59,7 +59,7 @@ int do_breakit(string str) {
          obj = clone_object(DIR + "/obj/lovers_locket.c");
          twin = obj;
          obj->do_half(this_object());
-         obj->move(this_object()->query_enviornment());
+         obj->move(this_object()->query_environment());
 
       }
       return 1;
