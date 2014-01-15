@@ -386,10 +386,26 @@ Add our door to ~/rooms/mine/mineshaft.c with the following code:
 Create a key by copying /domains/2.4.5/obj/bankkey.c to
 ~/obj/ironkey.c
 Make the following modifications:
-	set_id("key");
-	add_id("rusky key");
+	add_id("rusty key");
+	add_id("key");
 	set_short("A rusty old key");
+	set_value(5);
 
+Add the following function to ~/obj/rubble.c, this will make it so we
+can find the key with the search command:
+
+int do_search(string str) {
+
+   if (this_player()->present("rusty key")) || 
+      this_player()->is_completed_quest("NewbieVille")) {
+      write("You find nothing.\n");
+      this_player()->query_environment()->tell_room(this_player(),
+         this_player()->query_Name() + 
+         " digs through the rubble.\n");
+      return;
+   }
+
+}
 XXX Need to attach the key to the door and place the key...
 
 
