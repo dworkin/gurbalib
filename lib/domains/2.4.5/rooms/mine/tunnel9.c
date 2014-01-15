@@ -8,8 +8,8 @@ void setup(void) {
    set_short("Hole in ceiling");
    add_exit("east", DIR + "/rooms/mine/tunnel14.c");
    add_exit("west", DIR + "/rooms/mine/tunnel10.c");
-   add_room_command("up","do_up");
-   add_room_command("climb","do_up");
+   add_object_command("up","do_up");
+   add_object_command("climb","do_up");
 }
 
 string query_long() {

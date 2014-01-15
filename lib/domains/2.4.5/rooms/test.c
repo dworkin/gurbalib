@@ -19,10 +19,10 @@ void setup(void) {
    set_short("Computer room");
 
    add_exit("east","/domains/2.4.5/rooms/rum2.c");
-   add_room_command("sesame", "sesame");
-   add_room_command("power", "power");
-   add_room_command("test", "test");
-   add_room_command("reset", "do_reset");
+   add_object_command("sesame", "sesame");
+   add_object_command("power", "power");
+   add_object_command("test", "test");
+   add_object_command("reset", "do_reset");
 
    add_item("amiga", "#do_computer");
    add_item("computer", "#do_computer");

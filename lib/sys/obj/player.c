@@ -1002,7 +1002,7 @@ void receive_message(string message) {
 
          room = this_environment();
          if (room) {
-	    roomcmd_h = room->query_room_command(cmd);
+	    roomcmd_h = room->query_object_command(cmd);
 	    if (roomcmd_h) {
 	       call_other(room, roomcmd_h, arg);
 	       flag = 1;

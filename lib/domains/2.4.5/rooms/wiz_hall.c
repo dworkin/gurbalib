@@ -13,8 +13,8 @@ void setup(void) {
       "the west, with a button next to it, and a shimmering field to " +
       "the north.");
 
-   add_room_command("press","press_button");
-   add_room_command("push","press_button");
+   add_object_command("press","press_button");
+   add_object_command("push","press_button");
 
    set_objects (([
       DIR + "/monsters/leo.c": 1,

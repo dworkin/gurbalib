@@ -14,7 +14,7 @@ void setup(void) {
    add_exit("north", DIR + "/rooms/mine/tunnel.c");
    add_exit("south", DIR + "/rooms/plain11.c");
    add_exit("up", "#do_climb"); 
-   add_room_command("climb","do_climb");
+   add_object_command("climb","do_climb");
 }
 
 int do_climb(string str) {

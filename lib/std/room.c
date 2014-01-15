@@ -265,29 +265,6 @@ string query_desc(varargs int brief) {
    return text;
 }
 
-/* Room command code functionally merged with object command code. *
-   These functions are left for reverse compatibility */
-   
-void add_room_command(string command, string func) {
-	add_object_command(command, func);
-}
-
-void remove_room_command(string command) {
-   remove_object_command(command);
-}
-
-string query_room_command(string command) {
-   return query_object_command(command);
-}
-
-string *query_room_commands() {
-
-   if ( !query_object_commands() ) {
-      return ({ });
-   }
-   return query_object_commands();
-}
-
 void set_items(string id, varargs mixed args ...) {
    string description;
    int i;

@@ -11,8 +11,8 @@ void setup(void) {
 
    set_short("The attic");
 
-   add_room_command("press","press_button");
-   add_room_command("push","press_button");
+   add_object_command("press","press_button");
+   add_object_command("push","press_button");
 
    el = get_el();
    if (el) {

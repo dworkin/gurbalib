@@ -84,7 +84,7 @@ void setup(void) {
    set_short(" An unknown locker room");
    set_long("You can store your stuff here.");
 
-   add_room_command("save","do_save");
+   add_object_command("save","do_save");
 
    set_exits(([
       "west" : DIR + "/guilds/fighter/rooms/storage.c",

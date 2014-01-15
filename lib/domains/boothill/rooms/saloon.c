@@ -18,7 +18,7 @@ void setup(void) {
       DIR + "/obj/piano.c" : 1,
    ]));
 
-   add_room_command("play","do_play");
+   add_object_command("play","do_play");
 }
 
 int do_play(string str) {

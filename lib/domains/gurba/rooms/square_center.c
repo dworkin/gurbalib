@@ -40,7 +40,7 @@ void setup(void) {
       "bottom edge, and a thick rope hangs from the clapper. It might " +
       "be possible to ring it.");
 
-   add_room_command("ring", "do_ring");
+   add_object_command("ring", "do_ring");
 }
 
 int do_ring(string arg) {
