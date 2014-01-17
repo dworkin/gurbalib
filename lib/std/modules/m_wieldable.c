@@ -3,10 +3,6 @@ string wield_message;
 string unwield_message;
 int wielded;
 
-void create(void) {
-   type = "single";
-}
-
 int is_wieldable(void) {
    return 1;
 }
