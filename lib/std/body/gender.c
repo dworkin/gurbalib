@@ -1,8 +1,5 @@
 string gender;
 
-void create() {
-}
-
 void set_gender(string gen) {
    gender = gen;
 }

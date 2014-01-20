@@ -1,9 +1,6 @@
 int coins; /* Players money on them */
 int bank; /* Players money in the bank */
 
-void create() {
-}
-
 mixed *query_all_coins(void) {
    string *currencies;
    int value, i, num, worth;

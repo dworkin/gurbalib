@@ -1,9 +1,6 @@
 int experience;
 int level;
 
-void create(void) {
-}
-
 int ready_for_next_level() {
    int tmpexp;
 
