@@ -11,7 +11,7 @@
    add_object_command("loan","do_loan");
  }
  
-int do_balance(string str) {
+int do_balance(varargs string str) {
    int amount;
 
    amount = this_player()->query_bank();
@@ -23,12 +23,16 @@ int do_withdraw(string str) {
    int amount;
 
    if (sscanf(str, "%d",amount)) {
+      if(amount < 1) {
+         write("Please enter a positive number.\n");
+         return 1;
+         }
       if (this_player()->withdraw(amount)) {
           write("You withdraw " + amount + " ducats from the bank.\n");
       } else {
           write("You do not have " + amount + " ducats in the bank.\n");
       }
-      write("Your current balance is: " + amount + " ducats.\n");
+      do_balance();
       return 1;
    } else {
       write("Usage: withdraw (amount)\n");
@@ -40,12 +44,16 @@ int do_deposit(string str) {
    int amount;
 
    if (sscanf(str, "%d",amount)) {
+      if(amount < 1) {
+         write("Please enter a positive number.\n");
+         return 1;
+         }
       if (this_player()->deposit(amount)) {
           write("You deposit " + amount + " ducats in the bank.\n");
       } else {
           write("You do not have " + amount + " ducats.\n");
       }
-      write("Your current balance is: " + amount + " ducats.\n");
+      do_balance();
       return 1;
    } else {
       write("Usage: deposit (amount)\n");
@@ -58,7 +66,7 @@ int do_loan(string str) {
 
    if (query_wizard(this_player())) {
       if (sscanf(str, "%d",amount)) {
-         this_player()->add_money(amount);
+         this_player()->add_money("ducat", amount);
          write("The bank loans you " + amount + " ducats.\n");
          return 1;
       } else {
