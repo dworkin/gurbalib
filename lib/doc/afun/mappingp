@@ -18,6 +18,7 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp, afun/intp,
-	afun/lowercase, afun/nilp, afun/objectp, afun/stringp, afun/uppercase
+	afun/arrayp, afun/dump_value, afun/floatp, afun/format_time,
+	afun/functionp, afun/intp, afun/lowercase, afun/nilp, afun/objectp,
+	afun/stringp, afun/uppercase
 

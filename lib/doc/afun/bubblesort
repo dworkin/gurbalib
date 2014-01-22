@@ -10,6 +10,20 @@ DESCRIPTION
 RETURN VALUE
 	The sorted set.
 
+EXAMPLES
+	mixed *list;
+
+	list = ([ 'bee' ]);
+	list += ([ 'alpha' ]);
+	list += ([ 'dog' ]);
+
+	list = bubblesort(list);
+
+	maxx =sizeof(list);
+	for( x=0; x< maxx; x++) {
+           write("list[ " + x + " ] = " + list[x] + "\n");
+        }
+
 SEE ALSO
 	afun/set_difference, afun/set_intersection, afun/set_invert,
 	afun/set_remove_repeats, afun/set_symmetric_difference, afun/set_union

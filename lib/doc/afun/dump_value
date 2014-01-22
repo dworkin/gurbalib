@@ -9,8 +9,16 @@ DESCRIPTION
 
 RETURN VALUE
 	Returns a string representing the value of arg.
+EXAMPLES
+	mixed *filenames;
+
+        filenames = ([ ]);
+	filenames[1] = "/tmp/sirdude.txt";
+
+	write ("Filename = " + dump_value(filenames[1]) + "\n");
 
 SEE ALSO
-	afun/arrayp, afun/floatp, afun/functionp, afun/intp, afun/lowercase,
-	afun/mappingp, afun/nilp, afun/objectp, afun/stringp, afun/uppercase
+	afun/arrayp, afun/floatp, afun/format_time, afun/functionp,
+	afun/intp, afun/lowercase, afun/mappingp, afun/nilp, afun/objectp,
+	afun/stringp, afun/uppercase
 

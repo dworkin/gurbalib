@@ -255,7 +255,7 @@ void rcv_locate_reply(string origmud, mixed origuser, string destuser,
    if (p) {
       p->message("%^ORANGE%^[locate]%^RESET%^ " + rest[1] +
          " has been found on " + rest[0] +
-         " (idle" + format_idle_time(rest[2]) + ").\n");
+         " (idle" + format_time(rest[2]) + ").\n");
    }
 }
 
@@ -285,7 +285,7 @@ void rcv_who_reply(string origmud, mixed origuser, mixed destuser, mixed rest) {
       p->message
          ("-----------------------------------------------------------------------------\n");
       for (i = 0; i < sizeof(rest[0]); i++) {
-         p->message(rest[0][i][0] + " " + format_idle_time(rest[0][i][1]) +
+         p->message(rest[0][i][0] + " " + format_time(rest[0][i][1]) +
             " " + rest[0][i][2] + "\n");
       }
       p->message

@@ -225,7 +225,7 @@ string query_desc(varargs int brief) {
 	    if (x && x > 60) {
 	       desc = "  " + pc + capitalize(inventory[count]->query_short())
 		  + " [idle" +
-		  format_idle_time(inventory[count]->query_idle()) +
+		  format_time(inventory[count]->query_idle()) +
 		  "]%^RESET%^";
 	    } else {
 	       desc =

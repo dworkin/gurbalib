@@ -65,7 +65,6 @@ private string _owner;
 #include "afun/lowercase.c"
 #include "afun/uppercase.c"
 #include "afun/article.c"
-#include "afun/format_idle_time.c"
 #include "afun/format_time.c"
 #include "afun/member_array.c"
 #include "afun/member_map.c"
