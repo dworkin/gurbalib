@@ -3,10 +3,12 @@
 inherit "/std/weapon";
 
 void setup(void) {
-   set_id("sword");
+   set_id("orc slayer");
+   add_id("sword");
+   add_id("short sword");
    set_short("Short sword");
    set_long("This is a very fine blade.  It is covered with ancient runes." +
-      "Engraved on it is a picture of the sword slicing an orc in half.");
+      "  Engraved on it is a picture of the sword slicing an orc in half.");
    set_gettable(1);
 
    set_min_damage(5);
