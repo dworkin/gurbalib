@@ -228,11 +228,16 @@ object find_adjs_object(string * adj, string name) {
 }
 
 object present(string name) {
+   string what;
+   int which;
    if (file_exists(name)) {
       return find_object_filename(name);
    } else if (file_exists(name + ".c")) {
       return find_object_filename(name + ".c");
    }
+   if( sscanf(name, "%s %d", what, which) == 2 ) {
+      return find_object_num(what, which);
+      }
    return find_object_num(name, 1);
 }
 
