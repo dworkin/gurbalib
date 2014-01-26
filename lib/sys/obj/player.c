@@ -946,8 +946,7 @@ void receive_message(string message) {
 	          roomcmd_h = objs[y]->query_object_command(cmd);
 
 	          if (roomcmd_h) {
-	             call_other(objs[y], roomcmd_h, arg);
-	             flag = 1;
+	             flag = call_other(objs[y], roomcmd_h, arg);
 	          }
                }
             }
@@ -964,8 +963,7 @@ void receive_message(string message) {
             objectcmd_h = room->query_object_command(cmd);
 
             if (objectcmd_h) {
-               call_other(room, objectcmd_h, arg);
-               flag = 1;
+               flag = call_other(room, objectcmd_h, arg);
             }
          }
       }
@@ -987,8 +985,7 @@ void receive_message(string message) {
 	          roomcmd_h = objs[y]->query_object_command(cmd);
 
 	          if (roomcmd_h) {
-	             call_other(objs[y], roomcmd_h, arg);
-	             flag = 1;
+	             flag = call_other(objs[y], roomcmd_h, arg);
 	          }
                }
             }
@@ -1004,8 +1001,7 @@ void receive_message(string message) {
          if (room) {
 	    roomcmd_h = room->query_object_command(cmd);
 	    if (roomcmd_h) {
-	       call_other(room, roomcmd_h, arg);
-	       flag = 1;
+	       flag = call_other(room, roomcmd_h, arg);
 	    }
          }
       }
@@ -1131,3 +1127,5 @@ int toggle_muzzle() {
 
 void setup() {
 }
+
+
