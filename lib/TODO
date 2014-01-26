@@ -55,11 +55,6 @@ write a showtree command that shows an objects inherit list?
 
 Add [link-dead] stuff to who maybe also last?
 
-chan dgd /bingo   writes /bingo to the channel should change it so that
-you don't send unintended commands to the channel.  Need to think about
-the best way to do it.  I'm thinking chan /command channel instead but
-need to look at it closer.
-
 locate command gives:
 Intermud error 'unk-type' received from Ulario
 Unhandled packet type: locate-req
