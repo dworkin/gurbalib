@@ -423,6 +423,11 @@ have a better idea of what makes a good area and what makes a not so good one.
 Need to fix our rubble, add some red herrings and some other stuff to 
 make it more interesting.
 
+Next we'll add a hint for how to escape. Add a rubble description to 
+the setup function in escape.c:
+   add_item("rubble", "The wall has a bunch of rocks.  It looks like " +
+      "you might be able to move it.");
+
 XXX
 
 10. Adding your code to the rest of the mud.
@@ -441,7 +446,25 @@ similar to the following in the exits section of: ~/rooms/workroom.c
 	"mine" : "/wiz/sirdude/rooms/mine/mineent.c",
 
 Next is the exit function to bring us back to ~/rooms/workroom.c when we 
-are done. XXX
+are done. For that we are going to add a function: move rubble
+inside the file: rooms/mine/escape.c
+We are going to add the following function to the file:
+int move_rubble(string str) {
+   if (str == "rubble") {
+      write("You rummage around in the rubble and slide through to " +
+         "the other side.");
+      this_enviornment()->tell_room(this_player(), this_player()->query_Name() +
+         " digs through the rubble and dissapears.");
+
+      this_player()->move("/wiz/sirdude/rooms/workroom.c");
+      return 1;
+   }
+   return 0;
+}
+
+Then we need to make a hook to it.  We do that by adding the following
+to the setup function in escape.c:
+   add_object_command("move", "move_rubble");
 
 Finally we need to register our quest.  To do that, an admin needs to just
 run the following command:
@@ -451,6 +474,7 @@ do this though because this quest is already in the mudlib you can
 find everything in /domains/boothill, you should check it out and compare it
 to the work you have done so far.
 The entrance is here: /domains/boothill/rooms/mountain1.c
+The exit is located here: /domains/boothill/rooms/mine/escape.c
 
 Now it's time for you to design your own area.
 
