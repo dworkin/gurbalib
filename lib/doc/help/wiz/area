@@ -460,8 +460,8 @@ If your looking for more quest ideas look here:
 	the area.
 		Start: /domains/newbie/rooms/tree.c
 		End: /domains/newbie/rooms/quest.c
-	OrcShayman: In this quest you have to acquire a golden staff and
-	return it to leo.  (Note this one isn't fully done right now XXX.)
+	OrcSlayer: In this quest you have to acquire the "Orc Slayer" and
+	return it to Leo.
 		Start: /domains/2.4.5/room/adv_guild.c
 		End: /domains/2.4.5/monsters/leo.c
 

@@ -76,7 +76,7 @@ void create(void) {
       }
 
       if (file_exists("/domains/2.4.5/monsters/leo.c")) {
-         add_quest("Orc Slayer",2,"2.4.5");
+         add_quest("OrcSlayer",2,"2.4.5");
       }
    }
 }
