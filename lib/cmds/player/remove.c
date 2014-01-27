@@ -58,10 +58,11 @@ static void do_remove(object obj, int loud) {
       return;
    }
 
-   this_player()->do_remove(obj);
-   if (wielded) {
+  if (wielded) {
+      this_player()->do_unwield(obj);
       this_player()->targeted_action(obj->query_unwield_message(), nil, obj);
    } else {
+      this_player()->do_remove(obj);
       this_player()->targeted_action(obj->query_remove_message(), nil, obj);
    }
 }
