@@ -57,7 +57,7 @@ int query_wielded(void) {
 }
 
 int is_wielded(void) {
-   return wielded;
+   return query_wielded();
 }
 
 string query_wield_position(void) {
