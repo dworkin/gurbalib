@@ -10,7 +10,7 @@ void setup(void) {
 
    add_exit("west", DIR + "/rooms/jetty2.c");
 
-   add_object_command("dive", "dive");
+   add_action("dive", "dive");
 
    set_objects (([
       DIR + "/obj/bag.c": 1,

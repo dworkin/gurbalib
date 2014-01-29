@@ -20,8 +20,8 @@ void setup(void) {
       "There appears to be some writing on the back that you can read.");
    broken = 0;
 
-   add_object_command("break","do_breakit");
-   add_object_command("squeeze","do_squeezeit");
+   add_action("do_breakit", "break");
+   add_action("do_squeezeit", "squeeze");
 
    set_message("Think of your love, squeeze the locket and you'll be with " +
       "them.");

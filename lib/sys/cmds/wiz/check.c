@@ -185,10 +185,10 @@ int check_functions(object obj, mixed funs) {
    c = 0;
    
    while(x > -1) {
-      write("Checking Function: "+obj->query_object_command( funs[x] )+"\n"); 
-      if(!function_object( obj->query_object_command( funs[x] ), obj ) ) {
-         warn("Warning: Function " + obj->query_object_command( funs[x] ) + " not defined in: " +
-         obj->file_name() + "\n");
+      write("Checking Function: "+obj->query_action( funs[x] )+"\n"); 
+      if(!function_object( obj->query_action( funs[x] ), obj ) ) {
+         warn("Warning: Function " + obj->query_action( funs[x] ) + 
+            " not defined in: " + obj->file_name() + "\n");
          c = c + 1;
          }
     x--;
@@ -229,7 +229,7 @@ void do_room_check(object obj) {
    }
 
    write("Checking room commands: ");
-   myexits = obj->query_object_commands();
+   myexits = obj->query_actions();
    x = check_functions(obj,myexits);
 
    if (x == -1) {
@@ -273,7 +273,7 @@ void do_object_check(object obj) {
       warn("Object ungettable and value > 1\n");
    }
 
-   functions = obj->query_object_commands();
+   functions = obj->query_actions();
    write("Checking object functions.\n");
    x = check_functions(obj,functions);
 

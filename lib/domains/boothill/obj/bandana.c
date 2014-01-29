@@ -38,7 +38,7 @@ void setup(void) {
    set_wear_message("$N $vput $o on.");
    set_remove_message("$N $vtake off $o.");
 
-   add_object_command("shake","do_shakeit");
+   add_action("do_shakeit", "shake");
 
    set_message("The label on the bandana reads: Hand wash only.\n" +
       "Shake vigorously to dry.");

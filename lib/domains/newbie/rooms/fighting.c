@@ -12,7 +12,7 @@ void setup(void) {
    add_item("flower", "A Large flower sits in the middle of the room.  " +
       "Perhaps you should pick it.");
 
-   add_object_command("pick", "do_pick");
+   add_action("do_pick", "pick");
 
    set_exits(([
       "north" : DIR + "/rooms/equipment", 

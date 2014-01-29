@@ -464,7 +464,7 @@ int move_rubble(string str) {
 
 Then we need to make a hook to it.  We do that by adding the following
 to the setup function in escape.c:
-   add_object_command("move", "move_rubble");
+   add_action("move_rubble", "move");
 
 Finally we need to register our quest.  To do that, an admin needs to just
 run the following command:

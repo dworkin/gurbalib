@@ -8,10 +8,10 @@ void setup(void) {
    set_short("The local prison");
    set_long("You are in the local prison.  There are no exits.");
 
-   add_object_command("quit","quit");
+   add_action("do_quit","quit");
 }
 
-int quit(string str) {
+int do_quit(string str) {
    write("You can't leave.\n");
    return 1;
 }

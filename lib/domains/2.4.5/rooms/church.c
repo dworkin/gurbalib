@@ -17,8 +17,8 @@ void setup(void) {
 
    add_exit("south", DIR + "/rooms/vill_green.c");
 
-   add_object_command("press","press_button");
-   add_object_command("push","press_button");
+   add_action("press_button", "press");
+   add_action("press_button", "push");
 
    add_item("clock","The clock appears to be broken, it is stuck at: 1:26");
    add_item("pit","In the middle of the church is a deep pit.  IT was used " +

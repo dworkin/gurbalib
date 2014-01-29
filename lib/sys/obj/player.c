@@ -943,7 +943,7 @@ void receive_message(string message) {
             if (objs) {
                maxy = sizeof(objs);
                for(y=0;y<maxy; y++) {
-	          roomcmd_h = objs[y]->query_object_command(cmd);
+	          roomcmd_h = objs[y]->query_action(cmd);
 
 	          if (roomcmd_h) {
 	             flag = call_other(objs[y], roomcmd_h, arg);
@@ -960,7 +960,7 @@ void receive_message(string message) {
 
 	 room = this_player()->query_environment();
          if (room) {
-            objectcmd_h = room->query_object_command(cmd);
+            objectcmd_h = room->query_action(cmd);
 
             if (objectcmd_h) {
                flag = call_other(room, objectcmd_h, arg);
@@ -982,7 +982,7 @@ void receive_message(string message) {
             if (objs) {
                maxy = sizeof(objs);
                for(y=0;y<maxy; y++) {
-	          roomcmd_h = objs[y]->query_object_command(cmd);
+	          roomcmd_h = objs[y]->query_action(cmd);
 
 	          if (roomcmd_h) {
 	             flag = call_other(objs[y], roomcmd_h, arg);
@@ -999,7 +999,7 @@ void receive_message(string message) {
 
          room = this_environment();
          if (room) {
-	    roomcmd_h = room->query_object_command(cmd);
+	    roomcmd_h = room->query_action(cmd);
 	    if (roomcmd_h) {
 	       flag = call_other(room, roomcmd_h, arg);
 	    }

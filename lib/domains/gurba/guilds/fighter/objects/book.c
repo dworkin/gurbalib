@@ -16,8 +16,8 @@ void setup(void) {
 
    set_guild("fighter");
 
-   add_object_command("join","join_guild");
-   add_object_command("leave","leave_guild");
+   add_action("join_guild", "join");
+   add_action("leave_guild", "leave");
 }
 
 int can_join(object player) {

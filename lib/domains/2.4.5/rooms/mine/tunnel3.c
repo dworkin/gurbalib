@@ -14,10 +14,10 @@ void setup(void) {
    add_exit("north", DIR + "/rooms/mine/tunnel4.c");
    add_exit("south", DIR + "/rooms/mine/tunnel2.c");
 
-   add_object_command("tie","do_tie");
-   add_object_command("untie","do_untie");
-   add_object_command("climb","do_climb");
-   add_object_command("down","do_climb");
+   add_action("do_tie", "tie");
+   add_action("do_untie", "untie");
+   add_action("do_climb", "climb");
+   add_action("do_climb", "down");
 
    add_item("ring","A large iron ring hooked to the wall. " +
       "You could probably tie a rope to it.");

@@ -7,14 +7,14 @@ string long_desc;
 static object object_environment;
 static string *ids;
 static string *adjs;
-static int object_size;
-static mapping object_commands;
+static mapping action_commands;
 static string detailed_desc;
 private int configured;
 static int eatable;
 static int gettable;
 static int object_value;
 static int weight;
+static int object_size;
 
 void setup();
 
@@ -289,35 +289,35 @@ nomask mapping query_verb_rules() {
    return PARSE_D->query_objects_rules(this_object());
 }
 
-void add_object_command(string command, string func) {
-   if (!object_commands) {
-      object_commands = ([ ]);
+void add_action(string func, string command) {
+   if (!action_commands) {
+      action_commands = ([ ]);
    }
-   if (!object_commands[command]) {
-      object_commands += ([command:func]);
+   if (!action_commands[command]) {
+      action_commands += ([command:func]);
    } else {
-      object_commands[command] = func;
+      action_commands[command] = func;
    }
 }
 
-void remove_object_command(string command) {
-   object_commands[command] = nil;
+void remove_action(string command) {
+   action_commands[command] = nil;
 }
 
-string query_object_command(string command) {
-   if (!object_commands) {
-      object_commands = ([ ]);
+string query_action(string command) {
+   if (!action_commands) {
+      action_commands = ([ ]);
    }
-   return object_commands[command];
+   return action_commands[command];
 }
 
-string *query_object_commands(void) {
+string *query_actions(void) {
    string *keys;
 
-   if (!object_commands) {
-      object_commands = ([ ]);
+   if (!action_commands) {
+      action_commands = ([ ]);
    }
-   keys = map_indices(object_commands);
+   keys = map_indices(action_commands);
 
    return keys;
 }

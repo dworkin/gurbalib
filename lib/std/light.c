@@ -41,8 +41,8 @@ void create() {
    ::create();
    fuel = 1000;
 
-   add_object_command("light", "do_light");
-   add_object_command("extinguish", "do_extinguish");
+   add_action("do_light", "light");
+   add_action("do_extinguish", "extinguish");
 }
 
 int event_burn_fuel() {

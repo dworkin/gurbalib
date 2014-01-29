@@ -18,7 +18,7 @@ void setup(void) {
       DIR + "/obj/piano.c" : 1,
    ]));
 
-   add_object_command("play","do_play");
+   add_action("do_play", "play");
 }
 
 int do_play(string str) {

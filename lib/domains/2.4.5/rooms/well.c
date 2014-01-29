@@ -17,8 +17,8 @@ void setup(void) {
    add_item("lever", "A short wooden handle, perhaps you can pull it.");
    add_item("door", "#do_look_door");
 
-   add_object_command("pull", "pull_lever");
-   add_object_command("turn", "pull_lever");
+   add_action("pull_lever", "pull");
+   add_action("pull_lever", "turn");
 
    add_block("west");
 }

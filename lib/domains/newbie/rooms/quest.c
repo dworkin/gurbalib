@@ -15,8 +15,8 @@ void setup(void) {
       "out" : DIR + "/rooms/tree",]));
 
    add_item("button", "A giant red BUTTON!\nIt is glowing and says PRESS ME!");
-   add_object_command("push", "do_push");
-   add_object_command("press", "do_push");
+   add_action("do_push", "push");
+   add_action("do_push", "press");
 }
 
 int do_push(string arg) {

@@ -10,7 +10,7 @@ void setup(void) {
       "light at the end of the tunnel.  There is a hole to the east.  " +
       "To the west the mine crawls deeper into the mountain.");
 
-   add_object_command("move", "move_rubble");
+   add_action("move_rubble", "move");
 
    add_item("rubble", "The wall has a bunch of rocks.  It looks like " +
       "you might be able to move it.");

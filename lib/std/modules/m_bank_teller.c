@@ -2,13 +2,13 @@
  * mobile.  You must call bank_init() in the create() or setup() functions of
  * the object inheriting this module */
  
- void add_object_command(string command, string func);
+void add_action(string func, string command);
  
- void bank_init(void) {
-   add_object_command("balance","do_balance");
-   add_object_command("withdraw","do_withdraw");
-   add_object_command("deposit","do_deposit");
-   add_object_command("loan","do_loan");
+void bank_init(void) {
+   add_action("do_balance", "balance");
+   add_action("do_withdraw", "withdraw");
+   add_action("do_deposit", "deposit");
+   add_action("do_loan", "loan");
  }
  
 int do_balance(varargs string str) {

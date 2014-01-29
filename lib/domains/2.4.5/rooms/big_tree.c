@@ -13,7 +13,7 @@ void setup(void) {
 
    add_item("tree","The branches are very high up.");
 
-   add_object_command("climb","climb");
+   add_action("climb","climb");
 
    set_objects (([
       DIR + "/obj/rope.c" : 1,

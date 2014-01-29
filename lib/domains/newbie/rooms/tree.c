@@ -25,7 +25,7 @@ void setup(void) {
    add_item("hole", "A funny hole in the ground.  You might be able to " +
       "squeeze into it.");
 
-   add_object_command("break", "break_branch");
+   add_action("break_branch", "break");
 }
 
 int break_branch(string str) {

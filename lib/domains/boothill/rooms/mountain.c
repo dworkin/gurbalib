@@ -11,7 +11,7 @@ void setup(void) {
       "to town.");
 
    set_exits(([
-      "east" : DIR + "/rooms/mineent.c",
+      "east" : DIR + "/rooms/mine/mineent.c",
       "west" : DIR + "/rooms/mntpath.c",
    ]));
 }
