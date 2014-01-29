@@ -87,3 +87,8 @@ When you first login on mud creation, you must logout
 For /domains/boothill/rooms/mine/squeeze.c
 	Error: /domains/boothill/monters/kobold is not an object
 Note it also does not log any errors for this....
+
+Add check to check script for inherit after #include...
+
+look at INTERVAL in food items.... need to clean it up.
+	Shouldn't need it for most of them?

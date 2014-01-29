@@ -1,5 +1,7 @@
 inherit "/std/door";
 
+#include "../domain.h"
+
 void setup(void) {
    set_short("A sturdy iron door");
    set_long("This thing is solid, your not getting through it without " +

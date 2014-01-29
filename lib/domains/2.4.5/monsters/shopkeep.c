@@ -1,6 +1,6 @@
-#include "../domain.h"
-
 inherit "/std/vendor";
+
+#include "../domain.h"
 
 void setup(void) {
    set_name("shopkeeper");

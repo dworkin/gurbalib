@@ -1,6 +1,6 @@
-#include <type.h>
-
 inherit cont "/std/container";
+
+#include <type.h>
 
 static mapping exits;
 static mapping hidden_exits;

@@ -1,6 +1,6 @@
-#include "../../../domain.h"
-
 inherit "/std/room";
+
+#include "../../../domain.h"
 
 string player_name;
 string *myitems;

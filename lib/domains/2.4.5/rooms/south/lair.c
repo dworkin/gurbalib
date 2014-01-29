@@ -1,5 +1,6 @@
-#include "../../domain.h"
 inherit "/std/room";
+
+#include "../../domain.h"
 
 void setup(void) {
    add_area("2.4.5");

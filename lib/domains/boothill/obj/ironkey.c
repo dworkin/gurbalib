@@ -1,5 +1,7 @@
 inherit "/std/object";
 
+#include "../domain.h"
+
 void setup(void) {
    set_id("rusty key");
    add_id("key");

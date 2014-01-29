@@ -1,7 +1,7 @@
-#include "../domain.h"
-
 inherit "/std/object";
 inherit "/std/modules/m_block_exits";
+
+#include "../domain.h"
 
 void create(void) {
    ::create();

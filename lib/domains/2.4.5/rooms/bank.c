@@ -1,5 +1,6 @@
-#include "../domain.h"
 inherit "/std/room";
+
+#include "../domain.h"
 
 int door_closed;
 int locked;

@@ -1,7 +1,7 @@
+inherit "/std/room";
+
 #include "../domain.h"
 #include "el.h"
-
-inherit "/std/room";
 
 int lamp_is_lit;
 object el;

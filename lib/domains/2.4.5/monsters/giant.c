@@ -1,6 +1,6 @@
-#include "../domain.h"
-
 inherit "/std/monster";
+
+#include "../domain.h"
 
 void setup() {
    set_name("giant");

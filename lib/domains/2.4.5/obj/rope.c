@@ -1,6 +1,6 @@
-#include "../domain.h"
-
 inherit "/std/object";
+
+#include "../domain.h"
 
 string tied_to;
 object tied_to_obj;

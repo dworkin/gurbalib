@@ -1,6 +1,6 @@
-#include "../domain.h"
-
 inherit "/std/room";
+
+#include "../domain.h"
 
 string east_door_open, name;
 int a, amiga_present, amiga_power;

@@ -1,7 +1,7 @@
-#include "../../domain.h"
-
 inherit "/std/room";
 inherit "/std/modules/m_block_exits";
+
+#include "../../domain.h"
 
 int trap;
 

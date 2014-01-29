@@ -1,6 +1,6 @@
-#include "../domain.h"
-
 inherit "/std/armor";
+
+#include "../domain.h"
 
 void setup(void) {
    set_id("armour");

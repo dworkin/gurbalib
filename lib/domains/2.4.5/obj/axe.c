@@ -1,6 +1,6 @@
-#include "../domain.h"
-
 inherit "/std/weapon";
+
+#include "../domain.h"
 
 void setup(void) {
    set_id("axe");

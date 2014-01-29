@@ -1,6 +1,6 @@
-#include "../../domain.h"
-
 inherit "/std/room";
+
+#include "../../domain.h"
 
 int tied_rope;  /* Flag to note if the rope is here and tied or not.. */
 

@@ -1,7 +1,7 @@
-#include "../domain.h"
-
 inherit "/std/room";
 inherit "/std/modules/m_block_exits";
+
+#include "../domain.h"
 
 void setup(void) {
    add_area("2.4.5");

@@ -1,6 +1,6 @@
-#include "../domain.h"
-
 inherit "/std/room";
+
+#include "../domain.h"
 
 void setup(void) {
    object ob;

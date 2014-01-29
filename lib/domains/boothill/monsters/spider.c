@@ -1,5 +1,7 @@
 inherit "/std/monster";
 
+#include "../domain.h"
+
 void setup() {
    set_name("spider");
    /* Leave out the gender specification, get a random one */

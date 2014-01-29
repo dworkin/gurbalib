@@ -1,6 +1,6 @@
-#include "../domain.h"
-
 inherit "/std/room";
+
+#include "../domain.h"
 
 int errors, valid;
 string *output;
