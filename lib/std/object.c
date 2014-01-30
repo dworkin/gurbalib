@@ -191,21 +191,6 @@ void destruct(void) {
    destruct_object(this_object());
 }
 
-/* This is a place holder for doing an action before a move
-   See domains/gurba/objects/bell.c for an example 
-   XXX Are these really needed????  */
-int pre_move() {
-   return 1;
-}
-
-/* This is a place holder for doing an action after a move. 
-   See domains/gurba/objects/bell.c for an example 
-   Note: we don't return a value here because the move was already successful
-   Were just cleaning up and don't care if post_move works or not.
-*/
-void post_move() {
-}
-
 nomask int move(mixed destination) {
    mixed err;
    object dest, curr;
@@ -214,10 +199,6 @@ nomask int move(mixed destination) {
       return 0;
    }
 
-   if (!pre_move()) {
-      return 1;
-   }
-   
 /* XXX Needs review.... work */
    curr = this_environment();
    if (curr && this_object()->is_living()) {
@@ -267,7 +248,6 @@ nomask int move(mixed destination) {
       dest->event("body_enter", this_object());
    }
 
-   post_move();
    return 1;
 }
 
