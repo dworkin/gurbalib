@@ -131,6 +131,11 @@ static void main(string str) {
    }
 
    if (what == "all") {
+      if (obj->is_closed()) {
+         write("It is not open.\n");
+         return;
+      }
+
       inv = this_player()->query_inventory();
       max = sizeof(inv);
       for (i = 0; i < max; i++) {

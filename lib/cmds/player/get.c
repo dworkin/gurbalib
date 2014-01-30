@@ -177,9 +177,15 @@ static void main(string str) {
    }
 
    if (what == "all") {
+      if (obj->is_closed()) {
+         write("It is not open.\n");
+         return;
+      }  
+
       inv = obj->query_inventory();
       max = sizeof(inv);
       done = 0;
+
       for (i = 0; i < max; i++) {
          if (do_get(inv[i], obj, 0)) done = 1;
       }
