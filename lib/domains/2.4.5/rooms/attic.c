@@ -27,7 +27,7 @@ void setup(void) {
 string query_long() {
    string str;
 
-   str = "This is the attic above the church.  There is a door to the west," +
+   str = "This is the attic above the church.  There is a door to the west, " +
       "with a button next to it.";
    if (lamp_is_lit) {
       str += "  The lamp beside the elevator is lit.";
@@ -38,4 +38,6 @@ string query_long() {
    return str;
 }
 
-/* XXX More work to do... */
+int query_floor() {
+   return 3;
+}

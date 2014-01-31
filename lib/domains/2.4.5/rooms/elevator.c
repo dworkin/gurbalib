@@ -7,6 +7,9 @@ string open;
 
 void set_floor(int x) {
    destination = x;
+
+   write("The elevator starts moving.\n");
+
    switch (location) {
       case 0:
          open = "closed";

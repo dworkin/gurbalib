@@ -35,6 +35,8 @@ int press_button(string str) {
       tell_room(this_player(), this_player()->query_Name() + 
          " presses the button.\n");
 /* XXX do the work here */
+      elev = get_el();
+      call_other(elev,"set_floor",this_object()->query_floor());
       return 1;
    }
    return 0;

@@ -22,4 +22,7 @@ void setup(void) {
       "slayer from the evil orc shaman, and give it to Leo.");
 }
 
-/* XXX more to add here... */
+/* If you look at the original, there was a bunch of stuff here for
+   leveling up, however were doing it differently so does not apply.
+   You may want to look at the old code for more info... XXX
+*/

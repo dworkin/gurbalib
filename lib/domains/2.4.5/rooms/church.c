@@ -35,4 +35,6 @@ void setup(void) {
    }
 }
 
-/* XXX Lots of work needed... */
+int query_floor() {
+   return 2;
+}

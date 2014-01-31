@@ -30,4 +30,9 @@ void setup(void) {
    }
 }
 
-/* XXX Need to do the lamp, button, elevator and exits... */
+int query_floor() {
+   return 1;
+}
+
+/* XXX Need to do the lamp, button, elevator and exits, here, attic and church
+*/
