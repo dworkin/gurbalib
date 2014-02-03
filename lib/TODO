@@ -15,8 +15,6 @@ m_switchable, Levers
 tracking of most used rooms, objects
 auto dest/update of all instances of an object
 
-fix: You wield your the shield.
-
 Fix it so deep inventory works with autoload.
 
 Fix bunny so that it doesn't attack you second time you pick flower...

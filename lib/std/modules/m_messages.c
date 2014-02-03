@@ -4,7 +4,7 @@ string *compose_message(object who, string msg, object target,
    varargs mixed * objs) {
    string *words;
    string us, them, others;
-   int punc, i, objnum;
+   int punc, i, objnum, pronounFlag;
 
    if (msg && msg != "") {
       words = explode(msg, " ");
@@ -17,6 +17,7 @@ string *compose_message(object who, string msg, object target,
    for (i = 0; i < sizeof(words); i++) {
       if (words[i] == "")
 	 continue;
+	 
 
       if (words[i][0] == '$' && strlen(words[i]) >= 2) {
 
@@ -29,7 +30,8 @@ string *compose_message(object who, string msg, object target,
 	 } else {
 	    punc = 0;
 	 }
-
+	if(pronounFlag == 1 && words[i][1] != 'o')
+		pronounFlag=0;
 	 switch (words[i][1]) {
 	    case 'N':
 	       if (who->is_living()) {
@@ -57,6 +59,7 @@ string *compose_message(object who, string msg, object target,
 	       us += "your ";
 	       them += who->query_gender_possessive() + " ";
 	       others += who->query_gender_possessive() + " ";
+	       pronounFlag=1;
 	       break;
 	    case 'v':
 	       if (strlen(words[i]) < 3)
@@ -76,7 +79,7 @@ string *compose_message(object who, string msg, object target,
 		  others += "remarks: ";
 	       } else if (words[i][2..] == "mumble:") {
 		  them += "mumble: ";
-		  others += "mumble: ";
+		  others += "mumbles: ";
 	       } else if (words[i][2..] == "shout:") {
 		  them += "shouts: ";
 		  others += "shouts: ";
@@ -175,9 +178,15 @@ string *compose_message(object who, string msg, object target,
 		  them += objs[objnum] + " ";
 		  others += objs[objnum] + " ";
 	       } else {
-		  us += "the " + objs[objnum]->query_id() + " ";
-		  them += "the " + objs[objnum]->query_id() + " ";
-		  others += "the " + objs[objnum]->query_id() + " ";
+	       if(!pronounFlag) { 
+	         us += "the ";
+	         them += "the ";
+	         others += "the ";
+	         }
+		  us += objs[objnum]->query_id() + " ";
+		  them += objs[objnum]->query_id() + " ";
+		  others += objs[objnum]->query_id() + " ";
+		  pronounFlag = 0;
 	       }
 
 	       break;
