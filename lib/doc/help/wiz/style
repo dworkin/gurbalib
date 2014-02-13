@@ -1,0 +1,59 @@
+Gurbalib Code Style Guide
+
+Good coding pratices commonly mention that it is a good idea to have a
+style guide for shared projects like a mudlib, so here is ours.  Mostly
+it's done via example.  Feel free to add to it, or give us suggestions.
+
+Code blocks are indented 3 spaces:
+	if (foo) {
+	   do_something();
+	}
+
+There is one blank line between function definitions.
+
+There are blanks after keywords, commas, and other structures:   
+	Correct:
+		if (int x, int y) {  
+	Wrong:
+		if(int x,int y){
+
+Optional braces are not optional, do them:
+	if (1) do_stuff();  /* This is wrong */
+should be:
+	if (1) {             /* The right way */
+	   do_stuff();
+	}
+
+Optional ()'s are also required, see the example in the next if statement
+	for an example of how to do them correctly.
+
+Lines are limited to 80 chars, try to break it at something logical before the
+	limit, and indent 3 spaces after the fact:
+if ((this_object()->query_name() == "sirdude")) && 
+   (this_object()->query_environment() == obj)) {
+
+   do_stuff();
+}
+
+Do not use comments that just fill up whitespace, or just restate the code:
+	/* 
+	*
+	* bingo
+	*
+	*/
+	int bingo() {
+	   return 1;
+	}
+Should be something similar or remove the comment completely:
+	/* This function is called when you win the game */
+	int bingo() {
+	   return 1;
+	}
+
+There is an auxlillary function gurbalib/scripts/indent_it that uses
+	gnu indent to do a pretty good job of formating things.  It does 
+	mess up mappings and arrays though so you'll want to check them.
+
+The best way to get a feel for the rules is to look at the example code
+	(the current mudlib)  If you see any conflicts please let us know.
+
