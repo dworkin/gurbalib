@@ -16,8 +16,8 @@ void setup(void) {
       "east" : DIR + "/rooms/infront_store.c", 
    ]));
 
-   set_objects(([
-      DIR + "/monsters/will": 1,
-      "/domains/required/objects/mer_sign":1,
-   ]));
+   set_objects(
+      DIR + "/monsters/will",
+      "/domains/required/objects/mer_sign"
+   );
 }

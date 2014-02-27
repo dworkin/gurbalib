@@ -10,7 +10,5 @@ void setup(void) {
 
    add_exit("up", DIR + "/rooms/sea.c");
 
-   set_objects (([
-      DIR + "/monsters/octopus.c": 1,
-   ]));
+   set_objects (DIR + "/monsters/octopus.c");
 }

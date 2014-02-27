@@ -27,9 +27,7 @@ void setup(void) {
    add_item("amiga", "#do_computer");
    add_item("computer", "#do_computer");
 
-   set_objects (([
-      DIR + "/obj/jacket.c": 1,
-   ]));
+   set_objects (DIR + "/obj/jacket.c");
    a = 0;
    amiga_present = 0;
    amiga_power = 0;

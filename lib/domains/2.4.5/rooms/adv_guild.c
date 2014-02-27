@@ -13,9 +13,7 @@ void setup(void) {
    add_exit("north", DIR + "/rooms/vill_road2.c");
    add_exit("south", "/domains/required/rooms/bug_room.c");
 
-   set_objects(([
-      DIR + "/obj/book.c": 1,
-   ]));
+   set_objects(DIR + "/obj/book.c");
 
    add_item("chain", "The chain is secured to the wall.\n");
    add_item("note", "If your looking for adventure, Retrieve the Orc " +

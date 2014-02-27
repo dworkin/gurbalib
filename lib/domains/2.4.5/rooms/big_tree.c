@@ -15,9 +15,7 @@ void setup(void) {
 
    add_action("climb","climb");
 
-   set_objects (([
-      DIR + "/obj/rope.c" : 1,
-   ]));
+   set_objects (DIR + "/obj/rope.c");
 }
 
 int climb(string arg) {

@@ -15,8 +15,6 @@ void setup(void) {
       "east" : DIR + "/rooms/mine/bigrock.c",
    ]));
 
-   set_objects(([
-      DIR + "/obj/rubble.c" : 1, 
-   ]));
+   set_objects(DIR + "/obj/rubble.c");
 }
 

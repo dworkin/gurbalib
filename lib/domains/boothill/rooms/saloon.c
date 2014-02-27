@@ -14,9 +14,7 @@ void setup(void) {
       "west" : DIR + "/rooms/infront_saloon.c",
    ]));
 
-   set_objects(([
-      DIR + "/obj/piano.c" : 1,
-   ]));
+   set_objects(DIR + "/obj/piano.c");
 
    add_action("do_play", "play");
 }

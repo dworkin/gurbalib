@@ -379,9 +379,7 @@ edit ~/obj/irondoor.c and make it look like this:
 	}
 
 Add our door to ~/rooms/mine/mineshaft.c with the following code:
-	set_objects(([
-	   DIR + "/obj/irondoor.c" : 1,
-	]));
+	set_objects( DIR + "/obj/irondoor.c" );
 
 Create a key by copying /domains/2.4.5/obj/bankkey.c to
 ~/obj/ironkey.c

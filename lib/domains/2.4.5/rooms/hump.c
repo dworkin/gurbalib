@@ -13,9 +13,7 @@ void setup(void) {
    add_exit("east", DIR + "/rooms/vill_green.c");
    add_exit("west", DIR + "/rooms/wild1.c");
 
-   set_objects (([
-      DIR + "/obj/torch.c": 1,
-   ]));
+   set_objects (DIR + "/obj/torch.c");
 
    name = "/domains/required/objects/coin.c";
    if (!present(name)) {

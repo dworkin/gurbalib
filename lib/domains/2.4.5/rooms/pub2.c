@@ -8,10 +8,10 @@ void setup(void) {
    set_short("The local pub");
    set_long("You can order drinks here.");
 
-   set_objects(([
-      DIR + "/monsters/barkeep.c": 1,
-      "/domains/required/objects/mer_sign.c": 1,
-   ]));
+   set_objects(
+      DIR + "/monsters/barkeep.c",
+      "/domains/required/objects/mer_sign.c"
+   );
 
    add_exit("west", DIR + "/rooms/yard.c");
 }

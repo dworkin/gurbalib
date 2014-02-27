@@ -14,8 +14,6 @@ void setup(void) {
       "west" : DIR + "/rooms/mine/escape.c",
    ]));
 
-   set_objects(([
-      DIR + "/obj/irondoor.c" : 1, 
-   ]));
+   set_objects(DIR + "/obj/irondoor.c");
 }
 

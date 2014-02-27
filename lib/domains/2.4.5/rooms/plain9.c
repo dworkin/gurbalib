@@ -11,8 +11,8 @@ void setup(void) {
 
    add_exit("west", DIR + "/rooms/ruin.c");
 
-   set_objects (([
-      DIR + "/monsters/frog.c": 1,
-      DIR + "/obj/stethoscope.c": 1,
-   ]));
+   set_objects (
+      DIR + "/monsters/frog.c",
+      DIR + "/obj/stethoscope.c"
+   );
 }

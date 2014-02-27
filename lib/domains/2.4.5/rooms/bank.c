@@ -22,9 +22,7 @@ void setup(void) {
 
    add_item("door", "#look_door");
 
-   set_objects (([
-      DIR + "/monsters/bankguard.c" : 1,
-   ]));
+   set_objects (DIR + "/monsters/bankguard.c");
    door_closed = 1;
    locked = 1;
    key = "gurba bank key";

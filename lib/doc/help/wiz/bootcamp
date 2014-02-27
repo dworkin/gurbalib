@@ -350,9 +350,7 @@ like this:
 	   set_long("This is Harold's room.  It's kind of small but at " +
               "least it is clean.");
 
-	   set_objects(([
-	      "/wiz/sirdude/obj/petrock.c" : 1,
-	   ]));
+	   set_objects( "/wiz/sirdude/obj/petrock.c" );
 
 	   set_exits(([
 	      "south" : "/wiz/sirdude/rooms/workroom.c",

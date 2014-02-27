@@ -8,7 +8,5 @@ void setup(void) {
    set_short("A small table");
    set_long("A small wooden end table.");
 
-   set_objects(([
-      DIR + "/obj/potion":1,
-   ]));
+   set_objects(DIR + "/obj/potion");
 }

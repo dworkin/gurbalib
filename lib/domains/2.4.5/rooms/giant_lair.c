@@ -11,7 +11,5 @@ void setup(void) {
    add_exit("east", DIR + "/rooms/giant_path.c");
    add_exit("west", DIR + "/rooms/giant_conf.c");
 
-   set_objects (([
-      DIR + "/monsters/giant.c": 1,
-   ]));
+   set_objects (DIR + "/monsters/giant.c");
 }

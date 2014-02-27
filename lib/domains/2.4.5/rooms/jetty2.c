@@ -12,7 +12,5 @@ void setup(void) {
    add_exit("east", DIR + "/rooms/sea.c");
    add_exit("west", DIR + "/rooms/vill_shore2.c");
 
-  set_objects (([
-   DIR + "/obj/bag.c": 1,
-  ]));
+  set_objects (DIR + "/obj/bag.c");
 }

@@ -12,9 +12,7 @@ void setup(void) {
 
    add_action("dive", "dive");
 
-   set_objects (([
-      DIR + "/obj/bag.c": 1,
-   ]));
+   set_objects (DIR + "/obj/bag.c");
 }
 
 int dive(string str) {

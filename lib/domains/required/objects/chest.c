@@ -11,8 +11,8 @@ void setup(void) {
    set_open_state(0);
    set_internal_max_weight(3000);
 
-   set_objects(([
-      DIR + "/objects/small_rock" : 1, 
-      DIR + "/objects/large_rock" : 1,
-   ]));
+   set_objects(
+      DIR + "/objects/small_rock", 
+      DIR + "/objects/large_rock"
+   );
 }

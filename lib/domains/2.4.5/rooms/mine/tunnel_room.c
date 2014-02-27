@@ -10,7 +10,5 @@ void setup(void) {
 
    add_exit("south", DIR + "/rooms/mine/tunnel5.c");
 
-   set_objects (([
-      DIR + "/monsters/hobgoblin.c": 1,
-   ]));
+   set_objects (DIR + "/monsters/hobgoblin.c");
 }

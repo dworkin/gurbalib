@@ -9,10 +9,10 @@ void setup(void) {
    set_long("You are in the East Road Inn.  Here you can buy food to still " +
       "your hunger, but only a limited selection is available.");
 
-   set_objects(([
-      DIR + "/monsters/innkeep.c": 1,
-      "/domains/required/objects/mer_sign.c": 1,
-   ]));
+   set_objects(
+        DIR + "/monsters/innkeep.c",
+        "/domains/required/objects/mer_sign.c",
+   );
 
    add_exit("east", DIR + "/rooms/eastroad5.c");
 }

@@ -13,8 +13,6 @@ void setup(void) {
       "west" : DIR + "/rooms/mine/passages.c",
    ]));
 
-   set_objects(([
-        DIR + "/monters/spider.c" : 1,
-   ]));
+   set_objects(DIR + "/monters/spider.c");
 }
 

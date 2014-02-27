@@ -21,7 +21,5 @@ void setup(void) {
       "out of what seems to be marble, though upon closer inspection it " +
       "seems to be fake.");
 
-   set_objects(([
-      "/domains/required/objects/bank_sign.c": 1,
-   ]));
+   set_objects("/domains/required/objects/bank_sign.c");
 }

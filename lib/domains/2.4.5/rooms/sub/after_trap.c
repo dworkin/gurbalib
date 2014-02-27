@@ -10,7 +10,5 @@ void setup(void) {
 
    add_exit("east", DIR + "/rooms/sub/door_trap.c");
 
-   set_objects (([
-      DIR + "/monsters/rat.c": 1,
-   ]));
+   set_objects (DIR + "/monsters/rat.c");
 }

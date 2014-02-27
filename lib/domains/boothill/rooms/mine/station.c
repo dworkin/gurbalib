@@ -16,7 +16,5 @@ void setup(void) {
       "west" : DIR + "/rooms/mine/squeeze.c",
    ]));
 
-   set_objects(([
-      DIR + "/obj/pickaxe.c" : 1, 
-   ]));
+   set_objects(DIR + "/obj/pickaxe.c");
 }

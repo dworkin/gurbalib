@@ -17,10 +17,10 @@ void setup(void) {
       "north" : DIR + "/guilds/fighter/rooms/main",
    ]));
 
-   set_objects(([
-      DIR + "/guilds/fighter/monsters/master" : 1,
-      DIR + "/guilds/fighter/objects/book" : 1
-   ]));
+   set_objects(
+      DIR + "/guilds/fighter/monsters/master",
+      DIR + "/guilds/fighter/objects/book"
+   );
 
    add_item("wall", "walls", "stonework", "weapons", "armor",
       "The walls are made of businesslike solid stone, and are hung with " +

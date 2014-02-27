@@ -23,10 +23,10 @@ void setup(void) {
    add_item("limbs", "The ankle bone is connected to the leg bone. " +
       "It's disgusting.");
 
-   set_objects(([
-      "/domains/required/objects/chest" : 1, 
-      "/domains/required/monsters/rat" : 1, 
-      "/domains/required/objects/short_sword" : 1, 
-      "/domains/required/objects/helmet" : 1,
-   ]));
+   set_objects(
+      "/domains/required/objects/chest",
+      "/domains/required/monsters/rat", 
+      "/domains/required/objects/short_sword", 
+      "/domains/required/objects/helmet"
+   );
 }

@@ -18,9 +18,7 @@ void setup(void) {
       "down" : DIR + "/rooms/hole.c",
    ]));
 
-   set_objects(([
-      DIR + "/obj/tombstone.c" : 1,
-   ]));
+   set_objects(DIR + "/obj/tombstone.c");
 
   add_item("hole", "It's actually a fairly deep hole.  " +
      "It's hard to see into it from up here.");

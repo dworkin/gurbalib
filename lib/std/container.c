@@ -259,45 +259,47 @@ void error_loading_object(string name) {
    }
 }
 
-void set_objects(mapping obs) {
+void set_objects(varargs string filename...) {
    object ob;
-   string *filename;
+   mapping obs;
    string name;
-   int i, j, num;
+   int i, j;
+   int num;
    object *inv;
 
    inv = query_inventory();
+   obs = ([ ]);
+
+   if(!filename || filename == ({ }) )
+      return;
+   /* remove object number */
+   for(i = 0; i < sizeof(filename); i++) {
+      if(strstr(filename[i], "#") != -1) {
+         name = filename[i][0..strstr(filename[i], "#") - 1];
+         } 
+      else
+	     name = filename[i];
+      /* Count number of name's in filename.  Store in mapping */
+      if(!obs[name])
+         obs[name] = 1;
+      else
+         obs[name] += 1;
+      }
 
    filename = map_indices(obs);
 
-   for (i = 0; i < sizeof(filename); i++) {
-      if (strstr(filename[i], "#") != -1) {
-	 name = filename[i][0..strstr(filename[i], "#") - 1];
-      } else {
-	 name = filename[i];
-      }
-      if (typeof(obs[filename[i]]) == T_ARRAY) {
+   for(i = 0; i < sizeof(filename); i++) {
+      num = obs[filename[i]];
 
-	 ob = clone_object(name);
-         if (ob) {
-	    ob->move(object_name(this_object()));
-	    ob->setup();
-	    ob->mudlib_setup(obs[filename[i]]);
-         } else {
-            error_loading_object(name);
-         }
-      } else {
-	 num = obs[filename[i]];
-
-	 for (j = 0; j < sizeof(inv); j++) {
-	    if ((inv[j]->file_name() == filename[i]) || 
+	  for (j = 0; j < sizeof(inv); j++) {
+	     if ((inv[j]->file_name() == filename[i]) || 
                (inv[j]->base_name() == filename[i])) {
-	       num--;
-	    }
+	        num--;
+	     }
 	 }
 
 	 while (num > 0) {
-	    ob = clone_object(name);
+	    ob = clone_object(filename[i]);
             if (ob) {
 	       ob->move(object_name(this_object()));
 	       ob->setup();
@@ -306,9 +308,8 @@ void set_objects(mapping obs) {
             }
 	    num--;
 	 }
-      }
    }
-}
+} 
 
 void move_or_destruct_inventory() {
    object dst, *items;

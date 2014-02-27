@@ -16,9 +16,7 @@ void setup(void) {
    add_action("press_button", "press");
    add_action("press_button", "push");
 
-   set_objects (([
-      DIR + "/monsters/leo.c": 1,
-   ]));
+   set_objects (DIR + "/monsters/leo.c");
 
    el = get_el();
    if (el) {

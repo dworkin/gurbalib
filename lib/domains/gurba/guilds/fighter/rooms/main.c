@@ -12,7 +12,5 @@ void setup(void) {
       "north" : DIR + "/guilds/fighter/rooms/storage",
    ]));
 
-   set_objects(([
-      DIR + "/guilds/fighter/objects/fighter_board":1,
-   ]));
+   set_objects(DIR + "/guilds/fighter/objects/fighter_board");
 }

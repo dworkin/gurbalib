@@ -14,7 +14,5 @@ void setup(void) {
       "south" : DIR + "/rooms/quest",
    ]));
 
-   set_objects(([
-      DIR + "/obj/table":1,
-   ]));
+   set_objects(DIR + "/obj/table");
 }

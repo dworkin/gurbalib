@@ -9,9 +9,7 @@ void setup(void) {
    set_long("This is the local strong point of the orcs.  There is an " +
       "entrance to a small room to the north.");
 
-   set_objects (([
-      DIR + "/monsters/orc.c": 2,
-   ]));
+   set_objects (DIR + "/monsters/orc.c", DIR + "/monsters/orc.c");
 
    add_exit("north", DIR + "/rooms/orc_treasure.c");
    add_exit("south", DIR + "/rooms/orc_vall.c");

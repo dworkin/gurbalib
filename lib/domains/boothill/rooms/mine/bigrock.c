@@ -16,8 +16,6 @@ void setup(void) {
       "west" : DIR + "/rooms/mine/cavein.c",
    ]));
 
-   set_objects(([
-      DIR + "/obj/bigrock.c" : 1, 
-   ]));
+   set_objects(DIR + "/obj/bigrock.c");
 }
 

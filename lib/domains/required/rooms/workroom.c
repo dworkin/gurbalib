@@ -24,10 +24,10 @@ void setup(void) {
    add_item("tools", "They are used by " + myname() +
       " to do all kinds of things.");
 
-   set_objects(([
-      REQDIR + "/monsters/rat" : 1, 
-      REQDIR + "/objects/chest" : 1, 
-      REQDIR + "/objects/short_sword" : 1, 
-      REQDIR + "/objects/helmet" : 1,
-   ]));
+   set_objects(
+      REQDIR + "/monsters/rat", 
+      REQDIR + "/objects/chest", 
+      REQDIR + "/objects/short_sword", 
+      REQDIR + "/objects/helmet"
+   );
 }

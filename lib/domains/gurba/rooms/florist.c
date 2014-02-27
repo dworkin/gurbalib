@@ -17,8 +17,8 @@ void setup(void) {
    add_item("flowerpots", "pots", "pot", "flowerpot", "All different " +
       "sizes, shapes, and colors. Mostly made out of clay or wood.");
 
-   set_objects(([
-      DIR + "/monsters/frida": 1,
-      "/domains/required/objects/mer_sign":1,
-   ]));
+   set_objects(
+      DIR + "/monsters/frida",
+      "/domains/required/objects/mer_sign"
+   );
 }

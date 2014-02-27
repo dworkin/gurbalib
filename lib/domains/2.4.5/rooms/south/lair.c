@@ -13,7 +13,5 @@ void setup(void) {
 
    add_exit("up",DIR + "/rooms/south/sislnd17.c");
 
-   set_objects (([
-      DIR + "/monsters/wyrm.c": 1,
-   ]));
+   set_objects (DIR + "/monsters/wyrm.c");
 }

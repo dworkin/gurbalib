@@ -17,10 +17,10 @@ void setup(void) {
       "east" : "#enter_hole",
    ]));
 
-   set_objects(([
-      DIR + "/obj/sign" : 1, 
-      DIR + "/obj/tree" : 1,
-   ]));
+   set_objects(
+      DIR + "/obj/sign", 
+      DIR + "/obj/tree"
+   );
 
    add_item("hole", "A funny hole in the ground.  You might be able to " +
       "squeeze into it.");

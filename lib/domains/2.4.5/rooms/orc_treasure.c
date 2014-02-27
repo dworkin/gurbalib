@@ -10,8 +10,6 @@ void setup(void) {
 
    add_exit("south", DIR + "/rooms/fortress.c");
 
-   set_objects (([
-      DIR + "/monsters/orc_shayman.c": 1,
-   ]));
+   set_objects (DIR + "/monsters/orc_shayman.c");
 }
 
