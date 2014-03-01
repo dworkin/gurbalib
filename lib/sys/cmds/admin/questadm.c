@@ -4,7 +4,8 @@ void usage() {
    string *lines;
 
    lines = ({ "Usage: questadm [-h] [remove QUEST]" });
-   lines = ({ "Usage: questadm [-h] [add QUEST LEVEL DOMAIN]" });
+   lines += ({ "Usage: questadm [-h] [add QUEST LEVEL DOMAIN]" });
+   lines += ({ "Usage: questadm [-h] [rehash]" });
    lines += ({ "" });
    lines += ({ "Used to add, remove or list available quests on the mud." });
    lines += ({ "\tQUEST is a name for your quest,"});
@@ -32,12 +33,13 @@ static void main(string str) {
       return;
    }
 
-   if (sscanf(str, "-%s", str)) {
-      usage();
+   if (str == "rehash") {
+      QUEST_D->rehash();
+      QUEST_D->list_quests(this_player());
       return;
    }
 
-   if (sscanf(str, "%s %s", cmd, rest) != 2) {
+   if (sscanf(str, "-%s", str) || sscanf(str, "%s %s", cmd, rest) != 2) {
       usage();
       return;
    }
@@ -45,22 +47,23 @@ static void main(string str) {
    cmd = lowercase(cmd);
    if (cmd == "add") {
       if (sscanf(rest,"%s %d %s",questname, level, domain) == 3) {
-         QUEST_D->add_quest(questname, level, domain);
+	 QUEST_D->add_quest(questname, level, domain);
       } else {
-         usage();
-         return;
+	 usage();
+	 return;
       }
-   } else if ((cmd == "del") || (cmd == "delete") || (cmd == "rm") || 
-      (cmd == "remove")) {
-
+   }
+   if ((cmd == "del") || (cmd == "delete") || (cmd == "rm") || 
+   (cmd == "remove")) {
       if (!QUEST_D->is_quest(rest)) {
 	 this_player()->write("That is not a valid quest.");
 	 return;
       }
       if (QUEST_D->remove_quest(rest)) {
-         write("Quest: " + rest + " removed. ");
+	 write("Quest: " + rest + " removed. ");
       }
-   } else {
-      usage();
+      return;
    }
+   usage();
 }
+
