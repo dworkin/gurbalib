@@ -21,7 +21,6 @@ string give_fortune(string file) {
 		return "";
 	}
 	grammar = "whitespace = /[%]/ text = /[^%]*/ S: S: S text";
-	str = "one\nand done.\n%two\n%three\n%";
 	parsed = parse_string(grammar, read_file(FORTUNES_DIR + file));
 	return parsed[random(sizeof(parsed)) - 1];
 }
