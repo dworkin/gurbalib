@@ -29,6 +29,7 @@ static void main(string str) {
    mixed *files;
    string *names, timestr, dirlist, path;
    int *sizes, *times, long, ancient, i, j, sz, max, len, rows, time, color_len;
+	int tmp;
    string cur_col;
 
    if (empty_str(str)) {
@@ -49,6 +50,16 @@ static void main(string str) {
       return;
    }
 
+	tmp = file_exists(str);
+	if (!long && tmp == 1) {
+		write("ls: " + str + " is a file.");
+		return;
+	}
+	if (!long && tmp != -1) {
+		write("ls: " + str + " is not found.");
+		return;
+	}
+
    width = this_player()->query_width();
 
    files = get_dir(str);
@@ -68,7 +79,7 @@ static void main(string str) {
 
    names = files[0];
    sz = sizeof(names);
-   if (sz == 0) {
+   if (sz == 0 && tmp == -1) {
       write(str + " is empty.\n");
       return;
    }
