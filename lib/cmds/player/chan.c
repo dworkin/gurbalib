@@ -146,7 +146,7 @@ static void chan_cmd(string cmd, string chan) {
       case "delete":
 	 break;
       case "info":
-	 this_player()->message(CHANNEL_D->query_debug());
+         CHANNEL_D->show_info(chan);
 	 break;
       case "help":
 	 usage();
