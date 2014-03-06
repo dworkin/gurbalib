@@ -25,11 +25,10 @@ void usage() {
 }
 
 static void main(string str) {
-   int width;
+   string *names, timestr, dirlist, path, cur_col;
+   int width, long, ancient, i, j, sz, max, len, rows, time, color_len;
+   int *sizes, *times;
    mixed *files;
-   string *names, timestr, dirlist, path;
-   int *sizes, *times, long, ancient, i, j, sz, max, len, rows, time, color_len;
-   string cur_col;
 
    if (empty_str(str)) {
       str = ".";
@@ -51,16 +50,17 @@ static void main(string str) {
 
    width = this_player()->query_width();
 
-   files = get_dir(str);
-
-   if (!files) {
-      write("No such dir.\n");
+   if (file_exists(str) > 0) {
+      path = "";
+      files = get_dir(str);
+   } else if (file_exists(str) == 0) {
+      write("No such file or dir.\n");
       return;
+   } else {
+      path = str;
+      files = get_dir(str + "/*");
    }
 
-   path = str + "/";
-
-   files = get_dir(path + "*");
    if (!files) {
       write(str + ": Access denied.\n");
       return;
