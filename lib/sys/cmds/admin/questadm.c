@@ -3,8 +3,7 @@ inherit M_COMMAND;
 void usage() {
    string *lines;
 
-   lines = ({ "Usage: questadm [-h] [remove QUEST]" });
-   lines = ({ "Usage: questadm [-h] [add QUEST LEVEL DOMAIN]" });
+   lines = ({ "Usage: questadm [-h] [remove QUEST] [add QUEST LEVEL DOMAIN]" });
    lines += ({ "" });
    lines += ({ "Used to add, remove or list available quests on the mud." });
    lines += ({ "\tQUEST is a name for your quest,"});
@@ -15,6 +14,7 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
+   lines += ({ "\tquestadm" });
    lines += ({ "\tquestadm remove NewbieVille" });
    lines += ({ "\tquestadm add NewbieVille 1 newbie" });
    lines += ({ "See also:" });
