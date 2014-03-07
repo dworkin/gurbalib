@@ -9,8 +9,7 @@ void usage() {
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   lines += ({ "\t-w\tRestrict the MSG to sending only to wizards, " +
-      "not normal players." });
+   lines += ({ "\t-w\tRestrict sending the MSG to only wizards or higher." });
    lines += ({ "Examples:" });
    lines += ({ "\twall We are upgrading the server in 10 minutes." });
    lines += ({ "See also:" });
