@@ -134,11 +134,11 @@ void check_command(string type) {
       case "wiz":
       case "wizard":
       case "wizards":
-         check_dir("/cmds/wiz");
+         check_dir("/sys/cmds/wiz");
          break;
       case "admin":
       case "admins":
-         check_dir("/kernel/cmds/admin");
+         check_dir("/sys/cmds/admin");
          break;
       case "monster":
       case "monsters":
@@ -161,7 +161,8 @@ void check_command(string type) {
          check_dir("/cmds/guild");
          check_dir("/cmds/monster");
          check_dir("/cmds/player");
-         check_dir("/kernel/cmds/admin");
+         check_dir("/sys/cmds/wiz");
+         check_dir("/sys/cmds/admin");
          break;
    }
 }
