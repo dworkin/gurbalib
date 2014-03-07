@@ -9,7 +9,6 @@ inherit "/std/modules/m_messages";
 
 mapping permanent, colors, imud, guilds, history;
 int data_version;
-
 static mapping channels;
 static mapping listeners;
 
@@ -183,8 +182,9 @@ int chan_join(string chan, object ob) {
 
    if (!listeners[chan]) {
       listeners[chan] = ( { } );
+   } else {
+      listeners[chan] -= ( { ob } );
    }
-   listeners[chan] -= ( { ob } );
    listeners[chan] += ( { ob } );
    write("Subscribed to " + chan + ".\n");
 
@@ -203,10 +203,9 @@ int chan_leave(string chan, object ob) {
       return 0;
    }
 
-   if (!listeners[chan]) {
-      listeners[chan] = ( { } );
+   if (listeners[chan]) {
+      listeners[chan] -= ( { ob } );
    }
-   listeners[chan] -= ( { ob } );
    write("No longer subscribed to " + chan + ".\n");
    this_player()->remove_channel(chan);
 
@@ -220,9 +219,10 @@ void chan_who(string chan) {
    chan = lowercase(chan);
 
    users = listeners[chan];
-   if (!users) users = ({});
+   if (users) {
+      sz = sizeof(users);
+   }
 
-   sz = sizeof(users);
    if (!users || sz < 1) {
       write("No subscribers.");
       return;
@@ -230,7 +230,6 @@ void chan_who(string chan) {
 
    write("Subscribed to " + chan + ":\n");
 
-   sz = sizeof(users);
    for (i = 0; i < sz; i++) {
       if (users[i]) {
          write("  " + users[i]->query_Name() + "\n");
@@ -327,9 +326,19 @@ void show_info(string channel) {
    this_player()->message("Permanent: " + value + "\n");
    
    if (guilds[channel]) {
-      this_player()->message("Guild only: " + guilds[channel] + "\n");
+      this_player()->message("Guild restrictions: " + guilds[channel] + "\n");
    } else {
-      this_player()->message("Guild only: no, open\n");
+      this_player()->message("Guild restrictions: no, open\n");
+   }
+
+   if (channels[channel] == READ_ONLY) {
+      this_player()->message("Access level: Read only\n");
+   } else if (channels[channel] == ADMIN_ONLY) {
+      this_player()->message("Access level: Admin only\n");
+   } else if (channels[channel] == WIZ_ONLY) {
+      this_player()->message("Access level: Wizard only\n");
+   } else {
+      this_player()->message("Access level: open\n");
    }
 }
 
@@ -477,13 +486,13 @@ void chan_emote(string chan, string what) {
 	 what = result[2];
       } else if (rule == "OBJ") {
 	 result =
-	    compose_message(this_player(), EMOTE_D->query_emote(cmd, rule), nil,
-	    ( { target } ) );
+	    compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
+            nil, ( { target } ) );
 	 what = result[2];
       } else if (rule == "STR") {
 	 result =
-	    compose_message(this_player(), EMOTE_D->query_emote(cmd, rule), nil,
-	    ( { arg } ) );
+	    compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
+            nil, ( { arg } ) );
 	 what = result[2];
       } else {
 	 if (member_array("", rules) != -1) {
@@ -591,12 +600,14 @@ int query_channel(string chan) {
 	    return (this_player()->guild_member(guilds[chan]));
 	 }
       }
-      if (query_user_type(this_player()->query_name()) >= channels[chan] - 1)
+      if (query_user_type(this_player()->query_name()) >= channels[chan] - 1) {
 	 return 1;
-      else
+      } else {
 	 return 0;
-   } else
+      }
+   } else {
       return 0;
+   }
 }
 
 string *query_channels(void) {
