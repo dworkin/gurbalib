@@ -29,7 +29,7 @@ static void main(string str) {
 
    if (empty_str(str)) {
       if (!call_other(this_player()->query_environment(),"functionp",
-         "do_listen") {
+         "do_listen")) {
          this_player()->query_environment()->tell_room(this_player(),
            this_player()->query_Name() + " Pauses to listen closely.\n");
          write("You hear nothing.\n");
@@ -53,7 +53,7 @@ static void main(string str) {
       return;
    }
 
-   if (!call_other(obj,"functionp","do_listen") {
+   if (!call_other(obj,"functionp","do_listen")) {
       this_player()->query_environment()->tell_room(this_player(),
          this_player()->query_Name() + " Pauses to listens to " + 
          obj->query_id() + "\n");
