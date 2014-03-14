@@ -138,7 +138,7 @@ int exec_command(string cmd, string arg, string * syspath) {
    }
 
    if (cmd_ob && cmd_ob <-M_COMMAND && !function_object("main", cmd_ob)) {
-      DBT("Caling " + dump_value(cmd_ob) + "->_main( " +
+      DBT("Calling " + dump_value(cmd_ob) + "->_main( " +
          (arg ? ("\"" + arg + "\"") : "<NIL>") + ", \"" + cmd + "\" )\n");
       cmd_ob->_main(arg, cmd);
       return 1;
