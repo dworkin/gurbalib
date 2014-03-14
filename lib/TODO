@@ -91,3 +91,5 @@ Add check to check script for inherit after #include...
 look at INTERVAL in food items.... need to clean it up.
 	Shouldn't need it for most of them?
 
+Look into MPX support, MCCP or KaVir's MUD Protocol Handler
+	http://www.mudbytes.net/file-2811
