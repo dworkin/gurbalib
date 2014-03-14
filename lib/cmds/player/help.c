@@ -98,8 +98,6 @@ static void main(string arg) {
       return;
    }
 
-   arg = lowercase(arg);
-
    file = normalize_path(arg, "/doc/help/");
    if (show_help(file)) {
       return;
