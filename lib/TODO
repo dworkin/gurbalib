@@ -93,3 +93,5 @@ look at INTERVAL in food items.... need to clean it up.
 
 Look into MPX support, MCCP or KaVir's MUD Protocol Handler
 	http://www.mudbytes.net/file-2811
+
+do_game_command should look at full command path, right now it doesn't...

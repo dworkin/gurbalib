@@ -36,11 +36,10 @@ void usage() {
 }
 
 int show_help_for_command(string cmd) {
-   int x;
+   string tmp;
 
-   /* XXX Fix this */
-   x = call_other(this_player(), "command", cmd, "-h");
-   return x;
+   tmp = cmd + " -h";
+   return call_other(this_player(), "do_game_command", tmp);
 }
 
 int show_help(string filename) {
