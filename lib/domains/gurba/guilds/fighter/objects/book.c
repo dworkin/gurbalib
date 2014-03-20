@@ -1,6 +1,6 @@
-inherit "/std/guild_book";
-
 #include "../../../domain.h"
+
+inherit "/std/guild_book";
 
 void setup(void) {
    set_id("book");

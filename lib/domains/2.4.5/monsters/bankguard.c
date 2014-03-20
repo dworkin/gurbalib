@@ -1,8 +1,8 @@
+#include "../domain.h"
+
 inherit "/std/monster";
 inherit "/std/modules/m_triggers";
 inherit "/std/modules/m_block_exits";
-
-#include "../domain.h"
 
 void setup() {
    object obj;

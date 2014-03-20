@@ -1,6 +1,6 @@
-inherit "/std/light";
-
 #include "../domain.h"
+
+inherit "/std/light";
 
 void setup(void) {
    set_id("torch");

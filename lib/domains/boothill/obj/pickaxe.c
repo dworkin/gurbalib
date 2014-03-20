@@ -1,7 +1,5 @@
 inherit "/std/weapon";
 
-#include "../domain.h"
-
 void setup(void) {
    set_id("pickaxe");
    set_adj("rusty");

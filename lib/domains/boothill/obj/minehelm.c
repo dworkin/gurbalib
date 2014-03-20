@@ -1,7 +1,5 @@
 inherit "/std/armor";
 
-#include "../domain.h"
-
 void setup(void) {
    set_id("helmet");
    set_adj("small", "round");

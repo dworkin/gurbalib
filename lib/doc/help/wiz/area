@@ -103,9 +103,9 @@ descriptions in all of the rooms, fix the exits, then flesh them out with
 long descriptions.
 	cd ~/rooms/mine
 edit mineent.c and add the following:
-	inherit "/std/room";
-
 	#include "../../domain.h"
+
+	inherit "/std/room";
 
 	void setup(void) {
 	   add_area("mine");
@@ -284,7 +284,7 @@ Again lets spice things up:
 Start by copying /domains/required/monters/rat.c to
 ~/monsters/spider.c
 Make the following modifications:
-	after your inherit add this line:  #include "../domain.h"
+	add #include "../domain.h"
 	set_name: spider
 	add_adj: large
 	set_short: a very large spider
