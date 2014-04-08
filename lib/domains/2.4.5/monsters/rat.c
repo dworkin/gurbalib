@@ -2,7 +2,6 @@
 
 inherit "/std/monster";
 
-#define INTERVAL 5
 int count;
 
 void setup() {

@@ -3,7 +3,6 @@
 inherit "/std/monster";
 inherit "/std/modules/m_triggers";
 
-#define INTERVAL 5
 int count;
 
 void setup() {
