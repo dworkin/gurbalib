@@ -11,12 +11,17 @@ void usage() {
       "SITE." });
    lines += ({ "If no Player or SITE is given it displays what is currently " +
       "banned." });
+   lines += ({ "If you use the key word new for one or more of the address " +
+      "fields, " });
+   lines += ({ "new players will be banned." });
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tban sirdude" });
    lines += ({ "\tban -s 128.101.32.*" });
+   lines += ({ "\tban -s 128.101.32.new" });
+   lines += ({ "\tban -s new.new.new.new" });
    lines += ({ "See also:" });
    lines += ({ "\tforcequit, halt, heal, muzzle, zap" });
 
