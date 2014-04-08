@@ -173,16 +173,19 @@ int siteban(string str) {
       write_file("/data/banned/a/" + str,
 	 ctime(time()) + "\tby:  " + this_user()->query_name() + "\n");
       flag = 1;
+      a_banned_sites += ({ str });
    } else if ((tmp[2] == "*") && (tmp[3] == "*")) {
       /* B class siteban */
       write_file("/data/banned/b/" + str,
 	 ctime(time()) + "\tby:  " + this_user()->query_name() + "\n");
       flag = 1;
+      b_banned_sites += ({ str });
    } else if (tmp[3] == "*") {
       /* C class siteban */
       write_file("/data/banned/c/" + str,
 	 ctime(time()) + "\tby:  " + this_user()->query_name() + "\n");
       flag = 1;
+      c_banned_sites += ({ str });
    } else if ((tmp[0] == "new") && (tmp[1] == "new") && (tmp[2] == "new")
       && (tmp[3] == "new")) {
       /* A class newban */
@@ -226,14 +229,17 @@ int unsiteban(string str) {
       /* A class siteban */
       remove_file("/data/banned/a/" + str);
       flag = 1;
+      a_banned_sites -= ({ str });
    } else if ((tmp[2] == "*") && (tmp[3] == "*")) {
       /* B class siteban */
       remove_file("/data/banned/b/" + str);
       flag = 1;
+      b_banned_sites -= ({ str });
    } else if (tmp[3] == "*") {
       /* C class siteban */
       remove_file("/data/banned/c/" + str);
       flag = 1;
+      c_banned_sites -= ({ str });
    } else if ((tmp[0] == "new") && (tmp[1] == "new") && (tmp[2] == "new")
       && (tmp[3] == "new")) {
       /* A class siteban */
