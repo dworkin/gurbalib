@@ -89,3 +89,8 @@ Look into MPX support, MCCP or KaVir's MUD Protocol Handler
 
 do_game_command should look at full command path, right now it doesn't...
 	This is a perms issue at this point.
+
+Fix it so you can do the following:
+	possess rat
+	call -h
+
