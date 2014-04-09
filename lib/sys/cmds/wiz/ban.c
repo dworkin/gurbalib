@@ -73,7 +73,7 @@ void ban_site(string str) {
       return;
    }
 
-   if (SITEBAN_D->is_banned(str)) {
+   if (SITEBAN_D->is_banned(str) || SITEBAN_D->is_newbanned(str)) {
       if (SITEBAN_D->unsiteban(str)) {
          this_player()->simple_action("$N $vunban the site: " + str + "\n");
       } else {
