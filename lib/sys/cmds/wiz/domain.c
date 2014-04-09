@@ -40,7 +40,7 @@ string *query_usage() {
    lines += ({ "\talias, aliasadm, cmds, emote, emoteadm, help" });
 
    if (query_admin(this_player())) {
-      lines += ({ "\tcmdadm, coloradm, rehash" });
+      lines += ({ "\tcmdadm, coloradm, emotediff, rehash" });
    }
 
    return lines;

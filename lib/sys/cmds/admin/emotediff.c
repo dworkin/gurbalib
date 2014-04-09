@@ -34,7 +34,9 @@ void usage() {
    lines += ({ "\temotediff /tmp/emote_d.o smile" });
    lines += ({ "\temotediff -i /tmp/emote_d.o smile" });
    lines += ({ "See also:" });
-   lines += ({ "\temoteadm" });
+   lines += ({ "\talias, aliasadmin, cmdadm, cmds, coloradm, domain, emote, " +
+      "emoteadm, emotediff, help, rehash" });
+
 
    this_player()->more(lines);
 }
