@@ -8,6 +8,9 @@ DESCRIPTION
 	Function filters through array arr and returns an array where each 
 	element is unique.
 
+RETURN VALUE
+	Returns an array.  If empty returns: XXX
+
 EXAMPLES
 	uniq_array(({ 1,2,2,3,3,3 }));      returns ({ 1,2,3 })
 

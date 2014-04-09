@@ -18,6 +18,15 @@ DESCRIPTION
 RETURN VALUE
 	Returns the cloned object.  Returns nil on failure.
 
+EXAMPLES
+	object armor;
+
+	armor = clone_object("/domains/required/objects/helmet.c") {
+	if (armor) {
+	   armor->setup();
+	   armor->move(this_object();
+	}
+
 SEE ALSO
 	afun/absolute_path, afun/base_name, afun/clone_num,
 	afun/compile_library, afun/compile_object, afun/destruct_object,

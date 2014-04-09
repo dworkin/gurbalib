@@ -21,6 +21,25 @@ DESCRIPTION
 RETURN VALUE
 	The formatted string.
 
+EXAMPLES
+	string str;
+
+	str = "The fox\nWears socks\nIn the Spring\nNow were having fun.\n" +
+        "--------------------------- ----------------------------------\n" +
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n" +
+        "ccccccccccccccccccccccccccc cccccccccccccccccccccccccccccccccc\n";
+	str = fmt_str(str, 20, 5, 1, 2);
+	write(str);
+        /* Output looks like this:
+        The fox Wears socks In the Spring Now were having fun.
+        ------------------------
+          ------------------------------------- 
+          bbbbbbbbbbbbbbbbbbbbbbbb 
+          bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb 
+          cccccccccccccccccccccccc 
+          ccccccccccccccccccccccccccccccccccccc
+        */
+
 SEE ALSO
 	afun/empty_str, afun/lowercase, afun/pad_string_left,
 	afun/replace_string, afun/rexplode, afun/strcmp, afun/strstr,
