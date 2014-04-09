@@ -51,8 +51,8 @@ string *query_usage() {
    lines += ({ "\tcmdadm add \"/tmp/My stuff/cmds\" wizard " });
    lines += ({ "\tcmdadm delete \"/tmp/cmds\"" });
    lines += ({ "See also:" });
-   lines += ({ "\talias, aliasadmin, cmds, coloradm, emote, emoteadm, help, " +
-      "rehash" });
+   lines += ({ "\talias, aliasadmin, cmds, coloradm, domain, emote, " .
+      "emoteadm, help, rehash" });
 
    return lines;
 }
