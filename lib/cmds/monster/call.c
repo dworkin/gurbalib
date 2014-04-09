@@ -12,7 +12,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tcall set_gender male" });
    lines += ({ "See also:" });
-   lines += ({ "echo" });
+   lines += ({ "\techo" });
 
    player = this_player();
    if (player) {

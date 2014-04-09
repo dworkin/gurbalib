@@ -11,7 +11,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\techo The orc smiles at you." });
    lines += ({ "See also:" });
-   lines += ({ "call" });
+   lines += ({ "\tcall" });
 
    player = this_player();
    if (player) {

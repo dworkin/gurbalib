@@ -18,7 +18,6 @@ void usage() {
    lines += ({ "\tjunk corpse" });
    lines += ({ "\tjunk sword" });
    lines += ({ "\tjunk all" });
-   lines += ({ "" });
    lines += ({ "See also:" });
    lines += ({ "\thp, inventory, levels, score, skills" });
 
