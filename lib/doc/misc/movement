@@ -51,5 +51,11 @@ Custom movement: If you want to do something special you can implement your own 
 		personalmessageonfail, roommessageonfail);
 	For an example look at: domains/2.4.5/rooms/south/sislnd1.c
 
+Message format:
+	The messages will have a format similar to the following:
+	"$N leaves $D."
+	"$N Enters from the $D."
 
-Message format: XXX
+	$N Will be replaced with the Player's Name
+	$D will be replaced with a direction.
+
