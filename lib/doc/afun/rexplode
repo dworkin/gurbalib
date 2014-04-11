@@ -15,6 +15,16 @@ ERRORS
 	ST_ARRAYSIZE defined in the include file <status.h>, an error will
 	result.
 
+EXAMPLES
+	string *lines;
+	int x, max;
+
+	lines = rexplode("Hello:Woo:Bing:O!:funn");
+	max = sizeof(lines);
+	for(x=0;x<max;x++) {
+	   write(x + "\t" + lines[x] + "\n");
+	}
+
 SEE ALSO
 	afun/empty_str, afun/fmt_str, afun/lowercase, afun/pad_string_left,
         afun/replace_string, afun/strcmp, afun/strstr, afun/str2val,

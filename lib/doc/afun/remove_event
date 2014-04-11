@@ -14,6 +14,11 @@ RETURN VALUE
 	NA (void)
 
 EXAMPLES
+	/* Note this code is normally spread across multiple objects,
+	   You in general add events at a high level, then have 
+	   certain objects that look for events and others that trigger
+	   events */
+
 	/* Add the "body_look" event to the system */
 	add_event("body_look");
 
