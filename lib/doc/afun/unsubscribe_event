@@ -8,6 +8,26 @@ DESCRIPTION
 	Unsubscribes this_object() from an event with the given name 
 	in the object ob.
 
+RETURN VALUE
+	NA (void)
+
+EXAMPLES
+	/* Add the "body_look" event to the system */
+	add_event("body_look");
+
+	/* start looking for an event with the current object */
+	EVENT_D->subscribe_event("body_look");
+
+	/* Trigger an event this calls the function event_body_look
+	   in all objects that subscribed to "body_look" */
+	this_environment()->event("body_look", this_player());
+
+	/* stop the current object from looking for an event */
+	EVENT_D->unsubscribe_event("body_look");
+
+	/* Remove the event from the system */
+	remove_event("body_look");
+
 SEE ALSO
 	afun/add_event, afun/event, afun/remove_event, afun/subscribe_event
 
