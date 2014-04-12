@@ -13,7 +13,7 @@ DESCRIPTION
 RETURN VALUE
 	NA (void)
 
-EXAMPLE
+EXAMPLES
 	int divint(int a, int b) {
 	   catch {
 	      return a/b;
