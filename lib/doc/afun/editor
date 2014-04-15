@@ -5,14 +5,23 @@ SYNOPSIS
 	static string editor(string cmd)
 
 DESCRIPTION
-	Create a string using an interactive editor.  If cmd is specified 
-	evaluate the command before starting up the editor.
+	Execute an editor command for the current object.
+	See kfun/editor for details...
 		
 RETURN VALUE
 	Returns a string containing the results of the editor command.
+
+EXAMPLES
+	string tmp;
+
+	editor("edit /tmp/myfile.txt"); /* Open an existing file */
+   	editor("set sw=3");     /* Set the indent to 3 spaces */
+   	editor("I");		/* Call the function to auto indent the code */
+   	tmp = editor("wq!");    /* write and quit */
 
 SEE ALSO
 	afun/cat_file, afun/copy, afun/get_dir, afun/make_dir, afun/read_file,
 	afun/rename_file, afun/remove_dir, afun/remove_file, afun/require_priv,
 	afun/restore_object, afun/save_object, afun/unguarded, afun/valid,
 	afun/valid_read, afun/valid_write, afun/write_file
+	XXX Add kfun/editor and others?
