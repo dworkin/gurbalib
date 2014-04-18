@@ -11,6 +11,15 @@ DESCRIPTION
 RETURN VALUE
 	The name of the calling function.
 
+EXAMPLES
+	string prev, curr, fun;
+
+	obj = previous_object()->base_name();
+	fun = previous_function();
+	write("Previous Object: " + obj + "\n");
+	write("Current Object: " + base_name() + "\n";
+	write("Previous Function: " + fun + "\n");
+
 SEE ALSO
 
 	kfun/previous_object, kfun/previous_program

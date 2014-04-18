@@ -13,6 +13,19 @@ DESCRIPTION
 RETURN VALUE
 	Returns the number of clones of an object
 
+EXAMPLES
+	/* XXX This doesn't work why not? */
+	object obj;
+	int x;
+
+	obj = find_object("/domains/required/objects/corpse.c");
+	if (obj) {
+	   x = obj->num_clones();
+	   write("There are " + x + " corpses loaded.\n");
+	} else {
+	   write("There are no corpses loaded.\n");
+	}
+
 SEE ALSO
 	afun/next_clone, afun/prev_clone, afun/query_cloner
 
