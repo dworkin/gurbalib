@@ -5,9 +5,36 @@ SYNOPSIS
 	static mixed call_trace()
 
 DESCRIPTION
+	This function is useful for debugging things.  It will create
+	a list of objects,programs, functions, line numbers and other
+	fields that can be used to see how the mudlib called the code
+	in question.
+
+RETURN VALUE
 	Returns an array of elements that are a trace of a given function.
 	See kernel/include/trace.h for a description of the fields in the
 	array.
+
+EXAMPLES
+	/* XXX Not sure why this fails right now */
+	#include <trace.h>
+	mixed values;
+	int x, maxx;
+
+	if () {
+	   values = call_trace();
+	   if (values) {
+	      maxx = sizeof(values);
+	      for (x=0; x<maxx; x++) {
+	         write("OBJ Name: " + values[x][TRACE_OBJNAME] + "\n");
+	         write("Prog Name: " + values[x][TRACE_PROGNAME] + "\n");
+	         write("Fun Name: " + values[x][TRACE_FUNCTION] + "\n");
+   	         write("Line #: " + values[x][TRACE_LINE] + "\n");
+	         write("External Call: " + values[x][TRACE_EXTERNAL] + "\n");
+	         write("First ARG: " + values[x][TRACE_FIRSTARG] + "\n");
+	      }
+	   }
+	}
 
 SEE ALSO
 	afun/players, afun/set_this_player, afun/this_body, 
