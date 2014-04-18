@@ -24,6 +24,12 @@ RETURN VALUE
 	all elements for which ob->fun(elem, extra) returns something or 
 	nothing respectively.
 
+EXAMPLES
+	object *mortals, *wizards, players;
+
+	players = players();
+	({ wizards, mortals }) = split_array(players, "query_wizard");
+
 SEE ALSO
 	afun/filter_array, afun/map_array, afun/member_array, afun/member_map,
 	afun/random_element, afun/uniq_array
