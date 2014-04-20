@@ -13,6 +13,8 @@ void usage() {
 }
 
 static void main(string str) {
+    string f;
+    f = str;
    if (empty_str(str)) {
       str = "random";
    }
@@ -22,7 +24,8 @@ static void main(string str) {
    }
    str = give_fortune(str);
    if (nilp(str)) {
-      write("fortune: no such fortune file as that.");
+      write("fortune: no such fortune file as '" + f + "'.");
+      usage();
       return;
    }
    write(str);
