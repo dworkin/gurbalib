@@ -31,6 +31,18 @@ string *query_usage() {
    lines += ({ "\tlist       : lists the members of a domain." });
    lines += ({ "\tleave      : leave the named domain (if you are a member)" });
 
+   lines += ({ "Examples:" });
+   lines += ({ "\tdomain boothill list" });
+   lines += ({ "\tdomain boothill add sirdude" });
+   lines += ({ "\tdomain boothill pro sirdude" });
+   lines += ({ "\tdomain boothill del sirdude" });
+   lines += ({ "See also:" });
+   lines += ({ "\talias, aliasadm, cmds, emote, emoteadm, help" });
+
+   if (query_admin(this_player())) {
+      lines += ({ "\tcmdadm, coloradm, emotediff, rehash" });
+   }
+
    return lines;
 }
 
@@ -62,14 +74,16 @@ static int action_list_domains() {
 
 static string format_member_display(string member, string domain) {
    if (DOMAIN_D->query_domain_admin(domain, member)) {
-      member += "*";
+      member += "(admin)";
    }
    return member;
 }
 
 static int action_list_members(string domain) {
-   if (!domain || !DOMAIN_D->is_domain(domain)) {
-      notify_fail("No such domain");
+   if (!domain) {
+      notify_fail("No domain given.");
+   else if (!DOMAIN_D->is_domain(domain)) {
+      notify_fail("No such domain:" + domain);
    } else {
       string *members;
 
@@ -201,6 +215,9 @@ static void main(string arg) {
             break;
          case "lis":
             r = action_list_members(dname);
+            if (r) {  /* No need to continue so lets return */
+               return;
+            }
             break;
          case "lea":
             r = action_del_member(dname, this_player()->query_name());

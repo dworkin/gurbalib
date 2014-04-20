@@ -1,6 +1,6 @@
-inherit "/std/weapon";
-
 #include "../domain.h"
+
+inherit "/std/weapon";
 
 void setup(void) {
    set_id("knife");

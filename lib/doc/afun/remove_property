@@ -11,6 +11,11 @@ RETURN VALUE
 	Returns 1 on success or 0 when privilege checks do not allow the 
 	changes.
 
+EXAMPLES
+	if (this_player()->property("stuff")) {
+	   return this_player()->remove_property("stuff");
+	}
+
 SEE ALSO
 	afun/property, misc/properties, afun/set_property
 

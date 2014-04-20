@@ -77,10 +77,10 @@ For now we are going to put this in our wizard's directory.  (For me that
 is /wiz/sirdude, if your following along just substitute your name
 wherever you see sirdude)
 on the mud issue the following commands:
-cd ~
-mkdir rooms/mine
-mkdir monsters
-mkdir obj
+	cd ~
+	mkdir rooms/mine
+	mkdir monsters
+	mkdir obj
 
 Let's edit a file "domain.h" and add the following line to it:
 	#define DIR "/wiz/sirdude"
@@ -102,10 +102,11 @@ create a basic room, copy it over to all of the files, fix the short
 descriptions in all of the rooms, fix the exits, then flesh them out with 
 long descriptions.
 	cd ~/rooms/mine
-edit mineent.c and add the following:
-	inherit "/std/room";
+	edit mineent.c and add the following:
 
 	#include "../../domain.h"
+
+	inherit "/std/room";
 
 	void setup(void) {
 	   add_area("mine");
@@ -125,8 +126,8 @@ goto ~/rooms/mine/mineent.c  If you have errors look at the logs and
 get your room working before moving to the next step.
 
 Once you are able to goto the room, run the check script on it:
-cd ~/rooms/mine/
-check mineent.c
+	cd ~/rooms/mine/
+	check mineent.c
 
 You should get 0 errors and 1 Warning, because the exit east does not
 point to a valid file right now.  If you get something else you should
@@ -152,10 +153,12 @@ these files.  for split.c we edit it and change this line:
 	   set_short("Entrance to the mine");
 to this:
 	   set_short("Split");
+
 The rest are left as an exercise for you. :)
 Now we need to edit the files and update the exits, again you should
 be able to figure this out from the maps.  To make sure your on the
 right track I'll show you the exit section for the first two files:
+
 split.c:
 	   set_exits(([
 	      "east" : DIR + "/rooms/mine/narrow.c",
@@ -232,26 +235,27 @@ the document: room_code
 So we need to spice this up a bit.  Lets add some objects, were going to
 add some things you can pickup and some things that you cannot.
 
-	a pick axe (a weapon) to station.c
-Start by copying /domains/required/objects/short_sword.c to
-~/obj/pickaxe.c
-Make the following modifications:
+	Fist thing lets add a pick axe (a weapon) to station.c
+	Start by copying /domains/required/objects/short_sword.c to
+		~/obj/pickaxe.c
+
+	Make the following modifications:
 	set_id: pickaxe
 	set_adj: rusty
 	set_short: A rusty pickaxe
-	set_long: This axe has seen better days.  It could use a sharpening and
-	a whole lot of grease.
+	set_long: This axe has seen better days.  It could use a sharpening 
+		and a whole lot of grease.
 	set_value: 8
 	set_weight: 7
 
-We also need to add it to our room.  See /domains/newbie/rooms/tree.c for an
-example of how to do this.  Add it to ~/rooms/mine/station.c and test it to
-make sure it works.
+	We also need to add it to our room.  See /domains/newbie/rooms/tree.c
+	for an example of how to do this.  Add it to ~/rooms/mine/station.c
+	and test it to make sure it works.
 
-	a big rock (an unmovable object) to bigrock.c
-Start by copying /domains/newbie/obj/tree.c to
-~/obj/bigrock.c
-Make the following modifications:
+	Next lets add a big rock (an unmovable object) to bigrock.c
+	Start by copying /domains/newbie/obj/tree.c to ~/obj/bigrock.c
+
+	Make the following modifications:
 	set_id: rock
 	set_adj: big
 	set_short: A big rock
@@ -260,63 +264,65 @@ Make the following modifications:
 	scratch on it.  It looks like you would need an elephant or two to
 	move it.
 
-We also need to add it to our room.  See /domains/newbie/rooms/tree.c for an
-example of how to do this.  Add it to ~/rooms/mine/bigrock.c and test it to
-make sure it works.
+	We also need to add it to our room.  See /domains/newbie/rooms/tree.c
+	for an example of how to do this.  Add it to ~/rooms/mine/bigrock.c
+	and test it to make sure it works.
 
-	and rubble (Something we can search) to cavein.c
-Start by copying /domains/newbie/obj/tree.c to
-~/obj/rubble.c
-Make the following modifications:
+	Now lets add rubble (Something we can search) to cavein.c
+	Start by copying /domains/newbie/obj/tree.c to ~/obj/rubble.c
+
+	Make the following modifications:
 	set_id: rubble
 	remove the set_adj call
 	set_short: A pile of rubble
 	set_long: A large pile of rubble strewn about the room.  It looks
-	like it will take quite a lot of time to clean this mess up.
+		like it will take quite a lot of time to clean this mess up.
 
-We also need to add it to our room.  See /domains/newbie/rooms/tree.c for an
-example of how to do this.  Add it to ~/rooms/mine/cavein.c and test it to
-make sure it works.
+	We also need to add it to our room.  See /domains/newbie/rooms/tree.c
+	for an example of how to do this.  Add it to ~/rooms/mine/cavein.c
+	and test it to make sure it works.
 
 7. Adding some monsters.
 Again lets spice things up:
 	add a spider to deadend.c
-Start by copying /domains/required/monters/rat.c to
-~/monsters/spider.c
-Make the following modifications:
-	after your inherit add this line:  #include "../domain.h"
+	Start by copying /domains/required/monters/rat.c to ~/monsters/spider.c
+
+	Make the following modifications:
+	add #include "../domain.h"
 	set_name: spider
 	add_adj: large
 	set_short: a very large spider
 	set_long: You thought the small ones were creepy.  This one is at least
-	two feet across, and it looks like it thinks your a snack.
+		two feet across, and it looks like it thinks your a snack.
 	set_race: spider
 	add set_aggressive(1);
 
 	add a kobold with a miners helmet to squeeze.c
-Start by copying /domains/required/monters/rat.c to
-~/monsters/kobold.c
-Make the following modifications:
+	Start by copying /domains/required/monters/rat.c to ~/monsters/kobold.c
+
+	Make the following modifications:
 	set_name: kobold
 	set_gender: male
 	set_short: A filthy little kobold
 	set_long: This dirty little creature is not your friend.  In fact he 
-	looks rather grumpy.
+		looks rather grumpy.
 	set_race: kobold
 	set_aggressive(1);
 
-Now we need to create a miners helmet.
-Start by copying /domains/required/objects/helmet.c
-~/obj/minehelm.c
-Make the following modifications:
+	Now we need to create a miners helmet for our kobold.
+	Start by copying /domains/required/objects/helmet.c to ~/obj/minehelm.c
+
+	Make the following modifications:
 	set_adj: rusty 
 	set_short: A rusty miners helmet
 	set_value: 15
-Next we need to make it part of the kobold's gear.  Look at 
-/domains/2.4.5/monters/orc.c for an example.
-We need to add the following line to the top of the setup function:
-   object obj;
-Then we need to add this to the bottom of the setup function.
+
+	Next we need to make it part of the kobold's gear.  Look at 
+	/domains/2.4.5/monters/orc.c for an example.
+	We need to add the following line to the top of the setup function:
+	object obj;
+
+	Then we need to add this to the bottom of the setup function:
         obj = clone_object(DIR + "/obj/minehelm.c");
 	obj->setup();
 	obj->move(this_object());
@@ -367,7 +373,8 @@ We already have a couple of monters in the mine, but we are still missing
 something.  What were going to do is add a locked door close to the end of
 the mine, and a key that the players will need to locate to unlock the
 door.
-edit ~/obj/irondoor.c and make it look like this:
+
+Edit ~/obj/irondoor.c and make it look like this:
 	inherit "/std/door";
 
 	void setup(void) {
@@ -451,8 +458,8 @@ int move_rubble(string str) {
    if (str == "rubble") {
       write("You rummage around in the rubble and slide through to " +
          "the other side.");
-      this_enviornment()->tell_room(this_player(), this_player()->query_Name() +
-         " digs through the rubble and dissapears.");
+      this_environment()->tell_room(this_player(), this_player()->query_Name() +
+         " digs through the rubble and disappears.");
 
       this_player()->move("/wiz/sirdude/rooms/workroom.c");
       return 1;

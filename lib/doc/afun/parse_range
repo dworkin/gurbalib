@@ -12,6 +12,17 @@ RETURN VALUE
 	A set of integers with all integers in the range. For instance the 
 	above range would produce: ({ 1, 2, 3, 4, 5, 7, 9, 15, 16, 17 }).
 
+EXAMPLES
+	int *values;
+	int x, maxx;
+
+	values = parse_range("1-5,10");
+	maxx = sizeof(values);
+	for (x=0; x<maxx; x++) {
+		write("X = " + values[x] + "\n");
+	}
+
+
 SEE ALSO
 	afun/empty_str, afun/fmt_str, afun/lowercase, afun/pad_string_left,
 	afun/replace_string, afun/rexplode, afun/strcmp, afun/strstr,

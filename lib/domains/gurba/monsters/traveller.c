@@ -1,8 +1,8 @@
 /* Demonstrates use of m_wander for testing purposes.  Cerihan 3/14/09 */
+#include "../domain.h"
+
 inherit "/std/monster";
 inherit "/std/modules/m_wander";
-
-#include "../domain.h"
 
 void setup() {
    set_name("traveller");

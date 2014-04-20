@@ -42,13 +42,10 @@ void usage() {
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   lines += ({ "" });
-
    lines += ({ "Examples:" });
    lines += ({ "\tchan join announce" });
    lines += ({ "\tchan leave announce" });
    lines += ({ "\tchan announce hi all!" });
-   lines += ({ "" });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
       lines += ({ "\tbug, echo, echoto, emote, rsay, shout, ssay, say, " +
@@ -146,7 +143,7 @@ static void chan_cmd(string cmd, string chan) {
       case "delete":
 	 break;
       case "info":
-	 this_player()->message(CHANNEL_D->query_debug());
+         CHANNEL_D->show_info(chan);
 	 break;
       case "help":
 	 usage();

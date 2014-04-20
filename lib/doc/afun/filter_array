@@ -17,6 +17,12 @@ RETURN VALUE
 	Returns a new (possibly empty) array containing all elements of arr 
 	for which ob->fun(elem, extra) returns something other then 0 or nil.
 
+EXAMPLES
+        object *wizards, players;
+
+        players = players();
+        wizards = split_array(players, "query_wizard");
+
 SEE ALSO
 	afun/map_array, afun/member_array, afun/member_map,
 	afun/random_element, afun/split_array, afun/uniq_array

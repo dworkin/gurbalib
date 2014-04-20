@@ -13,6 +13,11 @@ RETURN VALUE
 	Returns a string with information if an error was caught, nil 
 	otherwise.
 
+EXAMPLES
+	if (caught_error()) {
+	   this_player()->tell(caught_error(1);
+	}
+
 SEE ALSO
 	afun/catch afun/rethrow
 

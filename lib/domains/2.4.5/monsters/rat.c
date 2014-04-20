@@ -1,8 +1,7 @@
-inherit "/std/monster";
-
 #include "../domain.h"
 
-#define INTERVAL 5
+inherit "/std/monster";
+
 int count;
 
 void setup() {

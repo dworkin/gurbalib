@@ -1,9 +1,17 @@
 void usage() {
-   write("Usage: page [-h] CMD\n");
-   write("Ask your page to do command CMD.\n");
-   write("If no page is present, summon one.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+
+   lines = ({ "Usage: page [-h] CMD" });
+   lines += ({ "Ask your page to do command CMD." });
+   lines += ({ "If no page is present, summon one." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tpage bow" });
+   lines += ({ "\tpage wield sword" });
+   lines += ({ "See also:" });
+
+   this_player()->more(lines);
 }
 
 /* moved this from fighters guild specific command.  Need to convert it to

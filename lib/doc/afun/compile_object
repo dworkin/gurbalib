@@ -22,6 +22,16 @@ RETURN VALUE
 	Returns the compiled object.  If there is an error, report the
 	error as a runtime error and  return nil.
 
+EXAMPLES
+	string filename;
+	object obj;
+
+	obj = find_object(filename);
+	if (!obj) {
+           obj = compile_object(filename);
+	   obj->setup();
+	}
+
 SEE ALSO
 	afun/absolute_path, afun/base_name, afun/clone_object, afun/clone_num,
 	afun/compile_library, afun/destruct_object, afun/file_name,

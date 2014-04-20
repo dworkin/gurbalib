@@ -10,5 +10,8 @@ DESCRIPTION
 RETURN VALUE
 	A ruler string.
 
+EXAMPLES
+	write(ruler(80));
+
 SEE ALSO
 	XXX

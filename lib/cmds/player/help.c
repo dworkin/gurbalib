@@ -35,11 +35,23 @@ void usage() {
    this_player()->more(lines);
 }
 
-static void show_file(string filename) {
+int show_help_for_command(string cmd) {
+   string tmp;
+
+   tmp = cmd + " -h";
+   return call_other(this_player(), "do_game_command", tmp);
+}
+
+int show_help(string filename) {
    string *tmp;
    string blah;
    string *lines;
    int i, len, where, width;
+
+
+   if (file_exists(filename) < 1) {
+      return 0;
+   }
 
    width = this_player()->query_width();
 
@@ -71,6 +83,7 @@ static void show_file(string filename) {
    }
 
    this_player()->more(lines);
+   return 1;
 }
 
 static void main(string arg) {
@@ -85,26 +98,24 @@ static void main(string arg) {
       return;
    }
 
-   arg = lowercase(arg);
-
    file = normalize_path(arg, "/doc/help/");
+   if (show_help(file)) {
+      return;
+   }
 
-   if (file_exists(file) < 1) {
-      if (query_wizard(this_player())) {
-	 file = normalize_path(arg, "/doc/help/wiz/");
-	 if (file_exists(file) < 1) {
-	    write(capitalize(arg) + ": Unknown help topic.");
-	    LOG_D->write_log("help", this_player()->query_Name() +
-	       " on " + ctime(time()) + ": " + arg + "\n");
-	    return;
-	 }
-      } else {
-	 write(capitalize(arg) + ": Unknown help topic.");
-	 LOG_D->write_log("help", this_player()->query_Name() +
-	    " on " + ctime(time()) + ": " + arg + "\n");
-	 return;
+   if (query_wizard(this_player())) {
+      file = normalize_path(arg, "/doc/help/wiz/");
+      if (show_help(file)) {
+         return;
       }
    }
 
-   show_file(file);
+   if (show_help_for_command(arg)) {
+      return;
+   }
+
+   write(capitalize(arg) + ": Unknown help topic.");
+   LOG_D->write_log("help", this_player()->query_Name() +
+      " on " + ctime(time()) + ": " + arg + "\n");
+   return;
 }

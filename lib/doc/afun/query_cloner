@@ -12,6 +12,17 @@ DESCRIPTION
 RETURN VALUE
 	Returns a string with information on a clone.  returns nil when 
 	called on a 'blueprint'.
+EXAMPLES
+	string name;
+
+	name = this_object()->query_cloner();
+	if (name) {
+		write("The cloner of this object is: " + name + "\n");
+	}
+	name = this_object()->query_cloner(1);
+	if (name) {
+		write("The cloner of this object is: " + name + "\n");
+	}
 
 SEE ALSO
 	afun/next_clone, afun/prev_clone, afun/num_clones

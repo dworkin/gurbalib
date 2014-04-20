@@ -1,6 +1,6 @@
-inherit "/std/room";
-
 #include "../domain.h"
+
+inherit "/std/room";
 
 void setup(void) {
    set_short("Timoth's Armorarium");

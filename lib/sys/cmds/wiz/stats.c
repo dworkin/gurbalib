@@ -66,12 +66,12 @@ static void main(string arg) {
       }
       stat = ob->query_hp();
       max_stat = ob->query_max_hp();
-      write("\n\t" + "Hit points    :  " + stat + "/" + max_stat + "\n");
+      write("\n\t" + "Hit points   :  " + stat + "/" + max_stat + "\n");
       stat = ob->query_mana();
       max_stat = ob->query_max_mana();
       write("\t" + "Mana         :  " + stat + "/" + max_stat + "\n");
       stat = ob->query_end();
       max_stat = ob->query_max_end();
-      write("\t" + "Endurance   :  " + stat + "/" + max_stat + "\n");
+      write("\t" + "Endurance    :  " + stat + "/" + max_stat + "\n");
    }
 }

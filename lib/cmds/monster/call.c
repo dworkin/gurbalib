@@ -1,10 +1,23 @@
 inherit M_COMMAND;
 
 void usage() {
-   write("Usage: call [-h] FUNCTION [ARGS]\n");
-   write("call the function FUNCTION with arguments ARGS in this object.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+   object player;
+
+   lines = ({ "Usage: call [-h] FUNCTION [ARGS]" });
+   lines += ({ "call the function FUNCTION with arguments ARGS in this " +
+      "object." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tcall set_gender male" });
+   lines += ({ "See also:" });
+   lines += ({ "\techo" });
+
+   player = this_player();
+   if (player) {
+      player->more(lines);
+   }
 }
 
 static void main(string arg) {

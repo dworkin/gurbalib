@@ -1,6 +1,6 @@
-inherit "/std/board";
-
 #include "../domain.h"
+
+inherit "/std/board";
 
 void setup(void) {
    set_id("board");

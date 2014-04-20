@@ -56,9 +56,7 @@ rebuild - doesn't give an error...
 
 rwho sirdude gives a very cryptic error message.
 
-fix ban -s so it works right, doesn't show up right away when you ban a site.
-
-Also fix it so not all domains are banned, only select list.  Otherwise can't
+Fix it so not all domains are banned, only select list.  Otherwise can't
 have a domain named after a wizard, it auto bans that wizard.
 	Probably not a good solution.
 
@@ -86,8 +84,13 @@ For /domains/boothill/rooms/mine/squeeze.c
 	Error: /domains/boothill/monters/kobold is not an object
 Note it also does not log any errors for this....
 
-Add check to check script for inherit after #include...
+Look into MPX support, MCCP or KaVir's MUD Protocol Handler
+	http://www.mudbytes.net/file-2811
 
-look at INTERVAL in food items.... need to clean it up.
-	Shouldn't need it for most of them?
+do_game_command should look at full command path, right now it doesn't...
+	This is a perms issue at this point.
+
+Fix it so you can do the following:
+	possess rat
+	call -h
 

@@ -1,6 +1,6 @@
-inherit "/std/sign";
-
 #include "../domain.h"
+
+inherit "/std/sign";
 
 void setup(void) {
    set_id("book");

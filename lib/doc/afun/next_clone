@@ -10,6 +10,16 @@ DESCRIPTION
 RETURN VALUE
 	Returns the next object if any, or nil.
 
+EXAMPLES
+	object obj;
+
+	obj = this_object();
+	while (obj) {
+	   write("obj name: " + obj->query_name() + "\n");
+	   obj = obj->next_clone();
+	}
+	
+
 SEE ALSO
 	afun/num_clones, afun/prev_clone, afun/query_cloner
 

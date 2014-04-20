@@ -1,10 +1,11 @@
+#include <type.h>
+
 inherit con "/std/container";
 inherit bod "/std/body";
 inherit "/std/body/skills";
+
 inherit "/std/modules/m_messages";
 inherit "/std/modules/m_actions";
-
-#include <type.h>
 
 static int aggressive;
 int spell_chance, spell_damage;

@@ -1,6 +1,6 @@
-inherit "/std/object";
-
 #include "../domain.h"
+
+inherit "/std/object";
 
 /* This object tests the various functions of a basic object to make
    sure it is upto snuff. */

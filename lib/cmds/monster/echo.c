@@ -1,10 +1,22 @@
 inherit M_COMMAND;
 
 void usage() {
-   write("Usage: echo [-h] MSG\n");
-   write("Echo the message MSG to the room.\n");
-   write("Options:\n");
-   write("\t-h\tHelp, this usage message.\n");
+   string *lines;
+   object player;
+
+   lines = ({ "Usage: echo [-h] MSG" });
+   lines += ({ "Echo the message MSG to the room." });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\techo The orc smiles at you." });
+   lines += ({ "See also:" });
+   lines += ({ "\tcall" });
+
+   player = this_player();
+   if (player) {
+      player->more(lines);
+   }
 }
 
 static void main(string str) {

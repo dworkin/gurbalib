@@ -345,14 +345,6 @@ void initialize_cmd_path(void) {
    cmd::set_cmd_path( ({ "/cmds/player/" }) );
 }
 
-void remove_cmd_path(string path) {
-   if(require_priv(owner_file(path))) {
-      cmd::remove_cmd_path( path );
-   } else {
-      error("Permission denied.");
-   }
-}
-
 /* Add a path to the command path */
 void add_cmd_path(string path) {
    if(require_priv(owner_file(path))) {

@@ -1,6 +1,6 @@
-inherit "/std/room";
-
 #include "../domain.h"
+
+inherit "/std/room";
 
 void setup(void) {
    add_area("newbie");

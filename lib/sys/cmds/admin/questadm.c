@@ -66,4 +66,3 @@ static void main(string str) {
    }
    usage();
 }
-

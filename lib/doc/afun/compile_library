@@ -17,6 +17,15 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 on success and 0 on failure.
 
+EXAMPLES
+	string filename;
+	object obj;
+
+	obj = find_object(filename);
+	if (!obj) {
+	   obj = compile_library(filename);
+	}
+
 SEE ALSO
 	afun/absolute_path, afun/base_name, afun/clone_object, afun/clone_num,
 	afun/compile_object, afun/destruct_object, afun/file_name,

@@ -1,9 +1,8 @@
+#include "../domain.h"
+
 inherit "/std/monster";
 inherit "/std/modules/m_triggers";
 
-#include "../domain.h"
-
-#define INTERVAL 5
 int count;
 
 void setup() {

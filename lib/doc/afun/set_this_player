@@ -10,6 +10,15 @@ DESCRIPTION
 RETURN VALUE
 	NA (void)
 
+EXAMPLES
+	object player;
+
+	player = this_player()->query_possessing();
+	if (player) {
+	   set_this_player(player);
+	   write("You are now inside player: " + player->query_name() + "\n");
+	}
+
 SEE ALSO
 	afun/call_trace, afun/players, afun/this_body, afun/this_connection, 
 	afun/this_environment, afun/this_player, afun/this_program, 

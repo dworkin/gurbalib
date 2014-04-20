@@ -14,6 +14,15 @@ DESCRIPTION
 RETURN VALUE
 	Returns 1 if matched, 0 otherwise.
 
+EXAMPLES
+	string prev;
+
+	if (!require_priv("system")) {
+	   prev = previous_object()->base_name();
+	   error("Illegal call to this object from: " + prev + "\n");
+	}
+
+
 SEE ALSO
 	afun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
 	afun/read_file, afun/rename_file, afun/remove_dir, afun/remove_file,

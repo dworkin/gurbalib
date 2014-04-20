@@ -6,11 +6,18 @@
    and flesh it out */
 
 string get_filename(string who) {
-   string filen;
+   string filen, tmp;
+   int x;
 
    filen = DATA_DIR + "/" + who + "/" + time();
-   while (file_exists(filen)) {
-     filen += "1";
+   if file_exists(filen) {
+      x= 1;
+      tmp = filen + x;
+
+      while (file_exists(tmp)) {
+         x++;
+         tmp = filen + x;
+      }
    }
    return filen;
 }

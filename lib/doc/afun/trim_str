@@ -5,16 +5,16 @@ SYNOPSIS
 	string trim_str(string str);
 
 DESCRIPTION
-	Replaces all whitespace with a single blank space.
+	Replaces all whitespace with a single blank space, it also
+	removes trailing and leading whitespace.
 
 RETURN VALUE
-	The string with whitespace replaced with a single black space.
+	A new string.  See description for details.
 
 EXAMPLES
 	string x;
-	x = trim_str("       Woo Hoo      ");
-	write("(" + x + ")\n");   /* Should print "(WooHoo)" */
-XXX doesn't match descriptions above but this is what it does.
+	x = trim_str(" X      Woo Hoo      X ");
+	write("(" + x + ")\n");   /* Should print " (X WooHoo X) " */
 
 SEE ALSO
 	afun/empty_str, afun/fmt_str, afun/lowercase, afun/pad_string_left,

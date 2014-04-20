@@ -1,6 +1,6 @@
-inherit "/std/room";
-
 #include "../../domain.h"
+
+inherit "/std/room";
 
 void setup(void) {
    add_area("mine");
@@ -24,8 +24,8 @@ int move_rubble(string str) {
    if (str == "rubble") {
       write("You rummage around in the rubble and slide through to " +
          "the other side.");
-      this_enviornment()->tell_room(this_player(), this_player()->query_Name() +
-         " digs through the rubble and dissapears.");
+      this_environment()->tell_room(this_player(), this_player()->query_Name() +
+         " digs through the rubble and disappears.");
 
       this_player()->move(DIR + "/rooms/mntpath.c");
       return 1;

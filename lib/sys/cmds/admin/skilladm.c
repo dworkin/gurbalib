@@ -12,6 +12,7 @@ void usage() {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
+   lines += ({ "\tskilladm" });
    lines += ({ "\tskilladm remove english" });
    lines += ({ "\tskilladm add dodge" });
    lines += ({ "See also:" });

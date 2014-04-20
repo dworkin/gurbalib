@@ -41,10 +41,10 @@ void usage() {
    lines += ({ "\temoteadm add blink $N $sblink." });
    lines += ({ "\temoteadm add LIV $N $vblink at $t" });
    lines += ({ "See also:" });
-   lines += ({ "\talias, aliasadmin, cmds, emote, emoteadm, help" });
+   lines += ({ "\talias, aliasadmin, cmds, domain, emote, help" });
 
    if (query_admin(this_player())) {
-      lines += ({ "\tcmdadmin, coloradm, rehash" });
+      lines += ({ "\tcmdadmin, coloradm, emotediff, rehash" });
    }
 
    this_player()->more(lines);

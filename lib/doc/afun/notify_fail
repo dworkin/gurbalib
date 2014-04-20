@@ -13,6 +13,15 @@ RETURN VALUE
 NOTES
 	This afun only exists for code outside /kernel
 
+EXAMPLES
+	string domain;
+
+	domain = "newbie";
+
+	if (!domain || !DOMAIN_D->is_domain(domain)) {
+	   notify_fail("No such domain: " + domain);
+	}
+
 SEE ALSO
 	afun/get_otlvar, afun/get_tlvar, afun/query_notify_fail,
 	afun/set_otlvar, afun/set_tlvar, misc/tls

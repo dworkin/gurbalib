@@ -13,6 +13,15 @@ RETURN VALUE
 	Returns the previous object if any, or the master of an object.
 	Returns nil if called on the master.
 
+EXAMPLES
+	object obj;
+
+	obj = this_object();
+	while (obj) {
+	   write("obj name: " + obj->query_name() + "\n");
+	   obj = obj->next_clone();
+	}
+
 SEE ALSO
 	afun/num_clones, afun/next_clone, afun/query_cloner
 

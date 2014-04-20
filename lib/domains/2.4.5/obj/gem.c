@@ -1,6 +1,6 @@
-inherit "/std/object";
-
 #include "../domain.h"
+
+inherit "/std/object";
 
 void setup(void) {
    int temp;

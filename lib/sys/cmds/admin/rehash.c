@@ -14,8 +14,8 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\trehash" });
    lines += ({ "See also:" });
-   lines += ({ "\talias, aliasadmin, cmds, cmdadm, coloradm, emote, " +
-      "emoteadm, help, " });
+   lines += ({ "\talias, aliasadmin, cmds, cmdadm, coloradm, domain, emote, " +
+      "emoteadm, help" });
 
    this_player()->more(lines);
 }

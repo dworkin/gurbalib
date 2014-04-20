@@ -20,6 +20,8 @@ void usage() {
    lines += ({ "\tsave_on_quit\tSet to 1 if you want to start where you last " +
       "quit." });
    lines += ({ "\tquit_message\tSet your quit message.  Example: $N $vquit." });
+   lines += ({ "\tdebug_commands\tSet to 1 if you want debugging of commands."
+	});
    lines += ({ "\tverbose_errors\tSet to 1 if you want longer error codes." });
    lines += ({ "\tdisplay_caught\tSet to 1 if you want to show caught " +
       "runtime errors." });

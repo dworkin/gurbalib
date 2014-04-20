@@ -11,7 +11,12 @@ DESCRIPTION
 RETURN VALUE
 	An int corresponding to an objects clone number.  Clone numbers 
 	exist for all cloned objects, and each objects clone number is 
-	unique to that clone.
+	unique to that clone.  If a clone does not exist return -1.
+
+EXAMPLES
+	XXX Some code checks ! clone_num  some code checks ==0 and checks -1
+	I think we need to redo some of it and find out what the code should
+	be.	
 
 SEE ALSO
 	afun/absolute_path, afun/base_name, afun/clone_object,
