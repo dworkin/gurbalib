@@ -1,6 +1,6 @@
-int filelastmod(string str, varargs int show_seconds_since) {
+int filelastmod(string str) {
 #ifdef LPC_EXT_FILELASTMOD
-   return ::filelastmod(str, show_seconds_since);
+   return ::filelastmod(str);
 #else
    return 0;
 #endif

@@ -136,3 +136,5 @@ private object secure_d;
 #include "afun-game/out_unmod.c"
 #include "afun-game/out.c"
 #include "afun-game/cat_file.c"
+#include "afun-game/sqlite3_exec.c"
+#include "afun-game/sqlite3_select.c"
