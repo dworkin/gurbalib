@@ -121,7 +121,6 @@ private string _owner;
 #include "afun/parse_range.c"
 #include "afun/trim_str.c"
 #include "afun/fmt_str.c"
-#include "afun/filelastmod.c"
 #include "afun/files_modified.c"
 
 #include "afun/sys/_F_create.c"
