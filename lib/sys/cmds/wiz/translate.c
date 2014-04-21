@@ -33,6 +33,10 @@ private string get_trans(string lang, string str) {
 }
 
 private void do_translations(string str) {
+   string *race_names;
+   string *lines;
+   int     i, dim;
+
    race_names = set_union(RACE_D->query_races(),
     RACE_D->query_monster_races());
    lines = allocate(sizeof(race_names));
@@ -49,10 +53,6 @@ private void do_translations(string str) {
 }
 
 static void main(string str) {
-   string *race_names;
-   string *lines;
-   int     i, dim;
-
    if (empty_str(str)) {
       usage();
       return;
