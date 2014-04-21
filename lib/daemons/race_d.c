@@ -34,11 +34,16 @@ string *query_races(void) {
    return names;
 }
 
+string *query_monster_races() {
+	return monster_names;
+}
+
+int is_monster_race(string race) {
+	return member_array(race, map_indices(monster_races)) != -1;
+}	
+
 int is_race(string race) {
-   if (member_array(race, map_indices(races)) != -1) {
-      return 1;
-   }
-   return 0;
+   return member_array(race, map_indices(races)) != -1;
 }
 
 object query_race_object(string race) {
