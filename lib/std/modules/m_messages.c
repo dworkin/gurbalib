@@ -35,7 +35,7 @@ string *compose_message(object who, string msg, object target,
 	 switch (words[i][1]) {
 	    case 'N':
 	       if (who->is_living()) {
-		  if (!who->query_Name()) {
+		  if (!who->query_name()) {
 		     us += "you ";
 		     them += "the " + who->query_id() + " ";
 		     others += "the " + who->query_id() + " ";
