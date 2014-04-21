@@ -9,7 +9,7 @@ DESCRIPTION
 	element is unique.
 
 RETURN VALUE
-	Returns an array.  If empty returns: XXX
+	Returns an array.  If empty returns an empty array.
 
 EXAMPLES
 	uniq_array(({ 1,2,2,3,3,3 }));      returns ({ 1,2,3 })
