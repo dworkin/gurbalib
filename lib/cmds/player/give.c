@@ -63,6 +63,7 @@ static void do_give(object obj1, object obj2, int loud) {
          this_player()->do_remove(obj1);
          this_player()->targeted_action(obj1->query_remove_message(), 
             nil, obj1);
+			obj1->after_unwear(this_player(), "give");
       }
    }
 
@@ -76,6 +77,7 @@ static void do_give(object obj1, object obj2, int loud) {
          this_player()->do_unwield(obj1);
          this_player()->targeted_action(obj1->query_unwield_message(), 
             nil, obj1);
+			obj1->after_unwield(this_player(), "give");
       }
    }
 

@@ -61,6 +61,7 @@ int do_wear(object obj, int loud) {
 
    this_player()->do_wear(obj);
    this_player()->targeted_action(obj->query_wear_message(), nil, obj);
+	obj->after_wear(this_player());
    return 1;
 }
 
@@ -89,9 +90,11 @@ static void main(string str) {
       max = sizeof(inv);
       done = 0;
       for (i = 0; i < max; i++) {
-         if (do_wear(inv[i], 0)) {
-            done = 1;
-         }
+			if (inv[i]->wear_hook(this_player())) {
+         	if (do_wear(inv[i], 0)) {
+            	done = 1;
+         	}
+			}
       }
       if (!done) {
          write("You do not have anything to put on.\n");
@@ -100,5 +103,7 @@ static void main(string str) {
    }
 
    obj = this_player()->present(lowercase(str));
-   do_wear(obj, 1);
+	if (obj->wear_hook(this_player())) {
+   	do_wear(obj, 1);
+	}
 }

@@ -3,6 +3,17 @@ static int worn;
 static string wear_message;
 static string remove_message;
 
+/* return 1 to allow this to be worn by player. */
+int wear_hook(object player) {
+	return 1;
+}
+
+void after_wear(object player) {
+}
+
+void after_unwear(object player, string cmd) {
+}
+
 void set_wear_message(string str) {
    wear_message = str;
 }

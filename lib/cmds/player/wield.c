@@ -58,8 +58,9 @@ static int do_wield(object obj, int loud) {
       }
    }
 
-   this_player()->do_wield(obj);
+  	this_player()->do_wield(obj);
    this_player()->targeted_action(obj->query_wield_message(), nil, obj);
+	obj->after_wield(this_player());
    return 1;
 }
 
@@ -90,9 +91,11 @@ static void main(string str) {
       done = 0;
 
       for (i = 0; i < max; i++) {
-         if (do_wield(inv[i], 0)) {
-            done = 1;
-         }
+			if (inv[i]->wield_hook(this_player())) {
+         	if (do_wield(inv[i], 0)) {
+           		done = 1;
+         	}
+			}
       }
 
       if (!done) {
@@ -102,5 +105,7 @@ static void main(string str) {
    }
 
    obj = this_player()->present(lowercase(str));
-   do_wield(obj, 1);
+	if (obj->wield_hook(this_player())) {
+   	do_wield(obj, 1);
+	}
 }

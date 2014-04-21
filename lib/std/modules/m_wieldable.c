@@ -7,6 +7,17 @@ void create(void) {
    type = "single";
 }
 
+/* return 1 to allow player to wield this. */
+int wield_hook(object player) {
+	return 1;
+}
+
+void after_wield(object player) {
+}
+
+void after_unwield(object player, string cmd) {
+}
+
 int is_wieldable(void) {
    return 1;
 }

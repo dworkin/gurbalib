@@ -59,12 +59,14 @@ static void main(string str) {
 	       this_player()->do_remove(obj);
 	       this_player()->targeted_action(obj->query_remove_message(), nil,
 		  obj);
+			obj->after_unwear(this_player(), "sell");
 	    }
 
 	    if (obj->is_wielded()) {
 	       this_player()->do_unwield(obj);
 	       this_player()->targeted_action(obj->query_unwield_message(),
 		  nil, obj);
+			obj->after_unwield(this_player(), "sell");
 	    }
 
 	    if (obj->is_undroppable()) {
