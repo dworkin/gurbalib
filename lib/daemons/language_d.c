@@ -163,3 +163,7 @@ string english_to_racial(string language, string arg) {
    }
    return add_racial(language, englishword);
 }
+
+int language_has_dictionary(string language) {
+	return mappingp(dicts) && mappingp(dicts[language]);
+}
