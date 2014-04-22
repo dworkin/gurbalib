@@ -295,7 +295,14 @@ void set_objects(varargs string filename...) {
 	     if ((inv[j]->file_name() == filename[i]) || 
                (inv[j]->base_name() == filename[i])) {
 	        num--;
-	     }
+	     } else {
+			string tmp;
+			tmp = this_object()->file_name() + "->set_objects(): " +
+				filename[i] + "\n";
+/* XXX why does this log to /logs/nobodycontainer ? */
+			LOG_D->write_log("container", "[" + ctime(time()) + "] " +
+				tmp);
+		  }
 	 }
 
 	 while (num > 0) {
