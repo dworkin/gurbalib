@@ -226,6 +226,7 @@ void do_extra_actions() {
 
 void outside_message(string str) {
    /* XXX some from these can be spoofed with player emotes... */
+	str = ANSI_D->strip_colors(str);
    smiles(str);
    say_hello(str);
    why_did(str);
