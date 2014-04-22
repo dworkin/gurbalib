@@ -21,7 +21,7 @@ void set_owner_name(object player) {
 int activate_cmd(string str) {
 	write("These beads can open pocket dimensions.");
 	if (this_player()->is_player() &&
-	 owner_name == this_player()->query_name()) {
+	 owner_name != this_player()->query_name()) {
 		write("Unfortunately this is not your string of beads.");
 		return 1;
 	}
