@@ -13,8 +13,8 @@ void setup(void) {
 		"the west from here.");
 
    set_exits(([
-    "up" : DIR + "/rooms/cliffs/ledge",
-    "west" : DIR + "/rooms/cliffs/path"
+    "up" : DIR + "/rooms/cliffs/ledge.c",
+    "west" : DIR + "/rooms/cliffs/path.c"
    ]));
 }
 

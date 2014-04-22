@@ -10,7 +10,7 @@ void setup(void) {
 		"of the quest.");
 
    set_exits(([
-    "south" : DIR + "/rooms/oak_grove/oak_grove_middle"
+    "south" : DIR + "/rooms/oak_grove/oak_grove_middle.c"
    ]));
 }
 

@@ -9,7 +9,7 @@ void setup(void) {
    set_long("");
 
    set_exits(([
-    "south" : DIR + "/rooms/cliffs/cave/puzzle_chamber"
+    "south" : DIR + "/rooms/cliffs/cave/puzzle_chamber.c"
    ]));
 }
 

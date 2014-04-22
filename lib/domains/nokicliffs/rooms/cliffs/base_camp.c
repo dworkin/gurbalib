@@ -11,8 +11,8 @@ void setup(void) {
 		"will need some climbing gear.");
 
    set_exits(([
-	 "up" : DIR + "/rooms/cliffs/summit",
-	 "down" : DIR + "/rooms/cliffs/cave/cave_start"
+	 "up" : DIR + "/rooms/cliffs/summit.c",
+	 "down" : DIR + "/rooms/cliffs/cave/cave_start.c"
    ]));
 }
 

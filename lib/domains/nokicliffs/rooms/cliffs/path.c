@@ -11,8 +11,8 @@ void setup(void) {
 		"large. To the west is a mountain plateau.");
 
    set_exits(([
-    "east" : DIR + "/rooms/cliffs/cliff_bottom",
-    "west" : DIR + "/rooms/start"
+    "east" : DIR + "/rooms/cliffs/cliff_bottom.c",
+    "west" : DIR + "/rooms/start.c"
    ]));
 }
 

@@ -12,8 +12,8 @@ void setup(void) {
 		"from here with sure feet.");
 
    set_exits(([
-    "down" : DIR + "/rooms/cliffs/cliff_bottom",
-    "west" : DIR + "/rooms/cliffs/cave/cave_start"
+    "down" : DIR + "/rooms/cliffs/cliff_bottom.c",
+    "west" : DIR + "/rooms/cliffs/cave/cave_start.c"
    ]));
 }
 

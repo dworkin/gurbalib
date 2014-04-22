@@ -9,9 +9,9 @@ void setup(void) {
    set_long("");
 
    set_exits(([
-	 "up" : DIR + "/rooms/cliffs/base_camp",
-    "north" : DIR + "/rooms/cliffs/cave/bust_chamber",
-    "east" : DIR + "/rooms/cliffs/ledge"
+	 "up" : DIR + "/rooms/cliffs/base_camp.c",
+    "north" : DIR + "/rooms/cliffs/cave/bust_chamber.c",
+    "east" : DIR + "/rooms/cliffs/ledge.c"
    ]));
 }
 

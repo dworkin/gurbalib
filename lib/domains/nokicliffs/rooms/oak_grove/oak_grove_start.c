@@ -10,8 +10,8 @@ void setup(void) {
 		"going south.");
 
    set_exits(([
-    "north" : DIR + "/rooms/oak_grove/oak_grove_middle",
-    "south" : DIR + "/rooms/cliffs/summit"
+    "north" : DIR + "/rooms/oak_grove/oak_grove_middle.c",
+    "south" : DIR + "/rooms/cliffs/summit.c"
    ]));
 }
 

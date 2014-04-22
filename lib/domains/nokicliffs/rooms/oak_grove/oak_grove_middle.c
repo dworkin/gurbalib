@@ -10,8 +10,8 @@ void setup(void) {
     "Add exits here to extend the grove or domain in general.");
 
    set_exits(([
-    "north" : DIR + "/rooms/oak_grove/oak_grove_clearing",
-    "south" : DIR + "/rooms/oak_grove/oak_grove_start"
+    "north" : DIR + "/rooms/oak_grove/oak_grove_clearing.c",
+    "south" : DIR + "/rooms/oak_grove/oak_grove_start.c"
    ]));
 }
 

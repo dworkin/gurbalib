@@ -10,8 +10,8 @@ void setup(void) {
 		"looming large. There is a small plateau to the west.");
 
    set_exits(([
-    "east" : DIR + "/rooms/cliffs/path",
-	 "west" : "/domains/2.4.5/rooms/mount_top2"
+    "east" : DIR + "/rooms/cliffs/path.c",
+	 "west" : "/domains/2.4.5/rooms/mount_top2.c"
    ]));
 }
 
