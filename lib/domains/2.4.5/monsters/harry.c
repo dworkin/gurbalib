@@ -215,17 +215,20 @@ void do_extra_actions() {
     "say Why do you look like that?",
     "say What are you doing here?",
     "say Nice weather, isn't it?",
+/* XXX make sure these emotes are available first. */
     "smile", "whistle", "grin" });
    count++;
 
    if (count >= INTERVAL) {
-      respond(is_fighting() ? a_str[random(sizeof(a_str))] : str[random(sizeof(str))]);
+      respond(is_fighting() ?
+			a_str[random(sizeof(a_str))] : str[random(sizeof(str))]);
       count = 0;
    }
 }
 
 void outside_message(string str) {
    /* XXX some from these can be spoofed with player emotes... */
+	/* XXX not all from this is desirable if Harry is in a fight. */
 	str = ANSI_D->strip_colors(str);
    smiles(str);
    say_hello(str);
