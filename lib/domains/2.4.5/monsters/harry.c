@@ -34,7 +34,7 @@ private int is_harry(string str) {
 }
 
 /* XXX get harry from vill_road2.c  Needs lots of work... */
-void why_did(string str) {
+private void why_did(string str) {
    string who, what, tmp;
 
    sscanf(str, "%s %s", who, what);
@@ -58,7 +58,7 @@ void why_did(string str) {
    }
 }
 
-void how_does_it_feel(string str) {
+private void how_does_it_feel(string str) {
    string who, what;
    sscanf(str, "%s %s", who, what);
    if (is_harry(who)) {
@@ -69,7 +69,7 @@ void how_does_it_feel(string str) {
    }
 }
 
-void smiles(string str) {
+private void smiles(string str) {
    string who, what;
 
    sscanf(str, "%s %s", who, what);
@@ -81,7 +81,7 @@ void smiles(string str) {
    }
 }
 
-void say_hello(string str) {
+private void say_hello(string str) {
    string who, what;
 
    sscanf(str, "%s %s", who, what);
@@ -118,38 +118,40 @@ void test_say(string str) {
    respond(message);
 }
 
-void follow(string str) {
+private void follow(string str) {
    string who, where;
 
    if(sscanf(str, "%s leaves %s.\n", who, where) == 2) {
       if (!is_harry(who)) {
-	 respond("go " + where);
+	 		respond("go " + where);
       }
    }
 }
 
-void gives(string str) {
+private void gives(string str) {
    string who, what;
    int rand;
    object obj, next_obj;
 
-   if(sscanf(str, "%s gives the %s to you.\n", who, what) != 2) {
+   if(sscanf(str, "%s gives the %s to you.", who, what) != 2) {
       return;
    }
 
-   if(what == "firebreather" || what == "special" ||
-    what == "beer" || what == "bottle") {
+   if((what == "firebreather" || what == "special" ||
+    what == "beer" || what == "bottle") &&
+		this_object()->present(what)) {
       rand = random(4);
 
       if(rand == 0) {
 	 if(random(10) > 6) {
-	    respond("sigh I guess you're gonna kill me now.");
+	    respond("sigh");
+		 respond("say I guess you're gonna kill me now.");
 	    respond("drop all");
-	    call_other(this_object(), "init_command", "west");
+		 respond("go west");
 	 }
       }
       if(rand == 1) {
-	 call_other(this_object(), "init_command", "drink " + what);
+			respond("drink " + what);
       }
       if(rand == 2) {
 	 respond("drop all");
@@ -169,7 +171,9 @@ void gives(string str) {
 	 notify("Harry returned the " + what + " to " + who + ".\n");
       }
    } else {
-      respond("say Thank you very much, sir.");
+		if (this_object()->present(what)) {
+      	respond("say Thank you very much, sir.");
+		}
    }
 }
 
@@ -215,8 +219,8 @@ void do_extra_actions() {
     "say Why do you look like that?",
     "say What are you doing here?",
     "say Nice weather, isn't it?",
-/* XXX make sure these emotes are available first. */
-    "smile", "whistle", "grin" });
+	 "smile"
+	});
    count++;
 
    if (count >= INTERVAL) {
@@ -228,7 +232,10 @@ void do_extra_actions() {
 
 void outside_message(string str) {
    /* XXX some from these can be spoofed with player emotes... */
-	/* XXX not all from this is desirable if Harry is in a fight. */
+	if (is_fighting()) {
+		return;
+	}
+
 	str = ANSI_D->strip_colors(str);
    smiles(str);
    say_hello(str);
