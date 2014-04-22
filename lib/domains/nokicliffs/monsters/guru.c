@@ -10,6 +10,7 @@ static string *available_emotes;
 
 void setup() {
    set_name("swami");
+	add_id("guru");
    set_gender("male");
    set_short("Swami the Noki Guru");
    set_long("Swami the Noki Guru lives atop the Noki Cliffs. " +
@@ -52,7 +53,7 @@ void do_extra_actions() {
 
 void outside_message(string str) {
    string who, what, where;
-   object shell, player;
+   object shell, player, beads;
 
    str = ANSI_D->strip_colors(str);
    str = lowercase(str);
@@ -70,7 +71,14 @@ void outside_message(string str) {
 		      player->message("Well done, champion.\n");
 		   }
 	 */
-	 		player->message("Guru owes you some pixie dust.\n");
+			beads = find_object(NOKICLIFFS_DIMENSIONAL_BEADS);
+			if (!beads) {
+				compile_object(NOKICLIFFS_DIMENSIONAL_BEADS);
+				beads = clone_object(NOKICLIFFS_DIMENSIONAL_BEADS);
+			}
+			beads->set_owner_name(player);
+			beads->move(player);
+	 		player->message("Swami gives you a string of beads.\n");
       }
    }
 }

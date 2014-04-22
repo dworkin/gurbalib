@@ -7,7 +7,7 @@ void setup(void) {
 
     set_short("The summit of the Noki Cliffs.");
     set_long("You have reached the top of the Noki Cliffs. " +
-      "The air is very tghink up here. It is not easy to " +
+      "The air is very thin up here. It is not easy to " +
       "to here breathe; you probably should not stay here " +
       "for long.");
 
