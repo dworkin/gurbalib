@@ -199,7 +199,7 @@ int query_statbonus(string name) {
       return (3);
    } else if (stat > 17 && stat < 20) {
       return (4);
-   } else if (stat > 29) {
+   } else if (stat > 19) {
       return (5);
    }
    return (0);
