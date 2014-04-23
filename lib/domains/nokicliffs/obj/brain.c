@@ -38,6 +38,7 @@ void summon_guard() {
    env = this_object()->query_environment();
    if (env) {
       if (env->present("guard")) {
+			guard->respond("growl");
          return;
       }
       if (!find_object(NOKICLIFFS_BRAIN_GUARD)) {
@@ -49,7 +50,7 @@ void summon_guard() {
       guard->move(env);
       env->tell_room(this_object(), "The brain's guardian " +
          "appears in a puff of smoke.");
-      guard->respond("say My life for my master.");
+		guard->announce_yourself();
    }
 }
 
@@ -57,11 +58,9 @@ void event_heart_beat() {
    object env;
    env = this_object()->query_environment();
    if (env) {
-      count++;
-      if (count > INTERVAL) {
-         /*
-            env->tell_room(this_object(), "....");
-          */
+      if (++count > INTERVAL) {
+			summon_guard();
+			count = 0;
       }
    }
 }

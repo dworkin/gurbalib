@@ -2,9 +2,6 @@
 
 inherit "/std/monster";
 
-#define INTERVAL 10
-static int count;
-
 void setup() {
    set_name("guard");
    set_gender("male");
@@ -28,13 +25,7 @@ void setup() {
 
 void create() {
    ::create();
-}
-
-void do_extra_actions() {
-   if (random(2) && ++count > INTERVAL) {
-      respond("growl");
-      count = 0;
-   }
+	setup();
 }
 
 void announce_yourself() {
