@@ -3,6 +3,10 @@
 inherit "/std/object";
 inherit "/std/modules/m_block_exits";
 
+void setup() {
+
+}
+
 void create(void) {
    ::create();
    set_id("door");
@@ -13,7 +17,7 @@ void create(void) {
 }
 
 int do_block(object who) {
-   if (who->query_level() < 20) {
+   if (query_mortal(who)) {
       write("The field zaps you as you try to enter it.\n");
       this_environment()->tell_room(this_player(), 
          this_player()->query_Name() + " gets zapped by the force field.");
