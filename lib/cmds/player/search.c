@@ -43,7 +43,7 @@ static void main(string str) {
       if (!call_other(this_player()->query_environment(), "functionp", 
          "do_search")) {
          this_player()->query_environment()->tell_room(this_player(),
-           this_player()->query_Name() + "Meticulously searches the room.\n");
+           this_player()->query_Name() + " meticulously searches the room.\n");
          write("You find nothing.\n");
       } else {
          call_other(this_player()->query_environment(),"do_search","");
@@ -66,7 +66,7 @@ static void main(string str) {
    }
 
    if (obj->is_living()) {
-      write("Thats not acceptable behavior.");
+      write("That's not acceptable behavior.");
       return;
    }
 
