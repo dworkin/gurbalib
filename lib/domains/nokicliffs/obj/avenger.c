@@ -61,7 +61,7 @@ int adjust_hit_bonus_cmd(string arg) {
 	}
 	sscanf(arg, "%d", i);
 	set_hit_bonus(i);
-	write("Master, my hit bonus has been adjusted thus: " + i);
+	write("Master, my hit bonus has been adjusted thus: " + i + ".");
 	return 1;
 }
 
@@ -73,7 +73,7 @@ int adjust_max_damage_cmd(string arg) {
 	}
 	sscanf(arg, "%d", i);
 	set_max_damage(i);
-	write("Master, my max damage has been adjusted thus: " + i);
+	write("Master, my max damage has been adjusted thus: " + i + ".");
 	return 1;
 }
 
@@ -92,10 +92,5 @@ void after_wield(object player) {
 void after_unwield(object player, string cmd) {
 	player->write("Master, I await our next chance to spread our " +
 		"vengeance across the realms!");
-}
-
-static void hit_hook_mask(object attacker, object target, int damage) {
-	::hit_hook_mask(attacker, target, damage);
-	attacker->write("Master, we have spread vengeance! (" + damage + ")");
 }
 
