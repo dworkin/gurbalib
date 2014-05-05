@@ -4,9 +4,11 @@ inherit "/std/monster";
 inherit "/std/modules/m_triggers";
 
 int count;
+int buying_beer;
 #define INTERVAL 5
 
 void setup() {
+	buying_beer = 0;
    set_name("beggar");
    set_gender( "male" );
    set_short("A beggar");
@@ -21,7 +23,7 @@ void setup() {
 void do_extra_actions() {
    count = count + 1;
 
-   if (count >= INTERVAL) {
+   if (buying_beer == 0 && count >= INTERVAL) {
       switch(random(3)) {
          case 0:
            respond("say Please, give money to a poor beggar!");
@@ -36,12 +38,35 @@ void do_extra_actions() {
       count = 0;
    }
 /* May need to change this up.... XXX check for coin and value? */
-   if (this_object()->query_total_money() > 12) {
-      respond("go east");
-      respond("buy beer");
-      respond("drink beer");
-      respond("west");
+/*
+ * respond() uses a callout so we have to string them together
+ * with call_out() that is greater than the delay of respond().
+ * I think.. :)
+ */
+   if (buying_beer == 0 && this_object()->query_total_money() > 12) {
+		buying_beer = 1;
+		call_out("go_east", 5);
    }
+}
+
+static void go_east() {
+	respond("go east");
+	call_out("buy_beer", 5);
+}
+
+static void buy_beer() {
+	respond("buy beer");
+	call_out("drink_beer", 5);
+}
+
+static void drink_beer() {
+	respond("drink beer");
+	call_out("go_west", 5);
+}
+
+static void go_west() {
+	respond("go west");
+	buying_beer = 0;
 }
 
 void outside_message(string str) {
@@ -51,8 +76,7 @@ void outside_message(string str) {
    
    str = str[..x];
 
-   /* XXX need to fix this... if action on the beggar... */
-   if (1) {
+   if (is_fighting() && random(100) < 20) {
       respond("say Why do you do this to me?");
    }
 }
