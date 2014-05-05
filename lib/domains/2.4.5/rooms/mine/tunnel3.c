@@ -1,8 +1,7 @@
 #include "../../domain.h"
 
 inherit "/std/room";
-
-int tied_rope;  /* Flag to note if the rope is here and tied or not.. */
+inherit DIR + "/lib/climb_rope";
 
 void setup(void) {
    add_area("2.4.5");
@@ -17,94 +16,23 @@ void setup(void) {
    add_action("do_tie", "tie");
    add_action("do_untie", "untie");
    add_action("do_climb", "climb");
-   add_action("do_climb", "down");
 
-   add_item("ring","A large iron ring hooked to the wall. " +
+   add_item("ring", "A large iron ring hooked to the wall. " +
       "You could probably tie a rope to it.");
-   add_item("hole","The hole looks very deep an looks unsafe.");
-}
-
-int do_tie(string str) {
-   object obj;
-
-   if (str == "ring" || str == "rope") {
-      obj = this_player()->present("rope");
-      if (obj) {
-         if (tied_rope) {
-            write("You make sure the rope is securely tied to the ring.\n");
-            this_player()->query_environment()->tell_room(this_player(),
-               this_player()->query_Name() + 
-               " makes sure the rope is secure.\n");
-         } else {
-            if (obj->move(this_player()->query_environment())) {
-               obj->set_gettable(0);
-               obj->set_tied("ring");
-               write("You tie the rope to the ring.\n");
-               this_player()->query_environment()->tell_room(this_player(),
-                  this_player()->query_Name() + 
-                  " ties a rope to the ring.\n");
-               tied_rope = 1;
-            }
-         }
-      } else {
-         write("You do not have a rope to tie to the ring.\n");
-      }
-      return 1;
-   }
-   return 0;
-}
-
-int do_untie(string str) {
-   object obj;
-
-   if (str == "ring" || str == "rope") {
-      obj = this_player()->query_environment()->present("rope");
-      if (obj) {
-         if (tied_rope) {
-            obj->set_gettable(1);
-            obj->set_tied("");
-            if (obj->move(this_player())) {
-               write("You untie the rope from the ring, and pick it up.\n");
-               this_player()->query_environment()->tell_room(this_player(),
-                  this_player()->query_Name() + 
-                  " unties the rope.\n");
-               tied_rope = 0;
-            }
-         } else {
-            write("The rope is not tied to anything.\n");
-            this_player()->query_environment()->tell_room(this_player(),
-               this_player()->query_Name() + 
-               " looks longingly at the ring.\n");
-         }
-      } else {
-         write("There is nothing tied to the ring.\n");
-      }
-      return 1;
-   }
-   return 0;
+   add_item("hole", "The hole looks very deep an looks unsafe.");
+   set_rooms_to_notify(( {
+         DIR + "/rooms/mine/tunnel8", DIR + "/rooms/mine/tunnel9"})
+      );
 }
 
 int do_climb(string str) {
-
-   if (!str || (str == "") || (str == "down") || (str == "rope")) {
-      if (tied_rope) {
-         this_player()->move(DIR + "/rooms/mine/tunnel8.c");
-         write("You climb down the rope.\n");
-         tell_room(this_player(),
-            this_player()->query_Name() + " climbs down the rope.\n");
-         this_player()->query_environment()->tell_room(this_player(),
-            this_player()->query_Name() + " climbs down the rope.\n");
-         this_player()->do_look(0);
-      } else {
-         write("You would fall down the hole and possibly hurt yourself.\n");
-         tell_room(this_player(), this_player()->query_Name() + 
-            " attempts to go down the hole and fails.\n");
-      }
-      return 1;
+   if (query_tied()) {
+      move_player(this_player(), this_object(), "down",
+         DIR + "/rooms/mine/tunnel8.c");
+   } else {
+      write("You would fall down the hole and possibly hurt yourself.\n");
+      tell_room(this_player(), this_player()->query_Name() +
+         " attempts to go down the hole and fails.\n");
    }
-   return 0;
-}
-
-int query_tied() {
-   return tied_rope;
+   return 1;
 }
