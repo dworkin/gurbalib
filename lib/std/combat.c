@@ -12,7 +12,8 @@ mapping killed_by;
 /* #define DEBUG 1 */
 
 void create(void) {
-   targets = ( { } );
+   targets = ( {
+      });
    fighting = 0;
 }
 
@@ -22,7 +23,7 @@ int is_fighting(void) {
 
 mapping query_killed_by() {
    if (!killed_by) {
-      killed_by = ([ ]);
+      killed_by = ([]);
    }
    return killed_by;
 }
@@ -37,21 +38,22 @@ int query_kills() {
 
 void killed_by(object who, int t) {
    if (!killed_by) {
-      killed_by = ([ ]);
+      killed_by = ([]);
    }
    killed_by[t] = who;
 }
 
 int query_killed() {
    if (!killed_by) {
-      killed_by = ([ ]);
+      killed_by = ([]);
    }
    return sizeof(map_indices(killed_by));
 }
 
 void halt_fight(void) {
    fighting = 0;
-   targets = ( { } );
+   targets = ( {
+      });
 }
 
 int run_away() {
@@ -61,8 +63,7 @@ int run_away() {
 
    dir = this_object()->query_env("wimpydir");
 
-   if (!empty_str(dir) && 
-      this_object()->query_environment()->query_exit(dir)) {
+   if (!empty_str(dir) && this_object()->query_environment()->query_exit(dir)) {
       write("You attempt to run " + dir + ".\n");
       error = this_object()->this_environment()->body_exit(this_object(), dir);
       if (error) {
@@ -70,7 +71,7 @@ int run_away() {
       } else {
          return 1;
       }
-   } else if (!empty_str(dir) && 
+   } else if (!empty_str(dir) &&
       this_object()->query_environment()->query_hidden_exit(dir)) {
       write("You attempt to run " + dir + ".\n");
       error = this_object()->this_environment()->body_exit(this_object(), dir);
@@ -85,14 +86,13 @@ int run_away() {
       if (exits) {
          x = sizeof(exits);
          if (x < 1) {
-            write("You attempt to run away but can not find " +
-               "an exit.\n");
+            write("You attempt to run away but can not find " + "an exit.\n");
          } else {
             y = random(x) + 1;
-this_object()->message("RUNAWAY : " + exits[y] + "\n");
+            this_object()->message("RUNAWAY : " + exits[y] + "\n");
             write("You attempt to run " + exits[y] + ".\n");
             error = this_object()->this_environment()->body_exit(this_object(),
-		exits[y]);
+               exits[y]);
             if (error) {
                write(error);
             } else {
@@ -100,8 +100,7 @@ this_object()->message("RUNAWAY : " + exits[y] + "\n");
             }
          }
       } else {
-            write("You attempt to run away but can not find " +
-               "an exit.\n");
+         write("You attempt to run away but can not find " + "an exit.\n");
       }
    }
    return 0;
@@ -112,7 +111,7 @@ void receive_damage(object who, int dam) {
 
    this_object()->message("%^RED%^You took " + dam + " damage from " +
       who->query_id() + ".%^RESET%^");
-   
+
    if (this_object()->query_hp() <= dam) {
       x = this_object()->query_max_hp();
       this_object()->killed_by(who, time());
@@ -153,7 +152,7 @@ int query_defense(void) {
    max = sizeof(armor);
    for (i = 0; i < max; i++) {
       if (armor[i]->is_armor()) {
-	 me += armor[i]->query_ac();
+         me += armor[i]->query_ac();
       }
    }
 
@@ -161,7 +160,7 @@ int query_defense(void) {
    max = sizeof(armor);
    for (i = 0; i < max; i++) {
       if (armor[i]->is_armor()) {
-	 me += armor[i]->query_ac();
+         me += armor[i]->query_ac();
       }
    }
 
@@ -181,9 +180,9 @@ int do_swing(int me) {
    opponent_roll = random(opponent + 1);
 
 #ifdef DEBUG
-      this_object()->message("Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" +
-         me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" +
-         opponent + "%^RESET%^]");
+   this_object()->message("Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" +
+      me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" +
+      opponent + "%^RESET%^]");
 #endif
 
    if (me_roll > opponent_roll) {
@@ -197,35 +196,42 @@ object get_target(object targ) {
 
    if (targ) {
       if (targ->is_dead()) {
-	 targets -= ( { targ } );
-	 if (sizeof(targets) == 0) {
-	    fighting = 0;
+         targets -= ( {
+            targ}
+         );
+         if (sizeof(targets) == 0) {
+            fighting = 0;
          }
       } else if (targ->query_environment() ==
-	 this_object()->query_environment()) {
-	 fighting = FIGHTING_TIMEOUT;
-	 return targ;
+         this_object()->query_environment()) {
+         fighting = FIGHTING_TIMEOUT;
+         return targ;
       }
    }
    max = sizeof(targets);
    for (i = 0; i < max; i++) {
       if (targets[i] && targets[i]->is_dead()) {
-	 targets -= ( { targets[i] } );
-         i--; max--; 	/* shorten up our array.... */
-	 if (sizeof(targets) == 0) {
-	    fighting = 0;
-	    i = max;
-	 }
+         targets -= ( {
+            targets[i]}
+         );
+         i--;
+         max--;                 /* shorten up our array.... */
+         if (sizeof(targets) == 0) {
+            fighting = 0;
+            i = max;
+         }
       }
       if (targets[i] && (targets[i]->query_environment() ==
-	    this_object()->query_environment())) {
-	 fighting = FIGHTING_TIMEOUT;
-	 return targets[i];
+            this_object()->query_environment())) {
+         fighting = FIGHTING_TIMEOUT;
+         return targets[i];
       }
    }
    fighting = fighting - 1;
    if (fighting < 1) {
-      targets = ( { } );
+      targets = ( {
+         }
+      );
    }
    return nil;
 }
@@ -249,48 +255,47 @@ void attack_with(string skill, object weapon, object target) {
 
    if (!weapon) {
       me = (this_object()->query_skill("combat/unarmed") / 50) +
-	 this_object()->query_statbonus("str");
+         this_object()->query_statbonus("str");
    } else {
       me = (this_object()->query_skill(weapon->query_weapon_skill()) / 50)
-	 + this_object()->query_statbonus("str")
-	 + weapon->query_hit_bonus();
+         + this_object()->query_statbonus("str")
+         + weapon->query_hit_bonus();
    }
 
    if (do_swing(me) == 1) {
       if (!weapon) {
-	 damage = random(3) + this_object()->query_statbonus("str");
-	 tmp = this_object()->query_skill("combat/unarmed") +
-	    this_object()->query_skill("combat/unarmed") / 2;
-	 if (tmp <= target->query_skill("combat/defense")) {
-	    this_object()->learn_skill(this_object()->query_hit_skill());
-	    this_object()->message("Learn: hit_skill, " +
-	       this_object()->query_skill("combat/unarmed"));
-	 }
+         damage = random(3) + this_object()->query_statbonus("str");
+         tmp = this_object()->query_skill("combat/unarmed") +
+            this_object()->query_skill("combat/unarmed") / 2;
+         if (tmp <= target->query_skill("combat/defense")) {
+            this_object()->learn_skill(this_object()->query_hit_skill());
+            this_object()->message("Learn: hit_skill, " +
+               this_object()->query_skill("combat/unarmed"));
+         }
 
-	 this_object()->targeted_action("$N $vhit $T.", target);
+         this_object()->targeted_action("$N $vhit $T.", target);
 
       } else {
-	 damage = this_object()->query_statbonus("str") +
-	    random((weapon->query_max_damage() -
-	       weapon->query_min_damage())) + weapon->query_min_damage();
-	 tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
-	    this_object()->query_skill(weapon->query_weapon_skill()) / 2;
-	 if (tmp <= target->query_skill("combat/defense")) {
-	    this_object()->learn_skill(weapon->query_weapon_skill());
-	    this_object()->message("Learn: hit_skill, " +
-	       this_object()->query_skill(weapon->query_weapon_skill()));
-	 }
+         damage = this_object()->query_statbonus("str") +
+				weapon->query_weapon_damage();
+         tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
+            this_object()->query_skill(weapon->query_weapon_skill()) / 2;
+         if (tmp <= target->query_skill("combat/defense")) {
+            this_object()->learn_skill(weapon->query_weapon_skill());
+            this_object()->message("Learn: hit_skill, " +
+               this_object()->query_skill(weapon->query_weapon_skill()));
+         }
 
-	 this_object()->targeted_action("$N " +
-	    weapon->query_weapon_action() + " $T with a " +
-	    weapon->query_id() + ".", target);
+         this_object()->targeted_action("$N " +
+            weapon->query_weapon_action() + " $T with a " +
+            weapon->query_id() + ".", target);
       }
 
       this_object()->damage_target(damage, target);
    } else {
       string miss;
 
-      if (weapon) { 
+      if (weapon) {
          miss = weapon->query_weapon_miss();
       }
 
@@ -301,15 +306,15 @@ void attack_with(string skill, object weapon, object target) {
       }
 
       if (!weapon) {
-	 tmp = this_object()->query_skill("combat/unarmed") +
-	    this_object()->query_skill("combat/unarmed") / 2;
+         tmp = this_object()->query_skill("combat/unarmed") +
+            this_object()->query_skill("combat/unarmed") / 2;
       } else {
-	 tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
-	    this_object()->query_skill(weapon->query_weapon_skill()) / 2;
+         tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
+            this_object()->query_skill(weapon->query_weapon_skill()) / 2;
       }
       if (target->query_skill("combat/defense") <= tmp) {
-	 target->learn_skill("combat/defense");
-	 target->message("Learn: defense, " + 
+         target->learn_skill("combat/defense");
+         target->message("Learn: defense, " +
             this_object()->query_skill("combat/defense"));
       }
    }
@@ -325,7 +330,7 @@ void cast_spell(object target) {
    if (!message || (message == "")) {
       message = "Casts an unamed spell at $t.";
    }
-   message =  replace_string(message, "$t", target->query_name());
+   message = replace_string(message, "$t", target->query_name());
 
    target->query_environment()->tell_room(this_object(), message);
 
@@ -333,7 +338,7 @@ void cast_spell(object target) {
 }
 
 string get_color(int x, int maxx) {
-   int y,z;
+   int y, z;
 
    z = (maxx / 3) + 1;
    y = maxx - z;
@@ -357,19 +362,19 @@ string get_status(object thing) {
 
    tmp = thing->query_hp();
    tmpmax = thing->query_max_hp();
-   col = get_color(tmp,tmpmax);
+   col = get_color(tmp, tmpmax);
    line = col + "HP[" + tmp + "/" + tmpmax + "]%^RESET%^";
 
    tmp = thing->query_mana();
    tmpmax = thing->query_max_mana();
-   col = get_color(tmp,tmpmax);
+   col = get_color(tmp, tmpmax);
    line += " " + col + "MANA[" + tmp + "/" + tmpmax + "]%^RESET%^";
 
    tmp = thing->query_end();
    tmpmax = thing->query_max_end();
-   col = get_color(tmp,tmpmax);
+   col = get_color(tmp, tmpmax);
    line += " " + col + "END[" + tmp + "/" + tmpmax + "]%^RESET%^";
-   line += "\tEXP: " +  thing->query_expr();
+   line += "\tEXP: " + thing->query_expr();
 
    return line;
 }
@@ -394,15 +399,15 @@ void do_fight(void) {
       max = sizeof(weapons);
 
       if (max == 0) {
-	 this_object()->attack_with("combat/unarmed", nil, target);
+         this_object()->attack_with("combat/unarmed", nil, target);
       } else {
-	 for (i = 0; i < max; i++) {
-	    if (!weapons[i]->query_offensive()) {
-	       continue;
+         for (i = 0; i < max; i++) {
+            if (!weapons[i]->query_offensive()) {
+               continue;
             }
-	    this_object()->attack_with(weapons[i]->query_weapon_skill(), 
+            this_object()->attack_with(weapons[i]->query_weapon_skill(),
                weapons[i], target);
-	 }
+         }
       }
 
 #ifdef DEBUG
@@ -421,22 +426,30 @@ void do_fight(void) {
 
 void attacked_by(object who) {
    if (!targets) {
-      targets = ( { } );
+      targets = ( {
+         }
+      );
    }
-   targets += ( { who } );
+   targets += ( {
+      who}
+   );
    target = who;
    fighting = FIGHTING_TIMEOUT;
 }
 
 void attack(object who) {
    if (!targets) {
-      targets = ( { } );
+      targets = ( {
+         }
+      );
    }
    if (who->is_dead()) {
       return;
    }
 
-   targets += ( { who } );
+   targets += ( {
+      who}
+   );
    fighting = FIGHTING_TIMEOUT;
    target = who;
    who->attacked_by(this_object());
