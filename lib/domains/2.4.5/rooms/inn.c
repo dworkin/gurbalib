@@ -11,7 +11,7 @@ void setup(void) {
 
    set_objects(
         DIR + "/monsters/innkeep.c",
-        "/domains/required/objects/mer_sign.c",
+        "/domains/required/objects/mer_sign.c"
    );
 
    add_exit("east", DIR + "/rooms/eastroad5.c");
