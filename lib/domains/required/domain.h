@@ -1,0 +1,2 @@
+#define DIR "/domains/required"
+
