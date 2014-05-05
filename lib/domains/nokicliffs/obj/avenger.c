@@ -18,7 +18,8 @@ string query_long() {
 	return str;
 }
 
-void setup(void) {
+void setup() {
+	::setup();
    set_id("avenger", "falchion", "avenging falchion");
    set_adj("avenging");
    set_short("An avenging falchion of the immortals");
@@ -91,5 +92,10 @@ void after_wield(object player) {
 void after_unwield(object player, string cmd) {
 	player->write("Master, I await our next chance to spread our " +
 		"vengeance across the realms!");
+}
+
+static void hit_hook_mask(object attacker, object target, int damage) {
+	::hit_hook_mask(attacker, target, damage);
+	attacker->write("Master, we have spread vengeance! (" + damage + ")");
 }
 
