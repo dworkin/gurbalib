@@ -9,7 +9,7 @@ static int count;
 void setup() {
    set_name("harry");
    add_id("fjant");
-   set_gender( "male" );
+   set_gender("male");
    add_adj("affectionate");
    set_short("Harry the affectionate");
    set_long("Harry has an agreeable look.");
@@ -38,7 +38,7 @@ private void why_did(string str) {
    string who, what, tmp;
 
    sscanf(str, "%s %s", who, what);
-   if(is_harry(who)) {
+   if (is_harry(who)) {
       return;
    }
    if (sscanf(what, "sells %*s") == 1) {
@@ -93,37 +93,46 @@ private void say_hello(string str) {
    }
 }
 
-void test_say(string str) {
+private int contains(string needle, string hay) {
+   return sscanf(hay, "%*s" + needle + "%*s") == 2;
+}
+
+void handle_say(string str) {
    string a, b, message;
 
    sscanf(str, "%s %s", a, b);
-   if(a == "harry" || a == "Harry") return;
-   if (!sscanf(str, "%s says: %s\n", a, b) == 2) return;
+   if (is_harry(a)) {
+      return;
+   }
+   if (sscanf(str, "%s says: %s\n", a, b) != 2) {
+      return;
+   }
 
-   str = b;
+   str = lowercase(b);
 
-   if (str == "hello" || str == "hi" || str == "hello everybody") {
+   if (contains("hello", str) || contains("hi", str) ||
+      contains("hello everybody", str)) {
       message = "say Pleased to meet you!";
    }
-   if (str == "shut up") {
+   if (contains("shut up", str)) {
       message = "say Why do you want me to shut up ?";
    }
-   if (sscanf(str, "%sstay here%s", a, b) == 2 ||
-    sscanf(str, "%snot follow%s", a, b) == 2 ||
-    sscanf(str, "%sget lost%s", a, b) == 2) {
-
+   if (contains("stay here", str) || contains("not follow", str) ||
+      contains("get lost", str)) {
       message = "say Ok then.";
    }
-   if(!message) message = "say Why do you say '" + str + "'???";
+   if (!message) {
+      message = "say Why do you say '" + str + "'???";
+   }
    respond(message);
 }
 
 private void follow(string str) {
    string who, where;
 
-   if(sscanf(str, "%s leaves %s.\n", who, where) == 2) {
+   if (sscanf(str, "%s leaves %s.\n", who, where) == 2) {
       if (!is_harry(who)) {
-	 		respond("go " + where);
+         respond("go " + where);
       }
    }
 }
@@ -132,61 +141,53 @@ private void gives(string str) {
    string who, what;
    int rand;
    object obj, next_obj;
+	object who_obj;
 
-   if(sscanf(str, "%s gives the %s to you.", who, what) != 2) {
+   if (sscanf(str, "%s gives the %s to you.", who, what) != 2) {
       return;
    }
 
-   if((what == "firebreather" || what == "special" ||
-    what == "beer" || what == "bottle") &&
-		this_object()->present(what)) {
+   if ((what == "firebreather" || what == "special" ||
+         what == "beer" || what == "bottle") && this_object()->present(what)) {
       rand = random(4);
 
-      if(rand == 0) {
-	 if(random(10) > 6) {
-	    respond("sigh");
-		 respond("say I guess you're gonna kill me now.");
-	    respond("drop all");
-		 respond("go west");
-	 }
+      if (rand == 0) {
+         if (random(10) > 6) {
+            respond("sigh");
+            respond("say I guess you're gonna kill me now.");
+            respond("drop all");
+            respond("go west");
+         }
       }
-      if(rand == 1) {
-			respond("drink " + what);
+      if (rand == 1) {
+         respond("drink " + what);
       }
-      if(rand == 2) {
-	 respond("drop all");
+      if (rand == 2) {
+         respond("drop " + what);
       }
-      if(rand == 3) {
-	 obj = this_object()->present(what);
-	 if (obj) {
-	    obj->move(who);
-	    notify("Harry returned the " + what + " to " + who + ".\n");
-	 }
+      if (rand == 3) {
+         obj = this_object()->present(what);
+         if (obj) {
+            respond("give " + what + " to " + who);
+         }
       }
-   } else if(what == "corpse") {
+   } else if (what == "corpse") {
       respond("say HEY, bury your corpses yourself, asshole.");
       obj = this_object()->present(what);
       if (obj) {
-	 obj->move(who);
-	 notify("Harry returned the " + what + " to " + who + ".\n");
+			respond("give corpse to " + who);
       }
    } else {
-		if (this_object()->present(what)) {
-      	respond("say Thank you very much, sir.");
-		}
+      if (this_object()->present(what)) {
+			who_obj = this_object()->query_environment()->present(who);
+			/* XXX sir, ma'am, creature... */
+         respond("say Thank you very much, sir.");
+      }
    }
 }
 
+/* XXX implement this. */
 void monster_died() {
-   object obj, b;
-   int num;
-
-   /* XXX  drop all make sure bottles break.... */
-
-   if (num) {
-      notify("There is a crushing sound of bottles breaking, " +
-       "as the body falls.\n");
-   }
 }
 
 int down() {
@@ -198,48 +199,44 @@ void do_extra_actions() {
    string *a_str;
    string *str;
 
-   a_str = ({
-    "say Don't hit men",
-    "say That hurt!",
-    "say Help, someone!",
-    "say Why can't you go bullying elsewhere?",
-    "say Aooooo!",
-    "say I hate bashers!\n",
-    "say Bastard\n",
-    "say You big brute!\n"            
-   });
+   a_str = ( {
+      "say Don't hit men",
+         "say That hurt!",
+         "say Help, someone!",
+         "say Why can't you go bullying elsewhere?",
+         "say Aooooo!",
+         "say I hate bashers!\n", "say Bastard\n", "say You big brute!\n"});
 
-   str = ({
-    "say What are you waiting for?",
-    "say Hello there!",
-    "say I don't like winter.",
-    "say I don't like snow.",
-    "say I don't like rain.",
-    "say Who are you?",
-    "say Why do you look like that?",
-    "say What are you doing here?",
-    "say Nice weather, isn't it?",
-	 "smile"
-	});
+   str = ( {
+      "say What are you waiting for?",
+         "say Hello there!",
+         "say I don't like winter.",
+         "say I don't like snow.",
+         "say I don't like rain.",
+         "say Who are you?",
+         "say Why do you look like that?",
+         "say What are you doing here?",
+         "say Nice weather, isn't it?", "smile"});
    count++;
 
    if (count >= INTERVAL) {
-      respond(is_fighting() ?
-			a_str[random(sizeof(a_str))] : str[random(sizeof(str))]);
+      respond(is_fighting()?
+         a_str[random(sizeof(a_str))] : str[random(sizeof(str))]);
       count = 0;
    }
 }
 
 void outside_message(string str) {
    /* XXX some from these can be spoofed with player emotes... */
-	if (is_fighting()) {
-		return;
-	}
+   if (is_fighting()) {
+      return;
+   }
 
-	str = ANSI_D->strip_colors(str);
+   str = ANSI_D->strip_colors(str);
    smiles(str);
    say_hello(str);
    why_did(str);
    follow(str);
    gives(str);
+   handle_say(str);
 }
