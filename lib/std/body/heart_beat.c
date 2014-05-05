@@ -142,7 +142,7 @@ void die(void) {
       inv[i]->move(obj);
    }
 
-   obj->set_name("corpse of " + this_object()->query_Name());
+   obj->set_name(this_object()->query_name());
    obj->move(this_object()->query_environment());
 
    if (this_object()->is_player()) {
@@ -151,6 +151,9 @@ void die(void) {
       this_object()->message("You have died.");
       this_object()->clear_money();
    } else {
+		if (this_object()<-"/std/monster") {
+			this_object()->monster_died();
+		}
       EVENT_D->unsubscribe_event("heart_beat");
       this_object()->destruct();
    }

@@ -140,3 +140,6 @@ int query_spell_damage() {
 string query_spell_message() {
    return spell_message;
 }
+
+void monster_died() {
+}

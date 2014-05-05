@@ -2,6 +2,8 @@ inherit "/std/container";
 
 static string orig_name;
 
+void setup() { }
+
 void create(void) {
    ::create();
    if (clone_num() != 0)
