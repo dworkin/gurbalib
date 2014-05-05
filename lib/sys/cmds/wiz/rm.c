@@ -19,12 +19,42 @@ void usage() {
    this_player()->more(lines);
 }
 
+/* This doesn't totally work right fix it XXX */
 int recursive_remove_dir(string file) {
+   mixed *files;
+   string *names;
+   int x, maxx;
+   string path;
 
-   /* XXX Do this so you can recursively remove a directory... */
+write("Removing files from dir: " + file + "\n");
+   files = get_dir(file);
+   names = files[0];
 
-   write(file + ": Not empty.\n");
-   return 0;
+   maxx = sizeof(names);
+   for (x=0; x<maxx; x++) {
+      path = file + "/" + names[x];
+write("Trying to remove " + x + "/" + maxx + " : " + path + "\n");
+
+      if (file_exists(path) == -1) {
+write("Woo here \n");
+         recursive_remove_dir(path);
+      } else if (file_exists(path) == 0) {
+         write("Error no such file " + path + "\n");
+      } else {
+         if (!remove_file(path)) {
+	    write(path + ": Unable to delete.\n");
+         } else {
+            write("Removing: " + path + "\n");
+         }
+      }
+   }
+
+   if (remove_dir(file)) {
+      return 1;
+   } else {
+      write(file + ": not empty.\n");
+      return 0;
+   }
 }
 
 static void main(string arg) {
