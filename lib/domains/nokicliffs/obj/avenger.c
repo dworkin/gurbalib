@@ -35,6 +35,14 @@ void setup() {
 	add_action("adjust_max_damage_cmd", "md");
 	add_action("adjust_hit_bonus_cmd", "hb");
 	add_action("consider_cmd", "consider");
+	add_action("bump_hit_points_cmd", "maxhp");
+}
+
+int bump_hit_points_cmd(string str) {
+	this_player()->set_max_hp(1000);
+	write("Your max hit points have been increased. You might want " +
+		"to heal yourself.");
+	return 1;
 }
 
 int consider_cmd(string str) {
