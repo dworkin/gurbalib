@@ -40,6 +40,26 @@ void set_light(int flag) {
    light = flag;
 }
 
+private int lighted_light(object obj) {
+	return obj<-"/std/light" && obj->query_lit();
+}
+
+private int object_is_lighted(object obj) {
+	object *objs;
+	int     i, dim;
+
+	if (obj->is_living()) {
+		objs = obj->query_inventory();
+		for (i = 0, dim = sizeof(objs); i < dim; i++) {
+			if (lighted_light(objs[i])) {
+				return 1;
+			}
+		}
+	}
+		
+	return lighted_light(obj);
+}
+
 int is_dark() {
    object* objs;
    int x;
@@ -51,7 +71,7 @@ int is_dark() {
    if (is_container()) {
       objs = query_inventory();
       for (x=sizeof(objs) -1; x >= 0; x--) {
-         if (objs[x]->is_lit()) {
+         if (object_is_lighted(objs[x])) {
             return 0;
          }
       }

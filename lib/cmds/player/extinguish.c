@@ -25,32 +25,6 @@ void usage() {
 }
 
 static void main(string str) {
-   object obj;
-
-   if (empty_str(str)) {
-      usage();
-      return;
-   }
-
-   if (sscanf(str, "-%s", str)) {
-      usage();
-      return;
-   }
-
-   obj = this_player()->present(lowercase(str));
-   if (!obj) {
-      write("Extinguish what?\n");
-      return;
-   }
-
-   if (obj->extinguish()) {
-      this_player()->query_environment()->tell_room(this_player(),
-         this_player()->query_Name() + " extinguishes the " + 
-         obj->query_id() + "\n");
-      write("You extinguish the " + obj->query_id() + ".\n");
-   } else {
-      this_player()->query_environment()->tell_room(this_player(),
-         this_player()->query_Name() + " fumbles around with a " + 
-         obj->query_id() + "\n");
-   }
+	usage();
 }
+
