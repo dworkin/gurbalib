@@ -236,6 +236,24 @@ object get_target(object targ) {
    return nil;
 }
 
+private int calculate_extra_damage(object aggressor, object target,
+                                   object weapon, int damage) {
+	int extra_damage;
+	int v;
+
+	extra_damage = damage;
+
+	v = target->is_vulnerable(weapon->query_materials());
+	aggressor->message("::" + dump_value(weapon->query_materials()));
+	aggressor->message("::" + dump_value(target->query_vulnerabilities()));
+	aggressor->message("::" + v);
+	if (v) {
+		extra_damage += (damage / 3);
+	}
+
+	return extra_damage;
+}
+
 void attack_with(string skill, object weapon, object target) {
    int me, tmp, damage;
 
@@ -285,6 +303,9 @@ void attack_with(string skill, object weapon, object target) {
             this_object()->message("Learn: hit_skill, " +
                this_object()->query_skill(weapon->query_weapon_skill()));
          }
+
+			damage = calculate_extra_damage(this_object(), target, weapon, damage);
+			weapon->hit_hook(this_object(), target, damage);
 
          this_object()->targeted_action("$N " +
             weapon->query_weapon_action() + " $T with a " +

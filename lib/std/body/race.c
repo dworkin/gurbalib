@@ -6,6 +6,7 @@
 
 string race;
 object race_object;
+string *vulnerabilities;
 
 void initialize_stats(void);
 
@@ -34,3 +35,30 @@ object query_race_object(void) {
    return (race_object);
 
 }
+
+void set_vulnerabilities(string *new_vulnerabilities) {
+	vulnerabilities = new_vulnerabilities;
+}
+
+void add_vulnerability(string vulnerability) {
+	if (!vulnerabilities) {
+		vulnerabilities = ({ });
+	}
+	vulnerabilities += ({ vulnerability });
+	vulnerabilities = uniq_array(vulnerabilities);
+}
+
+string *query_vulnerabilities() {
+	if (!vulnerabilities) {
+		vulnerabilities = ({ });
+	}
+	return vulnerabilities;
+}
+
+int is_vulnerable(string *test_vulnerabilities) {
+	if (!vulnerabilities) {
+		vulnerabilities = ({ });
+	}
+	return sizeof(set_intersection(vulnerabilities, test_vulnerabilities));
+}
+

@@ -8,6 +8,7 @@ int hit_bonus;
 string weapon_skill;
 string weapon_action;
 string weapon_miss;
+string *materials;
 
 void create(void) {
    ob::create();
@@ -17,6 +18,23 @@ void create(void) {
    hit_bonus = 0;
    weapon_class = 0;
    weapon_action = "bonk";
+	materials = ({ });
+}
+
+string *query_materials() {
+	return materials;
+}
+
+void set_materials(string *new_materials) {
+	materials = new_materials;
+}
+
+void add_material(string material) {
+	if (!materials) {
+		materials = ({ });
+	}
+	materials += ({ material });
+	materials = uniq_array(materials);
 }
 
 int query_offensive(void) {
@@ -85,4 +103,8 @@ string query_weapon_skill(void) {
 
 int query_weapon_damage(void) {
    return (random(max_damage - min_damage) + min_damage);
+}
+
+void hit_hook(object aggressor, object victim, int damage) {
+	aggressor->message("hit_hook.... "+damage);
 }
