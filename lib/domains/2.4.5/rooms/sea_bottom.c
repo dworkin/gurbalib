@@ -11,4 +11,7 @@ void setup(void) {
    add_exit("up", DIR + "/rooms/sea.c");
 
    set_objects (DIR + "/monsters/octopus.c");
+#ifdef USE_NOKICLIFFS
+	add_object(NOKICLIFFS_SEASHELL, 1);
+#endif
 }
