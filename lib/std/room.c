@@ -47,9 +47,10 @@ private int object_is_lighted(object obj) {
 	if (obj->is_living()) {
 		objs = obj->query_inventory();
 		for (i = 0, dim = sizeof(objs); i < dim; i++) {
-			l = objs[i]->query_lit();
-			if (!nilp(l) && l) {
-				return 1;
+			if (objs[i]->functionp("query_lit")) {
+				if (objs[i]->query_list()) {
+					return 1;
+				}
 			}
 		}
 	}
