@@ -7,3 +7,7 @@ void setup() {
 	add_area("2.4.5");
 }
 
+int ok_to_teleport() {
+	return 1;
+}
+
