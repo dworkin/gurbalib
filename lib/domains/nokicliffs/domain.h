@@ -7,3 +7,6 @@
 #define NOKICLIFFS_BRAIN_GUARD DIR + "/monsters/brain_guard.c"
 
 #define TELL_ROOM(o, str) o->query_environment()->tell_room(o, str)
+
+#define WIZHAT_COST 10
+

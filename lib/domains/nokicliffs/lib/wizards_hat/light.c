@@ -44,13 +44,13 @@ nomask int light_cmd(string str) {
          return 1;
       }
       TELL_ROOM(this_player(), this_player()->query_Name() + " says: lux!");
-      enough_mana = this_player()->query_mana() > 10;
+      enough_mana = this_player()->query_mana() > WIZHAT_COST;
       if (!enough_mana) {
          write("Your wizard's hat fizzles as you don't have enough mana " +
             "for that action.");
          return 1;
       }
-		this_player()->set_mana(this_player()->query_mana() - 10);
+		this_player()->set_mana(this_player()->query_mana() - WIZHAT_COST);
       light();
       write("*poof*");
       TELL_ROOM(this_player(), this_player()->query_Name() + "'s wizard's " +

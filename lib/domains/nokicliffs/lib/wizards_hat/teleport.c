@@ -42,7 +42,7 @@ nomask int teleport_cmd(string str) {
    }
    TELL_ROOM(this_player(),
       this_player()->query_Name() + " says: hoppla jump!");
-   enough_mana = this_player()->query_mana() > 10;
+   enough_mana = this_player()->query_mana() > WIZHAT_COST;
    if (!enough_mana) {
       write("Your wizard's hat fizzles as you " +
          "don't have enough mana for that action.");
@@ -57,7 +57,7 @@ nomask int teleport_cmd(string str) {
       TELL_ROOM(this_player(), this_player()->query_Name() + " disappears " +
          "in a puff of smoke.");
       write("*poof*");
-      this_player()->set_mana(this_player()->query_mana() - 10);
+      this_player()->set_mana(this_player()->query_mana() - WIZHAT_COST);
       this_player()->move(obj);
       this_player()->do_look(0);
       TELL_ROOM(this_player(), this_player()->query_Name() + " appears in a " +

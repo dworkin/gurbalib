@@ -41,6 +41,7 @@ private void add_actions() {
    add_action("teleport_cmd", "hoppla");
    add_action("light_cmd", "lux");
    add_action("unlight_cmd", "finito");
+	add_action("heal_cmd", "
 }
 
 void setup(void) {
