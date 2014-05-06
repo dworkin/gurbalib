@@ -38,6 +38,26 @@ int is_container(void) {
    return 1;
 }
 
+private int baneful(object aggressor, object victim) {
+	object *inv;
+	string *aggressor_banes;
+	int     i, dim;
+
+	aggressor_banes = aggressor->query_banes();
+	if (victim->query_baneful(aggressor_banes)) {
+		return 1;
+	}
+
+	inv = victim->query_inventory();
+	for (i = 0, dim = sizeof(inv); i < dim; i++) {
+		if (inv[i]->query_baneful(aggressor_banes)) {
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
 void object_arrived(object obj) {
    int amount, x;
    string type;
@@ -56,7 +76,7 @@ void object_arrived(object obj) {
       inv = this_object()->query_inventory();
 
       for (x = sizeof(inv) - 1; x >= 0; x--) {
-         if (inv[x]->query_aggressive()) {
+         if (inv[x]->query_aggressive() && !baneful(inv[x], obj)) {
             inv[x]->attack(obj);
          }
       }
@@ -67,7 +87,7 @@ void object_arrived(object obj) {
       inv = this_object()->query_inventory();
 
       for (x = sizeof(inv) - 1; x >= 0; x--) {
-         if (inv[x]->is_player()) {
+         if (inv[x]->is_player() && !baneful(obj, inv[x])) {
             obj->attack(inv[x]);
          }
       }

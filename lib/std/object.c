@@ -1,6 +1,7 @@
 #include <type.h>
 inherit "/std/body/size";	/* satch */
 inherit "/std/modules/m_autoload_filename";
+inherit "/std/modules/m_bane";
 
 static string short_desc;
 string long_desc;
