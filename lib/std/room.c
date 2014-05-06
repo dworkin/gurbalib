@@ -40,24 +40,24 @@ void set_light(int flag) {
    light = flag;
 }
 
-private int lighted_light(object obj) {
-	return obj<-"/std/light" && obj->query_lit();
-}
-
 private int object_is_lighted(object obj) {
 	object *objs;
-	int     i, dim;
+	int     i, dim, l;
 
 	if (obj->is_living()) {
 		objs = obj->query_inventory();
 		for (i = 0, dim = sizeof(objs); i < dim; i++) {
-			if (lighted_light(objs[i])) {
+			l = objs[i]->query_lit();
+			if (!nilp(l) && l) {
 				return 1;
 			}
 		}
 	}
 		
-	return lighted_light(obj);
+	if (obj->functionp("query_lit")) {
+		return obj->query_lit();
+	}
+	return 0;
 }
 
 int is_dark() {
