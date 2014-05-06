@@ -3,18 +3,18 @@
 int lit;
 
 int query_lit() {
-	if (nilp(lit)) {
-		lit = 0;
-	}
-	return lit;
+   if (nilp(lit)) {
+      lit = 0;
+   }
+   return lit;
 }
 
 private void light() {
-	lit = 1;
+   lit = 1;
 }
 
 private void extinguish() {
-	lit = 0;
+   lit = 0;
 }
 
 nomask int unlight_cmd(string str) {
@@ -50,13 +50,14 @@ nomask int light_cmd(string str) {
             "for that action.");
          return 1;
       }
+		this_player()->set_mana(this_player()->query_mana() - 10);
       light();
       write("*poof*");
       TELL_ROOM(this_player(), this_player()->query_Name() + "'s wizard's " +
          "hat starts to shine brightly.");
-   	return 1;
-	}
+      return 1;
+   }
 
-	write("Syntax: lux");
-	return 1;
+   write("Syntax: lux");
+   return 1;
 }
