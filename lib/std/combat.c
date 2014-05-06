@@ -239,18 +239,10 @@ object get_target(object targ) {
 private int calculate_extra_damage(object aggressor, object target,
                                    object weapon, int damage) {
 	int extra_damage;
-	int v;
-
 	extra_damage = damage;
-
-	v = target->is_vulnerable(weapon->query_materials());
-	aggressor->message("::" + dump_value(weapon->query_materials()));
-	aggressor->message("::" + dump_value(target->query_vulnerabilities()));
-	aggressor->message("::" + v);
-	if (v) {
+	if (target->is_vulnerable(weapon->query_materials())) {
 		extra_damage += (damage / 3);
 	}
-
 	return extra_damage;
 }
 

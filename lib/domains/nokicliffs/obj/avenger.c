@@ -20,7 +20,7 @@ string query_long() {
 
 void setup() {
 	::setup();
-   set_id("avenger", "falchion", "avenging falchion");
+   set_id("falchion", "avenging falchion", "avenger");
    set_adj("avenging");
    set_short("An avenging falchion of the immortals");
    set_long("A powerful avenging falchion. " +
@@ -36,6 +36,7 @@ void setup() {
 	add_action("adjust_hit_bonus_cmd", "hb");
 	add_action("consider_cmd", "consider");
 	add_action("bump_hit_points_cmd", "maxhp");
+	set_materials(({"silver", "holy"}));
 }
 
 int bump_hit_points_cmd(string str) {

@@ -106,5 +106,4 @@ int query_weapon_damage(void) {
 }
 
 void hit_hook(object aggressor, object victim, int damage) {
-	aggressor->message("hit_hook.... "+damage);
 }
