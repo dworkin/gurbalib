@@ -27,7 +27,7 @@ int query_internal_weight() {
 int query_weight() {
    int x;
 
-   x = ::query_weight();
+   x =::query_weight();
    if (internal_max_weight) {
       return x + internal_weight;
    }
@@ -44,18 +44,18 @@ void object_arrived(object obj) {
    object *inv;
 
    if (obj->is_money() && this_object()->is_player()) {
-       amount = obj->query_amount();
-       type = obj->query_currency();
-       this_object()->add_money(type, amount);
-       obj->destruct();
-       return;
+      amount = obj->query_amount();
+      type = obj->query_currency();
+      this_object()->add_money(type, amount);
+      obj->destruct();
+      return;
    }
 
    /* Player moves into room */
    if (obj->is_player()) {
       inv = this_object()->query_inventory();
 
-      for(x=sizeof(inv) -1; x >= 0; x--) {
+      for (x = sizeof(inv) - 1; x >= 0; x--) {
          if (inv[x]->query_aggressive()) {
             inv[x]->attack(obj);
          }
@@ -66,7 +66,7 @@ void object_arrived(object obj) {
    if (obj->query_aggressive()) {
       inv = this_object()->query_inventory();
 
-      for(x=sizeof(inv) - 1; x >= 0; x--) {
+      for (x = sizeof(inv) - 1; x >= 0; x--) {
          if (inv[x]->is_player()) {
             obj->attack(inv[x]);
          }
@@ -120,7 +120,9 @@ nomask object *query_inventory(void) {
    if (inv_map) {
       return map_indices(inv_map);
    }
-   return ( { } );
+   return ( {
+      }
+   );
 }
 
 object find_object_num(string name, int num) {
@@ -132,17 +134,17 @@ object find_object_num(string name, int num) {
 
    if (inv) {
       for (i = 0; i < sizeof(inv); i++) {
-	 ids = inv[i]->query_ids();
-	 if (ids) {
-	    for (j = 0; j < sizeof(ids); j++) {
-	       if (lowercase(ids[j]) == lowercase(name)) {
-		  num--;
-		  if (num == 0) {
-		     return (inv[i]);
+         ids = inv[i]->query_ids();
+         if (ids) {
+            for (j = 0; j < sizeof(ids); j++) {
+               if (lowercase(ids[j]) == lowercase(name)) {
+                  num--;
+                  if (num == 0) {
+                     return (inv[i]);
                   }
-	       }
-	    }
-	 }
+               }
+            }
+         }
       }
    }
 }
@@ -154,7 +156,7 @@ object find_object_filename(string name) {
 
    inv = query_inventory();
    max = sizeof(inv);
-   for (i=0; i < max; i++) {
+   for (i = 0; i < max; i++) {
       tmp = inv[i]->base_name() + ".c";
       if (tmp == name) {
          return inv[i];
@@ -172,16 +174,16 @@ object find_adj_object_num(string adj, string name, int num) {
    for (i = 0; i < sizeof(inv); i++) {
       ids = inv[i]->query_ids();
       if (ids) {
-	 for (j = 0; j < sizeof(ids); j++) {
-	    if (lowercase(ids[j]) == lowercase(name)) {
-	       if (inv[i]->is_adj(adj) == 1) {
-		  num--;
-		  if (num == 0) {
-		     return inv[i];
+         for (j = 0; j < sizeof(ids); j++) {
+            if (lowercase(ids[j]) == lowercase(name)) {
+               if (inv[i]->is_adj(adj) == 1) {
+                  num--;
+                  if (num == 0) {
+                     return inv[i];
                   }
-	       }
-	    }
-	 }
+               }
+            }
+         }
       }
    }
    return nil;
@@ -201,23 +203,23 @@ object find_adjs_object_num(string * adj, string name, int num) {
    for (i = 0; i < sizeof(inv); i++) {
       ids = inv[i]->query_ids();
       if (ids) {
-	 for (j = 0; j < sizeof(ids); j++) {
-	    if (lowercase(ids[j]) == lowercase(name)) {
-	       int nFound;
-	       nFound = 1;
-	       for (k = 0; k < sizeof(adj); k++) {
-		  if (!inv[i]->is_adj(adj[k])) {
-		     nFound = 0;
+         for (j = 0; j < sizeof(ids); j++) {
+            if (lowercase(ids[j]) == lowercase(name)) {
+               int nFound;
+               nFound = 1;
+               for (k = 0; k < sizeof(adj); k++) {
+                  if (!inv[i]->is_adj(adj[k])) {
+                     nFound = 0;
                   }
-	       }
-	       if (nFound) {
-		  num--;
-		  if (num == 0) {
-		     return inv[i];
+               }
+               if (nFound) {
+                  num--;
+                  if (num == 0) {
+                     return inv[i];
                   }
-	       }
-	    }
-	 }
+               }
+            }
+         }
       }
    }
    return nil;
@@ -235,9 +237,9 @@ object present(string name) {
    } else if (file_exists(name + ".c")) {
       return find_object_filename(name + ".c");
    }
-   if( sscanf(name, "%s %d", what, which) == 2 ) {
+   if (sscanf(name, "%s %d", what, which) == 2) {
       return find_object_num(what, which);
-      }
+   }
    return find_object_num(name, 1);
 }
 
@@ -245,7 +247,7 @@ void error_loading_object(string name) {
    object ob;
    string filename;
 
-   LOG_D->write_log("rooms", "Error: " + this_object()->base_name() + 
+   LOG_D->write_log("rooms", "Error: " + this_object()->base_name() +
       " loading object:" + name + "\n");
 
    filename = DOMAINS_DIR + "/required/objects/sing.c";
@@ -254,12 +256,29 @@ void error_loading_object(string name) {
       ob->move(object_name(this_object()));
       ob->setup();
    } else {
-      LOG_D->write_log("rooms", "Error: " + this_object()->base_name() + 
+      LOG_D->write_log("rooms", "Error: " + this_object()->base_name() +
          " loading object:" + filename + "\n");
    }
 }
 
-void set_objects(varargs string filename...) {
+void add_object(string filename, varargs int just_one) {
+   object obj;
+   if (empty_str(filename)) {
+      return;
+   }
+   obj = clone_object(filename);
+   if (obj) {
+		if (just_one && present(filename)) {
+			return;
+		}
+      obj->move(object_name(this_object()));
+      obj->setup();
+   } else {
+      error_loading_object(filename);
+   }
+}
+
+void set_objects(varargs string filename ...) {
    object ob;
    mapping obs;
    string name;
@@ -268,55 +287,48 @@ void set_objects(varargs string filename...) {
    object *inv;
 
    inv = query_inventory();
-   obs = ([ ]);
+   obs = ([]);
 
-   if(!filename || filename == ({ }) )
+   if (!filename || filename == ({ })) {
       return;
+	}
    /* remove object number */
-   for(i = 0; i < sizeof(filename); i++) {
-      if(strstr(filename[i], "#") != -1) {
+   for (i = 0; i < sizeof(filename); i++) {
+      if (strstr(filename[i], "#") != -1) {
          name = filename[i][0..strstr(filename[i], "#") - 1];
-         } 
-      else
-	     name = filename[i];
+      } else
+         name = filename[i];
       /* Count number of name's in filename.  Store in mapping */
-      if(!obs[name])
+      if (!obs[name])
          obs[name] = 1;
       else
          obs[name] += 1;
-      }
+   }
 
    filename = map_indices(obs);
 
-   for(i = 0; i < sizeof(filename); i++) {
+   for (i = 0; i < sizeof(filename); i++) {
       num = obs[filename[i]];
 
-	  for (j = 0; j < sizeof(inv); j++) {
-	     if ((inv[j]->file_name() == filename[i]) || 
-               (inv[j]->base_name() == filename[i])) {
-	        num--;
-	     } else {
-			string tmp;
-			tmp = this_object()->file_name() + "->set_objects(): " +
-				filename[i] + "\n";
+      for (j = 0; j < sizeof(inv); j++) {
+         if ((inv[j]->file_name() == filename[i]) ||
+            (inv[j]->base_name() == filename[i])) {
+            num--;
+         } else {
+            string tmp;
+            tmp = this_object()->file_name() + "->set_objects(): " +
+               filename[i] + "\n";
 /* XXX why does this log to /logs/nobodycontainer ? */
-			LOG_D->write_log("container", "[" + ctime(time()) + "] " +
-				tmp);
-		  }
-	 }
+            LOG_D->write_log("container", "[" + ctime(time()) + "] " + tmp);
+         }
+      }
 
-	 while (num > 0) {
-	    ob = clone_object(filename[i]);
-            if (ob) {
-	       ob->move(object_name(this_object()));
-	       ob->setup();
-            } else {
-               error_loading_object(name);
-            }
-	    num--;
-	 }
+      while (num > 0) {
+         add_object(filename[i]);
+         num--;
+      }
    }
-} 
+}
 
 void move_or_destruct_inventory() {
    object dst, *items;
@@ -329,11 +341,11 @@ void move_or_destruct_inventory() {
 
    for (i = 0; i < sz; i++) {
       if (!dst || (items[i]->move(dst) != 1)) {
-	 if (items[i]->is_player()) {
-	    items[i]->move(VOID);
-	 } else {
-	    items[i]->destruct();
-	 }
+         if (items[i]->is_player()) {
+            items[i]->move(VOID);
+         } else {
+            items[i]->destruct();
+         }
       }
    }
 }
@@ -342,12 +354,14 @@ void upgraded() {
    int i, sz;
 
    if (inventory) {
-      inventory -= ( { 0, nil } );
+      inventory -= ( {
+         0, nil}
+      );
 
       inv_map = ([]);
 
       for (i = 0, sz = sizeof(inventory); i < sz; i++) {
-	 inv_map[inventory[i]] = 1;
+         inv_map[inventory[i]] = 1;
       }
       inventory = nil;
    }
