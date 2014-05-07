@@ -65,7 +65,7 @@ static void main(string str) {
       obj = this_player();
    }
 
-   money = obj->query_all_coins();	/* XXX this is not working. */
+   money = obj->query_all_coins();
    mh = obj->query_max_hp(); 			/* XXX this is not working. */
    h = obj->query_hp();
    mm = obj->query_max_mana();
