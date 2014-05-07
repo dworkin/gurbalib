@@ -1,4 +1,5 @@
 inherit M_COMMAND;
+inherit "/std/modules/m_messages";
 
 void usage() {
    string *lines;
@@ -22,8 +23,10 @@ void usage() {
    this_player()->more(lines);
 }
 
+/* XXX cannot get coins from containers. */
 static int get_coins(int amount, string type) {
    object obj;
+	string str;
    int value;
 
    if ((type == "ducat") || (type == "ducats") || (type == "coins")) {
@@ -41,16 +44,17 @@ static int get_coins(int amount, string type) {
    if (amount > value) {
       write("There are not that many coins here.\n");
    } else {
-      write("You pickup " + amount + " ducats.\n");
-      this_player()->query_environment()->tell_room(this_player(),
-         this_player()->query_Name() + " picks up " + amount + " ducats.\n");
+		type = obj->query_currency();
+		type += (amount == 1 ? "" : "s");
+		str = "$N $vpick up " + amount + " " + type + ".";
+		this_player()->targeted_action(str, this_player());
 
       if (amount == value) {
          destruct_object(obj);
       } else {
          obj->set_value(value - amount);
       }
-      this_player()->add_money("ducat",amount);
+      this_player()->add_money(type, amount);
    }
 
    return 1;

@@ -1,5 +1,6 @@
 #include <type.h>
 
+/* XXX  $sSTR is not implemented. */
 string *compose_message(object who, string msg, object target,
    varargs mixed * objs) {
    string *words;
