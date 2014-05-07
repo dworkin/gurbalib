@@ -245,7 +245,7 @@ object get_target(object targ) {
 int damage_hook(object victim, object weapon, int damage) {
 	int extra_damage;
 	extra_damage = damage;
-	if (victim->is_vulnerable(weapon->query_materials())) {
+	if (!nilp(weapon) && victim->is_vulnerable(weapon->query_materials())) {
 		extra_damage += (damage / 3);
 	}
 	return extra_damage;
@@ -292,6 +292,7 @@ void attack_with(string skill, object weapon, object target) {
                this_object()->query_skill("combat/unarmed"));
          }
 
+			damage = damage_hook(target, nil, damage);
 			damage = target->after_damage_hook(this_object(), nil, damage);
 
 			if (damage == 0) {
