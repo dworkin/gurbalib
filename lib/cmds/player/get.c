@@ -45,8 +45,8 @@ static int get_coins(int amount, string type) {
       write("There are not that many coins here.\n");
    } else {
 		type = obj->query_currency();
-		type += (amount == 1 ? "" : "s");
-		str = "$N $vpick up " + amount + " " + type + ".";
+		str = "$N $vpick up " + amount + " " + type +
+			(amount == 1 ? "" : "s") + ".";
 		this_player()->targeted_action(str, this_player());
 
       if (amount == value) {
