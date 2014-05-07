@@ -32,12 +32,6 @@ void setup() {
 	arm();
 }
 
-void announce_yourself() {
-   respond("say I have arrived, master.");
-   respond("say My life for my master.");
-   respond("bow");
-}
-
 void monster_died() {
 	object obj, shard;
 	obj = query_killer();
