@@ -17,7 +17,7 @@ void setup() {
       "It would be most unwise to attack him. He sits in a " +
       "perpetual lotus position.");
    set_race("human");
-   set_level(40);
+   set_level(99);
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 500);
    set_skill("combat/defense", 500);

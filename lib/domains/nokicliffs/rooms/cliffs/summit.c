@@ -11,9 +11,7 @@ void setup(void) {
       "to here breathe; you probably should not stay here " +
       "for long.");
 
-    set_objects(DIR + "/monsters/guru.c");
-    set_exits(([
-      "down" : DIR + "/rooms/cliffs/base_camp.c"
-    ]));
+    set_objects(NOKICLIFFS_MONSTERS_DIR + "/guru.c");
+    set_exits(([ "down" : NOKICLIFFS_BASE_CAMP ]));
 }
 

@@ -12,7 +12,7 @@ void setup() {
 		"boney face. His hair is incredibly thin and wispy. He seems to "+
 		"miss the days when he walked among the living as one from them.");
 	set_race("vampire");
-	set_level(1);
+	set_level(40);
 	set_hit_skill("combat/unarmed");
 	set_skill("combat/defense", 100);
 	set_aggressive(1);

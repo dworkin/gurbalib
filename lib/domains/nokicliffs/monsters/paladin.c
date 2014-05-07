@@ -1,26 +1,35 @@
 #include "../domain.h"
 
-inherit "/std/monster";
+inherit DIR + "/lib/undead";
+
+private arm_weapon() {
+	object sword;
+
+	sword = clone_object(NOKICLIFFS_WEAPONS_DIR + "/ataghan");
+	sword->setup();
+	sword->move(this_object());
+	do_wield(sword);
+}
+
+private arm() {
+	arm_weapon();
+}
 
 void setup() {
-   set_name("guard");
+   set_name("paladin");
    set_gender("male");
-   set_short("Brain's guard");
+   set_short("Paladin (undead)");
    set_long("The brain's guard. He is a hulking beast with a " +
       "permanent demonic snarl revealing disgusting brown " +
       "teeth. Protruding from his forehead are two large " +
       "gently curved horns. His skin is a deep blood red " +
       "colour. He is clearly not pleased by your " +
       "presence here so close to his master, the brain.");
-   set_race("demon");
    set_level(40);
-   set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 90);
    set_skill("combat/defense", 200);
+	set_skill("combat/sharp/medium", 200);
 
-   set_spell_chance(50);
-   set_spell_damage(30);
-   set_spell_message("Guard casts a lightning bolt at $t.\n");
+	arm();
 }
 
 void announce_yourself() {
@@ -28,3 +37,16 @@ void announce_yourself() {
    respond("say My life for my master.");
    respond("bow");
 }
+
+void monster_died() {
+	object obj, shard;
+	obj = query_killer();
+	if (nilp(obj)) {
+		return;
+	}
+	shard = clone_object(NOKICLIFFS_LAW_SHARD);
+	shard->setup();
+	shard->move(killer);
+	killer->message("A shard of law passes into your possession.\n");
+}
+

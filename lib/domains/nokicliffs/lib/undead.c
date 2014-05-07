@@ -7,6 +7,7 @@ int is_undead() {
 }
 
 void setup() {
+	set_race("undead");
 	add_vulnerability("holy");
 }
 
