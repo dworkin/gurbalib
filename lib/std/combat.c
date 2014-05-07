@@ -3,6 +3,7 @@ static int fighting;
 static object target;
 int kills;
 mapping killed_by;
+object killer;
 
 #define FIGHTING_TIMEOUT 300
 /* Ammount of Endurance required to Attack */
@@ -21,6 +22,10 @@ int is_fighting(void) {
    return fighting;
 }
 
+object query_killer() {
+	return killer;
+}
+
 mapping query_killed_by() {
    if (!killed_by) {
       killed_by = ([]);
@@ -36,7 +41,7 @@ int query_kills() {
    return kills;
 }
 
-void killed_by(object who, int t) {
+void add_killed_by(object who, int t) {
    if (!killed_by) {
       killed_by = ([]);
    }
@@ -114,7 +119,8 @@ void receive_damage(object who, int dam) {
 
    if (this_object()->query_hp() <= dam) {
       x = this_object()->query_max_hp();
-      this_object()->killed_by(who, time());
+      this_object()->add_killed_by(who, time());
+		killer = who;
       this_object()->halt_fight();
       who->increment_kills();
       who->message("You killed " + this_object()->query_name() + ".\n");
