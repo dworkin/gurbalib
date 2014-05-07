@@ -221,7 +221,7 @@ void targeted_action(string msg, object target, varargs mixed objs ...) {
 
    catch {
       result = compose_message(this_object(), msg, target, objs);
-      room = this_environment();
+      room = this_object()->query_environment();
       if (room) {
          room->tell_room(this_object(), result[2], target);
       }
@@ -233,7 +233,7 @@ void targeted_action(string msg, object target, varargs mixed objs ...) {
          target->outside_message(capitalize(result[1]));
       }
    }:{
-      console_msg("Simple_action ERROR: " + caught_error(1) + "\n");
+      console_msg("targeted_action ERROR: " + caught_error(1) + "\n");
       rethrow();
    }
 }
