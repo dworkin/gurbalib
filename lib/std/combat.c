@@ -27,7 +27,7 @@ object query_killer() {
 }
 
 mapping query_killed_by() {
-   if (!killed_by) {
+   if (!mappingp(killed_by)) {
       killed_by = ([]);
    }
    return killed_by;
@@ -42,14 +42,14 @@ int query_kills() {
 }
 
 void add_killed_by(object who, int t) {
-   if (!killed_by) {
+   if (!mappingp(killed_by)) {
       killed_by = ([]);
    }
-   killed_by[t] = who;
+   killed_by[t] = who->file_name();
 }
 
 int query_killed() {
-   if (!killed_by) {
+   if (!mappingp(killed_by)) {
       killed_by = ([]);
    }
    return sizeof(map_indices(killed_by));
@@ -119,8 +119,8 @@ void receive_damage(object who, int dam) {
 
    if (this_object()->query_hp() <= dam) {
       x = this_object()->query_max_hp();
-      this_object()->add_killed_by(who, time());
 		killer = who;
+      this_object()->add_killed_by(killer, time());
       this_object()->halt_fight();
       who->increment_kills();
       who->message("You killed " + this_object()->query_name() + ".\n");
@@ -217,9 +217,7 @@ object get_target(object targ) {
    max = sizeof(targets);
    for (i = 0; i < max; i++) {
       if (targets[i] && targets[i]->is_dead()) {
-         targets -= ( {
-            targets[i]}
-         );
+         targets -= ({targets[i]});
          i--;
          max--;                 /* shorten up our array.... */
          if (sizeof(targets) == 0) {
@@ -227,7 +225,8 @@ object get_target(object targ) {
             i = max;
          }
       }
-      if (targets[i] && (targets[i]->query_environment() ==
+      if (i < sizeof(targets) &&
+				targets[i] && (targets[i]->query_environment() ==
             this_object()->query_environment())) {
          fighting = FIGHTING_TIMEOUT;
          return targets[i];
