@@ -251,6 +251,10 @@ int damage_hook(object victim, object weapon, int damage) {
 	return extra_damage;
 }
 
+int after_damage_hook(object aggressor, object weapon, int damage) {
+	return damage;
+}
+
 void attack_with(string skill, object weapon, object target) {
    int me, tmp, damage;
 
@@ -288,7 +292,14 @@ void attack_with(string skill, object weapon, object target) {
                this_object()->query_skill("combat/unarmed"));
          }
 
-         this_object()->targeted_action("$N $vhit $T.", target);
+			damage = target->after_damage_hook(this_object(), nil, damage);
+
+			if (damage == 0) {
+				this_object()->targeted_action("$N $vhit $T, but $vdo no " +
+					"damage!", target);
+			} else {
+         	this_object()->targeted_action("$N $vhit $T.", target);
+			}
 
       } else {
          damage = this_object()->query_statbonus("str") +
@@ -301,12 +312,18 @@ void attack_with(string skill, object weapon, object target) {
                this_object()->query_skill(weapon->query_weapon_skill()));
          }
 
-			/* XXX would like to make monsters invulnerable to some weapons. */
 			damage = damage_hook(target, weapon, damage);
+			damage = target->after_damage_hook(this_object(), weapon, damage);
 
-         this_object()->targeted_action("$N " +
-            weapon->query_weapon_action() + " $T with a " +
-            weapon->query_id() + ".", target);
+			if (damage == 0) {
+				this_object()->targeted_action("$N " + 
+					"$v" + weapon->query_weapon_action() + " $T with a " +
+					weapon->query_id() + ", but $vdo no damage!", target);
+			} else {
+         	this_object()->targeted_action("$N " +
+            	"$v" + weapon->query_weapon_action() + " $T with a " +
+            	weapon->query_id() + ".", target);
+			}
       }
 
       this_object()->damage_target(damage, target);
