@@ -2,8 +2,34 @@
 
 inherit "/std/monster";
 
+void monster_died() {
+	object shard;
+	if (nilp(killer) || killer->is_quest_completed(NOKICLIFFS_SHARD_QUEST)) {
+		return;
+	}
+	shard = clone_object(NOKICLIFFS_CHAOS_SHARD);
+	shard->setup();
+	shard->move(killer);
+	killer->message("A shard of chaos passes into your possession.\n");
+}
+
 int damage_hook(object victim, object weapon, int damage) {
 	return ::damage_hook(victim, weapon, damage);
+}
+
+int after_damage_hook(object aggressor, object weapon, int damage) {
+	object law_shard;
+	int    weapon_is_lawbringer;
+
+	law_shard = aggressor->present("lawshard");
+	weapon_is_lawbringer = weapon && weapon->query_id() == "lawbringer" &&
+		weapon->is_wielded();
+
+	if (nilp(law_shard) && !weapon_is_lawbringer) {
+		aggressor->message("You need the law on your side!");
+		return 0;
+	}
+	return damage;
 }
 
 private void arm() {
@@ -30,13 +56,13 @@ void setup() {
 		"arms. This creature looks very powerful, and clearly a very " +
 		"special weapon is needed if you want to hurt it.");
 	set_race("demon");
-	set_level(40);
+	set_level(1);
 	set_hit_skill("combat/unarmed");
-	set_skill("combat/defense", 100);
+	set_skill("combat/defense", 1);
 	set_skill("combat/sharp/large", 200);
 	set_aggressive(0);
 	set_spell_chance(50);
-	set_spell_damage(30);
+	set_spell_damage(1);
 	set_spell_message("The chaosdemon casts a SEVERE INTERNAL " +
 		"DAMAGE AND PAIN spell at $t.\n");
 	arm();

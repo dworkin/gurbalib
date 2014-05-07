@@ -33,9 +33,8 @@ void setup() {
 }
 
 void monster_died() {
-	object obj, shard;
-	obj = query_killer();
-	if (nilp(obj)) {
+	object shard;
+	if (nilp(killer) || killer->is_quest_completed(NOKICLIFFS_SHARD_QUEST)) {
 		return;
 	}
 	shard = clone_object(NOKICLIFFS_LAW_SHARD);
