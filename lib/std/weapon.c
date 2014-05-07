@@ -105,5 +105,3 @@ int query_weapon_damage(void) {
    return (random(max_damage - min_damage) + min_damage);
 }
 
-void hit_hook(object aggressor, object victim, int damage) {
-}
