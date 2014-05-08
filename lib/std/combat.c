@@ -295,10 +295,12 @@ void attack_with(string skill, object weapon, object target) {
 			damage = target->after_damage_hook(this_object(), nil, damage);
 
 			if (damage == 0) {
-				this_object()->targeted_action("$N $vhit $T, but $vdo no " +
+				this_object()->targeted_action("$N $v" +
+					this_object()->query_hit_string() + " $T, but $vdo no " +
 					"damage!", target);
 			} else {
-         	this_object()->targeted_action("$N $vhit $T.", target);
+         	this_object()->targeted_action("$N $v" +
+					this_object()->query_hit_string() + " $T.", target);
 			}
 
       } else {

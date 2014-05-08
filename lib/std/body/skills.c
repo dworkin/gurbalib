@@ -1,9 +1,18 @@
 mapping skills;
 string hit_skill;
+int skill_bonus;
 
 void create(void) {
    if (!skills)
       skills = ([]);
+}
+
+int query_skill_bonus() {
+	return skill_bonus;
+}
+
+void set_skill_bonus(int new_skill_bonus) {
+	skill_bonus = new_skill_bonus;
 }
 
 void set_hit_skill(string skill) {
@@ -17,7 +26,7 @@ void set_hit_skill(string skill) {
 string query_hit_skill(void) {
    if (!hit_skill)
       return ("combat/unarmed");
-   return (hit_skill);
+   return (hit_skill + skill_bonus);
 }
 
 void set_skill(string skill, int val) {
@@ -43,7 +52,7 @@ int query_skill(string skill) {
    }
    if (!skills[skill])
       return 0;
-   return (skills[skill]);
+   return (skills[skill] + skill_bonus);
 }
 
 string *query_skills(void) {

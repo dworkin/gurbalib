@@ -7,6 +7,7 @@
 string race;
 object race_object;
 string *vulnerabilities;
+string  hit_string;
 
 void initialize_stats(void);
 
@@ -60,5 +61,16 @@ int is_vulnerable(string *test_vulnerabilities) {
 		vulnerabilities = ({ });
 	}
 	return sizeof(set_intersection(vulnerabilities, test_vulnerabilities));
+}
+
+void set_hit_string(string str) {
+	hit_string = str;
+}
+
+string query_hit_string() {
+	if (empty_str(hit_string)) {
+		set_hit_string("hit");
+	}
+	return hit_string;
 }
 
