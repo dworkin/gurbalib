@@ -24,6 +24,7 @@ void usage() {
    this_player()->more(lines);
 }
 
+/* XXX the logic flow here needs some attention. */
 static void main(string str) {
    object obj;
 
