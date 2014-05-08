@@ -492,3 +492,37 @@ void attack(object who) {
    who->attacked_by(this_object());
    do_fight();
 }
+
+string *summarise_killers() {
+	string retval;
+	mapping killer_count, killer_map;
+	string *killers, *lines;
+	int *killed_times;
+	string killer_name;
+	object tmp_killer;
+	int i, dim;
+
+	killer_map = this_object()->query_killed_by();
+	killed_times = map_indices(killer_map);
+	killer_count = ([ ]);
+	killers = ({ });
+	lines = ({ });
+	for (i = 0, dim = sizeof(killed_times); i < dim; i++) {
+		tmp_killer = clone_object(killer_map[killed_times[i]]);
+		tmp_killer->setup();
+		killer_name = tmp_killer->query_short();
+		destruct_object(tmp_killer);
+		if (!killer_count[killer_name]) {
+			killer_count[killer_name] = 1;
+		} else {
+			killer_count[killer_name]++;
+		}
+	}
+	killers = map_indices(killer_count);
+	for (i = 0, dim = sizeof(killers); i < dim; i++) {
+		lines += ({ killers[i] + " killed you " +
+			killer_count[killers[i]] + " time(s).\n" });
+	}
+	return lines;
+}
+
