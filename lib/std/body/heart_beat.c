@@ -5,6 +5,7 @@ int player_age;
 
 #define YEAR 31536000
 #define DAY 86400
+#define HOUR 3600
 #define MIN 60
 
 void set_heal_rate(int rate) {
@@ -85,7 +86,7 @@ void event_heart_beat(void) {
 
 string query_age() {
    string ret;
-   int years, days, mins, secs;
+   int years, days, hours, mins, secs;
 
    secs = player_age;
    ret = " ";
@@ -97,22 +98,29 @@ string query_age() {
       days += 1;
       secs -= DAY;
    }
+	while (secs > HOUR) {
+		hours += 1;
+		secs -= HOUR;
+	}
    while (secs > MIN) {
       mins += 1;
       secs -= MIN;
    }
 
    if (years > 0) {
-      ret += years + " years ";
+      ret += years + (years == 1 ? " year " : " years ");
    }
    if (days > 0) {
-      ret += days + " days ";
+      ret += days + (days == 1 ? " day " : " days ");
    }
+	if (hours > 0) {
+		ret += hours + (hours == 1 ? " hr " : " hrs ");
+	}
    if (mins > 0) {
-      ret += mins + " mins ";
+      ret += mins + (mins == 1 ? " min " : " mins ");
    }
    if (secs > 0) {
-      ret += secs + " secs ";
+      ret += secs + (secs == 1 ? " sec " : " secs ");
    }
 
    return ret;

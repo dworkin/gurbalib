@@ -703,7 +703,7 @@ void input_get_race(string str) {
       return;
    }
 
-   player->set_race(lowercase(str));
+   player->set_race(lowercase(str), 1);
 
    player->set_hp(player->query_max_hp());
    player->set_mana(player->query_max_mana());

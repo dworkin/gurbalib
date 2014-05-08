@@ -29,6 +29,10 @@ void create(void) {
    }
 }
 
+void set_race(string str, varargs int is_new_player) {
+	::set_race(str, 1);
+}
+
 int is_attackable(void) {
    return 1;
 }

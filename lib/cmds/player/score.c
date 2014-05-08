@@ -38,6 +38,7 @@ static void main(string str) {
    mixed *money;
    object obj;
    string age;
+   string *l;
 
    quest = 0;
    if (str == "-q") {
@@ -52,69 +53,71 @@ static void main(string str) {
 
    if (!empty_str(str)) {
       if (query_wizard(this_player())) {
-	 obj = USER_D->find_player(str);
-	 if (!obj) {
-	    write("Unable to find player: " + str + "\n");
-	    return;
-	 }
+         obj = USER_D->find_player(str);
+         if (!obj) {
+            write("Unable to find player: " + str + "\n");
+            return;
+         }
       } else {
-	 usage();
-	 return;
+         usage();
+         return;
       }
    } else {
       obj = this_player();
    }
 
    money = obj->query_all_coins();
-   mh = obj->query_max_hp(); 			/* XXX this is not working. */
+   mh = obj->query_max_hp();
    h = obj->query_hp();
    mm = obj->query_max_mana();
    m = obj->query_mana();
-   me = obj->query_max_end();			/* XXX this is not working. */
+   me = obj->query_max_end();
    e = obj->query_end();
    expr = obj->query_expr();
    ac = obj->query_defense();
    level = obj->query_level();
    age = obj->query_age();
 
-   write("[ " + obj->query_name() + " ] " + obj->query_title() + "\n");
-   write("A " + obj->query_gender() + " " + obj->query_race() + 
-      " who is " + obj->query_status() + "\n");
-   write("Strength    :  " + obj->query_stat("str") +
-      "\t\t" + "Hit points  :   " + h + "/" + mh + "\n");
-   write("Intelligence:  " + obj->query_stat("int") +
-      "\t\t" + "Endurance   :   " + e + "/" + me + "\n");
-   write("Wisdom      :  " + obj->query_stat("wis") +
-      "\t\t" + "Mana        :   " + m + "/" + mm + "\n");
-   write("Dexterity   :  " + obj->query_stat("dex") +
-      "\t\t" + "Armor class :   " + ac + "\n");
-   write("Constitution:  " + obj->query_stat("con") +
-      "\t\t" + "Level       :   " + level + "\n");
-   write("Charisma    :  " + obj->query_stat("cha") +
-      "\t\t" + "Experience  :   " + expr + "\n\n");
+   l = ({ "[ " + obj->query_name() + " ] " + obj->query_title() });
+   l += ({ "A " + obj->query_gender() + " " + obj->query_race() +
+         " who is " + obj->query_status() + "\n" });
+   l += ({ "Strength    :  " + obj->query_stat("str") +
+         "\t\t" + "Hit points  :   " + h + "/" + mh });
+   l += ({ "Intelligence:  " + obj->query_stat("int") +
+         "\t\t" + "Endurance   :   " + e + "/" + me });
+   l += ({ "Wisdom      :  " + obj->query_stat("wis") +
+         "\t\t" + "Mana        :   " + m + "/" + mm });
+   l += ({ "Dexterity   :  " + obj->query_stat("dex") +
+         "\t\t" + "Armor class :   " + ac });
+   l += ({ "Constitution:  " + obj->query_stat("con") +
+         "\t\t" + "Level       :   " + level });
+   l += ({ "Charisma    :  " + obj->query_stat("cha") +
+         "\t\t" + "Experience  :   " + add_comma("" + expr) + "\n" });
 
-   write("Kills: " + obj->query_kills() + " " + "Killed: " +
-      obj->query_killed() + "\n\n");
+   l += ({ "Kills: " + add_comma("" + obj->query_kills()) + " " +
+		"Killed: " + add_comma("" + obj->query_killed()) + "\n" });
 
-   write("Age:" + age + "\t" + "Money:\n");
+   l += ({ "Age:" + age + "\t" + "Money:" });
 
    for (i = 0; i < sizeof(money); i++) {
-      write("\t\t\t\t" + capitalize(money[i][0]) + ": " + money[i][1] + "\n");
+      l += ({ "\t\t\t\t" + capitalize(money[i][0]) + ": " +
+			add_comma("" + money[i][1]) });
    }
 
    if (quest) {
       string *quests;
       int j, k;
 
-      write("Quests Completed:\n");
+      l += ({ "Quests Completed:" });
       quests = this_player()->query_quests_completed();
       if (quests) {
-	 k = sizeof(quests);
-	 for (j = 0; j < k; j++) {
-	    write("\t" + quests[j] + "\n");
-	 }
+         k = sizeof(quests);
+         for (j = 0; j < k; j++) {
+            l += ({ "\t" + quests[j] });
+         }
       }
    }
+   this_player()->more(l);
 
    return;
 }

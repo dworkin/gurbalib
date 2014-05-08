@@ -119,7 +119,7 @@ void restore_me(void) {
 }
 
 void login_player(void) {
-   int i;
+   int i, is_new_player;
    string *didlog, *tmpchannels;
    mixed autoload;
    string race;
@@ -139,7 +139,8 @@ void login_player(void) {
 	 }
       }
    }
-   if (!last_login) {
+	is_new_player = !last_login;
+   if (is_new_player) {
       EVENT_D->event("new_player", living_name);
       last_login = time();
    } else {
@@ -170,10 +171,12 @@ void login_player(void) {
 	 tmpchannels[i] = nil;
       }
    }
-   race = query_race();
-   set_race(race);
+  	race = query_race();
+  	set_race(race, is_new_player);
+	if (is_new_player) {
+  		set_hit_skill("combat/unarmed");
+	}
    set_short(query_title());
-   set_hit_skill("combat/unarmed");
    ANSI_D->set_player_translations(custom_colors);
    autoload = query_env("autoload");
    if (autoload == nil) {

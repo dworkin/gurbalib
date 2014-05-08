@@ -11,7 +11,7 @@ string  hit_string;
 
 void initialize_stats(void);
 
-void set_race(string name) {
+void set_race(string name, varargs int is_new_player) {
    if (!name || name == "") {
       race = "human";
    } else {
@@ -21,7 +21,9 @@ void set_race(string name) {
    if (!race_object) 
       race_object = RACE_D->query_race_object("human");
 
-   initialize_stats();		/* set up stat/race bonus here */
+	if (is_new_player) {
+   	initialize_stats();		/* set up stat/race bonus here */
+	}
    /* temp removal of min and max damage satch */
 }
 
