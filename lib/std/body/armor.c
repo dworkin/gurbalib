@@ -16,6 +16,7 @@ void do_remove(object ob) {
    }
    equipment[ob->query_slot()] = nil;
    ob->set_worn(0);
+	ob->after_unwear(this_player(), nil);
 }
 
 object query_slot(string slot) {

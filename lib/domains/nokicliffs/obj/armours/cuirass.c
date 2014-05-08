@@ -36,7 +36,9 @@ void after_wear(object player) {
 
 void after_unwear(object player, string cmd) {
 	magical_properties_active = 0;
-	player->message("You feel less skillful.");
+	if (!nilp(cmd)) {
+		player->message("You feel less skillful.");
+	}
 	player->set_skill_bonus(player->query_skill_bonus() - bonus);
 }
 
