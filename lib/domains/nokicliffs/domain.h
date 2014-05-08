@@ -2,6 +2,8 @@
 #define NOKICLIFFS_AREA "noki-cliffs"
 #define NOKICLIFFS_OAK_GROVE_START DIR + "/rooms/oak_grove/oak_grove_start.c"
 #define NOKICLIFFS_DOOMSPIRE_START DIR + "/rooms/doomspire/doomspire_start.c"
+#define NOKICLIFFS_ABBEY_START DIR + "/rooms/abbey_of_law/abbey_of_law_start.c"
+#define NOKICLIFFS_DEN_START DIR + "/rooms/den_of_chaos/den_of_chaos_start.c"
 #define NOKICLIFFS_BASE_CAMP DIR + "/rooms/cliffs/base_camp.c"
 #define NOKICLIFFS_BRAIN DIR + "/obj/brain.c"
 #define TELL_ROOM(o, str) o->query_environment()->tell_room(o, str)
@@ -16,3 +18,4 @@
 #define NOKICLIFFS_CHAOSBLADE NOKICLIFFS_WEAPONS_DIR + "/chaosblade"
 #define NOKICLIFFS_CHAOSDEMON NOKICLIFFS_MONSTERS_DIR + "/chaosdemon"
 #define NOKICLIFFS_LAWBRINGER NOKICLIFFS_WEAPONS_DIR + "/lawbringer"
+#define NOKICLIFFS_DIMENSIONAL_BEADS DIR + "/obj/dimensional_beads"
