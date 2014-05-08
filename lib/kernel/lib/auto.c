@@ -122,6 +122,8 @@ private string _owner;
 #include "afun/trim_str.c"
 #include "afun/fmt_str.c"
 #include "afun/files_modified.c"
+#include "afun/query_thousands_separator.c"
+#include "afun/add_comma.c"
 
 #include "afun/sys/_F_create.c"
 #include "afun/sys/_F_destruct.c"
