@@ -3,6 +3,7 @@
 inherit DIR + "/lib/undead";
 
 void setup() {
+	::setup();
    set_name("abbot");
    set_gender("male");
    set_short("The Abbot (undead)");
