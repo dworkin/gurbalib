@@ -45,6 +45,12 @@ int activate_cmd(string str) {
 	} else if (lowercase(str) == "abbey of law") {
 		this_player()->move(NOKICLIFFS_ABBEY_START);
 		this_player()->do_look(0);
+	} else if (lowercase(str) == "den of chaos") {
+		this_player()->move(NOKICLIFFS_DEN_START);
+		this_player()->do_look(0);
+	} else if (lowercase(str) == "hall of balance") {
+		this_player()->move(NOKICLIFFS_HALL_START);
+		this_player()->do_look(0);
    } else {
       write("Your beads cannot activate that pocket dimension.");
    }

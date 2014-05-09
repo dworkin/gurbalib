@@ -1,6 +1,7 @@
 #include "../domain.h"
 
-inherit obj "/std/object";
+inherit "/std/object";
+inherit DIR + "/lib/balance_check";
 
 void setup() {
 	set_gettable(0);
@@ -17,32 +18,28 @@ void setup() {
 	set_value(0);
 }
 
+private void find_balance(object *balanced) {
+	int i, dim;
+	for (i = 0, dim = sizeof(balanced); i < dim; i++) {
+		destruct_object(balanced[i]);
+	}
+}
+
 void outside_message(string str) {
 	string who;
 	object player, law_shard, chaos_shard;
-	object *inv;
-	int i, dim, player_has_law_shard, player_has_chaos_shard;
+	object *inv, *balanced;
+	int i, dim, is_balanced;
 
 	str = ANSI_D->strip_colors(str);
 	
 	if (sscanf(str, "%s enters.", who) == 1) {
 		player = this_object()->query_environment()->present(who);
-		if (player) {
-			inv = player->query_inventory();
-			for (i = 0, dim = sizeof(inv); i < dim; i++) {
-				if (inv[i]->is_id("lawshard")) {
-					player_has_law_shard = 1;
-					law_shard = inv[i];
-				}
-				if (inv[i]->is_id("chaosshard")) {
-					player_has_chaos_shard = 1;
-					chaos_shard = inv[i];
-				}
-			}
-		}
+		balanced = balance_check(player);
+		is_balanced = sizeof(balanced) == 2;
 	}
-	if (!this_player()->is_quest_completed(NOKICLIFFS_SHARD_QUEST) &&
-			player_has_law_shard && player_has_chaos_shard) {
+	if (!this_player()->is_completed_quest(NOKICLIFFS_SHARD_QUEST) &&
+			is_balanced) {
 		this_object()->query_environment()->tell_room(this_player(),
 			"Iustitia shimmers with " +
 			"balance as " + this_player()->query_Name() +
@@ -50,12 +47,17 @@ void outside_message(string str) {
 			"law and chaos in her presence.");
 		write("Iustitia shimmers with balance you deliver the shards of " + 
 			"law and chaos to her.");
-		this_player()->add_completed_quest(NOKICLIFFS_SHARD_QUEST);
-		this_player()->add_expr(NOKICLIFFS_SHARD_QUEST_XP_REWARD);
-		destruct_object(law_shard);
-		destruct_object(chaos_shard);
-		write("You have completed the Quest for Balance. Congratulations, " + 
+		write("You have completed the Quest for Balance. Congratulations, " +
 			"champion.");
+		this_player()->add_completed_quest(NOKICLIFFS_SHARD_QUEST);
+		this_player()->increase_expr(NOKICLIFFS_SHARD_QUEST_XP_REWARD);
+		find_balance(balanced);
+		return;
+	}
+	if (is_balanced) {
+		write("You have already brought balance to the realms. " +
+			"But Iustitia accepts your gift of balance all the same.");
+		find_balance(balanced);
 	}
 }
 

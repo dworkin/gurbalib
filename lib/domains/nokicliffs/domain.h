@@ -4,6 +4,8 @@
 #define NOKICLIFFS_DOOMSPIRE_START DIR + "/rooms/doomspire/doomspire_start.c"
 #define NOKICLIFFS_ABBEY_START DIR + "/rooms/abbey_of_law/abbey_of_law_start.c"
 #define NOKICLIFFS_DEN_START DIR + "/rooms/den_of_chaos/den_of_chaos_start.c"
+#define NOKICLIFFS_HALL_START DIR + "/rooms/hall_of_balance/hall_of_balance_start.c"
+#define NOKICLIFFS_DEN_START DIR + "/rooms/den_of_chaos/den_of_chaos_start.c"
 #define NOKICLIFFS_BASE_CAMP DIR + "/rooms/cliffs/base_camp.c"
 #define NOKICLIFFS_BRAIN DIR + "/obj/brain.c"
 #define TELL_ROOM(o, str) o->query_environment()->tell_room(o, str)
