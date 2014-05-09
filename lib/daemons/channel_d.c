@@ -13,7 +13,9 @@ static mapping channels;
 static mapping listeners;
 
 void resubscribe() {
+#ifndef DISABLE_IMUD
    IMUD_D->subscribe_event("i3_connection");
+#endif
 }
 
 static void restore_me(void) {
