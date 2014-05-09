@@ -13,6 +13,5 @@ void setup() {
    set_level(40);
    set_skill("combat/defense", 200);
 	set_skill("combat/unarmed", 2);
-	clothe();
 }
 

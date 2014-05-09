@@ -12,7 +12,7 @@ void setup(void) {
 		"precise nature of them are known only to the ancient forgers " +
 		"and the immortals.");
    set_gettable(1);
-   set_slot("body");
+   set_slot("torso");
    set_wear_message("$N $vequip $o.");
    set_remove_message("$N $vremove $o.");
    set_ac(10);

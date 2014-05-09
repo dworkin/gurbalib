@@ -2,40 +2,14 @@
 
 inherit DIR + "/lib/undead";
 
-private void move_object_here(object obj) {
-	obj->setup();
-	obj->move(this_object());
-}
-
-private void wear_object(object obj) {
-	move_object_here(obj);
-	do_wear(obj);
-}
-
-private void wield_object(object obj) {
-	move_object_here(obj);
-	do_wield(obj);
-}
-
 private arm() {
-	if (!present("crown")) {
-		wear_object(clone_object(NOKICLIFFS_ARMOURS_DIR + "/crown"));
-	}
-	if (!present("gloves")) {
-		wear_object(clone_object(NOKICLIFFS_ARMOURS_DIR + "/leather_gloves"));
-	}
-	if (!present("cuirass")) {
-		wear_object(clone_object(NOKICLIFFS_ARMOURS_DIR + "/cuirass"));
-	}
-	if (!present("tower shield")) {
-		wield_object(clone_object(NOKICLIFFS_ARMOURS_DIR + "/tower_shield"));
-	}
-	if (!present("ataghan")) {
-		wield_object(clone_object(NOKICLIFFS_WEAPONS_DIR + "/ataghan"));
-	}
-	if (!present("lawbringer")) {
-		move_object_here(clone_object(NOKICLIFFS_WEAPONS_DIR + "/lawbringer"));
-	}
+	equip_monster(({
+		NOKICLIFFS_ARMOURS_DIR + "/crown",
+		NOKICLIFFS_ARMOURS_DIR + "/leather_gloves",
+		NOKICLIFFS_ARMOURS_DIR + "/cuirass",
+		NOKICLIFFS_ARMOURS_DIR + "/tower_shield",
+		NOKICLIFFS_WEAPONS_DIR + "/ataghan"
+	}));
 }
 
 void setup() {
@@ -54,6 +28,7 @@ void setup() {
    set_skill("combat/defense", 200);
 	set_skill("combat/sharp/medium", 200);
 
+	set_objects(NOKICLIFFS_WEAPONS_DIR + "/lawbringer");
 	arm();
 }
 

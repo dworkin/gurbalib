@@ -32,19 +32,6 @@ int after_damage_hook(object aggressor, object weapon, int damage) {
 	return damage;
 }
 
-private void arm() {
-	object chaosblade;
-	chaosblade = present("chaosblade");
-	if (chaosblade) {
-		do_wield(chaosblade);
-		return;
-	}
-	chaosblade = clone_object(NOKICLIFFS_CHAOSBLADE);
-	chaosblade->setup();
-	chaosblade->move(this_object());
-	do_wield(chaosblade);
-}
-
 void setup() {
 	set_name("chaosdemon");
 	set_short("A chaosdemon");
@@ -65,6 +52,6 @@ void setup() {
 	set_spell_damage(1);
 	set_spell_message("The chaosdemon casts a SEVERE INTERNAL " +
 		"DAMAGE AND PAIN spell at $t.\n");
-	arm();
+	equip_monster(({ NOKICLIFFS_WEAPONS_DIR + "/chaosblade.c" }));
 }
 
