@@ -147,3 +147,23 @@ string query_spell_message() {
 
 void monster_died() {
 }
+
+void equip_monster(string *arms, varargs int repeats_ok) {
+	object obj, p;
+	int i, dim;
+	for (i = 0, dim = sizeof(arms); i < dim; i++) {
+		obj = clone_object(arms[i]);
+		obj->setup();
+		p = present(obj->query_id());
+		if (!p || repeats_ok) { /* XXX maybe wield/wear p... */
+			obj->move(this_object());
+			if (obj->is_wieldable()) {
+				do_wield(obj);
+			}
+			if (obj->is_wearable()) {
+				do_wear(obj);
+			}
+		}
+	}
+}
+	
