@@ -159,8 +159,7 @@ void equip_monster(string *arms, varargs int repeats_ok) {
 			obj->move(this_object());
 			if (obj->is_wieldable()) {
 				do_wield(obj);
-			}
-			if (obj->is_wearable()) {
+			} else if (obj->is_wearable()) {
 				do_wear(obj);
 			}
 		}
