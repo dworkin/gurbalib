@@ -28,7 +28,7 @@ void usage() {
 /* 'who' command Originally by Fudge Improved by Cerihan 3/15/09 */
 static void main(string str) {
    object *usr;
-   int long_flag, i, max;
+   int long_flag;
    string *out;
 
    if (query_wizard(this_player())) {
@@ -52,11 +52,5 @@ static void main(string str) {
       return;
    }
 
-   out = USER_D->list_players(long_flag);
-
-   max = sizeof(out);
-
-   for (i=0; i<max; i++) {
-      write(out[i]);
-   }
+	this_player()->more(USER_D->list_players(long_flag), 1);
 }
