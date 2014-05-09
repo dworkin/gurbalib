@@ -40,9 +40,27 @@ static void save_me(void) {
    unguarded("save_object", DATAFILE);
 }
 
+void rehash() {
+   mixed *parsed;
+   if (!quests) {
+      quests = ([]);
+   }
+   if (file_exists(DATAFILE)) {
+      restore_me();
+   }
+   if (file_exists(QUEST_DATA)) {
+      parsed = parse_string(QUEST_GRAMMAR, read_file(QUEST_DATA));
+   }
+   save_me();
+}
+
 int add_quest(string name, int level, string domain) {
    int i, max, index;
    string *keys;
+
+   if (!levels) {
+      levels = ([]);
+   }
 
    if (quests[name]) {
       write("I'm sorry but there is already a quest titled: " + name + "\n");
@@ -57,6 +75,9 @@ int add_quest(string name, int level, string domain) {
 }
 
 int is_quest(string name) {
+   if (!quests) {
+      quests = ([]);
+   }
    if (quests[name]) {
       return 1;
    }
@@ -82,31 +103,21 @@ void list_quests(object thisp) {
    write("Level:\tQuest:\t\tDomain:\n");
    write("------------------------------------------------\n");
 
-   for(i=0; i<max; i++) {
+   for (i = 0; i < max; i++) {
       if (keys[i] && levels[keys[i]]) {
-	 write(levels[keys[i]] + "\t" + keys[i] + "\t" + quests[keys[i]] + 
-	  "\n");
+         write(levels[keys[i]] + "\t" + keys[i] + "\t" + quests[keys[i]] +
+            "\n");
       }
    }
 }
 
-void rehash() {
-   if (file_exists(DATAFILE)) {
-      restore_me();
-   }
-   if (file_exists(QUEST_DATA)) {
-      parse_string(QUEST_GRAMMAR, read_file(QUEST_DATA));
-   }
-   save_me();
-}
-
-static mixed* parse_quest_node(mixed* node) {
+static mixed *parse_quest_node(mixed * node) {
    int level;
 
    if (sizeof(node) == 14) {
       sscanf(node[5], "%d", level);
       if (!is_quest(node[8]) && file_exists(node[11])) {
-	 add_quest(node[8], level, node[2]);
+         add_quest(node[8], level, node[2]);
       }
    }
    return node;
@@ -115,4 +126,3 @@ static mixed* parse_quest_node(mixed* node) {
 void create(void) {
    rehash();
 }
-

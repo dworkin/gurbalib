@@ -12,7 +12,8 @@
 #define NOKICLIFFS_ARMOURS_DIR DIR + "/obj/armours"
 #define NOKICLIFFS_MONSTERS_DIR DIR + "/monsters"
 #define NOKICLIFFS_BRAIN_GUARD NOKICLIFFS_MONSTERS_DIR + "/brain_guard.c"
-#define NOKICLIFFS_SHARD_QUEST "Quest for Balance"
+#define NOKICLIFFS_SHARD_QUEST "BalanceQuest"
+#define NOKICLIFFS_SHARD_QUEST_XP_REWARD 5000
 #define NOKICLIFFS_LAW_SHARD DIR + "/obj/law_shard"
 #define NOKICLIFFS_CHAOS_SHARD DIR + "/obj/chaos_shard"
 #define NOKICLIFFS_CHAOSBLADE NOKICLIFFS_WEAPONS_DIR + "/chaosblade"
