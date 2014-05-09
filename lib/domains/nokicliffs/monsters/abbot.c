@@ -1,20 +1,18 @@
 #include "../domain.h"
 
-inherit DIR + "/lib/undead";
+inherit DIR + "/lib/monk";
 
 void setup() {
 	::setup();
    set_name("abbot");
-   set_gender("male");
-   set_short("The Abbot (undead)");
-   set_long("The brain's guard. He is a hulking beast with a " +
-      "permanent demonic snarl revealing disgusting brown " +
-      "teeth. Protruding from his forehead are two large " +
-      "gently curved horns. His skin is a deep blood red " +
-      "colour. He is clearly not pleased by your " +
-      "presence here so close to his master, the brain.");
+   set_short("The Abbot");
+   set_long("The abbey's abbot. He is an older man, slightly " +
+		"hunched. He is balding with a crescent of pure white hair " +
+		"around the back of his head. He wears an old robe secured " +
+		"with a simple rope. Upon his feet he wears sandals.");
    set_level(40);
    set_skill("combat/defense", 200);
-	set_skill("combat/unarmed", 200);
+	set_skill("combat/unarmed", 2);
+	clothe();
 }
 

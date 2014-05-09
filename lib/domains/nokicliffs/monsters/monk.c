@@ -1,19 +1,17 @@
 #include "../domain.h"
 
-inherit DIR + "/lib/undead";
+inherit DIR + "/lib/monk";
 
 void setup() {
 	::setup();
    set_name("monk");
-   set_gender("male");
-   set_short("A monk (undead)");
-   set_long("The brain's guard. He is a hulking beast with a " +
-      "permanent demonic snarl revealing disgusting brown " +
-      "teeth. Protruding from his forehead are two large " +
-      "gently curved horns. His skin is a deep blood red " +
-      "colour. He is clearly not pleased by your " +
-      "presence here so close to his master, the brain.");
-   set_level(40);
+   set_short("A monk");
+   set_long("The young monk stands here looking faithful. " +
+		"He also looks like he knows how to handle himself in " +
+		"the martial arts. Although clothed in nothing more than " +
+		"a robe and some simple sandals you cannot shake the feeling " +
+		"that this might be a new life for him.");
+   set_level(20);
    set_skill("combat/defense", 200);
 	set_skill("combat/unarmed", 200);
 }

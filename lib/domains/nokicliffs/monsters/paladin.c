@@ -46,9 +46,10 @@ void setup() {
    set_long("Strong magic has cursed the paladin to live in " +
 		"undeath. It has utterly transformed this man into a " +
 		"terrible and ugly monster. In older days this man was " +
-		"a law bringer keeping the realms safe from chaos. His " +
+		"a law bringer keeping the realms safe from chaos. His eyes " +
 		"long ago lost their light now his soul seeks to rest in " +
-		"peace.");
+		"peace. However, despite this terrible fate, the law is " +
+		"still very great within him.");
    set_level(40);
    set_skill("combat/defense", 200);
 	set_skill("combat/sharp/medium", 200);
