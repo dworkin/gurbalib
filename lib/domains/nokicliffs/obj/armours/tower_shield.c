@@ -1,7 +1,7 @@
 inherit "/std/shield";
 
 void setup(void) {
-   set_id("tower shield");
+   add_ids("tower shield");
    set_adj("large");
    set_short("A large tower shield");
    set_long("A large tower shield It has an intricate holy symbol " +
