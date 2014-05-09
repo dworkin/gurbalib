@@ -7,5 +7,5 @@ void setup(void);
 void create(void) {
    ob::create();
    wield::create();
-   add_ids("shield");
+   set_id("shield");
 }
