@@ -20,6 +20,7 @@ void usage() {
 static void main(string str) {
    object *inv;
    int i;
+	string loc;
 
    if (!empty_str(str)) {
       usage();
@@ -33,16 +34,14 @@ static void main(string str) {
    } else {
       write("You are carrying:\n");
       for (i = 0; i < sizeof(inv); i++) {
-	 if (inv[i]->is_worn()) {
-	    write("  " + inv[i]->query_short() +
-               " %^CYAN%^[" + inv[i]->query_wear_position() +
-               "]%^RESET%^\n");
-	 } else if (inv[i]->is_wielded()) {
-	    write("  " + inv[i]->query_short() + " %^CYAN%^["
-		  + inv[i]->query_wield_position() + "]%^RESET%^\n");
-	 } else {
-	       write("  " + inv[i]->query_short() + "\n");
-	 }
-      }
-   }
+			loc = "  " + inv[i]->query_short();
+			if (inv[i]->is_wielded() || inv[i]->is_worn()) {
+				loc += " %^CYAN%^[" +
+					(inv[i]->is_wielded() ? inv[i]->query_wield_position() :
+					inv[i]->is_worn() ? inv[i]->query_wear_position() : "") +
+					"]%^RESET%^\n";
+			}
+			write(loc);
+		}
+	}
 }
