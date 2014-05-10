@@ -30,7 +30,9 @@ void setup(void) {
    set_wield_type("single");
    set_wield_message("$N $vgrab $p $o. Ready!");
    set_unwield_message("$N $vloosen $p $vgrip on $o, and $vput it away.");
-   set_weapon_action("slash");
+   set_weapon_actions(({
+		"slash", "slice", "dice", "cut", "gash"
+	}));
    set_weapon_skill("small");
 
    set_value(30);

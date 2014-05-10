@@ -6,7 +6,7 @@ int min_damage;
 int weapon_class;
 int hit_bonus;
 string weapon_skill;
-string weapon_action;
+string *weapon_action;
 string weapon_miss;
 string *materials;
 
@@ -17,7 +17,7 @@ void create(void) {
    min_damage = 1;
    hit_bonus = 0;
    weapon_class = 0;
-   weapon_action = "bonk";
+   weapon_action = ({ "bonk" });
 	materials = ({ });
 }
 
@@ -74,11 +74,36 @@ int query_hit_bonus(void) {
 }
 
 void set_weapon_action(string verb) {
-   weapon_action = verb;
+	if (!weapon_action) {
+		weapon_action = ({ });
+	}
+	weapon_action += ({ verb });
+}
+
+void set_weapon_actions(string *verbs) {
+	weapon_action = verbs;
+}
+
+void add_weapon_action(string verb) {
+	if (!weapon_action) {
+		weapon_action = ({ });
+	}
+	weapon_action += ({ verb });
 }
 
 string query_weapon_action(void) {
-   return weapon_action;
+	if (!weapon_action) {
+		weapon_action = ({ "bonk" });
+		return "bonk";
+	}
+	return weapon_action[random(sizeof(weapon_action))];
+}	
+
+string *query_weapon_actions() {
+	if (!weapon_action) {
+		weapon_action = ({ });
+	}
+	return weapon_action;
 }
 
 void set_weapon_miss(string verb) {
