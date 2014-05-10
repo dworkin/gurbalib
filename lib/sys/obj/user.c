@@ -275,6 +275,7 @@ static void login_user(void) {
 	 usr->set_player(player);
 	 player = tmp_player;
 	 set_this_player(player);
+	 LINKDEAD_D->remove_linkdead(player->query_title());
 	 usr->quit();
 	 LOG_D->write_log("logins",
 	    ctime(time()) + "\t" + query_ip_number(this_object()) + "\t" +

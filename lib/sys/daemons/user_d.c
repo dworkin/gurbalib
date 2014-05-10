@@ -912,7 +912,6 @@ string *list_players(int long_flag) {
 	lines = ({ MUD_NAME + " currently has " + nump + " user" +
 		(nump > 1 ? "s" : "") + " online." });
 
-   lines += ({ "------------------------------------------------------" });
    max = sizeof(usr);
    for (i = 0; i < max; i++) {
       string line;
@@ -953,7 +952,6 @@ string *list_players(int long_flag) {
          }
       }
    }
-   lines += ({ "------------------------------------------------------" });
 
    return lines;
 }

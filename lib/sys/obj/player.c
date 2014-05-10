@@ -281,6 +281,7 @@ string query_title_string(void) {
 
 void set_linkdead(int flag) {
    if (flag == 1) {
+		LINKDEAD_D->add_linkdead(query_title());
       set_short(query_title() + " [link-dead]");
       linkdead = call_out("do_quit", LINKDEAD_TIMEOUT);
    } else {
@@ -739,6 +740,7 @@ void do_quit(void) {
    }
    channels = channelstmp;
    EVENT_D->event("player_logout", living_name);
+	LINKDEAD_D->remove_linkdead(query_title());
    quitting = 1;
    set_this_player(sp);
    query_user()->quit();

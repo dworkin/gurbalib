@@ -34,6 +34,7 @@ private string *get_default_objects() {
       EMOTE_D,
       PARSE_D, 
       QUEST_D,
+		LINKDEAD_D,
       STARTING_ROOM
    } );
    return objects;

@@ -138,3 +138,4 @@ private object secure_d;
 #include "afun-game/cat_file.c"
 #include "afun-game/sqlite3_exec.c"
 #include "afun-game/sqlite3_select.c"
+#include "afun-game/horizontal_rule.c"
