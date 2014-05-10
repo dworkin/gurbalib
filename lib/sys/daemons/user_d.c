@@ -909,11 +909,8 @@ string *list_players(int long_flag) {
    usr = players();
    nump = sizeof(usr);
 
-   if (nump > 1) {
-      lines = ({ MUD_NAME + " currently has " + nump + " users online." });
-   } else {
-      lines = ({ MUD_NAME + " currently has " + nump + " user online." });
-   }
+	lines = ({ MUD_NAME + " currently has " + nump + " user" +
+		(nump > 1 ? "s" : "") + " online." });
 
    lines += ({ "------------------------------------------------------" });
    max = sizeof(usr);
