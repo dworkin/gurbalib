@@ -130,3 +130,10 @@ int query_weapon_damage(void) {
    return (random(max_damage - min_damage) + min_damage);
 }
 
+
+void set_combat_stats(int min_d, int max_d, int hb) {
+	set_min_damage(min_d);
+	set_max_damage(max_d);
+	set_hit_bonus(hb);
+}
+
