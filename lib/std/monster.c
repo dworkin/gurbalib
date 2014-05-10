@@ -165,4 +165,17 @@ void equip_monster(string *arms, varargs int repeats_ok) {
 		}
 	}
 }
-	
+
+void add_coins(string type, int amt) {
+	object coins;
+	if (amt < 1) {
+		amt = 1;
+	}
+	if (MONEY_D->is_currency(type)) {
+		coins = clone_object("/domains/required/objects/coin.c");
+		coins->set_currency(type);
+		coins->set_amount(amt);
+		coins->move(this_object());
+	}
+}
+
