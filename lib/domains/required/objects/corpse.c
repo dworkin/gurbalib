@@ -18,11 +18,24 @@ void set_name(string name) {
    set_short("The corpse of " + name);
 }
 
+void corpse_destruct() {
+	int i, dim;
+	object *inv;
+	inv = query_inventory();
+	for (i = 0, dim = sizeof(inv); i < dim; i++) {
+		inv[i]->move(query_environment());
+	}
+	query_environment()->tell_room(nil, "Ash to ash, dust to dust.");
+	destruct();
+}
+
 void decompose(void) {
-   call_out("destruct", 30);
+   call_out("corpse_destruct", 30);
    if (!orig_name) {
       orig_name = "noone";
    }
 
    set_short("The somewhat decayed corpse of " + orig_name);
+	query_environment()->tell_room(nil, "The corpse of " +
+		orig_name + " decomposes a bit.");
 }
