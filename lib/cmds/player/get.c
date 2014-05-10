@@ -23,7 +23,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-/* XXX cannot get coins from containers. */
+/* XXX coins not destructed when take from a container. */
 static int get_coins(int amount, string type) {
    object obj;
 	string str;
