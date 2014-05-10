@@ -54,6 +54,8 @@ static void create() {
    console_msg("Setting up events\n");
    EVENT_D->add_event("player_login");
    EVENT_D->add_event("player_logout");
+   EVENT_D->add_event("player_linkdeath");
+   EVENT_D->add_event("player_unlinkdeath");
    EVENT_D->add_event("new_player");
 
    console_msg("Loading daemons\n");

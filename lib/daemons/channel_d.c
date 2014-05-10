@@ -86,6 +86,8 @@ void create(void) {
 
    EVENT_D->subscribe_event("player_login");
    EVENT_D->subscribe_event("player_logout");
+   EVENT_D->subscribe_event("player_linkdeath");
+   EVENT_D->subscribe_event("player_unlinkdeath");
    EVENT_D->subscribe_event("new_player");
    resubscribe();
 }
@@ -636,6 +638,20 @@ void event_player_logout(string * args) {
       chan_send_string("announce", "channel_d",
 	 capitalize(args[0]) + " logs out.", NOT_EMOTE);
    }
+}
+
+void event_player_linkdeath(string *args) {
+	if (channels["announce"]) {
+		chan_send_string("announce", "", capitalize(args[0]) +
+			" goes link-dead.", EMOTE);
+	}
+}
+
+void event_player_unlinkdeath(string *args) {
+	if (channels["announce"]) {
+		chan_send_string("announce", "", capitalize(args[0]) + 
+			" returns from link-death.", EMOTE);
+	}
 }
 
 void event_player_join(string * args) {

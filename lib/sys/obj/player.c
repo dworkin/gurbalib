@@ -282,12 +282,15 @@ string query_title_string(void) {
 void set_linkdead(int flag) {
    if (flag == 1) {
 		LINKDEAD_D->add_linkdead(query_title());
+		EVENT_D->event("player_linkdeath", query_name());
       set_short(query_title() + " [link-dead]");
       linkdead = call_out("do_quit", LINKDEAD_TIMEOUT);
    } else {
       set_short(query_title());
-      if (linkdead)
-	 remove_call_out(linkdead);
+      if (linkdead) {
+	 		remove_call_out(linkdead);
+			EVENT_D->event("player_unlinkdeath", query_name());
+		}
       linkdead = 0;
    }
 }
