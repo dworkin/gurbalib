@@ -118,9 +118,14 @@ void set_weapon_skill(string skill) {
    weapon_skill = skill;
 }
 
+int is_standard_weapon_skill(string skill) {
+	return !empty_str(skill) &&
+		(skill == "small" || skill == "medium" || skill == "large");
+}
+
 string query_weapon_skill(void) {
    if (!weapon_skill) {
-      return "combat/impact/small";
+      return "combat/blunt/small";
    } else {
       return weapon_skill;
    }
