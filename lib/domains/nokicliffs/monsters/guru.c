@@ -72,8 +72,12 @@ void outside_message(string str) {
          beads = clone_object(NOKICLIFFS_DIMENSIONAL_BEADS);
          beads->set_owner_name(player);
          beads->update_short();
-         beads->move(player);
-         player->message("Swami gives you a string of beads.\n");
+         if (beads->move(player)) {
+         	player->message("Swami gives you a string of beads.\n");
+			} else {
+				player->message("Swami tried to give you a string of beads, " +
+					"you are already carrying too much.");
+			}
       }
    }
 }

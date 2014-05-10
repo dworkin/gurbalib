@@ -9,8 +9,9 @@ void monster_died() {
 	}
 	shard = clone_object(NOKICLIFFS_CHAOS_SHARD);
 	shard->setup();
-	shard->move(killer);
-	killer->message("A shard of chaos passes into your possession.\n");
+	if (shard->move(killer)) {
+		killer->message("A shard of chaos passes into your possession.\n");
+	}
 }
 
 int damage_hook(object victim, object weapon, int damage) {

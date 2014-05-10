@@ -50,7 +50,8 @@ void monster_died() {
 	}
 	shard = clone_object(NOKICLIFFS_LAW_SHARD);
 	shard->setup();
-	shard->move(killer);
-	killer->message("A shard of law passes into your possession.\n");
+	if (shard->move(killer)) {
+		killer->message("A shard of law passes into your possession.\n");
+	}
 }
 
