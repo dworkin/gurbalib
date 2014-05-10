@@ -20,6 +20,7 @@ void usage() {
 static void main(string str) {
    object *inv;
    int i;
+	string *lines;
 	string loc;
 
    if (!empty_str(str)) {
@@ -28,11 +29,12 @@ static void main(string str) {
    }
 
    inv = this_player()->query_inventory();
+	lines = ({ });
 
    if (sizeof(inv) == 0) {
       write("You are carrying nothing.\n");
    } else {
-      write("You are carrying:\n");
+      lines += ({ "You are carrying:\n" });
       for (i = 0; i < sizeof(inv); i++) {
 			loc = "  " + inv[i]->query_short();
 			if (inv[i]->is_wielded() || inv[i]->is_worn()) {
@@ -41,7 +43,8 @@ static void main(string str) {
 					inv[i]->is_worn() ? inv[i]->query_wear_position() : "") +
 					"]%^RESET%^\n";
 			}
-			write(loc);
+			lines += ({ loc });
 		}
+		this_player()->more(lines, 1);
 	}
 }
