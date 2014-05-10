@@ -41,40 +41,10 @@ void create(void) {
    if (file_exists(DATAFILE)) {
       restore_me();
    } else {
-      permanent = ([
-         "admin": 3,
-         "announce": 4,
-         "dchat": 2,
-         "dgd": 2,
-         "dstest": 2,
-         "fighter": 1,
-         "gossip": 1,
-         "icode": 2,
-         "igossip": 2,
-         "wiz": 2,
-      ]);
-      colors = ([
-         "admin": "%^BLUE%^",
-         "announce": "%^CYAN%^",
-         "dchat": "%^CYAN%^",
-         "dgd":"%^BLUE%^",
-         "fighter":"%^BLUE%^",
-         "gossip":"%^GREEN%^",
-         "icode":"%^RED%^",
-         "igossip":"%^GREEN%^",
-         "imud_code":"%^YELLOW%^",
-         "imud_gossip":"%^GREEN%^",
-         "inews":"%^RED%^",
-         "wiz":"%^RED%^"
-      ]);
-      imud = ([
-         "dchat": "dchat",
-         "dgd":"dgd",
-         "imud_code":"icode",
-         "imud_dgd":"idgd",
-         "imud_gossip":"igossip",
-         "inews":"inews"]);
-      guilds = (["fighter": "fighter"]);
+ permanent = (["admin": 3, "announce": 4, "dchat": 2, "dgd": 2, "dstest": 2, "fighter": 1, "gossip": 1, "icode": 2, "igossip": 2, "wiz":2,]);
+ colors = (["admin": "%^BLUE%^", "announce": "%^CYAN%^", "dchat": "%^CYAN%^", "dgd": "%^BLUE%^", "fighter": "%^BLUE%^", "gossip": "%^GREEN%^", "icode": "%^RED%^", "igossip": "%^GREEN%^", "imud_code": "%^YELLOW%^", "imud_gossip": "%^GREEN%^", "inews": "%^RED%^", "wiz":"%^RED%^"]);
+ imud = (["dchat": "dchat", "dgd": "dgd", "imud_code": "icode", "imud_dgd": "idgd", "imud_gossip": "igossip", "inews":"inews"]);
+ guilds = (["fighter":"fighter"]);
       save_me();
    }
 
@@ -172,24 +142,30 @@ int chan_join(string chan, object ob) {
    if (channels[chan] < READ_ONLY) {
       /* XXX need to rethink this */
       if (query_user_type(ob->query_name()) < channels[chan] - 1) {
-	 write("No such channel.\n");
-	 return 0;
+         write("No such channel.\n");
+         return 0;
       }
    }
 
    if (guilds[chan]) {
       if (!ob->guild_member(guilds[chan])) {
-	 write("No such channel.\n");
-	 return 0;
+         write("No such channel.\n");
+         return 0;
       }
    }
 
    if (!listeners[chan]) {
-      listeners[chan] = ( { } );
+      listeners[chan] = ( {
+         }
+      );
    } else {
-      listeners[chan] -= ( { ob } );
+      listeners[chan] -= ( {
+         ob}
+      );
    }
-   listeners[chan] += ( { ob } );
+   listeners[chan] += ( {
+      ob}
+   );
    write("Subscribed to " + chan + ".\n");
 
    this_player()->add_channel(chan);
@@ -208,7 +184,9 @@ int chan_leave(string chan, object ob) {
    }
 
    if (listeners[chan]) {
-      listeners[chan] -= ( { ob } );
+      listeners[chan] -= ( {
+         ob}
+      );
    }
    write("No longer subscribed to " + chan + ".\n");
    this_player()->remove_channel(chan);
@@ -254,16 +232,18 @@ void add_history(string channel, string who, string message) {
 
    temp = history[channel];
    if (!temp) {
-      temp = ( { } );
+      temp = ( {
+         }
+      );
    }
    if (sizeof(temp) >= MAX_HIST_SIZE) {
       temp = temp[sizeof(temp) - (MAX_HIST_SIZE - 1)..sizeof(temp) - 1];
    }
    temp += ( {
-      "%^CHAN_DATE%^[" + (ctime(time())[4..18]) + "]%^RESET%^" +
-	 "[%^CHAN_USER%^" + who + "]%^RESET%^ " +
-	 "%^CHAN_TEXT%^" + message + "%^RESET%^"
-   } );
+      "%^CHAN_DATE%^[" + (ctime(time())[4. .18]) + "]%^RESET%^" +
+         "[%^CHAN_USER%^" + who + "]%^RESET%^ " +
+         "%^CHAN_TEXT%^" + message + "%^RESET%^"}
+   );
 
    history[channel] = nil;
    history += ([channel:temp]);
@@ -299,7 +279,9 @@ int get_num_listeners(string channel) {
    users = listeners[channel];
 
    if (users) {
-      users -= ( { nil } );
+      users -= ( {
+         nil}
+      );
       x = sizeof(users);
       return x;
    }
@@ -328,7 +310,7 @@ void show_info(string channel) {
       value = "no";
    }
    this_player()->message("Permanent: " + value + "\n");
-   
+
    if (guilds[channel]) {
       this_player()->message("Guild restrictions: " + guilds[channel] + "\n");
    } else {
@@ -362,13 +344,15 @@ void chan_send_string(string chan, string from, string str,
    users = listeners[chan];
 
    if (users) {
-      users -= ( { nil } );
+      users -= ( {
+         nil}
+      );
       for (i = 0, sz = sizeof(users); i < sz; i++) {
-	 if (!users[i]->query_ignored(from)) {
-	    users[i]->message(
-	       (users[i]->query_env("imud_timestamp") ? "%^CHAN_DATE%^[" +
-		  (ctime(time())[11..18]) + "]%^RESET%^" : "")
-	       + line, 1);
+         if (!users[i]->query_ignored(from)) {
+            users[i]->message(
+               (users[i]->query_env("imud_timestamp") ? "%^CHAN_DATE%^[" +
+                  (ctime(time())[11. .18]) + "]%^RESET%^" : "")
+               + line, 1);
          }
       }
    }
@@ -410,7 +394,7 @@ int query_subscribed(string chan) {
    chan = lowercase(chan);
    if (listeners[chan]) {
       if (member_array(this_player(), listeners[chan]) != -1) {
-	 return 1;
+         return 1;
       }
    }
    return 0;
@@ -448,81 +432,85 @@ void chan_emote(string chan, string what) {
 
       /* Targeted emote? Find the target */
       if (arg && arg != "") {
-	 target = this_environment()->present(arg);
-	 if (!target) {
-	    target = USER_D->find_player(arg);
-	 }
+         target = this_environment()->present(arg);
+         if (!target) {
+            target = USER_D->find_player(arg);
+         }
 
       } else {
-	 target = nil;
+         target = nil;
       }
       if (target) {
-	 /* We've found our target, check for the correct rule */
+         /* We've found our target, check for the correct rule */
 
-	 if (target->is_living()) {
-	    /* We're looking for a LIV rule */
-	    if (member_array("LIV", rules) != -1) {
-	       rule = "LIV";
-	    } else {
-	       rule = "";
-	    }
-	 } else {
-	    /* We're looking for a OBJ rule */
-	    if (member_array("OBJ", rules) != -1) {
-	       rule = "OBJ";
-	    } else {
-	       rule = "";
-	    }
-	 }
+         if (target->is_living()) {
+            /* We're looking for a LIV rule */
+            if (member_array("LIV", rules) != -1) {
+               rule = "LIV";
+            } else {
+               rule = "";
+            }
+         } else {
+            /* We're looking for a OBJ rule */
+            if (member_array("OBJ", rules) != -1) {
+               rule = "OBJ";
+            } else {
+               rule = "";
+            }
+         }
       } else {
-	 /* Or are we just looking for a string? */
-	 if (member_array("STR", rules) != -1 && arg != "") {
-	    rule = "STR";
-	 } else {
-	    rule = "";
-	 }
+         /* Or are we just looking for a string? */
+         if (member_array("STR", rules) != -1 && arg != "") {
+            rule = "STR";
+         } else {
+            rule = "";
+         }
       }
 
       if (rule == "LIV") {
-	 result =
-	    compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
-	    target, nil);
-	 what = result[2];
+         result =
+            compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
+            target, nil);
+         what = result[2];
       } else if (rule == "OBJ") {
-	 result =
-	    compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
-            nil, ( { target } ) );
-	 what = result[2];
+         result =
+            compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
+            nil, ( {
+               target}
+            ));
+         what = result[2];
       } else if (rule == "STR") {
-	 result =
-	    compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
-            nil, ( { arg } ) );
-	 what = result[2];
+         result =
+            compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
+            nil, ( {
+               arg}
+            ));
+         what = result[2];
       } else {
-	 if (member_array("", rules) != -1) {
-	    result =
-	       compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
-	       nil, nil);
-	    what = result[2];
-	 } else
-	    write("No such emote.\n");
+         if (member_array("", rules) != -1) {
+            result =
+               compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
+               nil, nil);
+            what = result[2];
+         } else
+            write("No such emote.\n");
       }
    } else {
       if (arg && arg != "")
-	 what = this_player()->query_Name() + " " + cmd + " " + arg;
+         what = this_player()->query_Name() + " " + cmd + " " + arg;
       else
-	 what = this_player()->query_Name() + " " + cmd;
+         what = this_player()->query_Name() + " " + cmd;
    }
 
    ichans = map_indices(imud);
    for (i = 0, sz = sizeof(ichans); i < sz; i++) {
       if (imud[ichans[i]] == chan) {
 
-	 what = replace_string(what, this_player()->query_Name(), "$N");
+         what = replace_string(what, this_player()->query_Name(), "$N");
 
-	 /* Found an intermud channel */
-	 IMUD_D->do_channel_e(ichans[i], what);
-	 return;
+         /* Found an intermud channel */
+         IMUD_D->do_channel_e(ichans[i], what);
+         return;
       }
    }
 
@@ -550,9 +538,9 @@ void chan_say(string chan, string what) {
    ichans = map_indices(imud);
    for (i = 0, sz = sizeof(ichans); i < sz; i++) {
       if (imud[ichans[i]] == chan) {
-	 /* Found an intermud channel */
-	 IMUD_D->do_channel_m(ichans[i], what);
-	 return;
+         /* Found an intermud channel */
+         IMUD_D->do_channel_m(ichans[i], what);
+         return;
       }
    }
 
@@ -594,20 +582,20 @@ int query_channel(string chan) {
 
    if (channels[chan]) {
       if (channels[chan] == READ_ONLY)
-	 return 1;
+         return 1;
       if (guilds[chan]) {
-	 /* Guild channel */
-	 if (query_user_type(this_player()->query_name()) > 0) {
-	    /* A wiz can subscribe to all channels */
-	    return 1;
-	 } else {
-	    return (this_player()->guild_member(guilds[chan]));
-	 }
+         /* Guild channel */
+         if (query_user_type(this_player()->query_name()) > 0) {
+            /* A wiz can subscribe to all channels */
+            return 1;
+         } else {
+            return (this_player()->guild_member(guilds[chan]));
+         }
       }
       if (query_user_type(this_player()->query_name()) >= channels[chan] - 1) {
-	 return 1;
+         return 1;
       } else {
-	 return 0;
+         return 0;
       }
    } else {
       return 0;
@@ -621,44 +609,44 @@ string *query_channels(void) {
 void event_new_player(string * args) {
    if (channels["announce"]) {
       chan_send_string("announce", "channel_d",
-	 "Trumpets sound as " + capitalize(args[0]) + " joins the realm.",
-	 NOT_EMOTE);
+         "Trumpets sound as " + capitalize(args[0]) + " joins the realm.",
+         NOT_EMOTE);
    }
 }
 
 void event_player_login(string * args) {
    if (channels["announce"]) {
       chan_send_string("announce", "channel_d",
-	 capitalize(args[0]) + " logs in.", NOT_EMOTE);
+         capitalize(args[0]) + " logs in.", NOT_EMOTE);
    }
 }
 
 void event_player_logout(string * args) {
    if (channels["announce"]) {
       chan_send_string("announce", "channel_d",
-	 capitalize(args[0]) + " logs out.", NOT_EMOTE);
+         capitalize(args[0]) + " logs out.", NOT_EMOTE);
    }
 }
 
-void event_player_linkdeath(string *args) {
-	if (channels["announce"]) {
-		chan_send_string("announce", "", capitalize(args[0]) +
-			" goes link-dead.", EMOTE);
-	}
+void event_player_linkdeath(string * args) {
+   if (channels["announce"]) {
+      chan_send_string("announce", "", capitalize(args[0]) +
+         " goes link-dead.", EMOTE);
+   }
 }
 
-void event_player_unlinkdeath(string *args) {
-	if (channels["announce"]) {
-		chan_send_string("announce", "", capitalize(args[0]) + 
-			" returns from link-death.", EMOTE);
-	}
+void event_player_unlinkdeath(string * args) {
+   if (channels["announce"]) {
+      chan_send_string("announce", "", capitalize(args[0]) +
+         " returns from link-death.", EMOTE);
+   }
 }
 
 void event_player_join(string * args) {
    if (channels["announce"]) {
       chan_send_string("announce", "channel_d",
-	 "Trumpets blast a fanfare as " + capitalize(args[0]) + " joins " +
-	 args[1] + "!", NOT_EMOTE);
+         "Trumpets blast a fanfare as " + capitalize(args[0]) + " joins " +
+         args[1] + "!", NOT_EMOTE);
    }
 }
 
