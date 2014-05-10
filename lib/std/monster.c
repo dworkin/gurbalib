@@ -168,6 +168,9 @@ void equip_monster(string *arms, varargs int repeats_ok) {
 
 void add_coins(string type, int amt) {
 	object coins;
+	if (present("coins")) {
+		return;
+	}
 	if (amt < 1) {
 		amt = 1;
 	}
