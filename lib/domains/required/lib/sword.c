@@ -1,10 +1,17 @@
 inherit "/std/weapon";
 
+void set_sword_skill(string s) {
+	if (!is_standard_weapon_skill(s)) {
+		s = "medium";
+	}
+	set_weapon_skill("combat/edge/" + s);
+}
+
 void setup(void) {
    set_id("sword");
-   set_adj("small");
-   set_short("A small sword");
-   set_long("Your standard small sword.");
+   set_adj("long");
+   set_short("A long sword");
+   set_long("Your standard long sword.");
    set_gettable(1);
 
 	set_combat_stats(1, 5, 10);
@@ -15,9 +22,9 @@ void setup(void) {
    set_weapon_actions(({
 		"slash", "slice", "dice", "cut", "gash", "stab", "poke", "gouge"
 	}));
-   set_weapon_skill("combat/edge/small");
+	set_sword_skill("medium");
 
    set_value(30);
    set_size(10);
-   set_weight(8);
+   set_weight(2);
 }

@@ -31,7 +31,6 @@ void setup() {
 		"known only to the immortals and the ancients who " +
 		"crafted these rare blades.");
 	set_combat_stats(1, 300, 10);
-   set_weapon_skill("small");
 	add_action("adjust_max_damage_cmd", "md");
 	add_action("adjust_hit_bonus_cmd", "hb");
 	add_action("consider_cmd", "consider");

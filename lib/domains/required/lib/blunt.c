@@ -1,5 +1,12 @@
 inherit "/std/weapon";
 
+void set_blunt_skill(string s) {
+	if (!is_standard_weapon_skill(s)) {
+		s = "medium";
+	}
+	set_weapon_skill("combat/blunt/" + s);
+}
+
 void setup(void) {
    set_id("cudgel");
    set_short("A cudgel");
@@ -14,9 +21,9 @@ void setup(void) {
    set_weapon_actions(({
 		"club", "bash", "hammer", "crush", "crack"
 	}));
-   set_weapon_skill("combat/blunt/medium");
+	set_blunt_skill("medium");
 
    set_value(30);
    set_size(10);
-   set_weight(8);
+   set_weight(1);
 }

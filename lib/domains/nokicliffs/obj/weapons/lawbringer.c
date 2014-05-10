@@ -11,6 +11,5 @@ void setup() {
 		"of Law enchanted the blade with a powerful spell, and was " +
 		"thus created one of the most formidable weapons ever to be seen.");
 	set_combat_stats(1, 300, 10);
-   set_weapon_skill("medium");
 }
 

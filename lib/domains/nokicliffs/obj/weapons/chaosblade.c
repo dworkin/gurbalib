@@ -26,6 +26,7 @@ void setup() {
 		"of it, perhaps ther eis somewhere you could bring this " +
 		"sword and collect a reward?");
 	set_combat_stats(1, 10, 10);
-   set_weapon_skill("large");
+   set_sword_skill("large");
+	set_weight(3);
 }
 

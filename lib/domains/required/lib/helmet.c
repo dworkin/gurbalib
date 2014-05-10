@@ -12,5 +12,5 @@ void setup(void) {
    set_slot("head");
    set_value(20);
    set_size(10);
-   set_weight(7);
+   set_weight(1);
 }

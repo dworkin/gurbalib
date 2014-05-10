@@ -6,6 +6,6 @@ void setup(void) {
    set_short("A pretty seashell");
    set_long("A pretty seashell.");
    set_gettable(1);
-   set_weight(5);
+   set_weight(1);
    set_value(0);
 }

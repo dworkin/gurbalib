@@ -10,6 +10,6 @@ void setup(void) {
    set_wear_message("$N $vwear $o.");
    set_remove_message("$N $vremove $o.");
    set_value(20);
-   set_weight(5);
+   set_weight(1);
 	set_ac(2);
 }

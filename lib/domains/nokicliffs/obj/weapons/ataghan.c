@@ -6,6 +6,5 @@ void setup() {
    set_short("An ataghan");
    set_long("An ataghan. It is an exotic sword indeed.");
 	set_combat_stats(1, 300, 10);
-   set_weapon_skill("medium");
 }
 

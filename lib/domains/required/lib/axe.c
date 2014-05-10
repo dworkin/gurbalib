@@ -1,5 +1,12 @@
 inherit "/std/weapon";
 
+void set_axe_skill(string s) {
+	if (!is_standard_weapon_skill(s)) {
+		s = "medium";
+	}
+	set_weapon_skill("combat/edge/" + s);
+}
+
 void setup(void) {
    set_id("axe");
    set_adj("battle");
@@ -15,10 +22,10 @@ void setup(void) {
    set_weapon_actions(({
 		"slash", "slice", "gash", "gouge"
 	}));
-   set_weapon_skill("combat/edge/medium");
+	set_axe_skill("medium");
 
    set_value(30);
    set_size(10);
-   set_weight(8);
+   set_weight(1);
 }
 

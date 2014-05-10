@@ -16,6 +16,6 @@ void setup(void) {
    set_unwield_message("$N $vremove $p $o.");
    set_value(1000);
    set_size(35);
-   set_weight(15);
+   set_weight(3);
 	add_bane("holy");
 }

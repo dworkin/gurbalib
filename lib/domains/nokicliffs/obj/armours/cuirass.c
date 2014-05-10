@@ -17,7 +17,7 @@ void setup(void) {
    set_remove_message("$N $vremove $o.");
    set_ac(10);
    set_value(5000);
-   set_weight(14);
+   set_weight(2);
 }
 
 int query_magical_properties_active() {

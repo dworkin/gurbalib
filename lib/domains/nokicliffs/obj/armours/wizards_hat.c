@@ -51,5 +51,6 @@ void setup(void) {
    set_long("This hat is made of blue velvet with stars and moons " +
       "in silver. It is high and pointed, quite obviously a " +
       "wizard's hat.");
+	set_weight(1);
    add_actions();
 }

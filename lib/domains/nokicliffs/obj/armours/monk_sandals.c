@@ -13,6 +13,6 @@ void setup(void) {
    set_wear_message("$N $vwear $o.");
    set_remove_message("$N $vremove $o.");
    set_value(2);
-   set_weight(2);
+   set_weight(1);
 }
 
