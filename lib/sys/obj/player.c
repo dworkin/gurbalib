@@ -177,6 +177,7 @@ void login_player(void) {
   		set_hit_skill("combat/unarmed");
 	}
    set_short(query_title());
+	set_internal_max_weight(15 + query_statbonus("str"));
    ANSI_D->set_player_translations(custom_colors);
    autoload = query_env("autoload");
    if (autoload == nil) {
