@@ -232,21 +232,19 @@ void add_history(string channel, string who, string message) {
 
    temp = history[channel];
    if (!temp) {
-      temp = ( {
-         }
-      );
+      temp = ({ });
    }
    if (sizeof(temp) >= MAX_HIST_SIZE) {
-      temp = temp[sizeof(temp) - (MAX_HIST_SIZE - 1)..sizeof(temp) - 1];
+      temp = temp[sizeof(temp) -
+			(MAX_HIST_SIZE - 1)..sizeof(temp) - 1];
    }
-   temp += ( {
-      "%^CHAN_DATE%^[" + (ctime(time())[4. .18]) + "]%^RESET%^" +
+
+   temp += ({ "%^CHAN_DATE%^[" + (ctime(time()) [4..18]) + "]%^RESET%^" +
          "[%^CHAN_USER%^" + who + "]%^RESET%^ " +
-         "%^CHAN_TEXT%^" + message + "%^RESET%^"}
-   );
+         "%^CHAN_TEXT%^" + message + "%^RESET%^" });
 
    history[channel] = nil;
-   history += ([channel:temp]);
+ 	history += ([channel:temp]);
 
    return;
 }
@@ -351,7 +349,7 @@ void chan_send_string(string chan, string from, string str,
          if (!users[i]->query_ignored(from)) {
             users[i]->message(
                (users[i]->query_env("imud_timestamp") ? "%^CHAN_DATE%^[" +
-                  (ctime(time())[11. .18]) + "]%^RESET%^" : "")
+                  (ctime(time())[11..18]) + "]%^RESET%^" : "")
                + line, 1);
          }
       }
