@@ -122,6 +122,7 @@ void receive_damage(object who, int dam) {
 		killer = who;
       this_object()->add_killed_by(killer, time());
       this_object()->halt_fight();
+		who->halt_fight();
       who->increment_kills();
       who->message("You killed " + this_object()->query_name() + ".\n");
       who->increase_expr(x);
