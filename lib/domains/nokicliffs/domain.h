@@ -1,5 +1,6 @@
 #define DIR "/domains/nokicliffs"
 #define NOKICLIFFS_AREA "noki-cliffs"
+#define NOKICLIFFS_VOID DIR + "/rooms/void.c"
 #define NOKICLIFFS_OAK_GROVE_START DIR + "/rooms/oak_grove/oak_grove_start.c"
 #define NOKICLIFFS_DOOMSPIRE_START DIR + "/rooms/doomspire/doomspire_start.c"
 #define NOKICLIFFS_ABBEY_START DIR + "/rooms/abbey_of_law/abbey_of_law_start.c"

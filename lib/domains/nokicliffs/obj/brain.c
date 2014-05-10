@@ -33,8 +33,20 @@ string query_name() {
    return "brain";
 }
 
+void remove_corpse() {
+	object *inv;
+	int i, dim;
+	inv = this_object()->query_environment()->query_inventory();
+	for (i = 0, dim = sizeof(inv); i < dim; i++) {
+		if (inv[i]->query_id() == "corpse") {
+			inv[i]->destruct();
+		}
+	}
+}
+
 void summon_guard() {
    object env;
+	remove_corpse();
    env = this_object()->query_environment();
    if (env) {
       if (env->present("guard")) {
@@ -46,6 +58,7 @@ void summon_guard() {
       }
       if (!guard) {
          guard = clone_object(NOKICLIFFS_BRAIN_GUARD);
+			guard->setup();
       }
       guard->move(env);
       env->tell_room(this_object(), "The brain's guardian " +
@@ -70,3 +83,4 @@ void die() {
       "The jar explodes into a shower of sparks!");
    this_object()->destruct();
 }
+
