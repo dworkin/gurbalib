@@ -109,7 +109,7 @@ int write_log(string log, string message, varargs int level) {
             "/logs") == -1) {
 	    basedir = DOMAINS_DIR + "/" + user + "/logs/";
 	 } else {
-	    basedir = "/logs/nobody";
+	    basedir = "/logs/nobody/";
 	 }
 	 break;
    }
