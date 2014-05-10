@@ -124,7 +124,6 @@ void receive_damage(object who, int dam) {
       this_object()->halt_fight();
 		who->halt_fight();
       who->increment_kills();
-      who->message("You killed " + this_object()->query_name() + ".\n");
       who->increase_expr(x);
       /* make sure they are dead */
       this_object()->decrease_hp(x);

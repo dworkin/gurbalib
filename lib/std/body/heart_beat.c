@@ -131,9 +131,14 @@ int query_age_in_seconds() {
 }
 
 void die(void) {
-   object obj, *inv;
+   object killer, obj, *inv;
    int i;
 
+	killer = this_object()->query_killer();
+	if (killer) {
+		killer->message("%^BOLD%^%^CYAN%^You killed " +
+			this_object()->query_Name() + ".%^RESET%^");
+	}
    this_object()->simple_action("$N $vfall to the ground...dead.");
 
    obj = clone_object(DOMAINS_DIR + "/required/objects/corpse");
