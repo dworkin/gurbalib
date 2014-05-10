@@ -228,6 +228,13 @@ nomask int move(mixed destination) {
       return 0;
    }
 
+	if (dest->is_player() && !dest->can_carry(this_object())) {
+			dest->message("Your inventory is full. Please check your " +
+				"local environment for '" + this_object()->query_short() + "'.");
+			this_object()->move(dest->query_environment());
+			return 0;
+	}
+
    err = dest->receive_object(this_object());
 
    if (!err || (err != 1)) {

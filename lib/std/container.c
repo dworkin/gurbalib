@@ -4,7 +4,8 @@ inherit ob "/std/object";
 
 static object *inventory;
 static mapping inv_map;
-int internal_weight, internal_max_weight;
+static int internal_weight;
+static int internal_max_weight;
 
 void create(void) {
    ob::create();
@@ -14,6 +15,10 @@ void create(void) {
 
 void set_internal_max_weight(int x) {
    internal_max_weight = x;
+}
+
+void set_internal_weight(int x) {
+	internal_weight = x;
 }
 
 int query_internal_max_weight() {
@@ -105,17 +110,6 @@ int receive_object(object "/std/object" obj) {
    }
 
    inv_map[obj] = time();
-
-   if (internal_max_weight) {
-      tmp = obj->query_weight() + internal_weight;
-      if (internal_max_weight >= tmp) {
-         internal_weight += obj->query_weight();
-         object_arrived(obj);
-
-         return 1;
-      }
-      return 0;
-   }
    object_arrived(obj);
    return 1;
 }
@@ -127,22 +121,15 @@ int remove_object(object obj) {
       inv_map[obj] = nil;
    }
 
-   if (internal_max_weight) {
-      internal_weight -= obj->query_weight();
-   }
-
    object_removed(obj);
    return 1;
 }
 
 nomask object *query_inventory(void) {
-
    if (inv_map) {
       return map_indices(inv_map);
    }
-   return ( {
-      }
-   );
+   return ({ });
 }
 
 object find_object_num(string name, int num) {

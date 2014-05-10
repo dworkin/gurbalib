@@ -113,6 +113,12 @@ static int do_get(object obj1, object obj2, int loud) {
       return 1;
    }
 
+	if (!this_player()->can_carry(obj1)) {
+		this_player()->message("Your inventory is full so you cannot carry " +
+			"the " + obj1->query_id() + ".");
+		return 1;
+	}
+
    if (obj1->move(this_player())) {
       if (obj2 == this_environment()) {
          this_player()->targeted_action("$N $vpick up $o.", nil, obj1);

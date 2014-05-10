@@ -177,7 +177,7 @@ void login_player(void) {
   		set_hit_skill("combat/unarmed");
 	}
    set_short(query_title());
-	/*set_internal_max_weight(15 + query_statbonus("str"));*/
+	set_internal_max_weight(15 + query_statbonus("str"));
    ANSI_D->set_player_translations(custom_colors);
    autoload = query_env("autoload");
    if (autoload == nil) {
@@ -1129,4 +1129,19 @@ int toggle_muzzle() {
 void setup() {
 }
 
+int can_carry(object "/std/object" obj) {
+	this_object()->update_internal_weight();
+	return (internal_weight + obj->query_weight()) < query_internal_max_weight();
+}
+
+void update_internal_weight() {
+	object *inv;
+	int i, dim, w;
+	inv = query_inventory();
+	for (i = 0, w = 0, dim = sizeof(inv); i < dim; i++) {
+		w += inv[i]->query_weight();
+	}
+	set_internal_weight(w);
+}
+	
 
