@@ -10,7 +10,7 @@ void setup(void) {
 		"ages.");
    set_gettable(1);
    set_slot("head");
-   set_wear_message("$N $vdon on $o.");
+   set_wear_message("$N $vdon $o.");
    set_remove_message("$N $vtake off $o");
    set_ac(2);
    set_value(3000);

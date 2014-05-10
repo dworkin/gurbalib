@@ -23,7 +23,7 @@ void setup(void) {
 
    set_ac(100);
 
-   set_slot("body");
+   set_slot("torso");
    set_value(20);
    set_size(10);
    set_weight(7);
