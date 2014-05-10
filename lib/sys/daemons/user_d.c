@@ -722,6 +722,7 @@ void create_homedir(string wiz) {
    if (file_exists(path) == 0) {
       make_dir(path);
       make_dir(path + "rooms/");
+		make_dir(path + "logs/");
       copy(DOMAINS_DIR + "/required/rooms/workroom.c",
          path + "rooms/workroom.c");
    }
