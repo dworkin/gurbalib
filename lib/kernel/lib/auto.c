@@ -125,6 +125,7 @@ private string _owner;
 #include "afun/query_thousands_separator.c"
 #include "afun/add_comma.c"
 #include "afun/set_property_file.c"
+#include "afun/percentage.c"
 
 #include "afun/sys/_F_create.c"
 #include "afun/sys/_F_destruct.c"
