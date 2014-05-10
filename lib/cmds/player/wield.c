@@ -105,6 +105,10 @@ static void main(string str) {
    }
 
    obj = this_player()->present(lowercase(str));
+	if (!obj) {
+		write("Wield what?");
+		return;
+	}
 	if (obj->wield_hook(this_player())) {
    	do_wield(obj, 1);
 	}

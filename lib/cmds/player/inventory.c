@@ -41,7 +41,7 @@ static void main(string str) {
 				loc += " %^CYAN%^[" +
 					(inv[i]->is_wielded() ? inv[i]->query_wield_position() :
 					inv[i]->is_worn() ? inv[i]->query_wear_position() : "") +
-					"]%^RESET%^\n";
+					"]%^RESET%^";
 			}
 			lines += ({ loc });
 		}
