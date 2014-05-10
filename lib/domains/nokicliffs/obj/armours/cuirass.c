@@ -36,6 +36,9 @@ void after_wear(object player) {
 
 void after_unwear(object player, string cmd) {
 	magical_properties_active = 0;
+	if (!player) {
+		return;
+	}
 	if (!nilp(cmd)) {
 		player->message("You feel less skillful.");
 	}

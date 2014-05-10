@@ -2,7 +2,7 @@
 
 inherit DIR + "/lib/undead";
 
-private arm() {
+private void arm() {
 	equip_monster(({
 		NOKICLIFFS_ARMOURS_DIR + "/crown",
 		NOKICLIFFS_ARMOURS_DIR + "/leather_gloves",
@@ -10,6 +10,16 @@ private arm() {
 		NOKICLIFFS_ARMOURS_DIR + "/tower_shield",
 		NOKICLIFFS_WEAPONS_DIR + "/ataghan"
 	}));
+}
+
+private void add_lawbringer() {
+	object obj;
+	if (present("lawbringer")) {
+		return;
+	}
+	obj = clone_object(NOKICLIFFS_WEAPONS_DIR + "/lawbringer");
+	obj->setup();
+	obj->move(this_object());
 }
 
 void setup() {
@@ -28,8 +38,9 @@ void setup() {
    set_skill("combat/defense", 200);
 	set_skill("combat/sharp/medium", 200);
 
-	set_objects(NOKICLIFFS_WEAPONS_DIR + "/lawbringer");
 	arm();
+	add_coins("royal", 1 + random(5));
+	add_lawbringer();
 }
 
 void monster_died() {

@@ -99,6 +99,9 @@ void after_wield(object player) {
 }
 
 void after_unwield(object player, string cmd) {
+	if (!player) {
+		return;
+	}
 	player->write("Master, I await our next chance to spread our " +
 		"vengeance across the realms!");
 }
