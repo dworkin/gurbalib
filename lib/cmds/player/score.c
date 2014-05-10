@@ -34,7 +34,7 @@ void usage() {
 }
 
 static void main(string str) {
-   int mh, h, expr, level, quest, mm, m, me, e, ac, i;
+   int mh, h, expr, level, quest, mm, m, me, e, ac, i, mw, w, next_xp;
    mixed *money;
    object obj;
    string age;
@@ -77,22 +77,33 @@ static void main(string str) {
    ac = obj->query_defense();
    level = obj->query_level();
    age = obj->query_age();
+	w = this_player()->query_internal_weight();
+	mw = this_player()->query_internal_max_weight();
+	next_xp = level * level * 2000;
 
    l = ({ "[ " + obj->query_name() + " ] " + obj->query_title() });
    l += ({ "A " + obj->query_gender() + " " + obj->query_race() +
          " who is " + obj->query_status() + "\n" });
    l += ({ "Strength    :  " + obj->query_stat("str") +
-         "\t\t" + "Hit points  :   " + h + "/" + mh });
+         "\t\t" + "Hit points :   " + h + "/" + mh + "  (" +
+			percentage(h, mh) + ")%" });
    l += ({ "Intelligence:  " + obj->query_stat("int") +
-         "\t\t" + "Endurance   :   " + e + "/" + me });
+         "\t\t" + "Endurance  :   " + e + "/" + me  + "  (" +
+			percentage(e, me) + "%)" });
    l += ({ "Wisdom      :  " + obj->query_stat("wis") +
-         "\t\t" + "Mana        :   " + m + "/" + mm });
+         "\t\t" + "Mana       :   " + m + "/" + mm + "  (" +
+			percentage(m, mm) + "%)" });
    l += ({ "Dexterity   :  " + obj->query_stat("dex") +
-         "\t\t" + "Armor class :   " + ac });
+         "\t\t" + "Armor class:   " + ac });
    l += ({ "Constitution:  " + obj->query_stat("con") +
-         "\t\t" + "Level       :   " + level });
+         "\t\t" + "Level      :   " + level });
    l += ({ "Charisma    :  " + obj->query_stat("cha") +
-         "\t\t" + "Experience  :   " + add_comma("" + expr) + "\n" });
+         "\t\t" + "Experience :   " + add_comma("" + expr) + "  (" +
+			percentage(expr, next_xp) + "%)" });
+	l += ({ "Encumberance:  " + w + "/" + mw + " (" +
+		percentage(w, mw) + "%)\tExp. needed:   " +
+		add_comma("" + (next_xp - expr)) + "\n"
+	});
 
    l += ({ "Kills: " + add_comma("" + obj->query_kills()) + " " +
 		"Killed: " + add_comma("" + obj->query_killed()) + "\n" });
