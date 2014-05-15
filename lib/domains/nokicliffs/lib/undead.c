@@ -3,11 +3,11 @@
 inherit "/std/monster";
 
 int is_undead() {
-	return 1;
+   return 1;
 }
 
 void setup() {
-	set_race("undead");
-	add_vulnerability("holy");
+   set_race("undead");
+   add_vulnerability("holy");
 }
 

@@ -50,7 +50,7 @@ nomask int light_cmd(string str) {
             "for that action.");
          return 1;
       }
-		this_player()->set_mana(this_player()->query_mana() - WIZHAT_COST);
+      this_player()->set_mana(this_player()->query_mana() - WIZHAT_COST);
       light();
       write("*poof*");
       TELL_ROOM(this_player(), this_player()->query_Name() + "'s wizard's " +

@@ -7,4 +7,3 @@ void setup(void) {
    set_short("The void");
    set_long("The formless void.");
 }
-

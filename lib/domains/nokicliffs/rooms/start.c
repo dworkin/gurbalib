@@ -5,13 +5,13 @@ inherit DIR + "/lib/room";
 void setup(void) {
    ::setup();
 
-   set_short("Noki Cliffs entrance area.");
+   set_short("Noki Cliffs entrance area");
    set_long("To the east you can see the Noki Cliffs " +
-		"looming large. There is a small plateau to the west.");
+      "looming large. There is a small plateau to the west.");
 
    set_exits(([
-    "east" : DIR + "/rooms/cliffs/path.c",
-	 "west" : "/domains/2.4.5/rooms/mount_top2.c"
+      "east" : DIR + "/rooms/cliffs/path.c",
+      "west" : "/domains/2.4.5/rooms/mount_top2.c"
    ]));
 }
 

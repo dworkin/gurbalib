@@ -73,11 +73,11 @@ void outside_message(string str) {
          beads->set_owner_name(player);
          beads->update_short();
          if (beads->move(player)) {
-         	player->message("Swami gives you a string of beads.\n");
-			} else {
-				player->message("Swami tried to give you a string of beads, " +
-					"you are already carrying too much.");
-			}
+            player->message("Swami gives you a string of beads.\n");
+         } else {
+            player->message("Swami tried to give you a string of beads, " +
+               "you are already carrying too much.");
+         }
       }
    }
 }

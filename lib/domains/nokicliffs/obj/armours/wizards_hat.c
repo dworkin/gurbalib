@@ -6,6 +6,7 @@ inherit DIR + "/lib/wizards_hat/light";
 
 string query_long() {
    string str;
+
    str =::query_long();
    if (query_worn()) {
       str += " It fits very well, and since it is thick and well " +
@@ -23,6 +24,7 @@ string query_long() {
 
 nomask int hat_stat_cmd(string str) {
    object obj;
+
    obj = get_teleport_destination();
    if (!nilp(obj)) {
       write("Teleport destination: " + obj->query_short());
@@ -51,6 +53,6 @@ void setup(void) {
    set_long("This hat is made of blue velvet with stars and moons " +
       "in silver. It is high and pointed, quite obviously a " +
       "wizard's hat.");
-	set_weight(1);
+   set_weight(1);
    add_actions();
 }

@@ -2,7 +2,7 @@ inherit "/std/armor";
 
 void setup(void) {
    set_id("belt", "rope belt");
-	add_adj("simple");
+   add_adj("simple");
    set_short("A simple rope belt");
    set_long("This is a simple rope belt. It can be used only as a belt.");
    set_gettable(1);

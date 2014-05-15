@@ -4,6 +4,7 @@ string teleport_destination;
 
 nomask int set_destination_cmd(string str) {
    object target;
+
    if (empty_str(str) || lowercase(str) != "situ") {
       write("Syntax: memorator situ\n");
       return 1;
@@ -24,6 +25,7 @@ nomask int set_destination_cmd(string str) {
 
 static nomask object get_teleport_destination() {
    object obj;
+
    if (teleport_destination) {
       obj = find_object(teleport_destination);
       if (!obj) {
@@ -36,6 +38,7 @@ static nomask object get_teleport_destination() {
 nomask int teleport_cmd(string str) {
    object obj;
    int enough_mana;
+
    if (empty_str(str) || lowercase(str) != "jump") {
       write("Syntax: hoppla jump");
       return 1;

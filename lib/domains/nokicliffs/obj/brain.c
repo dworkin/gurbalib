@@ -34,23 +34,26 @@ string query_name() {
 }
 
 void remove_corpse() {
-	object *inv;
-	int i, dim;
-	inv = this_object()->query_environment()->query_inventory();
-	for (i = 0, dim = sizeof(inv); i < dim; i++) {
-		if (inv[i]->query_id() == "corpse") {
-			inv[i]->destruct();
-		}
-	}
+   object *inv;
+   int i, dim;
+
+   inv = this_object()->query_environment()->query_inventory();
+   for (i = 0, dim = sizeof(inv); i < dim; i++) {
+      if (inv[i]->query_id() == "corpse") {
+         inv[i]->destruct();
+      }
+   }
 }
 
 void summon_guard() {
    object env;
-	remove_corpse();
+
+   remove_corpse();
    env = this_object()->query_environment();
+
    if (env) {
       if (env->present("guard")) {
-			guard->respond("growl");
+         guard->respond("growl");
          return;
       }
       if (!find_object(NOKICLIFFS_BRAIN_GUARD)) {
@@ -58,12 +61,12 @@ void summon_guard() {
       }
       if (!guard) {
          guard = clone_object(NOKICLIFFS_BRAIN_GUARD);
-			guard->setup();
+         guard->setup();
       }
       guard->move(env);
       env->tell_room(this_object(), "The brain's guardian " +
          "appears in a puff of smoke.");
-		guard->announce_yourself();
+      guard->announce_yourself();
    }
 }
 
@@ -72,8 +75,8 @@ void event_heart_beat() {
    env = this_object()->query_environment();
    if (env) {
       if (++count > INTERVAL) {
-			summon_guard();
-			count = 0;
+         summon_guard();
+         count = 0;
       }
    }
 }
