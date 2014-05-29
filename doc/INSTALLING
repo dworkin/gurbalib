@@ -43,7 +43,9 @@ cd to your gurbalib dir and perform the following actions:
 		(4000 by default)
 
 The first character logging in will automatically get the
-admin role, so be sure its you.
+admin role, so be sure its you.  If you goof up and mess up the first
+login, you will need to clean the mud with scripts/clean_mud and then
+start over again, to get an admin account.
 
 OTHER THINGS:
 -----------------------------------------------------------------------
