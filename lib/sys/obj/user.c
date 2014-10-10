@@ -42,7 +42,7 @@ void _open(mixed * tls) {
       status()[ST_VERSION] + ".\n");
    send_message("\n");
    send_message(TELNET_D->query_banner());
-   send_message("\nEnter your name (or 'who' for a list of players): ");
+   send_message("\nEnter your name (or 'who', 'guest', 'quit'): ");
    send_message(1);
 
    timeout_handle = call_out("login_timeout", 600);
