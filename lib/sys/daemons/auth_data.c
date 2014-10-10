@@ -35,7 +35,8 @@ int load(string str) {
    priv = 0;
    name = password = nil;
 
-   /* we are either called from USER_D, or did a require_priv("system") already */
+   /* we are either called from USER_D, or did a require_priv("system")
+      already */
    return unguarded("restore_object", file);
 }
 
