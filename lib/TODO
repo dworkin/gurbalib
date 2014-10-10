@@ -94,3 +94,9 @@ Fix it so you can do the following:
 	possess rat
 	call -h
 
+work on some sort of stats:
+	How frequently a room is accessed.
+	How frequently a monster is killed.
+	How frequently a monster kills a player.
+	Loot distribution against challenge difficulty.
+
