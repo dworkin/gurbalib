@@ -13,7 +13,7 @@ string replace_string(string str, string old, string newstr) {
    done = "";
    for (i = 0; i < slen; i++) {
 
-      if (slen > i + olen) {
+      if (slen > (i + olen)) {
 	 /* Still not reached the end of the string */
 	 if (str[i..(i + olen)] == old) {
 	    /*Found an occurance of the old string */
@@ -30,5 +30,6 @@ string replace_string(string str, string old, string newstr) {
 	 return done;
       }
    }
+
    return done;
 }
