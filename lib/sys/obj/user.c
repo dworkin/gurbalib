@@ -130,9 +130,7 @@ void put_message(string str) {
 }
 
 void wrap_message(string str, varargs int chat_flag) {
-   string msg;
-   string *words;
-   string *lines;
+   string msg, *words, *lines;
    int width, i, j, sz;
 
    if (!str || str == "") {
@@ -253,9 +251,8 @@ void restore_privs() {
 }
 
 static void login_user(void) {
-   object usr;
+   object usr, tmp_player;
    int i, flag, done;
-   object tmp_player;
    string start;
 
    restore_privs();
@@ -491,11 +488,28 @@ void input_name(string str) {
 	    destruct_object(this_object());
             return;
 	 }
+
 	 send_message("Ah. New player.\n");
 	 send_message("Is '" + user_name + "' correct (y/n)? : ");
 	 player->input_to_object(this_object(), "input_correct_name");
       }
    }
+}
+
+void write_races(void) {
+   int i;
+   string line, *races;
+
+   send_message("\n");
+
+   races = RACE_D->query_races();
+   for (i = 0; i < sizeof(races); i++) {
+      line = races[i] + "              ";
+      line = line[..10];
+      line += " - " + RACE_D->query_race_short(races[i]) + "\n";
+      send_message(line);
+   }
+   send_message("\n");
 }
 
 void input_correct_name(string str) {
@@ -505,14 +519,21 @@ void input_correct_name(string str) {
       player->input_to_object(this_object(), "input_correct_name");
    }
 
-   if (lowercase(str) == "y" || lowercase(str) == "yes") {
-      send_message("Enter your password: ");
-      send_message(0);
-      player->input_to_object(this_object(), "input_new_passwd");
+   if (user_name == "guest") {
+      /* Skip ahead for the guest user, no need for password and other stuff */
+      write_races();
+      send_message("Please choose one of the races : ");
+      player->input_to_object(this_object(), "input_get_race");
    } else {
-      send_message("Enter your name : ");
-      send_message(1);
-      player->input_to_object(this_object(), "input_name");
+      if (lowercase(str) == "y" || lowercase(str) == "yes") {
+         send_message("Enter your password: ");
+         send_message(0);
+         player->input_to_object(this_object(), "input_new_passwd");
+      } else {
+         send_message("Enter your name : ");
+         send_message(1);
+         player->input_to_object(this_object(), "input_name");
+      }
    }
 }
 
@@ -657,23 +678,6 @@ void input_get_real_name(string str) {
 
    send_message("Please enter your email address : ");
    player->input_to_object(this_object(), "input_get_email");
-}
-
-void write_races(void) {
-   int i;
-   string line;
-   string *races;
-
-   send_message("\n");
-
-   races = RACE_D->query_races();
-   for (i = 0; i < sizeof(races); i++) {
-      line = races[i] + "              ";
-      line = line[..10];
-      line += " - " + RACE_D->query_race_short(races[i]) + "\n";
-      send_message(line);
-   }
-   send_message("\n");
 }
 
 void input_get_email(string str) {
