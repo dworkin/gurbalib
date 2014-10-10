@@ -66,10 +66,11 @@ void dispatch_event(string name, object * obs, int *counters, int id,
 
 	 rlimits(MAX_DEPTH; MAX_TICKS) {
 	    if (obs[i]) {
-	       if (sizeof(args) > 0)
+	       if (sizeof(args) > 0) {
 		  call_other(obs[i], "event_" + name, args);
-	       else
+	       } else {
 		  call_other(obs[i], "event_" + name);
+               }
 	    }
 	    ticks_used += (MAX_TICKS - REMAINING_TICKS);
 	 }
@@ -90,15 +91,17 @@ void event(string name, varargs mixed args ...) {
    object *obs;
    int i;
 
-   if (!global_events[name])
+   if (!global_events[name]) {
       return;
+   }
 
    eventid++;
 
    obs = map_indices(global_events[name]);
 
-   if (!obs || sizeof(obs) == 0)
+   if (!obs || sizeof(obs) == 0) {
       return;
+   }
 
    DB("event: " + name + " (" + eventid + "), " + sizeof(obs) +
       " subscribers.");

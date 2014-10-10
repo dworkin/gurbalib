@@ -27,17 +27,19 @@ void add_emote(string name, string rule, string fmt) {
       rule = "";
    }
 
-   if (!emotes[name])
+   if (!emotes[name]) {
       emotes[name] = ([]);
+   }
    emotes[name][rule] = fmt;
    save_me();
 }
 
 int is_emote(string name) {
-   if (!emotes[name])
+   if (!emotes[name]) {
       return 0;
-   else
+   } else {
       return 1;
+   }
 }
 
 string *query_emotes(void) {
@@ -47,6 +49,7 @@ string *query_emotes(void) {
    if (!values) {
       return ({ "" });
    }
+
    return values;
 }
 
@@ -54,6 +57,7 @@ string query_emote(string name, string rule) {
    if (member_map(name,emotes) && member_map(rule,emotes[name])) {
       return emotes[name][rule];
    } 
+
    return nil;
 }
 
@@ -61,6 +65,7 @@ string *query_rules(string name) {
    if (member_map(name,emotes)) {
       return map_indices(emotes[name]);
    }
+
    return nil;
 }
 
@@ -101,8 +106,8 @@ string *show_emote(string str, int width) {
 
       return lines;
    }
-   if (is_emote(str)) {
 
+   if (is_emote(str)) {
       rules = query_rules(str);
 
       while (sizeof(rules) > 0) {

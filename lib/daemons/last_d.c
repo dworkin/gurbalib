@@ -51,8 +51,7 @@ string query_entry(string name) {
 }
 
 string query_list(void) {
-   string *players;
-   string msg;
+   string msg, *players;
    int i;
 
    msg = "";

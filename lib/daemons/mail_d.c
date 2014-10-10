@@ -10,7 +10,7 @@ string get_filename(string who) {
    int x;
 
    filen = DATA_DIR + "/" + who + "/" + time();
-   if file_exists(filen) {
+   if (file_exists(filen)) {
       x= 1;
       tmp = filen + x;
 

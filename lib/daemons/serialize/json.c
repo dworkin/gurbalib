@@ -68,8 +68,9 @@ string save_value(mixed data) {
       case T_ARRAY:
 	 result = "[";
 	 for (count = 0, size = sizeof(data); count < size; count++) {
-	    if (count > 0)
+	    if (count > 0) {
 	       result += ", ";
+            }
 	    result += save_value(data[count]);
 	 }
 	 result += "]";
@@ -78,8 +79,9 @@ string save_value(mixed data) {
 	 result = "{";
 	 keys = map_indices(data);
 	 for (count = 0, size = sizeof(keys); count < size; count++) {
-	    if (count > 0)
+	    if (count > 0) {
 	       result += ", ";
+            }
 	    result += save_value(keys[count]);
 	    result += ":";
 	    result += save_value(data[keys[count]]);

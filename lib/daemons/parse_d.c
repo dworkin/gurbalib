@@ -76,8 +76,10 @@ int query_can(mixed obj, string func, varargs mixed args ...) {
 	 x = call_other(obj, func, args[0], args[1], args[2], args[3]);
 	 break;
    }
-   if (!x)
+   if (!x) {
       return 0;
+   }
+
    return 1;
 }
 

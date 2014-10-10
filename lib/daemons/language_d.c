@@ -35,11 +35,18 @@ string *query_languages() {
    for(i=sizeof(files) - 1; i>=0; i--) {
       x = strlen(files[i]) - 3;
       obj = find_object(RACE_DIR + "/" + files[i][0..x]);
+
       if (obj) {
          name = obj->query_language();
       } 
-      if (!name || name == "") name = "english";
-      if (member_array(name, langs) == -1) langs += ({ name });
+
+      if (!name || name == "") {
+         name = "english";
+      }
+
+      if (member_array(name, langs) == -1) {
+         langs += ({ name });
+      }
    }
    return langs;
 }
@@ -49,15 +56,16 @@ int valid_language(string str) {
    object usr;
 
    langs = query_languages();
+
    if (member_array(str, langs) > -1) {
       return 1;
    }
+
    return 0;
 }
 
 void create(void) {
-   string *langs;
-   string str;
+   string str, *langs;
    int i, x;
 
    langs = query_languages();

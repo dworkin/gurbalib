@@ -14,8 +14,9 @@ int is_currency(string coin) {
    int i;
 
    for (i = 0; i < sizeof(currencies); i++) {
-      if (currencies[i][0] == lowercase(coin))
+      if (currencies[i][0] == lowercase(coin)) {
 	 return 1;
+      }
    }
    return 0;
 }
@@ -24,8 +25,9 @@ int query_value(string coin) {
    int i;
 
    for (i = 0; i < sizeof(currencies); i++) {
-      if (currencies[i][0] == lowercase(coin))
+      if (currencies[i][0] == lowercase(coin)) {
 	 return currencies[i][1];
+      }
    }
    return 0;
 }

@@ -10,10 +10,13 @@ void register_object(object ob) {
    string owner;
 
    owner = owner_object(ob);
-   if (!owner)
+   if (!owner) {
       owner = "<none>";
-   if (!objs[owner])
+   }
+
+   if (!objs[owner]) {
       objs[owner] = ([]);
+   }
 
    objs[owner][ob] = 0;
 }
@@ -22,26 +25,31 @@ void unregister_object(object ob) {
    string owner;
 
    owner = owner_object(ob);
-   if (!owner)
+   if (!owner) {
       owner = "<none>";
+   }
 
-   if (!objs[owner])
+   if (!objs[owner]) {
       return;
+   }
 
    objs[owner][ob] = nil;
-   if (!map_sizeof(objs[owner]))
+   if (!map_sizeof(objs[owner])) {
       objs[owner] = nil;
+   }
 }
 
 void register_clone(object ob) {
    string cloner;
 
    cloner = ob->query_cloner();
-   if (!cloner)
+   if (!cloner) {
       cloner = "nobody";
+   }
 
-   if (clones[cloner] == nil)
+   if (clones[cloner] == nil) {
       clones[cloner] = 0;
+   }
 
    clones[cloner]++;
 }
@@ -50,11 +58,13 @@ void unregister_clone(object ob) {
    string cloner;
 
    cloner = ob->query_cloner();
-   if (!cloner)
+   if (!cloner) {
       cloner = "nobody";
+   }
 
-   if (clones[cloner] == nil)
+   if (clones[cloner] == nil) {
       return;
+   }
 
    clones[cloner]--;
    if (clones[cloner] < 0) {

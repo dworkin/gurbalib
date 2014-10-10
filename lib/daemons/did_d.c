@@ -52,8 +52,9 @@ string *get_entries(int after) {
 
    index = start_index(after);
 
-   if (index >= sizeof(did))
+   if (index >= sizeof(did)) {
       return nil;
+   }
 
    output = ( { "Change Log\n", "**********\n" } );
 
