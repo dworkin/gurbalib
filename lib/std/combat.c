@@ -500,13 +500,15 @@ string *summarise_killers() {
 	int *killed_times;
 	string killer_name;
 	object tmp_killer;
-	int i, dim;
+	int i, dim, done;
 
 	killer_map = this_object()->query_killed_by();
 	killed_times = map_indices(killer_map);
 	killer_count = ([ ]);
 	killers = ({ });
-	lines = ({ });
+        done = 0;
+	lines = ({ "Summary of your killers:" });
+	lines += ({ "------------------------" });
 	for (i = 0, dim = sizeof(killed_times); i < dim; i++) {
 		tmp_killer = clone_object(killer_map[killed_times[i]]);
 		tmp_killer->setup();
@@ -517,12 +519,18 @@ string *summarise_killers() {
 		} else {
 			killer_count[killer_name]++;
 		}
+                done = 1;
 	}
-	killers = map_indices(killer_count);
-	for (i = 0, dim = sizeof(killers); i < dim; i++) {
-		lines += ({ killers[i] + " killed you " +
-			killer_count[killers[i]] + " time(s).\n" });
-	}
+        if (!done) { 
+           lines += ({ "So far you have been spared, count yourself lucky.\n"
+              });
+        } else {
+	   killers = map_indices(killer_count);
+	   for (i = 0, dim = sizeof(killers); i < dim; i++) {
+              lines += ({ killers[i] + " killed you " +
+                 killer_count[killers[i]] + " time(s).\n" });
+	   }
+        }
 	return lines;
 }
 

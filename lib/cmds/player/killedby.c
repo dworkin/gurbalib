@@ -14,6 +14,9 @@ void usage() {
 }
 
 static void main(string str) {
-	this_player()->more(this_player()->summarise_killers());
+   string *lines;
+
+   lines = this_player()->summarise_killers();
+   this_player()->more(lines);
 }
 
