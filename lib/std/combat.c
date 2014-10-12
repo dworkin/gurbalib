@@ -512,7 +512,7 @@ string *summarise_killers() {
 	for (i = 0, dim = sizeof(killed_times); i < dim; i++) {
 		tmp_killer = clone_object(killer_map[killed_times[i]]);
 		tmp_killer->setup();
-		killer_name = tmp_killer->query_short();
+		killer_name = tmp_killer->query_Name();
 		destruct_object(tmp_killer);
 		if (!killer_count[killer_name]) {
 			killer_count[killer_name] = 1;
