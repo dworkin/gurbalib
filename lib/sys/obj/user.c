@@ -429,12 +429,11 @@ void input_name(string str) {
       write("Goodbye!!!\n");
       destruct_object(player);
       destruct_object(this_object());
-   }
-
-   if (lowercase(str) == "who") {
+      return;
+   } else if (lowercase(str) == "who") {
       login_who();
       str = "";
-   }
+   } 
 
    if (!str || str == "") {
       send_message("\r\nPlease enter your name : ");
@@ -613,7 +612,6 @@ void change_passwd4(string str) {
 }
 
 void input_new_passwd(string str) {
-
    if (!str || str == "") {
       send_message("\nPlease enter your password: ");
       send_message(0);
@@ -649,7 +647,6 @@ void input_check_passwd(string str) {
 }
 
 void input_get_gender(string str) {
-
    if (!str || str == "") {
       send_message("Please enter your gender (male/female/neuter) : ");
       player->input_to_object(this_object(), "input_get_gender");
@@ -695,7 +692,6 @@ void input_get_website(string str) {
 }
 
 void input_get_race(string str) {
-
    if (!str || str == "") {
       send_message("Please choose one of the races : ");
       player->input_to_object(this_object(), "input_get_race");
