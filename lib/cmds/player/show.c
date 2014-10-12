@@ -127,7 +127,7 @@ static void main(string str) {
    if (sscanf(str, "%s to %s",what,where) == 2) {
    } else if (sscanf(str, "%s %s",what,where) == 2) {
    } else {
-      write("You want to give what to who?");
+      write("You want to show what to who?");
       return;
    }
 
