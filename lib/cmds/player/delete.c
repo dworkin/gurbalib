@@ -37,12 +37,12 @@ static void main(string str) {
 
    ob = this_environment()->present("board");
    if (!ob) {
-      write("Try reading a message at a message board.\n");
+      write("You need to be at a message board to delete items.\n");
       return;
    }
 
    if (!str || (str == "")) {
-      write("Read what?");
+      write("Delete what?");
       return;
    }
 
