@@ -27,7 +27,8 @@ void create(void) {
          "i": "inventory $*",
          "l": "look $*",
          "drink": "eat $*",
-         "sc": "score $*"
+         "sc": "score $*",
+         "kill": "attack $*"
       ]);
       wizard_alias = ([
          "z": "update $*"
