@@ -3,7 +3,7 @@ inherit M_COMMAND;
 void usage() {
    string *lines;
 
-   lines = ({ "Usage: describe [-h] DESCRIPTION" });
+   lines = ({ "Usage: describe [-h] [DESCRIPTION]" });
    lines += ({ "" });
    lines += ({ "Allows you to change your DESCRIPTION, so that when someone " +
       "looks at you," });
@@ -26,7 +26,8 @@ void usage() {
 static void main(string str) {
 
    if (empty_str(str)) {
-      usage();
+      write("Your current description:\n   " + this_player()->query_long() +
+         "\n");
       return;
    }
    if (sscanf(str, "-%s", str)) {
