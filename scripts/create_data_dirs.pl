@@ -115,3 +115,16 @@ if (!(-f "lib/data/messages/motd")) {
 	system("cp contrib/motd lib/data/messages/motd");
    }
 }
+
+if (!(-d "lib/data/fortunes")) {
+   print "lib/data/fortunes does not exist, do you want to use " .
+      "contrib/fortunes?\nIf you say no here you will need to create those " .
+      "files later.\n(Y/N) ?";
+
+   chomp($word = <STDIN>);
+
+   if ($word eq "y" || $word eq "Y") {
+        system("mkdir lib/data/fortunes");
+	system("cp contrib/fortunes/samples lib/data/fortunes/samples");
+   }
+}
