@@ -20,5 +20,4 @@ EXAMPLES
 	write ("Size of /domains/required = " + x + "\n");
 
 SEE ALSO
-	afun/filelastmod, afun/file_size, afun/file_exists
-
+	afun/file_size, afun/file_exists

@@ -17,5 +17,5 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/dir_size, afun/filelastmod, afun/file_size
+	afun/dir_size, afun/file_size
 

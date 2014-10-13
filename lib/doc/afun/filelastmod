@@ -13,6 +13,9 @@ DESCRIPTION
 	it was last modified if the optional argument 'seconds_since' is 
 	supplied and is non-zero.
 
+	You can find the exension on github here:
+	https://github.com/november-kilo/dgd-lpc-ext
+
 RETURN VALUE
 	The file's modification time in seconds since epoch or the seconds 
 	since the file's last modification.
@@ -24,4 +27,5 @@ EXAMPLES
 	x = filelastmod("/tmp/sirdude.txt", 1);
 
 SEE ALSO
-	afun/dir_size, afun/file_size, afun/file_exists
+	afun/blogit, afun/files_modified, afun/sqlite3_exec,
+	afun/sqlite3_select

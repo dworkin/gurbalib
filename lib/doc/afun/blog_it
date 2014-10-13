@@ -9,9 +9,17 @@ DESCRIPTION
 	function can be used to post to the gurbalib blog. The blog is found
 	at: http://gurbalib.blogspot.com/
 
+	You can find the exension on github here:
+	https://github.com/november-kilo/dgd-lpc-ext
+
 RETURN VALUE
 	Returns 1 for success. Returns a negative value if there is a problem
 	with the input.
 
-SEE ALSO
+EXAMPLES
 	XXX
+
+SEE ALSO
+	afun/filelastmod, afun/files_modified, afun/sqlite3_exec,
+	afun/sqlite3_select
+
