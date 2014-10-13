@@ -29,7 +29,7 @@ void usage() {
    lines += ({ "\tfortune" });
    lines += ({ "\tfortune samples" });
    lines += ({ "See Also:" });
-   /* XXX Need to add see also stuff here */
+   lines += ({ "\tmotd" });
 
    this_player()->more(lines);
 }
