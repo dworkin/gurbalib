@@ -100,3 +100,7 @@ work on some sort of stats:
 	How frequently a monster kills a player.
 	Loot distribution against challenge difficulty.
 
+Fix perms so guest user works, right now it fails at login.
+
+Check aliass so that you can't make an empty alias.
+check aliasadm after thats done as well.
