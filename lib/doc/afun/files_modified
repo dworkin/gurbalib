@@ -1,0 +1,24 @@
+NAME
+	files_modified - XXX
+
+SYNOPSIS
+	mixed *files_modified(string str, int hours, int maxsz, int dir)
+
+DESCRIPTION
+	This is available only if the mud is configured to use the 
+	FILES_MODIFIED LPC extension.
+
+	XXX
+
+	You can find the exension on github here:
+	https://github.com/november-kilo/dgd-lpc-ext
+
+RETURN VALUE
+	If the exension is disabled it will return nil.
+
+EXAMPLES
+	XXX
+
+SEE ALSO
+	afun/blogit, afun/files_modified, afun/sqlite3_exec,
+	afun/sqlite3_select

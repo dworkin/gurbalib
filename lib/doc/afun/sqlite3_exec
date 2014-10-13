@@ -1,0 +1,23 @@
+NAME
+	sqlite3_exec - sqlite3 exension: exec statement
+
+SYNOPSIS
+	int *sqlite3_exec(string filename, string sql)
+
+DESCRIPTION
+	This command is only available if you have the SQLITE3 exension
+	available.  Filename is the location of your sqllite database
+	and sql is the statment you want to run.
+
+	You can find the exension on github here:
+	https://github.com/november-kilo/dgd-lpc-ext
+
+RETURN VALUE
+	XXX
+
+EXAMPLES
+	XXX
+
+SEE ALSO
+	afun/blogit, afun/filelastmod, afun/files_modified, afun/sqlite3_select
+
