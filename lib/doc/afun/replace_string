@@ -19,8 +19,8 @@ EXAMPLES
 	write("Stuff = " + stuff + "\n");
 
 SEE ALSO
-	afun/empty_str, afun/fmt_str, afun/lowercase, afun/pad_string_left,
-        afun/rexplode, afun/strcmp, afun/strstr, afun/str2val, kfun/explode,
-	kfun/implode, afun/parse_range, kfun/parse_string, kfun/sscanf,
-	afun/trim_str, afun/uppercase
-
+	afun/add_comma, afun/empty_str, afun/fmt_str, afun/lowercase,
+	afun/pad_string_left, afun/rexplode, afun/strcmp,
+	afun/strstr, afun/str2val, kfun/explode, kfun/implode,
+	afun/parse_range, kfun/parse_string, kfun/sscanf, afun/trim_str,
+	afun/uppercase

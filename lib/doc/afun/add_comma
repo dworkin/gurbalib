@@ -1,0 +1,25 @@
+NAME
+	add_comma - add a comma to a string
+
+SYNOPSIS
+	string add_comma(string str)
+
+DESCRIPTION
+	Take a string as input and insert comma's for number values
+        and return the results.  1000 becomes 1,000.
+
+RETURN VALUE
+	string
+
+EXAMPLES
+	string money = "1000";
+
+	money = add_comma(money);
+	write("You have " + money + " coins.\n";
+
+SEE ALSO
+	afun/empty_str, afun/fmt_str, afun/lowercase,
+	afun/pad_string_left, afun/replace_string, afun/rexplode, afun/strcmp,
+	afun/strstr, afun/str2val, kfun/explode, kfun/implode,
+	afun/parse_range, kfun/parse_string, kfun/sscanf, afun/trim_str,
+	afun/uppercase

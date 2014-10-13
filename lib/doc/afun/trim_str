@@ -17,8 +17,8 @@ EXAMPLES
 	write("(" + x + ")\n");   /* Should print " (X WooHoo X) " */
 
 SEE ALSO
-	afun/empty_str, afun/fmt_str, afun/lowercase, afun/pad_string_left,
-	afun/replace_string, afun/rexplode, afun/strcmp, afun/strstr,
-	afun/str2val, kfun/explode, kfun/implode, afun/parse_range, 
-	kfun/parse_string, kfun/sscanf, afun/uppercase
-
+	afun/add_comma, afun/empty_str, afun/fmt_str, afun/lowercase,
+	afun/pad_string_left, afun/replace_string, afun/rexplode, afun/strcmp,
+	afun/strstr, afun/str2val, kfun/explode, kfun/implode,
+	afun/parse_range, kfun/parse_string, kfun/sscanf,
+	afun/uppercase
