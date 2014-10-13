@@ -25,4 +25,4 @@ EXAMPLES
 	write("X = " + x + " Y = " + y + "\n");
 
 SEE ALSO
-	afun/round_to_next, kfun/ceil, kfun/floor, kfun/fmod
+	afun/percent, afun/round_to_next, kfun/ceil, kfun/floor, kfun/fmod
