@@ -418,6 +418,22 @@ void login_who(void) {
    }
 }
 
+void write_races(void) {
+   int i;
+   string line, *races;
+
+   send_message("\n");
+
+   races = RACE_D->query_races();
+   for (i = 0; i < sizeof(races); i++) {
+      line = races[i] + "              ";
+      line = line[..10];
+      line += " - " + RACE_D->query_race_short(races[i]) + "\n";
+      send_message(line);
+   }
+   send_message("\n");
+}
+
 void input_name(string str) {
    if (str == "MSSP-REQUEST") {
       mssp_reply();
@@ -433,6 +449,12 @@ void input_name(string str) {
    } else if (lowercase(str) == "who") {
       login_who();
       str = "";
+   }  else if (lowercase(str) == "guest") {
+      /* Skip ahead for the guest user, no need for password and other stuff */
+      write_races();
+      send_message("Please choose one of the races : ");
+      player->input_to_object(this_object(), "input_get_race");
+      return;
    } 
 
    if (!str || str == "") {
@@ -495,22 +517,6 @@ void input_name(string str) {
    }
 }
 
-void write_races(void) {
-   int i;
-   string line, *races;
-
-   send_message("\n");
-
-   races = RACE_D->query_races();
-   for (i = 0; i < sizeof(races); i++) {
-      line = races[i] + "              ";
-      line = line[..10];
-      line += " - " + RACE_D->query_race_short(races[i]) + "\n";
-      send_message(line);
-   }
-   send_message("\n");
-}
-
 void input_correct_name(string str) {
    if (!str || str == "") {
       send_message("Please enter 'y' or 'n' : ");
@@ -518,21 +524,14 @@ void input_correct_name(string str) {
       player->input_to_object(this_object(), "input_correct_name");
    }
 
-   if (user_name == "guest") {
-      /* Skip ahead for the guest user, no need for password and other stuff */
-      write_races();
-      send_message("Please choose one of the races : ");
-      player->input_to_object(this_object(), "input_get_race");
+   if (lowercase(str) == "y" || lowercase(str) == "yes") {
+      send_message("Enter your password: ");
+      send_message(0);
+      player->input_to_object(this_object(), "input_new_passwd");
    } else {
-      if (lowercase(str) == "y" || lowercase(str) == "yes") {
-         send_message("Enter your password: ");
-         send_message(0);
-         player->input_to_object(this_object(), "input_new_passwd");
-      } else {
-         send_message("Enter your name : ");
-         send_message(1);
-         player->input_to_object(this_object(), "input_name");
-      }
+      send_message("Enter your name : ");
+      send_message(1);
+      player->input_to_object(this_object(), "input_name");
    }
 }
 
