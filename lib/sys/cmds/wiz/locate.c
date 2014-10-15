@@ -5,7 +5,7 @@ void usage() {
 
    lines = ({ "Usage: locate [-h] PLAYER" });
    lines += ({ " " });
-   lines += ({ "Locate player PLAYER." });
+   lines += ({ "Locate player PLAYER through intermud." });
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
