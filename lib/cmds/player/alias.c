@@ -76,6 +76,12 @@ static void main(string str) {
 	 return;
       }
 
+      /* Check for invalid input */
+      if ((cmd == " ") || (arg == " ") || (cmd == "") || (arg == "")) {
+         usage();
+         return;
+      }
+
       this_player()->add_alias(cmd, arg);
       write("Alias '" + cmd + "' (" + arg + ") added.");
    }
