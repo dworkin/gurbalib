@@ -82,7 +82,7 @@ static string format_member_display(string member, string domain) {
 static int action_list_members(string domain) {
    if (!domain) {
       notify_fail("No domain given.");
-   else if (!DOMAIN_D->is_domain(domain)) {
+   } else if (!DOMAIN_D->is_domain(domain)) {
       notify_fail("No such domain:" + domain);
    } else {
       string *members;
