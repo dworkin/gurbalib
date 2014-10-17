@@ -100,3 +100,6 @@ work on some sort of stats:
 	How frequently a monster kills a player.
 	Loot distribution against challenge difficulty.
 
+fix guest accounts... right now they are not registering in the player lists.
+and can't use commands on them...
+	should do guest# as a username....

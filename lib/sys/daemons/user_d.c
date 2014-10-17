@@ -139,7 +139,7 @@ static void create() {
 
       if (uob) {
          name = uob->query_name();
-         if (name && name != "guest") {
+         if (name && name != "who") {
             if (uob<-USER_OB) {
                users[name] = uob;
             }
@@ -239,7 +239,7 @@ int reset_password(string who, string passwd) {
    if (!obj) {
       return 0;
    }
-   obj->set_pass(who,passwd);
+   obj->set_pass(who, passwd);
    obj->save_me();
    return 1;
 }
@@ -421,7 +421,9 @@ object *query_players(void) {
    players = ( { } );
 
    for (i = 0, sz = sizeof(usr); i < sz; i++) {
-      players += ({ usr[i]->query_player() });
+      if (usr[i]->query_name() != "who") {
+         players += ({ usr[i]->query_player() });
+      }
    }
    return players;
 }
@@ -452,9 +454,7 @@ int player_exists(string str) {
 }
 
 string *list_all_users() {
-   string *names;
-   string *files;
-   string name;
+   string name, *files, *names;
    int x, i;
 
    names = ( { } );
@@ -749,7 +749,6 @@ void delete_homedir(string wiz) {
    }
 }
 
-
 void make_mortal(string name) {
    object player;
    string prev;
@@ -907,11 +906,11 @@ string *list_players(int long_flag) {
    mixed idletime;
    string idle;
 
-   usr = players();
+   usr = query_players();
    nump = sizeof(usr);
 
-	lines = ({ MUD_NAME + " currently has " + nump + " user" +
-		(nump > 1 ? "s" : "") + " online." });
+   lines = ({ MUD_NAME + " currently has " + nump + " user" +
+      (nump > 1 ? "s" : "") + " online." });
 
    max = sizeof(usr);
    for (i = 0; i < max; i++) {

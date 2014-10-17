@@ -23,7 +23,7 @@ void create() {
 
    set_property("auto_admin",0,"*","system");
    set_property("auto_wiz",0,"*","system");
-   user_name = "guest";
+   user_name = "who";
    data_version = 1;
    run_as("nobody");
 }
@@ -447,13 +447,15 @@ void input_name(string str) {
       destruct_object(this_object());
       return;
    } else if (lowercase(str) == "who") {
+      player->set_name("who");
       login_who();
       str = "";
    }  else if (lowercase(str) == "guest") {
+      player->set_name("guest");
+
       /* Skip ahead for the guest user, no need for password and other stuff */
-      write_races();
-      send_message("Please choose one of the races : ");
-      player->input_to_object(this_object(), "input_get_race");
+      send_message("Please enter your gender (male/female/neuter) : ");
+      player->input_to_object(this_object(), "input_get_gender");
       return;
    } 
 
@@ -490,11 +492,11 @@ void input_name(string str) {
       if (USER_D->player_exists(str)) {
 	 /* Player exists */
 
-	 player->set_name(user_name);
-	 player->restore_me();
-	 send_message("Enter your password: ");
-	 send_message(0);
-	 player->input_to_object(this_object(), "input_old_passwd");
+         player->set_name(user_name);
+         player->restore_me();
+         send_message("Enter your password: ");
+         send_message(0);
+         player->input_to_object(this_object(), "input_old_passwd");
       } else {
 	 player->set_name(user_name);
 	 if (SITEBAN_D->is_newbanned(query_ip_number(this_object()))) {
@@ -632,9 +634,9 @@ void input_check_passwd(string str) {
       player->input_to_object(this_object(), "input_check_passwd");
    } else {
       if (USER_D->login(user_name, str)) {
-         send_message("\nEnter your gender (male/female/neuter) : ");
+         send_message("\nPlease enter your real name : ");
          send_message(1);
-         player->input_to_object(this_object(), "input_get_gender");
+         player->input_to_object(this_object(), "input_get_real_name");
       } else {
          send_message("\nThe passwords don't match.\n");
          send_message("Goodbye!!!\n");
@@ -643,6 +645,26 @@ void input_check_passwd(string str) {
          destruct_object(this_object());
       }
    }
+}
+
+void input_get_real_name(string str) {
+   player->set_real_name(str);
+
+   send_message("Please enter your email address : ");
+   player->input_to_object(this_object(), "input_get_email");
+}
+
+void input_get_email(string str) {
+   player->set_email_address(str);
+   send_message("Please enter your website : ");
+   player->input_to_object(this_object(), "input_get_website");
+}
+
+void input_get_website(string str) {
+   player->set_website(str);
+
+   send_message("\nEnter your gender (male/female/neuter) : ");
+   player->input_to_object(this_object(), "input_get_gender");
 }
 
 void input_get_gender(string str) {
@@ -665,26 +687,6 @@ void input_get_gender(string str) {
       player->input_to_object(this_object(), "input_get_gender");
       return;
    }
-   send_message("\nPlease enter your real name : ");
-   player->input_to_object(this_object(), "input_get_real_name");
-}
-
-void input_get_real_name(string str) {
-   player->set_real_name(str);
-
-   send_message("Please enter your email address : ");
-   player->input_to_object(this_object(), "input_get_email");
-}
-
-void input_get_email(string str) {
-   player->set_email_address(str);
-   send_message("Please enter your website : ");
-   player->input_to_object(this_object(), "input_get_website");
-}
-
-void input_get_website(string str) {
-   player->set_website(str);
-
    write_races();
    send_message("Choose one of the above races for your character : ");
    player->input_to_object(this_object(), "input_get_race");

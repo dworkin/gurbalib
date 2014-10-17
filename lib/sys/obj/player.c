@@ -50,7 +50,7 @@ string query_name(void);
 
 /* Save the player */
 void save_me(void) {
-   if (living_name != "guest") {
+   if ((living_name != "guest") && (living_name != "who")) {
       unguarded("save_object", "/data/players/" + living_name + ".o");
    }
 }
@@ -143,7 +143,7 @@ void create(void) {
    set_env("pwd", "/");
    set_env("width", "78");
    set_env("height", "23");
-   living_name = "guest";
+   living_name = "who";
 
    custom_colors = ([]);
    level = 1;
