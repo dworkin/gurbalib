@@ -46,31 +46,7 @@ mapping custom_colors;		/* custom color symbols for this player */
 static mixed menu_data;		/* temp storage for menu system */
 int muzzle;			/* if 0 we are allowed to shout. */
 
-void set_env(string name, mixed value);
-mixed query_env(string name);
-string query_title(void);
 string query_name(void);
-
-void create(void) {
-   con::create();
-   bod::create();
-   cmd::create();
-
-   living_name = "guest";
-   channels = ( { "gossip", "announce" } );
-   ignored = ( { } );
-   title = "$N the nondescript";
-   long_desc = "";
-   set_short("A nondescript player");
-   timestamp = time();
-   set_env("cwd", "/");
-   set_env("pwd", "/");
-   set_env("width", "78");
-   set_env("height", "23");
-
-   custom_colors = ([]);
-   level = 1;
-}
 
 /* Save the player */
 void save_me(void) {
@@ -116,6 +92,90 @@ void restore_me(void) {
       cmd_path = nil;
       call_out( "save_me", 0 );
    }
+}
+
+void set_env(string name, mixed value) {
+   if (!environment_variables) {
+      environment_variables = ([]);
+   }
+   if(name == "PATH") {
+      /* we always require the wiz cmdpath so set remains available 
+         for changing the path again */
+      if (sizeof(explode(value,":") & 
+         ({ "$PATH", "/sys/cmds/wiz", "/sys/cmds/wiz/" }) ) >= 1) {
+         cmd::set_searchpath(value);
+      }
+   } else {
+      environment_variables[name] = value;
+   }
+   if (living_name) save_me();
+}
+
+mixed query_env(string name) {
+   if (!environment_variables) {
+      environment_variables = ([]);
+   }
+   if(name == "PATH") {
+      return cmd::query_searchpath();
+   }
+   return environment_variables[name];
+}
+
+string *query_env_indices(void) {
+   if (!environment_variables) {
+      environment_variables = ([]);
+   }
+   return map_indices(environment_variables) + ({ "PATH" });
+}
+
+void create(void) {
+   con::create();
+   bod::create();
+   cmd::create();
+
+   channels = ( { "gossip", "announce" } );
+   ignored = ( { } );
+   title = "$N the nondescript";
+   long_desc = "";
+   set_short("A nondescript player");
+   timestamp = time();
+   set_env("cwd", "/");
+   set_env("pwd", "/");
+   set_env("width", "78");
+   set_env("height", "23");
+   living_name = "guest";
+
+   custom_colors = ([]);
+   level = 1;
+}
+
+void setup() {
+}
+
+string query_title(void) {
+   string t, t2;
+
+   t = title;
+   if (!query_name()) {
+      return "";
+   }
+
+   if (!t || t == "") {
+      t = "$N the title less";
+   }
+   t2 = replace_string(t, "$N", capitalize(living_name));
+   if (t2 == t)  t2 = capitalize(living_name) + " " + t;
+
+   return t2;
+}
+
+void set_title(string t) {
+   title = t;
+   set_short(query_title());
+}
+
+string query_title_string(void) {
+   return title;
 }
 
 void login_player(void) {
@@ -203,38 +263,6 @@ int is_player(void) {
    return 1;
 }
 
-void set_env(string name, mixed value) {
-   if (!environment_variables) {
-      environment_variables = ([]);
-   }
-   if(name == "PATH") {
-      /* we always require the wiz cmdpath so set remains available for changing the path again */
-      if(sizeof(explode(value,":") & ({ "$PATH", "/sys/cmds/wiz", "/sys/cmds/wiz/" }) ) >= 1) {
-         cmd::set_searchpath(value);
-      }
-   } else {
-      environment_variables[name] = value;
-   }
-   if (living_name) save_me();
-}
-
-mixed query_env(string name) {
-   if (!environment_variables) {
-      environment_variables = ([]);
-   }
-   if(name == "PATH") {
-      return cmd::query_searchpath();
-   }
-   return environment_variables[name];
-}
-
-string *query_env_indices(void) {
-   if (!environment_variables) {
-      environment_variables = ([]);
-   }
-   return map_indices(environment_variables) + ({ "PATH" });
-}
-
 int query_ansi(void) {
    mixed x;
 
@@ -252,32 +280,6 @@ void set_ansi(int state) {
 
 void set_user(object usr) {
    user = usr;
-}
-
-void set_title(string t) {
-   title = t;
-   set_short(query_title());
-}
-
-string query_title(void) {
-   string t, t2;
-
-   t = title;
-   if (!query_name()) {
-      return "";
-   }
-
-   if (!t || t == "") {
-      t = "$N the title less";
-   }
-   t2 = replace_string(t, "$N", capitalize(living_name));
-   if (t2 == t)  t2 = capitalize(living_name) + " " + t;
-
-   return t2;
-}
-
-string query_title_string(void) {
-   return title;
 }
 
 void set_linkdead(int flag) {
@@ -457,8 +459,7 @@ void message_orig(string str) {
 }
 
 void write_prompt() {
-   string prompt;
-   string date;
+   string prompt, date;
 
    if (this_object()->is_editing()) {
       out("%^GREEN%^edit> %^RESET%^");
@@ -675,11 +676,9 @@ void do_go(string dir) {
 }
 
 void do_quit(void) {
-   object sp;
-   object *objs;
-   string quitcmd;
+   object sp, *objs;
+   string quitcmd, *channelstmp;
    int i, autoload;
-   string *channelstmp;
 
    sp = this_player();
 
@@ -1126,12 +1125,10 @@ int toggle_muzzle() {
    return muzzle;
 }
 
-void setup() {
-}
-
 int can_carry(object "/std/object" obj) {
 	this_object()->update_internal_weight();
-	return (internal_weight + obj->query_weight()) < query_internal_max_weight();
+	return (internal_weight + obj->query_weight()) < 
+           query_internal_max_weight();
 }
 
 void update_internal_weight() {
@@ -1143,5 +1140,4 @@ void update_internal_weight() {
 	}
 	set_internal_weight(w);
 }
-	
 
