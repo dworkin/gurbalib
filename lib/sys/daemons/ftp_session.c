@@ -5,12 +5,10 @@
 inherit M_CONNECTION;
 inherit "/sys/lib/runas";
 
-int timeout_handle;
 private mapping cmds;
-int priv, binary, filesize, where, closing, connected;
+int priv, binary, filesize, where, closing, connected, timeout_handle;
+string file_name, chunk, cwd, name, store_file_name;
 object connection;
-string file_name, chunk, cwd, name;
-string store_file_name;
 
 void FTP_connection_wait(void);
 void FTP_CMD_list(string str);
@@ -80,7 +78,7 @@ void close(varargs int flag) {
 }
 
 string query_name(void) {
-   return (name);
+   return name;
 }
 
 void FTPLOG(string str) {
@@ -207,10 +205,7 @@ void FTP_CMD_retr(string str) {
 }
 
 void FTP_CMD_stor(string arg) {
-
-   string path;
-   string *dirs;
-   string dir;
+   string path, dir, *dirs;
 
    if (priv == 0) {
       send_message("550 Permission denied.\n");
@@ -227,8 +222,9 @@ void FTP_CMD_stor(string arg) {
 
    dirs = explode(path, "/");
    dir = implode(dirs[..sizeof(dirs) - 2], "/");
-   if (strlen(dir) > 2)
+   if (strlen(dir) > 2) {
       dir = dir[..strlen(dir) - 1];
+   }
    if (file_exists(dir) != -1) {
       send_message("553 No such directory to STOR into. (" + dir + ")\n");
       return;
@@ -239,8 +235,9 @@ void FTP_CMD_stor(string arg) {
       return;
    }
 
-   if (file_exists(store_file_name))
+   if (file_exists(store_file_name)) {
       remove_file(store_file_name);
+   }
 
    connection->set_read_callback("FTP_stor");
 
@@ -319,10 +316,7 @@ void FTP_CMD_nlst(string str) {
 
 string FTP_myctime(int nTime) {
 
-   string zDate;
-   string zWeekday, zMon, zTime, zYear;
-   string zThis_year;
-   string zDay;
+   string zDate, zWeekday, zMon, zTime, zYear, zThis_year, zDay;
    int nDay;
 
    zDate = ctime(nTime);
@@ -501,9 +495,7 @@ void FTP_CMD_mkd(string arg) {
 }
 
 void FTP_CMD_port(string arg) {
-
-   string *tmp;
-   string ip;
+   string ip, *tmp;
    int port;
 
    tmp = explode(arg, ",");
@@ -530,6 +522,7 @@ void FTP_CMD_noop(string arg) {
 
 void FTP_CMD_dele(string arg) {
    string file;
+
    file = normalize_path(arg, cwd);
    if (!file || file == "" || priv == 0 || !valid_write(file)) {
       send_message("550 " + arg + ": Permission denied.\n");
@@ -570,10 +563,12 @@ void FTP_retr(void) {
    }
 
    if (binary == 0 && chunk != "") {
-      if (chunk[strlen(chunk) - 1] == '\n')
+      if (chunk[strlen(chunk) - 1] == '\n') {
 	 chunk += " ";
-      if (chunk[0] == '\n')
+      }
+      if (chunk[0] == '\n') {
 	 chunk = " " + chunk;
+      }
       converted = explode(chunk, "\n");
       chunk = implode(converted, "\r\n");
    }
@@ -597,10 +592,7 @@ void FTP_stor(string str) {
 }
 
 void receive_message(string message) {
-   string cmd, arg;
-   string func;
-
-   /*  FTPLOG( "Got: \"" + message + "\"\n" ); */
+   string cmd, arg, func;
 
    if (message != "" && strlen(message) >= 2) {
       if (message[strlen(message) - 1] == '\n') {
@@ -650,9 +642,10 @@ void receive_message(string message) {
 
    if ((call_other(this_object(), func, arg))) {
       FTPLOG(name + " caused a FAILURE with command '" + message + "'.\n");
-      send_message
-	 ("550 Unknown failure.  Please report what you were doing to the mud admin.\n");
+      send_message("550 Unknown failure.  Please report what you were doing " +
+         "to the mud admin.\n");
    }
+
    return;
 }
 

@@ -93,7 +93,11 @@ int run_away() {
          if (x < 1) {
             write("You attempt to run away but can not find " + "an exit.\n");
          } else {
-            y = random(x) + 1;
+            if (x > 1) {
+               y = random(x);
+            } else {
+               y = 0;
+            }
             this_object()->message("RUNAWAY : " + exits[y] + "\n");
             write("You attempt to run " + exits[y] + ".\n");
             error = this_object()->this_environment()->body_exit(this_object(),

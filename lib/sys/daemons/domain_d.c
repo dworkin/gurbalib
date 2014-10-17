@@ -1,9 +1,4 @@
-/*
- * Gurbalib's domain daemon
- *
- * Sept 2013, Aidil@Way of the Force
- *
- */
+/* Gurbalib's domain daemon Sept 2013, Aidil@Way of the Force */
 
 #define DMEMBER  1
 #define DADMIN   2
@@ -105,6 +100,7 @@ int add_domain_member(string domain, string member) {
 
 int remove_domain_member(string domain, string member) {
    string prev;
+
    /* note, people are allowed to remove themselves from a domain */
    if (!require_priv("system") && !require_priv(member)) {
       prev = previous_object()->base_name();

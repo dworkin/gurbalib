@@ -56,11 +56,7 @@ static void do_menu(mixed header, mixed * menu, varargs mixed footer) {
  * and is used for constructing the 'action' part of a menu item.
  */
 static mixed *make_fcall(object ob, string fun, mixed args ...) {
-   return ( {
-      ob, fun}
-   ) + ((args && sizeof(args)) ? args : ( {
-	 }
-      ));
+   return ({ ob, fun }) + ((args && sizeof(args)) ? args : ({ }));
 }
 
 /* Private functions */
@@ -75,9 +71,8 @@ private void prompt(string * keys) {
       } else {
 	 int l;
 	 l = sizeof(keys) - 1;
-	 disp +=
-	    "[" + implode(keys[0..3], ", ") + "..." + implode(keys[l - 2..l],
-	    ", ") + "] ";
+	 disp += "[" + implode(keys[0..3], ", ") + "..." + 
+            implode(keys[l - 2..l], ", ") + "] ";
       }
    }
    this_player()->query_user()->out(disp);
@@ -90,8 +85,9 @@ private void input_to(string fun) {
 private string fixlen(string str, int len, varargs int flag) {
    if (flag) {
       str = PAD + str;
-      if (len > strlen(str)) 
+      if (len > strlen(str)) {
          len = strlen(str);
+      }
       return str[(strlen(str)-len)..];
    } else {
       str += PAD;
@@ -117,7 +113,7 @@ private string *display_conv(string str) {
    /* stupid line splitter, will split on word breaks, but 
       will fail on long words deal with lines that are too long still, 
       should only happen when width < 40  */
-   if(len > width) {
+   if (len > width) {
       words=rexplode(str," ");
       line = "";
       for (i = 0, total = 0, sz = sizeof(words); i < sz; i++) {
@@ -133,7 +129,7 @@ private string *display_conv(string str) {
          total++;
          line += " ";
       }
-      if(strlen(line)) {
+      if (strlen(line)) {
          r += ({ line });
       }
    } else {
@@ -148,8 +144,13 @@ private string make_display_line(mixed * m) {
    int width;
 
    width = this_player()->query_width();
-   if(width > 132) width = 132;
-   if(width < 40) width = 40; /* we'll deal with smaller displays later */
+   if (width > 132) {
+      width = 132;
+   }
+   /* we'll deal with smaller displays later */
+   if (width < 40) {
+      width = 40;
+   }
 
    result = C_KEY + fixlen(get_val(m[KEY]), 3) + C_OFF;
    result += " : ";
@@ -161,7 +162,7 @@ private string make_display_line(mixed * m) {
       opt = get_val(m[OPT_DESC]);
 
       olen = strlen(opt);
-      if (olen > ((width - 8) / 2)+4) {
+      if (olen > ((width - 8) / 2) + 4) {
          olen = (width - 8) / 2;
          opt = opt[..olen-1];
          opt += "...";
@@ -186,7 +187,9 @@ private void display_menu(mixed header, mixed * menu, mixed footer,
 
    output = ( { } ); 
    width = this_player()->query_width();
-   if(width > 132) width = 132;
+   if (width > 132) {
+      width = 132;
+   }
 
    width--;
 
@@ -216,7 +219,7 @@ private void exec_menu() {
    mixed header, footer, *menu;
    mapping actions;
 
-   ( { header, menu, footer, actions } ) = this_player()->retrieve_menu();
+   ({ header, menu, footer, actions }) = this_player()->retrieve_menu();
    display_menu(header, menu, footer, map_indices(actions));
 }
 
@@ -224,7 +227,7 @@ void menu_response(string str) {
    mixed header, footer, *menu, resp;
    mapping actions;
 
-   ( { header, menu, footer, actions } ) = this_player()->retrieve_menu();
+   ({ header, menu, footer, actions }) = this_player()->retrieve_menu();
 
    if (actions[str]) {
       resp = FCALL(actions[str]...);
@@ -252,7 +255,7 @@ void more_done() {
    mixed header, *menu, footer;
    mapping actions;
 
-   ( { header, menu, footer, actions } ) = this_player()->retrieve_menu();
+   ({ header, menu, footer, actions }) = this_player()->retrieve_menu();
    if (actions) {
       input_to("menu_response");
       prompt(map_indices(actions));

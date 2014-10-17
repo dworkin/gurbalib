@@ -22,8 +22,9 @@ void FTPLOG(string str) {
 }
 
 void message_done(void) {
-   if (prev)
+   if (prev) {
       call_other(prev, callback);
+   }
 }
 
 static void create(void) {
@@ -41,12 +42,13 @@ void open(varargs int port) {
 }
 
 int is_connected(void) {
-   return (connected);
+   return connected;
 }
 
 void close(varargs int force) {
-   if (read_callback == "FTP_stor")
+   if (read_callback == "FTP_stor") {
       call_other(prev, "FTP_write");
+   }
    connected = 0;
    destruct_object(this_object());
 }
@@ -60,11 +62,6 @@ void send_data(mixed data) {
    secure();
    prev = previous_object();
    send_message(data);
-/*
-  if( send_message( -1 ) == 0 )
-    call_out( "message_done", 1 );
-*/
-   /* message_done(); */
 }
 
 void set_read_callback(string func) {

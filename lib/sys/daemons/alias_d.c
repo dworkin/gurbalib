@@ -4,8 +4,13 @@ mapping wizard_alias;
 
 #define DATAFILE "/sys/daemons/data/alias_d.o"
 
-void restore_me(void);
-void save_me(void);
+nomask void restore_me(void) {
+   unguarded("restore_object", DATAFILE);
+}
+
+nomask void save_me(void) {
+   unguarded("save_object", DATAFILE);
+}
 
 void create(void) {
 
@@ -38,17 +43,10 @@ void create(void) {
    }
 }
 
-nomask void restore_me(void) {
-   unguarded("restore_object", DATAFILE);
-}
-
-nomask void save_me(void) {
-   unguarded("save_object", DATAFILE);
-}
-
 void add_player_alias(string cmd, string alias) {
-   if (!player_alias)
+   if (!player_alias) {
       player_alias = ([]);
+   }
 
    player_alias[cmd] = alias;
    write("Player alias " + cmd + " added.");
@@ -56,8 +54,9 @@ void add_player_alias(string cmd, string alias) {
 }
 
 int remove_player_alias(string cmd) {
-   if (!player_alias)
+   if (!player_alias) {
       player_alias = ([]);
+   }
 
    if (!member_map(cmd,player_alias)) {
       return 0;
@@ -70,8 +69,9 @@ int remove_player_alias(string cmd) {
 }
 
 void add_wizard_alias(string cmd, string alias) {
-   if (!wizard_alias)
+   if (!wizard_alias) {
       wizard_alias = ([]);
+   }
 
    wizard_alias[cmd] = alias;
    write("Wizard alias " + cmd + " added.");
@@ -79,8 +79,9 @@ void add_wizard_alias(string cmd, string alias) {
 }
 
 int remove_wizard_alias(string cmd) {
-   if (!wizard_alias)
+   if (!wizard_alias) {
       wizard_alias = ([]);
+   }
 
    if (!member_map(cmd,wizard_alias)) {
       return 0;
@@ -93,37 +94,46 @@ int remove_wizard_alias(string cmd) {
 
 int is_alias(string cmd) {
 
-   if (!player_alias)
+   if (!player_alias) {
       player_alias = ([]);
+   }
 
-   if (!wizard_alias)
+   if (!wizard_alias) {
       wizard_alias = ([]);
+   }
 
-   if (player_alias[cmd])
+   if (player_alias[cmd]) {
       return 1;
+   }
 
    if (query_wizard(this_player()->query_name())) {
-      if (wizard_alias[cmd])
+      if (wizard_alias[cmd]) {
 	 return 1;
+      }
    }
 
    return 0;
 }
 
 string query_alias(string cmd) {
-   if (!player_alias)
+   if (!player_alias) {
       player_alias = ([]);
+   }
 
-   if (!wizard_alias)
+   if (!wizard_alias) {
       wizard_alias = ([]);
+   }
 
-   if (player_alias[cmd])
+   if (player_alias[cmd]) {
       return player_alias[cmd];
+   }
 
    if (query_wizard(this_player()->query_name())) {
-      if (wizard_alias[cmd])
+      if (wizard_alias[cmd]) {
 	 return wizard_alias[cmd];
+      }
    }
+
    return nil;
 }
 
@@ -144,11 +154,11 @@ string do_expand(string alias, string arg) {
 }
 
 string expand_alias(string cmd) {
-   string alias;
-   string arg;
+   string arg, alias;
 
-   if (!cmd || cmd == "")
+   if (!cmd || cmd == "") {
       return "";
+   }
 
    arg = "";
 
@@ -156,20 +166,21 @@ string expand_alias(string cmd) {
 
    if (is_alias(cmd)) {
       alias = query_alias(cmd);
-      if (!alias)
+      if (!alias) {
 	 return nil;
+      }
       return do_expand(alias, arg);
    } else {
-      if (!arg || arg == "")
+      if (!arg || arg == "") {
 	 return cmd;
+      }
       return cmd + " " + arg;
    }
 }
 
 string *show_alias(string type, string str) {
-   string *rules, *aliases;
+   string line, *rules, *aliases;
    int i, done;
-   string line;
 
    done = 0;
    rules = ( { } );

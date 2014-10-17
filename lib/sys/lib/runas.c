@@ -1,6 +1,5 @@
 /*
  * Run object with custom privileges.
- *
  */
 
 #include <privileges.h>
@@ -17,9 +16,10 @@ nomask static void run_as(string priv) {
       }
 
       parts = explode(priv,":");
-      for(i=0, sz=sizeof(parts); i<sz; i++) {
+      for (i=0, sz=sizeof(parts); i<sz; i++) {
          pt = SECURE_D->query_priv_type(parts[i]);
-         if(pt == PT_UNKNOWN || parts[i] == "-" || parts[i] == "*" || parts[i] == "?") {
+         if (pt == PT_UNKNOWN || parts[i] == "-" || parts[i] == "*" ||
+            parts[i] == "?") {
             error("Invalid privilege " + priv);
          }
       }
@@ -31,8 +31,8 @@ nomask static void run_as(string priv) {
 }
 
 nomask string _Q_cpriv() {
-   if(ROOT()) {
-      if(cpriv) {
+   if (ROOT()) {
+      if (cpriv) {
          return cpriv;
       } else {
          return owner_file(object_name(this_object()));

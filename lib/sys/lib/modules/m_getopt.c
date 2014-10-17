@@ -47,10 +47,7 @@ private mapping options;
 private mapping longopts;
 private mapping shortopts;
 
-/*
- * mask this for custom option checking.
- *
- */
+/* mask this for custom option checking.  */
 static int test_option_arg(string option, string arg, int type) {
    string r;
 
@@ -73,7 +70,7 @@ static int test_option_arg(string option, string arg, int type) {
 }
 
 static void set_options(mapping m) {
-   int i,sz, oi, osz;
+   int i, sz, oi, osz;
    string *opt;
 
    if (!m) {
@@ -90,10 +87,8 @@ static void set_options(mapping m) {
    longopts = ([ ]);
 
    for (i=0, sz=sizeof(opt); i<sz; i++) {
-      int vreq;
-      int multi;
-      mixed sopt;
-      mixed lopt;
+      int vreq, multi;
+      mixed sopt, lopt;
 
       if (sizeof(m[opt[i]]) > 2) {
          vreq = (1 && m[opt[i]][VALUE]);
@@ -128,9 +123,7 @@ static void set_options(mapping m) {
 }
 
 private mixed *parse_long_option(string opt, string str) {
-   string r;
-   string err;
-   string val;
+   string r, err, val;
    int end;
    mixed m;
 
@@ -255,11 +248,8 @@ private mixed *parse_short_option(string opt, string str, int lastopt) {
 
 private mixed *parse_option(string str) {
    mapping options;
-   string opt;
-   string err;
-   string r;
-   int end;
-   int i,sz;
+   string opt, err, r;
+   int i, sz, end;
 
    if (sscanf(str, "--%s %s", opt, r) == 2 || sscanf(str, "--%s", opt) == 1) {
       return parse_long_option(opt, r);

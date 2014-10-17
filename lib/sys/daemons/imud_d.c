@@ -259,11 +259,13 @@ void rcv_locate_reply(string origmud, mixed origuser, string destuser,
    }
 }
 
-void rcv_locate_req(string origmud, mixed origuser, mixed destuser, mixed rest) {
+void rcv_locate_req(string origmud, mixed origuser, mixed destuser,
+   mixed rest) {
    object u;
 
-   if (!stringp(rest[0]))
+   if (!stringp(rest[0])) {
       return;
+   }
    u = USER_D->find_player(lowercase(rest[0]));
    if (u) {
       send_to_user("locate-reply", origmud, origuser, 
@@ -275,8 +277,9 @@ void rcv_who_reply(string origmud, mixed origuser, mixed destuser, mixed rest) {
    object p;
    int i;
 
-   if (!stringp(destuser))
+   if (!stringp(destuser)) {
       return;
+   }
 
    p = USER_D->find_player(destuser);
    if (p) {
@@ -294,7 +297,6 @@ void rcv_who_reply(string origmud, mixed origuser, mixed destuser, mixed rest) {
 }
 
 void rcv_who_req(string origmud, mixed origuser, mixed destuser, mixed rest) {
-
    mixed *msg;
    object *p;
    int i;
@@ -333,8 +335,9 @@ void rcv_tell(string origmud, mixed origuser, mixed destuser, mixed rest) {
    IMUDLOG("Got tell from " + origuser + "@" + origmud + " to " + destuser +
       ":" + rest[1] + ".\n");
 
-   if (!destuser)
+   if (!destuser) {
       return;
+   }
    user = USER_D->find_player(destuser);
    if (user && !user->query_ignored(origuser + "@" + origmud)) {
       user->set_last_tell(origuser + "@" + origmud);
@@ -358,13 +361,6 @@ void rcv_chanlist_reply(string origmud, mixed origuser, mixed destuser,
 
    chanlist_id = rest[0];
 
-   /*  chans = map_indices( chanlist );
-      for( i = 0; i < sizeof( chans ); i++ ) {
-      if( rest[1][chans[i]] == 0 ) {
-      chanlist[chans[i]] = 0;
-      }
-      }
-    */
    chans = map_indices(rest[1]);
    for (i = 0; i < sizeof(chans); i++) {
       if (rest[1][chans[i]] == 0) {
@@ -438,9 +434,10 @@ void rcv_startup_reply(string origmud, mixed origuser, mixed destuser,
       disconnect();
       connected = 0;
    } else {
-      IMUDLOG("startup_reply received from " + mpRouterList[current_router][0] + "\n" );
-      event("i3_connection",
-         "I3 connection to " + mpRouterList[current_router][0] + " (" +
+      IMUDLOG("startup_reply received from " +
+         mpRouterList[current_router][0] + "\n" );
+      event("i3_connection", "I3 connection to " + 
+         mpRouterList[current_router][0] + " (" +
          mpRouterList[current_router][1] + ") is now up.");
 
       connected = 1;
@@ -477,8 +474,9 @@ void rcv_error(string origmud, mixed origuser, mixed destuser, mixed rest) {
       (rest[1] ? rest[1] : "<none>") + "\n");
    if (stringp(destuser)) {
       user = USER_D->find_player(destuser);
-      if (!user)
+      if (!user) {
          return;
+      }
 
       user->message("%^RED%^Intermud error " + (rest[0] ? ("'" + rest[0] +
                "'") : "<no error>") + " received from " + origmud +
@@ -491,7 +489,6 @@ void rcv_auth_mud_req(string origmud, mixed origuser, mixed destuser,
    mixed rest) {
    if (origmud == IMUD_NAME) {
       pingtime = time();
-      /* IMUDLOG("keepalive ok\n");  */
    }
 }
 
@@ -576,8 +573,7 @@ void receive_message(string str) {
       /* Do we have the 4 bytes for the packet size and possibly the 
          entire packet? */
       while (size >= packet_len + 4) {
-         packet_len =
-            buffer[3] + (buffer[2] << 8) + (buffer[1] << 16) +
+         packet_len = buffer[3] + (buffer[2] << 8) + (buffer[1] << 16) +
             (buffer[0] << 24);
 
          /* Do we really have a complete packet? */
@@ -688,8 +684,9 @@ void reconnect(void) {
 
    reconnect_handle = 0;
 
-   if (!enabled)
+   if (!enabled) {
       return;
+   }
 
    if (query_connection()) {
       DRIVER->message("reconnect called but we still have a " +
@@ -743,21 +740,21 @@ void open() {
    send_to_router("startup-req-3", ({
             password,           /* Password - Send 0 if you're new */
             query_mudlist_id(), /* Mudlist ID - Send 0 if you're new */
-            query_chanlist_id(),        /* Channel List ID - Send 0 if you're new */
+            query_chanlist_id(),/* Channel List ID - Send 0 if you're new */
             LOGIN_PORT,         /* What port people use to connect to your MUD */
-            I3_TCP_PORT,        /* The MUD's designated port for Imud TCP comm */
-            I3_UDP_PORT,        /* The MUD's designated port for Imud UDP/OOB comm */
-            LIB_NAME + " " + LIB_VERSION,       /*Name of current lib */
-            LIB_NAME,           /*Name of base lib */
-            status()[ST_VERSION],       /*Driver version */
-            "LPMud",            /*MUD Type */
-            "Mudlib Development",       /*MUD Status */
+            I3_TCP_PORT,        /* The designated port for Imud TCP comm */
+            I3_UDP_PORT,        /* The designated port for Imud UDP/OOB comm */
+            LIB_NAME + " " + LIB_VERSION,       /* Name of current lib */
+            LIB_NAME,                           /* Name of base lib */
+            status()[ST_VERSION],               /* Driver version */
+            "LPMud",                            /* MUD Type */
+            "Mudlib Development",               /* MUD Status */
             ADMIN_EMAIL,        /*Email address of the MUD's admin */
-            /*The following is a list of SUPPORTED services with appropriate values.
-               Information regarding the various services can be found in the I-3
-               specification.
+            /* The following is a list of SUPPORTED services with appropriate
+               values.  Information regarding the various services can be
+               found in the I-3 specification.
              */
- (["auth": 1, "channel":1,
+            (["auth": 1, "channel":1,
                   /*      "emoteto" : 1, */
                   /*      "file"    : 1, */
                   /*      "finger"  : 1, */
@@ -766,10 +763,10 @@ void open() {
  "tell": 1, "who":1,
                   /*      "ucache"  : 1, */
                ]),
-            /*This is a list of custom services that are support by your MUD, but
-               not by the I-3 protocol.
+            /* This is a list of custom services that are support by your MUD,
+               but not by the I-3 protocol.
              */
-         ([]),}));
+            ([]),}));
 
    sBuffer = "";
    IMUDLOG("Connected to " + mpRouterList[current_router][0] + " : " +

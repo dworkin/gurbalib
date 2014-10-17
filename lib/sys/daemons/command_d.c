@@ -1,10 +1,4 @@
-/*
- * Gurbalib command daemon
- *
- * by Aidil@Way of the Force
- *
- */
-
+/* Gurbalib command daemon by Aidil@Way of the Force */
 #include <privileges.h>
 
 #define SYS_CMDPRIV ([\
@@ -28,6 +22,7 @@ void rehash();
 
 static void DBT(string str) {
    mixed verbose;
+
    if (this_player()) {
       verbose = this_player()->query_env("debug_commands");
       if (stringp(verbose) && (verbose == "on" || verbose == "1")) {
@@ -86,8 +81,7 @@ static string file_to_cmdname(string file) {
 
 void rehash() {
    int i, sz;
-   string *syspath;
-   string *cmds;
+   string *syspath, *cmds;
 
    if (!secure()) {
       error("Permission denied.");
@@ -116,8 +110,9 @@ int exec_command(string cmd, string arg, string * syspath) {
 
    DBT("exec_command: " + (cmd ? cmd : "<NIL>") + " " + dump_value(syspath) +
       "\n");
-   if (!cmd || cmd == "")
+   if (!cmd || cmd == "") {
       return -1;
+   }
 
    for (i = 0, sz = sizeof(syspath); (i < sz) && !cmd_ob; i++) {
       DBT("Locating " + cmd + " in " + syspath[i] + ": ");
@@ -144,6 +139,7 @@ int exec_command(string cmd, string arg, string * syspath) {
       return 1;
    } else {
       string msg;
+
       msg = cmd + " not handled by the command daemon: " +
          dump_value(cmd_ob) + "\n";
       msg += "Reason: ";
@@ -164,8 +160,7 @@ int exec_command(string cmd, string arg, string * syspath) {
 
 string cmdstats() {
    int i, sz;
-   string r;
-   string *syspath;
+   string r, *syspath;
 
    if (!KERNEL() && !SYSTEM()) {
       error("Permission denied.\n");

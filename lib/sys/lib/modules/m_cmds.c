@@ -24,6 +24,7 @@ static void create() {
 
 private void DBT(string str) {
    mixed flag;
+
    if (this_player()) {
       flag = this_player()->query_env("debug_commands");
       if (stringp(flag) && (flag == "1" || flag == "on")) {
@@ -31,7 +32,9 @@ private void DBT(string str) {
       } else if (!intp(flag)) {
          flag = 0;
       }
-      if (flag) this_player()->out(str);
+      if (flag) {
+         this_player()->out(str);
+      }
    }
 #ifdef DEBUG
    console_msg(str);
@@ -56,6 +59,7 @@ private string trailing_slash( string str ) {
 static void set_searchpath( mixed path ) {
    int i, sz;
    string *result;
+
    DBT("set_searchpath("+dump_value(path)+")\n");
 
    result = ({ });
@@ -143,8 +147,12 @@ static int command(string cmd, string arg, varargs string *path) {
       error("Direct call_outs to command() not allowed");
    }
 
-   if (!path) path = searchpath;
-   if (!path) path = DEFAULT_SEARCHPATH;
+   if (!path) {
+      path = searchpath;
+   }
+   if (!path) {
+      path = DEFAULT_SEARCHPATH;
+   }
    return COMMAND_D->exec_command(cmd, arg, path );
 }
 
@@ -215,8 +223,7 @@ int do_game_command(string message) {
       /* check for emotes */
       if (!flag) {
          if (EMOTE_D->is_emote(cmd)) {
-            string *rules;
-            string rule;
+            string rule, *rules;
             object target;
 
             rules = EMOTE_D->query_rules(cmd);
@@ -245,7 +252,7 @@ int do_game_command(string message) {
                }
             } else {
                /* Or are we just looking for a string? */
-               if (member_array("STR", rules) != -1 && arg != "") {
+               if ((member_array("STR", rules) != -1) && (arg != "")) {
                   rule = "STR";
                } else {
                   rule = "";
@@ -258,12 +265,10 @@ int do_game_command(string message) {
                simple_action(EMOTE_D->query_emote(cmd, rule), target);
             } else if (rule == "STR") {
                simple_action(EMOTE_D->query_emote(cmd, rule), arg);
+            } else if (member_array("", rules) != -1) {
+               simple_action(EMOTE_D->query_emote(cmd, rule));
             } else {
-               if (member_array("", rules) != -1) {
-                  simple_action(EMOTE_D->query_emote(cmd, rule));
-               } else {
-                  write("No such emote.\n");
-               }
+               write("No such emote.\n");
             }
             flag = 1;
          }

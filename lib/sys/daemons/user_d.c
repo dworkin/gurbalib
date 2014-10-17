@@ -68,10 +68,7 @@ object find_user(string name) {
    return users[name];
 }
 
-/*
- * If there are any data objects (clones) around, destruct them.
- *
- */
+/* If there are any data objects (clones) around, destruct them.  */
 static void cleanup() {
    object c, n;
 
@@ -124,7 +121,7 @@ static void create() {
    u = users();
 
    for (i = 0, sz = sizeof(u); i < sz; i++) {
-      string name;
+      string name; 
       object uob;
 
       if (u[i]<-USER_OB) { 
@@ -412,9 +409,8 @@ object find_player(string name) {
 }
 
 object *query_players(void) {
-   object *usr;
+   object *usr, *players;
    int i, sz;
-   object *players;
 
    usr = query_users();
 
@@ -429,9 +425,8 @@ object *query_players(void) {
 }
 
 object *query_wizards(void) {
-   object *usr;
+   object *usr, *wizards;
    int i, sz;
-   object *wizards;
 
    usr = query_users();
 
@@ -900,11 +895,10 @@ mapping query_cache() {
 }
 
 string *list_players(int long_flag) {
-   string *lines;
-   object *usr;
+   string idle, *lines;
    int i, max, hidden, nump;
+   object *usr;
    mixed idletime;
-   string idle;
 
    usr = query_players();
    nump = sizeof(usr);

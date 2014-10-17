@@ -16,7 +16,7 @@ void create() {
 }
 
 string *query_banished_names() {
-   return (banished_names);
+   return banished_names;
 }
 
 int is_banished(string name) {
