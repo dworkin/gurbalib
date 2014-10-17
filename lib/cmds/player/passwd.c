@@ -42,15 +42,23 @@ static void main(string arg) {
          return;
       }
       if (sscanf(arg,"%s %s",who,passwd) == 2) {
-	 if (USER_D->reset_password(who,passwd)) {
-	    write("Password for user: " + who + ", set to : " + passwd + "\n");
-            return;
+         if (USER_D->player_exists(who) > 0) {
+            if (USER_D->reset_password(who,passwd)) {
+	       write("Password for user: " + who + ", set to : " + 
+                  passwd + "\n");
+            }
+         } else {
+            write(who + " is not a real user.\n");
          }
       } else {
          usage();
-         return;
       }
+      return;
    }
 
-   call_other(this_user(), "change_passwd", "");
+   if (USER_D->player_exists(this_player()->query_name()) > 0) {
+      call_other(this_user(), "change_passwd", "");
+   } else {
+      write("Guest accounts do not have passwords.\n");
+   }
 }

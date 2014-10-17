@@ -124,7 +124,7 @@ int query_priv_type(string p) {
          r = PT_WIZARD_BAD;
       }
    } else {
-      if (USER_D->player_exists(p) || (p == "Guest")) {
+      if (USER_D->player_exists(p) || (p == "guest")) {
          r = PT_PLAYER;
       /* no player savefile, but user does exist */
       } else if (USER_D->user_exists(p)) {

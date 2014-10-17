@@ -35,6 +35,11 @@ static void main(string str) {
    string cmd, what;
 
    if (empty_str(str)) {
+      if (!USER_D->player_exists(this_player()->query_name())) {
+         write("chfn does not work with guest accounts.\n");
+         return;
+      }
+
       show_chfn();
       return;
    }
@@ -43,12 +48,18 @@ static void main(string str) {
       usage();
       return;
    }
+
+   if (!USER_D->player_exists(this_player()->query_name())) {
+      write("chfn does not work with guest accounts.\n");
+      return;
+   }
+
    if (sscanf(str, "%s %s", cmd, what) != 2) {
       usage();
       return;
    }
-   cmd = lowercase(cmd);
 
+   cmd = lowercase(cmd);
    if (cmd == "email") {
       this_player()->set_email_address(what);
       show_chfn();

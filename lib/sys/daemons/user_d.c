@@ -139,7 +139,7 @@ static void create() {
 
       if (uob) {
          name = uob->query_name();
-         if (name && name != "Guest") {
+         if (name && name != "guest") {
             if (uob<-USER_OB) {
                users[name] = uob;
             }

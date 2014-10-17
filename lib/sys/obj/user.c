@@ -23,7 +23,7 @@ void create() {
 
    set_property("auto_admin",0,"*","system");
    set_property("auto_wiz",0,"*","system");
-   user_name = "Guest";
+   user_name = "guest";
    data_version = 1;
    run_as("nobody");
 }
