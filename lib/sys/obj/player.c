@@ -207,12 +207,13 @@ void login_player(void) {
 	 }
       }
    }
-	is_new_player = !last_login;
+
+   is_new_player = !last_login;
+   last_login = time();
+
    if (is_new_player) {
       EVENT_D->event("new_player", living_name);
-      last_login = time();
    } else {
-      last_login = time();
       EVENT_D->event("player_login", living_name);
    }
 
@@ -239,15 +240,18 @@ void login_player(void) {
 	 tmpchannels[i] = nil;
       }
    }
-  	race = query_race();
-  	set_race(race, is_new_player);
-	if (is_new_player) {
-  		set_hit_skill("combat/unarmed");
-	}
+
+   race = query_race();
+   set_race(race, is_new_player);
+   if (is_new_player) {
+      set_hit_skill("combat/unarmed");
+   }
+
    set_short(query_title());
-	set_internal_max_weight(15 + query_statbonus("str"));
+   set_internal_max_weight(15 + query_statbonus("str"));
    ANSI_D->set_player_translations(custom_colors);
    autoload = query_env("autoload");
+
    if (autoload == nil) {
       autoload = 0;
    } else if (autoload == 1) {
@@ -292,16 +296,16 @@ void set_user(object usr) {
 
 void set_linkdead(int flag) {
    if (flag == 1) {
-		LINKDEAD_D->add_linkdead(query_title());
-		EVENT_D->event("player_linkdeath", query_name());
+      LINKDEAD_D->add_linkdead(query_title());
+      EVENT_D->event("player_linkdeath", query_name());
       set_short(query_title() + " [link-dead]");
       linkdead = call_out("do_quit", LINKDEAD_TIMEOUT);
    } else {
       set_short(query_title());
       if (linkdead) {
-	 		remove_call_out(linkdead);
-			EVENT_D->event("player_unlinkdeath", query_name());
-		}
+         remove_call_out(linkdead);
+         EVENT_D->event("player_unlinkdeath", query_name());
+      }
       linkdead = 0;
    }
 }
@@ -334,6 +338,7 @@ string query_real_name(void) {
    if (!real_name) {
       return "";
    }
+
    return real_name;
 }
 
@@ -345,6 +350,7 @@ string query_email_address(void) {
    if (!email_address) {
       return "";
    }
+
    return email_address;
 }
 
@@ -356,6 +362,7 @@ string query_website() {
    if (!website) {
       return "";
    }
+
    return website;
 }
 
@@ -380,6 +387,7 @@ void add_channel(string chan) {
    if (!channels) {
       channels = ( { } );
    }
+
    channels -= ( { chan } );
    channels += ( { chan } );
 }
@@ -388,6 +396,7 @@ void remove_channel(string chan) {
    if (!channels) {
       channels = ( { } );
    }
+
    channels -= ( { chan } );
 }
 
@@ -399,6 +408,7 @@ void add_ignore(string who) {
    if (who == "") {
       return;
    }
+
    ignored += ( { lowercase(who) } );
 }
 
@@ -406,6 +416,7 @@ void remove_ignore(string who) {
    if (!ignored) {
       ignored = ( { } );
    }
+
    ignored -= ( { lowercase(who) } );
 }
 
@@ -413,6 +424,7 @@ int query_ignored(string who) {
    if (!ignored) {
       ignored = ( { } );
    }
+
    who = lowercase(who);
    return member_array(who, ignored) >= 0;
 }
@@ -421,6 +433,7 @@ string *query_ignored_all() {
    if (!ignored) {
       ignored = ( { } );
    }
+
    return ignored;
 }
 
@@ -635,8 +648,8 @@ void more_prompt(string arg) {
          out_unmod(msg + "\n");
       }
 
-      out("%^BOLD%^--More--(" + ((more_line_num +
-	       height) * 100) / sizeof(more_lines) + "%)%^RESET%^");
+      out("%^BOLD%^--More--(" + ((more_line_num + height) * 100) /
+         sizeof(more_lines) + "%)%^RESET%^");
       more_line_num += height + 1;
       input_to("more_prompt");
    } else {
@@ -950,7 +963,7 @@ void receive_message(string message) {
             objs = player->query_inventory();
             if (objs) {
                maxy = sizeof(objs);
-               for(y=0;y<maxy; y++) {
+               for(y = 0; y < maxy; y++) {
 	          roomcmd_h = objs[y]->query_action(cmd);
 
 	          if (roomcmd_h) {
@@ -989,7 +1002,7 @@ void receive_message(string message) {
             objs = room->query_inventory();
             if (objs) {
                maxy = sizeof(objs);
-               for(y=0;y<maxy; y++) {
+               for(y = 0; y < maxy; y++) {
 	          roomcmd_h = objs[y]->query_action(cmd);
 
 	          if (roomcmd_h) {
