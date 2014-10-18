@@ -76,12 +76,16 @@ void restore_me(void) {
    }
 
    set_id(living_name);
-   if (!alias)
+
+   if (!alias) {
       alias = ([]);
+   }
+
    if (cmd_path) {
       int i, sz;
+
       /* convert cmd_path */
-      for(i = 0, sz = sizeof( cmd_path ); i < sz; i++) {
+      for (i = 0, sz = sizeof( cmd_path ); i < sz; i++) {
          if(cmd_path[i] == "/kernel/cmds/admin") { 
             cmd_path[i] = "/sys/cmds/admin";
          } else if(cmd_path[i] == "/cmds/wiz") {
@@ -98,7 +102,7 @@ void set_env(string name, mixed value) {
    if (!environment_variables) {
       environment_variables = ([]);
    }
-   if(name == "PATH") {
+   if (name == "PATH") {
       /* we always require the wiz cmdpath so set remains available 
          for changing the path again */
       if (sizeof(explode(value,":") & 
@@ -108,14 +112,16 @@ void set_env(string name, mixed value) {
    } else {
       environment_variables[name] = value;
    }
-   if (living_name) save_me();
+   if (living_name) {
+      save_me();
+   }
 }
 
 mixed query_env(string name) {
    if (!environment_variables) {
       environment_variables = ([]);
    }
-   if(name == "PATH") {
+   if (name == "PATH") {
       return cmd::query_searchpath();
    }
    return environment_variables[name];
@@ -164,7 +170,9 @@ string query_title(void) {
       t = "$N the title less";
    }
    t2 = replace_string(t, "$N", capitalize(living_name));
-   if (t2 == t)  t2 = capitalize(living_name) + " " + t;
+   if (t2 == t) {
+      t2 = capitalize(living_name) + " " + t;
+   }
 
    return t2;
 }
@@ -357,7 +365,7 @@ void initialize_cmd_path(void) {
 
 /* Add a path to the command path */
 void add_cmd_path(string path) {
-   if(require_priv(owner_file(path))) {
+   if (require_priv(owner_file(path))) {
       cmd::add_cmd_path( path );
    } else {
       error("Permission denied.");
@@ -743,7 +751,7 @@ void do_quit(void) {
    }
    channels = channelstmp;
    EVENT_D->event("player_logout", living_name);
-	LINKDEAD_D->remove_linkdead(query_title());
+   LINKDEAD_D->remove_linkdead(query_title());
    quitting = 1;
    set_this_player(sp);
    query_user()->quit();
@@ -771,6 +779,7 @@ string query_alias(string cmd) {
    if (!alias) {
       alias = ([]);
    }
+
    return alias[cmd];
 }
 
@@ -778,6 +787,7 @@ void add_alias(string cmd, string new_alias) {
    if (!alias) {
       alias = ([]);
    }
+
    alias[cmd] = new_alias;
 }
 
@@ -861,8 +871,7 @@ string random_error() {
 /* Process input from the player */
 void receive_message(string message) {
    mixed result;
-   string func, cmd, arg;
-   string *exits;
+   string func, cmd, arg, *exits;
    int i, flag;
    object room;
 
@@ -882,7 +891,6 @@ void receive_message(string message) {
       func = input_to_func;
       input_to_func = "";
       call_other(input_to_obj, func, message, input_to_arg...);
-   /* Are we editing? */
    } else if (is_editing()) {
       this_player()->edit(message);
    } else {
@@ -1047,8 +1055,9 @@ void receive_message(string message) {
       if (!flag && cmd != "") {
 	 write(random_error());
       }
-      if (!quitting && input_to_func == "" && !is_editing())
+      if (!quitting && input_to_func == "" && !is_editing()) {
 	 write_prompt();
+      }
    }
 }
 
@@ -1126,18 +1135,20 @@ int toggle_muzzle() {
 }
 
 int can_carry(object "/std/object" obj) {
-	this_object()->update_internal_weight();
-	return (internal_weight + obj->query_weight()) < 
-           query_internal_max_weight();
+   this_object()->update_internal_weight();
+   return (internal_weight + obj->query_weight()) < 
+      query_internal_max_weight();
 }
 
 void update_internal_weight() {
-	object *inv;
-	int i, dim, w;
-	inv = query_inventory();
-	for (i = 0, w = 0, dim = sizeof(inv); i < dim; i++) {
-		w += inv[i]->query_weight();
-	}
-	set_internal_weight(w);
+   object *inv;
+   int i, dim, w;
+
+   inv = query_inventory();
+   for (i = 0, w = 0, dim = sizeof(inv); i < dim; i++) {
+      w += inv[i]->query_weight();
+   }
+
+   set_internal_weight(w);
 }
 
