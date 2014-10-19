@@ -1,5 +1,5 @@
 #include <type.h>
-inherit "/std/body/size";	/* satch */
+inherit "/std/body/size";   /* satch */
 inherit "/std/modules/m_autoload_filename";
 inherit "/std/modules/m_bane";
 
@@ -65,13 +65,14 @@ void add_id(string str, varargs mixed args ...) {
    /* fix args to set_id so that ids[0] preserved after adding new ids */
    switch (size) {
       case 0:
-	 set_id(str, args);
-	 break;
+         set_id(str, args);
+         break;
       case 1:
-	 set_id(ids[0], ( { str } ) | args);
-	 break;
+         set_id(ids[0], ( { str } ) | args);
+         break;
       default:
-	 set_id(ids[0], ( { str } ) | args | ids[1..(size - 1)]);
+         set_id(ids[0], ( { str } ) | args | ids[1..(size - 1)]);
+         break;
    }
 }
 
@@ -93,7 +94,7 @@ int is_id(string id) {
    max = sizeof(ids);
    for (i = 0; i < max; i++) {
       if (ids[i] == id) {
-	 return 1;
+         return 1;
       }
    }
    return 0;
@@ -139,7 +140,7 @@ int is_adj(string adj) {
    max = sizeof(adjs);
    for (i = 0; i < max; i++) {
       if (adjs[i] == adj) {
-	 return 1;
+         return 1;
       }
    }
    return 0;
@@ -152,10 +153,10 @@ void set_short(string str) {
 string query_short(void) {
    if (!short_desc || short_desc == "") {
       if (!query_adj() || query_adj() == "") {
-	 short_desc = article(query_id()) + " " + query_id();
+         short_desc = article(query_id()) + " " + query_id();
       } else {
-	 short_desc = article(query_adj()) + " " + query_adj() + " "
-	    + query_id();
+         short_desc = article(query_adj()) + " " + query_adj() + " " +
+            query_id();
       }
    }
    return short_desc;
@@ -208,7 +209,7 @@ nomask int move(mixed destination) {
    if (typeof(destination) == T_STRING) {
       /* Remove trailing .c */
       if (destination[strlen(destination) - 2..] == ".c") {
-	 destination = destination[..strlen(destination) - 3];
+         destination = destination[..strlen(destination) - 3];
       }
       dest = find_object(destination);
       if (!dest) {
@@ -228,12 +229,13 @@ nomask int move(mixed destination) {
       return 0;
    }
 
-	if (dest->is_player() && !dest->can_carry(this_object())) {
-			dest->message("Your inventory is full. Please check your " +
-				"local environment for '" + this_object()->query_short() + "'.");
-			this_object()->move(dest->query_environment());
-			return 0;
-	}
+   if (dest->is_player() && !dest->can_carry(this_object())) {
+      dest->message("Your inventory is full. Please check your " +
+         "local environment for '" + this_object()->query_short() + "'.");
+         this_object()->move(dest->query_environment());
+
+      return 0;
+   }
 
    err = dest->receive_object(this_object());
 
@@ -261,14 +263,14 @@ nomask int move(mixed destination) {
 nomask void add_verb_rules(string verb, varargs mixed rules) {
    switch (typeof(rules)) {
       case T_NIL:
-	 PARSE_D->add_object_rules(( { verb, ""} ));
-	 break;
+         PARSE_D->add_object_rules(( { verb, ""} ));
+         break;
       case T_STRING:
-	 PARSE_D->add_object_rules(( { verb, rules} ));
-	 break;
+         PARSE_D->add_object_rules(( { verb, rules} ));
+         break;
       case T_ARRAY:
-	 PARSE_D->add_object_rules(( { verb} ) + rules);
-	 break;
+         PARSE_D->add_object_rules(( { verb} ) + rules);
+         break;
    }
    return;
 }

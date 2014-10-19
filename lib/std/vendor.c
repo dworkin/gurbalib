@@ -48,11 +48,11 @@ void do_sell(object player, string what) {
 
       obj = clone_object(objs[i]);
       if (obj) {
-	 obj->move(this_object());
-	 obj->setup();
+         obj->move(this_object());
+    obj->setup();
 
          /* Found the object */
-	 if (obj->query_id() == what && found != 1) {
+    if (obj->query_id() == what && found != 1) {
             value = obj->query_value();
 
             if (stored_items[objs[i]] < 1) {
@@ -63,21 +63,21 @@ void do_sell(object player, string what) {
                      "$N $vgive $t $o", player, obj);
                   value = -1 * value;
                   player->add_money("ducat", value);
-	          obj->move(player);
+             obj->move(player);
                   stored_items[objs[i]] = stored_items[objs[i]] - 1;
                   found = 1;
                   return;
                } else {
                   write("You do not have enough money for that.\n");
-	          obj->query_environment()->remove_object(obj);
-	          obj->destruct();
+             obj->query_environment()->remove_object(obj);
+             obj->destruct();
                   return;
                }
             }
          } else {
-	    obj->query_environment()->remove_object(obj);
-	    obj->destruct();
-	 }
+       obj->query_environment()->remove_object(obj);
+       obj->destruct();
+    }
       }
    }
 
@@ -104,7 +104,7 @@ void do_buy(object player, object what) {
       return;
    }
 
-   player->targeted_action("$N $vsell $t $o for " + value + " ducats.", 
+   player->targeted_action("$N $vsell $t $o for " + value + " ducats.",
       this_object(), what);
    what->query_environment()->remove_object(what);
    what->destruct();
@@ -158,11 +158,11 @@ string query_list(void) {
 
             if (!obj->query_Name()) {
                if (!obj->query_adj() || obj->query_adj() == "") {
-                  str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_id() + 
+                  str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_id() +
                      ", " + obj->query_value() + " ducats.\n";
                } else {
-                  str += " %^CYAN%^[" + num + "]%^RESET%^ " + 
-                     obj->query_adj() + " " + obj->query_id() + ", " + 
+                  str += " %^CYAN%^[" + num + "]%^RESET%^ " +
+                     obj->query_adj() + " " + obj->query_id() + ", " +
                      obj->query_value() + " ducats.\n";
                }
             } else {

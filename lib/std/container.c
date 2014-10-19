@@ -18,7 +18,7 @@ void set_internal_max_weight(int x) {
 }
 
 void set_internal_weight(int x) {
-	internal_weight = x;
+   internal_weight = x;
 }
 
 int query_internal_max_weight() {
@@ -44,23 +44,23 @@ int is_container(void) {
 }
 
 private int baneful(object aggressor, object victim) {
-	object *inv;
-	string *aggressor_banes;
-	int     i, dim;
+   object *inv;
+   string *aggressor_banes;
+   int i, dim;
 
-	aggressor_banes = aggressor->query_banes();
-	if (victim->query_baneful(aggressor_banes)) {
-		return 1;
-	}
+   aggressor_banes = aggressor->query_banes();
+   if (victim->query_baneful(aggressor_banes)) {
+      return 1;
+   }
 
-	inv = victim->query_inventory();
-	for (i = 0, dim = sizeof(inv); i < dim; i++) {
-		if (inv[i]->query_baneful(aggressor_banes)) {
-			return 1;
-		}
-	}
+   inv = victim->query_inventory();
+   for (i = 0, dim = sizeof(inv); i < dim; i++) {
+      if (inv[i]->query_baneful(aggressor_banes)) {
+         return 1;
+      }
+   }
 
-	return 0;
+   return 0;
 }
 
 void object_arrived(object obj) {
@@ -147,7 +147,7 @@ object find_object_num(string name, int num) {
                if (lowercase(ids[j]) == lowercase(name)) {
                   num--;
                   if (num == 0) {
-                     return (inv[i]);
+                     return inv[i];
                   }
                }
             }
@@ -275,9 +275,9 @@ void add_object(string filename, varargs int just_one) {
    }
    obj = clone_object(filename);
    if (obj) {
-		if (just_one && present(filename)) {
-			return;
-		}
+      if (just_one && present(filename)) {
+         return;
+      }
       obj->move(object_name(this_object()));
       obj->setup();
    } else {
@@ -298,7 +298,7 @@ void set_objects(varargs string filename ...) {
 
    if (!filename || filename == ({ })) {
       return;
-	}
+   }
    /* remove object number */
    for (i = 0; i < sizeof(filename); i++) {
       if (strstr(filename[i], "#") != -1) {

@@ -47,7 +47,7 @@ void set_amount(int amt) {
    } else {
       set_short("A huge pile of " + currency + "s");
       set_long("A huge pile of " + currency +
-	 "s. More than you'd care to count.");
+         "s. More than you'd care to count.");
    }
 }
 
