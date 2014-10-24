@@ -41,11 +41,11 @@ static void main(string arg) {
    }
 
    if (ob) {
-      stat_abrvs = ( { "str", "dex", "con", "int", "wis", "cha" } );
+      stat_abrvs = ( { "str", "int", "wis", "dex", "con", "cha" } );
 
       stat_names = ( {
-	 "strength    ", "dexterity   ", "constitution",
-	    "intelligence", "wisdom      ", "charisma    ",
+	 "strength    ", "intelligence", "wisdom      ", "dexterity   ",
+         "constitution", "charisma    ",
       } );
       j = 0;
 

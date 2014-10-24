@@ -86,13 +86,13 @@ static void main(string str) {
          " who is " + obj->query_status() + "\n" });
    l += ({ "Strength    :  " + obj->query_stat("str") +
          "\t\t" + "Hit points :   " + h + "/" + mh + "  (" +
-			percentage(h, mh) + ")%" });
+			percentage(h, mh) + "%)" });
    l += ({ "Intelligence:  " + obj->query_stat("int") +
-         "\t\t" + "Endurance  :   " + e + "/" + me  + "  (" +
-			percentage(e, me) + "%)" });
-   l += ({ "Wisdom      :  " + obj->query_stat("wis") +
          "\t\t" + "Mana       :   " + m + "/" + mm + "  (" +
 			percentage(m, mm) + "%)" });
+   l += ({ "Wisdom      :  " + obj->query_stat("wis") +
+         "\t\t" + "Endurance  :   " + e + "/" + me  + "  (" +
+			percentage(e, me) + "%)" });
    l += ({ "Dexterity   :  " + obj->query_stat("dex") +
          "\t\t" + "Armor class:   " + ac });
    l += ({ "Constitution:  " + obj->query_stat("con") +
