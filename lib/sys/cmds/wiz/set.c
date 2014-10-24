@@ -37,21 +37,27 @@ void usage() {
    this_player()->more(lines);
 }
 
+void list_vars() {
+   string name, *names;
+   int i;
+
+   names = this_player()->query_env_indices();
+   for (i = 0; i < sizeof(names); i++) {
+      out_unmod(names[i] + "=" + this_player()->query_env(names[i]) + "\n");
+   }
+}
+
 static void main(string str) {
-   string *names;
    string name, value;
    int i;
 
    if (empty_str(str)) {
-      /* Print out the list */
-      names = this_player()->query_env_indices();
-      for (i = 0; i < sizeof(names); i++) {
-	 out_unmod(names[i] + "=" + this_player()->query_env(names[i]) + "\n");
-      }
+      list_vars();
    } else if (sscanf(str, "-%s", str)) {
       usage();
       return;
-   } else if ((sscanf(str, "%s %s", name, value) != 2) && (sscanf(str, "%s=%s", name, value) != 2)) {
+   } else if ((sscanf(str, "%s %s", name, value) != 2) &&
+      (sscanf(str, "%s=%s", name, value) != 2)) {
       usage();
       return;
    } else {
