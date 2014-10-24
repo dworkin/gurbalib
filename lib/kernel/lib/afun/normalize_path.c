@@ -4,7 +4,9 @@ string normalize_path(string file, string dir) {
    int i, j, sz;
 
    argcheck(file, 1, "string");
-   argcheck(dir, 2, "string");
+   if (!dir) {
+      dir = "";
+   }
 
    if (!secure_d) {
       secure_d =::find_object(SECURE_D);
