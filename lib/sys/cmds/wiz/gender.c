@@ -5,11 +5,13 @@ void usage() {
 
    lines = ({ "Usage: gender [-h] [male|female|neuter]" });
    lines += ({ " " });
-   lines += ({ "Allows you to set your gender." });
+   lines += ({ "Allows you to set your gender.  If no argument is given " });
+   lines += ({ "display your current gender." });
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
+   lines += ({ "\tgender" });
    lines += ({ "\tgender male" });
    lines += ({ "See also:" });
    lines += ({ "\ttitle" });
@@ -20,7 +22,7 @@ void usage() {
 static void main(string str) {
 
    if (empty_str(str)) {
-      usage();
+      write("Your current gender is: " + this_player()->query_gender() + "\n");
       return;
    }
    if (sscanf(str, "-%s", str)) {
