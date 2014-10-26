@@ -231,7 +231,7 @@ int file_is_command(string what) {
 
    sz = sizeof(syspath);
    for (i = 0; i < sz; i++) {
-      if (strstr(what, syspath[i]) == 1) {
+      if (strstr(what, syspath[i]) == 0) {
          return 1;
       }
    }

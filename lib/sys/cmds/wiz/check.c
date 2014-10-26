@@ -80,10 +80,10 @@ void check_a_command(string filename) {
       return;
    }
    if (!function_object("main", obj)) {
-      error(obj->query_filename() + ": main undefined.\n");
+      error(obj->file_name() + ": main undefined.\n");
    }
    if (!function_object("usage", obj)) {
-      warn(obj->query_filename() + ": usage undefined.\n");
+      warn(obj->file_name() + ": usage undefined.\n");
    }
 }
 
@@ -190,25 +190,25 @@ void do_standard_checks(object obj) {
    tmp = obj->query_short();
    if (!tmp || (tmp == "")) {
       warn("Object has no short description.\n");
-   }
+   } else {
+      tmp2 = capitalize(tmp);
 
-   tmp2 = capitalize(tmp);
-   if (tmp2 != tmp) {
-      warn("Object short not capitalized.\n");
-   }
+      if (tmp2 != tmp) {
+         warn("Object short not capitalized.\n");
+      }
 
-   x = strlen(tmp) -1;
-   if (x < 1) {
-      warn("Object short too short : \'" + obj->query_short() + "\'\n");
-   } else if ((tmp[x] == '.') || (tmp[x] == '?') || (tmp[x] == '!')) {
-      warn("Object short ends with punctuation.\n");
+      x = strlen(tmp) -1;
+      if (x < 1) {
+         warn("Object short too short : \'" + obj->query_short() + "\'\n");
+      } else if ((tmp[x] == '.') || (tmp[x] == '?') || (tmp[x] == '!')) {
+         warn("Object short ends with punctuation.\n");
+      }
    }
 
    tmp = obj->query_long();
    if (!tmp || (tmp == "")) {
       warn("Monster has no long description.\n");
    }
-
 }
 
 int check_functions(object obj, mixed funs) {
