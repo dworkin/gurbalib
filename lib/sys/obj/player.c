@@ -200,10 +200,11 @@ void login_player(void) {
 
       if (didlog) {
 	 for (i = 0; i < sizeof(didlog); i++) {
-	    if (didlog[i] == "")
+	    if (didlog[i] == "") {
 	       write("\n");
-	    else
+	    } else {
 	       write(didlog[i]);
+            }
 	 }
       }
    }
@@ -229,6 +230,7 @@ void login_player(void) {
 
    tmpchannels = channels;
    channels = ( { } );
+
    /* Register with the subscribed channels */
    for (i = 0; i < sizeof(tmpchannels); i++) {
       if (CHANNEL_D->query_channel(tmpchannels[i])) {
@@ -1068,7 +1070,7 @@ void receive_message(string message) {
       if (!flag && cmd != "") {
 	 write(random_error());
       }
-      if (!quitting && input_to_func == "" && !is_editing()) {
+      if (!quitting && (input_to_func == "") && !is_editing()) {
 	 write_prompt();
       }
    }
@@ -1148,9 +1150,16 @@ int toggle_muzzle() {
 }
 
 int can_carry(object "/std/object" obj) {
+   int tmp;
+
    this_object()->update_internal_weight();
-   return (internal_weight + obj->query_weight()) < 
-      query_internal_max_weight();
+   tmp = internal_weight + obj->query_weight();
+
+   if (tmp < query_internal_max_weight()) {
+      return 1;
+   }
+
+   return 0;
 }
 
 void update_internal_weight() {

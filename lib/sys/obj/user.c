@@ -300,8 +300,9 @@ static void login_user(void) {
       done = 0;
       if (start) {
 	 done = player->move(start);
-	 if (!done)
+	 if (!done) {
 	    send_message("Invalid room env(start)\n");
+         }
       }
       if (!done) {
 	 done = player->move(STARTING_ROOM);
