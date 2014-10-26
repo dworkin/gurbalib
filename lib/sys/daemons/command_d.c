@@ -222,3 +222,18 @@ int query_override(string path) {
 int query_syspath(string path) {
    return SYS_CMDPRIV[path] != nil;
 }
+
+int file_is_command(string what) {
+   int i, sz;
+   string *syspath;
+
+   syspath = map_indices(cmdpriv) | map_indices(SYS_CMDPRIV);
+
+   sz = sizeof(syspath);
+   for (i = 0; i < sz; i++) {
+      if (strstr(what, syspath[i]) == 1) {
+         return 1;
+      }
+   }
+   return 0;
+}

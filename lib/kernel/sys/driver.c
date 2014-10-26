@@ -96,7 +96,7 @@ void message(string str) {
 }
 
 void init_done() {
-   if(previous_object()->base_name() == "/sys/daemons/init_d") {
+   if(previous_object()->base_name() == INIT_D) {
       boot_complete = 1;
    }
 }
@@ -307,7 +307,7 @@ static void _initialize(mixed * tls) {
    call_other(ERROR_D, "???");
 
    message("Starting init_d\n");
-   call_other("/sys/daemons/init_d", "???");
+   call_other(INIT_D, "???");
 
    message("Done.\n");
 }
@@ -331,22 +331,6 @@ static void _save_game(mixed * tls) {
 void save_game() {
    _save_game(allocate(query_tls_size()));
 }
-
-/*
-object clone_object(string path) {
-   object ob;
-
-   ob = find_object(path);
-   if (!ob) {
-      ob = compile_object(path);
-   }
-   ob =::clone_object(ob);
-   ob->_F_set_cloner("kernel", "");
-   ob->_F_create();
-
-   return ob;
-}
-*/
 
 static void _restored(mixed * tls) {
    int i, sz;

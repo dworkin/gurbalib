@@ -68,23 +68,35 @@ string get_what(string str) {
    return path;
 }
 
-/* Might want to pass in a filename instead? XXX */
 void check_a_command(string filename) {
    object obj;
-   int errors;
    
+   write("Check command: " + filename + "\n");
+
    obj = compile_object(filename);
 
    if (!obj) {
       error("Unable to load command: filename\n");
       return;
    }
-   errors = 0;
    if (!function_object("main", obj)) {
       error(obj->query_filename() + ": main undefined.\n");
    }
    if (!function_object("usage", obj)) {
       warn(obj->query_filename() + ": usage undefined.\n");
+   }
+}
+
+void check_a_daemon(string filename) {
+   object obj;
+
+   write("Check daemon: " + filename + "\n");
+
+   obj = compile_object(filename);
+
+   if (!obj) {
+      error("Unable to load command: filename\n");
+      return;
    }
 }
 
@@ -233,7 +245,7 @@ void do_room_check(object obj) {
    mixed myexits;
    int x;
 
-   write("Doing room check\n");
+   write("Doing room check: " + obj->file_name() + "\n");
 
    write("Checking exits:\n");
    myexits = obj->query_exits();
@@ -276,7 +288,7 @@ void do_monster_check(object obj) {
    string tmp;
    int x;
 
-   write("Doing monster check\n");
+   write("Doing monster check: " + obj->file_name() + "\n");
 
    tmp = obj->query_name();
    if (!tmp || (tmp == "")) {
@@ -297,7 +309,7 @@ void do_object_check(object obj) {
    string tmpstr, *functions;
    int x;
 
-   write("Doing object check\n");
+   write("Doing object check: " + obj->file_name() + "\n");
 
    if (obj->is_gettable() && (obj->query_weight() < 1)) {
       warn("Object gettable and weight < 1\n");
@@ -333,14 +345,14 @@ void do_check(string str) {
       if (file_exists(what) == 1) {
          write("Looking at file: " + what + "\n");
 
-/*  XXX Need to figure out file_is_command
-         if (file_is_command(what)) {
+         if (COMMAND_D->file_is_command(what)) {
             check_a_command(what);
             return;
          } 
-*/
-
-/* XXX Need to check for daemon here */
+         if (INIT_D->file_is_daemon(what)) {
+            check_a_daemon(what);
+            return;
+         }
 
          obj = compile_object(what);
 

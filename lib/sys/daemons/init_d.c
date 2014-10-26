@@ -73,3 +73,20 @@ static void create() {
    }
    DRIVER->init_done();
 }
+
+int file_is_daemon(string str) {
+   int x, max;
+   string *dirs;
+
+   dirs = ({"/daemons/"});
+   dirs += ({"/sys/daemons/"});
+
+   max = sizeof(dirs);
+   for (x=0; x < max; x++) {
+      if (strstr(str,dirs[x]) == 0) {
+         return 1;
+      }
+   }
+
+   return 0;
+}
