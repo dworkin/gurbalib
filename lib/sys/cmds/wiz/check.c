@@ -70,6 +70,8 @@ string get_what(string str) {
 
 void check_a_command(string filename) {
    object obj;
+   string *functionlist;
+   int x, max;
    
    write("Check command: " + filename + "\n");
 
@@ -79,11 +81,18 @@ void check_a_command(string filename) {
       error("Unable to load command: filename\n");
       return;
    }
-   if (!function_object("main", obj)) {
-      error(obj->file_name() + ": main undefined.\n");
-   }
-   if (!function_object("usage", obj)) {
-      warn(obj->file_name() + ": usage undefined.\n");
+
+   functionlist = ({ "usage" });
+/*
+   functionlist += ({ "main" });
+   functionlist += ({ "query_command" });
+*/
+   
+   max = sizeof(functionlist);
+   for (x = 0; x < max; x++) {
+      if (!function_object(functionlist[x], obj)) {
+         warn(obj->file_name() + ": " + functionlist[x] + " undefined.\n");
+      }
    }
 }
 
