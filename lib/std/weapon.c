@@ -18,23 +18,24 @@ void create(void) {
    hit_bonus = 0;
    weapon_class = 0;
    weapon_action = ({ "bonk" });
-	materials = ({ });
+   materials = ({ });
 }
 
 string *query_materials() {
-	return materials;
+   return materials;
 }
 
 void set_materials(string *new_materials) {
-	materials = new_materials;
+   materials = new_materials;
 }
 
 void add_material(string material) {
-	if (!materials) {
-		materials = ({ });
-	}
-	materials += ({ material });
-	materials = uniq_array(materials);
+   if (!materials) {
+      materials = ({ });
+   }
+
+   materials += ({ material });
+   materials = uniq_array(materials);
 }
 
 int query_offensive(void) {
@@ -74,36 +75,36 @@ int query_hit_bonus(void) {
 }
 
 void set_weapon_action(string verb) {
-	if (!weapon_action) {
-		weapon_action = ({ });
-	}
-	weapon_action += ({ verb });
+   if (!weapon_action) {
+      weapon_action = ({ });
+   }
+   weapon_action += ({ verb });
 }
 
 void set_weapon_actions(string *verbs) {
-	weapon_action = verbs;
+   weapon_action = verbs;
 }
 
 void add_weapon_action(string verb) {
-	if (!weapon_action) {
-		weapon_action = ({ });
-	}
-	weapon_action += ({ verb });
+   if (!weapon_action) {
+      weapon_action = ({ });
+   }
+   weapon_action += ({ verb });
 }
 
 string query_weapon_action(void) {
-	if (!weapon_action) {
-		weapon_action = ({ "bonk" });
-		return "bonk";
-	}
-	return weapon_action[random(sizeof(weapon_action))];
-}	
+   if (!weapon_action) {
+      weapon_action = ({ "bonk" });
+      return "bonk";
+   }
+   return weapon_action[random(sizeof(weapon_action))];
+}
 
 string *query_weapon_actions() {
-	if (!weapon_action) {
-		weapon_action = ({ });
-	}
-	return weapon_action;
+   if (!weapon_action) {
+      weapon_action = ({ });
+   }
+   return weapon_action;
 }
 
 void set_weapon_miss(string verb) {
@@ -119,8 +120,8 @@ void set_weapon_skill(string skill) {
 }
 
 int is_standard_weapon_skill(string skill) {
-	return !empty_str(skill) &&
-		(skill == "small" || skill == "medium" || skill == "large");
+   return !empty_str(skill) &&
+      (skill == "small" || skill == "medium" || skill == "large");
 }
 
 string query_weapon_skill(void) {
@@ -137,8 +138,8 @@ int query_weapon_damage(void) {
 
 
 void set_combat_stats(int min_d, int max_d, int hb) {
-	set_min_damage(min_d);
-	set_max_damage(max_d);
-	set_hit_bonus(hb);
+   set_min_damage(min_d);
+   set_max_damage(max_d);
+   set_hit_bonus(hb);
 }
 

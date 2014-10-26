@@ -39,7 +39,8 @@ static int extinguish() {
 void create() {
    obj::create();
    hb::create();
-	set_fuel(1000);
+
+   set_fuel(1000);
    add_action("do_light", "light");
    add_action("do_extinguish", "extinguish");
 }
@@ -47,57 +48,62 @@ void create() {
 private int burn_fuel() {
    object room;
 
-	if (!query_lit()) {
-		return 0;
-	}
+   if (!query_lit()) {
+      return 0;
+   }
 
-	if (--fuel < 5) {
-		room = query_environment();
-		if (room->is_living()) {
-			room->message("Your " + query_id() + " dims.\n");
-		}
-	}
+   if (--fuel < 5) {
+      room = query_environment();
+      if (room->is_living()) {
+         room->message("Your " + query_id() + " dims.\n");
+      }
+   }
 
    if (fuel < 1) {
       room = query_environment();
       if (room->is_living()) {
-			room->message("Your " + query_id() + " goes out.\n");
-			room->query_environment()->tell_room(room,
-				room->query_Name() + "'s " + query_id() + " goes out.\n");
-		} else {
-			room->message_room(room, "The " + query_id() + " goes out.\n");	
-		}
-		lit = 0;
-		EVENT_D->unsubscribe_event("heart_beat");
+         room->message("Your " + query_id() + " goes out.\n");
+         room->query_environment()->tell_room(room,
+         room->query_Name() + "'s " + query_id() + " goes out.\n");
+      } else {
+         room->message_room(room, "The " + query_id() + " goes out.\n");
+      }
+
+      lit = 0;
+      EVENT_D->unsubscribe_event("heart_beat");
    }
 
-	return 1;
+   return 1;
 }
 
 private string lit_or_unlit() {
-	return query_lit() ? "lit" : "unlit";
+   return query_lit() ? "lit" : "unlit";
 }
 
 string query_short() {
-	string str;
-	str = ::query_short() + " [" + lit_or_unlit() + "]";
-	str += query_fuel() < 20 ? " [very low on fuel]" : "";
-	return str;
+   string str;
+
+   str = ::query_short() + " [" + lit_or_unlit() + "]";
+   str += query_fuel() < 20 ? " [very low on fuel]" : "";
+
+   return str;
 }
 
 string query_long() {
-	string str;
-	str = ::query_long() + "\nIt is " + lit_or_unlit() + ".";
-	str += query_fuel() < 20 ? "\nIt is very low on fuel." : "";
-	return str;
+   string str;
+
+   str = ::query_long() + "\nIt is " + lit_or_unlit() + ".";
+   str += query_fuel() < 20 ? "\nIt is very low on fuel." : "";
+
+   return str;
 }
 
 void event_heart_beat() {
-	burn_fuel();
+   burn_fuel();
 }
 
 string query_name() {
-	return query_id();
+   return query_id();
 }
 
 private void light_usage() {
@@ -157,37 +163,39 @@ int do_light(string str) {
       light_usage();
       return 1;
    }
-	if (lowercase(str) != lowercase(query_id())) {
-		return 0;
-	}
-	if (query_lit()) {
-		write("Your " + str + " is already lit.");
-		return 1;
-	}
-	if (fuel < 1) {
-		write("Your " + str + " is out of fuel.");
-		return 1;
-	}
-	return light();
+   if (lowercase(str) != lowercase(query_id())) {
+      return 0;
+   }
+   if (query_lit()) {
+      write("Your " + str + " is already lit.");
+      return 1;
+   }
+   if (fuel < 1) {
+      write("Your " + str + " is out of fuel.");
+      return 1;
+   }
+
+   return light();
 }
 
 
 int do_extinguish(string str) {
-	if (empty_str(str)) {
-		extinguish_usage();
-		return 1;
-	}
-	if (sscanf(str, "-%s", str)) {
-		extinguish_usage();
-		return 1;
-	}
-	if (lowercase(str) != lowercase(query_id())) {
-		return 0;
-	}
-	if (!query_lit()) {
-		write("Your " + str + " is not lit.");
-		return 1;
-	}
-	return extinguish();
+   if (empty_str(str)) {
+      extinguish_usage();
+      return 1;
+   }
+   if (sscanf(str, "-%s", str)) {
+      extinguish_usage();
+      return 1;
+   }
+   if (lowercase(str) != lowercase(query_id())) {
+      return 0;
+   }
+   if (!query_lit()) {
+      write("Your " + str + " is not lit.");
+      return 1;
+   }
+
+   return extinguish();
 }
 

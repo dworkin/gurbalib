@@ -17,10 +17,20 @@ void usage() {
    this_player()->more(lines);
 }
 
+void list_vars() {
+   string name, *names;
+   int i;
+
+   names = this_player()->query_env_indices();
+   for (i = 0; i < sizeof(names); i++) {
+      out_unmod(names[i] + "=" + this_player()->query_env(names[i]) + "\n");
+   }
+}
+
 static void main(string str) {
 
    if (empty_str(str)) {
-      usage();
+      list_vars();
       return;
    }
 

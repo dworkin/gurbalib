@@ -40,7 +40,9 @@ string add_dotc(string input) {
    string str;
 
    str = input;
-   if (!str || (str == "")) return "";
+   if (!str || (str == "")) { 
+      return "";
+   }
 
    if (strlen(str) > 2) {
       if ((str[strlen(str) - 2] == '.') && (str[strlen(str) - 1] == 'c')) {
@@ -57,9 +59,33 @@ string get_what(string str) {
 
    path = this_player()->query_env("cwd");
    path = normalize_path(str, path);
-   if (file_exists(path)) return path;
+
+   if (file_exists(path)) {
+      return path;
+   }
+
    path = add_dotc(path);
    return path;
+}
+
+/* Might want to pass in a filename instead? XXX */
+void check_a_command(string filename) {
+   object obj;
+   int errors;
+   
+   obj = compile_object(filename);
+
+   if (!obj) {
+      error("Unable to load command: filename\n");
+      return;
+   }
+   errors = 0;
+   if (!function_object("main", obj)) {
+      error(obj->query_filename() + ": main undefined.\n");
+   }
+   if (!function_object("usage", obj)) {
+      warn(obj->query_filename() + ": usage undefined.\n");
+   }
 }
 
 void check_remote_exit(string room, string exit, string filename) {
@@ -96,8 +122,7 @@ void check_remote_exit(string room, string exit, string filename) {
 }
 
 int check_exits(object obj, mapping myexits) {
-   string *indices;
-   string exit, filename, exitfile;
+   string exit, filename, exitfile, *indices;
    int x, len, c;
 
    if (!myexits) {
@@ -140,7 +165,9 @@ int check_exits(object obj, mapping myexits) {
       }
    }
 
-   if (c > 0) return 0;
+   if (c > 0) {
+      return 0;
+   }
    return 1;
 }
 
@@ -166,21 +193,24 @@ void do_standard_checks(object obj) {
    }
 
    tmp = obj->query_long();
-   if (!tmp || (tmp == "")) warn("Monster has no long description.\n");
+   if (!tmp || (tmp == "")) {
+      warn("Monster has no long description.\n");
+   }
 
 }
-
 
 int check_functions(object obj, mixed funs) {
    int x, c;
 
-   if (!funs)
+   if (!funs) {
       return -1;
+   }
       
    x = sizeof(funs) - 1;
    
-   if(x < 0)
+   if(x < 0) {
       return -1;
+   }
 
    c = 0;
    
@@ -190,13 +220,14 @@ int check_functions(object obj, mixed funs) {
          warn("Warning: Function " + obj->query_action( funs[x] ) + 
             " not defined in: " + obj->file_name() + "\n");
          c = c + 1;
-         }
-    x--;
+      }
+      x--;
     }
-   if (c > 0) return 0;
+   if (c > 0) {
+      return 0;
+   }
    return 1;
 }
-
 
 void do_room_check(object obj) {
    mixed myexits;
@@ -248,17 +279,22 @@ void do_monster_check(object obj) {
    write("Doing monster check\n");
 
    tmp = obj->query_name();
-   if (!tmp || (tmp == "")) warn("Monster has no name.\n");
+   if (!tmp || (tmp == "")) {
+      warn("Monster has no name.\n");
+   }
 
-   if (obj->is_gettable()) warn("Living object is gettable.\n");
+   if (obj->is_gettable()) {
+      warn("Living object is gettable.\n");
+   }
 
    x = obj->query_level();
-   if (x < 1) warn("Monster has no level.\n");
+   if (x < 1) {
+      warn("Monster has no level.\n");
+   }
 }
 
 void do_object_check(object obj) {
-   string tmpstr;
-   string *functions;
+   string tmpstr, *functions;
    int x;
 
    write("Doing object check\n");
@@ -297,7 +333,17 @@ void do_check(string str) {
       if (file_exists(what) == 1) {
          write("Looking at file: " + what + "\n");
 
+/*  XXX Need to figure out file_is_command
+         if (file_is_command(what)) {
+            check_a_command(what);
+            return;
+         } 
+*/
+
+/* XXX Need to check for daemon here */
+
          obj = compile_object(what);
+
          obj->setup();
          obj->setup_mudlib();
 
@@ -333,9 +379,14 @@ static void main(string str) {
    }
 
    files = explode(str," ");
-   if (!files) files = ({ str });
+
+   if (!files) {
+      files = ({ str });
+   }
+
    max = sizeof(files);
-   for(x=0;x<max;x++) {
+
+   for(x=0; x < max; x++) {
       warn =0;
       error = 0;
       do_check(files[x]);

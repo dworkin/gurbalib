@@ -41,24 +41,25 @@ void set_light(int flag) {
 }
 
 private int object_is_lighted(object obj) {
-	object *objs;
-	int     i, dim, l;
+   object *objs;
+   int i, dim, l;
 
-	if (obj->is_living()) {
-		objs = obj->query_inventory();
-		for (i = 0, dim = sizeof(objs); i < dim; i++) {
-			if (objs[i]->functionp("query_lit")) {
-				if (objs[i]->query_list()) {
-					return 1;
-				}
-			}
-		}
-	}
-		
-	if (obj->functionp("query_lit")) {
-		return obj->query_lit();
-	}
-	return 0;
+   if (obj->is_living()) {
+      objs = obj->query_inventory();
+      for (i = 0, dim = sizeof(objs); i < dim; i++) {
+         if (objs[i]->functionp("query_lit")) {
+            if (objs[i]->query_list()) {
+               return 1;
+            }
+         }
+      }
+   }
+
+   if (obj->functionp("query_lit")) {
+      return obj->query_lit();
+   }
+
+   return 0;
 }
 
 int is_dark() {
@@ -204,16 +205,16 @@ string query_desc(varargs int brief) {
          return query_dark_msg();
       }
    }
+
    text += "%^ROOM_NAME%^\t" + query_short() + "%^RESET%^\n";
-
    text += "%^ROOM_DESC%^" + query_long() + "%^RESET%^\n";
-
    text += "%^ROOM_EXIT%^[ Obvious exits: ";
+
    if (!exits || map_sizeof(exits) == 0) {
       text += "none ";
    } else {
       for (count = 0; count < map_sizeof(exits); count++) {
-	 text += map_indices(exits)[count] + " ";
+         text += map_indices(exits)[count] + " ";
       }
    }
    text += "]%^RESET%^\n";
@@ -229,57 +230,54 @@ string query_desc(varargs int brief) {
       text += "\nYou see:\n";
 
       for (count = 0; count < sizeof(inventory); count++) {
-	 if (!inventory[count]->is_living()) {
-	    desc =
-	       "  %^OBJ_BRIEF%^" + capitalize(inventory[count]->query_short()) +
-	       "%^RESET%^";
-	 } else {
-	    mixed x;
-	    string pc;
+         if (!inventory[count]->is_living()) {
+            desc = "  %^OBJ_BRIEF%^" + capitalize(
+               inventory[count]->query_short()) + "%^RESET%^";
+         } else {
+            mixed x;
+            string pc;
 
-	    if (inventory[count] == this_player()) {
-	       continue;
+            if (inventory[count] == this_player()) {
+               continue;
             }
-	    x = inventory[count]->query_idle();
-	    pc =
-	       inventory[count]->is_player()? "%^PLAYER%^" : "%^NPC_FRIENDLY%^";
-	    if (x && x > 60) {
-	       desc = "  " + pc + capitalize(inventory[count]->query_short())
-		  + " [idle" +
-		  format_time(inventory[count]->query_idle()) +
-		  "]%^RESET%^";
-	    } else {
-	       desc =
-		  "  " + pc + capitalize(inventory[count]->query_short()) +
-		  "%^RESET%^";
-	    }
-	 }
+            x = inventory[count]->query_idle();
+            pc = inventory[count]->is_player()?
+               "%^PLAYER%^" : "%^NPC_FRIENDLY%^";
+            if (x && x > 60) {
+               desc = "  " + pc + capitalize(inventory[count]->query_short()) +
+                  " [idle" + format_time(inventory[count]->query_idle()) +
+                  "]%^RESET%^";
+            } else {
+               desc = "  " + pc + capitalize(inventory[count]->query_short()) +
+                  "%^RESET%^";
+            }
+         }
 #ifdef LONG_ROOM_INV
-	 text += desc + "\n";
+         text += desc + "\n";
       }
 #else
-	 if (!compacted_inv[desc]) {
-	    compacted_inv[desc] = ({ });
-	 }
-	 compacted_inv[desc] += ({ inventory[count] });
+         if (!compacted_inv[desc]) {
+            compacted_inv[desc] = ({ });
+         }
+         compacted_inv[desc] += ({ inventory[count] });
       }
 
       if (compacted_inv && map_sizeof(compacted_inv)) {
-	 string *keys;
-	 int amount;
+         string *keys;
+         int amount;
 
-	 keys = map_indices(compacted_inv);
+         keys = map_indices(compacted_inv);
 
-	 for (count = 0, size = sizeof(keys); count < size; count++) {
-	    amount = sizeof(compacted_inv[keys[count]]);
+         for (count = 0, size = sizeof(keys); count < size; count++) {
+            amount = sizeof(compacted_inv[keys[count]]);
 
-	    if (amount == 1) {
-	       text += keys[count];
-	    } else {
-	       text += keys[count] + " [x" + amount + "]";
-	    }
-	    text += "\n";
-	 }
+            if (amount == 1) {
+               text += keys[count];
+            } else {
+               text += keys[count] + " [x" + amount + "]";
+            }
+            text += "\n";
+         }
       }
 #endif
    }
@@ -388,13 +386,13 @@ void message_room(object originator, string str) {
    }
    for (i = 0, sz = sizeof(inventory); i < sz; i++) {
       if (!inventory[i]) {
-	 continue;
+    continue;
       }
       if (originator != inventory[i]) {
-	 if (inventory[i]->is_living()) {
-	    inventory[i]->message(str);
-	 }
-	 inventory[i]->outside_message(str);
+    if (inventory[i]->is_living()) {
+       inventory[i]->message(str);
+    }
+    inventory[i]->outside_message(str);
       }
    }
 }
@@ -411,19 +409,20 @@ void tell_room(object originator, string str, varargs mixed obj ...) {
    }
    for (i = 0; i < sizeof(inventory); i++) {
       if (!inventory[i]) {
-	 continue;
+         continue;
       }
       if (originator != inventory[i] && member_array(inventory[i], obj) == -1) {
-	 if (inventory[i]->is_living() &&
-	       (!originator ||
-	       !inventory[i]->query_ignored(originator->query_name()))) {
-	    if (previous_object()->base_name() == "/cmds/player/say") {
-	       inventory[i]->message(capitalize(str), 1);
-	    } else {
-	       inventory[i]->message(capitalize(str));
+         if (inventory[i]->is_living() &&
+            (!originator ||
+            !inventory[i]->query_ignored(originator->query_name()))) {
+
+            if (previous_object()->base_name() == "/cmds/player/say") {
+               inventory[i]->message(capitalize(str), 1);
+            } else {
+               inventory[i]->message(capitalize(str));
             }
-	 }
-	 inventory[i]->outside_message(capitalize(str));
+         }
+         inventory[i]->outside_message(capitalize(str));
       }
    }
 }
@@ -474,14 +473,14 @@ string body_exit(object who, string dir) {
       }
 
       if (query_exit(dir)[0] == '#') {
-	 return call_other(this_object(), query_exit(dir)[1..]);
+         return call_other(this_object(), query_exit(dir)[1..]);
       }
 
       event("body_leave", who);
       tell_room(who, lname + " leaves " + dir + ".\n");
       error = catch(who->move(query_exit(dir)));
       if (who->is_player()) {
-	 last_exit = time();
+    last_exit = time();
       }
    } else if (query_hidden_exit(dir)) {
       max = sizeof(inventory);
@@ -492,22 +491,22 @@ string body_exit(object who, string dir) {
       }
 
       if (query_hidden_exit(dir)[0] == '#') {
-	 return call_other(this_object(), query_exit(dir)[1..]);
+         return call_other(this_object(), query_exit(dir)[1..]);
       }
 
       event("body_leave", who);
       tell_room(who, lname + " leaves " + dir + ".\n");
       error = catch(who->move(query_hidden_exit(dir)));
       if (who->is_player()) {
-	 last_exit = time();
+         last_exit = time();
       }
    }
 
    if (error) {
       if (query_wizard(who) == 1) {
-	 return "\nConstruction blocks your path.\n" + "Error: " + error;
+         return "\nConstruction blocks your path.\n" + "Error: " + error;
       } else {
-	 return "\nConstruction blocks your path.\n";
+         return "\nConstruction blocks your path.\n";
       }
    }
 
@@ -540,11 +539,11 @@ void event_clean_up(void) {
    max = sizeof(inventory);
    for (i = 0; i < max; i++) {
       if (!inventory[i]) {
-	 continue;
+         continue;
       }
-      if (inventory[i]->is_player() || inventory[i]->is_possessed()
-	 || inventory[i]->no_cleanup()) {
-	 return;
+      if (inventory[i]->is_player() || inventory[i]->is_possessed() ||
+         inventory[i]->no_cleanup()) {
+         return;
       }
    }
 

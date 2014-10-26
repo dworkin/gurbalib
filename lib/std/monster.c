@@ -22,10 +22,13 @@ void create(void) {
    switch (x) {
       case 1:
 	 set_gender("male");
+         break;
       case 2:
 	 set_gender("female");
+         break;
       default:
 	 set_gender("unkown");
+         break;
    }
 }
 
@@ -149,36 +152,38 @@ void monster_died() {
 }
 
 void equip_monster(string *arms, varargs int repeats_ok) {
-	object obj, p;
-	int i, dim;
-	for (i = 0, dim = sizeof(arms); i < dim; i++) {
-		obj = clone_object(arms[i]);
-		obj->setup();
-		p = present(obj->query_id());
-		if (!p || repeats_ok) { /* XXX maybe wield/wear p... */
-			obj->move(this_object());
-			if (obj->is_wieldable()) {
-				do_wield(obj);
-			} else if (obj->is_wearable()) {
-				do_wear(obj);
-			}
-		}
-	}
+   object obj, p;
+   int i, dim;
+
+   for (i = 0, dim = sizeof(arms); i < dim; i++) {
+      obj = clone_object(arms[i]);
+      obj->setup();
+      p = present(obj->query_id());
+      if (!p || repeats_ok) { /* XXX maybe wield/wear p... */
+         obj->move(this_object());
+         if (obj->is_wieldable()) {
+            do_wield(obj);
+         } else if (obj->is_wearable()) {
+            do_wear(obj);
+         }
+      }
+   }
 }
 
 void add_coins(string type, int amt) {
-	object coins;
-	if (present("coins")) {
-		return;
-	}
-	if (amt < 1) {
-		amt = 1;
-	}
-	if (MONEY_D->is_currency(type)) {
-		coins = clone_object("/domains/required/objects/coin.c");
-		coins->set_currency(type);
-		coins->set_amount(amt);
-		coins->move(this_object());
-	}
+   object coins;
+
+   if (present("coins")) {
+      return;
+   }
+   if (amt < 1) {
+      amt = 1;
+   }
+   if (MONEY_D->is_currency(type)) {
+      coins = clone_object("/domains/required/objects/coin.c");
+      coins->set_currency(type);
+      coins->set_amount(amt);
+      coins->move(this_object());
+   }
 }
 
