@@ -55,8 +55,6 @@ static void main(string str) {
 
    env = this_player()->query_environment();
 
-   this_player()->simple_action("$N $vgo home.");
-
    if (!(ob = find_object(filename))) {
       catch {
          ob = compile_object(filename);
@@ -70,6 +68,8 @@ static void main(string str) {
    if (ob == env) {
       write("You are already there.\n");
       return;
+   } else {
+      this_player()->simple_action("$N $vgo home.");
    }
 
    env->tell_room(this_player(),
