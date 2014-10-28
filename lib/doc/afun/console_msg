@@ -1,5 +1,5 @@
 NAME
-	console_msg - Send a message to the driver's std out
+	console_msg - Send a message to the driver's stdout
 
 SYNOPSIS
 	static void console_msg(string message)

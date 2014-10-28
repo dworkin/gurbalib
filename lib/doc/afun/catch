@@ -6,7 +6,7 @@ SYNOPSIS
 	catch {code block} : {alternative code block}
 
 DESCRIPTION
-	Catch can be used to handle runtime errors from lpc code.  It is 
+	Catch can be used to handle runtime errors from LPC code.  It is 
 	not a real function, writing result = catch(a, b); will evaluate 
 	a, b, and return nil.  It will not call a function catch with the 
 	arguments a and b.
@@ -45,7 +45,7 @@ EXAMPLES
 	interested in. If so, give some useful information to the end user. 
 	If it isn't the error we were expecting, rethrow it so that normal 
 	runtime error handling takes over. This is the proper way to use 
-	catch, it lets you do error handling in lpc for a case where it 
+	catch, it lets you do error handling in LPC for a case where it 
 	makes sense, without hiding any other errors.
 
 	error = catch(args = parse_string(GRAMMAR, str));

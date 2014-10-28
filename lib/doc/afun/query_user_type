@@ -6,11 +6,11 @@ SYNOPSIS
 
 DESCRIPTION
 	Player can be an object or a string.  This function will return 0
-	if not a valid user.  Otherwise it will return the users privlage.
+	if not a valid user.  Otherwise it will return the users privilege.
 	For valid return values see kernel/include/privileges.h
 
 RETURN VALUE
-	Returns the pirvilage of the specified player as an int,
+	Returns the privilege of the specified player as an int,
 	otherwise returns 0.
 
 EXAMPLES

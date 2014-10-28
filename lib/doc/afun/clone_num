@@ -5,8 +5,8 @@ SYNOPSIS
 	int clone_num(varargs object obj)
 
 DESCRIPTION
-	If obj arg given, return clone number for obj.  If no obj argument,
-	return clone number for this_object().
+	If obj is given, return clone number for that object.  
+	If no obj argument, return clone number for this_object().
 
 RETURN VALUE
 	An int corresponding to an objects clone number.  Clone numbers 

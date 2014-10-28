@@ -9,7 +9,7 @@ DESCRIPTION
 	permission checks succeed.  
 
 RETURN VALUE
-	Returns the value for the named propery. When the property does 
+	Returns the value for the named property. When the property does 
 	not exist or permission checks fail, nil is returned.  (Note, that 
 	a property can also be set to nil, without removing it.)
 
