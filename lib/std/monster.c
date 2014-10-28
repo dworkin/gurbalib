@@ -159,12 +159,18 @@ void equip_monster(string *arms, varargs int repeats_ok) {
       obj = clone_object(arms[i]);
       obj->setup();
       p = present(obj->query_id());
-      if (!p || repeats_ok) { /* XXX maybe wield/wear p... */
+      if (!p || repeats_ok) { 
          obj->move(this_object());
          if (obj->is_wieldable()) {
             do_wield(obj);
          } else if (obj->is_wearable()) {
             do_wear(obj);
+         }
+      } else if (p) {
+         if (p->is_wieldable()) {
+            do_wield(p);
+         } else if (p->is_wearable()) {
+            do_wear(p);
          }
       }
    }
