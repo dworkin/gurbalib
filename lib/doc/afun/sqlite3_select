@@ -13,7 +13,9 @@ DESCRIPTION
 	https://github.com/november-kilo/dgd-lpc-ext
 
 RETURN VALUE
-	XXX
+	Returns nil if the extension is not enabled, or if filename is 
+	unreadable.  Otherwise returns the results of calling the specified
+	select statement.
 
 EXAMPLES
 	XXX

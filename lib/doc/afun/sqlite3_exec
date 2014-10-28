@@ -13,10 +13,22 @@ DESCRIPTION
 	https://github.com/november-kilo/dgd-lpc-ext
 
 RETURN VALUE
-	XXX
+	If extension is not enabled, or filename is unreadable this
+	command will return nil.  Otherwise it will return the value
+	returned from the external call to sqlite3_exec.
 
 EXAMPLES
-	XXX
+        int x;
+        string st;
+
+	st = "drop table users";
+
+	x = sqlite3_exec("/tmp/mydatabase.sql", st);
+	if (x) {
+	   write("Success.\n");
+	} else {
+	   write("Error in statement: " + st + "\n";
+	}
 
 SEE ALSO
 	afun/blogit, afun/filelastmod, afun/files_modified, afun/sqlite3_select
