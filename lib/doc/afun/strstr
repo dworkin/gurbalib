@@ -17,9 +17,9 @@ EXAMPLES
 	string stuff;
 
 	stuff = "Hello, my name is frank.";
-	x = strstr(stuff,"frank");
+	x = strstr(stuff, "frank");
 	write("X = " + x + "\n");   /* x = 17 */
-	x = strstr(stuff,"george");
+	x = strstr(stuff, "george");
 	write("X = " + x + "\n");   /* x = -1 */
 
 SEE ALSO

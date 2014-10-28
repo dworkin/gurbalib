@@ -68,6 +68,32 @@ string get_what(string str) {
    return path;
 }
 
+void check_a_spell(string filename) {
+   object obj;
+   string *functionlist;
+   int x, max;
+
+   write("Check spell: " + filename + "\n");
+
+   obj = compile_object(filename);
+
+   if (!obj) {
+      error("Unable to load command: filename\n");
+      return;
+   }
+
+   functionlist = ({ "usage" });
+   functionlist += ({ "do_spell" });
+
+   max = sizeof(functionlist);
+   for (x = 0; x < max; x++) {
+      if (!function_object(functionlist[x], obj)) {
+         warn(obj->file_name() + ": " + functionlist[x] + " undefined.\n");
+      }
+   }
+}
+
+
 void check_a_command(string filename) {
    object obj;
    string *functionlist;
@@ -320,13 +346,14 @@ void do_object_check(object obj) {
 
    write("Doing object check: " + obj->file_name() + "\n");
 
-   if (obj->is_gettable() && (obj->query_weight() < 1)) {
-      warn("Object gettable and weight < 1\n");
-   }
-   if (obj->is_gettable() && (obj->query_value() < 1)) {
-      warn("Object gettable and value < 1\n");
-   }
-   if (!obj->is_gettable() && (obj->query_value() > 1)) {
+   if (obj->is_gettable()) {
+      if (obj->query_weight() < 1) {
+         warn("Object gettable and weight < 1\n");
+      }
+      if (obj->query_value() < 1) {
+         warn("Object gettable and value < 1\n");
+      }
+   } else if (obj->query_value() > 1) {
       warn("Object ungettable and value > 1\n");
    }
 
@@ -354,11 +381,13 @@ void do_check(string str) {
       if (file_exists(what) == 1) {
          write("Looking at file: " + what + "\n");
 
-         if (COMMAND_D->file_is_command(what)) {
+         if (COMMAND_D->file_is_spell(what)) {
+            check_a_spell(what);
+            return;
+         } else if (COMMAND_D->file_is_command(what)) {
             check_a_command(what);
             return;
-         } 
-         if (INIT_D->file_is_daemon(what)) {
+         } else if (INIT_D->file_is_daemon(what)) {
             check_a_daemon(what);
             return;
          }

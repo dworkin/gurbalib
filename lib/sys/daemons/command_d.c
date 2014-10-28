@@ -237,3 +237,10 @@ int file_is_command(string what) {
    }
    return 0;
 }
+
+int file_is_spell(string what) {
+   if (strstr(what, "/cmds/spells/") == 0) {
+      return 1;
+   }
+   return 0;
+}
