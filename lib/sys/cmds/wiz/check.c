@@ -242,7 +242,7 @@ void do_standard_checks(object obj) {
 
    tmp = obj->query_long();
    if (!tmp || (tmp == "")) {
-      warn("Monster has no long description.\n");
+      warn("Object has no long description.\n");
    }
 }
 

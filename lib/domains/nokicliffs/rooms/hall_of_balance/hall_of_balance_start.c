@@ -7,7 +7,7 @@ inherit DIR + "/lib/balance_check";
 void setup(void) {
    ::setup();
 
-   set_short("The Hall of Balance in a pocket dimension.");
+   set_short("The Hall of Balance, in a pocket dimension");
    set_long("You are standing in a small pocket dimension containing the " +
       "fabled Hall of Balance. As you gaze upon the facade of the Hall of " +
       "Balance it is impossible to miss how utterly balanced is everything " +

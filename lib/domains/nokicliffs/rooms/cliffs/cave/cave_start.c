@@ -6,7 +6,7 @@ void setup(void) {
    ::setup();
 
    set_short("A cave entrance in the Noki Cliffs");
-   set_long("");
+   set_long("The cave looks uninviting.");
 
    set_exits(([
       "up" : DIR + "/rooms/cliffs/base_camp.c",
