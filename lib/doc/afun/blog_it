@@ -17,7 +17,15 @@ RETURN VALUE
 	with the input.
 
 EXAMPLES
-	XXX
+	string title, body, author;
+
+	title = "First post!";
+	author = "Sirdude";
+	body = "Not much here currently, use your imagination.";
+
+	if (blog_it(title,body,author)) {
+		write("Successful post.\n");
+	}
 
 SEE ALSO
 	afun/filelastmod, afun/files_modified, afun/sqlite3_exec,

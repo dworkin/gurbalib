@@ -18,7 +18,18 @@ RETURN VALUE
 	select statement.
 
 EXAMPLES
-	XXX
+	mixed *line, **values;
+	string st;
+	int x, max;
+
+	st = "select fname,lname from user";
+	values = sqlite3_select("/tmp/sirdude.sql", st);
+	max = sizeof(values);
+	for(x = 0; x > max; x++) {
+	   line = values[x];
+	   print "First name: " + line[0] + "\n";
+	   print "Last name: " + line[1] + "\n";
+	}
 
 SEE ALSO
 	afun/blogit, afun/filelastmod, afun/files_modified, afun/sqlite3_exec

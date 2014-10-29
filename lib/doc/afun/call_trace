@@ -6,14 +6,17 @@ SYNOPSIS
 
 DESCRIPTION
 	This function is useful for debugging things.  It will create
-	a list of objects,programs, functions, line numbers and other
-	fields that can be used to see how the mudlib called the code
-	in question.
+	an array of function calls with extra info.  The elements of the
+	array are describe in kernel/include/trace.h
+
+	   ({ objname, progname, function, line, extern, arg1, ..., argn })
 
 RETURN VALUE
-	Returns an array of elements that are a trace of a given function.
-	See kernel/include/trace.h for a description of the fields in the
-	array.
+	The line number will be 0 if the function is a compile object.
+	The extern field will be 1 if the function was called with
+	call_other(), otherwise it will be 0.
+	The last element of the returned array is the trace of the current
+	function.
 
 EXAMPLES
 	/* XXX Not sure why this fails right now */
@@ -25,7 +28,7 @@ EXAMPLES
 	   values = call_trace();
 	   if (values) {
 	      maxx = sizeof(values);
-	      for (x=0; x<maxx; x++) {
+	      for (x = 0; x < maxx; x++) {
 	         write("OBJ Name: " + values[x][TRACE_OBJNAME] + "\n");
 	         write("Prog Name: " + values[x][TRACE_PROGNAME] + "\n");
 	         write("Fun Name: " + values[x][TRACE_FUNCTION] + "\n");
@@ -41,6 +44,4 @@ SEE ALSO
 	afun/this_connection, afun/this_environment, afun/this_player, 
 	afun/this_program, afun/this_race, afun/this_user, kfun/call_trace,
 	kfun/previous_object, kfun/previous_program
-
-XXX notice this is different than the kfun doc should it be?
 
