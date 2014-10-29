@@ -231,9 +231,16 @@ int file_is_command(string what) {
 
    sz = sizeof(syspath);
    for (i = 0; i < sz; i++) {
-      if (strstr(what, syspath[i]) == 1) {
+      if (strstr(what, syspath[i]) == 0) {
          return 1;
       }
+   }
+   return 0;
+}
+
+int file_is_spell(string what) {
+   if (strstr(what, "/cmds/spells/") == 0) {
+      return 1;
    }
    return 0;
 }

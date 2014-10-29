@@ -1,15 +1,15 @@
 NAME
-	sqlite3_select - sqlite3 exension: select statement
+	sqlite3_select - sqlite3 extension: select statement
 
 SYNOPSIS
 	mixed **sqlite3_select(string filename, string sql)
 
 DESCRIPTION
-	This command is only available if you have the SQLITE3 exension
-	available.  Filename is the location of your sqllite database
-	and sql is the select statment you want to run.
+	This command is only available if you have the SQLITE3 extension
+	available.  Filename is the location of your sqlite database
+	and sql is the select statement you want to run.
 
-	You can find the exension on github here:
+	You can find the extension on github here:
 	https://github.com/november-kilo/dgd-lpc-ext
 
 RETURN VALUE

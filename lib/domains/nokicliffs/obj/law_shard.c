@@ -10,7 +10,7 @@ void setup() {
       "clear from just looking at it. Perhaps someone else knows and " +
       "has a use for it.");
    set_gettable(1);
-   set_value(0);
+   set_value(10);
    set_weight(1);
    add_bane("lawfulness");
 }

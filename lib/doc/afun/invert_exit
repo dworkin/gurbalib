@@ -9,9 +9,9 @@ DESCRIPTION
 	arg does not have an opposite. 
 		
 RETURN VALUE
-	Returns a string representing the opposite direciton of the input.
+	Returns a string representing the opposite direction of the input.
 	Up returns "down", east returns "west".  If the opposite is unknown
-	return "unkown".
+	return "unknown".
 
 EXAMPLES
 	string x;

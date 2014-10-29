@@ -1,5 +1,5 @@
 NAME
-	get_dir - Retreive information about the  contents of a directory.
+	get_dir - Retrieve information about the  contents of a directory.
 		
 SYNOPSIS
 	static mixed **get_dir(string dir)
@@ -8,7 +8,7 @@ DESCRIPTION
 	Return the files, sizes and modification times of files in a directory.
 
 RETURN VALUES
-	Get_dir returns 3 arrays, file names, filesizes, filemod times.
+	Get_dir returns 3 arrays, file names, file sizes, filemod times.
 	Directories have a file size of -2.  If no file or directory exists
 	the return value will be three empty arrays ({ ({ }), ({ }), ({ }) })
 

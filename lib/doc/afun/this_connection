@@ -8,8 +8,8 @@ DESCRIPTION
 	Get the object representing the current network connection.  
 	This can be the same as the current session object but usually 
 	it isn't.  Currently this just calls the kfun this_user,
-	XXX Not sure if this statment is correct or not...
-	It is mainly for compatability.
+	XXX Not sure if this statement is correct or not...
+	It is mainly for compatibility.
 
 RETURN VALUE
 	The object representing the current connection is returned.

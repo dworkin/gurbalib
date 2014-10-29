@@ -10,7 +10,7 @@ void setup() {
    set_long("Some dimensional beads. You can 'activate' them.");
    set_gettable(1);
    set_weight(1);
-   set_value(0);
+   set_value(20);
    add_action("activate_cmd", "activate");
 }
 

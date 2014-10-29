@@ -1090,6 +1090,7 @@ void set_custom_color(string name, string * symbols) {
       write("Removed color symbol " + name + "\n");
    } else {
       for (i = 0, sz = sizeof(symbols); i < sz; i++) {
+/* XXX is this strstr right? */
 	 if (strstr("%^", symbols[i]) == -1) {
 	    symbols[i] = uppercase(symbols[i]);
 	    if (!ANSI_D->query_any_symbol(symbols[i])) {

@@ -68,8 +68,36 @@ string get_what(string str) {
    return path;
 }
 
+void check_a_spell(string filename) {
+   object obj;
+   string *functionlist;
+   int x, max;
+
+   write("Check spell: " + filename + "\n");
+
+   obj = compile_object(filename);
+
+   if (!obj) {
+      error("Unable to load command: filename\n");
+      return;
+   }
+
+   functionlist = ({ "usage" });
+   functionlist += ({ "do_spell" });
+
+   max = sizeof(functionlist);
+   for (x = 0; x < max; x++) {
+      if (!function_object(functionlist[x], obj)) {
+         warn(obj->file_name() + ": " + functionlist[x] + " undefined.\n");
+      }
+   }
+}
+
+
 void check_a_command(string filename) {
    object obj;
+   string *functionlist;
+   int x, max;
    
    write("Check command: " + filename + "\n");
 
@@ -79,11 +107,18 @@ void check_a_command(string filename) {
       error("Unable to load command: filename\n");
       return;
    }
-   if (!function_object("main", obj)) {
-      error(obj->query_filename() + ": main undefined.\n");
-   }
-   if (!function_object("usage", obj)) {
-      warn(obj->query_filename() + ": usage undefined.\n");
+
+   functionlist = ({ "usage" });
+/*
+   functionlist += ({ "main" });
+   functionlist += ({ "query_command" });
+*/
+   
+   max = sizeof(functionlist);
+   for (x = 0; x < max; x++) {
+      if (!function_object(functionlist[x], obj)) {
+         warn(obj->file_name() + ": " + functionlist[x] + " undefined.\n");
+      }
    }
 }
 
@@ -190,25 +225,25 @@ void do_standard_checks(object obj) {
    tmp = obj->query_short();
    if (!tmp || (tmp == "")) {
       warn("Object has no short description.\n");
-   }
+   } else {
+      tmp2 = capitalize(tmp);
 
-   tmp2 = capitalize(tmp);
-   if (tmp2 != tmp) {
-      warn("Object short not capitalized.\n");
-   }
+      if (tmp2 != tmp) {
+         warn("Object short not capitalized.\n");
+      }
 
-   x = strlen(tmp) -1;
-   if (x < 1) {
-      warn("Object short too short : \'" + obj->query_short() + "\'\n");
-   } else if ((tmp[x] == '.') || (tmp[x] == '?') || (tmp[x] == '!')) {
-      warn("Object short ends with punctuation.\n");
+      x = strlen(tmp) -1;
+      if (x < 1) {
+         warn("Object short too short : \'" + obj->query_short() + "\'\n");
+      } else if ((tmp[x] == '.') || (tmp[x] == '?') || (tmp[x] == '!')) {
+         warn("Object short ends with punctuation.\n");
+      }
    }
 
    tmp = obj->query_long();
    if (!tmp || (tmp == "")) {
-      warn("Monster has no long description.\n");
+      warn("Object has no long description.\n");
    }
-
 }
 
 int check_functions(object obj, mixed funs) {
@@ -311,13 +346,14 @@ void do_object_check(object obj) {
 
    write("Doing object check: " + obj->file_name() + "\n");
 
-   if (obj->is_gettable() && (obj->query_weight() < 1)) {
-      warn("Object gettable and weight < 1\n");
-   }
-   if (obj->is_gettable() && (obj->query_value() < 1)) {
-      warn("Object gettable and value < 1\n");
-   }
-   if (!obj->is_gettable() && (obj->query_value() > 1)) {
+   if (obj->is_gettable()) {
+      if (obj->query_weight() < 1) {
+         warn("Object gettable and weight < 1\n");
+      }
+      if (obj->query_value() < 1) {
+         warn("Object gettable and value < 1\n");
+      }
+   } else if (obj->query_value() > 1) {
       warn("Object ungettable and value > 1\n");
    }
 
@@ -345,11 +381,13 @@ void do_check(string str) {
       if (file_exists(what) == 1) {
          write("Looking at file: " + what + "\n");
 
-         if (COMMAND_D->file_is_command(what)) {
+         if (COMMAND_D->file_is_spell(what)) {
+            check_a_spell(what);
+            return;
+         } else if (COMMAND_D->file_is_command(what)) {
             check_a_command(what);
             return;
-         } 
-         if (INIT_D->file_is_daemon(what)) {
+         } else if (INIT_D->file_is_daemon(what)) {
             check_a_daemon(what);
             return;
          }
