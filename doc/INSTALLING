@@ -75,5 +75,10 @@ If you want a squeaky clean mud you can also remove the files in
 	lib/domains/ except for required (I would keep them around for
 	a little while though since they are semi good example code)
 
-You will want to read the docs that are available and check out the todo list: 
+You will want to read the docs that are available, in lib/doc.  There is
+	a ton of stuff to go through.  I would start with the following:
+	lib/doc/intro		# Over view of docs and commands to read them
+	lib/doc/misc/admin	# Introduction to Administration
+	lib/doc/help/wiz/bootcamp 	# Introduction to wizardhood
+	also check out the todo list: 
 	lib/TODO 
