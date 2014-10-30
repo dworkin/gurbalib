@@ -162,7 +162,7 @@ int set_bonus_stat(string statname, int amt) {
    return 1;
 }
 
-mixed *query_all_stats() {
+mixed *query_all_stats(void) {
    mixed *ret;
    string *stat_names;
    int i;
@@ -205,7 +205,7 @@ int query_statbonus(string name) {
    return (0);
 }
 
-void initialize_base_stats() {
+void initialize_base_stats(void) {
    int *s;
    int i;
    int sOK;
@@ -266,7 +266,7 @@ void initialize_base_stats() {
    this_object()->set_base_stat("cha", s[5] + race->query_stat_mod("cha"));
 }
 
-void initialize_bonus_stats() {
+void initialize_bonus_stats(void) {
    this_object()->set_bonus_stat("str", 0);
    this_object()->set_bonus_stat("con", 0);
    this_object()->set_bonus_stat("dex", 0);
@@ -275,7 +275,7 @@ void initialize_bonus_stats() {
    this_object()->set_bonus_stat("cha", 0);
 }
 
-void initialize_stat_dependant_variables() {
+void initialize_stat_dependant_variables(void) {
    int tmp, stat;
 
    tmp = this_object()->query_base_stat("con");
@@ -292,7 +292,7 @@ void initialize_stat_dependant_variables() {
    this_object()->set_max_end(stat);
 }
 
-void initialize_stats() {
+void initialize_stats(void) {
    this_object()->initialize_base_stats();
    this_object()->initialize_bonus_stats();
    initialize_stat_dependant_variables();

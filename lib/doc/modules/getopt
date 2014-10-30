@@ -83,11 +83,11 @@ EXAMPLES
 
        inherit "/sys/lib/modules/m_getopt";
 
-       void create() {
+       void create(void) {
           set_options(([ "verbose", ({ "v", "verbose", 0, 1 }) ]));
        }
 
-       void upgraded() {
+       void upgraded(void) {
           /* ensure we pick up changes to our option definitions */
           create();
        }

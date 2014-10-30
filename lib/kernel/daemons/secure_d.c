@@ -40,21 +40,21 @@ static void save_me(void) {
    save_object("/kernel/daemons/data/secure_d.o");
 }
 
-string *query_domains() {
+string *query_domains(void) {
    return DOMAIN_D->query_domains();
 }
 
-mapping query_domain_data() {
+mapping query_domain_data(void) {
    if (ROOT()) {
       return domains;
    }
 }
 
-void domains_d_v2() {
+void domains_d_v2(void) {
    if (ROOT()) domains = nil;
 }
 
-void user_d_v2() {
+void user_d_v2(void) {
    if (ROOT()) privs = nil;
 }
 
@@ -80,11 +80,11 @@ int query_wizard(mixed p) {
    return 0;
 }
 
-string *query_wizards() {
+string *query_wizards(void) {
    return filter_array(USER_D->list_all_users(), "query_wizard");
 }
 
-string *known_names() {
+string *known_names(void) {
    string *result;
    result = SYS_BANNED_NAMES;
    result |= query_domains();
@@ -492,7 +492,7 @@ string query_write_priv(string file) {
 
 
 /* invalidate privilege cache */
-void invalidate_pcache() {
+void invalidate_pcache(void) {
    if(previous_program() == "/sys/lib/runas") {
       DRIVER->set_tlvar(TLS_CACHE, ([ ]));
    }

@@ -33,11 +33,11 @@ void set_user(object u) {
    }
 }
 
-object query_user() {
+object query_user(void) {
    return user;
 }
 
-void create() {
+void create(void) {
    buffer = nil;
    protocol = nil;
    user = nil;
@@ -74,7 +74,7 @@ void set_mode(int m) {
    }
 }
 
-int query_mode() {
+int query_mode(void) {
    return (blocked) ? MODE_BLOCK : mode;
 }
 
@@ -105,7 +105,7 @@ static void _open(mixed * tls) {
    DEBUG("Connection established");
 }
 
-void open() {
+void open(void) {
    _open(DRIVER->new_tls());
 }
 
@@ -127,7 +127,7 @@ static void _close(mixed * tls, varargs int force) {
    opened = 0;
 }
 
-static void remove_me() {
+static void remove_me(void) {
    destruct_object(this_object());
 }
 
@@ -192,7 +192,7 @@ static void _message_done(mixed * tls) {
    }
 }
 
-static void message_done() {
+static void message_done(void) {
    _message_done(DRIVER->new_tls());
 }
 
@@ -240,6 +240,6 @@ static void receive_message(string str) {
    _receive_message(DRIVER->new_tls(), str);
 }
 
-static void destructing() {
+static void destructing(void) {
    DEBUG("Destructing connection object");
 }

@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 #define CHUNK_SIZE 8024
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: tail [-h] [file]" });

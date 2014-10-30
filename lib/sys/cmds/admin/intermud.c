@@ -15,7 +15,7 @@ inherit M_COMMAND;
                 "arguments: command "+\
                 "arguments: command arg"\
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: intermud [-h] <command> [arg]" });
@@ -49,7 +49,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-static int check_istat() {
+static int check_istat(void) {
    if (!find_object(IMUD_D)) {
       return 0;
    } else {
@@ -57,7 +57,7 @@ static int check_istat() {
    }
 }
 
-void display_istat() {
+void display_istat(void) {
    int s;
    string r;
 

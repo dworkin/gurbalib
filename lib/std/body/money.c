@@ -25,7 +25,7 @@ mixed *query_all_coins(void) {
    return c;
 }
 
-int clear_money() {
+int clear_money(void) {
    coins = 0;
 }
 
@@ -43,11 +43,11 @@ int add_money(string type, int amount) {
    return 0;
 }
 
-int query_total_money() {
+int query_total_money(void) {
    return coins;
 }
 
-int query_bank() {
+int query_bank(void) {
    return bank;
 }
 

@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: chfn [-h] [KEY VALUE]" });
@@ -25,7 +25,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-static void show_chfn() {
+static void show_chfn(void) {
    write("Email: " + this_player()->query_email_address() + "\n");
    write("Realname: " + this_player()->query_real_name() + "\n");
    write("Website: " + this_player()->query_website() + "\n");

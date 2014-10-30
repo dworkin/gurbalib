@@ -4,14 +4,14 @@ inherit M_COMMAND;
 
 string *keys;
 
-void init_keys() {
+void init_keys(void) {
    keys = ({ "" });
    keys += ({ "LIV" });
    keys += ({ "STR" });
    keys += ({ "OBJ" });
 }
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: emotediff [-h] [-i] FILE [EMOTE]" });

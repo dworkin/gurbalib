@@ -2,7 +2,7 @@
  * filter on call_trace kfun to hide arguments on
  * the stack from non-kernel code.
  */
-static mixed *call_trace() {
+static mixed *call_trace(void) {
    mixed *trace;
    int i, sz;
 

@@ -108,6 +108,6 @@ void event(string name, varargs mixed args ...) {
    dispatch_event(name, obs, ( { 0, sizeof(obs) - 1} ), eventid, args);
 }
 
-void upgraded() {
+void upgraded(void) {
    eventid = 0;
 }

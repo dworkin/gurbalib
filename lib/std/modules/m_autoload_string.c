@@ -8,7 +8,7 @@ void set_autoload_string(string str) {
    autoload_string = str;
 }
 
-void clone_autoload_objects() {
+void clone_autoload_objects(void) {
    string file, argument, rest, str;
    object ob;
 

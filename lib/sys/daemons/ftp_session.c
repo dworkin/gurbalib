@@ -13,7 +13,7 @@ object connection;
 void FTP_connection_wait(void);
 void FTP_CMD_list(string str);
 
-void restore_privs() {
+void restore_privs(void) {
    string cpriv;
 
    if (name == "guest") {
@@ -657,7 +657,7 @@ void login_timeout(void) {
    }
 }
 
-void destructing() {
+void destructing(void) {
    if (!closing) {
       disconnect();
    }

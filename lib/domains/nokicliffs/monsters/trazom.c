@@ -2,7 +2,7 @@
 
 inherit DIR + "/lib/vampire";
 
-void setup() {
+void setup(void) {
    ::setup();
    add_bane("garlic");
    set_name("trazom");

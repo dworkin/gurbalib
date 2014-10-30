@@ -2,11 +2,11 @@
 
 inherit DIR + "/lib/undead";
 
-int is_vampire() {
+int is_vampire(void) {
    return 1;
 }
 
-void setup() {
+void setup(void) {
    ::setup();
    set_race("vampire");
    add_bane("garlic");

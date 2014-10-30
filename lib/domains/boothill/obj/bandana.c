@@ -3,7 +3,7 @@
 inherit "/std/armor";
 inherit "/std/modules/m_readable";
 
-string get_color() {
+string get_color(void) {
 
    switch(random(5)) {
       case 0:

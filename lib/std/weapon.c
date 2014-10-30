@@ -21,7 +21,7 @@ void create(void) {
    materials = ({ });
 }
 
-string *query_materials() {
+string *query_materials(void) {
    return materials;
 }
 
@@ -100,7 +100,7 @@ string query_weapon_action(void) {
    return weapon_action[random(sizeof(weapon_action))];
 }
 
-string *query_weapon_actions() {
+string *query_weapon_actions(void) {
    if (!weapon_action) {
       weapon_action = ({ });
    }

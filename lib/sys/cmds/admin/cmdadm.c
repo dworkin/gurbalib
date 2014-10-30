@@ -12,7 +12,7 @@ inherit "/sys/lib/menu";
 
 static int menu_cmdadm(varargs mixed junk...);
 
-string *query_usage() {
+string *query_usage(void) {
    string *lines;
 
    lines = ({ "Usage: cmdadm [CMD [PATH] [PRIV]]" });
@@ -57,7 +57,7 @@ string *query_usage() {
    return lines;
 }
 
-void usage() {
+void usage(void) {
    this_player()->more(map_array(query_usage(), "parse_colors", ANSI_D));
 }
 
@@ -206,7 +206,7 @@ int menu_remove( string str, string arg ) {
 }
 
 /* Leave the menu system.  */
-static int menu_quit() {
+static int menu_quit(void) {
    write("Ok.\n");
    return 1;
 }
@@ -347,7 +347,7 @@ private int action_del_path(string str) {
 }
 
 /* Handle the list/show command */
-private int action_list_path() {
+private int action_list_path(void) {
    int i, sz, ptype, len;
    string *path, r;
    mapping cmdpriv;

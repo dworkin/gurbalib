@@ -1,4 +1,4 @@
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: page [-h] CMD" });

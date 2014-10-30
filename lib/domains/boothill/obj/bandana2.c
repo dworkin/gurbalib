@@ -4,7 +4,7 @@ inherit "/std/armor";
 inherit "/std/modules/m_readable";
 
 string get_color "Return a random color."
-   () {
+   (void) {
    int x "A random number we are going to use to pick a color";
 
    x = random(5);

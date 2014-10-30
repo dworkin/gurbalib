@@ -8,7 +8,7 @@ static int count;
 static string *emotes;
 static string *available_emotes;
 
-void setup() {
+void setup(void) {
    set_name("swami");
    add_id("guru");
    set_gender("male");
@@ -23,7 +23,7 @@ void setup() {
    set_skill("combat/defense", 500);
 }
 
-private string guru_emote() {
+private string guru_emote(void) {
    int i, dim;
 
    if (nilp(emotes)) {
@@ -41,7 +41,7 @@ private string guru_emote() {
    return available_emotes[random(dim)];
 }
 
-void do_extra_actions() {
+void do_extra_actions(void) {
    count = count + 1;
    if (count >= INTERVAL) {
       respond(guru_emote());

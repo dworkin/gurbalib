@@ -2,7 +2,7 @@
 
 inherit DIR + "/lib/undead";
 
-private void arm() {
+private void arm(void) {
    equip_monster(({
       NOKICLIFFS_ARMOURS_DIR + "/crown",
       NOKICLIFFS_ARMOURS_DIR + "/leather_gloves",
@@ -12,7 +12,7 @@ private void arm() {
    }));
 }
 
-private void add_lawbringer() {
+private void add_lawbringer(void) {
    object obj;
 
    if (present("lawbringer")) {
@@ -24,7 +24,7 @@ private void add_lawbringer() {
    obj->move(this_object());
 }
 
-void setup() {
+void setup(void) {
    ::setup();
    set_name("paladin");
    set_gender("male");
@@ -45,7 +45,7 @@ void setup() {
    add_lawbringer();
 }
 
-void monster_died() {
+void monster_died(void) {
    object shard;
 
    if (nilp(killer) || killer->is_quest_completed(NOKICLIFFS_SHARD_QUEST)) {

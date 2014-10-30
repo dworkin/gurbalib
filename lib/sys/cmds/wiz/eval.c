@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: eval [-h] STRING" });
@@ -60,7 +60,7 @@ static void main(string src) {
 	       "# include <float.h>\n# include <limits.h>\n" +
                "# include <status.h>\n# include <trace.h>\n" +
 	       "# include <type.h>\n\n" +
-	       "private mixed exec_fun() {\n" + "    mixed " +
+	       "private mixed exec_fun(void) {\n" + "    mixed " +
 	       "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;\n" +
 	       src + "}\n" +
 	       "mixed *exec(object player) {\n" +

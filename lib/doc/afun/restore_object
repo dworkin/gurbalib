@@ -20,7 +20,7 @@ EXAMPLES
            save_object(MYDATA);
         }
 
-	void create() {
+	void create(void) {
 	   unguarded("restore_me");
 	}
 		

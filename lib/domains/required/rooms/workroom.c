@@ -1,7 +1,7 @@
 inherit "/std/room";
 #define REQDIR "/domains/required"
 
-private string myname() {
+private string myname(void) {
    return capitalize(owner_file(file_name()));
 }
 

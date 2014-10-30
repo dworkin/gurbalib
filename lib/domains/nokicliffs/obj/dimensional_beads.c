@@ -4,7 +4,7 @@ inherit "/std/object";
 
 string beads_owner_name;
 
-void setup() {
+void setup(void) {
    set_id("beads");
    set_short("A string of dimensional beads");
    set_long("Some dimensional beads. You can 'activate' them.");
@@ -14,7 +14,7 @@ void setup() {
    add_action("activate_cmd", "activate");
 }
 
-void update_short() {
+void update_short(void) {
    setup();
    set_short(beads_owner_name + "'s string of dimensional beads");
 }
@@ -57,7 +57,7 @@ int activate_cmd(string str) {
    return 1;
 }
 
-int post_drop() {
+int post_drop(void) {
    this_object()->query_environment()->tell_room(nil,
       "The beads shatter as they hit the ground.");
    this_object()->destruct();

@@ -1,7 +1,7 @@
 /* Read in the default objects that are loaded at boot */
 
 /* Returns a default init list. */
-private string *get_default_objects() {
+private string *get_default_objects(void) {
    string *objects;
 
    objects = ( { EVENT_D, SCHEDULE_D, TIME_D, USER_D } );
@@ -41,7 +41,7 @@ private string *get_default_objects() {
    return objects;
 }
 
-static void create() {
+static void create(void) {
    string *objects;
    int count, size;
 

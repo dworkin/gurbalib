@@ -1,7 +1,7 @@
 int experience;
 int level;
 
-int ready_for_next_level() {
+int ready_for_next_level(void) {
    int tmpexp;
 
    tmpexp = level * level * 2000;
@@ -85,7 +85,7 @@ string query_level_title(int level) {
    }
 }
 
-void increase_level() {
+void increase_level(void) {
    level += 1;
    this_object()->set_max_hp((level *
 	 this_object()->query_base_stat("str")) + 20);

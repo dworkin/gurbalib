@@ -40,7 +40,7 @@ static void save_me(void) {
    unguarded("save_object", DATAFILE);
 }
 
-void rehash() {
+void rehash(void) {
    mixed *parsed;
    if (!quests) {
       quests = ([]);

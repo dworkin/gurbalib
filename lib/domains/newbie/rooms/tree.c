@@ -50,7 +50,7 @@ int break_branch(string str) {
    }
 }
 
-void enter_hole() {
+void enter_hole(void) {
    object obj;
 
    if (this_player()->is_completed_quest("NewbieVille")) {

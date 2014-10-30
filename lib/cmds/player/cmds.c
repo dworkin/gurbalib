@@ -3,7 +3,7 @@ inherit M_COMMAND;
 int col;
 string *lines;
 
-void usage() {
+void usage(void) {
    string flags;
    string *lines;
 

@@ -1,4 +1,4 @@
-object *players() {
+object *players(void) {
    int i, sz;
    object *p;
    object *u;

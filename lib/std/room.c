@@ -32,7 +32,7 @@ void create(void) {
    setup();
 }
 
-int is_room() {
+int is_room(void) {
    return 1;
 }
 
@@ -62,7 +62,7 @@ private int object_is_lighted(object obj) {
    return 0;
 }
 
-int is_dark() {
+int is_dark(void) {
    object* objs;
    int x;
 
@@ -113,7 +113,7 @@ int query_in_area(string str) {
    }
 }
 
-string *query_areas() {
+string *query_areas(void) {
    return map_indices(areas);
 }
 
@@ -550,7 +550,7 @@ void event_clean_up(void) {
    destruct();
 }
 
-void upgraded() {
+void upgraded(void) {
    ::upgraded();
    /*
     * special for rooms, ::upgraded() will only call

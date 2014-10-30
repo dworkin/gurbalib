@@ -11,7 +11,7 @@ inherit "/sys/lib/modules/m_getopt";
 
 string *resubmit;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: rebuild [-h] [-v] [-c] [user,...]" });
@@ -253,7 +253,7 @@ static void main(string str) {
    write("A total of " + total + " objects was upgraded.");
 }
 
-static void create() {
+static void create(void) {
    set_options(([
       "help":({ ({"h", "?"}), "help" }),
       "core":({ "c", "core" }),
@@ -263,7 +263,7 @@ static void create() {
    ]));
 }
 
-void upgraded() {
+void upgraded(void) {
    create();
 }
 

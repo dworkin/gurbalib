@@ -1,7 +1,7 @@
 inherit M_COMMAND;
 inherit "/std/modules/m_messages";
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: get [-h] [all|OBJ] [from OBJ2]" });

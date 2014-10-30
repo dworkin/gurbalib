@@ -7,7 +7,7 @@ void create(void) {
       skills = ([]);
 }
 
-int query_skill_bonus() {
+int query_skill_bonus(void) {
 	return skill_bonus;
 }
 

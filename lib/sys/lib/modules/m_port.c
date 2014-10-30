@@ -36,7 +36,7 @@ nomask static void open_port(string proto, varargs mixed port) {
    }
 }
 
-nomask static void close_port() {
+nomask static void close_port(void) {
    if (!require_priv("network")) {
       error("Permission denied.");
    }
@@ -76,10 +76,10 @@ nomask void _F_close(varargs int force) {
 
 /* Public functions */
 
-nomask object "port" query_port_object() {
+nomask object "port" query_port_object(void) {
    return port_object;
 }
 
-nomask int query_port_number() {
+nomask int query_port_number(void) {
    return port_number;
 }

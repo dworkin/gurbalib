@@ -7,7 +7,7 @@ string *banished_names;
 	 "game" })
 #endif               
 
-void create() {
+void create(void) {
    mixed *list;
 
    banished_names = SYS_RESERVED_NAMES + DOMAIN_D->query_domains();          
@@ -15,7 +15,7 @@ void create() {
    banished_names |= list[0];                  
 }
 
-string *query_banished_names() {
+string *query_banished_names(void) {
    return banished_names;
 }
 

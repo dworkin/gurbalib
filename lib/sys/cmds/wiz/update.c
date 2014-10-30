@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: update [-h] [FILE|obj]" });
@@ -30,7 +30,7 @@ void usage() {
 
 object compiler_d;
 
-void create() {
+void create(void) {
    compiler_d = find_object(COMPILER_D);
 }
 

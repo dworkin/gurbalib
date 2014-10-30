@@ -18,7 +18,7 @@ string *searchpath;
 /* Commands that are local to worn/wielded items */
 static mapping item_commands;
 
-static void create() {
+static void create(void) {
    searchpath = ({});
 }
 
@@ -116,7 +116,7 @@ static void set_searchpath( mixed path ) {
    searchpath = result;
 }
 
-static string query_searchpath() {
+static string query_searchpath(void) {
    return searchpath ? implode( searchpath, ":" ) : nil;
 }
 
@@ -124,7 +124,7 @@ static void set_cmd_path( string *path ) {
    set_searchpath(path);
 }
 
-static string *query_cmd_path() {
+static string *query_cmd_path(void) {
    if (searchpath && sizeof(searchpath)) {
       return searchpath[..];
    } else {

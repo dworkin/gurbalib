@@ -4,11 +4,11 @@
 
 inherit M_PORT;
 
-void initialize() {
+void initialize(void) {
    open_port("telnet", LOGIN_PORT);
 }
 
-void close_listener() {
+void close_listener(void) {
    ::close_port();
 }
 
@@ -32,13 +32,13 @@ void open(varargs int port) {
 void close(varargs int force) {
 }
 
-void create() {
+void create(void) {
 #ifdef SYS_NETWORKING
    initialize();
 #endif
 }
 
-string query_banner() {
+string query_banner(void) {
 
    if (unguarded("file_exists","/data/messages/login")) {
       return unguarded("read_file", "/data/messages/login");
@@ -48,7 +48,7 @@ string query_banner() {
    }
 }
 
-string query_motd() {
+string query_motd(void) {
    if (unguarded("file_exists","/data/messages/motd")) {
       return unguarded("read_file", "/data/messages/motd");
    } else {

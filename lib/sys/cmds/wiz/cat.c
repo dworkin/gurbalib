@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 #define CHUNK_SIZE 1024
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: cat [-h] [file]" });

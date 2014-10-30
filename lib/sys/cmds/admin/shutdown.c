@@ -4,7 +4,7 @@ inherit M_COMMAND;
 
 string reason;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: shutdown [-h] [now|MINUTES] REASON" });
@@ -25,7 +25,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void do_shutdown() {
+void do_shutdown(void) {
    string *usrs;
    object *objs;
    int i, max, j, jmax;

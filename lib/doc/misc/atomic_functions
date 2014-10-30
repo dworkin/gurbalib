@@ -14,7 +14,7 @@ atomic functions:
 
   This means it is useless to write something like:
 
-  atomic void foo() {
+  atomic void foo(void) {
     object ob;
 
     catch {
@@ -30,7 +30,7 @@ atomic functions:
 
   What does work however is:
 
-  atomic void foo() {
+  atomic void foo(void) {
     object ob;
 
     catch {

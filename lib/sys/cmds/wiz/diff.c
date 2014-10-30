@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: diff [-h] [-o FILE] FILE1 FILE2" });

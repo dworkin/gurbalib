@@ -19,7 +19,7 @@ static object data_ob;
 
 int data_version;
 
-static void secure() {
+static void secure(void) {
    string name;
 
    name = previous_program(1);
@@ -31,11 +31,11 @@ static void secure() {
    }
 }
 
-static void save_me() {
+static void save_me(void) {
    unguarded("save_object", "/sys/daemons/data/user_d.o");
 }
 
-static void restore_me() {
+static void restore_me(void) {
    unguarded("restore_object", "/sys/daemons/data/user_d.o");
 }
 
@@ -69,7 +69,7 @@ object find_user(string name) {
 }
 
 /* If there are any data objects (clones) around, destruct them.  */
-static void cleanup() {
+static void cleanup(void) {
    object c, n;
 
    c = find_object(AUTH_DATA);
@@ -90,7 +90,7 @@ static void cleanup() {
    }
 }
 
-static void create() {
+static void create(void) {
    object *u;
    int i, sz;
 
@@ -189,7 +189,7 @@ static object get_data_ob(string name) {
    }
 }
 
-static void clean_cache() {
+static void clean_cache(void) {
    int i, sz;
    string *names;
 
@@ -354,7 +354,7 @@ int delete_user(string name) {
    return unguarded("_delete_user", name);
 }
 
-static void destructing() {
+static void destructing(void) {
    cleanup();
 }
 
@@ -448,7 +448,7 @@ int player_exists(string str) {
    return unguarded("file_exists", "/data/players/" + str + ".o") > 0;
 }
 
-string *list_all_users() {
+string *list_all_users(void) {
    string name, *files, *names;
    int x, i;
 
@@ -466,7 +466,7 @@ string *list_all_users() {
    return names;
 }
 
-void upgraded() {
+void upgraded(void) {
    create();
 }
 
@@ -636,7 +636,7 @@ static string get_player_name(object p) {
    }
 }
 
-object **query_all_online() {
+object **query_all_online(void) {
    object *admin, *mortal, *wizard;
 
    ({ wizard, mortal }) = split_array(players(), "query_wizard");
@@ -645,7 +645,7 @@ object **query_all_online() {
    return ({ admin, wizard, mortal });
 }
 
-string **query_all_online_names() {
+string **query_all_online_names(void) {
    object *a, *m, *w;
 
    ({ a, w, m }) = query_all_online();
@@ -673,7 +673,7 @@ mixed query_sessions(varargs string name) {
    }
 }
 
-static void convert_users() {
+static void convert_users(void) {
    string *names, n;
    int i, sz;
    object c;
@@ -890,7 +890,7 @@ void make_admin(string name) {
    }
 }
 
-mapping query_cache() {
+mapping query_cache(void) {
    return cache;
 }
 

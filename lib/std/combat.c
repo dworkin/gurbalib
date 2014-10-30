@@ -22,22 +22,22 @@ int is_fighting(void) {
    return fighting;
 }
 
-object query_killer() {
+object query_killer(void) {
 	return killer;
 }
 
-mapping query_killed_by() {
+mapping query_killed_by(void) {
    if (!mappingp(killed_by)) {
       killed_by = ([]);
    }
    return killed_by;
 }
 
-void increment_kills() {
+void increment_kills(void) {
    kills++;
 }
 
-int query_kills() {
+int query_kills(void) {
    return kills;
 }
 
@@ -48,7 +48,7 @@ void add_killed_by(object who, int t) {
    killed_by[t] = who->file_name();
 }
 
-int query_killed() {
+int query_killed(void) {
    if (!mappingp(killed_by)) {
       killed_by = ([]);
    }
@@ -61,7 +61,7 @@ void halt_fight(void) {
       });
 }
 
-int run_away() {
+int run_away(void) {
    string dir, error;
    string *exits;
    int x, y;
@@ -497,7 +497,7 @@ void attack(object who) {
    do_fight();
 }
 
-string *summarise_killers() {
+string *summarise_killers(void) {
 	string retval;
 	mapping killer_count, killer_map;
 	string *killers, *lines;

@@ -14,7 +14,7 @@ void setup(void) {
 
 }
 
-void go_locker() {
+void go_locker(void) {
    string locker;
    object obj;
 

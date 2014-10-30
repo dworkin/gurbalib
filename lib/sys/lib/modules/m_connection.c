@@ -25,7 +25,7 @@ nomask static int set_mode(int m) {
    }
 }
 
-nomask static void disconnect() {
+nomask static void disconnect(void) {
    if (!require_priv("network")) {
       error("Permission denied.");
    }
@@ -40,7 +40,7 @@ void open(varargs int port) {
 void close(varargs int force) {
 }
 
-nomask object "connection" query_connection() {
+nomask object "connection" query_connection(void) {
    return connection;
 }
 
@@ -49,7 +49,7 @@ nomask void set_connection(object con) {
    connection->set_user(this_object());
 }
 
-static void destructing() {
+static void destructing(void) {
    if (!require_priv("network")) {
       error("Permission denied.");
    }

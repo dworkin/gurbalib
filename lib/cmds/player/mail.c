@@ -5,7 +5,7 @@ string *to;
 string msgdate;
 string *body;
 
-void usage() {
+void usage(void) {
    string usage, all;
    string *lines;
 
@@ -55,7 +55,7 @@ void delete_message(string str) {
    }
 }
 
-void show_menu() {
+void show_menu(void) {
    write("Commands: d # (delete message) m player (mail player)  " +
       "l (list inbox) q (quit)\n");
    this_player()->input_to_object(this_object(), "view_mailbox");

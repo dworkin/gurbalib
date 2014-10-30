@@ -24,7 +24,7 @@ int query_heal_step(void) {
    return heal_amount;
 }
 
-void create() {
+void create(void) {
    EVENT_D->subscribe_event("heart_beat");
    heal_time = 0;
    heal_rate = 10;
@@ -84,7 +84,7 @@ void event_heart_beat(void) {
    }
 }
 
-string query_age() {
+string query_age(void) {
    string ret;
    int years, days, hours, mins, secs;
 
@@ -126,7 +126,7 @@ string query_age() {
    return ret;
 }
 
-int query_age_in_seconds() {
+int query_age_in_seconds(void) {
    return player_age;
 }
 

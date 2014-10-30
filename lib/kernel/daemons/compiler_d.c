@@ -31,11 +31,11 @@ mapping upqueue;	/* mapping of to be upgraded programs,
 static void remove_all_included_by(string by);
 
 #ifdef DEBUG_COMPILER_D
-mapping query_inh_list() {
+mapping query_inh_list(void) {
    return inh_list;
 }
 
-mapping query_dep_list() {
+mapping query_dep_list(void) {
    return dep_list;
 }
 #endif
@@ -57,7 +57,7 @@ static string fname(object ob) {
    return r;
 }
 
-static void create() {
+static void create(void) {
    if (!get_list("clones")) {
       error("Your config file is out of date.\n" +
 	 "Please change the line reading:\n" +
@@ -157,7 +157,7 @@ void register_program(object ob) {
 }
 
 /* Number of programs known to the system */
-int query_program_count() {
+int query_program_count(void) {
    return programs ? map_sizeof(programs) : 0;
 }
 
@@ -369,7 +369,7 @@ string issue_to_file(string str) {
 }
 
 /* Find all inheritables that have more then one instance registered. */
-mapping find_duplicates() {
+mapping find_duplicates(void) {
    int i, max, dupesize;
    string *pnames;
    string *dupes;
@@ -655,11 +655,11 @@ void add_upqueue(string file) {
 #endif
 }
 
-mapping query_upqueue() {
+mapping query_upqueue(void) {
    return upqueue;
 }
 
-void clear_upqueue() {
+void clear_upqueue(void) {
    switch (owner_file(previous_program())) {
       case "kernel":
       case "system":
@@ -671,7 +671,7 @@ void clear_upqueue() {
    }
 }
 
-static void clean_includes() {
+static void clean_includes(void) {
    if (data_format != DATA_FORMAT) {
       data_format = DATA_FORMAT;
       increv = ([ ]);
@@ -679,7 +679,7 @@ static void clean_includes() {
    }
 }
 
-void upgraded() {
+void upgraded(void) {
    clean_includes();
 }
 

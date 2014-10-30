@@ -27,7 +27,7 @@ void create(void) {
    set_skill("value",50);
 }
 
-int has_darkvision() {
+int has_darkvision(void) {
    return 1;
 }
 

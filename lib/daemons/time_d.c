@@ -49,7 +49,7 @@ int query_minute(void) {
    return (time % HOUR);
 }
 
-int query_hour() {
+int query_hour(void) {
    return ((time / HOUR) % DAY);
 }
 

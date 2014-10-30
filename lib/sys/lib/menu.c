@@ -215,7 +215,7 @@ private void display_menu(mixed header, mixed * menu, mixed footer,
    this_player()->more(output);
 }
 
-private void exec_menu() {
+private void exec_menu(void) {
    mixed header, footer, *menu;
    mapping actions;
 
@@ -251,7 +251,7 @@ void menu_response(string str) {
    }
 }
 
-void more_done() {
+void more_done(void) {
    mixed header, *menu, footer;
    mapping actions;
 

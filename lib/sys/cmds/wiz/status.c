@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 #include <status.h>
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: status [-h] [OBJ]" });

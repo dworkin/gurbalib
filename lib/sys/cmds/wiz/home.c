@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
    string *lines;
    string workroom;
 
@@ -21,7 +21,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-string get_workroom() {
+string get_workroom(void) {
    string badname, filename;
 
    filename = WIZ_DIR + "/" + this_player()->query_name() + "/rooms/workroom";

@@ -80,7 +80,7 @@ Handling of global variables and upgrading
       }
     }
 
-    void convert() {
+    void convert(void) {
       switch(verbose) {
         case 0 : 
           vmsg = nil;
@@ -92,7 +92,7 @@ Handling of global variables and upgrading
       verbose = -1;
     }
 
-    void upgraded() {
+    void upgraded(void) {
       if(verbose != -1) {
         convert();
       }

@@ -3,7 +3,7 @@ static int clean_up_handle;
 static int reset_handle;
 static int save_game_handle;
 
-static void setup() {
+static void setup(void) {
    EVENT_D->add_event("heart_beat");
 
    if (!heart_beat_handle) {
@@ -31,12 +31,12 @@ static void setup() {
 #endif
 }
 
-static void heart_beat() {
+static void heart_beat(void) {
    heart_beat_handle = call_out("heart_beat", HEART_BEAT_INTERVAL);
    EVENT_D->event("heart_beat");
 }
 
-static void clean_up() {
+static void clean_up(void) {
    clean_up_handle = 0;
 
    if (!WORLD_PERSIST) {
@@ -45,7 +45,7 @@ static void clean_up() {
    }
 }
 
-static void reset() {
+static void reset(void) {
    reset_handle = 0;
    if (!WORLD_PERSIST) {
       reset_handle =
@@ -54,7 +54,7 @@ static void reset() {
    }
 }
 
-static void save_game() {
+static void save_game(void) {
 #ifdef SYS_PERSIST
    save_game_handle = call_out("save_game", DUMP_INTERVAL);
    DRIVER->save_game();
@@ -63,10 +63,10 @@ static void save_game() {
 #endif
 }
 
-void create() {
+void create(void) {
    setup();
 }
 
-void upgraded() {
+void upgraded(void) {
    setup();
 }

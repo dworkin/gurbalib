@@ -1,6 +1,6 @@
 inherit "/std/armor";
 
-string query_short() {
+string query_short(void) {
    string str;
 
    str = ::query_short();

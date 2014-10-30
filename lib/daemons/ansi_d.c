@@ -163,7 +163,7 @@ void setup(void) {
    translations = color_trans + attr_trans + terminal_trans;
 }
 
-void create() {
+void create(void) {
    setup();
 }
 
@@ -444,6 +444,6 @@ int check_recursion(string tag, string value) {
    return 1;
 }
 
-void upgraded() {
+void upgraded(void) {
    setup();
 }

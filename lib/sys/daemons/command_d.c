@@ -39,15 +39,15 @@ static void DBT(string str) {
 #endif
 }
 
-static int restore_me() {
+static int restore_me(void) {
    return unguarded("restore_object", DATA_FILE);
 }
 
-static void save_me() {
+static void save_me(void) {
    unguarded("save_object", DATA_FILE);
 }
 
-static void create() {
+static void create(void) {
    int i, sz;
 
    restore_me();
@@ -79,7 +79,7 @@ static string file_to_cmdname(string file) {
    return r;
 }
 
-void rehash() {
+void rehash(void) {
    int i, sz;
    string *syspath, *cmds;
 
@@ -158,7 +158,7 @@ int exec_command(string cmd, string arg, string * syspath) {
    }
 }
 
-string cmdstats() {
+string cmdstats(void) {
    int i, sz;
    string r, *syspath;
 
@@ -185,7 +185,7 @@ int cmd_path_exists(string path) {
 
 /* can only be called from system code, which is trusted with this data
    especially since we return a copy so it can't be modified */
-mapping query_cmdpriv() {
+mapping query_cmdpriv(void) {
    if (!KERNEL() && !SYSTEM()) {
       error("Permission denied");
    }

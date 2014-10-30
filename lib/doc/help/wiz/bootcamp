@@ -172,7 +172,7 @@ Now lets look at a basic monster, type the following:
 It should look something like this:
 	inherit "/std/monster";
 
-	void setup() {
+	void setup(void) {
 	   set_name("rat");
 	   add_adj("filthy");
 	   set_short("A small filthy rat.");

@@ -7,7 +7,7 @@ inherit M_COMMAND;
 
 string filename;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: graph [-h] DIR" });

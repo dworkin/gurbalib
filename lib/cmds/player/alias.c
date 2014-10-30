@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
     string *lines;
 
     lines = ({ "Usage: alias [-h] [ALIAS COMMAND]" });
@@ -26,7 +26,7 @@ void usage() {
     this_player()->more(lines);
 }
 
-void show_aliases() {
+void show_aliases(void) {
    mapping alias;
    string *aliases, *lines;
    int i;

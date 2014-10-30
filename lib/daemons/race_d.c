@@ -34,7 +34,7 @@ string *query_races(void) {
    return names;
 }
 
-string *query_monster_races() {
+string *query_monster_races(void) {
 	return monster_names;
 }
 

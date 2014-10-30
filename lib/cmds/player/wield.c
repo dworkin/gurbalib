@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: wield [-h] [all|obj]" });

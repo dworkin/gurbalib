@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 int debug, errors;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: checkmud [-h] [TYPE [VALUE]]" });
@@ -167,7 +167,7 @@ void check_command(string type) {
    }
 }
 
-void do_full_check() {
+void do_full_check(void) {
    check_command("");
    check_daemon("");
    check_domain("");

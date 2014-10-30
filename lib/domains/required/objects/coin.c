@@ -1,6 +1,6 @@
 inherit "/std/coin";
 
-void setup() {
+void setup(void) {
 
 }
 

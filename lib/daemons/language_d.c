@@ -23,7 +23,7 @@ string make_word(int size) {
     return word;
 }
 
-string *query_languages() {
+string *query_languages(void) {
    string *langs, *files;
    string name;
    object obj;

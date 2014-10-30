@@ -101,7 +101,7 @@ void set_aggressive(int x) {
    aggressive = x;
 }
 
-int query_aggressive() {
+int query_aggressive(void) {
    return aggressive;
 }
 
@@ -117,7 +117,7 @@ int set_level(int x) {
    return 1;
 }
 
-int query_level() {
+int query_level(void) {
    return level;
 }
 
@@ -136,19 +136,19 @@ int set_spell_message(string str) {
    spell_message = str;
 }
 
-int query_spell_chance() {
+int query_spell_chance(void) {
    return spell_chance;
 }
 
-int query_spell_damage() {
+int query_spell_damage(void) {
    return spell_damage;
 }
 
-string query_spell_message() {
+string query_spell_message(void) {
    return spell_message;
 }
 
-void monster_died() {
+void monster_died(void) {
 }
 
 void equip_monster(string *arms, varargs int repeats_ok) {

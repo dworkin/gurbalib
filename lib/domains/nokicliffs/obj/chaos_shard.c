@@ -2,7 +2,7 @@
 
 inherit "/std/object";
 
-void setup() {
+void setup(void) {
    set_id("shard");
    add_id("chaosshard");
    set_short("A shard of chaos");

@@ -16,7 +16,7 @@ object connection(string ip, int port) {
    return (con);
 }
 
-void create() {
+void create(void) {
    initialize();
 }
 #endif

@@ -1,7 +1,7 @@
 inherit "/std/monster";
 inherit "/std/modules/m_triggers";
 
-void setup() {
+void setup(void) {
    set_name("kitten");
    set_gender("male");
    set_short("An ADORABLE little kitten");

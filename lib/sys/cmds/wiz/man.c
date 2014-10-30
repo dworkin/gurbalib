@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: man [-h] [TOPIC]" });
@@ -43,11 +43,11 @@ static string *build_dir(string str) {
    return result;
 }
 
-void rebuild_topics() {
+void rebuild_topics(void) {
    topics = build_dir(BASEDIR);
 }
 
-void create() {
+void create(void) {
    rebuild_topics();
 }
 

@@ -1,6 +1,6 @@
 inherit "/domains/required/lib/sword";
 
-void setup() {
+void setup(void) {
    ::setup();
    set_id("ataghan");
    set_short("An ataghan");

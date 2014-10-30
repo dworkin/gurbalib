@@ -2,7 +2,7 @@ inherit "/std/container";
 
 static string orig_name;
 
-void setup() { }
+void setup(void) { }
 
 void create(void) {
    ::create();
@@ -18,7 +18,7 @@ void set_name(string name) {
    set_short("The corpse of " + name);
 }
 
-void corpse_destruct() {
+void corpse_destruct(void) {
 	int i, dim;
 	object *inv;
 	inv = query_inventory();

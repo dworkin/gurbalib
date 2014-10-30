@@ -51,7 +51,7 @@ void add_vulnerability(string vulnerability) {
 	vulnerabilities = uniq_array(vulnerabilities);
 }
 
-string *query_vulnerabilities() {
+string *query_vulnerabilities(void) {
 	if (!vulnerabilities) {
 		vulnerabilities = ({ });
 	}
@@ -69,7 +69,7 @@ void set_hit_string(string str) {
 	hit_string = str;
 }
 
-string query_hit_string() {
+string query_hit_string(void) {
 	if (empty_str(hit_string)) {
 		set_hit_string("hit");
 	}

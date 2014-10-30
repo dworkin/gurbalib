@@ -19,11 +19,11 @@ void set_user(object u) {
    }
 }
 
-object query_user() {
+object query_user(void) {
    return user;
 }
 
-static void create() {
+static void create(void) {
    protocol = nil;
    user = nil;
    blocked = 0;
@@ -115,7 +115,7 @@ int datagram(string str) {
 static void _datagram_done(mixed * tls) {
 }
 
-static void datagram_done() {
+static void datagram_done(void) {
    _datagram_done(DRIVER->new_tls());
 }
 
@@ -138,7 +138,7 @@ static void receive_datagram(string str, string ip, int p) {
    _receive_datagram(DRIVER->new_tls(), str, ip, p);
 }
 
-void reopen() {
+void reopen(void) {
    if (previous_program() == DRIVER) {
       console_msg("Reopening port " + protocol + ":" + port + "\n");
       ::open_port(protocol, port);

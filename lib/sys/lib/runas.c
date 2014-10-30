@@ -30,7 +30,7 @@ nomask static void run_as(string priv) {
    }
 }
 
-nomask string _Q_cpriv() {
+nomask string _Q_cpriv(void) {
    if (ROOT()) {
       if (cpriv) {
          return cpriv;

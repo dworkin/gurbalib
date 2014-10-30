@@ -15,7 +15,7 @@ inherit M_COMMAND;
                 "value_list: value_list '+' value\n"+\
                 "value: TAG ? valid_value\n"
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: coloradm [-h] [SHOW|COMMAND]" });

@@ -15,7 +15,7 @@ void remove_linkdead(string str) {
    linkdead -= ({ str });
 }
 
-string *list_linkdead() {
+string *list_linkdead(void) {
    int i, dim;
    string *lines;
 

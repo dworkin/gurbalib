@@ -1,4 +1,4 @@
-atomic private void del_clone() {
+atomic private void del_clone(void) {
   object * ptr;
   object prev;
   object next;
@@ -31,7 +31,7 @@ atomic private void del_clone() {
   find_object(base_name())->_F_remove_clone();
 }
 
-private void __F_destruct() {
+private void __F_destruct(void) {
   switch( clone_num() ) {
     case 0 :
       DRIVER->remove_program(
@@ -50,7 +50,7 @@ private void __F_destruct() {
   ::destruct_object(this_object());
 }
 
-nomask void _F_destruct() {
+nomask void _F_destruct(void) {
   object * ptr;
 
   if(!KERNEL())

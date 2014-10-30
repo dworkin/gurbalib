@@ -25,7 +25,7 @@ int is_follower(object who) {
    return 0;
 }
 
-string query_follower() {
+string query_follower(void) {
    if (following && following != "") {
       return following;
    }

@@ -2,18 +2,18 @@
 
 int lit;
 
-int query_lit() {
+int query_lit(void) {
    if (nilp(lit)) {
       lit = 0;
    }
    return lit;
 }
 
-private void light() {
+private void light(void) {
    lit = 1;
 }
 
-private void extinguish() {
+private void extinguish(void) {
    lit = 0;
 }
 

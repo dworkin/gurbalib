@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 int warn, error;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: check [-h] FILENAME" });

@@ -2,7 +2,7 @@
 
 inherit "/std/monster";
 
-void monster_died() {
+void monster_died(void) {
    object shard;
 
    if (nilp(killer) || killer->is_quest_completed(NOKICLIFFS_SHARD_QUEST)) {
@@ -36,7 +36,7 @@ int after_damage_hook(object aggressor, object weapon, int damage) {
    return damage;
 }
 
-void setup() {
+void setup(void) {
    set_name("chaosdemon");
    set_short("A chaosdemon");
    set_long("This is a demon of chaos. It is not evil, not good, not " +

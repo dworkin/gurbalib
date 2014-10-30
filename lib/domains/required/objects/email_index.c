@@ -13,7 +13,7 @@ static void save_me(string myfile) {
    unguarded("save_object", myfile);
 }
 
-int new_email() {
+int new_email(void) {
    return newmail;
 }
 

@@ -6,7 +6,7 @@ inherit M_COMMAND;
 
 static void chan_cmd(string chan, string cmd);
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: chan [-h] [COMMAND CHANNEL | CHANNEL MSG]" });

@@ -13,11 +13,11 @@
 #define ENABLE_STACK_SECURITY
 #endif
 
-nomask int is_game_object() {
+nomask int is_game_object(void) {
    return 1;
 }
 
-nomask int is_kernel_object() {
+nomask int is_kernel_object(void) {
    return 0;
 }
 

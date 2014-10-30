@@ -1,6 +1,6 @@
 #define COST 10
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: cast missile [-h] TARGET" });

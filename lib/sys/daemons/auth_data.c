@@ -6,7 +6,7 @@ string name;
 string password;
 int    priv;
 
-static void secure() {
+static void secure(void) {
    /* 
     * Checking previous_program() is cheap, require_priv isn't.
     * Since we are normally only called from USER_D, this will
@@ -18,7 +18,7 @@ static void secure() {
    }
 }
 
-static void save_me() {
+static void save_me(void) {
    if (name != "guest") {
       /* unguarded so a user can save its own data */
       unguarded("save_object", AUTH_DATA_DIR + "/" + name + ".o");
@@ -67,6 +67,6 @@ void set_type(int i) {
    save_me();
 }
 
-int query_type() {
+int query_type(void) {
    return priv;
 }

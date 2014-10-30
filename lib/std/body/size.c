@@ -21,12 +21,12 @@ int set_size(int size) {
    actual_size = size;
 }
 
-int query_size() {
+int query_size(void) {
    return actual_size;
 }
 
 /* convert_size is used to convert the integer actual_size to a string */
-string convert_size() {
+string convert_size(void) {
    string desc;
 
    switch (actual_size) {

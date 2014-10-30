@@ -15,5 +15,5 @@ void setup(void) {
    set_value(0);
 }
 
-string query_long() {
+string query_long(void) {
 }

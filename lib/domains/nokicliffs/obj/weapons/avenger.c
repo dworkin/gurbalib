@@ -1,24 +1,24 @@
 inherit "/domains/required/lib/sword";
 
-private string format_stats_of_weapon() {
+private string format_stats_of_weapon(void) {
    return "Max: " + query_max_damage() + ", hit: +" + query_hit_bonus();
 }
 
-string query_short() {
+string query_short(void) {
    string str;
    str = ::query_short();
    str += " [" + format_stats_of_weapon() + "]";
    return str;
 }
 
-string query_long() {
+string query_long(void) {
    string str;
    str = ::query_long();
    str += "\n" + format_stats_of_weapon() + ".";
    return str;
 }
 
-void setup() {
+void setup(void) {
    ::setup();
    set_id("falchion", "avenging falchion", "avenger");
    set_adj("avenging");

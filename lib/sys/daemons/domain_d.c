@@ -13,7 +13,7 @@ static void save_me(void) {
    save_object("/kernel/daemons/data/domain_d.o");
 }
 
-static void mkdomains() {
+static void mkdomains(void) {
    int i, sz;
    string *names;
 
@@ -25,7 +25,7 @@ static void mkdomains() {
    }
 }
 
-void create() {
+void create(void) {
    if (!unguarded("restore_me")) {
       domains = SECURE_D->query_domain_data();
       unguarded("save_me");
@@ -156,7 +156,7 @@ string *query_domain_members(string domain) {
       map_indices(domains[domain]) : ({ });
 }
 
-string *query_domains() {
+string *query_domains(void) {
    return map_indices(domains);
 }
 

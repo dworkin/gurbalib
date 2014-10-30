@@ -7,7 +7,7 @@ static int time;
 static int actionssize;
 static string *actions;
 
-void do_respond() {
+void do_respond(void) {
    do_game_command(que[0]);
    que = que[1..];
 }

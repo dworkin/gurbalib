@@ -28,7 +28,7 @@ static int show_file(string str) {
    }
 }
 
-static int menu_action_quit() {
+static int menu_action_quit(void) {
    write("Ok.");
    return 1;
 }

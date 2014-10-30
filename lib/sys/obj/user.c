@@ -15,7 +15,7 @@ static int data_version;
 static int timeout_handle;
 object query_player(void);
 
-void create() {
+void create(void) {
    ansid = find_object(ANSI_D);
    if (!ansid) {
       ansid = compile_object(ANSI_D);
@@ -56,7 +56,7 @@ void _open(mixed * tls) {
    player->input_to_object(this_object(), "input_name");
 }
 
-void open() {
+void open(void) {
    _open(allocate(DRIVER->query_tls_size()));
 }
 
@@ -219,7 +219,7 @@ void receive_message(string message) {
 }
 
 /* query USER_D for our privs and setup privileges accordingly */
-void restore_privs() {
+void restore_privs(void) {
    string privs;
 
    privs = "";
@@ -732,7 +732,7 @@ void receive_error(string err) {
    _receive_error(allocate(DRIVER->query_tls_size()), err);
 }
 
-static void upgraded() {
+static void upgraded(void) {
    ansid = find_object(ANSI_D);
    if (data_version) return;
    if (query_player()) {
@@ -740,6 +740,6 @@ static void upgraded() {
    }
 }
 
-int online() {
+int online(void) {
    return logged_in;
 }

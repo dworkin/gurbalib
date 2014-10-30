@@ -1,14 +1,14 @@
 mapping levels;
 
-static void save_me() {
+static void save_me(void) {
    unguarded("save_object", "/sys/daemons/data/log_d.o");
 }
 
-static void restore_me() {
+static void restore_me(void) {
    unguarded("restore_object", "/sys/daemons/data/log_d.o");
 }
 
-string *show_log_levels() {
+string *show_log_levels(void) {
    string *logs, *keys;
    int x, max;
 
@@ -25,7 +25,7 @@ string *show_log_levels() {
    return logs;
 }
 
-static void create() {
+static void create(void) {
    levels = ([ ]);
    levels["default"] = 1;
 

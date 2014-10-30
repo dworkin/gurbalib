@@ -2,7 +2,7 @@
 
 inherit "/std/monster";
 
-void setup() {
+void setup(void) {
    object obj;
 
    set_name("kobold");

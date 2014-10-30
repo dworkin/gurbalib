@@ -2,7 +2,7 @@
 
 inherit "/std/monster";
 
-static nomask void clothe() {
+static nomask void clothe(void) {
    equip_monster(({
       NOKICLIFFS_ARMOURS_DIR + "/monk_robe",
       NOKICLIFFS_ARMOURS_DIR + "/monk_sandals",
@@ -10,7 +10,7 @@ static nomask void clothe() {
    }));
 }
 
-void setup() {
+void setup(void) {
    set_gender("male");
    clothe();
 }

@@ -12,7 +12,7 @@ int data_version;
 static mapping channels;
 static mapping listeners;
 
-void resubscribe() {
+void resubscribe(void) {
 #ifndef DISABLE_IMUD
    IMUD_D->subscribe_event("i3_connection");
 #endif
@@ -656,7 +656,7 @@ void event_i3_connection(string * args) {
    chan_send_string("announce", "imud_d", args[0], NOT_EMOTE);
 }
 
-void upgraded() {
+void upgraded(void) {
    if (data_version == DATA_VERSION) {
       return;
    }

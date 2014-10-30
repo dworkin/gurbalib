@@ -1,3 +1,3 @@
-int test_safun() {
+int test_safun(void) {
    return 1;
 }

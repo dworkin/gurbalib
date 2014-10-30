@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 string parse_error;
 
-void usage() {
+void usage(void) {
     string mode;
     string *lines;
 

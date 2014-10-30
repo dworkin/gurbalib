@@ -2,7 +2,7 @@
 
 inherit "/std/monster";
 
-void setup() {
+void setup(void) {
    set_name("guard");
    set_gender("male");
    set_short("Brain's guard");
@@ -23,7 +23,7 @@ void setup() {
    set_spell_message("Guard casts a lightning bolt at $t.\n");
 }
 
-void announce_yourself() {
+void announce_yourself(void) {
    respond("say I have arrived, master.");
    respond("say My life for my master.");
    respond("bow");

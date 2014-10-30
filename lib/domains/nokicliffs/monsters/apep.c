@@ -5,14 +5,14 @@ inherit "/std/monster";
 #define INTERVAL 8
 static int count;
 
-void do_extra_actions() {
+void do_extra_actions(void) {
    if (++count >= INTERVAL) {
       respond("hiss");
       count = 0;
    }
 }
 
-void setup() {
+void setup(void) {
    set_name("apep");
    add_id("serpent", "chaosserpent", "chaos serpent");
    set_short("Apep the chaos serpent");

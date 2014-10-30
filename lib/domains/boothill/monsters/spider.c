@@ -1,6 +1,6 @@
 inherit "/std/monster";
 
-void setup() {
+void setup(void) {
    set_name("spider");
    /* Leave out the gender specification, get a random one */
    /*  set_gender( "male" ); */

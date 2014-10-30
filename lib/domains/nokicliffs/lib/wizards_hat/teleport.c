@@ -23,7 +23,7 @@ nomask int set_destination_cmd(string str) {
    return 1;
 }
 
-static nomask object get_teleport_destination() {
+static nomask object get_teleport_destination(void) {
    object obj;
 
    if (teleport_destination) {

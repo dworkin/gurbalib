@@ -13,14 +13,14 @@ int set_currency(string str) {
    return 0;
 }
 
-string query_currency() {
+string query_currency(void) {
    if (!currency) {
       return "ducat";
    }
    return currency;
 }
 
-int query_amount() {
+int query_amount(void) {
    return amount;
 }
 
@@ -63,11 +63,11 @@ void create(void) {
    set_value(1);
 }
 
-int query_weight() {
+int query_weight(void) {
    return 0;
 }
 
-int query_value() {
+int query_value(void) {
    int x;
 
    x = ::query_value();
@@ -75,6 +75,6 @@ int query_value() {
    return x;
 }
 
-int is_money() {
+int is_money(void) {
    return 1;
 }

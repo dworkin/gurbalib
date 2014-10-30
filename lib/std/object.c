@@ -275,7 +275,7 @@ nomask void add_verb_rules(string verb, varargs mixed rules) {
    return;
 }
 
-nomask mapping query_verb_rules() {
+nomask mapping query_verb_rules(void) {
    return PARSE_D->query_objects_rules(this_object());
 }
 
@@ -316,7 +316,7 @@ void set_eatable(int value) {
    eatable = value;
 }
 
-int is_eatable() {
+int is_eatable(void) {
    return eatable;
 }
 
@@ -328,7 +328,7 @@ string query_detailed_desc(void) {
    return detailed_desc;
 }
 
-void upgraded() {
+void upgraded(void) {
    if (clone_num() != 0) {
       setup();
    }

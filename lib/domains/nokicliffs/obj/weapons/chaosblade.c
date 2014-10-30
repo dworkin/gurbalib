@@ -16,7 +16,7 @@ int wield_hook(object player) {
    return 1;
 }
 
-void setup() {
+void setup(void) {
    ::setup();
    set_id("chaosblade");
    set_short("A chaosblade of death");

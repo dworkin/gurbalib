@@ -1,4 +1,4 @@
-nomask int num_clones() {
+nomask int num_clones(void) {
    if (clone_num() == 0) {
       return _clone_count;
    } else {

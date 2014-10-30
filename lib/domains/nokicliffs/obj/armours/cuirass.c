@@ -20,7 +20,7 @@ void setup(void) {
    set_weight(2);
 }
 
-int query_magical_properties_active() {
+int query_magical_properties_active(void) {
    return magical_properties_active;
 }
 

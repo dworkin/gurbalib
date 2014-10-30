@@ -55,7 +55,7 @@ void save_me(void) {
    }
 }
 
-void restore_privs() {
+void restore_privs(void) {
    string privs;
 
    if (user) {
@@ -155,7 +155,7 @@ void create(void) {
    level = 1;
 }
 
-void setup() {
+void setup(void) {
 }
 
 string query_title(void) {
@@ -360,7 +360,7 @@ void set_website(string str) {
    website = str;
 }
 
-string query_website() {
+string query_website(void) {
    if (!website) {
       return "";
    }
@@ -431,7 +431,7 @@ int query_ignored(string who) {
    return member_array(who, ignored) >= 0;
 }
 
-string *query_ignored_all() {
+string *query_ignored_all(void) {
    if (!ignored) {
       ignored = ( { } );
    }
@@ -481,7 +481,7 @@ void message_orig(string str) {
    query_user()->put_message(str);
 }
 
-void write_prompt() {
+void write_prompt(void) {
    string prompt, date;
 
    if (this_object()->is_editing()) {
@@ -527,7 +527,7 @@ void write_prompt() {
    out(prompt + "%^RESET%^ ");
 }
 
-int query_width() {
+int query_width(void) {
    mixed width;
    int x;
 
@@ -866,7 +866,7 @@ string *query_guilds(void) {
    return blah;
 }
 
-string random_error() {
+string random_error(void) {
    int randomval;
 
    randomval = random(3);
@@ -1128,7 +1128,7 @@ void store_menu(mixed header, mixed * menu, mixed footer, mapping actions) {
    menu_data = ( { header, menu, footer, actions } );
 }
 
-mixed *retrieve_menu() {
+mixed *retrieve_menu(void) {
    if (menu_data) {
       return menu_data;
    } else {
@@ -1136,11 +1136,11 @@ mixed *retrieve_menu() {
    }
 }
 
-int query_muzzle() {
+int query_muzzle(void) {
    return muzzle;
 }
 
-int toggle_muzzle() {
+int toggle_muzzle(void) {
    if (muzzle) {
       muzzle = 0;
    } else {
@@ -1163,7 +1163,7 @@ int can_carry(object "/std/object" obj) {
    return 0;
 }
 
-void update_internal_weight() {
+void update_internal_weight(void) {
    object *inv;
    int i, dim, w;
 

@@ -12,7 +12,7 @@ void add_bane(string bane) {
 	banes = uniq_array(banes);
 }
 
-string *query_banes() {
+string *query_banes(void) {
 	if (!banes) {
 		banes = ({ });
 	}

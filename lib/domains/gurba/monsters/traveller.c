@@ -4,7 +4,7 @@
 inherit "/std/monster";
 inherit "/std/modules/m_wander";
 
-void setup() {
+void setup(void) {
    set_name("traveller");
 
    /* Leave out the gender specification, get a random one */

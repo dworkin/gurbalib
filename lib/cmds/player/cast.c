@@ -45,7 +45,7 @@ static int has_spell(string spellname) {
    return 0;
 }
 
-static void list_spells() {
+static void list_spells(void) {
    string *files;
    int i, x;
    string name;

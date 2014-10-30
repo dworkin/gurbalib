@@ -3,7 +3,7 @@
 inherit "/std/object";
 inherit DIR + "/lib/balance_check";
 
-void setup() {
+void setup(void) {
    set_gettable(0);
    set_id("iustitia");
    add_id("statue");

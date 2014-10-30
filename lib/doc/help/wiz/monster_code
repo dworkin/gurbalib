@@ -8,7 +8,7 @@ You can set the following descriptions in a monster:
 A minimal monster object looks like this:
 inherit "/std/monster";
 
-void setup() {
+void setup(void) {
    set_name("rat");
    set_gender( "male" );
    add_adj("filthy");

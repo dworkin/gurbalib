@@ -15,7 +15,7 @@ void set_data_dir(string dir) {
    data_dir = dir;
 }
 
-string query_data_dir() {
+string query_data_dir(void) {
    return data_dir;
 }
 
@@ -26,7 +26,7 @@ string query_board_id(void) {
    return "undefined_board";
 }
 
-void default_data_dir() {
+void default_data_dir(void) {
    string *stuff;
 
    stuff = explode(base_name(), "/");

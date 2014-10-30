@@ -1,11 +1,11 @@
 string *quests;
 
-void create() {
+void create(void) {
    if (!quests)
       quests = ({ });
 }
 
-string *query_quests_completed() {
+string *query_quests_completed(void) {
    return quests;
 }
 

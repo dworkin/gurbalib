@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: set [-h] [VAR VALUE]" });
@@ -37,7 +37,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void list_vars() {
+void list_vars(void) {
    string name, *names;
    int i;
 

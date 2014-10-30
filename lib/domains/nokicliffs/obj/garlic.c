@@ -2,7 +2,7 @@
 
 inherit "/std/object";
 
-void setup() {
+void setup(void) {
    set_id("garlic");
    set_short("A garlic clove");
    set_long("A garlic clove. It has a strong garlic smell coming from it.");

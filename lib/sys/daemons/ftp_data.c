@@ -10,7 +10,7 @@ string callback;
 string read_callback;
 int connected;
 
-static void secure() {
+static void secure(void) {
    if (previous_program() != this_program() && 
       !previous_object()<-"/sys/daemons/ftp_session") {
       error("Permission denied!");
@@ -74,12 +74,12 @@ void receive_message(string str) {
    call_other(prev, read_callback, str);
 }
 
-void terminate() {
+void terminate(void) {
    secure();
    unguarded("disconnect");
 }
 
-static void destructing() {
+static void destructing(void) {
    if (connected && query_connection()) {
       query_connection()->set_mode(MODE_DISCONNECT);
    }

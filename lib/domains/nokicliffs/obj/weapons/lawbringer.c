@@ -1,6 +1,6 @@
 inherit "/domains/required/lib/sword";
 
-void setup() {
+void setup(void) {
    ::setup();
    set_id("lawbringer");
    set_short("The Lawbringer of Balance");

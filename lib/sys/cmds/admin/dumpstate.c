@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: dumpstate [-h]" });
@@ -22,7 +22,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void done() {
+void done(void) {
    write("Statedump done.");
 }
 

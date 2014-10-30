@@ -1,4 +1,4 @@
-nomask void _F_upgraded() {
+nomask void _F_upgraded(void) {
   if(!KERNEL()) {
     return;
   }

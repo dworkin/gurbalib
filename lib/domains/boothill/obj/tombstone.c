@@ -8,7 +8,7 @@ void setup(void) {
    add_ids("stone", "grave", "gravestone");
 }
 
-string query_long() {
+string query_long(void) {
    int x;
    string str;
 

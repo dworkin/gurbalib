@@ -1,4 +1,4 @@
-void _F_add_clone() {
+void _F_add_clone(void) {
   object sentinel;
 
   if(!KERNEL()) {

@@ -2,7 +2,7 @@
  * Thingol,10/27/2009
  * Function returns the function name that called a function.
  */
-nomask static string previous_function() {
+nomask static string previous_function(void) {
    mixed t;
    int i;
 

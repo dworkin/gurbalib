@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 #include <type.h>
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: warmboot [-h]" });
@@ -26,21 +26,21 @@ int stage;
 
 #define CHECKS ({ "validate_kernel", "validate_user", "validate_player" })
 
-static int validate_kernel() {
+static int validate_kernel(void) {
    return 0;
 }
 
-static int validate_user() {
+static int validate_user(void) {
    if (find_object("/obj/user"))
       return 222;
 }
 
-static int validate_player() {
+static int validate_player(void) {
    if (find_object("/obj/player"))
       return 222;
 }
 
-static string validate_upgrade() {
+static string validate_upgrade(void) {
    int req, i, sz;
 
    req = 0;

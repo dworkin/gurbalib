@@ -21,15 +21,15 @@ void set_internal_weight(int x) {
    internal_weight = x;
 }
 
-int query_internal_max_weight() {
+int query_internal_max_weight(void) {
    return internal_max_weight;
 }
 
-int query_internal_weight() {
+int query_internal_weight(void) {
    return internal_weight;
 }
 
-int query_weight() {
+int query_weight(void) {
    int x;
 
    x =::query_weight();
@@ -336,7 +336,7 @@ void set_objects(varargs string filename ...) {
    }
 }
 
-void move_or_destruct_inventory() {
+void move_or_destruct_inventory(void) {
    object dst, *items;
    int i, sz;
 
@@ -356,7 +356,7 @@ void move_or_destruct_inventory() {
    }
 }
 
-void upgraded() {
+void upgraded(void) {
    int i, sz;
 
    if (inventory) {

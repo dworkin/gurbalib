@@ -2,7 +2,7 @@
 
 inherit DIR + "/lib/monk";
 
-void setup() {
+void setup(void) {
    ::setup();
    set_name("abbot");
    set_short("The Abbot");

@@ -1,7 +1,7 @@
 #define COST 10
 #define SKILLREQUIRED 15
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: cast cure [-h] [TARGET]" });

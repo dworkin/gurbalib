@@ -2,7 +2,7 @@
 
 static void main( string arg );
 
-static nomask string query_command() {
+static nomask string query_command(void) {
   return get_otlvar( "command" );
 }
 

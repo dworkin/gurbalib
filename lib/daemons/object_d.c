@@ -94,11 +94,11 @@ object *query_objects_by_owner(string owner) {
    return objs[owner] ? map_indices(objs[owner]) : ( { } );
 }
 
-string *query_cloners() {
+string *query_cloners(void) {
    return map_indices(clones);
 }
 
-int query_number_clones() {
+int query_number_clones(void) {
    int total, i, sz;
    string *keys;
 

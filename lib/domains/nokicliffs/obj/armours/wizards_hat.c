@@ -4,7 +4,7 @@ inherit "/domains/required/lib/helmet";
 inherit DIR + "/lib/wizards_hat/teleport";
 inherit DIR + "/lib/wizards_hat/light";
 
-string query_long() {
+string query_long(void) {
    string str;
 
    str =::query_long();
@@ -37,7 +37,7 @@ nomask int hat_stat_cmd(string str) {
    return 1;
 }
 
-private void add_actions() {
+private void add_actions(void) {
    add_action("hat_stat_cmd", "hatstat");
    add_action("set_destination_cmd", "memorator");
    add_action("teleport_cmd", "hoppla");

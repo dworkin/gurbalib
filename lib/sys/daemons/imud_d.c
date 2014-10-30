@@ -639,7 +639,7 @@ int close(varargs int force) {
    return connected == 0;
 }
 
-void use_default_router() {
+void use_default_router(void) {
    int i, sz;
 
    current_router = 0;
@@ -663,7 +663,7 @@ void use_default_router() {
    save_me();
 }
 
-void use_next_router() {
+void use_next_router(void) {
    current_router++;
 
    if (current_router >= sizeof(mpRouterList)) {
@@ -733,7 +733,7 @@ void keepalive(void) {
    }
 }
 
-void open() {
+void open(void) {
    pingtime = time();
    errcount = 0;
 
@@ -780,7 +780,7 @@ void open() {
    }
 }
 
-void set_default_router_list() {
+void set_default_router_list(void) {
    mpRouterList = ({
       ({ "*i4", "204.209.44.3 8080"}),
       ({ "*dalet", "97.107.133.86 8787"})
@@ -874,11 +874,11 @@ static void unconnected(int refused) {
 }
 #endif
 
-int query_connected() {
+int query_connected(void) {
    return connected;
 }
 
-void upgraded() {
+void upgraded(void) {
    if (data_version != DATA_VERSION) {
       if (data_version < 5) {
          set_default_router_list();
@@ -903,14 +903,14 @@ void upgraded() {
    }
 }
 
-void enable_i3() {
+void enable_i3(void) {
    enabled = 1;
    if (!connected) {
       reconnect();
    }
 }
 
-void disable_i3() {
+void disable_i3(void) {
    enabled = 0;
 
    if (connected) {
@@ -921,19 +921,19 @@ void disable_i3() {
    }
 }
 
-int query_enabled() {
+int query_enabled(void) {
    return enabled;
 }
 
-void destructing() {
+void destructing(void) {
    ::destructing();
 }
 
-int query_pingtime() {
+int query_pingtime(void) {
    return pingtime;
 }
 
-void close_connection() {
+void close_connection(void) {
    if (query_connection()) {
       disconnect();
    }
@@ -949,19 +949,19 @@ void set_default_router(string str) {
    use_default_router();
 }
 
-string query_default_router() {
+string query_default_router(void) {
    return default_router;
 }
 
-string query_current_router_name() {
+string query_current_router_name(void) {
    return mpRouterList[current_router][0];
 }
 
-string query_current_router_ip() {
+string query_current_router_ip(void) {
    return mpRouterList[current_router][1];
 }
 
-void switch_router() {
+void switch_router(void) {
    if (query_connection()) {
       disconnect();
    }

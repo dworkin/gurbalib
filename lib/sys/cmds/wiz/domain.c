@@ -11,7 +11,7 @@
 
 inherit M_COMMAND;
 
-string *query_usage() {
+string *query_usage(void) {
    string *lines;
 
    lines = ({ "Usage: domain list" });
@@ -46,11 +46,11 @@ string *query_usage() {
    return lines;
 }
 
-void usage() {
+void usage(void) {
    this_player()->more(query_usage());
 }
 
-static int action_list_domains() {
+static int action_list_domains(void) {
    string *dn, name;
    int i, sz;
 

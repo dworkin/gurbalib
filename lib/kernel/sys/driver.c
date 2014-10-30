@@ -57,15 +57,15 @@ void set_tls_size(int s) {
    }
 }
 
-void update_tls_size() {
+void update_tls_size(void) {
    set_tls_size(DEFAULT_TLS_SIZE);
 }
 
-int query_tls_size() {
+int query_tls_size(void) {
    return tls_size;
 }
 
-mixed *new_tls() {
+mixed *new_tls(void) {
    if (KERNEL()) {
       return allocate(tls_size);
    }
@@ -95,13 +95,13 @@ void message(string str) {
    }
 }
 
-void init_done() {
+void init_done(void) {
    if(previous_object()->base_name() == INIT_D) {
       boot_complete = 1;
    }
 }
 
-void upgrade_done() {
+void upgrade_done(void) {
    /* a stub for now */
 }
 
@@ -212,7 +212,7 @@ object compile_object(string path, varargs string code) {
    }
 }
 
-void register_compiler_d() {
+void register_compiler_d(void) {
    if (KERNEL()) {
       message("Registering compiler daemon : " +
 	 object_name(previous_object()) + "\n");
@@ -220,7 +220,7 @@ void register_compiler_d() {
    }
 }
 
-void register_error_d() {
+void register_error_d(void) {
    if (KERNEL()) {
       message("Registering error daemon    : " +
 	 object_name(previous_object()) + "\n");
@@ -228,7 +228,7 @@ void register_error_d() {
    }
 }
 
-void register_secure_d() {
+void register_secure_d(void) {
    if (KERNEL()) {
       message("Registering security daemon : " +
 	 object_name(previous_object()) + "\n");
@@ -253,7 +253,7 @@ void register_secure_d() {
  *
  */
 
-static void write_auto_config() {
+static void write_auto_config(void) {
    string *lines;
    string res, opt;
    int i, sz;
@@ -312,7 +312,7 @@ static void _initialize(mixed * tls) {
    message("Done.\n");
 }
 
-static initialize() {
+static initialize(void) {
    tls_size = DEFAULT_TLS_SIZE + 2;
    _initialize(allocate(query_tls_size()));
 }
@@ -328,7 +328,7 @@ static void _save_game(mixed * tls) {
 #endif
 }
 
-void save_game() {
+void save_game(void) {
    _save_game(allocate(query_tls_size()));
 }
 
@@ -360,7 +360,7 @@ static void _restored(mixed * tls) {
    message("State restored.\n");
 }
 
-static void restored() {
+static void restored(void) {
    _restored(allocate(query_tls_size()));
 }
 
@@ -567,11 +567,11 @@ void _interrupt(mixed * tls) {
    shutdown();
 }
 
-void interrupt() {
+void interrupt(void) {
    _interrupt(allocate(query_tls_size()));
 }
 
-void start_shutdown() {
+void start_shutdown(void) {
    object p;
    int i;
 
@@ -606,7 +606,7 @@ static void _do_shutdown(mixed * tls) {
    }
 }
 
-static void do_shutdown() {
+static void do_shutdown(void) {
    _do_shutdown(allocate(query_tls_size()));
 }
 

@@ -289,11 +289,11 @@ static string parse_for_options(string str) {
    return str;
 }
 
-static string query_parse_error() {
+static string query_parse_error(void) {
    return get_otlvar("parse_error");
 }
 
-static mapping query_options() {
+static mapping query_options(void) {
    return get_otlvar("options");
 }
 

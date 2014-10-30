@@ -2,9 +2,9 @@ inherit M_COMMAND;
 
 #define FORTUNES_DIR "/data/fortunes/"
 
-string *get_fortune_files();
+string *get_fortune_files(void);
 
-void usage() {
+void usage(void) {
    string *lines, *filetypes;
    int i, imax;
    
@@ -34,7 +34,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-string *get_fortune_files() {
+string *get_fortune_files(void) {
    string *names;
 
    names = get_dir(FORTUNES_DIR + "*")[0];

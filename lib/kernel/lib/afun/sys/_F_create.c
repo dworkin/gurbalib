@@ -10,7 +10,7 @@
 
 private int configured;
 
-atomic private void add_clone() {
+atomic private void add_clone(void) {
   object * ptr;
   object master;
   object next;
@@ -48,7 +48,7 @@ atomic private void add_clone() {
   master->_F_add_clone();
 }
 
-nomask void _F_create() {
+nomask void _F_create(void) {
   object * ptr;
   object master, next;
 

@@ -7,7 +7,7 @@
 int count; /* counts the number of runtime errors we have had so far */
 int inat;
 
-static void create() {
+static void create(void) {
    DRIVER->register_error_d();
 }
 

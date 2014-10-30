@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: ban [-h] [-s SITE] [PLAYER]" });
@@ -28,7 +28,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-void show_banned() {
+void show_banned(void) {
    string *sites, info;
    int i, max;
 

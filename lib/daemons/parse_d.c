@@ -135,7 +135,7 @@ void add_object_rules(string * rules) {
    }
 }
 
-mapping query_all_object_rules() {
+mapping query_all_object_rules(void) {
    return object_rules;
 }
 
@@ -408,7 +408,7 @@ Obj_Index: Index ? define_obj_index \
 ";
 }
 
-string scan_local_verbs() {
+string scan_local_verbs(void) {
    int i;
    string production_rules;
    object *inventory_environment;
@@ -644,7 +644,7 @@ static mixed *fix_order(mixed * mpTree) {
    return mpTree;
 }
 
-void upgraded() {
+void upgraded(void) {
    if (!object_rules) {
       object_rules = ([]);
       rescan_verbs();

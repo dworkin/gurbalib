@@ -7,18 +7,18 @@ int set_fuel(int x) {
    fuel = x;
 }
 
-int query_fuel() {
+int query_fuel(void) {
    if (fuel < 0) {
       return 0;
    }
    return fuel;
 }
 
-int query_lit() {
+int query_lit(void) {
    return lit;
 }
 
-static int light() {
+static int light(void) {
    lit = 1;
    write("You light the " + this_object()->query_id() + ".\n");
    this_player()->query_environment()->tell_room(this_player(), 
@@ -27,7 +27,7 @@ static int light() {
    return 1;
 }
 
-static int extinguish() {
+static int extinguish(void) {
    lit = 0;
    write("You extinguish the " + this_object()->query_id() + ".\n");
    this_player()->query_environment()->tell_room(this_player(), 
@@ -36,7 +36,7 @@ static int extinguish() {
    return 1;
 }
 
-void create() {
+void create(void) {
    obj::create();
    hb::create();
 
@@ -45,7 +45,7 @@ void create() {
    add_action("do_extinguish", "extinguish");
 }
 
-private int burn_fuel() {
+private int burn_fuel(void) {
    object room;
 
    if (!query_lit()) {
@@ -76,11 +76,11 @@ private int burn_fuel() {
    return 1;
 }
 
-private string lit_or_unlit() {
+private string lit_or_unlit(void) {
    return query_lit() ? "lit" : "unlit";
 }
 
-string query_short() {
+string query_short(void) {
    string str;
 
    str = ::query_short() + " [" + lit_or_unlit() + "]";
@@ -89,7 +89,7 @@ string query_short() {
    return str;
 }
 
-string query_long() {
+string query_long(void) {
    string str;
 
    str = ::query_long() + "\nIt is " + lit_or_unlit() + ".";
@@ -98,15 +98,15 @@ string query_long() {
    return str;
 }
 
-void event_heart_beat() {
+void event_heart_beat(void) {
    burn_fuel();
 }
 
-string query_name() {
+string query_name(void) {
    return query_id();
 }
 
-private void light_usage() {
+private void light_usage(void) {
    string *lines;
 
    lines = ({ "Usage: light [-h] [OBJECT]" });
@@ -130,7 +130,7 @@ private void light_usage() {
    this_player()->more(lines);
 }
 
-private void extinguish_usage() {
+private void extinguish_usage(void) {
    string *lines;
 
    lines = ({ "Usage: extinguish [-h] [OBJECT]" });

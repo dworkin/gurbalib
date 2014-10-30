@@ -5,7 +5,7 @@ inherit "/std/room";
 int errors, valid;
 string *output;
 
-int test_area() {
+int test_area(void) {
    string *areas;
 
    areas = query_areas();
@@ -48,7 +48,7 @@ void setup(void) {
    ]));
 }
 
-string query_long() {
+string query_long(void) {
    int x, max;
 
    write("Welcome to the test room1.\n");

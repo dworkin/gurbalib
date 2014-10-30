@@ -41,12 +41,12 @@ Do not use comments that just fill up whitespace, or just restate the code:
 	* bingo
 	*
 	*/
-	int bingo() {
+	int bingo(void) {
 	   return 1;
 	}
 Should be something similar or remove the comment completely:
 	/* This function is called when you win the game */
-	int bingo() {
+	int bingo(void) {
 	   return 1;
 	}
 

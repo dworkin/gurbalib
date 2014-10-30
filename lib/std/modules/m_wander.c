@@ -92,7 +92,7 @@ void wander(void) {
    }
 }
 
-int no_cleanup() {
+int no_cleanup(void) {
    return wander_enable != 0;
 }
 
@@ -106,7 +106,7 @@ void event_body_enter(mixed * what) {
    }
 }
 
-static void event_wander() {
+static void event_wander(void) {
    if (wander_enable && (time() >= next_move)) {
       wander();
    }

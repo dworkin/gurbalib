@@ -7,7 +7,7 @@ inherit timer "/std/body/heart_beat";
 static int count;
 static object guard;
 
-void setup() {
+void setup(void) {
    obj::set_id("brain");
    obj::set_short("A brain in a jar of mystic fluid");
    obj::set_long("A large brain suspended in a jar of mystic " +
@@ -20,20 +20,20 @@ void setup() {
    count = 0;
 }
 
-void create() {
+void create(void) {
    obj::create();
    timer::create();
 }
 
-string query_Name() {
+string query_Name(void) {
    return "brain";
 }
 
-string query_name() {
+string query_name(void) {
    return "brain";
 }
 
-void remove_corpse() {
+void remove_corpse(void) {
    object *inv;
    int i, dim;
 
@@ -45,7 +45,7 @@ void remove_corpse() {
    }
 }
 
-void summon_guard() {
+void summon_guard(void) {
    object env;
 
    remove_corpse();
@@ -70,7 +70,7 @@ void summon_guard() {
    }
 }
 
-void event_heart_beat() {
+void event_heart_beat(void) {
    object env;
    env = this_object()->query_environment();
    if (env) {
@@ -81,7 +81,7 @@ void event_heart_beat() {
    }
 }
 
-void die() {
+void die(void) {
    this_object()->query_environment()->tell_room(nil,
       "The jar explodes into a shower of sparks!");
    this_object()->destruct();

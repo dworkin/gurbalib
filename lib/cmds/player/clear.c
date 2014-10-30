@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage() {
+void usage(void) {
    string *lines;
 
    lines = ({ "Usage: clear [-h]" });
@@ -18,7 +18,7 @@ void usage() {
    this_player()->more(lines);
 }
 
-int get_height() {
+int get_height(void) {
    int height;
    mixed height_env;
    
