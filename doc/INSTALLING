@@ -47,6 +47,9 @@ admin role, so be sure its you.  If you goof up and mess up the first
 login, you will need to clean the mud with scripts/clean_mud and then
 start over again, to get an admin account.
 
+XXX Warning, right now there is a bug in the system, you will need to
+logout and back in before admin privilages work for the first player.
+
 OTHER THINGS:
 -----------------------------------------------------------------------
 Downloading additional documentation.
