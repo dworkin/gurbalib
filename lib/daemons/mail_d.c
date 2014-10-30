@@ -66,7 +66,7 @@ int delete_index(string who, int num) {
    save_index(who,index);
 }
 
-int write_mail(string who, object mail) {
+int send_email_to_player(string who, object mail) {
    string filename;
    object usr;
 
@@ -86,7 +86,7 @@ int write_mail(string who, object mail) {
    }
 }
 
-object get_mail(string who, string file) {
+object get_email(string who, string file) {
    string filename;
    object email_obj;
 
@@ -99,7 +99,11 @@ object get_mail(string who, string file) {
 
    if (file_exists(filename)) {
       email_obj = clone_object(EMAIL_OBJ);
-      email_obj->restore_me(filename);
+      if (email_obj) {
+         email_obj->restore_me(filename);
+      } else {
+         write("ERROR: Failed to load: " + filename + ".\n");
+      }
    } else {
       write("No such file.\n");
       return nil;
@@ -112,4 +116,32 @@ int check_new_email(object who) {
    string name;
 
    name = who->query_name();
+}
+
+int test(void) {
+   object mail;
+   string *lines;
+
+   mail = clone_object(EMAIL_OBJ);
+
+   if (!mail) {
+      return 0;
+   }
+
+   mail->set_subject("Test");
+   mail->set_to("sirdude");
+   mail->set_from("sirdude");
+   mail->set_date();
+
+   lines = ({ "Hello Sirdude," });
+   lines += ({ "" });
+   lines += ({ "Welcome to email... :)" });
+
+   mail->set_lines(lines);
+
+   return send_email_to_player("sirdude", mail);
+}
+
+void create(void) {
+   test();
 }

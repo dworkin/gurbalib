@@ -21,26 +21,26 @@ int is_email(string name) {
 }
 
 int set_to(string who) {
-   if (is_player(who)) {
+   if (USER_D->user_exists(who)) {
       to = who;
       return 1;
    }
    return 0;
 }
 
-string query_to() {
+string query_to(void) {
    return to;
 }
 
 int set_from(string who) {
-   if (is_player(who)) {
+   if (USER_D->user_exists(who)) {
       from = who;
       return 1;
    }
    return 0;
 }
 
-string query_from() {
+string query_from(void) {
    return from;
 }
 
@@ -49,15 +49,15 @@ int set_subject(string what) {
    return 1;
 }
 
-string query_subject() {
+string query_subject(void) {
    return subject;
 }
 
-string query_date() {
+string query_date(void) {
    return date;
 }
 
-int set_date() {
+int set_date(void) {
    date = ctime(time());
    return 1;
 }
@@ -66,6 +66,6 @@ int set_lines(string *data) {
    lines = data;
 }
 
-int query_lines() {
+string *query_lines(void) {
    return lines;
 }
