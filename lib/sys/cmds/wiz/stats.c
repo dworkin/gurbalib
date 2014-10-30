@@ -12,7 +12,7 @@ void usage() {
    lines += ({ "Examples:" });
    lines += ({ "\tstats rat" });
    lines += ({ "See also:" });
-   lines += ({ "\tadd_base, add_bonus, query_base_max, score" });
+   lines += ({ "\tadd_base, add_bonus, score" });
 
    this_player()->more(lines);
 }
@@ -49,14 +49,16 @@ static void main(string arg) {
       } );
       j = 0;
 
-      write("                        stat   base   bonus \n");
-      write("-----------------------------------------------\n");
+      write("                        stat   base   bonus    max\n");
+      write("---------------------------------------------------\n");
       for (i = 0; i < sizeof(stat_names); i++) {
-	 write("\t" + capitalize(stat_names[i]) + " :   "
-	    + ob->query_stat(stat_abrvs[i])
-	    + "\t" + ob->query_base_stat(stat_abrvs[i])
-	    + "\t" + ob->query_bonus_stat(stat_abrvs[i])
-	    + "\n");
+	 write("\t" + capitalize(stat_names[i]) + " :   " +
+	    ob->query_stat(stat_abrvs[i]) +
+	    "\t" + ob->query_base_stat(stat_abrvs[i]) +
+	    "\t" + ob->query_bonus_stat(stat_abrvs[i]) +
+            "\t" + ob->query_race_object()->
+            query_base_stat_maximum(stat_abrvs[i]) +
+	    "\n");
 	 ++j;
 	 if (j == 3) {
 	    write("\n");
