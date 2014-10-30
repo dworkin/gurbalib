@@ -1,6 +1,6 @@
-#define EMAIL_OBJ "/domains/required/objects/email.c"
-#define EMAIL_INDEX "/domains/required/objects/email_index.c"
-#define DATA_DIR "/daemons/data/email"
+#define EMAIL_OBJ "/sys/obj/email.c"
+#define EMAIL_INDEX "/sys/obj/email_index.c"
+#define DATA_DIR "/data/mail"
 
 /* XXX This is a work in progress, need to convert index to a mapping 
    and flesh it out */
@@ -9,17 +9,19 @@ string get_filename(string who) {
    string filen, tmp;
    int x;
 
-   filen = DATA_DIR + "/" + who + "/" + time();
+   filen = "" + time();
    if (file_exists(filen)) {
       x= 1;
-      tmp = filen + x;
+      tmp = DATA_DIR + "/" + who + "/" + filen + x;
 
       while (file_exists(tmp)) {
          x++;
-         tmp = filen + x;
+         tmp = DATA_DIR + "/" + who + "/" + filen + x;
       }
+   } else {
+      return filen;
    }
-   return filen;
+   return filen + x;
 }
 
 string *load_index(string who) {
@@ -67,11 +69,19 @@ int delete_index(string who, int num) {
 }
 
 int send_email_to_player(string who, object mail) {
-   string filename;
+   string dir, filename;
    object usr;
 
+   dir = DATA_DIR + "/" + who;
+   if (file_exists(dir) > -1) {
+      if (!unguarded("make_dir",dir)) {
+         console_msg("MAIL_D: unable to create maildir: " + dir + "\n");
+         return 0;
+      }
+   }
    filename = get_filename(who);
-   if (mail->save_me(DATA_DIR + "/" + who + "/" + filename)) {
+
+   if (mail->save_me(dir + "/" + filename)) {
       if (add_index(who,mail,filename)) {
 
          if (usr = USER_D->find_player(who)) {
@@ -79,9 +89,12 @@ int send_email_to_player(string who, object mail) {
          }
          return 1;
       } else {
+         console_msg("MAIL_D: unable to add_index: " + who + "\n");
          return 0;
       }
    } else {
+      console_msg("MAIL_D: unable to save file: " + dir + "/" + filename +
+         "\n");
       return 0;
    }
 }
