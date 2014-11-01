@@ -19,40 +19,35 @@ void usage(void) {
    this_player()->more(lines);
 }
 
-/* This doesn't totally work right fix it XXX */
-int recursive_remove_dir(string file) {
+int recursive_remove_dir(string path) {
    mixed *files;
-   string *names;
+   string tfile, *names;
    int x, maxx;
-   string path;
 
-write("Removing files from dir: " + file + "\n");
-   files = get_dir(file);
+   files = get_dir(path + "/*");
    names = files[0];
 
    maxx = sizeof(names);
-   for (x=0; x<maxx; x++) {
-      path = file + "/" + names[x];
-write("Trying to remove " + x + "/" + maxx + " : " + path + "\n");
+   for (x = 0; x < maxx; x++) {
+      tfile = path + "/" + names[x];
 
-      if (file_exists(path) == -1) {
-write("Woo here \n");
-         recursive_remove_dir(path);
-      } else if (file_exists(path) == 0) {
-         write("Error no such file " + path + "\n");
+      if (file_exists(tfile) == -1) {
+         recursive_remove_dir(tfile);
+      } else if (file_exists(tfile) == 0) {
+         write("Error no such file " + tfile + "\n");
       } else {
-         if (!remove_file(path)) {
-	    write(path + ": Unable to delete.\n");
+         if (!remove_file(tfile)) {
+	    write("Unable to delete:" + tfile + "\n");
          } else {
-            write("Removing: " + path + "\n");
+            write("Removing: " + tfile + "\n");
          }
       }
    }
 
-   if (remove_dir(file)) {
+   if (remove_dir(path)) {
       return 1;
    } else {
-      write(file + ": not empty.\n");
+      write(path + ": not empty.\n");
       return 0;
    }
 }
