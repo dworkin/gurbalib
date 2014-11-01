@@ -44,11 +44,11 @@ string *query_usage(void) {
       "the path." });
    lines += ({ " " });
    lines += ({ "Examples:" });
+   lines += ({ "\tcmdadm show" });
    lines += ({ "\tcmdadm add /tmp/cmds system " });
    lines += ({ "\tcmdadm add \"/tmp/My stuff/cmds\" wizard " });
-   lines += ({ "\tcmdadm delete \"/tmp/cmds\"" });
    lines += ({ "\tcmdadm add /wiz/sirdude/cmds sirdude " });
-   lines += ({ "\tcmdadm show" });
+   lines += ({ "\tcmdadm delete \"/tmp/cmds\"" });
    lines += ({ "\tcmdadm priv /tmp/cmds *" });
    lines += ({ " " });
    lines += ({ "See also:" });
