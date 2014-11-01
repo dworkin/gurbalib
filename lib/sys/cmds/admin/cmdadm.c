@@ -25,9 +25,6 @@ string *query_usage(void) {
    lines += ({ "\tsystem, wizard, network, domainname, playername, -,*" });
    lines += ({ " " });
 
-/* XXX Need to expand on PRIV documentation a bit mabye make valid entrys
-   a list in a .h file */
-
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
 
@@ -50,6 +47,10 @@ string *query_usage(void) {
    lines += ({ "\tcmdadm add /tmp/cmds system " });
    lines += ({ "\tcmdadm add \"/tmp/My stuff/cmds\" wizard " });
    lines += ({ "\tcmdadm delete \"/tmp/cmds\"" });
+   lines += ({ "\tcmdadm add /wiz/sirdude/cmds sirdude " });
+   lines += ({ "\tcmdadm show" });
+   lines += ({ "\tcmdadm priv /tmp/cmds *" });
+   lines += ({ " " });
    lines += ({ "See also:" });
    lines += ({ "\talias, aliasadmin, cmds, coloradm, domain, emote, " +
       "emoteadm, emotediff, help, rehash" });
