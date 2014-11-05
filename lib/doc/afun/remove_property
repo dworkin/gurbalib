@@ -17,5 +17,6 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/property, misc/properties, afun/set_property
+	afun/property, misc/properties, afun/set_property,
+	afun/set_property_file
 

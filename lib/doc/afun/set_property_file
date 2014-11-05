@@ -1,0 +1,26 @@
+NAME
+	set_property_file - read in property's from a file.
+
+SYNOPSIS
+	void set_property_file(string filename);
+DESCRIPTION
+	If the file filename exists, read it looking for properties
+	and set them.  The property file will look something like this:
+	# Set value
+        value = 5
+        # Set the name
+        name = Frank Smith
+
+RETURN VALUE
+	NA
+
+EXAMPLES
+	inherit "/std/object";
+
+	void setup(void) {
+	   set_property_file("/wiz/sirdude/myobject.properties");
+        }
+
+SEE ALSO
+	afun/property, misc/properties, afun/remove_property,
+	afun/set_property

@@ -30,5 +30,6 @@ EXAMPLES
 	u->set_property("stuff", 1);
 
 SEE ALSO
-	afun/property, misc/properties, afun/remove_property
+	afun/property, misc/properties, afun/remove_property,
+	afun/set_property_file
 

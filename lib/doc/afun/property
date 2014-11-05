@@ -22,5 +22,6 @@ EXAMPLES
 	}
 
 SEE ALSO
-	misc/properties, afun/remove_property, afun/set_property
+	misc/properties, afun/remove_property, afun/set_property,
+	afun/set_property_file
 
