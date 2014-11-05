@@ -1,10 +1,9 @@
 #include <type.h>
 
-/* XXX  $sSTR is not implemented. */
 string *compose_message(object who, string msg, object target,
    varargs mixed * objs) {
    string *words;
-   string us, them, others;
+   string us, them, others, tmp;
    int punc, i, objnum, pronounFlag;
 
    if (msg && msg != "") {
@@ -16,9 +15,9 @@ string *compose_message(object who, string msg, object target,
    them = "";
    others = "";
    for (i = 0; i < sizeof(words); i++) {
-      if (words[i] == "")
+      if (words[i] == "") {
 	 continue;
-	 
+      }
 
       if (words[i][0] == '$' && strlen(words[i]) >= 2) {
 
@@ -31,8 +30,9 @@ string *compose_message(object who, string msg, object target,
 	 } else {
 	    punc = 0;
 	 }
-	if(pronounFlag == 1 && words[i][1] != 'o')
-		pronounFlag=0;
+	 if(pronounFlag == 1 && words[i][1] != 'o') {
+            pronounFlag=0;
+         }
 	 switch (words[i][1]) {
 	    case 'N':
 	       if (who->is_living()) {
@@ -189,7 +189,6 @@ string *compose_message(object who, string msg, object target,
 		  others += objs[objnum]->query_id() + " ";
 		  pronounFlag = 0;
 	       }
-
 	       break;
 	 }
 	 if (punc) {
