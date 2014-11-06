@@ -34,7 +34,6 @@ void usage(void) {
    lines += ({ "\t$t\tLower case name of target." });
    lines += ({ "\t$O\tUpper case name of object." });
    lines += ({ "\t$o\tLower case name of object." });
-   lines += ({ "\t$sSTR\tConvert STR to plural form." });
    lines += ({ "\t$p\tPossesive" });
 
    lines += ({ "Examples:" });
