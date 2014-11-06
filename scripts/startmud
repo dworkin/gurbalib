@@ -1,7 +1,20 @@
 #!/bin/bash
 
-ROOT=/Users/mein/mud/dgd/gurbalib
-LOG=$ROOT/lib/logs/gurba-driver.log
+if [ -d ./lib/logs ]; then
+	LOG=./lib/logs/gurba-driver.log
+	mv $LOG $LOG.old
+else
+	echo "Cannot locate ./lib/logs"
+	echo "did you run scripts/create_data_dirs.pl?"
+	exit 1
+fi
 
-rm -rf $LOG
-$ROOT/bin/driver $ROOT/mud.dgd >& $LOG
+if [ -f ./bin/driver ]; then
+	if [ -f ./dump ]; then
+		echo DGD starting from dump...
+		./bin/driver ./mud.dgd ./dump >& $LOG
+	else
+		echo DGD starting from scratch...
+		./bin/driver ./mud.dgd >& $LOG
+	fi
+fi
