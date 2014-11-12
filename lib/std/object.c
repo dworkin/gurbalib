@@ -200,7 +200,6 @@ nomask int move(mixed destination) {
       return 0;
    }
 
-/* XXX Needs review.... work */
    curr = this_environment();
    if (curr && this_object()->is_living()) {
       curr->event("body_leave", this_object());
@@ -214,8 +213,6 @@ nomask int move(mixed destination) {
       dest = find_object(destination);
       if (!dest) {
          dest = compile_object(destination);
-         /* Not sure if we need this or not XXX */
-         dest->setup();
       }
    } else {
       dest = destination;
@@ -252,7 +249,6 @@ nomask int move(mixed destination) {
 
    object_environment = dest;
 
-   /* XXX Needs review.... work */
    if (this_object()->is_living()) {
       dest->event("body_enter", this_object());
    }
