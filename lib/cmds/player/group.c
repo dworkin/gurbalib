@@ -42,6 +42,34 @@ void usage(void) {
 /* XXX Lots of work left */
 
 int do_group_hp() {
+   string name, *members, *lines;
+   int x, maxx, hp, mana, end, maxhp, maxmana, maxend;
+   object obj;
+
+   members = get_group_members();
+   maxx = sizeof(members);
+
+   lines = ({ "Group: " + get_group_name() + "\n" });
+   lines += ({ "----------------------------------" });
+   for(x = 0; x < maxx; x++ ) {
+      obj = find_player(members[x]);
+      if (obj) {
+         name = uppercase(members[x]);
+         if (obj->is_group_leader()) {
+            name += "*";
+         }
+         hp = obj->query_hp();
+         maxhp = obj->query_max_hp();
+         mana = obj->query_mana();
+         maxmana = obj->query_max_mana();
+         end = obj->query_end();
+         maxend = obj->query_max_end();
+         lines += ({ name + "\tHP: " + hp + "/" + maxhp +
+            "\tMANA: " + mana + "/" + maxmana + 
+            "\tEND: " + end + "/" + maxend + "\n" });
+      }
+   }
+   this_player()->more(lines);
 }
 
 int do_group_accept() {
@@ -54,18 +82,36 @@ int do_group_status() {
 }
 
 int do_group_split() {
+   if (is_leader(this_player)) {
+   } else {
+      write("You are not the group leader, you cannot split up the booty.\n");
+   }
 }
 
 int do_group_invite(string who) {
 }
 
 int do_group_leader(string who) {
+   if (is_leader(this_player)) {
+   } else {
+      write("You are not the group leader, you cannot change the leader.\n");
+   }
 }
 
 int do_group_name(string who) {
+   if (is_leader(this_player)) {
+   } else {
+      write("You are not the group leader, you cannot change the group " +
+         "name.\n");
+   }
 }
 
 int do_group_remove(string who) {
+   if (is_leader(this_player)) {
+   } else {
+      write("You are not the group leader, you cannot remove people " +
+         "from the group.\n");
+   }
 }
 
 int do_group_say(string what) {
@@ -102,6 +148,7 @@ static void main(string arg) {
       default:
 // Need to handle multi args here...
          break;
+   }
 
    return;
 }
