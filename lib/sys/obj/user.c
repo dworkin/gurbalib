@@ -13,6 +13,7 @@ string newpass;
 static int logged_in;
 static int data_version;
 static int timeout_handle;
+static int guest;
 object query_player(void);
 
 void create(void) {
@@ -453,11 +454,7 @@ void input_name(string str) {
       str = "";
    }  else if (lowercase(str) == "guest") {
       player->set_name("guest");
-
-      /* Skip ahead for the guest user, no need for password and other stuff */
-      send_message("Please enter your gender (male/female/neuter) : ");
-      player->input_to_object(this_object(), "input_get_gender");
-      return;
+      guest = 1;
    } 
 
    if (!str || str == "") {
@@ -493,11 +490,18 @@ void input_name(string str) {
       if (USER_D->player_exists(str)) {
 	 /* Player exists */
 
-         player->set_name(user_name);
-         player->restore_me();
-         send_message("Enter your password: ");
-         send_message(0);
-         player->input_to_object(this_object(), "input_old_passwd");
+         if (guest) {
+            /* Skip ahead for the guest user, no need for password and
+               other stuff */
+            send_message("Please enter your gender (male/female/neuter) : ");
+            player->input_to_object(this_object(), "input_get_gender");
+         } else {
+            player->set_name(user_name);
+            player->restore_me();
+            send_message("Enter your password: ");
+            send_message(0);
+            player->input_to_object(this_object(), "input_old_passwd");
+         }
       } else {
 	 player->set_name(user_name);
 	 if (SITEBAN_D->is_newbanned(query_ip_number(this_object()))) {
@@ -513,9 +517,16 @@ void input_name(string str) {
             return;
 	 }
 
-	 send_message("Ah. New player.\n");
-	 send_message("Is '" + user_name + "' correct (y/n)? : ");
-	 player->input_to_object(this_object(), "input_correct_name");
+         if (guest) {
+            /* Skip ahead for the guest user, no need for password and
+               other stuff */
+            send_message("Please enter your gender (male/female/neuter) : ");
+            player->input_to_object(this_object(), "input_get_gender");
+         } else {
+	    send_message("Ah. New player.\n");
+	    send_message("Is '" + user_name + "' correct (y/n)? : ");
+	    player->input_to_object(this_object(), "input_correct_name");
+         }
       }
    }
 }

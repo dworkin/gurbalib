@@ -100,10 +100,6 @@ work on some sort of stats:
 	How frequently a monster kills a player.
 	Loot distribution against challenge difficulty.
 
-fix guest accounts... right now they are not registering in the player lists.
-and can't use commands on them...
-	should do guest# as a username....
-
 add a rest/stand command where you gain hp otherwise you don't...
 Add fullness/intoxication to score output...
 
@@ -112,7 +108,6 @@ Add fullness/intoxication to score output...
 #$ preforms the last word of the last executed command.
 #(num) preforms that command from the history
 #(string) preforms the last history command starting with (string)
-
 
 creator command lists the creator of an object/room.
 
