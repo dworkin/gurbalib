@@ -52,45 +52,45 @@ string save_value(mixed data) {
 
    switch (typeof(data)) {
       case T_STRING:
-	 data = replace_string(data, "\"", "\\\"");
-	 data = replace_string(data, "\\", "\\\\");
-	 data = replace_string(data, "\n", "\\n");
-	 data = replace_string(data, "\t", "\\t");
-	 data = replace_string(data, "\r", "\\r");
-	 data = replace_string(data, "\f", "\\f");
-	 data = replace_string(data, "\b", "\\b");
-	 result = "\"" + data + "\"";
-	 break;
+         data = replace_string(data, "\"", "\\\"");
+         data = replace_string(data, "\\", "\\\\");
+         data = replace_string(data, "\n", "\\n");
+         data = replace_string(data, "\t", "\\t");
+         data = replace_string(data, "\r", "\\r");
+         data = replace_string(data, "\f", "\\f");
+         data = replace_string(data, "\b", "\\b");
+         result = "\"" + data + "\"";
+         break;
       case T_FLOAT:
       case T_INT:
-	 result = (string) data;
-	 break;
+         result = (string) data;
+         break;
       case T_ARRAY:
-	 result = "[";
-	 for (count = 0, size = sizeof(data); count < size; count++) {
-	    if (count > 0) {
-	       result += ", ";
+         result = "[";
+         for (count = 0, size = sizeof(data); count < size; count++) {
+            if (count > 0) {
+               result += ", ";
             }
-	    result += save_value(data[count]);
-	 }
-	 result += "]";
-	 break;
+            result += save_value(data[count]);
+         }
+         result += "]";
+         break;
       case T_MAPPING:
-	 result = "{";
-	 keys = map_indices(data);
-	 for (count = 0, size = sizeof(keys); count < size; count++) {
-	    if (count > 0) {
-	       result += ", ";
+         result = "{";
+         keys = map_indices(data);
+         for (count = 0, size = sizeof(keys); count < size; count++) {
+            if (count > 0) {
+               result += ", ";
             }
-	    result += save_value(keys[count]);
-	    result += ":";
-	    result += save_value(data[keys[count]]);
-	 }
-	 result += "}";
-	 break;
+            result += save_value(keys[count]);
+            result += ":";
+            result += save_value(data[keys[count]]);
+         }
+         result += "}";
+         break;
       default:
-	 error("Unhandled value for save_value: " + dump_value(data));
-	 break;
+         error("Unhandled value for save_value: " + dump_value(data));
+         break;
    }
    return result;
 }
@@ -118,7 +118,7 @@ static mixed *collect_mapping(mixed * data) {
 
    for (count = 0, size = sizeof(data); count < size; count++) {
       if (mappingp(data[count])) {
-	 result += data[count];
+         result += data[count];
       }
    }
    return ( { result } );

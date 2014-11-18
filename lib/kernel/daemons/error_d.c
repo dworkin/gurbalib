@@ -24,56 +24,56 @@ string format_runtime_error(string error, mixed ** trace, int caught, int ticks,
       result = tmp;
    } else if ((sz = sizeof(trace) - 1) > 0) {
       if (sscanf(error, MAGIC_ERROR_ARGCHECK + "%s", tmp) == 1
-	 && trace[sz - 1][1] == AUTO && trace[sz - 1][2] == "argcheck") {
-	 sz -= 2;
+         && trace[sz - 1][1] == AUTO && trace[sz - 1][2] == "argcheck") {
+         sz -= 2;
       }
 
       for (i = 0; i < sz; i++) {
-	 progname = trace[i][1];
-	 func = trace[i][2];
-	 objname = trace[i][0];
-	 line = trace[i][3];
+         progname = trace[i][1];
+         func = trace[i][2];
+         objname = trace[i][0];
+         line = trace[i][3];
 #ifdef ERROR_SHOW_ARGUMENTS
-	 if (sizeof(trace[i][5..]) != 0) {
-	    args =
-	       sizeof(trace[i][5..]) + " arguments:\n      " +
-	       dump_value(trace[i][5..], ([]));
-	 } else {
-	    args = nil;
+         if (sizeof(trace[i][5..]) != 0) {
+            args = sizeof(trace[i][5..]) + " arguments:\n      " +
+               dump_value(trace[i][5..], ([]));
+         } else {
+            args = nil;
          }
 #endif
-	 if (line == 0) {
-	    str = "    ";
-	 } else {
-	    str = "    " + line;
-	    str = str[strlen(str) - 4..];
-	 }
-	 str += " " + func + " ";
-	 len = strlen(func);
-	 if (len < 17) {
-	    str += "                 "[len..];
-	 }
-	 str += progname;
-	 if (progname != objname) {
-	    len = strlen(progname);
-	    if (len < strlen(objname) && progname == objname[..len - 1]) {
-	       str += " (" + objname[len..] + ")";
-	    } else {
-	       str += " (" + objname + ")";
-	    }
-	 }
+         if (line == 0) {
+            str = "    ";
+         } else {
+            str = "    " + line;
+            str = str[strlen(str) - 4..];
+         }
+         str += " " + func + " ";
+         len = strlen(func);
+         if (len < 17) {
+            str += "                 "[len..];
+         }
+         str += progname;
+         if (progname != objname) {
+            len = strlen(progname);
+            if (len < strlen(objname) && progname == objname[..len - 1]) {
+               str += " (" + objname[len..] + ")";
+            } else {
+               str += " (" + objname + ")";
+            }
+         }
+
 #ifdef ERROR_SHOW_ARGUMENTS
-	 if (i > 1 && args) {
-	    str += ", " + args;
-	 }
+         if (i > 1 && args) {
+            str += ", " + args;
+         }
 #endif
 
-	 if (i == sz - 1) {
-	    result = error + "\n" + ctime(time()) + ":" +
-	       "Object: " + objname + ", program: " +
-	       progname + ", line " + line + "\n" + result;
-	 }
-	 result += (str + "\n");
+         if (i == sz - 1) {
+            result = error + "\n" + ctime(time()) + ":" +
+              "Object: " + objname + ", program: " +
+              progname + ", line " + line + "\n" + result;
+         }
+         result += (str + "\n");
       }
    } else {
       result = error + "<NO CALL TRACE AVAILABLE>\n";
@@ -98,7 +98,7 @@ static void log_runtime_error(string result, int caught) {
    if (player) {
       verbose = player->query_env("verbose_errors");
       if (stringp(verbose) && (verbose == "1" || verbose == "on")) {
-	 verbose = 1;
+         verbose = 1;
       }
    }
 
@@ -107,40 +107,40 @@ static void log_runtime_error(string result, int caught) {
    if (caught) {
       if (player && player->query_name()
          && find_object(USER_D) 
-	 && USER_D->query_wizard(player->query_name())) {
-	 mixed display_caught;
+         && USER_D->query_wizard(player->query_name())) {
+         mixed display_caught;
 
-	 display_caught = player->query_env("display_caught");
-	 if (intp(display_caught)) {
-	    display_caught = (string) display_caught;
+         display_caught = player->query_env("display_caught");
+         if (intp(display_caught)) {
+            display_caught = (string) display_caught;
          }
 
-	 switch (display_caught) {
-	    case "on":
-	    case "1":
-	       if (verbose) {
-		  write(result);
-	       } else {
-		  write(lines[0] + "%^RESET%^\n");
-	       }
-	       break;
-	 }
+         switch (display_caught) {
+            case "on":
+            case "1":
+               if (verbose) {
+                  write(result);
+               } else {
+                  write(lines[0] + "%^RESET%^\n");
+               }
+               break;
+         }
       }
    } else {
       lines = explode(result, "\n");
       for (i = 0, sz = sizeof(lines); i < sz; i++) {
-	 console_msg(lines[i] + "\n");
+         console_msg(lines[i] + "\n");
       }
       write_file("/logs/errors/runtime", result + "\n");
       if (player && find_object(USER_D)) {
-	 if (USER_D->query_wizard(player->query_name()) == 1) {
-	    write("%^RED%^Runtime error: %^RESET%^" +
-	       "%^CYAN%^" + (verbose ? result : lines[0]) + "%^RESET%^");
-	 } else {
-	    write("You have encountered a rift in reality. " +
+         if (USER_D->query_wizard(player->query_name()) == 1) {
+            write("%^RED%^Runtime error: %^RESET%^" +
+               "%^CYAN%^" + (verbose ? result : lines[0]) + "%^RESET%^");
+         } else {
+            write("You have encountered a rift in reality. " +
                "Please report it to the admins.\n");
-	 }
-	 player->write_prompt();
+         }
+         player->write_prompt();
       }
    }
 }
@@ -177,10 +177,10 @@ string format_compile_error(string file, int line, string err) {
    }
    if (player) {
       return ctime(time()) + ":" + this_player()->query_name() + ":" + file +
-	 ", " + (string) line + ": " + err + "\n";
+         ", " + (string) line + ": " + err + "\n";
    } else {
       return ctime(time()) + ": DRIVER :" + file +
-	 ", " + (string) line + ": " + err + "\n";
+         ", " + (string) line + ": " + err + "\n";
    }
 }
 
@@ -200,13 +200,13 @@ void compile_error(string file, int line, string err) {
    usr = this_user();
    if (usr) {
       if (usr->query_player() && find_object(USER_D)) {
-	 if (USER_D->query_wizard(usr->query_player()->query_name()) == 1) {
-	    write("%^RED%^Compiler error:%^RESET%^\n" +
-	       "%^YELLOW%^" + error + "%^RESET%^");
-	 } else {
-	    write("You have encountered a rift in reality. " +
+         if (USER_D->query_wizard(usr->query_player()->query_name()) == 1) {
+            write("%^RED%^Compiler error:%^RESET%^\n" +
+               "%^YELLOW%^" + error + "%^RESET%^");
+         } else {
+            write("You have encountered a rift in reality. " +
                "Please report it to the admins.\n");
-	 }
+         }
       }
    }
 }

@@ -31,12 +31,12 @@ void add_entry(string name, int on) {
 
    if (on) {
       last[name] = "[%^CYAN%^" + ctime(time()) + "%^RESET%^] %^GREEN%^" +
-	 capitalize(name) + "%^RESET%^ logs on from %^BOLD%^" +
-	 ip + "%^RESET%^\n";
+         capitalize(name) + "%^RESET%^ logs on from %^BOLD%^" +
+         ip + "%^RESET%^\n";
    } else {
       last[name] = "[%^CYAN%^" + ctime(time()) + "%^RESET%^] %^GREEN%^" +
-	 capitalize(name) + "%^RESET%^ logged off from %^BOLD%^" +
-	 ip + "%^RESET%^\n";
+         capitalize(name) + "%^RESET%^ logged off from %^BOLD%^" +
+         ip + "%^RESET%^\n";
    }
    save_me();
 }

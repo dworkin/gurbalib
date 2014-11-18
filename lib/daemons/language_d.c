@@ -80,65 +80,64 @@ void create(void) {
 }
 
 string random_word(string race) {
-   int num_words;	/* Number of catfolk words in the 'english word' */
    int k;
-   string words;	/*What's gonna be returned */
+   int num_words; /* Number of catfolk words in the 'english word' */
+   string words;  /*What's gonna be returned */
 
    if (race == "catfolk") {
       words = "";
       num_words = random(3) + 1;
       for (k = 0; k < num_words; k++) {
-	 switch (random(15) + 1) {
-	       /* Feel free to add more stuff here */
-	    case 1:
-	       words += "meow ";
-	       break;
-	    case 2:
-	       words += "hiss ";
-	       break;
-	    case 3:
-	       words += "purr ";
-	       break;
-	    case 4:
-	       words += "weow ";
-	       break;
-	    case 5:
-	       words += "s'fel ";
-	       break;
-	    case 6:
-	       words += "m'naf ";
-	       break;
-	    case 7:
-	       words += "myau ";
-	       break;
-	    case 8:
-	       words += "myaw ";
-	       break;
-	    case 9:
-	       words += "nyee ";
-	       break;
-	    case 10:
-	       words += "rakas ";
-	       break;
-	    case 11:
-	       words += "krss ";
-	       break;
-	    case 12:
-	       words += "rrr";	/*I know these two lack spaces */
-	       break;
-	    case 13:
-	       words += "ssss";	/*It's supposed to be that way */
-	       break;
-	    case 14:
-	       words += "clsss ";
-	       break;
-	    case 15:
-	       words += "mn ";
-	       break;
-	 }
+         switch (random(15) + 1) {
+            case 1:
+               words += "meow ";
+               break;
+            case 2:
+               words += "hiss ";
+               break;
+            case 3:
+               words += "purr ";
+               break;
+            case 4:
+               words += "weow ";
+               break;
+            case 5:
+               words += "s'fel ";
+               break;
+            case 6:
+               words += "m'naf ";
+               break;
+            case 7:
+               words += "myau ";
+               break;
+            case 8:
+               words += "myaw ";
+               break;
+            case 9:
+               words += "nyee ";
+               break;
+            case 10:
+               words += "rakas ";
+               break;
+            case 11:
+               words += "krss ";
+               break;
+            case 12:
+               words += "rrr"; /* No space is intended */
+               break;
+            case 13:
+               words += "ssss"; /* No space is intended */
+               break;
+            case 14:
+               words += "clsss ";
+               break;
+            case 15:
+               words += "mn ";
+               break;
+         }
       }
 
-      words[strlen(words) - 1] = 0;	/*Strip the trailing space */
+      words[strlen(words) - 1] = 0;   /*Strip the trailing space */
       return words;
    } else if (race == "dwarf") {
       /* Make code for returning a random Norwegian word here */
@@ -167,11 +166,11 @@ string english_to_racial(string language, string arg) {
    string englishword;
    englishword = lowercase(arg);
    if (member_map(englishword, dicts[language])) {
-	 return dicts[language][englishword];
+      return dicts[language][englishword];
    }
    return add_racial(language, englishword);
 }
 
 int language_has_dictionary(string language) {
-	return mappingp(dicts) && mappingp(dicts[language]);
+   return mappingp(dicts) && mappingp(dicts[language]);
 }

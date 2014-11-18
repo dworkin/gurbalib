@@ -14,13 +14,13 @@ static void setup(void) {
       EVENT_D->add_event("clean_up");
 
       if (!clean_up_handle) {
-	 clean_up_handle = call_out("clean_up", CLEAN_UP_INTERVAL);
+         clean_up_handle = call_out("clean_up", CLEAN_UP_INTERVAL);
       }
 
       EVENT_D->add_event("reset");
 
       if (!reset_handle) {
-	 reset_handle = call_out("reset", RESET_INTERVAL);
+         reset_handle = call_out("reset", RESET_INTERVAL);
       }
    }
 
@@ -49,7 +49,7 @@ static void reset(void) {
    reset_handle = 0;
    if (!WORLD_PERSIST) {
       reset_handle =
-	 call_out("reset", (RESET_INTERVAL / 2) + random(RESET_INTERVAL));
+         call_out("reset", (RESET_INTERVAL / 2) + random(RESET_INTERVAL));
       EVENT_D->event("reset");
    }
 }

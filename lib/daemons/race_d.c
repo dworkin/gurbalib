@@ -35,12 +35,12 @@ string *query_races(void) {
 }
 
 string *query_monster_races(void) {
-	return monster_names;
+   return monster_names;
 }
 
 int is_monster_race(string race) {
-	return member_array(race, map_indices(monster_races)) != -1;
-}	
+   return member_array(race, map_indices(monster_races)) != -1;
+}
 
 int is_race(string race) {
    return member_array(race, map_indices(races)) != -1;

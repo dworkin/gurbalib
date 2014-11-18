@@ -32,12 +32,12 @@ void main(string str) {
    } else {
       ob = clone_object(DOMAINS_DIR + "/gurba/guilds/fighter/monsters/page.c");
       if (ob) {
-	 ob->move(this_player()->query_environment());
-	 ob->set_master(this_player());
-	 ob->setup();
-	 this_player()->simple_action("$N $vyell for $p page.");
+         ob->move(this_player()->query_environment());
+         ob->set_master(this_player());
+         ob->setup();
+         this_player()->simple_action("$N $vyell for $p page.");
       } else {
-	 this_player()->simple_action("$N $vyell for $p page, " +
+         this_player()->simple_action("$N $vyell for $p page, " +
             "but he can't be yelling loud enough.");
       }
    }

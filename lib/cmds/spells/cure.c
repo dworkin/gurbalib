@@ -45,12 +45,12 @@ void cure(object thisp, object target) {
    if (thisp == target) {
       write("You concentrate and heal yourself for " + x + " hp.\n");
       this_object()->targeted_action("A soft glow envelopes $N, " +
-	 "as they cure their wounds.\n");
+         "as they cure their wounds.\n");
    } else {
       write("You lay your hands on " + target->query_name() +
-	 " healing them for " + x + " hp.\n");
+         " healing them for " + x + " hp.\n");
       this_object()->targeted_action("A soft glow envelopes " +
-	 target->query_name() + "as $N cures their wounds.\n");
+         target->query_name() + "as $N cures their wounds.\n");
    }
    target->increase_hp(x);
 }
@@ -70,15 +70,15 @@ void do_spell(object thisp, string target) {
       write("You do not have enough mana to cast that.\n");
    } else {
       if (tar) {
-	 if (tar == thisp) {
-	    cure(thisp, tar);
-	 } else if (thisp->query_skill("spell/cure") >= SKILLREQUIRED) {
-	    cure(thisp, tar);
-	 } else {
-	    write("You are not skilled enough at cure to cast it on others.\n");
-	 }
+         if (tar == thisp) {
+            cure(thisp, tar);
+         } else if (thisp->query_skill("spell/cure") >= SKILLREQUIRED) {
+            cure(thisp, tar);
+         } else {
+            write("You are not skilled enough at cure to cast it on others.\n");
+         }
       } else {
-	 write("You want to cast cure on who?\n");
+         write("You want to cast cure on who?\n");
       }
    }
 }

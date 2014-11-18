@@ -14,8 +14,8 @@ mapping verbs;
 mapping object_rules;
 string *names;
 string verb_rules; /* the grammar used by parse_string is concatenated from  */
-string grammar;	   /* these strings, and an optional string in between for   */
-		   /* object defined verb rules accessible by this_player(). */
+string grammar;    /* these strings, and an optional string in between for   */
+                   /* object defined verb rules accessible by this_player(). */
 
 void rescan_verbs(void);
 string scan_local_verbs();
@@ -61,20 +61,20 @@ int query_can(mixed obj, string func, varargs mixed args ...) {
 
    switch (sizeof(args)) {
       case 0:
-	 x = call_other(obj, func);
-	 break;
+         x = call_other(obj, func);
+         break;
       case 1:
-	 x = call_other(obj, func, args[0]);
-	 break;
+         x = call_other(obj, func, args[0]);
+         break;
       case 2:
-	 x = call_other(obj, func, args[0], args[1]);
-	 break;
+         x = call_other(obj, func, args[0], args[1]);
+         break;
       case 3:
-	 x = call_other(obj, func, args[0], args[1], args[2]);
-	 break;
+         x = call_other(obj, func, args[0], args[1], args[2]);
+         break;
       case 4:
-	 x = call_other(obj, func, args[0], args[1], args[2], args[3]);
-	 break;
+         x = call_other(obj, func, args[0], args[1], args[2], args[3]);
+         break;
    }
    if (!x) {
       return 0;
@@ -87,7 +87,7 @@ int query_can(mixed obj, string func, varargs mixed args ...) {
    Items in player inventory take precedence over items in their environment. */
 object query_verb_object(string rule, varargs mixed results) {
    int i, x;
-   object *inventory_environment;	/* inventory of environment 
+   object *inventory_environment;   /* inventory of environment 
                                            we are scanning */
 
    rule = "can_" + rule;
@@ -100,10 +100,10 @@ object query_verb_object(string rule, varargs mixed results) {
 
    for (i = 0; i < sizeof(inventory_environment); i++) {
       if (function_object(rule, inventory_environment[i])) {
-	 x = query_can(inventory_environment[i], rule, results);
+         x = query_can(inventory_environment[i], rule, results);
       }
       if (x) {
-	 return inventory_environment[i];
+         return inventory_environment[i];
       }
    }
 
@@ -112,13 +112,13 @@ object query_verb_object(string rule, varargs mixed results) {
       this_player()->query_environment()->query_inventory();
    for (i = 0; i < sizeof(inventory_environment); i++) {
       if (function_object(rule, inventory_environment[i])) {
-	 x = query_can(inventory_environment[i], rule, results);
-	 if (x) {
-	    return inventory_environment[i];
+         x = query_can(inventory_environment[i], rule, results);
+         if (x) {
+            return inventory_environment[i];
          }
       }
    }
-   return nil;			/* no matches */
+   return nil;    /* no matches */
 }
 
 void add_object_rules(string * rules) {
@@ -169,7 +169,7 @@ int parse(string str) {
 #endif
 
       if (sscanf(err, "Bad token at offset %d", pos) == 1) {
-	 write("Invalid character " + str[pos..pos]);
+         write("Invalid character " + str[pos..pos]);
       }
       return 0;
    }
@@ -184,22 +184,22 @@ int parse(string str) {
    func = "";
    if (sizeof(result) > 1) {
       for (i = 0; i < sizeof(result); i++) {
-	 switch (typeof(result[i])) {
-	    case T_OBJECT:
-	       if (result[i]->is_living()) {
-		  func += "liv ";
-	       } else {
-		  func += "obj ";
+         switch (typeof(result[i])) {
+            case T_OBJECT:
+               if (result[i]->is_living()) {
+                  func += "liv ";
+               } else {
+                  func += "obj ";
                }
-	       break;
-	    case T_STRING:
-	       if (i == 0) {
-		  func += lowercase(result[i]) + " ";
-	       } else {
-		  func += "str ";
+               break;
+            case T_STRING:
+               if (i == 0) {
+                  func += lowercase(result[i]) + " ";
+               } else {
+                  func += "str ";
                }
-	       break;
-	 }
+               break;
+         }
       }
       func = implode(explode(func, " "), "_");
    } else {
@@ -212,7 +212,7 @@ int parse(string str) {
 
    if (sizeof(result) > 1) {
       local_verb_object =
-	 query_verb_object(func, result[1..(sizeof(result) - 1)]);
+         query_verb_object(func, result[1..(sizeof(result) - 1)]);
    } else {
       local_verb_object = query_verb_object(func);
    }
@@ -232,10 +232,10 @@ int parse(string str) {
 #endif
 
       if (sizeof(result) > 1) {
-	 returned =
-	    query_can(obj, "can_" + func, result[1..(sizeof(result) - 1)]);
+         returned =
+            query_can(obj, "can_" + func, result[1..(sizeof(result) - 1)]);
       } else {
-	 returned = query_can(obj, "can_" + func);
+         returned = query_can(obj, "can_" + func);
       }
    }
 
@@ -244,22 +244,22 @@ int parse(string str) {
       write("calling : " + "do_" + func);
 #endif
       switch (sizeof(result)) {
-	 case 1:
-	    call_other(obj, "do_" + func);
-	    break;
-	 case 2:
-	    call_other(obj, "do_" + func, result[1]);
-	    break;
-	 case 3:
-	    call_other(obj, "do_" + func, result[1], result[2]);
-	    break;
-	 case 4:
-	    call_other(obj, "do_" + func, result[1], result[2], result[3]);
-	    break;
-	 case 5:
-	    call_other(obj, "do_" + func, result[1], result[2],
-	       result[3], result[4]);
-	    break;
+         case 1:
+            call_other(obj, "do_" + func);
+            break;
+         case 2:
+            call_other(obj, "do_" + func, result[1]);
+            break;
+         case 3:
+            call_other(obj, "do_" + func, result[1], result[2]);
+            break;
+         case 4:
+            call_other(obj, "do_" + func, result[1], result[2], result[3]);
+            break;
+         case 5:
+            call_other(obj, "do_" + func, result[1], result[2],
+               result[3], result[4]);
+            break;
       }
    }
 
@@ -285,32 +285,32 @@ string parse_verb_rules(mapping rules) {
       /* each rule for a verb */
       for (j = 0; j < sizeof(rules[info[i]]); j++) {
 
-	 output += "Sentence: '" + info[i] + "' ";
-	 words = explode(rules[info[i]][j], " ");
-	 /* each word for a rule */
-	 for (k = 0; k < sizeof(words); k++) {
-	    switch (words[k]) {
-	       case "OBJ":
-	       case "OBJA":
-	       case "OBJI":
-	       case "OBJE":
-	       case "OBJC":
-	       case "LIV":
-		  output += words[k] + " ";
-		  break;
-	       case "OBJX":
-		  output += "OBJX ";
-		  ofix = 1;
-		  break;
-	       default:
-		  output += "'" + words[k] + "' ";
-	    }
-	 }
-
-	 if (ofix) {
-	    output += "? fix_order ";
+         output += "Sentence: '" + info[i] + "' ";
+         words = explode(rules[info[i]][j], " ");
+         /* each word for a rule */
+         for (k = 0; k < sizeof(words); k++) {
+            switch (words[k]) {
+               case "OBJ":
+               case "OBJA":
+               case "OBJI":
+               case "OBJE":
+               case "OBJC":
+               case "LIV":
+                  output += words[k] + " ";
+                  break;
+               case "OBJX":
+                  output += "OBJX ";
+                  ofix = 1;
+                  break;
+               default:
+                  output += "'" + words[k] + "' ";
+            }
          }
-	 ofix = 0;
+
+         if (ofix) {
+            output += "? fix_order ";
+         }
+         ofix = 0;
       }
    }
 
@@ -342,35 +342,36 @@ void rescan_verbs(void) {
       write("Verb info: " + dump_value(info));
 
       if (sizeof(info) > 0) {
-	 /* Rules and aliases */
+         /* Rules and aliases */
 
-	 for (j = 0; j < sizeof(info); j++) {
-	    verb_rules += "Sentence: '" + names[i] + "' ";
+         for (j = 0; j < sizeof(info); j++) {
+            verb_rules += "Sentence: '" + names[i] + "' ";
 
-	    words = explode(info[j], " ");
-	    for (k = 0; k < sizeof(words); k++) {
+            words = explode(info[j], " ");
+            for (k = 0; k < sizeof(words); k++) {
 
-	       switch (words[k]) {
-		  case "OBJ":
-		  case "OBJA":
-		  case "OBJI":
-		  case "OBJE":
-		  case "OBJC":
-		  case "LIV":
-		     verb_rules += words[k] + " ";
-		     break;
-		  case "OBJX":
-		     verb_rules += "OBJX ";
-		     ofix = 1;
-		     break;
-		  default:
-		     verb_rules += "'" + words[k] + "' ";
-	       }
-	    }
-	    if (ofix)
-	       verb_rules += "? fix_order ";
-	    ofix = 0;
-	 }
+               switch (words[k]) {
+                  case "OBJ":
+                  case "OBJA":
+                  case "OBJI":
+                  case "OBJE":
+                  case "OBJC":
+                  case "LIV":
+                     verb_rules += words[k] + " ";
+                     break;
+                  case "OBJX":
+                     verb_rules += "OBJX ";
+                     ofix = 1;
+                     break;
+                  default:
+                     verb_rules += "'" + words[k] + "' ";
+               }
+            }
+            if (ofix) {
+               verb_rules += "? fix_order ";
+            }
+            ofix = 0;
+         }
       }
    }
 
@@ -420,10 +421,11 @@ string scan_local_verbs(void) {
    inventory_environment = this_player()->query_inventory();
 
    for (i = 0; i < sizeof(inventory_environment); i++) {
-      if (typeof(object_rules[inventory_environment[i]]) != T_MAPPING)
-	 continue;
+      if (typeof(object_rules[inventory_environment[i]]) != T_MAPPING) {
+         continue;
+      }
       production_rules +=
-	 parse_verb_rules(object_rules[inventory_environment[i]]);
+         parse_verb_rules(object_rules[inventory_environment[i]]);
    }
 
    /* scan environment and contents of environment */
@@ -479,7 +481,7 @@ static mixed *find_container_object(mixed * mpTree) {
 
    if (sizeof(mpTree[1]) > 0) {
       ob = get_otlvar("last_obj")->find_adjs_object_num(mpTree[1],
-	 mpTree[2], mpTree[3]);
+         mpTree[2], mpTree[3]);
    } else {
       ob = get_otlvar("last_obj")->find_object_num(mpTree[2], mpTree[3]);
    }
@@ -504,15 +506,15 @@ static mixed *find_living_object(mixed * mpTree) {
 
    if (sizeof(mpTree[1]) > 0) {
       ob = this_environment()->find_adjs_object_num(mpTree[1],
-	 mpTree[2], mpTree[3]);
+         mpTree[2], mpTree[3]);
    } else {
       ob = this_environment()->find_object_num(mpTree[2], mpTree[3]);
    }
 
    if (ob) {
       if (ob->is_living()) {
-	 set_otlvar("last_obj", ob);
-	 return (( { ob } ));
+         set_otlvar("last_obj", ob);
+         return (({ ob }));
       }
    }
 
@@ -532,21 +534,21 @@ static mixed *find_direct_object(mixed * mpTree) {
    if (sizeof(mpTree[1]) > 0) {
       /* With adjective */
       ob = this_environment()->find_adjs_object_num(mpTree[1],
-	 mpTree[2], mpTree[3]);
+         mpTree[2], mpTree[3]);
       if (!ob) {
-	 ob = this_player()->find_adjs_object_num(mpTree[1], mpTree[2],
-	    mpTree[3]);
-	 if (!ob) {
-	    return nil;
-	 }
+         ob = this_player()->find_adjs_object_num(mpTree[1], mpTree[2],
+            mpTree[3]);
+         if (!ob) {
+            return nil;
+         }
       }
    } else {
       ob = this_environment()->find_object_num(mpTree[2], mpTree[3]);
       if (!ob) {
-	 ob = this_player()->find_object_num(mpTree[2], mpTree[3]);
-	 if (!ob) {
-	    return nil;
-	 }
+         ob = this_player()->find_object_num(mpTree[2], mpTree[3]);
+         if (!ob) {
+            return nil;
+         }
       }
    }
 
@@ -595,7 +597,7 @@ static mixed *find_environment_object(mixed * mpTree) {
 
    if (sizeof(mpTree[1]) > 0) {
       ob = this_environment()->find_adjs_object_num(mpTree[1], mpTree[2],
-	 mpTree[3]);
+         mpTree[3]);
    } else {
       ob = this_environment()->find_object_num(mpTree[2], mpTree[3]);
    }

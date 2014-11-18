@@ -41,13 +41,13 @@ void do_spell(object thisp, string target) {
    }
    if (tar) {
       if (tar == thisp) {
-	 write("You can't cast a magic missile at yourself.\n");
+         write("You can't cast a magic missile at yourself.\n");
       } else {
-	 if (this_player()->query_mana() >= COST) {
-	    missile(thisp, tar);
-	 } else {
-	    write("You do not have enough mana to cast that.\n");
-	 }
+         if (this_player()->query_mana() >= COST) {
+            missile(thisp, tar);
+         } else {
+            write("You do not have enough mana to cast that.\n");
+         }
       }
    } else {
       write("You want to cast magic missile on who?\n");

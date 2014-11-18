@@ -9,12 +9,12 @@
 #include <status.h>
 #include <ports.h>
 
-private object user;		/* our user object */
+private object user;            /* our user object */
 private int opened;
-private int mode;		/* connection mode */
-private int blocked;		/* connection blocked? */
-private string buffer;		/* buffered output string */
-private string protocol;	/* telnet or tcp */
+private int mode;               /* connection mode */
+private int blocked;            /* connection blocked? */
+private string buffer;          /* buffered output string */
+private string protocol;        /* telnet or tcp */
 int closing;
 
 static void DEBUG(string str) {
@@ -49,27 +49,27 @@ void create(void) {
 void set_mode(int m) {
    if (m != mode && m != MODE_NOCHANGE) {
       if (m == MODE_DISCONNECT) {
-	 if (sizeof(users() & ( { this_object() } ) )) {
+         if (sizeof(users() & ( { this_object() } ) )) {
 #ifdef SYS_NETWORKING
-	    catch {
-	       close_user();
-	    }
-	    call_out("remove_me", 0);
+            catch {
+               close_user();
+            }
+            call_out("remove_me", 0);
 #else
-	    destruct_object(this_object());
+            destruct_object(this_object());
 #endif
-	 } else {
-	    destruct_object(this_object());
-	 }
+         } else {
+            destruct_object(this_object());
+         }
       } else if (m >= MODE_UNBLOCK) {
-	 if (m - MODE_UNBLOCK != blocked) {
-	    block_input(blocked = m - MODE_UNBLOCK);
-	 }
+         if (m - MODE_UNBLOCK != blocked) {
+            block_input(blocked = m - MODE_UNBLOCK);
+         }
       } else {
-	 if (blocked) {
-	    block_input(blocked = FALSE);
-	 }
-	 mode = m;
+         if (blocked) {
+            block_input(blocked = FALSE);
+         }
+         mode = m;
       }
    }
 }
@@ -83,17 +83,17 @@ void set_protocol(string proto) {
       return;
    } else {
       switch (proto) {
-	 case "telnet":
-	    protocol = proto;
-	    set_mode(MODE_UNBLOCK | MODE_ECHO);
-	    break;
-	 case "tcp":
-	    protocol = proto;
-	    set_mode(MODE_UNBLOCK | MODE_RAW);
-	    break;
-	 default:
-	    error("Unknown protocol");
-	    break;
+         case "telnet":
+            protocol = proto;
+            set_mode(MODE_UNBLOCK | MODE_ECHO);
+            break;
+         case "tcp":
+            protocol = proto;
+            set_mode(MODE_UNBLOCK | MODE_RAW);
+            break;
+         default:
+            error("Unknown protocol");
+            break;
       }
    }
 }
@@ -118,10 +118,10 @@ static void _close(mixed * tls, varargs int force) {
 
    rlimits(MAX_DEPTH; MAX_TICKS) {
       if (user) {
-	 user->close(force);
+         user->close(force);
       }
       if (!force) {
-	 call_out("remove_me", 0);
+         call_out("remove_me", 0);
       }
    }
    opened = 0;
@@ -137,27 +137,29 @@ static void close(varargs int force) {
 
 void connect(string ip, int port, varargs string proto) {
    if (previous_object() == user) {
-      if (!proto)
-	 proto = "tcp";
+      if (!proto) {
+         proto = "tcp";
+      }
 #ifndef SYS_NETWORKING
-      if (proto != "tcp")
-	 error("Unsupported protocol");
+      if (proto != "tcp") {
+         error("Unsupported protocol");
+      }
 #endif
 
       set_protocol(proto);
 
       if (protocol) {
-	 DEBUG("Making outbound " + protocol + " connection to : " + ip + ", " +
-	    port);
-	 catch {
+         DEBUG("Making outbound " + protocol + " connection to : " + ip + ", " +
+            port);
+         catch {
 #ifdef SYS_NETWORKING
-	    ::connect(ip, port, proto);
+            ::connect(ip, port, proto);
 #else
-	    ::connect(ip, port);
+            ::connect(ip, port);
 #endif
-	 } : {
-	    _receive_error(nil, caught_error());
-	 }
+         } : {
+            _receive_error(nil, caught_error());
+         }
       }
    }
 }
@@ -187,8 +189,9 @@ static void _message_done(mixed * tls) {
       set_mode(MODE_NOCHANGE);
    }
    rlimits(MAX_DEPTH; MAX_TICKS) {
-      if (user)
-	 user->message_done();
+      if (user) {
+         user->message_done();
+      }
    }
 }
 
@@ -200,7 +203,7 @@ static void _receive_error(mixed * tls, string err) {
    DEBUG(err);
    if (user) {
       catch {
-	 user->receive_error(err);
+         user->receive_error(err);
       } : {
       }
    }
@@ -218,7 +221,7 @@ static void receive_error(string err) {
 
 static void unconnected(int refused) {
    _receive_error(DRIVER->new_tls(),
-		  (refused) ? "Connection refused" : "Connection failed");
+      (refused) ? "Connection refused" : "Connection failed");
 }
 
 #endif
@@ -226,12 +229,10 @@ static void unconnected(int refused) {
 static void _receive_message(mixed * tls, string str) {
    if (user) {
       rlimits(MAX_DEPTH; MAX_TICKS) {
-	 user->receive_message(str);
+         user->receive_message(str);
       }
    } else {
-      /*
-       * Our user is gone, we have no reason to be here either.
-       */
+      /* Our user is gone, we have no reason to be here either.  */
       destruct_object(this_object());
    }
 }

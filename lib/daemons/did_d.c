@@ -28,8 +28,8 @@ void add_entry(string str) {
    usr = USER_D->query_users();
    for (i = 0; i < sizeof(usr); i++) {
       if (query_wizard(usr[i]->query_player()->query_name()) > 0
-	 && usr[i] != this_player()) {
-	 usr[i]->query_player()->message("** " + str);
+         && usr[i] != this_player()) {
+         usr[i]->query_player()->message("** " + str);
       }
    }
    write("Reported. Thank you!\n");

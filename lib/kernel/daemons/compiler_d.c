@@ -60,11 +60,11 @@ static string fname(object ob) {
 static void create(void) {
    if (!get_list("clones")) {
       error("Your config file is out of date.\n" +
-	 "Please change the line reading:\n" +
-	 "create = \"create\"\n" +
-	 "to\n" +
-	 "create = \"_F_create\"\n" +
-	 "or see the net.dgd/mud.dgd example config files\n");
+         "Please change the line reading:\n" +
+         "create = \"create\"\n" +
+         "to\n" +
+         "create = \"_F_create\"\n" +
+         "or see the net.dgd/mud.dgd example config files\n");
    }
    if (!inh_list) {
       inh_list = ([]);
@@ -98,7 +98,7 @@ private int test_path(string path, string * comp) {
    parts = explode(path, "/");
    for (i = 0, sz = sizeof(parts) - 1; i < sz; i++) {
       if (sizeof(parts[i..i] & comp) > 0) {
-	 return 1;
+         return 1;
       }
    }
    return 0;
@@ -130,14 +130,14 @@ mixed include_file(string file, string path) {
       parts = explode(compiling, "/");
 
       if (parts[0] == "kernel") {
-	 /* Don't do anything for auto objects */
-	 if (sscanf(compiling, "/kernel/lib/auto%*s") == 0) {
-	    return "/kernel/include/std-kernel.h";
-	 }
+         /* Don't do anything for auto objects */
+         if (sscanf(compiling, "/kernel/lib/auto%*s") == 0) {
+            return "/kernel/include/std-kernel.h";
+         }
       } else {
-	 if (compiling != "/sys/lib/auto") {
-	    return "/kernel/include/std-game.h";
-	 }
+         if (compiling != "/sys/lib/auto") {
+            return "/kernel/include/std-game.h";
+         }
       }
    }
 
@@ -189,8 +189,8 @@ void clear_inherits(string file, int issue) {
 
       max = sizeof(inh);
       for (c = 0; c < max; c++) {
-	 if (dep_list[inh[c]]) {
-	    dep_list[inh[c]] -= ( { progname } );
+         if (dep_list[inh[c]]) {
+            dep_list[inh[c]] -= ( { progname } );
          }
       }
       inh_list[progname] = nil;
@@ -203,12 +203,12 @@ void clear_inherits(string file, int issue) {
       dep = dep_list[progname];
       max = sizeof(dep);
       for (c = 0; c < max; c++) {
-	 if (inh_list[dep[c]]) {
-	    inh_list[dep[c]] -= ( { progname } );
-	    if (sizeof(inh_list[dep[c]]) == 0) {
-	       inh_list[dep[c]] = nil;
+         if (inh_list[dep[c]]) {
+            inh_list[dep[c]] -= ( { progname } );
+            if (sizeof(inh_list[dep[c]]) == 0) {
+               inh_list[dep[c]] = nil;
             }
-	 }
+         }
       }
       dep_list[progname] = nil;
    }
@@ -237,16 +237,16 @@ static void set_inherits(object ob, object * inherits) {
    inh_list[file] = ( { } );
    for (count = 0; count < sizeof(inherits); count++) {
       if (!inherits[count]) {
-	 error("Empty filename in set_inherits, pos is " + count);
+         error("Empty filename in set_inherits, pos is " + count);
       }
 
       if (fname(inherits[count]) == COMPILER_D) {
-	 continue;
+         continue;
       }
       iname = fname(inherits[count]) + "#" + status(inherits[count])[O_INDEX];
       inh_list[file] |= ({ iname });
       if (!dep_list[iname]) {
-	 dep_list[iname] = ({ file });
+         dep_list[iname] = ({ file });
       } else {
          dep_list[iname] |= ({ file });
       }
@@ -276,12 +276,12 @@ string *inherits_this(string f, varargs int issue) {
       f += "#%*d";
       rlimits(40; -1) {
          max = sizeof(files);
-	 for (fcount = 0; fcount < max; fcount++) {
-	    if (sscanf(files[fcount], f) == 1) {
-	       return dep_list[files[fcount]] ? 
+         for (fcount = 0; fcount < max; fcount++) {
+            if (sscanf(files[fcount], f) == 1) {
+               return dep_list[files[fcount]] ? 
                   dep_list[files[fcount]][..] : ({ });
-	    }
-	 }
+            }
+         }
       }
    }
    return ({ });
@@ -292,9 +292,8 @@ string *inherits_this(string f, varargs int issue) {
  * inherit the inheritable provided as argument
  */
 static string *get_nodes(string file) {
-   string f;
    int i;
-   string *nodes;
+   string f, *nodes;
 
    if (sscanf(file, "%s#%d", f, i) != 2) {
       f = file;
@@ -311,8 +310,7 @@ static string *get_nodes(string file) {
  * its depends are added to the pile.
  */
 static string filter_for_edges(string * nodes) {
-   string *tmp;
-   string node;
+   string node, *tmp;
 
    node = pile[0];
    if (!stringp(node) || sizeof(({node}) & nodes) > 0) {
@@ -332,8 +330,7 @@ static string filter_for_edges(string * nodes) {
  * inheritable provided as argument.
  */
 string *find_depending_objects(string file) {
-   string *edges;
-   string newedge;
+   string newedge, *edges;
 
    if (strlen(file) > 2 && file[strlen(file) - 2..] == ".c") {
       file = file[..strlen(file) - 3];
@@ -344,13 +341,13 @@ string *find_depending_objects(string file) {
 
    rlimits(40; -1) {
       while (sizeof(pile)) {
-	 newedge = filter_for_edges(edges);
+         newedge = filter_for_edges(edges);
 
-	 if (newedge) {
-	    edges += ({ newedge });
-	 }
+         if (newedge) {
+            edges += ({ newedge });
+         }
 
-	 pile -= ({ pile[0] });
+         pile -= ({ pile[0] });
       }
    }
 
@@ -371,8 +368,7 @@ string issue_to_file(string str) {
 /* Find all inheritables that have more then one instance registered. */
 mapping find_duplicates(void) {
    int i, max, dupesize;
-   string *pnames;
-   string *dupes;
+   string *pnames, *dupes;
    mapping seen, result;
 
    seen = ([ ]);
@@ -385,9 +381,9 @@ mapping find_duplicates(void) {
 
       sscanf(pnames[i], "%s#%d", pn, issue);
       if (!seen[pn]) {
-	 seen[pn] = ({ });
+         seen[pn] = ({ });
       } else {
-	 dupes += ({ pn });
+         dupes += ({ pn });
       }
       seen[pn] += ({ pnames[i] });
    }
@@ -445,13 +441,13 @@ static void remove_all_included_by(string by) {
 
    if (arrayp(increv[by])) {
       for (i = sizeof(increv[by]) - 1; i >= 0; i--) {
-	 stuff = includes[increv[by][i]];
-	 if (stuff) {
-	    stuff -= ( { by } );
-	    if (sizeof(stuff) == 0) {
-	       includes[increv[by][i]] = nil;
-	    }
-	 }
+         stuff = includes[increv[by][i]];
+         if (stuff) {
+            stuff -= ({ by });
+            if (sizeof(stuff) == 0) {
+               includes[increv[by][i]] = nil;
+            }
+         }
       }
       increv[by] = nil;
    }
@@ -517,17 +513,17 @@ mixed *find_all_depending_programs(string file, varargs string * skip) {
    max = sizeof(list);
    for (i = 0; i < max; i++) {
       if (query_includes(list[i])) {
-	 incl |= ({ list[i] });
+         incl |= ({ list[i] });
       } else if (test_inheritable(list[i])) {
-	 libs |= ({ issue_to_file(list[i]) });
-	 obs |= find_depending_objects(list[i]);
+         libs |= ({ issue_to_file(list[i]) });
+         obs |= find_depending_objects(list[i]);
       } else {
-	 string str;
+         string str;
 
-	 str = issue_to_file(list[i]);
-	 if (find_object(str)) {
-	    obs |= ({ str });
-	 }
+         str = issue_to_file(list[i]);
+         if (find_object(str)) {
+            obs |= ({ str });
+         }
       }
    }
 
@@ -541,8 +537,8 @@ void register_includes(object by, string * what) {
 
    if (what && sizeof(what)) {
 #ifdef DEBUG_COMPILER_D
-      console_msg(object_name(by) + " includes " + dump_value(what,
-	    ([])) + "\n");
+      console_msg(object_name(by) + " includes " + dump_value(what, ([])) + 
+         "\n");
 #endif
       register_included_by(object_name(by) + "#" + status(by)[O_INDEX], what);
    }
@@ -555,8 +551,8 @@ void register_inherits(object by, object * what) {
 
    if (what && sizeof(what)) {
 #ifdef DEBUG_COMPILER_D
-      console_msg(object_name(by) + " inherits " + dump_value(what,
-	    ([])) + "\n");
+      console_msg(object_name(by) + " inherits " + dump_value(what, ([])) + 
+         "\n");
 #endif
       set_inherits(by, what);
    }
@@ -576,9 +572,9 @@ mixed allow_compile(string path, string file) {
       code = ({ "inherit \"/kernel/lib/auto-game\";" });
       files = get_dir("/sys/safun/*.c")[0];
       if (files) {
-	 for (i = 0, sz = sizeof(files); i < sz; i++) {
-	    code += ({ "#include \"/sys/safun/" + files[i] + "\"" });
-	 }
+         for (i = 0, sz = sizeof(files); i < sz; i++) {
+            code += ({ "#include \"/sys/safun/" + files[i] + "\"" });
+         }
       }
 #ifdef DEBUG_COMPILER_D
       console_msg("Dumping safun object:\n\n" + implode(code, "\n") + "\n\n");
@@ -600,24 +596,24 @@ string allow_inherit(string path, string file) {
 
    if (sscanf(path, AUTO + "%*s") != 1) {
       switch (explode(path, "/")[0]) {
-	 case "kernel":
-	    if (file &&
-	       sscanf(file, "/kernel/%*s") != 1 &&
-	       sscanf(file, "/sys/%*s") != 1) {
-	       error("permission denied");
-	    }
-	 case "sys":
-	    if ((path != "/sys/lib/auto") &&
+         case "kernel":
+            if (file &&
+               sscanf(file, "/kernel/%*s") != 1 &&
+               sscanf(file, "/sys/%*s") != 1) {
+               error("permission denied");
+            }
+         case "sys":
+            if ((path != "/sys/lib/auto") &&
                (sscanf(path, "/sys/lib/modules/%*s") != 1) &&
-	       file &&
-	       (owner_file(file) != "system") && 
+               file &&
+               (owner_file(file) != "system") && 
                (owner_file(file) != "kernel")) {
-	       return nil;
-	    }
-	    break;
+               return nil;
+            }
+            break;
 
-	 default:
-	    break;
+         default:
+            break;
       }
    }
    return path;
@@ -665,10 +661,10 @@ void clear_upqueue(void) {
       case "kernel":
       case "system":
       case "root":
-	 upqueue = nil;
-	 break;
+         upqueue = nil;
+         break;
       default:
-	 error("Bad call to clear_upqueue");
+         error("Bad call to clear_upqueue");
    }
 }
 
@@ -685,20 +681,19 @@ void upgraded(void) {
 }
 
 void rebuild_depending(string str) {
-   string *stuff;
-   string on;
+   string on, *stuff;
    int i, sz;
 
    stuff = find_depending_objects(str);
 
    if (stuff) {
       rlimits(MAX_DEPTH; -1) {
-	 for (i = 0, sz = sizeof(stuff); i < sz; i++) {
-	    sscanf(stuff[i], "%s.c", on);
-	    if (file_exists(stuff[i]) && find_object(on)) {
-	       compile_object(on);
-	    }
-	 }
+         for (i = 0, sz = sizeof(stuff); i < sz; i++) {
+            sscanf(stuff[i], "%s.c", on);
+            if (file_exists(stuff[i]) && find_object(on)) {
+               compile_object(on);
+            }
+         }
       }
    }
 }

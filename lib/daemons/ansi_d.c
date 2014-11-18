@@ -9,34 +9,34 @@
 #define ENABLE_TERMINAL_CACHE
 #define CACHE "tcode-cache"
 
-#define BLACK 		BOLD_OFF + "\x1b[30m"
-#define RED 		BOLD_OFF + "\x1b[31m"
-#define GREEN 		BOLD_OFF + "\x1b[32m"
-#define ORANGE 		BOLD_OFF + "\x1b[33m"
-#define YELLOW 		BOLD + "\x1b[33m"
-#define BLUE 		BOLD_OFF + "\x1b[34m"
-#define MAGENTA 	BOLD_OFF + "\x1b[35m"
-#define CYAN 		BOLD_OFF + "\x1b[36m"
-#define WHITE 		BOLD_OFF + "\x1b[37m"
-#define GREY 		BOLD + "\x1b[30m"
+#define BLACK 	BOLD_OFF + "\x1b[30m"
+#define RED 	BOLD_OFF + "\x1b[31m"
+#define GREEN 	BOLD_OFF + "\x1b[32m"
+#define ORANGE 	BOLD_OFF + "\x1b[33m"
+#define YELLOW 	BOLD + "\x1b[33m"
+#define BLUE 	BOLD_OFF + "\x1b[34m"
+#define MAGENTA BOLD_OFF + "\x1b[35m"
+#define CYAN 	BOLD_OFF + "\x1b[36m"
+#define WHITE 	BOLD_OFF + "\x1b[37m"
+#define GREY 	BOLD + "\x1b[30m"
 
-#define B_BLACK "\x1b[40m"
-#define B_RED "\x1b[41m"
-#define B_GREEN "\x1b[42m"
-#define B_ORANGE "\x1b[43m"
-#define B_YELLOW BOLD + B_ORANGE
-#define B_BLUE "\x1b[44m"
+#define B_BLACK   "\x1b[40m"
+#define B_RED     "\x1b[41m"
+#define B_GREEN   "\x1b[42m"
+#define B_ORANGE  "\x1b[43m"
+#define B_YELLOW  BOLD + B_ORANGE
+#define B_BLUE    "\x1b[44m"
 #define B_MAGENTA "\x1b[45m"
-#define B_CYAN "\x1b[46m"
-#define B_WHITE "\x1b[47m"
+#define B_CYAN    "\x1b[46m"
+#define B_WHITE   "\x1b[47m"
 
-#define RESET "\x1b[0m"
-#define BOLD "\x1b[1m"
-#define ITALIC "\x1b[3m"
+#define RESET     "\x1b[0m"
+#define BOLD      "\x1b[1m"
+#define ITALIC    "\x1b[3m"
 #define UNDERLINE "\x1b[4m"
-#define FLASH "\x1b[5m"
-#define REVERSE "\x1b[7m"
-#define BOLD_OFF	"\x1b[22m"
+#define FLASH     "\x1b[5m"
+#define REVERSE   "\x1b[7m"
+#define BOLD_OFF  "\x1b[22m"
 
 #define HRED 		BOLD + "\x1b[31m"
 #define HGREEN		BOLD + "\x1b[32m"
@@ -45,19 +45,17 @@
 #define HCYAN		BOLD + "\x1b[36m"
 #define HWHITE		BOLD + "\x1b[37m"
 
-#define CURS_UP "\x1b[A"
-#define CURS_DOWN "\x1b[B"
+#define CURS_UP    "\x1b[A"
+#define CURS_DOWN  "\x1b[B"
 #define CURS_RIGHT "\x1b[C"
-#define CURS_LEFT "\x1b[D"
+#define CURS_LEFT  "\x1b[D"
 
-#define CLEARLINE "\x1b[L\x1b[G"
-#define INITTERM "\x1b[H\x1b[2J"
-#define HOME "\x1b[H"
-#define ENDTERM ""
-#define SAVE "\x1b[s"
-#define RESTORE "\x1b[u"
-/* #define SAVE "\x1b7" */
-/* #define RESTORE "\x1b8" */
+#define CLEARLINE  "\x1b[L\x1b[G"
+#define INITTERM   "\x1b[H\x1b[2J"
+#define HOME       "\x1b[H"
+#define ENDTERM    ""
+#define SAVE       "\x1b[s"
+#define RESTORE    "\x1b[u"
 
 static mapping color_trans, attr_trans, terminal_trans;
 mapping symbolic_trans;
@@ -176,7 +174,7 @@ string strip_colors(string str) {
 
    for (i = 0; i < sizeof(tmp); i++) {
       if (translations[tmp[i]] || symbolic_trans[tmp[i]]) {
-	 tmp[i] = "";
+         tmp[i] = "";
       }
    }
    msg = implode(tmp, "");
@@ -202,29 +200,29 @@ static string _parse_colors(string str, int curdepth, mapping cache,
 
    rlimits(MAX_DEPTH; MAX_TICKS * MAX_TICKS * 10000) {
       for (i = 0; i < sizeof(tmp); i++) {
-	 if (cache[tmp[i]]) {
-	    tmp[i] = cache[tmp[i]];
-	 } else {
-	    string tag;
-	    tag = tmp[i];
-	    if (translations[tmp[i]]) {
-	       tmp[i] = translations[tmp[i]];
-	    } else if (curdepth < MAX_RECURSION) {
-	       if (player && player_trans[player]
-		  && player_trans[player][tmp[i]]) {
-		  tmp[i] =
-		     _parse_colors(player_trans[player][tmp[i]], curdepth + 1,
-		     cache, player);
-	       } else if (symbolic_trans[tmp[i]]) {
-		  tmp[i] =
-		     _parse_colors(symbolic_trans[tmp[i]], curdepth + 1, cache,
-		     player);
-	       }
-	    }
-	    if (map_sizeof(cache) < MAX_ARRAY_SIZE / 2 && tag != tmp[i]) {
-	       cache[tag] = tmp[i];
-	    }
-	 }
+         if (cache[tmp[i]]) {
+            tmp[i] = cache[tmp[i]];
+         } else {
+            string tag;
+            tag = tmp[i];
+            if (translations[tmp[i]]) {
+               tmp[i] = translations[tmp[i]];
+            } else if (curdepth < MAX_RECURSION) {
+               if (player && player_trans[player]
+                  && player_trans[player][tmp[i]]) {
+                  tmp[i] =
+                     _parse_colors(player_trans[player][tmp[i]], curdepth + 1,
+                     cache, player);
+               } else if (symbolic_trans[tmp[i]]) {
+                  tmp[i] =
+                     _parse_colors(symbolic_trans[tmp[i]], curdepth + 1, cache,
+                     player);
+               }
+            }
+            if (map_sizeof(cache) < MAX_ARRAY_SIZE / 2 && tag != tmp[i]) {
+               cache[tag] = tmp[i];
+            }
+         }
       }
    }
 
@@ -258,14 +256,14 @@ string parse_colors(string str, varargs int curdepth) {
    if (player) {
       cache = cacheroot[player];
       if (!cache) {
-	 cache = ([]);
-	 cacheroot[player] = cache;
+         cache = ([]);
+         cacheroot[player] = cache;
       }
    } else {
       cache = cacheroot["base"];
       if (!cache) {
-	 cache = ([]);
-	 cacheroot["base"] = cache;
+         cache = ([]);
+         cacheroot["base"] = cache;
       }
    }
    return _parse_colors(str, 0, cache, player);
@@ -286,8 +284,9 @@ string color_table_chunk(mapping m, int codes) {
       pad = 16 - strlen(ind[i]) - 1;
       /* Bizzare... if I remove the space in the line below, I get nothing! */
       msg += tokenized + " " + ind[i];
-      for (j = 0; j < pad; j++)
-	 msg += " ";
+      for (j = 0; j < pad; j++) {
+         msg += " ";
+      }
       msg += reset;
       msg += (i % 4 == 3) ? "\n" : " ";
    }
@@ -339,17 +338,17 @@ void ansi_set_color(string name, string * symbols) {
 
    for (i = 0; i < sizeof(symbols); i++) {
       if (strstr("%^", symbols[i]) == -1) {
-	 symbols[i] = uppercase(symbols[i]);
-	 if (!translations[symbols[i]] && !symbolic_trans[symbols[i]]) {
-	    /* Each symbol must resolve to a pre-defined token */
-	    write("Symbolic color tokens must be composed of only valid " +
+         symbols[i] = uppercase(symbols[i]);
+         if (!translations[symbols[i]] && !symbolic_trans[symbols[i]]) {
+            /* Each symbol must resolve to a pre-defined token */
+            write("Symbolic color tokens must be composed of only valid " +
                "base color tokens or pre-existing custom tokens.\n");
-	    return;
-	 }
-	 tmp += "%^" + symbols[i] + "%^";
+            return;
+         }
+         tmp += "%^" + symbols[i] + "%^";
       } else {
-	 write("Symbolic color tokens cannot (YET) contain custom tokens\n");
-	 return;
+         write("Symbolic color tokens cannot (YET) contain custom tokens\n");
+         return;
       }
    }
 
@@ -428,17 +427,17 @@ int check_recursion(string tag, string value) {
       value = replace_string(value, "%^", "");
 
       if (tag == value) {
-	 return 2;
+         return 2;
       }
 
       value = replace_string(value, "%^", "");
 
       if (player && player_trans[player] && player_trans[player][value]) {
-	 value = player_trans[player][value];
+         value = player_trans[player][value];
       } else if (symbolic_trans[value]) {
-	 value = symbolic_trans[value];
+         value = symbolic_trans[value];
       } else {
-	 return 0;
+         return 0;
       }
    }
    return 1;

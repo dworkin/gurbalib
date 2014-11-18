@@ -8,10 +8,10 @@
 #include <status.h>
 #include <ports.h>
 
-private object user;		/* our user object */
-private int port;		/* our port number */
-private int blocked;		/* port blocked? */
-private string protocol;	/* telnet or tcp */
+private object user;            /* our user object */
+private int port;               /* our port number */
+private int blocked;            /* port blocked? */
+private string protocol;        /* telnet or tcp */
 
 void set_user(object u) {
    if (previous_program() == M_PORT) {
@@ -35,14 +35,14 @@ private void set_protocol(string proto) {
       return;
    } else {
       switch (proto) {
-	 case "telnet":
-	 case "tcp":
-	 case "udp":
-	    protocol = proto;
-	    break;
-	 default:
-	    error("Unknown protocol");
-	    break;
+         case "telnet":
+         case "tcp":
+         case "udp":
+            protocol = proto;
+            break;
+         default:
+            error("Unknown protocol");
+            break;
       }
    }
 }
@@ -76,12 +76,12 @@ void open_port(string proto, varargs mixed p) {
       console_msg("Opening port " + proto + ":" + p + "\n");
       set_protocol(proto);
       if (!intp(p)) {
-	 ::open_port(proto);
+         ::open_port(proto);
       } else {
-	 if (p < 1 || p > 65535) {
-	    error("Bad port " + p + " in open_port()");
-	 }
-	 ::open_port(proto, p);
+         if (p < 1 || p > 65535) {
+            error("Bad port " + p + " in open_port()");
+         }
+         ::open_port(proto, p);
       }
    }
 }

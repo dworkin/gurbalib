@@ -113,20 +113,20 @@ void queue_upgrade(object ob) {
 
    rlimits(MAX_DEPTH; (MAX_TICKS * MAX_TICKS)) {
       while (ob && count < 500) {
-	 /*
-	  * Note the order here, it is important.
-	  * doing this the other way around would result
-	  * in _F_upgraded() getting called immediately
-	  * instead of on the next call to the object/clone
-	  *
-	  */
-	 next = ob->next_clone();
+         /*
+          * Note the order here, it is important.
+          * doing this the other way around would result
+          * in _F_upgraded() getting called immediately
+          * instead of on the next call to the object/clone
+          *
+          */
+         next = ob->next_clone();
 #ifdef DEBUG_RECOMPILE
-	 message("call_touch " + object_name(ob) + "\n");
+         message("call_touch " + object_name(ob) + "\n");
 #endif
-	 call_touch(ob);
-	 ob = next;
-	 count++;
+         call_touch(ob);
+         ob = next;
+         count++;
       }
    }
 
@@ -174,9 +174,9 @@ object compile_object(string path, varargs string code) {
       if (compiler_d) {
          stuff = compiler_d->allow_compile(path, nil);
          if (typeof(stuff) == T_STRING) {
-	    path = stuff;
+            path = stuff;
          } else if (typeof(stuff) == T_ARRAY) {
-	    code = implode(stuff, "\n") + "\n";
+            code = implode(stuff, "\n") + "\n";
          }
       }
 
@@ -215,7 +215,7 @@ object compile_object(string path, varargs string code) {
 void register_compiler_d(void) {
    if (KERNEL()) {
       message("Registering compiler daemon : " +
-	 object_name(previous_object()) + "\n");
+         object_name(previous_object()) + "\n");
       compiler_d = previous_object();
    }
 }
@@ -223,7 +223,7 @@ void register_compiler_d(void) {
 void register_error_d(void) {
    if (KERNEL()) {
       message("Registering error daemon    : " +
-	 object_name(previous_object()) + "\n");
+         object_name(previous_object()) + "\n");
       error_d = previous_object();
    }
 }
@@ -231,7 +231,7 @@ void register_error_d(void) {
 void register_secure_d(void) {
    if (KERNEL()) {
       message("Registering security daemon : " +
-	 object_name(previous_object()) + "\n");
+         object_name(previous_object()) + "\n");
       secure_d = previous_object();
    }
 }
@@ -345,14 +345,14 @@ static void _restored(mixed * tls) {
 
    if (users) {
       for (i = 0, sz = sizeof(users); i < sz; i++) {
-	 catch(users[i]->close(0));
+         catch(users[i]->close(0));
       }
    }
 
 #ifdef SYS_NETWORKING
    if (ports) {
       for (i = 0, sz = sizeof(ports); i < sz; i++) {
-	 ports[i]->reopen();
+         ports[i]->reopen();
       }
    }
 #endif
@@ -403,11 +403,11 @@ object call_object(string name) {
 
    rlimits(MAX_DEPTH; MAX_TICKS) {
       if (compiler_d) {
-	 name = compiler_d->allow_object(name);
+         name = compiler_d->allow_object(name);
       }
 
       if (ob = find_object(name)) {
-	 return ob;
+         return ob;
       }
       ob = compile_object(name);
       return ob;
@@ -445,33 +445,33 @@ object inherit_program(string file, string program, int priv) {
       set_tlvar(TLS_COMPILING, program);
 
       if (compiler_d) {
-	 stuff = compiler_d->allow_compile(program, nil);
-	 if (typeof(stuff) == T_STRING) {
-	    program = stuff;
-	 } else if (typeof(stuff) == T_ARRAY) {
-	    code = implode(stuff, "\n") + "\n";
-	 }
+         stuff = compiler_d->allow_compile(program, nil);
+         if (typeof(stuff) == T_STRING) {
+            program = stuff;
+         } else if (typeof(stuff) == T_ARRAY) {
+            code = implode(stuff, "\n") + "\n";
+         }
       }
 
       if (code) {
-	 ob =::compile_object(program, code);
+         ob =::compile_object(program, code);
       } else {
-	 ob =::compile_object(program);
+         ob =::compile_object(program);
       }
 
       if (get_tlvar(TLS_COMPILING) != AUTO) {
-	 set_tlvar(TLS_INHERITS, 
+         set_tlvar(TLS_INHERITS, 
             (({ find_object(AUTO) }) | get_tlvar(TLS_INHERITS)));
       }
 
       if (program != DRIVER && program != AUTO) {
-	 set_tlvar(TLS_INHERITS, 
+         set_tlvar(TLS_INHERITS, 
             (({ find_object(AUTO) }) | get_tlvar(TLS_INHERITS)));
       }
 
       if (compiler_d) {
-	 compiler_d->register_includes(ob, get_tlvar(TLS_INCLUDES));
-	 compiler_d->register_inherits(ob, get_tlvar(TLS_INHERITS));
+         compiler_d->register_includes(ob, get_tlvar(TLS_INCLUDES));
+         compiler_d->register_inherits(ob, get_tlvar(TLS_INHERITS));
       }
 
       set_tlvar(TLS_COMPILING, old_compiling);
@@ -497,9 +497,9 @@ string include_file(string file, string path) {
       res = compiler_d->include_file(file, path);
    } else {
       if (path[0] != '/') {
-	 res = file + "/../" + path;
+         res = file + "/../" + path;
       } else {
-	 res = path;
+         res = path;
       }
    }
 
@@ -558,9 +558,9 @@ void _interrupt(mixed * tls) {
    for (i = 0; i < sizeof(usrs); i++) {
       p = usrs[i]->query_player();
       if (p) {
-	 p->do_quit();
+         p->do_quit();
       } else {
-	 usrs[i]->_F_destruct();
+         usrs[i]->_F_destruct();
       }
    }
    message("Shutting down.\n");
@@ -580,9 +580,9 @@ void start_shutdown(void) {
    for (i = 0; i < sizeof(users); i++) {
       p = users[i]->query_player();
       if (p) {
-	 p->do_quit();
+         p->do_quit();
       } else {
-	 users[i]->_F_destruct();
+         users[i]->_F_destruct();
       }
    }
 
@@ -625,14 +625,14 @@ void compile_error(string file, int line, string err) {
    usr = this_user();
    if (usr) {
       if (usr->query_player()) {
-	 if (secure_d
-	    && secure_d->query_wizard(usr->query_player()->query_name()) == 1) {
-	    usr->query_player()->write(error);
-	 } else {
-	    usr->query_player()->
-	       write("You have encountered a rift in reality. " +
+         if (secure_d
+            && secure_d->query_wizard(usr->query_player()->query_name()) == 1) {
+            usr->query_player()->write(error);
+         } else {
+            usr->query_player()->
+               write("You have encountered a rift in reality. " +
                   "Please report it to the admins.\n");
-	 }
+         }
       }
    }
 }
@@ -657,42 +657,42 @@ void runtime_error(string error, int caught, int ticks) {
 
    if ((sz = sizeof(trace) - 1) != 0) {
       for (i = 0; i < sz; i++) {
-	 progname = trace[i][1];
-	 func = trace[i][2];
-	 objname = trace[i][0];
-	 line = trace[i][3];
-	 if (line == 0) {
-	    str = "    ";
-	 } else {
-	    str = "    " + line;
-	    str = str[strlen(str) - 4..];
-	 }
-	 str += " " + func + " ";
-	 len = strlen(func);
-	 if (len < 17) {
-	    str += "                 "[len..];
-	 }
-	 str += progname;
-	 if (progname != objname) {
-	    len = strlen(progname);
-	    if (len < strlen(objname) && progname == objname[..len - 1]) {
-	       str += " (" + objname[len..] + ")";
-	    } else {
-	       str += " (" + objname + ")";
-	    }
-	 }
-	 send_message(str + "\n");
-	 if (i == 0) {
-	    send_message(error + "\nObject: " + objname + ", program: " +
-	       progname + ", line " + line + "\n");
-	    if (this_user()) {
-	       player = this_user()->query_player();
-	       if (player) {
-		  player->write(error + "\nObject: " + objname + 
+         progname = trace[i][1];
+         func = trace[i][2];
+         objname = trace[i][0];
+         line = trace[i][3];
+         if (line == 0) {
+            str = "    ";
+         } else {
+            str = "    " + line;
+            str = str[strlen(str) - 4..];
+         }
+         str += " " + func + " ";
+         len = strlen(func);
+         if (len < 17) {
+            str += "                 "[len..];
+         }
+         str += progname;
+         if (progname != objname) {
+            len = strlen(progname);
+            if (len < strlen(objname) && progname == objname[..len - 1]) {
+               str += " (" + objname[len..] + ")";
+            } else {
+               str += " (" + objname + ")";
+            }
+         }
+         send_message(str + "\n");
+         if (i == 0) {
+            send_message(error + "\nObject: " + objname + ", program: " +
+               progname + ", line " + line + "\n");
+            if (this_user()) {
+               player = this_user()->query_player();
+               if (player) {
+                  player->write(error + "\nObject: " + objname + 
                      ", program: " + progname + ", line " + line + "\n");
-	       }
-	    }
-	 }
+               }
+            }
+         }
       }
    }
 }
@@ -735,11 +735,11 @@ int runtime_rlimits(object obj, int stack, int ticks) {
       case "kernel":
       case "sys":
       case "daemons":
-	 return 1;
-	 break;
+         return 1;
+         break;
       default:
-	 message("runtime rlimits denied for " + object_name(obj) + "\n");
-	 break;
+         message("runtime rlimits denied for " + object_name(obj) + "\n");
+         break;
    }
 }
 

@@ -55,35 +55,35 @@ void dispatch_event(string name, object * obs, int *counters, int id,
       /* Go ahead and dispatch for the next one to make sure all get the event
          in case of errors */
       guard_handle =
-	 call_out("dispatch_event", 0, name, obs, counters, id, args);
+         call_out("dispatch_event", 0, name, obs, counters, id, args);
    } else {
       guard_handle = 0;
    }
 
    rlimits(MAX_DEPTH; -1) {
       while ((ticks_used < (MAX_TICKS) / 50) && (i <= max_i)) {
-	 counters[0] = i + 1;
+         counters[0] = i + 1;
 
-	 rlimits(MAX_DEPTH; MAX_TICKS) {
-	    if (obs[i]) {
-	       if (sizeof(args) > 0) {
-		  call_other(obs[i], "event_" + name, args);
-	       } else {
-		  call_other(obs[i], "event_" + name);
+         rlimits(MAX_DEPTH; MAX_TICKS) {
+            if (obs[i]) {
+               if (sizeof(args) > 0) {
+                  call_other(obs[i], "event_" + name, args);
+               } else {
+                  call_other(obs[i], "event_" + name);
                }
-	    }
-	    ticks_used += (MAX_TICKS - REMAINING_TICKS);
-	 }
-	 i++;
+            }
+            ticks_used += (MAX_TICKS - REMAINING_TICKS);
+         }
+         i++;
       }
    }
    if (guard_handle && (counters[0] > counters[1])) {
       DB("dispatch: " + name + " (" + id + ") : finished with " + (i) +
-	 " out of " + (max_i + 1) + " subscribers, removing guard call_out.");
+         " out of " + (max_i + 1) + " subscribers, removing guard call_out.");
       remove_call_out(guard_handle);
    } else {
       DB("dispatch: " + name + " (" + id + ") : suspending, next subscriber: " +
-	 (counters[0] + 1) + " out of " + (counters[1] + 1));
+         (counters[0] + 1) + " out of " + (counters[1] + 1));
    }
 }
 

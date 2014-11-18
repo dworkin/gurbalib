@@ -3,7 +3,6 @@
 /* uncomment the line below to get even more debug output.. */
 /* #define DEBUG_STACK_SECURITY_DEEP */
 
-
 #include <trace.h>
 #include <tlsvar.h>
 #include <privileges.h>
@@ -224,20 +223,20 @@ string owner_file(string file) {
 
    switch (parts[0]) {
       case "kernel":
-	 return "kernel";
-	 break;
+         return "kernel";
+         break;
       case "":
       case "sys":
       case "logs":
-	 return "system";
-	 break;
+         return "system";
+         break;
       case "daemons":
       case "std":
       case "data":
       case "cmds":
       case "pub":
-	 return "game";
-	 break;
+         return "game";
+         break;
       case "wiz":
          if (sizeof(parts) > 1 && query_wizard(parts[1])) {
             return parts[1];
@@ -384,15 +383,15 @@ int validate_stack(string priv, varargs int unguarded) {
       funname = stack[i][TRACE_FUNCTION];
 
       if (unguarded || ((funname == "unguarded")
-	    && (sscanf(progname, "/kernel/lib/auto%*s")))) {
-	 unguarded++;
+         && (sscanf(progname, "/kernel/lib/auto%*s")))) {
+         unguarded++;
       }
 
       if (cache[objname]) {
-	 opriv = cache[objname];
+         opriv = cache[objname];
       } else {
-	 opriv = determine_obj_privs(objname);
-	 cache[objname] = opriv;
+         opriv = determine_obj_privs(objname);
+         cache[objname] = opriv;
       }
 
       ppriv = determine_program_privs(progname);
@@ -403,11 +402,11 @@ int validate_stack(string priv, varargs int unguarded) {
       DBD("frame " + i + ": privs    : " + opriv + "\n");
 
       if (!validate_privilege(ppriv, priv)) {
-	 deny++;
+         deny++;
       }
 
       if (!validate_privilege(opriv, priv)) {
-	 deny++;
+         deny++;
       }
    }
    DRIVER->set_tlvar(TLS_CACHE,cache);
@@ -441,30 +440,30 @@ string query_read_priv(string file) {
     */
    switch (parts[0]) {
       case "kernel":
-	 if (sizeof(parts) > 1 && parts[1] == "data") {
-	    return owner_file(file);
-	 }
-	 /* fall through, so no I didn't forget a break here */
+         if (sizeof(parts) > 1 && parts[1] == "data") {
+            return owner_file(file);
+         }
+         /* fall through, so no I didn't forget a break here */
       case "domains":
-	 if (sizeof(parts) > 2 && parts[2] == "data") {
-	    return owner_file(file);
-	 }
-	 break;
+         if (sizeof(parts) > 2 && parts[2] == "data") {
+            return owner_file(file);
+         }
+         break;
       case "data":
-	 return owner_file(file);
-	 break;
+         return owner_file(file);
+         break;
       case "daemons":
       case "sys":
-	 if ((sizeof(parts) > 1 && parts[1] == "data") || (sizeof(parts) > 2
-	       && parts[2] == "data")) {
-	    return owner_file(file);
-	 }
-	 break;
+         if ((sizeof(parts) > 1 && parts[1] == "data") || (sizeof(parts) > 2
+            && parts[2] == "data")) {
+            return owner_file(file);
+         }
+         break;
       case "wiz":
-	 if (sizeof(parts) > 1) {
-	    return owner_file(file);
-	 }
-	 break;
+         if (sizeof(parts) > 1) {
+            return owner_file(file);
+         }
+         break;
    }
 
    return "*";

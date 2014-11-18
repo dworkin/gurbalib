@@ -41,10 +41,11 @@ void create(void) {
    if (file_exists(DATAFILE)) {
       restore_me();
    } else {
- permanent = (["admin": 3, "announce": 4, "dchat": 2, "dgd": 2, "dstest": 2, "fighter": 1, "gossip": 1, "icode": 2, "igossip": 2, "wiz":2,]);
- colors = (["admin": "%^BLUE%^", "announce": "%^CYAN%^", "dchat": "%^CYAN%^", "dgd": "%^BLUE%^", "fighter": "%^BLUE%^", "gossip": "%^GREEN%^", "icode": "%^RED%^", "igossip": "%^GREEN%^", "imud_code": "%^YELLOW%^", "imud_gossip": "%^GREEN%^", "inews": "%^RED%^", "wiz":"%^RED%^"]);
- imud = (["dchat": "dchat", "dgd": "dgd", "imud_code": "icode", "imud_dgd": "idgd", "imud_gossip": "igossip", "inews":"inews"]);
- guilds = (["fighter":"fighter"]);
+
+      permanent = (["admin": 3, "announce": 4, "dchat": 2, "dgd": 2, "dstest": 2, "fighter": 1, "gossip": 1, "icode": 2, "igossip": 2, "wiz":2,]);
+      colors = (["admin": "%^BLUE%^", "announce": "%^CYAN%^", "dchat": "%^CYAN%^", "dgd": "%^BLUE%^", "fighter": "%^BLUE%^", "gossip": "%^GREEN%^", "icode": "%^RED%^", "igossip": "%^GREEN%^", "imud_code": "%^YELLOW%^", "imud_gossip": "%^GREEN%^", "inews": "%^RED%^", "wiz":"%^RED%^"]);
+      imud = (["dchat": "dchat", "dgd": "dgd", "imud_code": "icode", "imud_dgd": "idgd", "imud_gossip": "igossip", "inews":"inews"]);
+      guilds = (["fighter":"fighter"]);
       save_me();
    }
 
@@ -68,8 +69,9 @@ void chan_set_flag(string chan, int flag) {
       return;
    }
    channels[chan] = flag;
-   if (permanent[chan])
+   if (permanent[chan]) {
       permanent[chan] = channels[chan];
+   }
 
    save_me();
 }
@@ -155,17 +157,11 @@ int chan_join(string chan, object ob) {
    }
 
    if (!listeners[chan]) {
-      listeners[chan] = ( {
-         }
-      );
+      listeners[chan] = ({ });
    } else {
-      listeners[chan] -= ( {
-         ob}
-      );
+      listeners[chan] -= ({ ob });
    }
-   listeners[chan] += ( {
-      ob}
-   );
+   listeners[chan] += ({ ob });
    write("Subscribed to " + chan + ".\n");
 
    this_player()->add_channel(chan);
@@ -235,16 +231,15 @@ void add_history(string channel, string who, string message) {
       temp = ({ });
    }
    if (sizeof(temp) >= MAX_HIST_SIZE) {
-      temp = temp[sizeof(temp) -
-			(MAX_HIST_SIZE - 1)..sizeof(temp) - 1];
+      temp = temp[sizeof(temp) - (MAX_HIST_SIZE - 1)..sizeof(temp) - 1];
    }
 
    temp += ({ "%^CHAN_DATE%^[" + (ctime(time()) [4..18]) + "]%^RESET%^" +
-         "[%^CHAN_USER%^" + who + "]%^RESET%^ " +
-         "%^CHAN_TEXT%^" + message + "%^RESET%^" });
+      "[%^CHAN_USER%^" + who + "]%^RESET%^ " +
+      "%^CHAN_TEXT%^" + message + "%^RESET%^" });
 
    history[channel] = nil;
- 	history += ([channel:temp]);
+   history += ([channel:temp]);
 
    return;
 }
@@ -277,9 +272,7 @@ int get_num_listeners(string channel) {
    users = listeners[channel];
 
    if (users) {
-      users -= ( {
-         nil}
-      );
+      users -= ({ nil });
       x = sizeof(users);
       return x;
    }
@@ -342,15 +335,12 @@ void chan_send_string(string chan, string from, string str,
    users = listeners[chan];
 
    if (users) {
-      users -= ( {
-         nil}
-      );
+      users -= ({ nil });
       for (i = 0, sz = sizeof(users); i < sz; i++) {
          if (!users[i]->query_ignored(from)) {
             users[i]->message(
                (users[i]->query_env("imud_timestamp") ? "%^CHAN_DATE%^[" +
-                  (ctime(time())[11..18]) + "]%^RESET%^" : "")
-               + line, 1);
+               (ctime(time())[11..18]) + "]%^RESET%^" : "") + line, 1);
          }
       }
    }
@@ -422,8 +412,7 @@ void chan_emote(string chan, string what) {
    }
 
    if (EMOTE_D->is_emote(cmd)) {
-      string *rules;
-      string rule;
+      string rule, *rules;
       object target;
 
       rules = EMOTE_D->query_rules(cmd);
@@ -473,16 +462,12 @@ void chan_emote(string chan, string what) {
       } else if (rule == "OBJ") {
          result =
             compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
-            nil, ( {
-               target}
-            ));
+            nil, ({ target }));
          what = result[2];
       } else if (rule == "STR") {
          result =
             compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
-            nil, ( {
-               arg}
-            ));
+            nil, ({ arg }));
          what = result[2];
       } else {
          if (member_array("", rules) != -1) {

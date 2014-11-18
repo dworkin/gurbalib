@@ -1,6 +1,6 @@
-string *a_banned_sites;		/*   A class subnet 1.*.*.*    */
-string *b_banned_sites;		/*   B class subnet 1.2.*.*    */
-string *c_banned_sites;		/*   C class subnet 1.2.3.*    */
+string *a_banned_sites; /*   A class subnet 1.*.*.*    */
+string *b_banned_sites; /*   B class subnet 1.2.*.*    */
+string *c_banned_sites; /*   C class subnet 1.2.3.*    */
 
 void create(void) {
    mixed *list;
@@ -171,37 +171,37 @@ int siteban(string str) {
    if ((tmp[1] == "new") && (tmp[2] == "new") && (tmp[3] == "new")) {
       /* A class siteban */
       write_file("/data/banned/a/" + str,
-	 ctime(time()) + "\tnewban by:  " + this_user()->query_name() + "\n");
+         ctime(time()) + "\tnewban by:  " + this_user()->query_name() + "\n");
       flag = 1;
       a_banned_sites += ({ str });
    } else if ((tmp[2] == "new") && (tmp[3] == "new")) {
       /* B class siteban */
       write_file("/data/banned/b/" + str,
-	 ctime(time()) + "\tnewban by:  " + this_user()->query_name() + "\n");
+         ctime(time()) + "\tnewban by:  " + this_user()->query_name() + "\n");
       flag = 1;
       b_banned_sites += ({ str });
    } else if (tmp[3] == "new") {
       /* C class siteban */
       write_file("/data/banned/c/" + str,
-	 ctime(time()) + "\tnewban by:  " + this_user()->query_name() + "\n");
+         ctime(time()) + "\tnewban by:  " + this_user()->query_name() + "\n");
       flag = 1;
       c_banned_sites += ({ str });
    } else if ((tmp[1] == "*") && (tmp[2] == "*") && (tmp[3] == "*")) {
       /* A class siteban */
       write_file("/data/banned/a/" + str,
-	 ctime(time()) + "\tby:  " + this_user()->query_name() + "\n");
+         ctime(time()) + "\tby:  " + this_user()->query_name() + "\n");
       flag = 1;
       a_banned_sites += ({ str });
    } else if ((tmp[2] == "*") && (tmp[3] == "*")) {
       /* B class siteban */
       write_file("/data/banned/b/" + str,
-	 ctime(time()) + "\tby:  " + this_user()->query_name() + "\n");
+         ctime(time()) + "\tby:  " + this_user()->query_name() + "\n");
       flag = 1;
       b_banned_sites += ({ str });
    } else if (tmp[3] == "*") {
       /* C class siteban */
       write_file("/data/banned/c/" + str,
-	 ctime(time()) + "\tby:  " + this_user()->query_name() + "\n");
+         ctime(time()) + "\tby:  " + this_user()->query_name() + "\n");
       flag = 1;
       c_banned_sites += ({ str });
    } else {

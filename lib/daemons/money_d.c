@@ -3,11 +3,11 @@
 mixed *currencies;
 
 void create(void) {
-   currencies = ( {
-	 ( { "ducat", 1 } ), 	/* The base coin */
-         ( { "royal", 10 } ), 	/* royal = 10 ducat's */
-         ( { "crown", 100 } )
-   } );
+   currencies = ({
+      ({ "ducat", 1 }),    /* The base coin */
+      ({ "royal", 10 }),   /* royal = 10 ducat's */
+      ({ "crown", 100 })
+   });
 }
 
 int is_currency(string coin) {
@@ -15,7 +15,7 @@ int is_currency(string coin) {
 
    for (i = 0; i < sizeof(currencies); i++) {
       if (currencies[i][0] == lowercase(coin)) {
-	 return 1;
+         return 1;
       }
    }
    return 0;
@@ -26,7 +26,7 @@ int query_value(string coin) {
 
    for (i = 0; i < sizeof(currencies); i++) {
       if (currencies[i][0] == lowercase(coin)) {
-	 return currencies[i][1];
+         return currencies[i][1];
       }
    }
    return 0;
