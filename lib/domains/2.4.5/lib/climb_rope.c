@@ -1,4 +1,4 @@
-int tied_rope;	/* Flag to note if the rope is here and tied or not. */
+int tied_rope;  /* Flag to note if the rope is here and tied or not. */
 string *rooms_to_notify;
 
 void set_rooms_to_notify(string * str) {

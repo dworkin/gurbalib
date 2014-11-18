@@ -4,6 +4,7 @@ inherit DIR + "/lib/monk";
 
 void setup(void) {
    ::setup();
+
    set_name("monk");
    set_short("A monk");
    set_long("The young monk stands here looking faithful. " +

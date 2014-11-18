@@ -3,7 +3,7 @@
 inherit DIR + "/lib/helmet";
 
 void setup(void) {
-	::setup();
+   ::setup();
    set_adj("small", "round");
    set_short("A small rusty helmet");
    set_long("A small rusty helmet, it looks like it has seen better days.  " +

@@ -33,15 +33,15 @@ int break_branch(string str) {
 
    if (str == "branch") {
       if (this_player()->is_completed_quest("NewbieVille")) {
-	 write("There are no branches left on the tree that you can reach.\n");
+         write("There are no branches left on the tree that you can reach.\n");
       } else {
-	 this_player()->query_environment()->tell_room(this_player(),
-	    this_player()->query_Name() +
-	    " breaks a branch off of the tree.\n");
-	 write("You break a branch off of the tree.\n");
-	 obj = clone_object(DIR + "/obj/stick.c");
-	 obj->move(this_player());
-	 obj->setup();
+         this_player()->query_environment()->tell_room(this_player(),
+            this_player()->query_Name() +
+            " breaks a branch off of the tree.\n");
+         write("You break a branch off of the tree.\n");
+         obj = clone_object(DIR + "/obj/stick.c");
+         obj->move(this_player());
+         obj->setup();
       }
 
       return 1;
@@ -74,7 +74,7 @@ void enter_hole(void) {
          write("You wriggle through the hole.");
          this_object()->tell_room(this_player(),
             this_player()->query_Name() + " squeezes through the hole.\n");
-	 this_player()->do_look(0);
+         this_player()->do_look(0);
       }
    }
    return;

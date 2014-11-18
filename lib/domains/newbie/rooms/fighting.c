@@ -25,11 +25,11 @@ int do_pick(string arg) {
       object obj;
 
       write("As you reach for the flower, a giant bunny rabbit appears, " +
-	 "blocking your way.\n");
+         "blocking your way.\n");
       this_player()->query_environment()->tell_room(this_player(),
-	 this_player()->query_Name() +
-	 " reaches for the flower in the center of the room.\n" +
-	 "All of a sudden a giant bunny rabbit appears blocking their path.\n");
+         this_player()->query_Name() +
+         " reaches for the flower in the center of the room.\n" +
+         "All of a sudden a giant bunny rabbit appears blocking their path.\n");
 
       obj = clone_object(DIR + "/monsters/bunny.c");
       obj->setup();

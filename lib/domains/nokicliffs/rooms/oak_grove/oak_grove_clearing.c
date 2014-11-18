@@ -7,7 +7,7 @@ void setup(void) {
 
    set_short("A clearing in the oak grove pocket dimension");
    set_long("The long description depends from the status " +
-		"of the quest.");
+      "of the quest.");
 
    set_exits(([
       "south" : DIR + "/rooms/oak_grove/oak_grove_middle.c"

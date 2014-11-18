@@ -7,21 +7,22 @@ string get_color(void) {
 
    switch(random(5)) {
       case 0:
-	return "red";
+         return "red";
       case 1:
-        return "blue";
+         return "blue";
       case 2:
-        return "white";
+         return "white";
       case 3:
-        return "black";
+         return "black";
       default:
-        return "orange";
+         return "orange";
    }
 }
 
 int set_color(string str) {
-   if (!str || str == "") 
+   if (!str || str == "") {
       str = get_color();
+   }
 
    set_adj(str);
    set_short("A " + str + " bandana");

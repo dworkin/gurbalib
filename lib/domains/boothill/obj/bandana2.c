@@ -10,23 +10,24 @@ string get_color "Return a random color."
    x = random(5);
    switch(x) {
       case 0:
-	return "red";
+         return "red";
       case 1:
-        return "blue";
+         return "blue";
       case 2:
-        return "white";
+         return "white";
       case 3:
-        return "black";
+         return "black";
       default:
-        return "orange";
+         return "orange";
    }
 }
 
 int set_color "Set the color of your bandana.  If no string is given " +
    "pick a random color"
    (string str "The name of the color you are setting.") {
-   if (!str || str == "") 
+   if (!str || str == "") {
       str = get_color();
+   }
 
    set_adj(str);
    set_short("A " + str + " bandana");

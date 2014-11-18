@@ -22,12 +22,12 @@ void setup(void) {
 int do_push(string arg) {
    if (arg == "button") {
       if (this_player()->is_completed_quest("NewbieVille")) {
-	 write("The button is already depressed.\n");
+         write("The button is already depressed.\n");
       } else {
-	 this_player()->add_completed_quest("NewbieVille");
-	 this_player()->increase_expr(200);
-	 write("Congratulations!!! You have just completed the NewbieVille " +
-	    "Quest which earns you 200 exp!\n");
+         this_player()->add_completed_quest("NewbieVille");
+         this_player()->increase_expr(200);
+         write("Congratulations!!! You have just completed the NewbieVille " +
+            "Quest which earns you 200 exp!\n");
       }
       return 1;
    } else {

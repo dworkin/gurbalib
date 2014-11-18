@@ -11,5 +11,4 @@ void setup(void) {
    add_exit("south", DIR + "/rooms/maze1/maze4.c");
 
    set_objects (DIR + "/obj/leather.c");
-
 }

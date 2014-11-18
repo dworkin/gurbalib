@@ -19,14 +19,15 @@ void set_name(string name) {
 }
 
 void corpse_destruct(void) {
-	int i, dim;
-	object *inv;
-	inv = query_inventory();
-	for (i = 0, dim = sizeof(inv); i < dim; i++) {
-		inv[i]->move(query_environment());
-	}
-	query_environment()->tell_room(nil, "Ash to ash, dust to dust.");
-	destruct();
+   int i, dim;
+   object *inv;
+
+   inv = query_inventory();
+   for (i = 0, dim = sizeof(inv); i < dim; i++) {
+      inv[i]->move(query_environment());
+   }
+   query_environment()->tell_room(nil, "Ash to ash, dust to dust.");
+   destruct();
 }
 
 void decompose(void) {
@@ -36,6 +37,6 @@ void decompose(void) {
    }
 
    set_short("The somewhat decayed corpse of " + orig_name);
-	query_environment()->tell_room(nil, "The corpse of " +
-		orig_name + " decomposes a bit.");
+   query_environment()->tell_room(nil, "The corpse of " +
+      orig_name + " decomposes a bit.");
 }

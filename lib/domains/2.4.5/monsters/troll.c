@@ -24,7 +24,7 @@ void do_extra_actions() {
    if (count >= INTERVAL) {
       switch(random(2)) {
          case 0:
-	    respond("say Mumble...");
+            respond("say Mumble...");
             break;
          case 1:
             respond("say Your mother was a %&#$(G%#!");

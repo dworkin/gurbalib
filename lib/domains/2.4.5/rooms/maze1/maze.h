@@ -15,7 +15,7 @@ void goto_the(string location, string dir) {
    if (error) {
       if (query_wizard(this_player()) == 1) {
          write("\nConstruction blocks your path.\n" + "Error: " + error + "\n");
-	 return;
+         return;
       } else {
          write ("\nConstruction blocks your path.\n");
       }

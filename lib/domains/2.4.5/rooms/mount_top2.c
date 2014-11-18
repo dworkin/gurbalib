@@ -4,10 +4,11 @@ inherit "/std/room";
 
 #ifdef USE_NOKICLIFFS
 string query_long() {
-	string str;
-	str = ::query_long();
-	str += " To the east the legendary Noki Cliffs loom large.";
-	return str;
+   string str;
+
+   str = ::query_long();
+   str += " To the east the legendary Noki Cliffs loom large.";
+   return str;
 }
 #endif
 
@@ -21,7 +22,7 @@ void setup(void) {
       "The air here is fresh and clean.");
 
 #ifdef USE_NOKICLIFFS
-	add_exit("east", "/domains/nokicliffs/rooms/start.c");
+   add_exit("east", "/domains/nokicliffs/rooms/start.c");
 #endif
    add_exit("west", DIR + "/rooms/mount_top.c");
 }

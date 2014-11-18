@@ -15,10 +15,10 @@ void setup(void) {
    add_block("north");
 
    if (clone_num() != 0) {
-      set_actions(40, ( {
-	    "say Surely you seek the path of a fighter!",
-	    "smile", "emote waves his sword around a bit while whistling.", 
-       } ));
+      set_actions(40, ({
+         "say Surely you seek the path of a fighter!",
+         "smile", "emote waves his sword around a bit while whistling.", 
+       }));
    }
 
    add_pattern("%s smiles.", "smile $1");

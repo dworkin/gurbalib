@@ -71,7 +71,7 @@ string *show_emote(string str, int width) {
             lines += ({ line });
             line = "   " + rules[i] + ", ";
          } else {
-	    line += rules[i] + ", ";
+            line += rules[i] + ", ";
          }
       }
       lines += ( {line } );
@@ -83,9 +83,9 @@ string *show_emote(string str, int width) {
       rules = query_rules(str);
 
       while (sizeof(rules) > 0) {
-	 lines += 
+         lines += 
             ( { rules[0] + " : \"" + query_emote(str, rules[0]) + "\"" } );
-	 rules -= ( { rules[0] } );
+         rules -= ( { rules[0] } );
       }
    } else {
       lines += ( { "No such emote. \n" } );

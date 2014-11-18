@@ -8,7 +8,7 @@ int buying_beer;
 #define INTERVAL 5
 
 void setup() {
-	buying_beer = 0;
+   buying_beer = 0;
    set_name("beggar");
    set_gender( "male" );
    set_short("A beggar");
@@ -44,29 +44,29 @@ void do_extra_actions() {
  * I think.. :)
  */
    if (buying_beer == 0 && this_object()->query_total_money() > 12) {
-		buying_beer = 1;
-		call_out("go_east", 5);
+      buying_beer = 1;
+      call_out("go_east", 5);
    }
 }
 
 static void go_east() {
-	respond("go east");
-	call_out("buy_beer", 5);
+   respond("go east");
+   call_out("buy_beer", 5);
 }
 
 static void buy_beer() {
-	respond("buy beer");
-	call_out("drink_beer", 5);
+   respond("buy beer");
+   call_out("drink_beer", 5);
 }
 
 static void drink_beer() {
-	respond("drink beer");
-	call_out("go_west", 5);
+   respond("drink beer");
+   call_out("go_west", 5);
 }
 
 static void go_west() {
-	respond("go west");
-	buying_beer = 0;
+   respond("go west");
+   buying_beer = 0;
 }
 
 void outside_message(string str) {

@@ -33,7 +33,7 @@ void outside_message(string str) {
    int i, dim, is_balanced;
 
    str = ANSI_D->strip_colors(str);
-	
+
    if (sscanf(str, "%s enters.", who) == 1) {
       player = this_object()->query_environment()->present(who);
       balanced = balance_check(player);

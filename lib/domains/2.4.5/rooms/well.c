@@ -52,9 +52,9 @@ string do_look_door() {
 int pull_lever(string str) {
    object traproom;
 
-	if (empty_str(str) || str != "lever") {
-		return 0;
-	}
+   if (empty_str(str) || str != "lever") {
+      return 0;
+   }
 
    traproom = load_traproom();
 
@@ -72,8 +72,8 @@ int pull_lever(string str) {
       if (traproom->query_trap()) {
          tell_room(nil, "A bolt slides into place.\n");
       } else {
-			tell_room(nil, "A bolt slides out of place.\n");
-		}
+         tell_room(nil, "A bolt slides out of place.\n");
+      }
       return 1;
    }
    return 0;
@@ -96,13 +96,13 @@ int do_open(string str) {
    object traproom;
 
    if (str == "door") {
-	   traproom = load_traproom();
-		if (!traproom || traproom->query_trap()) {
-			write("The door is already open.");
-			tell_room(this_player(), this_player()->query_Name() + " tugs " +
-				"at the open door.\n");
-			return 1;
-		}
+      traproom = load_traproom();
+      if (!traproom || traproom->query_trap()) {
+         write("The door is already open.");
+         tell_room(this_player(), this_player()->query_Name() + " tugs " +
+            "at the open door.\n");
+         return 1;
+      }
       write("The door doesn't seem to work that way.\n");
       tell_room(this_player(), this_player()->query_Name() +
          " looks at the door in confusion.\n");
