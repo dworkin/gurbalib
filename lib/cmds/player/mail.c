@@ -107,34 +107,34 @@ void verify_to(string str) {
    } else {
       error = 0;
       if (str == "all") {
-	 if (query_admin(this_player())) {
-	    to = USER_D->list_all_users();
-	 } else {
-	    write("You are not an admin you may not send an " +
-	       "email to everyone.\n");
-	    return;
-	 }
+         if (query_admin(this_player())) {
+            to = USER_D->list_all_users();
+         } else {
+            write("You are not an admin you may not send an " +
+               "email to everyone.\n");
+            return;
+         }
       } else {
-	 verify_to(str);
-	 x = 0;
-	 max = sizeof(to);
-	 while (x < max) {
-	    if (USER_D->player_exists(to[x])) {
-	       x = x + 1;
-	    } else {
-	       write("invalid user: to[x], removing...\n");
-	       to[x] = "";
-	       error = 1;
-	    }
-	 }
+         verify_to(str);
+         x = 0;
+         max = sizeof(to);
+         while (x < max) {
+            if (USER_D->player_exists(to[x])) {
+               x = x + 1;
+            } else {
+               write("invalid user: to[x], removing...\n");
+               to[x] = "";
+               error = 1;
+            }
+         }
       }
       if (error) {
-	 write("You had some invalid users.\nSending mail to : ");
-	 x = 0;
-	 while (x < max) {
-	    write(to[x] + " ");
-	 }
-	 continue_mail("");
+         write("You had some invalid users.\nSending mail to : ");
+         x = 0;
+         while (x < max) {
+            write(to[x] + " ");
+         }
+         continue_mail("");
       }
    }
 }
@@ -157,14 +157,14 @@ void view_mailbox(string str) {
       verify_to("");
    } else {
       if (sscanf(str, "%s %s", cmd, what) != 2) {
-	 show_menu();
-	 return;
+         show_menu();
+         return;
       }
       if ((cmd == "d") || (cmd == "del") || (cmd == "delete")) {
-	 delete_message(what);
+         delete_message(what);
       }
       if ((cmd == "m") || (cmd == "mail")) {
-	 verify_to(what);
+         verify_to(what);
       }
    }
 
@@ -176,7 +176,7 @@ void view_mailbox(string str) {
 
    for (x = 0; x < max; x++) {
       write(x + "\t" + messages[x]->query_subject() + "(" +
-	 messages[x]->query_from() + ")\n");
+         messages[x]->query_from() + ")\n");
    }
    if (max < 1) {
       write("You have no mail!\n");
@@ -195,8 +195,8 @@ static void main(string str) {
       show_menu();
    } else {
       if (sscanf(str, "-%s", str)) {
-	 usage();
-	 return;
+         usage();
+         return;
       }
 
       verify_to(str);

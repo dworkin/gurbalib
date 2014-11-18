@@ -12,8 +12,8 @@ void usage(string str) {
    if (str != "") {
       spellpath = find_spell(str);
       if (spellpath) {
-	 call_other(spellpath, "usage");
-	 return;
+         call_other(spellpath, "usage");
+         return;
       }
    }
 
@@ -57,7 +57,7 @@ static void list_spells(void) {
       x = strlen(files[i]) - 3;
       name = files[i][..x];
       if (has_spell(name)) {
-	 write("\t" + name + "\n");
+         write("\t" + name + "\n");
       }
    }
 }

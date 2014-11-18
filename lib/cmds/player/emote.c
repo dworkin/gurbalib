@@ -40,9 +40,9 @@ static void main(string str) {
 
    if (!this_player()->is_player() || query_wizard(this_player())) {
       this_player()->query_environment()->tell_room(nil,
-	 this_player()->query_Name() + " " + str);
+      this_player()->query_Name() + " " + str);
    } else {
       this_player()->query_environment()->tell_room(nil, "-> " +
-	 this_player()->query_Name() + " " + str);
+         this_player()->query_Name() + " " + str);
    }
 }

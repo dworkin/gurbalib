@@ -43,7 +43,7 @@ static void do_look_obj(object obj) {
       write(" \nIt contains:\n");
 
       for (i = 0; i < sizeof(objs); i++) {
-	 write("  " + objs[i]->query_short() + "\n");
+         write("  " + objs[i]->query_short() + "\n");
       }
    }
 }
@@ -74,13 +74,13 @@ static void do_look_liv(object obj) {
 
    for (i = 0; i < sizeof(objs); i++) {
       if (objs[i]->is_worn()) {
-	 write("  " + objs[i]->query_short() + " %^CYAN%^[" +
-	    objs[i]->query_wear_position() + "]%^RESET%^\n");
-	 flag = 1;
+         write("  " + objs[i]->query_short() + " %^CYAN%^[" +
+            objs[i]->query_wear_position() + "]%^RESET%^\n");
+         flag = 1;
       } else if (objs[i]->is_wielded()) {
-	 write("  " + objs[i]->query_short() + " %^CYAN%^[" +
-	    objs[i]->query_wield_position() + "]%^RESET%^\n");
-	 flag = 1;
+         write("  " + objs[i]->query_short() + " %^CYAN%^[" +
+            objs[i]->query_wield_position() + "]%^RESET%^\n");
+         flag = 1;
       }
    }
    if (flag == 0) {

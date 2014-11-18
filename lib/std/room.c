@@ -397,7 +397,6 @@ void message_room(object originator, string str) {
    }
 }
 
-/* XXX handle darkness. */
 void tell_room(object originator, string str, varargs mixed obj ...) {
    int i;
    object *inventory;

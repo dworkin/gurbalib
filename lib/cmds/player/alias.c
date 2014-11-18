@@ -1,29 +1,29 @@
 inherit M_COMMAND;
 
 void usage(void) {
-    string *lines;
+   string *lines;
 
-    lines = ({ "Usage: alias [-h] [ALIAS COMMAND]" });
-    lines += ({ "" });
-    lines += ({ "Allows you to create an alias for a command." });
-    lines += ({ "If no alias is given show a list of your current aliases." });
-    lines += ({ "If no command is given delete the specified alias." });
-    lines += ({ "" });
-    lines += ({ "Options:" });
-    lines += ({ "\t-h\tHelp, this usage message." });
-    lines += ({ "\t-r\tRemove the specified ALIAS." });
-    lines += ({ "Examples:" });
-    lines += ({ "\talias ga get all" });
-    lines += ({ "\talias da drop all" });
-    lines += ({ "\talias da" });
-    lines += ({ "See also:" });
-    lines += ({ "\tansi, chfn, clear, describe, ignore, passwd" });
+   lines = ({ "Usage: alias [-h] [ALIAS COMMAND]" });
+   lines += ({ "" });
+   lines += ({ "Allows you to create an alias for a command." });
+   lines += ({ "If no alias is given show a list of your current aliases." });
+   lines += ({ "If no command is given delete the specified alias." });
+   lines += ({ "" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\t-r\tRemove the specified ALIAS." });
+   lines += ({ "Examples:" });
+   lines += ({ "\talias ga get all" });
+   lines += ({ "\talias da drop all" });
+   lines += ({ "\talias da" });
+   lines += ({ "See also:" });
+   lines += ({ "\tansi, chfn, clear, describe, ignore, passwd" });
 
-    if (query_admin(this_player())) {
-	lines += ({ "\tcmdadm, coloradm, rehash" });
-    }
+   if (query_admin(this_player())) {
+      lines += ({ "\tcmdadm, coloradm, rehash" });
+   }
 
-    this_player()->more(lines);
+   this_player()->more(lines);
 }
 
 void show_aliases(void) {
@@ -72,8 +72,8 @@ static void main(string str) {
             return;
          }
 
-	 usage();
-	 return;
+         usage();
+         return;
       }
 
       /* Check for invalid input */

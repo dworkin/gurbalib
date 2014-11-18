@@ -32,8 +32,8 @@ void usage(void) {
    get the correct conjugation, but it works.*/
 static void main(string str) {
    int i;
-   string me;			/*what I, the one who's talking, sees */
-   string you;			/*what all the others in the room sees */
+   string me; 	                /*what I, the one who's talking, sees */
+   string you;                  /*what all the others in the room sees */
 
    if (empty_str(str)) {
       usage();
@@ -48,46 +48,47 @@ static void main(string str) {
 
    if (!this_environment()) {
       write("You have no environment, so there is no way to " +
-	 "say things either.");
+         "say things either.");
       return;
    }
 
    for (i = strlen(str) - 1; i > 0; i--) {
-      if (str[i] != ' ')
-	 break;
+      if (str[i] != ' ') {
+         break;
+      }
       str = str[0..(i - 1)];
    }
 
+   /*default values */
    me = " say: ";
-   you = " says: ";		/*default values */
+   you = " says: ";
 
    if (str != "") {
-
       if ((str[strlen(str) - 1]) == '!') {
-	 me = " say excitedly: ";
-	 you = " says excitedly: ";
-	 if ((str[strlen(str) - 2]) == '!') {
-	    if ((str[strlen(str) - 3]) == '!') {
-	       me = " shout: ";
-	       you = " shouts: ";
-	    } else {
-	       me = " yell: ";
-	       you = " yells: ";
-	    }
-	 }
+         me = " say excitedly: ";
+         you = " says excitedly: ";
+         if ((str[strlen(str) - 2]) == '!') {
+            if ((str[strlen(str) - 3]) == '!') {
+               me = " shout: ";
+               you = " shouts: ";
+            } else {
+               me = " yell: ";
+               you = " yells: ";
+            }
+         }
       }
 
       if ((str[strlen(str) - 1]) == '.') {
-	 if ((str[strlen(str) - 2]) == '.') {
-	    if ((str[strlen(str) - 3]) == '.') {
-	       me = " trail off: ";
-	       you = " trails off: ";
-	    }
-	 }
+         if ((str[strlen(str) - 2]) == '.') {
+            if ((str[strlen(str) - 3]) == '.') {
+               me = " trail off: ";
+               you = " trails off: ";
+            }
+         }
       }
 
       switch (str[strlen(str) - 1]) {
-	 case '?':
+         case '?':
 	    me = " ask: ";
 	    you = " asks: ";
 	    break;

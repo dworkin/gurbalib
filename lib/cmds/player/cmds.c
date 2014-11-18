@@ -62,12 +62,12 @@ static void show_cmds(string dir) {
       line = "";
 
       for (colnum = 0; colnum < col; colnum++) {
-	 if (d + colnum < sz) {
-	    line += (names[d + colnum] +
-	       (col == 1 ? " (" + cmds[names[d + colnum]] + ")" : "") +
-	       "                                             " +
-	       "                         ")[0..(70 / col)];
-	 }
+         if (d + colnum < sz) {
+            line += (names[d + colnum] +
+               (col == 1 ? " (" + cmds[names[d + colnum]] + ")" : "") +
+               "                                             " +
+               "                         ")[0..(70 / col)];
+         }
       }
       lines += ( { line } );
    }
@@ -88,42 +88,42 @@ static void main(string str) {
    } else {
       col = 4;
       if (str && (str != "")) {
-	 switch (str) {
-	    case "player":
-	       show_cmds("/cmds/player");
-	       break;
-	    case "verb":
-	       show_cmds("/cmds/verb");
-	       break;
-	    case "wiz":
-	    case "wizard":
-	       if (query_wizard(this_player())) {
-		  show_cmds("/sys/cmds/wiz");
-	       } else {
-		  usage();
-	       }
-	       break;
-	    case "admin":
-	       if (query_admin(this_player())) {
-		  show_cmds("/sys/cmds/admin");
-	       } else {
-		  usage();
-	       }
-	       break;
+         switch (str) {
+            case "player":
+               show_cmds("/cmds/player");
+               break;
+            case "verb":
+               show_cmds("/cmds/verb");
+               break;
+            case "wiz":
+            case "wizard":
+               if (query_wizard(this_player())) {
+                  show_cmds("/sys/cmds/wiz");
+               } else {
+                  usage();
+               }
+               break;
+            case "admin":
+               if (query_admin(this_player())) {
+                  show_cmds("/sys/cmds/admin");
+               } else {
+                  usage();
+               }
+               break;
             case "emote":
             case "emotes":
                lines += EMOTE_D->show_emote("",width);
                break;
             case "fighter":
             case "fighters":
-		  show_cmds("/cmds/guild/fighter");
+               show_cmds("/cmds/guild/fighter");
                break;
-	    default:
-	       usage();
-	       break;
-	 }
-	 this_player()->more(lines);
-	 return;
+            default:
+               usage();
+               break;
+         }
+         this_player()->more(lines);
+         return;
       }
    }
 

@@ -59,7 +59,7 @@ static void main(string str) {
 
    if (!str || (str == "")) {
       subject[player_name] = "[" +
-	 this_player()->query_environment()->file_name() + "]";
+         this_player()->query_environment()->file_name() + "]";
    } else {
       subject[player_name] = str;
    }
@@ -79,25 +79,25 @@ void enter_line(string line) {
    player_name = this_player()->query_Name();
    if ((line != ".") && (line != "**") && (line != "~a")) {
       if (!msg[player_name]) {
-	 msg[player_name] = line + "\n";
+         msg[player_name] = line + "\n";
       } else {
-	 msg[player_name] = msg[player_name] + line + "\n";
+         msg[player_name] = msg[player_name] + line + "\n";
       }
       this_player()->input_to_object(this_object(), "enter_line");
    } else {
       if (line == "~a") {
-	 write(" \nMessage aborted.\n");
+         write(" \nMessage aborted.\n");
       } else {
-	 ob[player_name]->add_message(player_name,
-	    subject[player_name], msg[player_name]);
-	 write(" \nBug report sent! Thank you.\n");
-	 CHANNEL_D->chan_send_string("wiz",
-	    player_name, "sends off a bug report.", 1);
+         ob[player_name]->add_message(player_name,
+            subject[player_name], msg[player_name]);
+         write(" \nBug report sent! Thank you.\n");
+         CHANNEL_D->chan_send_string("wiz",
+            player_name, "sends off a bug report.", 1);
 
       }
       this_player()->set_editing(0);
       this_player()->write_prompt();
       this_environment()->tell_room(this_player(), player_name +
-	 " lets us all know how much the mud sucks.\n");
+         " lets us all know how much the mud sucks.\n");
    }
 }

@@ -110,79 +110,79 @@ static void chan_cmd(string cmd, string chan) {
    switch (cmd) {
       case "join":
       case "on":
-	 CHANNEL_D->chan_join(chan, this_player());
-	 break;
+         CHANNEL_D->chan_join(chan, this_player());
+         break;
       case "leave":
       case "off":
-	 CHANNEL_D->chan_leave(chan, this_player());
-	 break;
+         CHANNEL_D->chan_leave(chan, this_player());
+         break;
       case "new":
-	 CHANNEL_D->chan_new(chan, ALL);
-	 break;
+         CHANNEL_D->chan_new(chan, ALL);
+         break;
       case "admin":
-	 CHANNEL_D->chan_set_flag(chan, ADMIN_ONLY);
-	 break;
+         CHANNEL_D->chan_set_flag(chan, ADMIN_ONLY);
+         break;
       case "wiz":
-	 CHANNEL_D->chan_set_flag(chan, WIZ_ONLY);
-	 break;
+         CHANNEL_D->chan_set_flag(chan, WIZ_ONLY);
+         break;
       case "readonly":
-	 CHANNEL_D->chan_set_flag(chan, READ_ONLY);
-	 break;
+         CHANNEL_D->chan_set_flag(chan, READ_ONLY);
+         break;
       case "permanent":
-	 CHANNEL_D->chan_make_permanent(chan);
-	 break;
+         CHANNEL_D->chan_make_permanent(chan);
+         break;
       case "":
       case "who":
       case "list":
-	 CHANNEL_D->chan_who(chan);
-	 break;
+         CHANNEL_D->chan_who(chan);
+         break;
       case "hist":
       case "history":
-	 CHANNEL_D->show_history(chan);
-	 break;
+         CHANNEL_D->show_history(chan);
+         break;
       case "delete":
-	 break;
+         break;
       case "info":
          CHANNEL_D->show_info(chan);
-	 break;
+         break;
       case "help":
-	 usage();
-	 break;
+         usage();
+         break;
 /* THESE Need FIXING XXXX */
       case "color":
          CHANNEL_D->chan_set_color(chan, cmd[7..]);
          break;
       case "imud":
-	 CHANNEL_D->chan_imud(chan, cmd[6..]);
+         CHANNEL_D->chan_imud(chan, cmd[6..]);
          break;
       case "guild":
-	 CHANNEL_D->chan_set_guild(chan, cmd[6..]);
+         CHANNEL_D->chan_set_guild(chan, cmd[6..]);
          break;
       default:
-	 CHANNEL_D->chan_say(cmd, chan);
-	 return;
+         CHANNEL_D->chan_say(cmd, chan);
+         return;
 
-/* old stuff that needs converting yet...
+/* old stuff that needs converting yet... XXX
       default:
-	 if (strlen(cmd) > 8)
-	    if (cmd[..5] == "color") {
-	       CHANNEL_D->chan_set_color(chan, cmd[7..]);
-	       break;
-	    } else if (cmd[..4] == "imud") {
-	       CHANNEL_D->chan_imud(chan, cmd[6..]);
-	       break;
-	    } else if (cmd[..5] == "guild") {
-	       CHANNEL_D->chan_set_guild(chan, cmd[7..]);
-	       break;
-	    }
-	 if ((cmd[0] == ';') || (cmd[0] == ':') || (cmd[0] == '!')) {
-	    if (cmd[1] != cmd[0]) {
-	       CHANNEL_D->chan_emote(chan, cmd[1..]);
-	       break;
-	    } else {
-	       cmd = cmd[1..];
-	    }
-	 }
+         if (strlen(cmd) > 8)
+            if (cmd[..5] == "color") {
+               CHANNEL_D->chan_set_color(chan, cmd[7..]);
+               break;
+            } else if (cmd[..4] == "imud") {
+               CHANNEL_D->chan_imud(chan, cmd[6..]);
+               break;
+            } else if (cmd[..5] == "guild") {
+               CHANNEL_D->chan_set_guild(chan, cmd[7..]);
+               break;
+            }
+         if ((cmd[0] == ';') || (cmd[0] == ':') || (cmd[0] == '!')) {
+            if (cmd[1] != cmd[0]) {
+               CHANNEL_D->chan_emote(chan, cmd[1..]);
+               break;
+            } else {
+               cmd = cmd[1..];
+            }
+         }
 */
    }
 }

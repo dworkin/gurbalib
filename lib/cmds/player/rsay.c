@@ -52,7 +52,7 @@ static void tell_them(string str, string *words, string lang, string *words2) {
       } else {
          tmp = "";
          kmax = sizeof(words);
-	 for (k = 0; k < imax; k++) {
+         for (k = 0; k < imax; k++) {
              x = random(100) + 1;
              if ((usr[i]->query_language() == lang) || 
                 query_wizard(usr[i]) ||
@@ -61,7 +61,7 @@ static void tell_them(string str, string *words, string lang, string *words2) {
              } else {
                 tmp = tmp + words2[k] + " ";
              }
-	  }
+         }
 
          usr[i]->message(this_player()->query_Name() + 
             " says in " + lang + ": " + tmp + "\n");
@@ -88,15 +88,16 @@ static void main(string str) {
 
    if (sscanf(str, "%s %s", first, rest) == 2) {
       if (LANGUAGE_D->valid_language(first)) {
-	 lang = first;
-	 str = rest;
+         lang = first;
+         str = rest;
       }
    }
 
    if (lang == "") {
       lang = this_player()->query_language();
-      if (!LANGUAGE_D->valid_language(lang))
-	 lang = "";
+      if (!LANGUAGE_D->valid_language(lang)) {
+         lang = "";
+      }
    }
    if (lang == "") {
       this_player()->query_environment()->tell_room(this_player(),
@@ -106,8 +107,9 @@ static void main(string str) {
    }
 
    for (i = strlen(str) - 1; i > 0; i--) {
-      if (str[i] != ' ')
-	 break;
+      if (str[i] != ' ') {
+         break;
+      }
       str = str[0..(i - 1)];
    }
 
@@ -122,11 +124,11 @@ static void main(string str) {
          for (k = 0; k < kmax; k++) {
             x = random(100) + 1;
             if (x < this_player()->query_skill("language/" + lang)) {
-  	       /*Translate it to cat */
-	       words2 += ({ LANGUAGE_D->english_to_racial(lang, words[k]) });
+               /*Translate it to cat */
+               words2 += ({ LANGUAGE_D->english_to_racial(lang, words[k]) });
             } else {
                /*Mess up the word... */
-	       words2 += ({ LANGUAGE_D->random_word(lang) });
+               words2 += ({ LANGUAGE_D->random_word(lang) });
                words= words2;
             }
          }

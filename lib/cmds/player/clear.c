@@ -12,8 +12,7 @@ void usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tclear" });
    lines += ({ "See also:" });
-    lines += ({ "\talias, ansi, chfn, clear, describe, ignore, passwd" });
-
+   lines += ({ "\talias, ansi, chfn, clear, describe, ignore, passwd" });
 
    this_player()->more(lines);
 }

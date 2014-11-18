@@ -63,7 +63,7 @@ static void do_give(object obj1, object obj2, int loud) {
          this_player()->do_remove(obj1);
          this_player()->targeted_action(obj1->query_remove_message(), 
             nil, obj1);
-			obj1->after_unwear(this_player(), "give");
+         obj1->after_unwear(this_player(), "give");
       }
    }
 
@@ -77,7 +77,7 @@ static void do_give(object obj1, object obj2, int loud) {
          this_player()->do_unwield(obj1);
          this_player()->targeted_action(obj1->query_unwield_message(), 
             nil, obj1);
-			obj1->after_unwield(this_player(), "give");
+         obj1->after_unwield(this_player(), "give");
       }
    }
 
@@ -114,8 +114,8 @@ static int transfer_money(int amount,string cointype, string where) {
       if (this_player()->query_total_money() > amount) {
          this_player()->add_money("ducat", (amount * -1));
          obj->add_money("ducat",amount);
-			this_player()->targeted_action("$N $vgive " + amount +
-				" ducats to $t.", obj);
+         this_player()->targeted_action("$N $vgive " + amount +
+            " ducats to $t.", obj);
          return 1;
       } else {
          write("You do not have enough money to give.\n");

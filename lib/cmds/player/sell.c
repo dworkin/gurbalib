@@ -52,36 +52,37 @@ static void main(string str) {
 
       objs = this_environment()->query_inventory();
       for (i = 0; i < sizeof(objs); i++) {
-	 if (objs[i]->is_vendor() == 1) {
-	    /* Found the shopkeeper */
+         if (objs[i]->is_vendor() == 1) {
+            /* Found the shopkeeper */
 
-	    if (obj->is_worn()) {
-	       this_player()->do_remove(obj);
-	       this_player()->targeted_action(obj->query_remove_message(), nil,
-		  obj);
-			obj->after_unwear(this_player(), "sell");
-	    }
+            if (obj->is_worn()) {
+               this_player()->do_remove(obj);
+               this_player()->targeted_action(obj->query_remove_message(), nil,
+                  obj);
+               obj->after_unwear(this_player(), "sell");
+            }
 
-	    if (obj->is_wielded()) {
-	       this_player()->do_unwield(obj);
-	       this_player()->targeted_action(obj->query_unwield_message(),
-		  nil, obj);
-			obj->after_unwield(this_player(), "sell");
-	    }
+            if (obj->is_wielded()) {
+               this_player()->do_unwield(obj);
+               this_player()->targeted_action(obj->query_unwield_message(),
+                  nil, obj);
+               obj->after_unwield(this_player(), "sell");
+            }
 
-	    if (obj->is_undroppable()) {
-	       this_player()->
-		  targeted_action("$N $vare unable to let go of $o.", nil,
-		  obj);
-	       return;
-	    }
+            if (obj->is_undroppable()) {
+               this_player()->
+                  targeted_action("$N $vare unable to let go of $o.", nil,
+                  obj);
+               return;
+            }
 
-	    objs[i]->do_buy(this_player(), obj);
-	    return;
+            objs[i]->do_buy(this_player(), obj);
+            return;
 
-	 }
+         }
       }
       write("Sell to who?");
    }
    write("You don't have that.");
 }
+

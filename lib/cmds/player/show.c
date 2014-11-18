@@ -98,7 +98,7 @@ static void do_show(object obj1, object obj2, int loud) {
 
    write("You show " + name + " to " + name2 + ".\n");
    this_environment()->tell_room(this_player(), this_player()->query_Name() +
-	" shows " + name + " to " + name2 + ".\n");
+      " shows " + name + " to " + name2 + ".\n");
 
    display_object(obj2, obj1);
 }

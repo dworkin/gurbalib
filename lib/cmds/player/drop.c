@@ -74,7 +74,7 @@ static int do_drop(object obj, int loud) {
       } 
       this_player()->do_remove(obj);
       this_player()->targeted_action(obj->query_remove_message(), nil, obj);
-		obj->after_unwear(this_player(), "drop");
+      obj->after_unwear(this_player(), "drop");
    }
    if (obj->query_wielded() == 1) {
       if (obj->is_cursed()) {
@@ -87,7 +87,7 @@ static int do_drop(object obj, int loud) {
       }
       this_player()->do_unwield(obj);
       this_player()->targeted_action(obj->query_unwield_message(), nil, obj);
-		obj->after_unwield(obj, "drop");
+      obj->after_unwield(obj, "drop");
    }
 
    if (obj->move(this_environment())) { 

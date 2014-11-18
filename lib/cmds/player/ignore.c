@@ -32,8 +32,9 @@ static void main(string arg) {
    if (empty_str(arg)) {
       out = "Ignored list:\n";
       list = this_player()->query_ignored_all();
-      for (i = 0, sz = sizeof(list); i < sz; ++i)
-	 out += list[i] + "\n";
+      for (i = 0, sz = sizeof(list); i < sz; ++i) {
+         out += list[i] + "\n";
+      }
       write(out);
       /*write(dump_value(this_player()->query_ignored_all(), ([]))); */
       return;

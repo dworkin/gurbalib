@@ -48,11 +48,10 @@ static void main(string str) {
    objs = this_environment()->query_inventory();
    for (i = 0; i < sizeof(objs); i++) {
       if (objs[i]->is_vendor() == 1) {
-	 /* Found the shopkeeper */
+         /* Found the shopkeeper */
 
-	 objs[i]->do_sell(this_player(), str);
-	 return;
-
+         objs[i]->do_sell(this_player(), str);
+         return;
       }
    }
 

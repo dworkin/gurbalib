@@ -65,20 +65,20 @@ int show_help(string filename) {
    tmp = explode(read_file(filename), "\n");
    for (i = 0; i < sizeof(tmp); i++) {
       if (strlen(tmp[i]) > width) {
-	 /* Big line. Break it up. */
-	 where = 0;
-	 len = strlen(tmp[i]);
-	 while (where < len) {
-	    if (where + width < len) {
-	       lines += ( { tmp[i][where..(where + width - 1)] } );
-	       where += width;
-	    } else {
-	       lines += ( { tmp[i][where..] } );
-	       where = len;
-	    }
-	 }
+         /* Big line. Break it up. */
+         where = 0;
+         len = strlen(tmp[i]);
+         while (where < len) {
+            if (where + width < len) {
+               lines += ( { tmp[i][where..(where + width - 1)] } );
+               where += width;
+            } else {
+               lines += ( { tmp[i][where..] } );
+               where = len;
+            }
+         }
       } else {
-	 lines += ( { tmp[i] } );
+         lines += ( { tmp[i] } );
       }
    }
 

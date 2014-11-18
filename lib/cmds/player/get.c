@@ -23,10 +23,11 @@ void usage(void) {
    this_player()->more(lines);
 }
 
-/* XXX coins not destructed when take from a container. */
+/* This needs to be redone so it finds the object it's working with 
+   so it can destroy it properly if needed XXX */
 static int get_coins(int amount, string type) {
    object obj;
-	string str;
+   string str;
    int value;
 
    if ((type == "ducat") || (type == "ducats") || (type == "coins")) {
@@ -44,10 +45,10 @@ static int get_coins(int amount, string type) {
    if (amount > value) {
       write("There are not that many coins here.\n");
    } else {
-		type = obj->query_currency();
-		str = "$N $vpick up " + amount + " " + type +
-			(amount == 1 ? "" : "s") + ".";
-		this_player()->targeted_action(str, this_player());
+      type = obj->query_currency();
+      str = "$N $vpick up " + amount + " " + type +
+         (amount == 1 ? "" : "s") + ".";
+      this_player()->targeted_action(str, this_player());
 
       if (amount == value) {
          destruct_object(obj);
@@ -113,11 +114,11 @@ static int do_get(object obj1, object obj2, int loud) {
       return 1;
    }
 
-	if (!this_player()->can_carry(obj1)) {
-		this_player()->message("Your inventory is full so you cannot carry " +
-			"the " + obj1->query_id() + ".");
-		return 1;
-	}
+   if (!this_player()->can_carry(obj1)) {
+      this_player()->message("Your inventory is full so you " +
+         "cannot carry the " + obj1->query_id() + ".");
+      return 1;
+   }
 
    if (obj1->move(this_player())) {
       if (obj2 == this_environment()) {

@@ -50,21 +50,21 @@ static void main(string str) {
          ob = this_environment()->present("board");
          if (ob) {
             if (!str || (str == "")) {
-	       write("Read what?");
-	       return;
+               write("Read what?");
+               return;
             }
 
             if (ob->query_msg_exists(str) == 1) {
-	       lines = explode(ob->query_message(str), "\n");
-	       write(implode(lines[..3], "\n"));
-	       this_player()->more(lines[4..]);
+               lines = explode(ob->query_message(str), "\n");
+               write(implode(lines[..3], "\n"));
+               this_player()->more(lines[4..]);
             } else {
-	       write("No such message.\n");
+               write("No such message.\n");
             }
             return;
          } else {
-	    write("Read what?");
-	    return;
+            write("Read what?");
+            return;
          }
       }
    }

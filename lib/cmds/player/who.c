@@ -1,28 +1,28 @@
 inherit M_COMMAND;
 
 void usage(void) {
-    string *lines;
+   string *lines;
 
-    lines = ({ "Usage: who [-h] [PLAYER]" });
-    lines += ({ "" });
-    lines += ({ "Print out a list of who is on the system." });
-    lines += ({ "If PLAYER is specified, give detailed info about the player." 
-    });
-    lines += ({ "" });
-    lines += ({ "Options:" });
-    lines += ({ "\t-h\tHelp, this usage message." });
-    lines += ({ "Examples:" });
-    lines += ({ "\twho" });
-    lines += ({ "\twho sirdude" });
-    lines += ({ "See also:" });
-    if (query_wizard(this_player())) {
-	lines += ({ "\tlast, locate, look, mudlist, possess, rwho, " +
-	  "snoop, where" });
-    } else {
-	lines += ({ "\tlook" });
-    }
+   lines = ({ "Usage: who [-h] [PLAYER]" });
+   lines += ({ "" });
+   lines += ({ "Print out a list of who is on the system." });
+   lines += ({ "If PLAYER is specified, give detailed info about the player." 
+      });
+   lines += ({ "" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\twho" });
+   lines += ({ "\twho sirdude" });
+   lines += ({ "See also:" });
+   if (query_wizard(this_player())) {
+      lines += ({ "\tlast, locate, look, mudlist, possess, rwho, " +
+         "snoop, where" });
+   } else {
+      lines += ({ "\tlook" });
+   }
 
-    this_player()->more(lines);
+   this_player()->more(lines);
 }
 
 /* 'who' command Originally by Fudge Improved by Cerihan 3/15/09 */
@@ -52,9 +52,9 @@ static void main(string str) {
       return;
    }
 
-	out = ({ horizontal_rule(this_player(), "-") });
-	out += USER_D->list_players(long_flag);
-	out += LINKDEAD_D->list_linkdead();
-	out += ({ horizontal_rule(this_player(), "-") });
-	this_player()->more(out, 1);
+   out = ({ horizontal_rule(this_player(), "-") });
+   out += USER_D->list_players(long_flag);
+   out += LINKDEAD_D->list_linkdead();
+   out += ({ horizontal_rule(this_player(), "-") });
+   this_player()->more(out, 1);
 }

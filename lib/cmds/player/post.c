@@ -62,24 +62,24 @@ static void main(string str) {
 void enter_line(string line) {
    if ((line != ".") && (line != "**") && (line != "~a")) {
       if (!msg[this_player()->query_name()]) {
-	 msg[this_player()->query_name()] = line + "\n";
+         msg[this_player()->query_name()] = line + "\n";
       } else {
-	 msg[this_player()->query_name()] = msg[this_player()->query_name()] +
-	    line + "\n";
+         msg[this_player()->query_name()] = msg[this_player()->query_name()] +
+            line + "\n";
       }
       this_player()->input_to_object(this_object(), "enter_line");
    } else {
       if (line == "~a") {
-	 write(" \nMessage aborted.\n");
+         write(" \nMessage aborted.\n");
       } else {
-	 ob[this_player()->query_name()]->add_message(this_player()->
-	    query_name(), subject[this_player()->query_name()],
-	    msg[this_player()->query_name()]);
-	 write(" \nMessage posted.\n");
+         ob[this_player()->query_name()]->add_message(this_player()->
+            query_name(), subject[this_player()->query_name()],
+            msg[this_player()->query_name()]);
+         write(" \nMessage posted.\n");
       }
       this_player()->set_editing(0);
       this_player()->write_prompt();
       this_environment()->tell_room(this_player(),
-	 this_player()->query_Name() + " posts a new message.\n");
+      this_player()->query_Name() + " posts a new message.\n");
    }
 }

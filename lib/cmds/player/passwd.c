@@ -44,7 +44,7 @@ static void main(string arg) {
       if (sscanf(arg,"%s %s",who,passwd) == 2) {
          if (USER_D->player_exists(who) > 0) {
             if (USER_D->reset_password(who,passwd)) {
-	       write("Password for user: " + who + ", set to : " + 
+               write("Password for user: " + who + ", set to : " + 
                   passwd + "\n");
             }
          } else {

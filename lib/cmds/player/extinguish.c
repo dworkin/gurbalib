@@ -25,6 +25,6 @@ void usage(void) {
 }
 
 static void main(string str) {
-	usage();
+   usage();
 }
 
