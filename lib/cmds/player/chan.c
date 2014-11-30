@@ -148,7 +148,7 @@ static void chan_cmd(string cmd, string chan) {
       case "help":
          usage();
          break;
-/* THESE Need FIXING XXXX */
+/* THESE Need Verifing XXXX */
       case "color":
          CHANNEL_D->chan_set_color(chan, cmd[7..]);
          break;
@@ -159,22 +159,6 @@ static void chan_cmd(string cmd, string chan) {
          CHANNEL_D->chan_set_guild(chan, cmd[6..]);
          break;
       default:
-         CHANNEL_D->chan_say(cmd, chan);
-         return;
-
-/* old stuff that needs converting yet... XXX
-      default:
-         if (strlen(cmd) > 8)
-            if (cmd[..5] == "color") {
-               CHANNEL_D->chan_set_color(chan, cmd[7..]);
-               break;
-            } else if (cmd[..4] == "imud") {
-               CHANNEL_D->chan_imud(chan, cmd[6..]);
-               break;
-            } else if (cmd[..5] == "guild") {
-               CHANNEL_D->chan_set_guild(chan, cmd[7..]);
-               break;
-            }
          if ((cmd[0] == ';') || (cmd[0] == ':') || (cmd[0] == '!')) {
             if (cmd[1] != cmd[0]) {
                CHANNEL_D->chan_emote(chan, cmd[1..]);
@@ -182,8 +166,9 @@ static void chan_cmd(string cmd, string chan) {
             } else {
                cmd = cmd[1..];
             }
+            CHANNEL_D->chan_say(cmd, chan);
+            return;
          }
-*/
    }
 }
 
