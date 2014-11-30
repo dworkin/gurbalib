@@ -34,7 +34,7 @@ void usage(void) {
   
    lines += ({ "See also:" });
 
-      lines += ({ "\tcmds" });
+   lines += ({ "\tcmds" });
 
    this_player()->more(lines);
 }
@@ -51,19 +51,23 @@ int do_group_hp() {
 
    lines = ({ "Group: " + get_group_name() + "\n" });
    lines += ({ "----------------------------------" });
+
    for(x = 0; x < maxx; x++ ) {
       obj = find_player(members[x]);
       if (obj) {
          name = uppercase(members[x]);
+
          if (obj->is_group_leader()) {
             name += "*";
          }
+
          hp = obj->query_hp();
          maxhp = obj->query_max_hp();
          mana = obj->query_mana();
          maxmana = obj->query_max_mana();
          end = obj->query_end();
          maxend = obj->query_max_end();
+
          lines += ({ name + "\tHP: " + hp + "/" + maxhp +
             "\tMANA: " + mana + "/" + maxmana + 
             "\tEND: " + end + "/" + maxend + "\n" });
@@ -79,6 +83,24 @@ int do_group_leave() {
 }
 
 int do_group_status() {
+   string *lines, *members;
+   int x, maxx;
+
+   members = get_group_members();
+   maxx = sizeof(members);
+
+   lines = ({ "Group: " + get_group_name() + "\n" });
+   lines += ({ "Group EXP: " + get_group_exp() + "\n" });
+   lines += ({ "Group Gold: " + get_group_gold() + "\n" });
+
+   lines += ({ "Members:\n");
+   maxx = sizeof(members);
+
+   for (x = 0; x < maxx; x++) {
+      lines += ({ "\t" + members[x] + "\n" });
+   }
+
+   this_player()->more(lines);
 }
 
 int do_group_split() {
