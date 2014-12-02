@@ -49,6 +49,7 @@
 #define QUEST_D      "/daemons/quest_d"
 #define LINKDEAD_D   "/sys/daemons/linkdead_d"
 #define INIT_D       "/sys/daemons/init_d"
+#define TOP_SCORE_D  "/daemons/top_score_d"
 
 #define CONNECTION      "/kernel/obj/net/connection"
 #define PORT            "/kernel/obj/net/port"

@@ -1,11 +1,17 @@
 string *quests;
 
-void create(void) {
-   if (!quests)
+private void init_quests() {
+   if (nilp(quests)) {
       quests = ({ });
+   }
+}
+
+void create(void) {
+   init_quests();
 }
 
 string *query_quests_completed(void) {
+   init_quests();
    return quests;
 }
 
