@@ -428,7 +428,7 @@ void write_races(void) {
 
    races = RACE_D->query_races();
    for (i = 0; i < sizeof(races); i++) {
-      line = races[i] + "              ";
+      line = capitalize( races[i]) + "              ";
       line = line[..10];
       line += " - " + RACE_D->query_race_short(races[i]) + "\n";
       send_message(line);
