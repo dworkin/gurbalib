@@ -428,7 +428,7 @@ void write_races(void) {
 
    races = RACE_D->query_races();
    for (i = 0; i < sizeof(races); i++) {
-      line = races[i] + "              ";
+      line = capitalize(races[i]) + "              ";
       line = line[..10];
       line += " - " + RACE_D->query_race_short(races[i]) + "\n";
       send_message(line);
@@ -700,24 +700,38 @@ void input_get_gender(string str) {
       return;
    }
    write_races();
-   send_message("Choose one of the above races for your character : ");
+   send_message("Please choose one of the races, or type 'info <race>' : ");
    player->input_to_object(this_object(), "input_get_race");
 }
 
 void input_get_race(string str) {
    if (!str || str == "") {
-      send_message("Please choose one of the races : ");
+      write_races();
+      send_message("Please choose one of the races, or type 'info <race>' : ");
+      player->input_to_object(this_object(), "input_get_race");
+      return;
+   }
+   str = lowercase(str);
+
+   if ( (strlen(str) > 5) && (str[0..3] == "info") ) {
+      string r;
+
+      r = str[5..(strlen(str) - 1)];
+      if(RACE_D->is_race(r)) {
+         send_message("\n" + RACE_D->query_race_long(r)+"\n\n\n" +
+            "Please choose one of the races, or type 'info <race>' : ");
+         player->input_to_object(this_object(), "input_get_race");
+         return;
+      }
+   }
+         
+   if (!RACE_D->is_race(str)) {
+      send_message("Please choose one of the races, or type 'info <race>' : ");
       player->input_to_object(this_object(), "input_get_race");
       return;
    }
 
-   if (!RACE_D->is_race(lowercase(str))) {
-      send_message("Please choose one of the races : ");
-      player->input_to_object(this_object(), "input_get_race");
-      return;
-   }
-
-   player->set_race(lowercase(str), 1);
+   player->set_race(str, 1);
 
    player->set_hp(player->query_max_hp());
    player->set_mana(player->query_max_mana());
