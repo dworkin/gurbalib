@@ -1,5 +1,5 @@
 int *sqlite3_exec(string filename, string sql) {
-#ifdef LPC_EXT_SQLITE3_EXT
+#ifdef LPC_EXT_SQLITE3
 	int *i;
 	argcheck(filename, 1, "string");
 	argcheck(sql, 2, "string");

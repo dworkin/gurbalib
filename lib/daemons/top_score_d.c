@@ -1,8 +1,5 @@
 #define DATAFILE "/daemons/data/top_score_d.o"
-#define XP_ELEMENT 0
-#define KILLS_ELEMENT 1
-#define KILLED_ELEMENT 2
-#define QUESTS_ELEMENT 3
+#define DATABASE "/daemons/data/top_score.db"
 
 mapping top_scores;
 
@@ -14,56 +11,140 @@ static void restore_me(void) {
    unguarded("restore_object", DATAFILE);
 }
 
+private int use_sqlite3(void) {
+#ifdef LPC_EXT_SQLITE3
+	return 1;
+#else
+	return 0;
+#endif
+}
+
+private void init_storage(void) {
+	if (use_sqlite3()) {
+		sqlite3_exec(DATABASE,
+"create table if not exists top_score("+
+"id integer primary key autoincrement,"+
+"name text not null,"+
+"xp int not null,"+
+"kills int not null,"+
+"killed int not null,"+
+"quests int not null"+
+");");
+	} else {
+		if (nilp(top_scores)) {
+			top_scores = ([ ]);
+		}
+	}
+}
+
 void create(void) {
-   if (file_exists(DATAFILE)) {
+   if (!use_sqlite3() && file_exists(DATAFILE)) {
       restore_me();
+		return;
    }
+	init_storage();
 }
 
-private void init_top_scores() {
-   if (nilp(top_scores)) {
-      top_scores = ([ ]);
-   }
+private int record_exists(object player) {
+	string name;
+	name = player->query_Name();
+	init_storage();
+	if (use_sqlite3()) {
+		mixed **record;
+		record = sqlite3_select(DATABASE,
+			"select name from top_score where name = '" +
+			name + "';");
+		return !nilp(record) && sizeof(record) && record[0][0] == name;
+	}
+	return !nilp(top_scores[name]);
 }
 
-string query_top_scores(void) {
-   string  str, name, xp, kills, killed, quests;
-   string *names;
-   int     i, dim;
-
-   init_top_scores();
-   names = bubblesort(map_indices(top_scores));
-
-   str = "TOP SCORES\n";
-   str += "**********";
-   for (i = 0, dim = sizeof(names); i < dim; i++) {
-      name = names[i];
-      xp = "" + top_scores[name][XP_ELEMENT];
-      kills = "" + top_scores[name][KILLS_ELEMENT];
-      killed = "" + top_scores[name][KILLED_ELEMENT];
-      quests = "" + top_scores[name][QUESTS_ELEMENT];
-      str += "\n" + name + ": " + add_comma(xp) + " ";
-      str += "" + add_comma(kills) + "/" + add_comma(killed);
-      str += ". " + add_comma(quests);
-      str += ".";
-   }
-   str += "\n";
-
-   return str;
+private void update_map(object player) {
+	init_storage();
+	top_scores[player->query_Name()] = ({ player->query_expr(),
+		player->query_kills(), player->query_killed(),
+		sizeof(player->query_quests_completed()) });
+	save_me();
 }
 
-void update(object player) {
-   string name;
-   int xp, kills, killed, quests;
-   if (USER_D->find_player(player->query_name()) {
-      init_top_scores();
-      name = player->query_Name();
-      xp = player->query_expr();
-      kills = player->query_kills();
-      killed = player->query_killed();
-      quests = sizeof(player->query_quests_completed());
-      top_scores[name] = ({ xp, kills, killed, quests });
-      save_me();
-   }
+private void insert(object player) {
+	if (use_sqlite3()) {
+		sqlite3_exec(DATABASE, "insert into top_score (name, xp, kills, " +
+			"killed, quests) values ('" + player->query_Name() +
+			"', " + player->query_expr() + ", " +
+			player->query_kills() + ", " + player->query_killed() +
+			", " + sizeof(player->query_quests_completed()) + ");");
+		return;
+	}
+	update_map(player);
+}
+
+private void update(object player) {
+	if (use_sqlite3()) {
+		sqlite3_exec(DATABASE, "update top_score " +
+			"set xp = " + player->query_expr() + ", " +
+			"kills = " + player->query_kills() + ", " +
+			"killed = " + player->query_killed() + ", " + 
+			"quests = " + sizeof(player->query_quests_completed()) + " " +
+			"where name = '" + player->query_Name() + "';");
+		return;
+	}
+	update_map(player);
+}
+
+int save(object player) {
+	if (record_exists(player)) {
+		update(player);
+		return 1;
+	}
+	insert(player);
+	return 0;
+}
+
+private void delete(object player) {
+	if (use_sqlite3()) {
+		sqlite3_exec(DATABASE, "delete from top_score where name = '" +
+			player->query_Name() + "';");
+		return;
+	}
+	top_scores[player->query_Name()] = nil;
+	save_me();
+}
+
+int remove(object player) {
+	if (record_exists(player)) {
+		delete(player);
+		return 1;
+	}
+	return 0;
+}
+
+mixed **get(void) {
+	mixed **top_score_data;
+	string *names;
+	string  name;
+	int     i, dim;
+
+	init_storage();
+
+	if (use_sqlite3()) {
+		return sqlite3_select(DATABASE, "select name,xp,kills,killed,quests " +
+			"from top_score;");
+	}
+
+	names = bubblesort(map_indices(top_scores));
+	dim = sizeof(names);
+	top_score_data = allocate(dim);
+	for (i = 0; i < dim; i++) {
+		name = names[i];
+		top_score_data[i] = ({
+			name,
+			top_scores[name][0],
+			top_scores[name][1],
+			top_scores[name][2],
+			top_scores[name][3]
+		});
+	}
+	return top_score_data;
 }
 

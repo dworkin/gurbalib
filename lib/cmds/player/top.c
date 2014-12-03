@@ -9,6 +9,23 @@ void usage(void) {
 }
 
 static void main(string str) {
-   this_player()->more(explode(TOP_SCORE_D->query_top_scores(), "\n"));
+	mixed **top_scores;
+	string *lines;
+	string  name, xp, kills, killed, quests;
+	int i, dim;
+
+	top_scores = TOP_SCORE_D->get();
+	dim = sizeof(top_scores);
+	lines = allocate(dim);
+	for (i = 0; i < dim; i++) {
+		name = top_scores[i][0];
+		xp = add_comma("" + top_scores[i][1]);
+		kills = add_comma("" + top_scores[i][2]);
+		killed = add_comma("" + top_scores[i][3]);
+		quests = add_comma("" + top_scores[i][4]);
+		lines[i] = name + ": " + xp + ", " + kills + "/" + killed + ", " +
+			quests;
+	}
+   this_player()->more(lines);
 }
 

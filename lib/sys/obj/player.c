@@ -750,7 +750,7 @@ void do_quit(void) {
       }
    }
 
-   TOP_SCORE_D->update(this_player());
+   TOP_SCORE_D->save(this_player());
 
    quitcmd = this_player()->query_env("quit_message");
    if (!quitcmd || quitcmd == "") {

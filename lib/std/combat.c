@@ -34,7 +34,9 @@ mapping query_killed_by(void) {
 }
 
 private void update_kill_data(void) {
-  TOP_SCORE_D->update(this_object());
+	if (this_object()->is_player()) {
+		TOP_SCORE_D->save(this_object());
+	}
 }
 
 void increment_kills(void) {
