@@ -700,19 +700,31 @@ void input_get_gender(string str) {
       return;
    }
    write_races();
-   send_message("Choose one of the above races for your character : ");
+   send_message("Choose one of the above races for your character, or type 'info <race>' : ");
    player->input_to_object(this_object(), "input_get_race");
 }
 
 void input_get_race(string str) {
    if (!str || str == "") {
-      send_message("Please choose one of the races : ");
+      send_message("Please choose one of the races, or type 'info <race>' : ");
       player->input_to_object(this_object(), "input_get_race");
       return;
    }
 
+   if ( (strlen(str) > 5) && (str[0..3] == "info") ) {
+      string r;
+
+      r = str[5..( strlen(str) - 1)];
+      if(RACE_D->is_race( lowercase(r) ) ) {
+         send_message( RACE_D->query_race_long(r)+"\n\n"+
+            "Please choose one of the races, or type 'info <race>' : ");
+         player->input_to_object(this_object(), "input_get_race");
+         return;
+      }
+   }
+         
    if (!RACE_D->is_race(lowercase(str))) {
-      send_message("Please choose one of the races : ");
+      send_message("Please choose one of the races, or type 'info <race>' : ");
       player->input_to_object(this_object(), "input_get_race");
       return;
    }
