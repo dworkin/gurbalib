@@ -23,8 +23,9 @@ int is_snooping(object pPlayer) {
       pSnooping = ( { } );
    }
    for (i = 0; i < sizeof(pSnooping); i++) {
-      if (pSnooping[i] == pPlayer)
+      if (pSnooping[i] == pPlayer) {
 	 return 1;
+      }
    }
    return 0;
 }

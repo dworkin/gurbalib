@@ -119,8 +119,9 @@ string *concatstring(mixed * data) {
    r = "";
 
    for (i = 0; i < sizeof(data); i++) {
-      if (data[i] == "\\")
+      if (data[i] == "\\") {
 	 i++;
+      }
       r += data[i];
    }
 

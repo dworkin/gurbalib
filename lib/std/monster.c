@@ -68,8 +68,9 @@ void set_wearing(mixed obj) {
 void set_wielding(mixed obj) {
    object weapon;
 
-   if (!obj)
+   if (!obj) {
       return;
+   }
 
    if (typeof(obj) == T_STRING) {
       /* We've got to compile our own copy */

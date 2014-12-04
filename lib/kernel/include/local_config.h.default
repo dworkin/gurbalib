@@ -53,11 +53,13 @@ You should at least modify the first 3 entries.
 #define CLEAN_UP_INTERVAL       7200
 
 /* The time between calls to event_reset */
-#define RESET_INTERVAL          3600
+#define RESET_INTERVAL          15
 
 /* The time between state dumps */
 #define DUMP_INTERVAL           3600
 
+/* The time between heart beats */
+#define MICRO_BEAT_INTERVAL     0.2
 /* The time between heart beats */
 #define HEART_BEAT_INTERVAL     2
 

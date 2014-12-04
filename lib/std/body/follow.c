@@ -2,7 +2,10 @@ object *followers;
 string following;
 
 int add_follower(object who) {
-   if (!followers) followers = ({ });
+   if (!followers) {
+      followers = ({ });
+   }
+
    followers += ( { who } );
    return 1;
 }
@@ -16,7 +19,10 @@ int remove_follower(object who) {
 int is_follower(object who) {
    int i;
 
-   if (!followers) return 0;
+   if (!followers) {
+      return 0;
+   }
+
    for (i = 0; i < sizeof(followers); i++) {
       if (followers[i] == who) {
          return 1;

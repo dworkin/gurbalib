@@ -62,6 +62,8 @@ int logout(string name) {
          return 0;
       }
    }
+
+   return 0;
 }
 
 object find_user(string name) {
@@ -233,11 +235,14 @@ int reset_password(string who, string passwd) {
    }
 
    obj = get_data_ob(who);
+
    if (!obj) {
       return 0;
    }
+
    obj->set_pass(who, passwd);
    obj->save_me();
+
    return 1;
 }
 
@@ -293,9 +298,10 @@ static int _new_user(string name, string secret, object u) {
 
 int new_user(string name, string secret) {
    int result;
-   secure();
 
+   secure();
    unguarded("_new_user", name, secret, previous_object());
+
    return 1;
 }
 
@@ -319,7 +325,7 @@ int _delete_user(string name) {
    }
 
    if (sessions[name]) {
-      int i,sz;
+      int i, sz;
 
       for (i=0, sz=sizeof(sessions[name]); i<sz; i++) {
          if (sessions[name][i]) {
@@ -402,10 +408,12 @@ object find_player(string name) {
    object ob;
 
    ob = find_user(lowercase(name));
+
    if (ob) {
       return (ob->query_player());
    }
-   return (ob);
+
+   return ob;
 }
 
 object *query_players(void) {
@@ -522,7 +530,9 @@ void finger(object player, string name) {
 
    obj = find_player(name);
    if (!obj) {
+
       obj = get_data_ob(name);
+
       if (obj) {
 	 obj = clone_object(PLAYER_OB);
 	 obj->set_name(name);
@@ -542,11 +552,17 @@ string print_email_info(object player, object obj, string type) {
 
    doit = 0;
    if (type == "wizards") {
-      if (query_wizard(obj)) doit = 1;
-      else doit = 0;
+      if (query_wizard(obj)) {
+         doit = 1;
+      } else {
+         doit = 0;
+      }
    } else if (type == "admins") {
-      if (query_admin(obj)) doit = 1;
-      else doit = 0;
+      if (query_admin(obj)) {
+         doit = 1;
+      } else {
+         doit = 0;
+      }
    } else {
       doit = 1;
    }
@@ -577,6 +593,7 @@ string get_email_info(object player, string name, string type) {
    string stuff;
 
    obj = find_player(name);
+
    if (!obj) {
       obj = clone_object(PLAYER_OB);
       obj->set_name(name);
@@ -627,13 +644,19 @@ int query_type(string name) {
    object ob;
 
    ob = get_data_ob(name);
-   if (ob) return ob->query_type();
+   if (ob) {
+      return ob->query_type();
+   }
+
+   return 0;
 }
 
 static string get_player_name(object p) {
    if (p<-PLAYER_OB) {
       return p->query_name();
    }
+
+   return "";
 }
 
 object **query_all_online(void) {
