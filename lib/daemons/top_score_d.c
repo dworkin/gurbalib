@@ -63,8 +63,6 @@ private void update_map(object player) {
 	top_scores[player->query_Name()] = ({ player->query_expr(),
 		player->query_kills(), player->query_killed(),
 		sizeof(player->query_quests_completed()) });
-	top_scores["Who"] = nil;
-	top_scores["Guest"] = nil;
 	save_me();
 }
 
@@ -94,6 +92,9 @@ private void update(object player) {
 }
 
 int save(object player) {
+	if (player->query_Name() == "Who" || player->query_Name() == "Guest") {
+		return 0;
+	}
 	if (record_exists(player)) {
 		update(player);
 		return 1;
@@ -120,17 +121,21 @@ int remove(object player) {
 	return 0;
 }
 
-mixed **get(void) {
+mixed **get(varargs string order_by) {
 	mixed **top_score_data;
 	string *names;
-	string  name;
+	string  name, sql;
 	int     i, dim;
 
 	init_storage();
 
 	if (use_sqlite3()) {
-		top_score_data = sqlite3_select(DATABASE, "select name,xp,kills,killed,quests " +
-			"from top_score where name not in ('Who', 'Guest');");
+		sql = "select name,xp,kills,killed,quests from top_score where name not in " +
+			"('Who','Guest')";
+		if (!empty_str(order_by)) {
+			sql += " order by " + order_by + ";";
+		}
+		top_score_data = sqlite3_select(DATABASE, sql);
 		return top_score_data;
 	}
 

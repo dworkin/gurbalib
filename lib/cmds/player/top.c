@@ -14,7 +14,7 @@ static void main(string str) {
 	string  name, xp, kills, killed, quests;
 	int i, dim;
 
-	top_scores = TOP_SCORE_D->get();
+	top_scores = TOP_SCORE_D->get(str);
 	if (nilp(top_scores)) {
 		write("There have been no top scores generated yet. "+
 			"Start adventuring!");
