@@ -12,11 +12,13 @@ int query_size(void);
 string convert_size(void);
 
 int set_size(int size) {
-   if (!size)
+   if (!size) {
       return 0;
+   }
 
-   if (!size > 6)
+   if (!size > 6) {
       return 0;
+   }
 
    actual_size = size;
 }

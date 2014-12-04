@@ -239,6 +239,7 @@ object find_adjs_object(string * adj, string name) {
 object present(string name) {
    string what;
    int which;
+
    if (file_exists(name)) {
       return find_object_filename(name);
    } else if (file_exists(name + ".c")) {
@@ -303,13 +304,15 @@ void set_objects(varargs string filename ...) {
    for (i = 0; i < sizeof(filename); i++) {
       if (strstr(filename[i], "#") != -1) {
          name = filename[i][0..strstr(filename[i], "#") - 1];
-      } else
+      } else {
          name = filename[i];
+      }
       /* Count number of name's in filename.  Store in mapping */
-      if (!obs[name])
+      if (!obs[name]) {
          obs[name] = 1;
-      else
+      } else {
          obs[name] += 1;
+      }
    }
 
    filename = map_indices(obs);
@@ -360,9 +363,7 @@ void upgraded(void) {
    int i, sz;
 
    if (inventory) {
-      inventory -= ( {
-         0, nil}
-      );
+      inventory -= ({ 0, nil });
 
       inv_map = ([]);
 

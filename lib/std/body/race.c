@@ -18,13 +18,13 @@ void set_race(string name, varargs int is_new_player) {
       race = name;
       race_object = RACE_D->query_race_object(name);
    }
-   if (!race_object) 
+   if (!race_object) {
       race_object = RACE_D->query_race_object("human");
+   }
 
-	if (is_new_player) {
-   	initialize_stats();		/* set up stat/race bonus here */
-	}
-   /* temp removal of min and max damage satch */
+   if (is_new_player) {
+      initialize_stats();		/* set up stat/race bonus here */
+   }
 }
 
 string query_race(void) {
@@ -36,7 +36,6 @@ string query_race(void) {
 
 object query_race_object(void) {
    return (race_object);
-
 }
 
 void set_vulnerabilities(string *new_vulnerabilities) {
@@ -44,35 +43,38 @@ void set_vulnerabilities(string *new_vulnerabilities) {
 }
 
 void add_vulnerability(string vulnerability) {
-	if (!vulnerabilities) {
-		vulnerabilities = ({ });
-	}
-	vulnerabilities += ({ vulnerability });
-	vulnerabilities = uniq_array(vulnerabilities);
+   if (!vulnerabilities) {
+      vulnerabilities = ({ });
+   }
+
+   vulnerabilities += ({ vulnerability });
+   vulnerabilities = uniq_array(vulnerabilities);
 }
 
 string *query_vulnerabilities(void) {
-	if (!vulnerabilities) {
-		vulnerabilities = ({ });
-	}
-	return vulnerabilities;
+   if (!vulnerabilities) {
+      vulnerabilities = ({ });
+   }
+
+   return vulnerabilities;
 }
 
 int is_vulnerable(string *test_vulnerabilities) {
-	if (!vulnerabilities) {
-		vulnerabilities = ({ });
-	}
-	return sizeof(set_intersection(vulnerabilities, test_vulnerabilities));
+   if (!vulnerabilities) {
+      vulnerabilities = ({ });
+   }
+
+   return sizeof(set_intersection(vulnerabilities, test_vulnerabilities));
 }
 
 void set_hit_string(string str) {
-	hit_string = str;
+   hit_string = str;
 }
 
 string query_hit_string(void) {
-	if (empty_str(hit_string)) {
-		set_hit_string("hit");
-	}
-	return hit_string;
-}
+   if (empty_str(hit_string)) {
+      set_hit_string("hit");
+   }
 
+   return hit_string;
+}

@@ -1,8 +1,9 @@
 string *quests;
 
 void create(void) {
-   if (!quests)
+   if (!quests) {
       quests = ({ });
+   }
 }
 
 string *query_quests_completed(void) {
