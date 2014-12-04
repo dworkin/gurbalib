@@ -35,6 +35,9 @@ void create(void) {
 }
 
 void event_heart_beat(void) {
+	if (query_mortal(this_object())) {
+		TOP_SCORE_D->save(this_object());
+	}
    if (this_object()->query_hp() < 1) {
       if (this_object()->is_dead() && this_object()->is_player()) {
          heal_time++;

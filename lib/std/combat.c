@@ -33,15 +33,8 @@ mapping query_killed_by(void) {
    return killed_by;
 }
 
-private void update_kill_data(void) {
-	if (this_object()->is_player()) {
-		TOP_SCORE_D->save(this_object());
-	}
-}
-
 void increment_kills(void) {
    kills++;
-   update_kill_data();
 }
 
 int query_kills(void) {
@@ -53,7 +46,6 @@ void add_killed_by(object who, int t) {
       killed_by = ([]);
    }
    killed_by[t] = who->file_name();
-   update_kill_data();
 }
 
 int query_killed(void) {

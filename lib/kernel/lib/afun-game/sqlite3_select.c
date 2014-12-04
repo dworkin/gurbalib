@@ -3,11 +3,7 @@ mixed **sqlite3_select(string filename, string sql) {
 	mixed **result_set;
 	argcheck(filename, 1, "string");
 	argcheck(sql, 2, "string");
-        if (!valid_read(filename)) {
-            return nil;
-        }
-	result_set = ::sqlite3_select(filename, sql);
-	return result_set;
+	return ::sqlite3_select(filename, sql);
 #else
 	return nil;
 #endif

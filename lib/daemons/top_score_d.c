@@ -40,7 +40,6 @@ private void init_storage(void) {
 void create(void) {
    if (!use_sqlite3() && file_exists(DATAFILE)) {
       restore_me();
-		return;
    }
 	init_storage();
 }
@@ -64,6 +63,8 @@ private void update_map(object player) {
 	top_scores[player->query_Name()] = ({ player->query_expr(),
 		player->query_kills(), player->query_killed(),
 		sizeof(player->query_quests_completed()) });
+	top_scores["Who"] = nil;
+	top_scores["Guest"] = nil;
 	save_me();
 }
 
@@ -128,8 +129,9 @@ mixed **get(void) {
 	init_storage();
 
 	if (use_sqlite3()) {
-		return sqlite3_select(DATABASE, "select name,xp,kills,killed,quests " +
-			"from top_score;");
+		top_score_data = sqlite3_select(DATABASE, "select name,xp,kills,killed,quests " +
+			"from top_score where name not in ('Who', 'Guest');");
+		return top_score_data;
 	}
 
 	names = bubblesort(map_indices(top_scores));

@@ -15,6 +15,11 @@ static void main(string str) {
 	int i, dim;
 
 	top_scores = TOP_SCORE_D->get();
+	if (nilp(top_scores)) {
+		write("There have been no top scores generated yet. "+
+			"Start adventuring!");
+		return;
+	}
 	dim = sizeof(top_scores);
 	lines = allocate(dim);
 	for (i = 0; i < dim; i++) {
@@ -26,6 +31,7 @@ static void main(string str) {
 		lines[i] = name + ": " + xp + ", " + kills + "/" + killed + ", " +
 			quests;
 	}
+	write("Top scorers:");
    this_player()->more(lines);
 }
 

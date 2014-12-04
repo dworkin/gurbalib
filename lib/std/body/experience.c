@@ -110,7 +110,6 @@ void increase_expr(int expr) {
       write("Congratulations, you just went up a level...\n");
       level += 1;
    }
-   TOP_SCORE_D->save(this_object());
 }
 
 /* XXX handle level loss? */
