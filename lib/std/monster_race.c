@@ -44,8 +44,9 @@ int query_base_stat_minimum(string statname) {
       base_stat_minimum = ([]);
       return 1;
    }
-   if (!base_stat_minimum[statname])
+   if (!base_stat_minimum[statname]) {
       return 1;
+   }
    return base_stat_minimum[statname];
 }
 
@@ -57,8 +58,9 @@ int query_base_stat_maximum(string statname) {
       base_stat_maximum = ([]);
       return 18;
    }
-   if (!base_stat_maximum[statname])
+   if (!base_stat_maximum[statname]) {
       return 18;
+   }
    return base_stat_maximum[statname];
 }
 
@@ -69,8 +71,9 @@ int query_stat_mod(string statname) {
    if (!stat_mod) {
       stat_mod = ([]);
    }
-   if (!stat_mod[statname]) ;
-   return 0;
+   if (!stat_mod[statname]) {
+      return 0;
+   }
    return stat_mod[statname];
 }
 
