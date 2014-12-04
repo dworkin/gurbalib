@@ -479,10 +479,11 @@ void chan_emote(string chan, string what) {
             write("No such emote.\n");
       }
    } else {
-      if (arg && arg != "")
+      if (arg && arg != "") {
          what = this_player()->query_Name() + " " + cmd + " " + arg;
-      else
+      } else {
          what = this_player()->query_Name() + " " + cmd;
+      }
    }
 
    ichans = map_indices(imud);
@@ -564,8 +565,10 @@ int query_priv(string chan) {
 int query_channel(string chan) {
 
    if (channels[chan]) {
-      if (channels[chan] == READ_ONLY)
+      if (channels[chan] == READ_ONLY) {
          return 1;
+      }
+
       if (guilds[chan]) {
          /* Guild channel */
          if (query_user_type(this_player()->query_name()) > 0) {
