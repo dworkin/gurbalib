@@ -50,11 +50,15 @@ mapping query_domain_data(void) {
 }
 
 void domains_d_v2(void) {
-   if (ROOT()) domains = nil;
+   if (ROOT()) {
+      domains = nil;
+   }
 }
 
 void user_d_v2(void) {
-   if (ROOT()) privs = nil;
+   if (ROOT()) {
+      privs = nil;
+   }
 }
 
 /*
@@ -88,6 +92,7 @@ string *known_names(void) {
    result = SYS_BANNED_NAMES;
    result |= query_domains();
    result |= query_wizards();
+
    return result;
 }
 
@@ -132,6 +137,7 @@ int query_priv_type(string p) {
          r = PT_UNKNOWN;
       }
    }
+
    return r;
 }
 
@@ -182,9 +188,9 @@ void remove_player(string name) {
 int query_priv(string name) {
    if (previous_program() != USER_D) {
       return USER_D->query_priv(name);
-   } else {
-      return privs[name];
    }
+
+   return privs[name];
 }
 
 #define ROOT_OVERRIDE ({ })
@@ -195,6 +201,8 @@ int root_priv(string str) {
       sscanf(str, "%*s:kernel:%*s") != 0) {
       return 1;
    }
+
+   return 0;
 }
 
 /* Do the privileges provided in str include 'game' privileges?  */
@@ -202,6 +210,8 @@ int game_priv(string str) {
    if (sscanf(str, "%*s:game:%*s") != 0) {
       return 1;
    }
+
+   return 0;
 }
 
 /*
@@ -209,8 +219,7 @@ int game_priv(string str) {
  * of that file, and is used for things like default privileges
  */
 string owner_file(string file) {
-   string *parts;
-   string tmp;
+   string tmp, *parts;
    int i, sz;
 
    argcheck(file, 1, "string");
@@ -258,6 +267,7 @@ string owner_file(string file) {
             return "game";
          }
    }
+
    if(sizeof(parts) == 1) {
       return "game";
    } else {
@@ -293,6 +303,8 @@ static int validate_privilege(string spriv, string rpriv) {
       (sscanf(spriv, "%*s:" + rpriv + ":%*s") != 0)) {
       return 1;
    }
+
+   return 0;
 }
 
 /*
@@ -411,6 +423,7 @@ int validate_stack(string priv, varargs int unguarded) {
    }
    DRIVER->set_tlvar(TLS_CACHE,cache);
    DB("validate_stack finish : " + (!deny ? "allow":"deny")+"\n");
+
    return !deny;
 }
 
@@ -488,7 +501,6 @@ string query_write_priv(string file) {
 #endif
    return owner;
 }
-
 
 /* invalidate privilege cache */
 void invalidate_pcache(void) {
