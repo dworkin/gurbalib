@@ -27,6 +27,68 @@ sub file_contains {
 	return 0;
 }
 
+sub get_dir_info {
+	my ($fullfilename) = @_;
+	my (@values, $i, $t, $dir);
+
+	@values = split('/', $fullfilename);
+	$i = $#values;
+	$i = $i -1;
+
+	$t = length($fullfilename) - length($values[$i]);
+
+	$dir = substr($fullfilename, 0, $t);
+
+	return ($dir ,$values[$i -1], $values[$i]);
+}
+
+sub get_see_also {
+	my ($filename) = @_;
+	my ($fh, $seeit);
+	my (@values, @tmp);
+
+	@tmp = ();
+	open($fh,"<", $filename) or die "Unable to open $filename\n";
+	$seeit = 0;
+	while(<$fh>) {
+		my $line = $_;
+
+		if ($seeit) {
+			$line =~ s/\s+//g; # Filter out whitespace
+			@tmp = split(",", $line);
+			push(@values, @tmp);
+			
+		} else {
+			if ($line =~ /(.*)SEE ALSO(.*)/) {
+				$seeit = 1;
+			}
+		}
+	}
+
+	return @tmp;
+}
+
+sub check_seealso {
+	my ($fullfile) = @_;
+	my ($dir, $subdir, $file) = get_dir_info($fullfile);
+
+	my @values = get_see_also($fullfile);
+	foreach my $i (@values) {
+		my ($sd, $fn) = split('/', $i);
+		if ($sd eq $subdir) {
+			if (!-f "$dir/$fn") {
+				print "$file, SEE ALSO: no such file $i\n";
+			} else {
+				if (!file_contains("$dir,$fn",
+					"$subdir/$file")) {
+					print "SEE ALSO: $i does not " .
+						"reference $subdir/$file\n";
+				}
+			}
+		}
+	}
+}
+
 sub check_file {
 	my ($file) = @_;
 	my $subname = "check_file";
@@ -43,11 +105,12 @@ sub check_file {
 			}
 		}
 	}
+	check_seealso($file);
 }
 
 sub check_dir {
 	my ($dir) = @_;
-	my (@files, $fh, $x, $tmp, $test); 
+	my (@files, $fh, $tmp); 
 	my $subname = "check_dir";
 
 	opendir($fh, $dir) or die "Unable to open $dir\n";;
