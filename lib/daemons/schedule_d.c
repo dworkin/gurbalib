@@ -74,7 +74,7 @@ static void second_tick() { /* approximation of 1 second */
    heartbeat_counter++;
    minute_counter++;
 
-   if(heartbeat_counter > 1) {
+   if(heartbeat_counter >= HEART_BEAT_INTERVAL) {
       heartbeat_counter = 0;
       heart_beat();
    }
