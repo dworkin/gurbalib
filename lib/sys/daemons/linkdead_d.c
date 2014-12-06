@@ -4,7 +4,7 @@ void add_linkdead(string str) {
    if (!linkdead) {
       linkdead = ({ });
    }
-   linkdead = ({ str });
+   linkdead += ({ str });
 }
 
 void remove_linkdead(string str) {
