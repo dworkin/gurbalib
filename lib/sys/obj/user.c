@@ -13,7 +13,6 @@ string newpass;
 static int logged_in;
 static int data_version;
 static int timeout_handle;
-static int guest;
 object query_player(void);
 
 void create(void) {
@@ -428,7 +427,7 @@ void write_races(void) {
 
    races = RACE_D->query_races();
    for (i = 0; i < sizeof(races); i++) {
-      line = capitalize(races[i]) + "              ";
+      line = capitalize( races[i]) + "              ";
       line = line[..10];
       line += " - " + RACE_D->query_race_short(races[i]) + "\n";
       send_message(line);
@@ -437,6 +436,9 @@ void write_races(void) {
 }
 
 void input_name(string str) {
+   string usr;
+   int i;
+
    if (str == "MSSP-REQUEST") {
       mssp_reply();
 
@@ -453,8 +455,17 @@ void input_name(string str) {
       login_who();
       str = "";
    }  else if (lowercase(str) == "guest") {
-      player->set_name("guest");
-      guest = 1;
+      usr = "guest";
+      while(USER_D->find_user(usr) ) {
+         i++;
+         usr = "guest" + (string) i;
+         }
+      player->set_name(usr);
+      user_name = usr;
+      /* Skip ahead for the guest user, no need for password and other stuff */
+      send_message("Please enter your gender (male/female/neuter) : ");
+      player->input_to_object(this_object(), "input_get_gender");
+      return;
    } 
 
    if (!str || str == "") {
@@ -489,19 +500,11 @@ void input_name(string str) {
       }
       if (USER_D->player_exists(str)) {
 	 /* Player exists */
-
-         if (guest) {
-            /* Skip ahead for the guest user, no need for password and
-               other stuff */
-            send_message("Please enter your gender (male/female/neuter) : ");
-            player->input_to_object(this_object(), "input_get_gender");
-         } else {
-            player->set_name(user_name);
-            player->restore_me();
-            send_message("Enter your password: ");
-            send_message(0);
-            player->input_to_object(this_object(), "input_old_passwd");
-         }
+         player->set_name(user_name);
+         player->restore_me();
+         send_message("Enter your password: ");
+         send_message(0);
+         player->input_to_object(this_object(), "input_old_passwd");
       } else {
 	 player->set_name(user_name);
 	 if (SITEBAN_D->is_newbanned(query_ip_number(this_object()))) {
@@ -517,16 +520,9 @@ void input_name(string str) {
             return;
 	 }
 
-         if (guest) {
-            /* Skip ahead for the guest user, no need for password and
-               other stuff */
-            send_message("Please enter your gender (male/female/neuter) : ");
-            player->input_to_object(this_object(), "input_get_gender");
-         } else {
-	    send_message("Ah. New player.\n");
-	    send_message("Is '" + user_name + "' correct (y/n)? : ");
-	    player->input_to_object(this_object(), "input_correct_name");
-         }
+	 send_message("Ah. New player.\n");
+	 send_message("Is '" + user_name + "' correct (y/n)? : ");
+	 player->input_to_object(this_object(), "input_correct_name");
       }
    }
 }
@@ -700,38 +696,36 @@ void input_get_gender(string str) {
       return;
    }
    write_races();
-   send_message("Please choose one of the races, or type 'info <race>' : ");
+   send_message("Choose one of the above races for your character, or type 'info <race>' : ");
    player->input_to_object(this_object(), "input_get_race");
 }
 
 void input_get_race(string str) {
    if (!str || str == "") {
-      write_races();
       send_message("Please choose one of the races, or type 'info <race>' : ");
       player->input_to_object(this_object(), "input_get_race");
       return;
    }
-   str = lowercase(str);
 
    if ( (strlen(str) > 5) && (str[0..3] == "info") ) {
       string r;
 
-      r = str[5..(strlen(str) - 1)];
-      if(RACE_D->is_race(r)) {
-         send_message("\n" + RACE_D->query_race_long(r)+"\n\n\n" +
+      r = str[5..( strlen(str) - 1)];
+      if(RACE_D->is_race( lowercase(r) ) ) {
+         send_message( RACE_D->query_race_long(r)+"\n\n"+
             "Please choose one of the races, or type 'info <race>' : ");
          player->input_to_object(this_object(), "input_get_race");
          return;
       }
    }
          
-   if (!RACE_D->is_race(str)) {
+   if (!RACE_D->is_race(lowercase(str))) {
       send_message("Please choose one of the races, or type 'info <race>' : ");
       player->input_to_object(this_object(), "input_get_race");
       return;
    }
 
-   player->set_race(str, 1);
+   player->set_race(lowercase(str), 1);
 
    player->set_hp(player->query_max_hp());
    player->set_mana(player->query_max_mana());
