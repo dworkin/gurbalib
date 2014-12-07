@@ -54,7 +54,6 @@ static void main(string str) {
 
    out = ({ horizontal_rule(this_player(), "-") });
    out += USER_D->list_players(long_flag);
-   out += LINKDEAD_D->list_linkdead();
    out += ({ horizontal_rule(this_player(), "-") });
    this_player()->more(out, 1);
 }
