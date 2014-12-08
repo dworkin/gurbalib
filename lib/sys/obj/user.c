@@ -427,7 +427,7 @@ void write_races(void) {
 
    races = RACE_D->query_races();
    for (i = 0; i < sizeof(races); i++) {
-      line = capitalize( races[i]) + "              ";
+      line = capitalize(races[i]) + "              ";
       line = line[..10];
       line += " - " + RACE_D->query_race_short(races[i]) + "\n";
       send_message(line);
@@ -462,6 +462,7 @@ void input_name(string str) {
          }
       player->set_name(usr);
       user_name = usr;
+
       /* Skip ahead for the guest user, no need for password and other stuff */
       send_message("Please enter your gender (male/female/neuter) : ");
       player->input_to_object(this_object(), "input_get_gender");
@@ -696,22 +697,24 @@ void input_get_gender(string str) {
       return;
    }
    write_races();
-   send_message("Choose one of the above races for your character, or type 'info <race>' : ");
+   send_message("Please choose one of the races, or type 'info <race>' : ");
    player->input_to_object(this_object(), "input_get_race");
 }
 
 void input_get_race(string str) {
    if (!str || str == "") {
+      write_races();
       send_message("Please choose one of the races, or type 'info <race>' : ");
       player->input_to_object(this_object(), "input_get_race");
       return;
    }
+   str = lowercase(str);
 
    if ( (strlen(str) > 5) && (str[0..3] == "info") ) {
       string r;
 
       r = str[5..( strlen(str) - 1)];
-      if(RACE_D->is_race( lowercase(r) ) ) {
+      if(RACE_D->is_race( r ) ) {
          send_message( RACE_D->query_race_long(r)+"\n\n"+
             "Please choose one of the races, or type 'info <race>' : ");
          player->input_to_object(this_object(), "input_get_race");
@@ -719,13 +722,13 @@ void input_get_race(string str) {
       }
    }
          
-   if (!RACE_D->is_race(lowercase(str))) {
+   if (!RACE_D->is_race(str)) {
       send_message("Please choose one of the races, or type 'info <race>' : ");
       player->input_to_object(this_object(), "input_get_race");
       return;
    }
 
-   player->set_race(lowercase(str), 1);
+   player->set_race(str, 1);
 
    player->set_hp(player->query_max_hp());
    player->set_mana(player->query_max_mana());
