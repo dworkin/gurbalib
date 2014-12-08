@@ -19,8 +19,14 @@ sub file_contains {
 	my ($file, $line) = @_;
 	my $subname = "file_contains";
 
+	if ($Debug) {
+		print "$subname: $file, $line\n";
+	}
+
 	my $tmp = `grep $line \"$file\"`;
+
 	chomp $tmp;
+
 	if ($tmp && (length($tmp) > 1)) {
 		return 1;
 	}
@@ -30,14 +36,19 @@ sub file_contains {
 sub get_dir_info {
 	my ($fullfilename) = @_;
 	my (@values, $i, $t, $dir);
+	my $subname = "get_dir_info";
 
 	@values = split('/', $fullfilename);
 	$i = $#values;
-	$i = $i -1;
 
 	$t = length($fullfilename) - length($values[$i]);
 
 	$dir = substr($fullfilename, 0, $t);
+	if ($Debug) {
+		print "$subname: fullfilename = $fullfilename\n";
+		print "$subname: i = $i t = $t dir = $dir\n";
+		print "$subname: values[i] = $values[$i]\n";
+	}
 
 	return ($dir ,$values[$i -1], $values[$i]);
 }
@@ -46,6 +57,7 @@ sub get_see_also {
 	my ($filename) = @_;
 	my ($fh, $seeit);
 	my (@values, @tmp);
+	my $subname = "get_see_also";
 
 	@tmp = ();
 	open($fh,"<", $filename) or die "Unable to open $filename\n";
@@ -65,21 +77,31 @@ sub get_see_also {
 		}
 	}
 
-	return @tmp;
+	return @values;
 }
 
 sub check_seealso {
 	my ($fullfile) = @_;
 	my ($dir, $subdir, $file) = get_dir_info($fullfile);
+	my $subname = "check_seealso";
 
 	my @values = get_see_also($fullfile);
+
+	if ($Debug) { 
+	   print "$subname: $dir, $subdir, $file\n";
+           print "Calling get_see_also($fullfile), got:\n";
+		foreach my $i (@values) {
+			print "\t$i\n";
+		}
+	}
 	foreach my $i (@values) {
 		my ($sd, $fn) = split('/', $i);
+
 		if ($sd eq $subdir) {
 			if (!-f "$dir/$fn") {
 				print "$file, SEE ALSO: no such file $i\n";
 			} else {
-				if (!file_contains("$dir,$fn",
+				if (!file_contains("$dir/$fn",
 					"$subdir/$file")) {
 					print "SEE ALSO: $i does not " .
 						"reference $subdir/$file\n";
@@ -95,6 +117,7 @@ sub check_file {
 
 	foreach my $i ("NAME", "SYNOPSIS", "DESCRIPTION", "RETURN", 
 		"EXAMPLES", "SEE") {
+
 		if (!file_contains($file,$i)) {
 			if ($i eq "SEE") {
 				print("$file is missing SEE ALSO\n");
