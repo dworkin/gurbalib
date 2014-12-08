@@ -298,7 +298,7 @@ void set_user(object usr) {
 
 void set_linkdead(int flag) {
    if (flag == 1) {
-      LINKDEAD_D->add_linkdead(query_title());
+      LINKDEAD_D->add_linkdead(this_object());
       EVENT_D->event("player_linkdeath", query_name());
       set_short(query_title() + " [link-dead]");
       linkdead = call_out("do_quit", LINKDEAD_TIMEOUT);
@@ -768,7 +768,7 @@ void do_quit(void) {
    }
    channels = channelstmp;
    EVENT_D->event("player_logout", living_name);
-   LINKDEAD_D->remove_linkdead(query_title());
+   LINKDEAD_D->remove_linkdead(this_object());
    quitting = 1;
    set_this_player(sp);
    query_user()->quit();

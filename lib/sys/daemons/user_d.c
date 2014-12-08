@@ -948,6 +948,10 @@ string *list_players(int long_flag) {
          line += " %^CYAN%^(Wizard)%^RESET%^";
       }
 
+      if(LINKDEAD_D->is_linkdead(usr[i]) ) {
+         line += " %^BOLD%^%^YELLOW%^[link-dead]%^RESET%^";
+         }
+
       idletime = format_time(usr[i]->query_idle());
       if (idletime == "") {
          idle = "";

@@ -1,34 +1,30 @@
-static string *linkdead;
+static object *linkdead;
 
-void add_linkdead(string str) {
+void add_linkdead(object ob) {
    if (!linkdead) {
       linkdead = ({ });
    }
-   linkdead += ({ str });
+   linkdead += ({ ob });
 }
 
-void remove_linkdead(string str) {
+void remove_linkdead(object ob) {
    if (!linkdead) {
       linkdead = ({ });
       return;
    }
-   linkdead -= ({ str });
+   linkdead -= ({ ob });
 }
 
-string *list_linkdead(void) {
-   int i, dim;
-   string *lines;
+object *query_linkdead(void) {
+   return linkdead;
+   }
 
-   if (!linkdead) {
+int is_linkdead(object ob) {
+   if(!linkdead) {
       linkdead = ({ });
+      }
+   if(member_array(ob, linkdead) > -1 ) {
+      return 1;
+   return 0;
    }
-
-   lines = ({  });
-
-   for (i = 0, dim = sizeof(linkdead); i < dim; i++) {
-      lines += ({ linkdead[i] + " %^BOLD%^%^YELLOW%^[link-dead]%^RESET%^" });
-   }
-
-   return lines;
 }
-
