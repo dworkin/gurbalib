@@ -35,7 +35,7 @@ void create_list(string type, string file) {
    if (type == "admin") type = "admins";
 
    for(i=0;i<max;i++) {
-      if (names[i] == "guest") {
+      if (query_guest(names[i])) {
          /* Skip this account it's special */
       } else {
          line = USER_D->get_email_info(this_player(),names[i], type);

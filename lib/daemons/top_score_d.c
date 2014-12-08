@@ -22,14 +22,14 @@ private int use_sqlite3(void) {
 private void init_storage(void) {
 	if (use_sqlite3()) {
 		sqlite3_exec(DATABASE,
-"create table if not exists top_score("+
-"id integer primary key autoincrement,"+
-"name text not null,"+
-"xp int not null,"+
-"kills int not null,"+
-"killed int not null,"+
-"quests int not null"+
-");");
+			"create table if not exists top_score(" +
+			"id integer primary key autoincrement," +
+			"name text not null," +
+			"xp int not null," +
+			"kills int not null," +
+			"killed int not null," +
+			"quests int not null" +
+			");");
 	} else {
 		if (nilp(top_scores)) {
 			top_scores = ([ ]);
@@ -68,7 +68,8 @@ private void update_map(object player) {
 
 private void insert(object player) {
 	if (use_sqlite3()) {
-		sqlite3_exec(DATABASE, "insert into top_score (name, xp, kills, " +
+		sqlite3_exec(DATABASE, "insert into top_score " +
+                        "(name, xp, kills, " +
 			"killed, quests) values ('" + player->query_Name() +
 			"', " + player->query_expr() + ", " +
 			player->query_kills() + ", " + player->query_killed() +
@@ -84,7 +85,8 @@ private void update(object player) {
 			"set xp = " + player->query_expr() + ", " +
 			"kills = " + player->query_kills() + ", " +
 			"killed = " + player->query_killed() + ", " + 
-			"quests = " + sizeof(player->query_quests_completed()) + " " +
+			"quests = " + sizeof(player->query_quests_completed()) +
+                        " " +
 			"where name = '" + player->query_Name() + "';");
 		return;
 	}
@@ -92,7 +94,7 @@ private void update(object player) {
 }
 
 int save(object player) {
-	if (player->query_Name() == "Who" || player->query_Name() == "Guest") {
+	if (player->query_Name() == "Who" || query_guest(player)) {
 		return 0;
 	}
 	if (record_exists(player)) {
@@ -130,8 +132,9 @@ mixed **get(varargs string order_by) {
 	init_storage();
 
 	if (use_sqlite3()) {
-		sql = "select name,xp,kills,killed,quests from top_score where name not in " +
-			"('Who','Guest')";
+		sql = "select name,xp,kills,killed,quests from top_score " +
+                   where name not in ('Who','Guest')";
+
 		if (!empty_str(order_by)) {
 			sql += " order by " + order_by + ";";
 		}

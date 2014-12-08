@@ -56,9 +56,9 @@ static void main(string arg) {
       return;
    }
 
-   if (USER_D->player_exists(this_player()->query_name()) > 0) {
-      call_other(this_user(), "change_passwd", "");
-   } else {
+   if (query_guest(this_player()) {
       write("Guest accounts do not have passwords.\n");
+   } else {
+      call_other(this_user(), "change_passwd", "");
    }
 }

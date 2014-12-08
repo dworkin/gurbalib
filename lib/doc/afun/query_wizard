@@ -16,4 +16,5 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/query_admin, afun/query_mortal, afun/query_user_type
+	afun/query_admin, afun/query_guest, afun/query_mortal,
+	afun/query_user_type

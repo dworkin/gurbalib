@@ -96,6 +96,7 @@ private object secure_d;
 #include "afun-game/query_wizard.c"
 #include "afun-game/query_admin.c"
 #include "afun-game/query_mortal.c"
+#include "afun-game/query_guest.c"
 
 #ifdef ENABLE_USER_LLISTS
 

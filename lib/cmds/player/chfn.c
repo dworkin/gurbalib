@@ -35,7 +35,7 @@ static void main(string str) {
    string cmd, what;
 
    if (empty_str(str)) {
-      if (!USER_D->player_exists(this_player()->query_name())) {
+      if (query_guest(this_player()->query_name())) {
          write("chfn does not work with guest accounts.\n");
          return;
       }

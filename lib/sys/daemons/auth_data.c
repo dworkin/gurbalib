@@ -19,7 +19,7 @@ static void secure(void) {
 }
 
 static void save_me(void) {
-   if (name != "guest") {
+   if (!query_guest(name)) {
       /* unguarded so a user can save its own data */
       unguarded("save_object", AUTH_DATA_DIR + "/" + name + ".o");
    }
