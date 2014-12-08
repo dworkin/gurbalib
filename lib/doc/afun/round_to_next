@@ -16,4 +16,4 @@ EXAMPLES
 
 
 SEE ALSO
-	afun/percent, afun/round, kfun/ceil, kfun/floor, kfun/fmod
+	afun/percentage, afun/round, kfun/ceil, kfun/floor, kfun/fmod

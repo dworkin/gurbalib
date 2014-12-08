@@ -31,5 +31,5 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/blogit, afun/filelastmod, afun/files_modified, afun/sqlite3_select
+	afun/blog_it, afun/filelastmod, afun/files_modified, afun/sqlite3_select
 

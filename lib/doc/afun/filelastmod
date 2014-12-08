@@ -27,5 +27,5 @@ EXAMPLES
 	x = filelastmod("/tmp/sirdude.txt", 1);
 
 SEE ALSO
-	afun/blogit, afun/files_modified, afun/sqlite3_exec,
+	afun/blog_it, afun/files_modified, afun/sqlite3_exec,
 	afun/sqlite3_select

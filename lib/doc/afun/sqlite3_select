@@ -32,5 +32,5 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/blogit, afun/filelastmod, afun/files_modified, afun/sqlite3_exec
+	afun/blog_it, afun/filelastmod, afun/files_modified, afun/sqlite3_exec
 
