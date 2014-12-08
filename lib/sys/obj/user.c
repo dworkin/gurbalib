@@ -690,6 +690,11 @@ void input_get_gender(string str) {
       player->set_gender("female");
    } else if (str == "n" || str == "neuter") {
       player->set_gender("neuter");
+   } else if (str == "quit") {
+      write("Goodbye!!!\n");
+      destruct_object(player);
+      destruct_object(this_object());
+      return;
    } else {
       send_message("Please use 'male', 'female' or 'neuter'.\n");
       send_message("Please enter your gender (male/female/neuter) : ");
@@ -709,6 +714,13 @@ void input_get_race(string str) {
       return;
    }
    str = lowercase(str);
+
+   if (str == "quit") {
+      write("Goodbye!!!\n");
+      destruct_object(player);
+      destruct_object(this_object());
+      return;
+   }
 
    if ( (strlen(str) > 5) && (str[0..3] == "info") ) {
       string r;
