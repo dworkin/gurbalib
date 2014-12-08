@@ -133,7 +133,7 @@ mixed **get(varargs string order_by) {
 
 	if (use_sqlite3()) {
 		sql = "select name,xp,kills,killed,quests from top_score " +
-                   where name not in ('Who','Guest')";
+                   "where name not in ('Who','Guest')";
 
 		if (!empty_str(order_by)) {
 			sql += " order by " + order_by + ";";
