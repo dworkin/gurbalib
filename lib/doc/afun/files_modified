@@ -1,14 +1,13 @@
 NAME
-	files_modified - XXX
+	files_modified - XXX Need to look at it to figure out what it does
 
 SYNOPSIS
 	mixed *files_modified(string str, int hours, int maxsz, int dir)
 
 DESCRIPTION
-	This is available only if the mud is configured to use the 
-	FILES_MODIFIED LPC extension.
-
-	XXX
+	If the mud is configured to use the FILES_MODIFIED LPC extension,
+	then this function can be used to create a array of files that
+	have been modified since a given time from a specific directory.
 
 	You can find the extension on github here:
 	https://github.com/november-kilo/dgd-lpc-ext
@@ -17,7 +16,17 @@ RETURN VALUE
 	If the extension is disabled it will return nil.
 
 EXAMPLES
-	XXX
+	mixed *list;
+	int x, maxx;
+	string dir;
+
+	dir = "/tmp";
+	list = files_modified("", 5, 2000, dir);
+	maxx = sizeof(list);
+	print "Files in " + dir + "\n");
+	for (x = 0; x < maxx; x++) {
+		print "\t" + list[x][0] + ": " + list[x][1] + "\n";
+	}
 
 SEE ALSO
 	afun/blog_it, afun/filelastmod, afun/files_modified, afun/sqlite3_exec,
