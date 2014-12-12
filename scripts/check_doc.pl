@@ -131,6 +131,35 @@ sub check_file {
 	check_seealso($file);
 }
 
+sub check_source_doc_match {
+	my ($source, $docdir) = @_;
+	my (@files, $fh, $tmp); 
+	my $subname = "check_source_doc_match";
+
+	opendir($fh, $source) or die "Unable to open $source\n";;
+	@files = readdir($fh);
+	close $fh;
+
+	foreach my $i (@files) {
+		my $tmp;
+
+		if ($i eq ".." || $i eq ".") {
+		} elsif (-f "$source/$i") {
+			if ($i =~ /(.*)\.c/) {
+				$tmp = $1;
+			} else {
+				$tmp = $i;
+			}
+
+			if (! -f "$docdir/$tmp") {
+				print "Missing $docdir/$tmp\n";
+			}
+		} else {
+			print "You should look at $source/$i\n";
+		}
+	}
+}
+
 sub check_dir {
 	my ($dir) = @_;
 	my (@files, $fh, $tmp); 
@@ -164,8 +193,10 @@ if ($Options{"help"}) {
 	# XXX Was previously looking to make sure each afun had a doc
 	# Need to add that back in.
 
-	my $dir = "lib/doc/afun";
+	my $dir = "./lib/doc/afun";
+	my $source = "./lib/kernel/lib/afun";
 	if (-d $dir) {
+		check_source_doc_match($source, $dir);
 		check_dir($dir);
 	} else {
 		print "Unable to find $dir\n";
