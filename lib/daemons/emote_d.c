@@ -53,6 +53,17 @@ string *query_emotes(void) {
    return values;
 }
 
+string get_random_emote(void) {
+   string *values;
+   int x;
+
+   values = query_emotes();
+   x = sizeof(values);
+   x = random(x);
+
+   return values[x];
+}
+
 string query_emote(string name, string rule) {
    if (member_map(name,emotes) && member_map(rule,emotes[name])) {
       return emotes[name][rule];

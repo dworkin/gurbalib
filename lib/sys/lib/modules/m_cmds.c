@@ -222,9 +222,13 @@ int do_game_command(string message) {
 
       /* check for emotes */
       if (!flag) {
-         if (EMOTE_D->is_emote(cmd)) {
+         if (EMOTE_D->is_emote(cmd) || cmd == "random") {
             string rule, *rules;
             object target;
+
+            if (cmd == "random") {
+                cmd = EMOTE_D->get_random_emote();
+            }
 
             rules = EMOTE_D->query_rules(cmd);
 
