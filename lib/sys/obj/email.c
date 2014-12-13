@@ -3,12 +3,12 @@ string to, from, subject, date;
 string *lines;
 
 static void restore_me(string myfile) {
-   write("Calling restore_object on : " + myfile + "\n");
+   console_msg("Calling restore_object on : " + myfile + "\n");
    unguarded("restore_object", myfile);
 }
 
 static void save_me(string myfile) {
-   write("Calling restore_object on : " + myfile + "\n");
+   console_msg("Calling save_me on : " + myfile + "\n");
    unguarded("save_object", myfile);
 }
 

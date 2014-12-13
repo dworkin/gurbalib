@@ -24,77 +24,73 @@ string get_filename(string who) {
    return filen + x;
 }
 
-string *load_index(string who) {
+object load_index(string who) {
    object myindex;
 
    myindex = clone_object(EMAIL_INDEX);
    myindex->restore_me(DATA_DIR + "/" + who + "/index.o");
+
+   return myindex;
 }
 
-string *save_index(string who, string *index) {
-   object myindex;
+string *save_index(string who, object index) {
 
-   myindex->save_me(DATA_DIR + "/" + who + "/index.o");
+   index->save_me(DATA_DIR + "/" + who + "/index.o");
 }
 
 int add_index(string who, object mail, string filename) {
-   string *index;
    string line;
+   object index;
 
    index = load_index(who);
 
    line = mail->query_from() + ": " + mail->query_subject();
-   index += ({ line });
+
+//  XXX Need to fix this
+//   index += ({ line });
 
    save_index(who,index);
+   return 1;
 }
 
 int delete_index(string who, int num) {
-   string *index;
+   object index;
    int x, max;
 
    index = load_index(who);
 
-   max = sizeof(index);
-   if (num > max) {
-      return 0;
-   }
-
-   while (num < max) {
-      index[num] = index[num +1];
-   }
-   index[max] = nil;
+// XXX Need to do the work here...
 
    save_index(who,index);
+   return 1;
 }
 
 int send_email_to_player(string who, object mail) {
-   string dir, filename;
+   string dir, filename, fullfile;
    object usr;
 
    dir = DATA_DIR + "/" + who;
-   if (file_exists(dir) > -1) {
+   if (file_exists(dir) == 0) {
       if (!unguarded("make_dir",dir)) {
          console_msg("MAIL_D: unable to create maildir: " + dir + "\n");
          return 0;
       }
    }
    filename = get_filename(who);
+   fullfile = dir + "/" + filename;
 
-   if (mail->save_me(dir + "/" + filename)) {
-      if (add_index(who,mail,filename)) {
 
-         if (usr = USER_D->find_player(who)) {
-            usr->message("You have new email.\n");
-         }
-         return 1;
-      } else {
-         console_msg("MAIL_D: unable to add_index: " + who + "\n");
-         return 0;
+   console_msg("MAIL_D: unable to create mailfile: " + fullfile + "\n");
+
+   mail->save_me(fullfile);
+   if (add_index(who,mail,filename)) {
+
+      if (usr = USER_D->find_player(who)) {
+         usr->message("You have new email.\n");
       }
+      return 1;
    } else {
-      console_msg("MAIL_D: unable to save file: " + dir + "/" + filename +
-         "\n");
+      console_msg("MAIL_D: unable to add_index: " + who + "\n");
       return 0;
    }
 }
@@ -129,6 +125,8 @@ int check_new_email(object who) {
    string name;
 
    name = who->query_name();
+   // XXX More to do here...
+   return 0;
 }
 
 int test(void) {
@@ -138,6 +136,7 @@ int test(void) {
    mail = clone_object(EMAIL_OBJ);
 
    if (!mail) {
+      console_msg("MAIL_D: unable to load email object.\n");
       return 0;
    }
 
