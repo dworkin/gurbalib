@@ -479,6 +479,8 @@ void upgraded(void) {
 }
 
 void print_finger_info(object player, object player2, int cloned) {
+   string linkd;
+
    player->message("%^BLUE%^Name:%^RESET%^ " + player2->query_Name() + "\n");
    player->message("%^BLUE%^Title:%^RESET%^ " + player2->query_title() + "\n");
    if (query_admin(player2->query_name()) == 1) {
@@ -514,7 +516,14 @@ void print_finger_info(object player, object player2, int cloned) {
       player->message("%^BLUE%^Last login: %^RESET%^" +
 	 ctime(player2->query_last_login()));
    } else {
-      player->message("%^BLUE%^Last login: %^RESET%^Now\n");
+      
+      if(LINKDEAD_D->is_linkdead(player2) ) {
+         linkd = " %^BOLD%^%^YELLOW%^[link-dead]%^RESET%^";
+      } else {
+         linkd = "";
+      }
+
+      player->message("%^BLUE%^Last login: %^RESET%^Now " + linkd + "\n");
       if (player2->query_idle() > 60) {
 	 player->message("%^BLUE%^Idle: %^RESET%^" +
 	    format_time(player2->query_idle()) + "\n");
@@ -950,7 +959,7 @@ string *list_players(int long_flag) {
 
       if(LINKDEAD_D->is_linkdead(usr[i]) ) {
          line += " %^BOLD%^%^YELLOW%^[link-dead]%^RESET%^";
-         }
+      }
 
       idletime = format_time(usr[i]->query_idle());
       if (idletime == "") {

@@ -36,17 +36,11 @@ In combat the bunny does't always attack...
 weight started, need to get it working against str for players and how
 	much they can carry.
 
-set_this_player is used too much... mabye only need it in heart_beat,
-and or in sys/ib/player.c and sys/lib/user.c  Shouldn't need it in
-all the locations its used...
-
 Fix rooms not loading objects so it loads the singularity(sing.c)
 
 Fix up Events like body_enter body_leave  good way to do 
 gurba monsters that talk when things happen I think...
 Harry...
-
-Document objects and rooms and monters.
 
 Need to convert Monster item_command stuff to object_commands
 
@@ -58,8 +52,6 @@ mail "user@mud" support...
 Fix wiz commands: more.c cat.c so they do not choke on larger files.
 
 write a showtree command that shows an objects inherit list?
-
-Add [link-dead] stuff to who maybe also last?
 
 locate command gives:
 Intermud error 'unk-type' received from Ulario
@@ -133,6 +125,4 @@ a bot spams random hints to the info channel every so often.
 
 defend command allows you to proctect another player.
 Things attacking it will attack you instead.
-
-random  preform a random emote.  can also do random (target) etc...
 

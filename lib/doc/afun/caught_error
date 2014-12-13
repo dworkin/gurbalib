@@ -19,5 +19,5 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/catch afun/rethrow
+	afun/catch, afun/rethrow
 
