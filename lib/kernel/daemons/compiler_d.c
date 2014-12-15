@@ -96,7 +96,8 @@ private int test_path(string path, string * comp) {
    int i, sz;
 
    parts = explode(path, "/");
-   for (i = 0, sz = sizeof(parts) - 1; i < sz; i++) {
+   sz = sizeof(parts) -1;
+   for (i = 0; i < sz; i++) {
       if (sizeof(parts[i..i] & comp) > 0) {
          return 1;
       }
@@ -123,8 +124,7 @@ int test_object(string path) {
  */
 mixed include_file(string file, string path) {
    if (path == "AUTO") {
-      string *parts;
-      string compiling;
+      string compiling, *parts;
 
       compiling = DRIVER->get_tlvar(TLS_COMPILING);
       parts = explode(compiling, "/");
@@ -143,9 +143,9 @@ mixed include_file(string file, string path) {
 
    if (path[0] != '/') {
       return file + "/../" + path;
-   } else {
-      return path;
    }
+
+   return path;
 }
 
 /* Include and inheritance tracking */
@@ -158,7 +158,11 @@ void register_program(object ob) {
 
 /* Number of programs known to the system */
 int query_program_count(void) {
-   return programs ? map_sizeof(programs) : 0;
+   if (programs) {
+      return map_sizeof(programs);
+   }
+
+   return 0;
 }
 
 /* Clear inherit list for the file + issue */
@@ -216,7 +220,7 @@ void clear_inherits(string file, int issue) {
 
 /* Register inherits for the object */
 static void set_inherits(object ob, object * inherits) {
-   int count, issue, obissue;
+   int count, issue, obissue, sz;
    string iname, file;
 
    if (!objectp(ob)) {
@@ -235,7 +239,8 @@ static void set_inherits(object ob, object * inherits) {
    }
 
    inh_list[file] = ( { } );
-   for (count = 0; count < sizeof(inherits); count++) {
+   sz = sizeof(inherits);
+   for (count = 0; count < sz; count++) {
       if (!inherits[count]) {
          error("Empty filename in set_inherits, pos is " + count);
       }
@@ -360,9 +365,9 @@ string issue_to_file(string str) {
 
    if (sscanf(str, "%s#%*d", f) == 2) {
       return f + ".c";
-   } else {
-      return str;
    }
+
+   return str;
 }
 
 /* Find all inheritables that have more then one instance registered. */
@@ -375,6 +380,7 @@ mapping find_duplicates(void) {
    dupes = ({ });
    pnames = map_indices(inh_list);
    max = sizeof(pnames);
+
    for (i = 0; i < max; i++) {
       string pn;
       int issue;
@@ -389,6 +395,7 @@ mapping find_duplicates(void) {
    }
    result = ([ ]);
    dupesize = sizeof(dupes);
+
    for (i = 0; i < dupesize; i++) {
       result[dupes[i]] = seen[dupes[i]];
    }
@@ -458,6 +465,8 @@ string *query_includes(string what) {
    if (includes[what]) {
       return includes[what][..];
    }
+
+   return nil;
 }
 
 /* Which files include the file provided as argument? */
@@ -465,6 +474,8 @@ string *query_included_by(string str) {
    if (increv[str]) {
       return increv[str][..];
    }
+
+   return nil;
 }
 
 /*
@@ -565,14 +576,14 @@ mixed allow_compile(string path, string file) {
    }
 
    if (path == "/sys/lib/auto") {
-      string *files;
-      string *code;
+      string *files, *code;
       int i, sz;
 
       code = ({ "inherit \"/kernel/lib/auto-game\";" });
       files = get_dir("/sys/safun/*.c")[0];
       if (files) {
-         for (i = 0, sz = sizeof(files); i < sz; i++) {
+         sz = sizeof(files);
+         for (i = 0; i < sz; i++) {
             code += ({ "#include \"/sys/safun/" + files[i] + "\"" });
          }
       }
