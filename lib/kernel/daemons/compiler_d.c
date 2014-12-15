@@ -274,7 +274,11 @@ string *inherits_this(string f, varargs int issue) {
    if (issue) {
       /* We know the issue, so a simple map lookup will work */
       f += "#" + issue;
-      return dep_list[f] ? dep_list[f][..] : ({ });
+      if (dep_list[f]) {
+         return dep_list[f][..];
+      } else {
+         return ({ });
+      }
    } else {
       /* We don't know the issue, so have to go through the keys
          and sscanf them to find all issues */
@@ -283,8 +287,11 @@ string *inherits_this(string f, varargs int issue) {
          max = sizeof(files);
          for (fcount = 0; fcount < max; fcount++) {
             if (sscanf(files[fcount], f) == 1) {
-               return dep_list[files[fcount]] ? 
-                  dep_list[files[fcount]][..] : ({ });
+               if (dep_list[files[fcount]]) {
+                  return dep_list[files[fcount]][..];
+               } else {
+                  return ({ });
+               }
             }
          }
       }

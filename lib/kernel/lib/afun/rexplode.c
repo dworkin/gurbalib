@@ -9,7 +9,11 @@ static string *rexplode(string str, string sep) {
    if (!strlen(sep)) {
       dummy = "!";
    } else {
-      dummy = sep[0] != '!' ? "!" : "?";
+      if (sep[0] != '!') {
+         dummy = "!";
+      } else {
+         dummy = "?";
+      }
    }
 
    str = dummy + str + dummy;

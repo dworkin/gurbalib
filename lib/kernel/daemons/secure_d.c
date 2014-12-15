@@ -89,6 +89,7 @@ string *query_wizards(void) {
 
 string *known_names(void) {
    string *result;
+
    result = SYS_BANNED_NAMES;
    result |= query_domains();
    result |= query_wizards();
@@ -341,10 +342,14 @@ int validate_stack(string priv, varargs int unguarded) {
          stack[i][TRACE_PROGNAME] == AUTO);
    }
 
+   if (sz) {
+      tmp = "(unguarded)";
+   } else {
+      tmp = "";
+   }
    DB( "validate_stack start : " + stack[i-sz][TRACE_PROGNAME] + ":" +
       stack[i-sz][TRACE_FUNCTION] + " called " + stack[i+1][TRACE_FUNCTION] +
-      (sz ? " (unguarded)":"") + "\n"
-   );
+      tmp + "\n");
    switch(privtype & 0x1f) {
       case PT_UNKNOWN : tmp = "unknown";
                         break;
@@ -422,7 +427,12 @@ int validate_stack(string priv, varargs int unguarded) {
       }
    }
    DRIVER->set_tlvar(TLS_CACHE,cache);
-   DB("validate_stack finish : " + (!deny ? "allow":"deny")+"\n");
+
+   if (!deny) {
+      DB("validate_stack finish : allow\n");
+   } else {
+      DB("validate_stack finish : deny\n");
+   }
 
    return !deny;
 }

@@ -12,5 +12,9 @@ mixed *set_invert(mixed *a, int dim, varargs int r) {
       c += ({ a[nr] });
    }
 
-   return r ? set_remove_repeats(c) : c;
+   if (r) {
+      return set_remove_repeats(c);
+   }
+
+   return c;
 }

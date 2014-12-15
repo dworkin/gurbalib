@@ -75,7 +75,11 @@ void set_mode(int m) {
 }
 
 int query_mode(void) {
-   return (blocked) ? MODE_BLOCK : mode;
+   if (blocked) {
+      return MODE_BLOCK;
+   }
+
+   return  mode;
 }
 
 void set_protocol(string proto) {
@@ -220,8 +224,11 @@ static void receive_error(string err) {
 #ifndef SYS_NETWORKING
 
 static void unconnected(int refused) {
-   _receive_error(DRIVER->new_tls(),
-      (refused) ? "Connection refused" : "Connection failed");
+   if (refused) {
+      _receive_error(DRIVER->new_tls(), "Connection refused");
+   } else {
+      _receive_error(DRIVER->new_tls(), "Connection failed");
+   }
 }
 
 #endif

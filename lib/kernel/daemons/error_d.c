@@ -134,8 +134,13 @@ static void log_runtime_error(string result, int caught) {
       write_file("/logs/errors/runtime", result + "\n");
       if (player && find_object(USER_D)) {
          if (USER_D->query_wizard(player->query_name()) == 1) {
-            write("%^RED%^Runtime error: %^RESET%^" +
-               "%^CYAN%^" + (verbose ? result : lines[0]) + "%^RESET%^");
+            if (verbose) {
+            write("%^RED%^Runtime error: %^RESET%^" + "%^CYAN%^" + result +
+               "%^RESET%^");
+            } else {
+            write("%^RED%^Runtime error: %^RESET%^" + "%^CYAN%^" + lines[0] +
+               "%^RESET%^");
+            }
          } else {
             write("You have encountered a rift in reality. " +
                "Please report it to the admins.\n");
@@ -178,10 +183,10 @@ string format_compile_error(string file, int line, string err) {
    if (player) {
       return ctime(time()) + ":" + this_player()->query_name() + ":" + file +
          ", " + (string) line + ": " + err + "\n";
-   } else {
-      return ctime(time()) + ": DRIVER :" + file +
-         ", " + (string) line + ": " + err + "\n";
    }
+
+   return ctime(time()) + ": DRIVER :" + file +
+      ", " + (string) line + ": " + err + "\n";
 }
 
 void compile_error(string file, int line, string err) {
