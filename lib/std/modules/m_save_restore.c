@@ -87,14 +87,14 @@ int *cnvint(mixed * data) {
    int r;
 
    sscanf(data[0], "%d", r);
-   return ( { r } );
+   return ({ r });
 }
 
 float *cnvfloat(mixed * data) {
    float r;
 
    sscanf(data[0], "%f", r);
-   return ( { r } );
+   return ({ r });
 }
 
 object *cnvobj(mixed * data) {
@@ -105,59 +105,63 @@ object *cnvobj(mixed * data) {
    for (i = 0; i < sizeof(data[0]); i++) {
       n += data[0][i];
    }
-   return ( { find_object(n) } );
+   return ({ find_object(n) });
 }
 
 string *emptystring(mixed * data) {
-   return ( { "" } );
+   return ({ "" });
 }
 
 string *concatstring(mixed * data) {
-   int i;
-
+   int i, maxi;
    string r;
+
    r = "";
 
-   for (i = 0; i < sizeof(data); i++) {
+   maxi = sizeof(data);
+   for (i = 0; i < maxi; i++) {
       if (data[i] == "\\") {
 	 i++;
       }
       r += data[i];
    }
 
-   return ( { r[1..strlen(r) - 2] } );
+   return ({ r[1..strlen(r) - 2] });
 }
 
 mixed *mkemptyarray(mixed * data) {
-   return ( { ( { } ) } );
+   return ({ ({ }) });
 }
 
 mixed *mkarray(mixed * data) {
-   int i;
+   int i, maxi;
    mixed *stuff;
-   stuff = ( { } );
-   for (i = 1; i < sizeof(data) && data[i] != "})"; i += 2) {
-      stuff += ( { data[i] } );
+
+   stuff = ({ });
+   maxi = sizeof(data);
+   for (i = 1; i < maxi && data[i] != "})"; i += 2) {
+      stuff += ({ data[i] });
    }
-   return ( { stuff } );
+   return ({ stuff });
 }
 
 mixed *mkemptymap(mixed * data) {
-   return ( { ([]) } );
+   return ({ ([]) });
 }
 
 mixed *mkmap(mixed * data) {
-   int i;
+   int i, maxi;
    mapping stuff;
    mixed key, val;
 
    stuff = ([]);
-   for (i = 1; i < sizeof(data) && data[i] != "])"; i += 4) {
+   maxi = sizeof(data);
+   for (i = 1; i < maxi && data[i] != "])"; i += 4) {
       key = data[i];
       val = data[i + 2];
       stuff[key] = val;
    }
-   return ( { stuff } );
+   return ({ stuff });
 }
 
 mixed restore_variable(string str) {
@@ -217,7 +221,8 @@ string save_variable(mixed var) {
 	 break;
       case T_ARRAY:
 	 result = "({";
-	 for (i = 0, s = sizeof(var); i < s; i++) {
+         s = sizeof(var);
+	 for (i = 0; i < s; i++) {
 	    result += save_variable(var[i]) + ",";
 	 }
 	 result += "})";
@@ -226,7 +231,8 @@ string save_variable(mixed var) {
 	 keys = map_indices(var);
 	 values = map_values(var);
 	 result = "([";
-	 for (i = 0, s = map_sizeof(var); i < s; i++) {
+         s = map_sizeof(var);
+	 for (i = 0; i < s; i++) {
 	    result += save_variable(keys[i]) + ":" + save_variable(values[i])
 	       + ",";
 	 }
@@ -236,5 +242,6 @@ string save_variable(mixed var) {
 	 result = nil;
 	 break;
    }
+
    return result;
 }

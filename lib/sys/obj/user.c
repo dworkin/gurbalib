@@ -169,7 +169,9 @@ void wrap_message(string str, varargs int chat_flag) {
 		  word_todo = ansid->strip_colors(words[i]);
 	       }
 	       /* word_todo is the word stripped from ansi codes */
-	       word_todo = !word_todo ? words[i] : word_todo;
+               if (!word_todo) {
+	          word_todo = words[i];
+               }
 
 	       if (sz + strlen(word_todo) + adding > width) {
 		  msg += "\n";
@@ -184,11 +186,19 @@ void wrap_message(string str, varargs int chat_flag) {
                   /* add word with ansi codes */
 		  msg += words[i];
 	       } else {
-		  msg += (adding ? " " : "") + words[i];
+                  if (adding) {
+		     msg += " " + words[i];
+                  } else {
+		     msg += words[i];
+                  }
 		  sz += strlen(word_todo) + adding;
 	       }
 	       /* determine how many spaces will be added next run */
-	       adding = sz == 0 ? 0 : 1;
+               if (sz == 0) {
+	          adding = 0;
+               } else {
+	          adding = 1;
+               }
 	    }
 	 }
 	 if (query_player()->query_ansi()) {

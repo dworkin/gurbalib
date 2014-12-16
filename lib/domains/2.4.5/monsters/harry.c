@@ -200,44 +200,47 @@ void do_extra_actions() {
    string *str;
 
    a_str = ({
-    "say Don't hit men",
-    "say That hurt!",
-    "say Help, someone!",
-    "say Why can't you go bullying elsewhere?",
-    "say Aooooo!",
-    "say I hate bashers!\n",
-    "say Bastard\n",
-    "say You big brute!\n"            
+      "say Don't hit men",
+      "say That hurt!",
+      "say Help, someone!",
+      "say Why can't you go bullying elsewhere?",
+      "say Aooooo!",
+      "say I hate bashers!\n",
+      "say Bastard\n",
+      "say You big brute!\n"            
    });
 
    str = ({
-    "say What are you waiting for?",
-    "say Hello there!",
-    "say I don't like winter.",
-    "say I don't like snow.",
-    "say I don't like rain.",
-    "say Who are you?",
-    "say Why do you look like that?",
-    "say What are you doing here?",
-    "say Nice weather, isn't it?",
-	 "smile"
-	});
+      "say What are you waiting for?",
+      "say Hello there!",
+      "say I don't like winter.",
+      "say I don't like snow.",
+      "say I don't like rain.",
+      "say Who are you?",
+      "say Why do you look like that?",
+      "say What are you doing here?",
+      "say Nice weather, isn't it?",
+      "smile"
+   });
    count++;
 
    if (count >= INTERVAL) {
-      respond(is_fighting() ?
-			a_str[random(sizeof(a_str))] : str[random(sizeof(str))]);
+      if (is_fighting()) {
+         respond(a_str[random(sizeof(a_str))]);
+      }else {
+         respond(str[random(sizeof(str))]);
+      }
       count = 0;
    }
 }
 
 void outside_message(string str) {
    /* XXX some from these can be spoofed with player emotes... */
-	if (is_fighting()) {
-		return;
-	}
+   if (is_fighting()) {
+      return;
+   }
 
-	str = ANSI_D->strip_colors(str);
+   str = ANSI_D->strip_colors(str);
    smiles(str);
    say_hello(str);
    why_did(str);

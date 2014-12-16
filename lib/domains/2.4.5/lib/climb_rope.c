@@ -15,9 +15,22 @@ int is_rope(string str) {
 
 string query_extra_long(int can_go_up, int can_go_down) {
    string dir_up, dir_down, or_str, str;
-   dir_up = can_go_up ? "up" : "";
-   dir_down = can_go_down ? "down" : "";
-   or_str = can_go_up && can_go_down ? " or " : "";
+   if (can_go_up) {
+      dir_up = "up";
+   } else {
+      dir_up = "";
+   }
+   if (can_go_down) {
+      dir_down = "down";
+   } else {
+      dir_down = "";
+   }
+   if (can_go_up && can_go_down) {
+      or_str = " or ";
+   } else {
+      or_str = "";
+   }
+
    str = dir_up + or_str + dir_down;
    return "There is a rope allowing you to climb " + str + " from here.";
 }
