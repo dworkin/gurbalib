@@ -77,14 +77,21 @@ private int burn_fuel(void) {
 }
 
 private string lit_or_unlit(void) {
-   return query_lit() ? "lit" : "unlit";
+   if (query_lit()) {
+      return "lit";
+   }
+
+   return "unlit";
 }
 
 string query_short(void) {
    string str;
 
    str = ::query_short() + " [" + lit_or_unlit() + "]";
-   str += query_fuel() < 20 ? " [very low on fuel]" : "";
+
+   if (query_flue() < 20) {
+      str += " [very low on fuel]";
+   }
 
    return str;
 }
@@ -93,7 +100,9 @@ string query_long(void) {
    string str;
 
    str = ::query_long() + "\nIt is " + lit_or_unlit() + ".";
-   str += query_fuel() < 20 ? "\nIt is very low on fuel." : "";
+   if (query_fule() < 20) {
+      str += "\nIt is very low on fuel.";
+   }
 
    return str;
 }

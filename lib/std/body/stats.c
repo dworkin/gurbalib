@@ -36,8 +36,16 @@ int query_stat(string statname) {
    if (!bonus_stats) {
       bonus_stats = ([]);
    }
-   base = base_stats[statname] ? base_stats[statname] : 0;
-   bonus = bonus_stats[statname] ? bonus_stats[statname] : 0;
+   if (base_stats[statname]) {
+      base = base_stats[statname];
+   } else {
+      base = 0;
+   }
+   if (bonus_stats[statname]) {
+      bonus = bonus_stats[statname];
+   } else {
+      bonus = 0;
+   }
    return (base + bonus);
 }
 
@@ -48,7 +56,11 @@ int query_base_stat(string statname) {
    if (!base_stats) {
       base_stats = ([]);
    }
-   return base_stats[statname] ? base_stats[statname] : 0;
+
+   if (base_stats[statname]) {
+      return base_stats[statname];
+   }
+   return 0;
 }
 
 int query_bonus_stat(string statname) {
@@ -58,7 +70,11 @@ int query_bonus_stat(string statname) {
    if (!bonus_stats) {
       bonus_stats = ([]);
    }
-   return bonus_stats[statname] ? bonus_stats[statname] : 0;
+   if (bonus_stats[statname]) {
+      return bonus_stats[statname];
+   }
+
+   return 0;
 }
 
 void trim_base_stat(string statname) {
@@ -76,12 +92,16 @@ void trim_base_stat(string statname) {
 
 void trim_bonus_stat(string statname) {
    int max, min;
+
    max = 0;
    min = 0;
+
    /* removed, query_bonus_stat_X functions don't exist in std/race
-      max = this_object()->query_race_object()->query_bonus_stat_maximum(statname);    
-      min = this_object()->query_race_object()->query_bonus_stat_minimum(statname);
-    */
+   max = this_object()->query_race_object()->
+      query_bonus_stat_maximum(statname);    
+   min = this_object()->query_race_object()->
+      query_bonus_stat_minimum(statname);
+   */
    if (query_bonus_stat(statname) < min) {
       bonus_stats[statname] = min;
    } else if (query_bonus_stat(statname) > max) {
@@ -168,48 +188,39 @@ mixed *query_all_stats(void) {
    int i;
 
    stat_names = map_indices(base_stats);
-   ret = ( {
-      });
+   ret = ({ });
    for (i = 0; i < sizeof(stat_names); i++) {
-      ret += ( {
-	    ( {
-	       stat_names[i], base_stats[stat_names[i]],
-		  bonus_stats[stat_names[i]]}
-	 )}
-      );
+      ret += ({ ({ stat_names[i], base_stats[stat_names[i]],
+	  bonus_stats[stat_names[i]]}) });
    }
-   return (ret);
+   return ret;
 }
 
 int query_statbonus(string name) {
-
    int stat;
 
    if (member_array(name, VALID_STATS) == -1) {
-      return (0);
+      return 0;
    }
 
    stat = query_stat(name);
 
    if (stat > 1 && stat < 9) {
-      return (1);
+      return 1;
    } else if (stat > 8 && stat < 14) {
-      return (2);
+      return 2;
    } else if (stat > 13 && stat < 18) {
-      return (3);
+      return 3;
    } else if (stat > 17 && stat < 20) {
-      return (4);
+      return 4;
    } else if (stat > 19) {
-      return (5);
+      return 5;
    }
-   return (0);
+   return 0;
 }
 
 void initialize_base_stats(void) {
-   int *s;
-   int i;
-   int sOK;
-   int sum;
+   int i, sOK, sum, *s;
    object race;
 
    race = this_object()->query_race_object();
@@ -218,7 +229,7 @@ void initialize_base_stats(void) {
 
    while (!sOK) {
 
-      s = ( { "0", "0", "0", "0", "0", "0" } );
+      s = ({ "0", "0", "0", "0", "0", "0" });
 
       s[0] = random(race->query_base_stat_maximum("str")
 	 - race->query_base_stat_minimum("str") + 1)

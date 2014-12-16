@@ -88,7 +88,7 @@ void event_heart_beat(void) {
 }
 
 string query_age(void) {
-   string ret;
+   string ret, tmp;
    int years, days, hours, mins, secs;
 
    secs = player_age;
@@ -111,19 +111,44 @@ string query_age(void) {
    }
 
    if (years > 0) {
-      ret += years + (years == 1 ? " year " : " years ");
+      if (years == 1) {
+         tmp = " year ";
+      } else {
+         tmp = " years ";
+      }
+      ret += years + tmp;
    }
    if (days > 0) {
-      ret += days + (days == 1 ? " day " : " days ");
+      if (days == 1) {
+         tmp = " day ";
+      } else {
+         tmp = " days ";
+      }
+      ret += days + tmp;
    }
-	if (hours > 0) {
-		ret += hours + (hours == 1 ? " hr " : " hrs ");
-	}
+   if (hours > 0) {
+      if (hours == 1) {
+         tmp = " hr ";
+      } else {
+         tmp = " hrs ";
+      }
+      ret += hours + tmp;
+   }
    if (mins > 0) {
-      ret += mins + (mins == 1 ? " min " : " mins ");
+      if (mins == 1) {
+         tmp = " min ";
+      } else {
+         tmp = " mins ";
+      }
+      ret += mins + tmp;
    }
    if (secs > 0) {
-      ret += secs + (secs == 1 ? " sec " : " secs ");
+      if (secs == 1) {
+         tmp = " sec ";
+      } else {
+         tmp = " secs ";
+      }
+      ret += secs + tmp;
    }
 
    return ret;

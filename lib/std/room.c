@@ -241,8 +241,13 @@ string query_desc(varargs int brief) {
                continue;
             }
             x = inventory[count]->query_idle();
-            pc = inventory[count]->is_player()?
-               "%^PLAYER%^" : "%^NPC_FRIENDLY%^";
+
+            if (inventory[count]->is_player()) {
+               pc = "%^PLAYER%^";
+            } else {
+               pc = "%^NPC_FRIENDLY%^";
+            }
+
             if (x && x > 60) {
                desc = "  " + pc + capitalize(inventory[count]->query_short()) +
                   " [idle" + format_time(inventory[count]->query_idle()) +
