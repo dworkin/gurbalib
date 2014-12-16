@@ -43,7 +43,7 @@ void event_heart_beat(void) {
             write("You are dead.  You must pray to get your body back.\n");
          }
       } else {
-         this_object()->die();
+         call_out("die", 0);
          return;
       }
    } else {
