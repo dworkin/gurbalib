@@ -164,6 +164,9 @@ void die(void) {
 
 	killer = this_object()->query_killer();
 	if (killer) {
+       if(killer->is_player() ) {
+          set_this_player(killer);
+       }
 		killer->message("%^BOLD%^%^CYAN%^You killed " +
 			this_object()->query_Name() + ".%^RESET%^");
 	}
