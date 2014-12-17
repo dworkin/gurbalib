@@ -39,6 +39,20 @@ void usage(void) {
    this_player()->more(lines);
 }
 
+string *get_group_members() {
+}
+
+string get_group_name() {
+}
+
+int get_group_exp() {
+	return 0;
+}
+
+int get_group_gold() {
+	return 0;
+}
+
 /* XXX Lots of work left */
 
 int do_group_hp() {
@@ -53,7 +67,7 @@ int do_group_hp() {
    lines += ({ "----------------------------------" });
 
    for(x = 0; x < maxx; x++ ) {
-      obj = find_player(members[x]);
+      obj = USER_D->find_player(members[x]);
       if (obj) {
          name = uppercase(members[x]);
 
@@ -82,6 +96,9 @@ int do_group_accept() {
 int do_group_leave() {
 }
 
+int is_leader(object player) {
+}
+
 int do_group_status() {
    string *lines, *members;
    int x, maxx;
@@ -93,7 +110,7 @@ int do_group_status() {
    lines += ({ "Group EXP: " + get_group_exp() + "\n" });
    lines += ({ "Group Gold: " + get_group_gold() + "\n" });
 
-   lines += ({ "Members:\n");
+   lines += ({ "Members:\n" });
    maxx = sizeof(members);
 
    for (x = 0; x < maxx; x++) {
@@ -104,7 +121,7 @@ int do_group_status() {
 }
 
 int do_group_split() {
-   if (is_leader(this_player)) {
+   if (is_leader(this_player())) {
    } else {
       write("You are not the group leader, you cannot split up the booty.\n");
    }
@@ -114,14 +131,14 @@ int do_group_invite(string who) {
 }
 
 int do_group_leader(string who) {
-   if (is_leader(this_player)) {
+   if (is_leader(this_player())) {
    } else {
       write("You are not the group leader, you cannot change the leader.\n");
    }
 }
 
 int do_group_name(string who) {
-   if (is_leader(this_player)) {
+   if (is_leader(this_player())) {
    } else {
       write("You are not the group leader, you cannot change the group " +
          "name.\n");
@@ -129,7 +146,7 @@ int do_group_name(string who) {
 }
 
 int do_group_remove(string who) {
-   if (is_leader(this_player)) {
+   if (is_leader(this_player())) {
    } else {
       write("You are not the group leader, you cannot remove people " +
          "from the group.\n");

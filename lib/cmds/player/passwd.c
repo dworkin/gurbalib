@@ -56,7 +56,7 @@ static void main(string arg) {
       return;
    }
 
-   if (query_guest(this_player()) {
+   if (query_guest(this_player())) {
       write("Guest accounts do not have passwords.\n");
    } else {
       call_other(this_user(), "change_passwd", "");

@@ -97,7 +97,7 @@ int do_block(object who) {
    return 1;
 }
 
-void mudlib_setup(mixed * args) {
+void mudlib_setup(mixed *args) {
 
    if (sizeof(args) != 2) {
       return;
