@@ -125,3 +125,6 @@ defend command allows you to proctect another player.
 Things attacking it will attack you instead.
 
 grep for ifdef's and make sure all are documented and useful.
+
+Fix check and checkmud functions so that they continue on errors.
+Also fix it so we avoid the too many objects error...

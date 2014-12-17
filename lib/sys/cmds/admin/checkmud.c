@@ -53,6 +53,13 @@ int valid_file(string filename) {
 int check_file(string filename) {
    object obj;
 
+   if (COMPILER_D->test_inheritable(filename)) {
+      if (compile_library(filename)) {
+         return 1;
+      }
+      return 0;
+   }
+
    obj = compile_object(filename);
 
    if (obj) {

@@ -93,7 +93,6 @@ void check_a_spell(string filename) {
    }
 }
 
-
 void check_a_command(string filename) {
    object obj;
    string *functionlist;
@@ -130,6 +129,17 @@ void check_a_daemon(string filename) {
    obj = compile_object(filename);
 
    if (!obj) {
+      error("Unable to load command: filename\n");
+      return;
+   }
+}
+
+void check_a_library(string filename) {
+	object obj;
+
+   write("Check library: " + filename + "\n");
+
+   if (!compile_library(filename)) {
       error("Unable to load command: filename\n");
       return;
    }
@@ -389,6 +399,9 @@ void do_check(string str) {
             return;
          } else if (INIT_D->file_is_daemon(what)) {
             check_a_daemon(what);
+            return;
+         } else if (COMPILER_D->test_inheritable(what)) {
+            check_a_library(what);
             return;
          }
 
