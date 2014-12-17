@@ -38,6 +38,18 @@ void unsubscribe_event(string name) {
    global_events[name][previous_object()] = nil;
 }
 
+      /* set this_player for heartbeats coming from ob in player inv */
+static void special_heart_beat(object ob, string func, varargs mixed args) {
+   rlimits(MAX_DEPTH; MAX_TICKS) {
+      set_this_player(ob->query_environment() );
+      if (sizeof(args) > 0) {
+         call_other(ob, func, args);
+       } else {
+         call_other(ob, func);
+       }
+   }
+}
+
 void dispatch_event(string name, object * obs, int *counters, int id,
    mixed * args) {
    int i, max_i, ticks_used, guard_handle;
@@ -66,10 +78,17 @@ void dispatch_event(string name, object * obs, int *counters, int id,
 
          rlimits(MAX_DEPTH; MAX_TICKS) {
             if (obs[i]) {
-               if (sizeof(args) > 0) {
-                  call_other(obs[i], "event_" + name, args);
-               } else {
-                  call_other(obs[i], "event_" + name);
+               if (name == "heart_beat" && obs[i]->query_environment() &&  
+                obs[i]->query_environment()->is_player() ) {
+                 call_out("special_heart_beat", 0, obs[i],           
+                  "event_" + name, args);
+               }
+               else {
+                  if (sizeof(args) > 0) {
+                     call_other(obs[i], "event_" + name, args);
+                  } else {
+                     call_other(obs[i], "event_" + name);
+                  }
                }
             }
             ticks_used += (MAX_TICKS - REMAINING_TICKS);
