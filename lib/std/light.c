@@ -55,16 +55,15 @@ private int burn_fuel(void) {
    if (--fuel < 5) {
       room = query_environment();
       if (room->is_living()) {
-         room->message("Your " + query_id() + " dims.\n");
+         write("Your " + query_id() + " dims.\n");
       }
    }
 
    if (fuel < 1) {
       room = query_environment();
       if (room->is_living()) {
-         room->message("Your " + query_id() + " goes out.\n");
-         room->query_environment()->tell_room(room,
-         room->query_Name() + "'s " + query_id() + " goes out.\n");
+         write("Your " + query_id() + " goes out.\n");
+         say(room->query_Name() + "'s " + query_id() + " goes out.\n");
       } else {
          room->message_room(room, "The " + query_id() + " goes out.\n");
       }
@@ -89,7 +88,7 @@ string query_short(void) {
 
    str = ::query_short() + " [" + lit_or_unlit() + "]";
 
-   if (query_flue() < 20) {
+   if (query_fuel() < 20) {
       str += " [very low on fuel]";
    }
 
@@ -100,7 +99,7 @@ string query_long(void) {
    string str;
 
    str = ::query_long() + "\nIt is " + lit_or_unlit() + ".";
-   if (query_fule() < 20) {
+   if (query_fuel() < 20) {
       str += "\nIt is very low on fuel.";
    }
 
