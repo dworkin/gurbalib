@@ -25,12 +25,14 @@ int query_heal_step(void) {
 }
 
 void create(void) {
-   EVENT_D->subscribe_event("heart_beat");
-   heal_time = 0;
-   heal_rate = 10;
-   heal_amount = 2;
-   if (!intp(player_age)) {
-      player_age = 0;
+   if (clone_num() ) {
+      EVENT_D->subscribe_event("heart_beat");
+      heal_time = 0;
+      heal_rate = 10;
+      heal_amount = 2;
+      if (!intp(player_age)) {
+         player_age = 0;
+      }
    }
 }
 
