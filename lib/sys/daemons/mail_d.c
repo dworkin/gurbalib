@@ -46,8 +46,9 @@ int add_index(string who, object mail, string filename) {
 
    line = mail->query_from() + ": " + mail->query_subject();
 
-//  XXX Need to fix this
-//   index += ({ line });
+/*  XXX Need to fix this
+    index += ({ line });
+*/
 
    save_index(who,index);
    return 1;
@@ -59,7 +60,7 @@ int delete_index(string who, int num) {
 
    index = load_index(who);
 
-// XXX Need to do the work here...
+/* XXX Need to do the work here... */
 
    save_index(who,index);
    return 1;
@@ -125,7 +126,7 @@ int check_new_email(object who) {
    string name;
 
    name = who->query_name();
-   // XXX More to do here...
+   /* XXX More to do here... */
    return 0;
 }
 

@@ -6,7 +6,7 @@ void setup(void) {
    ::setup();
 
    set_short("A cave passage in the Noki Cliffs filled with busts");
-   set_long("There are a number of busts here, you do not recognize " .
+   set_long("There are a number of busts here, you do not recognize " +
       "any of them.");
 
    set_exits(([

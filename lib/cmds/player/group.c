@@ -185,7 +185,7 @@ static void main(string arg) {
          do_group_split();
          break;
       default:
-// Need to handle multi args here...
+/* Need to handle multi args here... */
          break;
    }
 
