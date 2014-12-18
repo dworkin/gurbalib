@@ -1,0 +1,43 @@
+Need to simplify this and or organize it make sure they are all
+useful, used and documented  In the file or in the local_config.h
+
+Need to look at other defines and see if they are used as well.
+
+# done at compile time by dgd....
+kernel/sys/driver.c:#ifdef SYS_NETWORKING
+kernel/sys/driver.c:#ifdef SYS_PERSIST
+kernel/lib/afun/split_array.c:#ifdef CLOSURES_EXTENSION
+
+# local_config.h stuff...
+sys/daemons/user_d.c:#ifdef ALL_USERS_WIZ
+std/room.c:#ifdef LONG_ROOM_INV
+sys/obj/user.c:   #ifdef WEBSITE
+
+# Local only to that file and commented...
+sys/daemons/imud_d.c:#ifdef BELIEVE_ROUTERLIST
+
+
+kernel/daemons/error_d.c:#ifdef ERROR_SHOW_ARGUMENTS
+kernel/lib/afun-game/make_dir.c:#ifdef ENABLE_STACK_SECURITY
+kernel/lib/afun-game/compile_object.c:#ifdef SECURITY_COMPILER_RW
+kernel/daemons/secure_d.c:#ifdef SECURITY_RO_KERNEL
+
+sys/daemons/command_d.c:#ifdef DEBUG_COMMAND_D
+sys/lib/modules/m_cmds.c:#ifdef DEBUG
+sys/lib/menu.c:#ifdef DEBUG
+std/combat.c:#ifdef DEBUG
+daemons/parse_d.c:#ifdef DEBUG_PARSE
+daemons/event_d.c:#ifdef DEBUG_EVENT_D
+kernel/sys/driver.c:#ifdef DEBUG_RECOMPILE
+kernel/sys/driver.c:#ifdef DEBUG_BOOT
+kernel/daemons/compiler_d.c:#ifdef DEBUG_COMPILER_D
+kernel/daemons/secure_d.c:#ifdef DEBUG_STACK_SECURITY
+kernel/daemons/secure_d.c:#ifdef DEBUG_PRIVS
+kernel/obj/net/connection.c:#ifdef DEBUG_CONNECTION
+
+/* Should set this up, and warn users? */
+kernel/lib/afun/filelastmod.c:#ifdef LPC_EXT_FILELASTMOD
+daemons/top_score_d.c:#ifdef LPC_EXT_SQLITE3
+kernel/lib/afun/blog_it.c:#ifdef LPC_EXT_BLOG_IT
+kernel/lib/afun/query_thousands_separator.c:#ifdef LPC_EXT_QUERY_THOUSANDS_SEPARATOR
+domains/2.4.5/rooms/sea_bottom.c:#ifdef USE_NOKICLIFFS

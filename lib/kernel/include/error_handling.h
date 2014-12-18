@@ -5,6 +5,6 @@
 #define MAGIC_ERROR_ARGCHECK "Bad argument "
 
 /* define the following to show call arguments in error traces */
-#undef ERROR_SHOW_ARGUMENTS
+/* #define ERROR_SHOW_ARGUMENTS 1 */
 
 #endif

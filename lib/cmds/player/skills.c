@@ -30,18 +30,10 @@ void usage(void) {
 /*
  * An 'advanced' skill command, by Fudge, Sorressean and Aidil
  */
-#undef DEBUG_SKILLS
-
-static void DBM(string str) {
-#ifdef DEBUG_SKILLS
-   write(str);
-#endif
-}
 
 private void show_skills(string * skills) {
-   string line;
-   string *lines;
-   int i;
+   string line, *lines;
+   int i, maxi;
 
    if (sizeof(skills) == 0) {
       write("No skills to display.");
@@ -49,7 +41,8 @@ private void show_skills(string * skills) {
    }
 
    lines = ({ });
-   for (i = 0; i < sizeof(skills); i++) {
+   maxi = sizeof(skills);
+   for (i = 0; i < maxi; i++) {
       line = skills[i] + "                                     ";
       line = line[0..30] + ": " + this_player()->query_skill(skills[i]);
       lines += ({ line });
@@ -83,17 +76,14 @@ static void main(string str) {
     */
 
    if (empty_str(str)) {
-      /* All skills of this_player() */
       skills = this_player()->query_skills();
    } else if (str == "full") {
-      /* all game skills */
-      DBM("Showing all existing skills.");
       skills = SKILL_D->query_skills();
-      /*
-       * empty our input string, else the remainder of this function will 
-       * try to use it as a filter
-       */
+
+      /* empty our input string, else the remainder of this function will 
+       * try to use it as a filter */
       str = "";
+
    } else if (sscanf(str, "-%s", str)) {
       usage();
       return;
@@ -115,7 +105,7 @@ static void main(string str) {
    }
 
    if (!empty_str(str)) {
-      DBM("Using " + str + " to filter skills.");
+      /* write("Using " + str + " to filter skills."); */
       skills = filter_array(skills, "filter_skill", this_object(), str);
    }
 

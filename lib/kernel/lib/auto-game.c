@@ -98,24 +98,6 @@ private object secure_d;
 #include "afun-game/query_mortal.c"
 #include "afun-game/query_guest.c"
 
-#ifdef ENABLE_USER_LLISTS
-
-/*
- * Non kernel access to kernel maintained doubly linked lists
- */
-
-#include "afun-game/list_is_sentinel.c"
-#include "afun-game/list_next.c"
-#include "afun-game/list_sentinel.c"
-#include "afun-game/list_new.c"
-#include "afun-game/list_prepend.c"
-#include "afun-game/list_insert.c"
-#include "afun-game/list_append.c"
-#include "afun-game/list_prev.c"
-#include "afun-game/list_remove.c"
-
-#endif
-
 /*
  * Some filtered lists
  */

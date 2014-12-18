@@ -178,7 +178,7 @@ int parse(string str) {
       return 0;
    }
 
-#ifdef DEBUG_PARSER
+#ifdef DEBUG_PARSE
    write("parse_string result: " + dump_value(result));
 #endif
    func = "";

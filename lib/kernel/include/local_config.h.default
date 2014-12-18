@@ -18,12 +18,12 @@ You should at least modify the first 3 entries.
 /* To define your email address: */
 #define ADMIN_EMAIL             "you@some.place"
 
-/* Website for the mud if you have one */
+/* Website for the mud if you have one, if not comment this out */
 #define WEBSITE "https://github.com/sirdude/gurbalib"
 
-/* To set the linkdeadth timeout (after this linkdead players will be 
-   disconnected) */
-#define LINKDEAD_TIMEOUT        10*60
+/* To set the linkdeadth timeout in seconds (after this time, linkdead
+	players will be disconnected) */
+#define LINKDEAD_TIMEOUT        600
 
 /* This defines where players start when they login: */
 #define STARTING_ROOM           "/domains/required/rooms/start"
@@ -39,7 +39,7 @@ You should at least modify the first 3 entries.
 #define MAX_TICKS               1000000
 
 /* When set to 0, the world will not be persistent, and clean_up and reset
-   are used. */
+   are used. If set to 1, clean_up and reset are not called  */
 #define WORLD_PERSIST           0
 
 /* enable state dumping of the  the world so that we can reload from
@@ -49,13 +49,13 @@ You should at least modify the first 3 entries.
 /* Enable ansi colors */
 #define SYS_COLOR	1
 
-/* The time between calls to event_clean_up */
+/* The time between calls to event_clean_up, ignored if WORLD_PERSIST = 1*/
 #define CLEAN_UP_INTERVAL       7200
 
-/* The time between calls to event_reset */
+/* The time between calls to event_reset, ignored if WORLD_PERSIST = 1 */
 #define RESET_INTERVAL          15
 
-/* The time between state dumps */
+/* The time between state dumps, ignored if SYS_PERSIST = 0  */
 #define DUMP_INTERVAL           3600
 
 /* The time between heart beats */
@@ -98,11 +98,11 @@ You should at least modify the first 3 entries.
 #define SYS_BANNED_NAMES ({ "kernel", "system", "wizard", "network", "game", "nobody" })
 
 /* Define this to automatically promote users to a wizard when they 
-   create an account */
+	create an account */
 /* #define ALL_USERS_WIZ 1 */
 
 /* Mud Server Status Protocol variables, see sys/lib/user.c for where this
-   is used */
+	is used */
 #define MSSP_FAMILY "LPMud"
 #define MSSP_STATUS "ALPHA" /* "ALPHA", "CLOSED BETA", "OPEN BETA", "LIVE" */
 #define MSSP_INTERMUD "I3"

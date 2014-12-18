@@ -4,8 +4,6 @@
 #define CACHE_INTERVAL 300
 #define AUTH_DATA_DIR "/sys/daemons/data/users"
 
-/* #define USE_LWO_CACHE */
-
 static mapping users;
 static mapping cache;
 static mapping sessions;
@@ -13,9 +11,6 @@ static mapping wizards;
 static object  spare;
 static int     auto_admin;
 static int     handle;
-#ifdef USE_LWO_CACHE
-static object data_ob;
-#endif
 
 int data_version;
 
@@ -51,10 +46,8 @@ int logout(string name) {
       if (ob) {
          if (!spare) {
 	    spare = ob;
-#ifndef USE_LWO_CACHE
          } else {
             destruct_object(ob);
-#endif
          }
          cache[name] = nil;
          return 1;
@@ -100,14 +93,6 @@ static void create(void) {
    sessions = ([]);
    wizards = ([ ]);
    restore_me();
-
-#ifdef USE_LWO_CACHE
-   console_msg("WARNING: LWO cache in use, this is unstable!\n");
-   data_ob = find_object(AUTH_DATA);
-   if (!data_ob) {
-      data_ob = compile_object(AUTH_DATA);
-   }
-#endif
 
    if (sizeof(unguarded("get_dir", AUTH_DATA_DIR + "/*.o")[0]) == 0) {
       console_msg("enabling auto_admin\n");
@@ -170,11 +155,7 @@ static object get_data_ob(string name) {
       ob = spare;
       spare = nil;
    } else {
-#ifdef USE_LWO_CACHE
-      ob = new_object(data_ob);
-#else
       ob = clone_object(AUTH_DATA);
-#endif
    }
 
    if (ob->load(name)) {
@@ -183,10 +164,8 @@ static object get_data_ob(string name) {
    } else {
       if (!spare) {
 	 spare = ob;
-#ifndef USE_LWO_CACHE
       } else {
          destruct_object(ob);
-#endif
       }
    }
 }
@@ -271,11 +250,7 @@ static int _new_user(string name, string secret, object u) {
       ob = spare;
       spare = nil;
    } else {
-#ifdef USE_LWO_CACHE
-      ob = new_object(data_ob);
-#else
       ob = clone_object(AUTH_DATA);
-#endif
    }
 
    cache[name] = ob;
@@ -338,10 +313,8 @@ int _delete_user(string name) {
    if (cache[name]) {
       if (!spare) {
 	 spare = cache[name];
-#ifndef USE_LWO_CACHE
       } else {
          destruct_object(cache[name]);
-#endif
       }
       cache[name] = nil;
    }
