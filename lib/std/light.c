@@ -1,5 +1,4 @@
 inherit obj "/std/object";
-inherit hb "/std/body/heart_beat";
 
 int fuel, lit;
 
@@ -19,6 +18,7 @@ int query_lit(void) {
 }
 
 static int light(void) {
+   EVENT_D->subscribe_event("heart_beat");
    lit = 1;
    write("You light the " + this_object()->query_id() + ".\n");
    this_player()->query_environment()->tell_room(this_player(), 
@@ -38,7 +38,6 @@ static int extinguish(void) {
 
 void create(void) {
    obj::create();
-   hb::create();
 
    set_fuel(1000);
    add_action("do_light", "light");
