@@ -128,3 +128,8 @@ grep for ifdef's and make sure all are documented and useful.
 
 Fix check and checkmud functions so that they continue on errors.
 Also fix it so we avoid the too many objects error...
+
+move stuff from domains/required/lib to /std or do something else
+with them.   required are the bare minimum objects that are required
+for the mud, there shouldn't be any inheritables there.
+
