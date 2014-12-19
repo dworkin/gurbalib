@@ -1,9 +1,9 @@
 /*
  * Gurbalib's menu generator 		Aidil, March 2010
  */
-#undef DEBUG
+/* #define DEBUG_MENU 1 */
 
-#ifdef DEBUG
+#ifdef DEBUG_MENU
 #define DBT(X) write( X )
 #else
 #define DBT(X)

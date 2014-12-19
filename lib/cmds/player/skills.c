@@ -98,7 +98,6 @@ static void main(string str) {
    } else if (sscanf(str, "full %s", str) == 0) {
       /* Filtered list of skills of this_player() */
       skills = this_player()->query_skills();
-      DBM("Filtering all of your skills using " + str + ".");
    } else {
       /* Filtered list of all game skills */
       skills = SKILL_D->query_skills();

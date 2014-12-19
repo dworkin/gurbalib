@@ -1,6 +1,9 @@
 /* Gurbalib command daemon by Aidil@Way of the Force */
 #include <privileges.h>
 
+/* Uncomment this to debug things */
+/* #define DEBUG_COMMAND_D 1 */
+
 #define SYS_CMDPRIV ([\
       "/sys/cmds/admin/"     : "system",\
       "/sys/cmds/wiz/"       : "wizard",\
@@ -12,8 +15,6 @@
 
 #define DATA_FILE "/sys/daemons/data/command_d.o"
 #define secure() require_priv("system")
-
-#undef DEBUG_COMMAND_D
 
 mapping cmdpriv;
 static mapping commands;

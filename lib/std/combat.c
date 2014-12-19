@@ -10,7 +10,7 @@ object killer;
 #define ATTACK_COST 1
 
 /* Uncomment this to get extra info in combat */
-/* #define DEBUG 1 */
+/* #define DEBUG_COMBAT 1 */
 
 void create(void) {
    targets = ( {
@@ -189,7 +189,7 @@ int do_swing(int me) {
    opponent = target->query_defense();
    opponent_roll = random(opponent + 1);
 
-#ifdef DEBUG
+#ifdef DEBUG_COMBAT
    this_object()->message("Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" +
       me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" +
       opponent + "%^RESET%^]");
@@ -421,7 +421,7 @@ string get_status(object thing) {
 }
 
 void do_fight(void) {
-   int i, max, x, done;
+   int i, max, x;
    object *weapons;
    string line;
 
@@ -451,17 +451,14 @@ void do_fight(void) {
          }
       }
 
-#ifdef DEBUG
       /* Need to check target again, because target may have died. */
       line = get_status(this_object());
+
+#ifdef DEBUG_COMBAT
       line += " " get_status(target);
-      this_object()->message(line);
-      done = 1;
 #endif
-      if (!done) {
-         line = get_status(this_object());
-         this_object()->message(line);
-      }
+
+      this_object()->message(line);
    }
 }
 

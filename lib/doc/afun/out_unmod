@@ -20,5 +20,5 @@ EXAMPLES
 	out("Hello World\n");
 
 SEE ALSO
-	afun/console_msg, afun/out, afun/write
+	afun/console_msg, afun/say, afun/out, afun/write
 

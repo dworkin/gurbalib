@@ -9,6 +9,9 @@
 
 inherit "/std/modules/m_messages";
 
+/* Uncomment this to debug */
+/* #define DEBUG_M_CMD 1 */
+
 #include <privileges.h>
 #include <type.h>
 #define DEFAULT_SEARCHPATH ({ "/cmds/player/" })
@@ -36,7 +39,7 @@ private void DBT(string str) {
          this_player()->out(str);
       }
    }
-#ifdef DEBUG
+#ifdef DEBUG_M_CMD
    console_msg(str);
 #endif
 }
