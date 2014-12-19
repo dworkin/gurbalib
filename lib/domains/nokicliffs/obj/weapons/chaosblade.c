@@ -1,6 +1,6 @@
 #include "../../domain.h"
 
-inherit "/domains/required/lib/sword";
+inherit "/std/weapons/sword";
 
 int wield_hook(object player) {
    if (player->is_player()) {

@@ -1,6 +1,6 @@
 #include "../../domain.h"
 
-inherit "/domains/required/lib/helmet";
+inherit "/std/armors/helmet";
 inherit DIR + "/lib/wizards_hat/teleport";
 inherit DIR + "/lib/wizards_hat/light";
 

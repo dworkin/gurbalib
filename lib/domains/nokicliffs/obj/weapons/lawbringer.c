@@ -1,4 +1,4 @@
-inherit "/domains/required/lib/sword";
+inherit "/std/weapons/sword";
 
 void setup(void) {
    ::setup();
