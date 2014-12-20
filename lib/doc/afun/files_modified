@@ -1,5 +1,5 @@
 NAME
-	files_modified - XXX Need to look at it to figure out what it does
+	files_modified - create a list of files modified since a given time
 
 SYNOPSIS
 	mixed *files_modified(string str, int hours, int maxsz, int dir)

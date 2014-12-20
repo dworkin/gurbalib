@@ -14,4 +14,4 @@ EXAMPLES
 	console_msg("ERROR: we have an error here.\n");
 
 SEE ALSO
-	afun/out, afun/out_unmod, afun/say, afun/write
+	afun/out, afun/out_unmod, afun/ruler, afun/say, afun/write
