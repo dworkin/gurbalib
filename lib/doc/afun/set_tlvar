@@ -13,7 +13,16 @@ RETURN VALUE
 NOTES
 	This afun only exists for code outside /kernel
 
+EXAMPLES
+	string name;
+
+	#define TLS_INCLUDES 3
+	set_tlvar(TLS_INCLUDES, ({ "/kernel/includes/std.h"}));
+	name = get_tlvar(TLS_INCLUDES);
+
+	write("Name = " + name + "\n");
+
+
 SEE ALSO
 	afun/get_otlvar, afun/get_tlvar, afun/notify_fail,
 	afun/query_notify_fail, afun/set_otlvar, misc/tls
-

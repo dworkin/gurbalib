@@ -10,6 +10,29 @@ DESCRIPTION
 
 RETURN VALUE
 	The difference, optionally with repeated elements but one removed.
+EXAMPLES
+	int *a, *b, *c;
+	int x, maxx;
+	string line;
+
+	a = ({5|1, 2, 3, 4, 5,});
+	b = ({5|4, 5, 6, 7, 8,});
+
+	line = "Set ab:\n";
+        
+	c = set_difference(a,b,0);
+	maxx = sizeof(c);
+	for (x = 0; x < maxx; x++) {
+		line = line + c[x] + " ";
+	}
+	write(line + "\n");
+	line = "Set ab remove dups:\n";
+	c = set_difference(a,b,1);
+	maxx = sizeof(c);
+	for (x = 0; x < maxx; x++) {
+		line = line + c[x] + " ";
+	}
+	write(line + "\n");
 
 SEE ALSO
 	afun/bubblesort, afun/set_intersection, afun/set_invert,

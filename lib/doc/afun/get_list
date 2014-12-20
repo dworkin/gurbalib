@@ -12,5 +12,11 @@ RETURN VALUE
 	Return the specified list.  If not list is given return all
 	available lists.
 
+EXAMPLES
+	if (!get_list("clones")) {
+		error("Your config file is out of date.\n");
+	}
+
+
 SEE ALSO
 	afun/set_list

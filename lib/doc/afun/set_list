@@ -10,5 +10,13 @@ DESCRIPTION
 RETURN VALUE
 	NA (void)
 
+EXAMPLES
+	object master = this_object();
+	object next;
+
+	next = prt[LIST_NEXT];
+	set_list( "clones", ({ master, next }) );
+
+
 SEE ALSO
 	afun/get_list
