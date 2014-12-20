@@ -112,7 +112,6 @@ void increase_expr(int expr) {
    }
 }
 
-/* XXX handle level loss? */
 void decrease_expr(int expr) {
    if (expr > 0) {
       expr = expr * -1;
@@ -123,7 +122,6 @@ void decrease_expr(int expr) {
    }
 }
 
-/* XXX handle level? */
 void set_expr(int expr) {
    experience = expr;
    if (experience < 0) {
