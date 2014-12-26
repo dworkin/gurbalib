@@ -78,7 +78,7 @@ void set_weapon_action(string verb) {
    if (!weapon_action) {
       weapon_action = ({ });
    }
-   weapon_action += ({ verb });
+   weapon_action = ({ verb });
 }
 
 void set_weapon_actions(string *verbs) {
