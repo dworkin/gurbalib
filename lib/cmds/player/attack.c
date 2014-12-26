@@ -51,6 +51,11 @@ static void main(string str) {
       return;
    }
 
+   if (this_player()->is_fighting() ) {
+      write("You are already in combat.\n");
+      return;
+   }
+
    this_player()->targeted_action("$N $vattack $t.", obj);
    this_player()->attack(obj);
 }
