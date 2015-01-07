@@ -115,6 +115,14 @@ static void main(string arg) {
    }
 
    write(capitalize(arg) + ": Unknown help topic.");
+   if (query_wizard(this_player())) {
+      write("Try one of the following for more info:\n");
+      write("\tman " + arg + "\n");
+      write("\t" + arg + " -h\n");
+   } else {
+      write("If " + arg + " is a command, for more info try: " + 
+         arg + " -h\n");
+   }
    LOG_D->write_log("help", this_player()->query_Name() +
       " on " + ctime(time()) + ": " + arg + "\n");
    return;

@@ -121,6 +121,8 @@ static void main(string arg) {
 
    if (!found) {
       write(capitalize(arg) + ": Unknown man page.");
+      write("If \"" + arg + "\" is a command, for more info try:\n\t" +
+         arg + " -h\n");
       LOG_D->write_log("man", this_player()->query_Name() + " on " +
 	 ctime(time()) + ": " + arg + "\n");
       return;
