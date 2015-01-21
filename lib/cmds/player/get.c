@@ -23,9 +23,7 @@ void usage(void) {
    this_player()->more(lines);
 }
 
-/* This needs to be redone so it finds the object it's working with 
-   so it can destroy it properly if needed XXX */
-static int get_coins(int amount, string type) {
+static int get_coins(object here, int amount, string type) {
    object obj;
    string str;
    int value;
@@ -40,7 +38,7 @@ static int get_coins(int amount, string type) {
       return 0;
    }
 
-   obj = this_player()->query_environment()->present("coin");
+   obj = here->present("coin");
    value = obj->query_value();
    if (amount > value) {
       write("There are not that many coins here.\n");
@@ -110,7 +108,7 @@ static int do_get(object obj1, object obj2, int loud) {
       int x;
 
       x = obj1->query_value();
-      get_coins(x,"ducat");
+      get_coins(obj1->query_environment(), x, "ducat");
       return 1;
    }
 
@@ -141,8 +139,7 @@ static int do_get(object obj1, object obj2, int loud) {
 }
 
 static void main(string str) {
-   object obj, obj2;
-   object *inv;
+   object obj, obj2, *inv;
    int i, max, done, amount;
    string what, where, type;
 
@@ -167,7 +164,7 @@ static void main(string str) {
       what = str;
    } else if (sscanf(str, "%s %s",what,where) == 2) {
    } else if (sscanf(str, "%d %s",amount, type) == 2) {
-      if (get_coins(amount,type)) {
+      if (get_coins(this_environment(),amount,type)) {
          return;
       } else {
          what = str;
