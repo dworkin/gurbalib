@@ -5,12 +5,12 @@ void usage(void) {
 
    lines = ({ "Usage: translate [-h] WORD" });
    lines += ({ " " });
-   lines += ({ "translate WORD into the catfolk language." });
+   lines += ({ "translate WORD into various known languages." });
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\tXXX I'm broken get a wiz to fix me..." });
+   lines += ({ "\ttranslate hello" });
    lines += ({ "See also:" });
    lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
     "sysmsg, tell, whisper, wizcall" });
@@ -22,8 +22,6 @@ void usage(void) {
    this_player()->more(lines);
 }
 
-/* XXX THis needs work, shouldn't only do catfolk... */
-
 private int known_lang(string language) {
    return LANGUAGE_D->language_has_dictionary(language);
 }
@@ -33,15 +31,15 @@ private string get_trans(string lang, string str) {
 }
 
 private void do_translations(string str) {
-   string *race_names;
-   string *lines;
-   int     i, dim;
+   string *race_names, *lines;
+   int i, maxi;
 
    race_names = set_union(RACE_D->query_races(),
-    RACE_D->query_monster_races());
-   lines = allocate(sizeof(race_names));
+      RACE_D->query_monster_races());
+   maxi = sizeof(race_names);
+   lines = allocate(maxi);
 
-   for (i = 0, dim = sizeof(race_names); i < dim; i++) {
+   for (i = 0; i < maxi; i++) {
       if (!known_lang(race_names[i])) {
 	 lines[i] = "" + race_names[i] + ": unknown language.";
 	 continue;
