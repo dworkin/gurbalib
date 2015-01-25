@@ -1,12 +1,15 @@
 /* See /help/wiz/language_d for some explanations */
+
 mapping dicts;
 
+#define DATAFILE "/daemons/data/language_d.o"
+
 static void restore_me(void) {
-   unguarded("restore_object", "/daemons/data/language_d.o");
+   unguarded("restore_object", DATAFILE);
 }
 
 static void save_me(void) {
-   unguarded("save_object", "/daemons/data/language_d.o");
+   unguarded("save_object", DATAFILE);
 }
 
 string make_word(int size) {
@@ -18,14 +21,13 @@ string make_word(int size) {
 
     for(x=0; x<size; x++) {
        t = random(strlen(letters));
-       word += letters[t];
+       word += letters[t..t];
     }
     return word;
 }
 
 string *query_languages(void) {
-   string *langs, *files;
-   string name;
+   string name, *langs, *files;
    object obj;
    int i, x;
 
@@ -62,21 +64,6 @@ int valid_language(string str) {
    }
 
    return 0;
-}
-
-void create(void) {
-   string str, *langs;
-   int i, x;
-
-   langs = query_languages();
-   dicts = ([]);
-   x = sizeof(langs) - 1;
-
-   for(i=x; i >= 0; i--) {
-      str = make_word(5);
-      dicts[langs[x]] = ([ "bingo" : str ]);
-   }
-   restore_me();
 }
 
 string random_word(string race) {
@@ -154,6 +141,7 @@ string add_racial(string language, string englishword) {
    if (!(dicts[language][englishword])) {
       transword = random_word(language);
       dicts[language] += ([englishword:transword]);
+      save_me();
       return transword;
    }
 }
@@ -173,4 +161,23 @@ string english_to_racial(string language, string arg) {
 
 int language_has_dictionary(string language) {
    return mappingp(dicts) && mappingp(dicts[language]);
+}
+
+void create(void) {
+   string str, *langs;
+   int i, x;
+
+   if (file_exists(DATAFILE)) {
+      restore_me();
+   } else {
+      langs = query_languages();
+      dicts = ([]);
+      x = sizeof(langs);
+
+      for(i=0; i < x; i++) {
+         str = random_word(langs[i]);
+         dicts[langs[i]] = ([ "bingo" : str ]);
+      }
+      save_me();
+   }
 }
