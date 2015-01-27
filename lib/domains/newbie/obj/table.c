@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit "std/container";
+inherit "/std/container";
 
 void setup(void) {
    set_id("table");

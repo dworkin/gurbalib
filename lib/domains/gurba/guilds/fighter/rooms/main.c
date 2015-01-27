@@ -1,6 +1,6 @@
 #include "../../../domain.h"
 
-inherit "std/room";
+inherit "/std/room";
 
 void setup(void) {
    set_short("%^BLUE%^Fighters Guild%^RESET%^");
