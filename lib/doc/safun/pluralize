@@ -1,0 +1,19 @@
+NAME
+	pluralize - Pluralize a string
+
+SYNOPSIS
+	pluralize(string arg)
+
+DESCRIPTION
+	Pluralizes the end of str unless it uses form "x of y", in which case x is
+	pluralized but not y.
+
+RETURN VALUE
+	A string containing the pluralized version of arg.
+
+EXAMPLES
+	pluralize("bird") returns "birds"
+	pluralize("person") returns "people"
+	
+SEE ALSO
+	sfun/capitalize, afun/lowercase, afun/uppercase, afun/article

@@ -1,0 +1,18 @@
+NAME
+	convert_number - convert an integer to its English string
+
+SYNOPSIS
+	string convert_number(int i)
+
+DESCRIPTION
+	This function returns the English string representation of the
+	argument integer.
+
+RETURN VALUE
+	A string containing an integer, spelt out in English.
+
+EXAMPLES
+	convert_number(5)  returns "five"
+
+SEE ALSO
+	sfun/str2val

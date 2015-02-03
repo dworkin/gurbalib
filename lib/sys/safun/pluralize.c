@@ -40,6 +40,9 @@ string plur(string str) {
       case "tooth":
          return "teeth";
          break;
+      case "person":
+         return "people";
+         break;
 
       case "sheep":
       case "moose":
