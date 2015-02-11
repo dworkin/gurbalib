@@ -1,0 +1,18 @@
+NAME
+	horizontal_rule - draw a horizontal ruler
+
+SYNOPSIS
+	string horizontal_rule(object "/sys/obj/player" player, string str);
+	
+DESCRIPTION
+	Draw a horizontal set of characters with the repeating pattern str, and a length
+	that is equal to the this_players 'width' environment variable.
+
+RETURN VALUE
+	A ruler string.
+
+EXAMPLES
+	write(horizontal_rule(this_player(), "*=");
+
+SEE ALSO
+	afun/console_msg, afun/out, afun/say, afun/out_unmod, afun/write, afun/ruler
