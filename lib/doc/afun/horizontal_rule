@@ -6,7 +6,7 @@ SYNOPSIS
 	
 DESCRIPTION
 	Draw a horizontal set of characters with the repeating pattern str, and a length
-	that is equal to the this_players 'width' environment variable.
+	that is equal to this_players 'width' environment variable.
 
 RETURN VALUE
 	A ruler string.
