@@ -1,0 +1,16 @@
+NAME
+	present - find a present object by its id or filename
+
+SYNOPSIS
+	object present(string name, varargs mixed where);
+
+DESCRIPTION
+	This function returns the first matching object specified by 'name'
+	if it is found in the inventory of the container object(s) `where'.
+	'name' can refer to either an objects id or an objects filename.
+	If the object is not present, nil is returned.
+
+SEE ALSO
+	find_object
+
+
