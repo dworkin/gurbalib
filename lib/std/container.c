@@ -236,21 +236,6 @@ object find_adjs_object(string * adj, string name) {
    return find_adjs_object_num(adj, name, 1);
 }
 
-object present(string name) {
-   string what;
-   int which;
-
-   if (file_exists(name)) {
-      return find_object_filename(name);
-   } else if (file_exists(name + ".c")) {
-      return find_object_filename(name + ".c");
-   }
-   if (sscanf(name, "%s %d", what, which) == 2) {
-      return find_object_num(what, which);
-   }
-   return find_object_num(name, 1);
-}
-
 void error_loading_object(string name) {
    object ob;
    string filename;

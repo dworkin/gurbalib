@@ -4,7 +4,7 @@ object present(string name, varargs mixed where...) {
    int i;
    object result;
 
-   if(!where) where = ({ this_object() });
+   if(sizeof(where) == 0) where = ({ this_object() });
 
    for(i = 0; i < sizeof(where); i++) {
    
