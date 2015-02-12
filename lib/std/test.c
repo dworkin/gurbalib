@@ -17,12 +17,12 @@ int is_equal(mixed res, mixed res2) {
    0  = cmd != result
    -1 = error with cmd
  */
-mixed do_test(string cmd, mixed result) {
+mixed do_test(mixed result, string cmd, mixed *args) {
    mixed res;
 
    catch {
       /* May need to do more complicated check depending on type */
-      res = this_object()->call_other(cmd);
+      res = this_object()->call_other(cmd,args);
       if (is_equal(res, result)) {
          return ({1, res});
       } 
@@ -33,13 +33,13 @@ mixed do_test(string cmd, mixed result) {
    return ({0, dump_value(res)});
 }
 
-void do_verbose_test(string cmd, mixed result, int experror) {
+void do_verbose_test(mixed result, int experror, string cmd, mixed *args) {
    mixed ans;
 
    write("Calling: " + cmd + "\n");
    write("Expecting: " + dump_value(result) + "\n");
 
-   ans = do_test(cmd, result);
+   ans = do_test(result, cmd, args);
 
    if (ans[0] == 1) {
       write("Result: Success\n");
