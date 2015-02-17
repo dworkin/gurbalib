@@ -16,4 +16,4 @@ EXAMPLES
 	pluralize("person") returns "people"
 	
 SEE ALSO
-	sfun/capitalize, afun/lowercase, afun/uppercase, afun/article
+	safun/capitalize, afun/lowercase, afun/uppercase, safun/article

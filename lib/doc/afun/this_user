@@ -19,8 +19,8 @@ EXAMPLES
 	write(p->query_player()->query_name() + "\n");
 
 SEE ALSO
-	afun/call_trace, afun/players, afun/set_this_player, afun/this_body, 
-	afun/this_connection, afun/this_environment, afun/this_player,
-	afun/this_program, afun/this_race, kfun/call_trace,
+	safun/call_trace, safun/players, afun/set_this_player, safun/this_body, 
+	afun/this_connection, safun/this_environment, afun/this_player,
+	afun/this_program, safun/this_race, kfun/call_trace,
 	kfun/previous_object, kfun/previous_program
 

@@ -1,0 +1,20 @@
+NAME
+	query_wizard - test if a player is a wizard
+
+SYNOPSIS
+	int query_wizard(object arg)
+
+DESCRIPTION
+	Check if 'arg' is a wizard player object
+
+RETURN VALUE
+	Returns 1 if 'arg' is a wizard player object, 0 otherwise.
+
+EXAMPLES
+	if (query_wizard(this_player()) {
+		write("You may pass.\n");
+	}
+
+SEE ALSO
+	safun/query_admin, safun/query_guest, safun/query_mortal,
+	safun/query_user_type

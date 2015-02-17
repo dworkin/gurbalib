@@ -1,0 +1,28 @@
+NAME
+	notify_fail - set the value for a tls variable.
+
+SYNOPSIS
+	static void notify_fail(string str)
+
+DESCRIPTION
+	Use the tls system to record error messages for the mud.
+
+RETURN VALUE
+	NA (void)
+
+NOTES
+	This afun only exists for code outside /kernel
+
+EXAMPLES
+	string domain;
+
+	domain = "newbie";
+
+	if (!domain || !DOMAIN_D->is_domain(domain)) {
+	   notify_fail("No such domain: " + domain);
+	}
+
+SEE ALSO
+	safun/get_otlvar, safun/get_tlvar, safun/query_notify_fail,
+	safun/set_otlvar, safun/set_tlvar, misc/tls
+

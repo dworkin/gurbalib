@@ -1,0 +1,18 @@
+NAME
+	ruler - draw a horizontal ruler
+
+SYNOPSIS
+	string ruler(int length);
+
+DESCRIPTION
+	Get a ruler of argument 'length'.
+
+RETURN VALUE
+	A ruler string.
+
+EXAMPLES
+	write(ruler(80));
+
+SEE ALSO
+	afun/console_msg, safun/out, safun/say, safun/out_unmod, afun/write,
+	safun/horizontal_rule

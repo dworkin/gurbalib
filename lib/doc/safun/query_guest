@@ -1,0 +1,21 @@
+NAME
+	query_guest - test if a player is a guest account
+
+SYNOPSIS
+	int query_guest(mixed arg)
+
+DESCRIPTION
+	Check if 'arg' is a guest account.  Note arg can be a player_object
+	or a player name.
+
+RETURN VALUE
+	Returns 1 if 'arg' is a guest player object, 0 otherwise.
+
+EXAMPLES
+	if (query_guest(this_player()) {
+	   write("Welcome the mighty admin!\n");
+	}
+
+SEE ALSO
+	safun/query_admin, safun/query_mortal, safun/query_user_type,
+	safun/query_wizard

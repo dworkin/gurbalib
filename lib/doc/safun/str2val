@@ -1,0 +1,28 @@
+NAME
+	str2val - Converts a string of numbers into an int value
+
+SYNOPSIS
+	int str2val(string str)
+
+DESCRIPTION
+	Converts a string of numbers into an int value.  The string must 
+	only contain numbers, or -1 is returned.
+
+RETURN VALUE
+	An int value representing the number in str, or -1 if str is 
+	not a number.
+
+EXAMPLES
+	int x;
+	string tmp;
+
+	tmp = "2345";
+	x = str2val(tmp);
+	write("X = " + x + "\n");
+
+SEE ALSO
+	safun/add_comma, safun/empty_str, safun/fmt_str, afun/lowercase,
+	safun/pad_string_left, safun/replace_string, safun/rexplode, safun/strcmp,
+	safun/strstr, kfun/explode, kfun/implode,
+	safun/parse_range, kfun/parse_string, kfun/sscanf, safun/trim_str,
+	afun/uppercase

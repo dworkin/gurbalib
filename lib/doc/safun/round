@@ -1,0 +1,28 @@
+NAME
+	round - rounds float to an integer
+
+SYNOPSIS
+	int round(float f);
+
+DESCRIPTION
+	Simple rounding function for turning floats into integers.
+
+RETURN VALUE
+	The float 3.5 rounds to 4 while -3.5 rounds to 3.
+
+EXAMPLES
+	int x;
+	float y;
+
+	y = 3.5;
+	x = round(y);
+	write("X = " + x + " Y = " + y + "\n");
+	y = 1.555555;
+	x = round(y);
+	write("X = " + x + " Y = " + y + "\n");
+	y = -0.555555;
+	x = round(y);
+	write("X = " + x + " Y = " + y + "\n");
+
+SEE ALSO
+	safun/percentage, safun/round_to_next, kfun/ceil, kfun/floor, kfun/fmod

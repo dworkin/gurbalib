@@ -25,4 +25,4 @@ EXAMPLES
 	}
 
 SEE ALSO
-	owner_file, file_name
+	afun/owner_file, afun/file_name

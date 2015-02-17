@@ -1,0 +1,20 @@
+NAME
+	capitalize - convert the first letter of a string to uppercase
+
+SYNOPSIS
+	string capitalize(string arg)
+
+DESCRIPTION
+	Converts the first character in arg to uppercase.
+
+RETURN VALUE
+	A new, converted string is returned.
+
+EXAMPLES
+	string name;
+
+	name = capitalize("woohoo");
+	name = capitalize(this_player()->query_name());
+
+SEE ALSO
+	safun/add_comma, afun/lowercase, afun/uppercase
