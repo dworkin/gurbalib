@@ -1,5 +1,5 @@
 /* get the size of all files in a directory */
-int dir_size(string file) {
+private int dir_size(string file) {
    mixed **info;
    int *sizes, size, i, sz;
 

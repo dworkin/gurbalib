@@ -1,0 +1,27 @@
+NAME
+	empty_str - determine empty string
+
+SYNOPSIS
+	int empty_str(string str);
+
+DESCRIPTION
+	Checks for !str, nilp(str), and str == "".
+
+RETURN VALUE
+	Returns 1 if any of the conditions are met, else 0.
+
+EXAMPLES
+	string str;
+
+	if (empty_str(str)) {
+	   write("Error str undefined.\n");
+	}
+
+SEE ALSO
+	afun/add_comma, afun/fmt_str, afun/lowercase,
+	afun/pad_string_left, afun/replace_string, afun/rexplode, afun/strcmp,
+	afun/strstr, afun/str2val, kfun/explode, kfun/implode,
+	afun/parse_range, kfun/parse_string, kfun/sscanf, afun/trim_str,
+	afun/uppercase
+
+

@@ -19,7 +19,7 @@ EXAMPLES
 	write("My filename is: " + name + "\n");
 
 SEE ALSO
-	safun/absolute_path, afun/base_name, afun/clone_object, afun/clone_num,
+	afun/absolute_path, afun/base_name, afun/clone_object, afun/clone_num,
 	afun/compile_library, afun/compile_object, afun/destruct_object,
-	afun/find_object, safun/normalize_path, safun/path_file, safun/wiz_dir,
+	afun/find_object, afun/normalize_path, afun/path_file, afun/wiz_dir,
 	kfun/find_object, kfun/object_name

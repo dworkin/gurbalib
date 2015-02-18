@@ -17,10 +17,10 @@ EXAMPLES
 	name = lowercase(this_player()->query_Name());
 
 SEE ALSO
-	safun/add_comma, afun/arrayp, safun/capitalize, safun/dump_value,
-	safun/empty_str, afun/floatp, safun/fmt_str, safun/format_time,
+	afun/add_comma, afun/arrayp, afun/capitalize, afun/dump_value,
+	afun/empty_str, afun/floatp, afun/fmt_str, afun/format_time,
 	afun/functionp, afun/intp, afun/mappingp, afun/nilp, afun/objectp,
-	safun/pad_string_left, safun/replace_string, safun/rexplode,
-	safun/strcmp, afun/stringp, safun/strstr, safun/str2val, kfun/explode,
-	kfun/implode, safun/parse_range, kfun/parse_string, kfun/sscanf,
-	safun/trim_str, afun/uppercase
+	afun/pad_string_left, afun/replace_string, afun/rexplode,
+	afun/strcmp, afun/stringp, afun/strstr, afun/str2val, kfun/explode,
+	kfun/implode, afun/parse_range, kfun/parse_string, kfun/sscanf,
+	afun/trim_str, afun/uppercase

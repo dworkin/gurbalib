@@ -1,0 +1,21 @@
+NAME
+	query_mortal - test if a player is a mortal
+
+SYNOPSIS
+	int query_mortal(object arg)
+
+DESCRIPTION
+	Check if 'arg' is a mortal player object.
+
+RETURN VALUE
+	Returns 1 if 'arg' is a mortal player object, 0 otherwise.
+
+EXAMPLES
+	if (query_mortal(this_player()) {
+	   write("You can't seem to quite figure it out.\n");
+	}
+
+SEE ALSO
+	afun/query_admin, afun/query_guest, afun/query_user_type,
+	afun/query_wizard
+

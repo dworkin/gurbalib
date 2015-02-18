@@ -1,0 +1,24 @@
+NAME
+	dump_value - converts any value to a string
+
+SYNOPSIS
+	string dump_value(mixed arg, varargs mapping seen)
+
+DESCRIPTION
+	Converts the value arg to a string that can be displayed.
+
+RETURN VALUE
+	Returns a string representing the value of arg.
+EXAMPLES
+	mixed *filenames;
+
+        filenames = ([ ]);
+	filenames[1] = "/tmp/sirdude.txt";
+
+	write ("Filename = " + dump_value(filenames[1]) + "\n");
+
+SEE ALSO
+	afun/arrayp, afun/floatp, afun/format_time, afun/functionp,
+	afun/intp, afun/lowercase, afun/mappingp, afun/nilp, afun/objectp,
+	afun/stringp, afun/uppercase
+

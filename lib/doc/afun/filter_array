@@ -24,6 +24,6 @@ EXAMPLES
         wizards = split_array(players, "query_wizard");
 
 SEE ALSO
-	afun/map_array, safun/member_array, safun/member_map,
-	safun/random_element, safun/split_array, safun/uniq_array
+	afun/map_array, afun/member_array, afun/member_map,
+	afun/random_element, afun/split_array, afun/uniq_array
 

@@ -1,0 +1,33 @@
+NAME
+	query_user_type - test if a player is a wizard
+
+SYNOPSIS
+	static int query_user_type(mixed player)
+
+DESCRIPTION
+	Player can be an object or a string.  This function will return 0
+	if not a valid user.  Otherwise it will return the users privilege.
+	For valid return values see kernel/include/privileges.h
+
+RETURN VALUE
+	Returns the privilege of the specified player as an int,
+	otherwise returns 0.
+
+EXAMPLES
+	#include "privileges.h";
+	int x;
+
+	x = query_user_type(this_player());
+	switch (x) {
+	   case ADMIN_L:
+		write("Woo\n");
+	   case WIZ_L:
+		write("Hoo\n");
+	   default:
+		write("Ooh\n");
+	}
+
+SEE ALSO
+	afun/query_admin, afun/query_guest, afun/query_mortal,
+	afun/query_wizard
+
