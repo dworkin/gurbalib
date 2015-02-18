@@ -1,0 +1,24 @@
+NAME
+	out_unmod - send unmodified message to a user
+
+SYNOPSIS
+	void out_unmod(string message)
+
+DESCRIPTION
+	Send 'message' to this_player().  The message is unmodified.  
+	No ansi color codes will be translated, and no lines will be 
+	wrapped.
+
+RETURN VALUE
+	NA (void)
+
+EXAMPLES
+	int x;
+
+	x = 5;
+	out("The number is : " + 5 + "\n");
+	out("Hello World\n");
+
+SEE ALSO
+	afun/console_msg, afun/out, afun/ruler, afun/say, afun/write
+

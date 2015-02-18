@@ -21,4 +21,4 @@ EXAMPLES
     say(this_player()->query_Name() + " looks at the sign.");
 
 SEE ALSO
-    afun/console_msg, safun/out, safun/out_unmod, safun/ruler, afun/write
+    afun/console_msg, afun/out, afun/out_unmod, afun/ruler, afun/write

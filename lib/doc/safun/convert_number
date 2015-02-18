@@ -15,4 +15,4 @@ EXAMPLES
 	convert_number(5)  returns "five"
 
 SEE ALSO
-	safun/str2val
+	sfun/str2val

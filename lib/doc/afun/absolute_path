@@ -1,0 +1,26 @@
+NAME
+	absolute_path - test if a provided path is absolute
+
+SYNOPSIS
+	int absolute_path(string path)
+
+DESCRIPTION
+	Check if 'arg' is an int.
+
+RETURN VALUE
+	Returns 1 if the provided path is a full path in it's simplest form.
+	If the path is not absolute, return 0.
+
+EXAMPLES
+	int x;
+
+	x = absolute_path("/tmp/myfile.txt"); 
+	write("X = " + x + "\n");        /* x = 1 */
+	x = absolute_path("/tmp/../domains/required/rooms/start.c");
+	write("X = " + x + "\n");        /* x = 0 */
+
+SEE ALSO
+	afun/base_name, afun/clone_object, afun/clone_num,
+	afun/compile_library, afun/compile_object, afun/destruct_object,
+	afun/file_name, afun/find_object, afun/normalize_path,
+	afun/path_file, afun/wiz_dir, kfun/find_object, kfun/object_name

@@ -1,0 +1,25 @@
+NAME
+	member_map - see if an element is a key or value in a map
+
+SYNOPSIS
+	int member_map(mixed item, mapping map)
+
+DESCRIPTION
+	Checks if 'item' is a key or value in the mapping 'map'.
+
+RETURN VALUE
+	Returns 1 if 'item' is either a key or a value in 'map' and
+	0 otherwise.
+
+EXAMPLES
+	mapping x;
+
+	if (member_map("5",x)) {
+		write("5 is in mapping x.\n");
+		return 1;
+	}
+
+SEE ALSO
+	afun/filter_array, afun/map_array, afun/member_array,
+	afun/random_element, afun/split_array, afun/uniq_array
+

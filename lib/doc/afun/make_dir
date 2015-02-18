@@ -23,7 +23,7 @@ EXAMPLES
 	}
 
 SEE ALSO
-	safun/cat_file, afun/copy, afun/editor, safun/get_dir, afun/read_file,
+	afun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/read_file,
 	afun/rename_file, afun/remove_dir, afun/remove_file, afun/require_priv,
 	afun/restore_object, afun/save_object, afun/unguarded, afun/valid,
 	afun/valid_read, afun/valid_write, afun/write_file

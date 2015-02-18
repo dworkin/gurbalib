@@ -25,6 +25,6 @@ EXAMPLES
         }
 
 SEE ALSO
-	safun/set_difference, safun/set_intersection, safun/set_invert,
-	safun/set_remove_repeats, safun/set_symmetric_difference, safun/set_union
+	afun/set_difference, afun/set_intersection, afun/set_invert,
+	afun/set_remove_repeats, afun/set_symmetric_difference, afun/set_union
 

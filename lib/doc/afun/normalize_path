@@ -1,0 +1,25 @@
+NAME
+	normalize_path - reduce a path to its minimal absolute form
+		
+SYNOPSIS
+	string normalize_path(string filename, string path)
+
+DESCRIPTION
+	The path to filename in the path directory is parsed so that any 
+	unnecessary characters in path are removed.  The minimized path 
+	is returned as string.
+		
+RETURN VALUE
+	Returns a minimized path for arguments.
+
+EXAMPLES
+	string path;
+
+	path = normalize_path("test.txt","//std/../wiz/../tmp");
+	write("PATH = " + path + "\n");
+
+SEE ALSO
+	afun/absolute_path, afun/base_name, afun/clone_object, afun/clone_num,
+	afun/compile_library, afun/compile_object, afun/destruct_object,
+	afun/file_name, afun/find_object, afun/normalize_path, afun/path_file,
+	afun/wiz_dir, kfun/find_object, kfun/object_name

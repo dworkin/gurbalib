@@ -21,7 +21,9 @@
 #include <privileges.h>
 #include <error_handling.h>
 
+/* Define these to add in extra debugging */
 #undef DEBUG_RECOMPILE
+#undef DEBUG_BOOT
 
 #define PAD "                                                                       "
 
@@ -38,19 +40,13 @@
 ])
 
 int tls_size, count, ocount, ident, shutting_down, boot_complete;
-object compiler_d, error_d, secure_d, syslog_d;
-object *users;
-
-#ifdef SYS_NETWORKING
-object *ports;
-#endif
+object compiler_d, error_d, secure_d, syslog_d, *users, *ports;
 
 /* Include some useful functions from the auto object */
-#include "/sys/safun/dump_value.c"
+#include "/kernel/lib/afun/dump_value.c"
 #include "/kernel/lib/afun/argcheck.c"
-#include "/sys/safun/normalize_path.c"
+#include "/kernel/lib/afun/normalize_path.c"
 #include "/kernel/lib/afun/require_priv.c"
-#include "/kernel/lib/afun/valid.c"
 
 void set_tls_size(int s) {
    if (KERNEL()) {
@@ -190,7 +186,7 @@ object compile_object(string path, varargs string code) {
       if (ob) {
          if (path != DRIVER && path != AUTO) {
             set_tlvar(TLS_INHERITS, 
-               (({ find_object(AUTO)}) | get_tlvar(TLS_INHERITS)));
+               (({ find_object(AUTO) }) | get_tlvar(TLS_INHERITS)));
          }
 
          ident--;
@@ -238,7 +234,6 @@ void register_secure_d(void) {
 }
 
 /*
- *
  * auto_config.h contains a number of (un)defines
  * to allow writing code that optionally uses/supports
  * operator overloading and function pointers while remaining
@@ -251,16 +246,15 @@ void register_secure_d(void) {
  *
  * the resulting file will be #included from std-kernel.h
  * and std-game.h and the kernel level auto object
- *
  */
 
 static void write_auto_config(void) {
-   string *lines;
-   string res, opt;
+   string res, opt, *lines;
    int i, sz;
 
    remove_file("/kernel/include/auto_config.h.previous");
-   rename_file("/kernel/include/auto_config.h", "/kernel/include/auto_config.h.previous");
+   rename_file("/kernel/include/auto_config.h",
+      "/kernel/include/auto_config.h.previous");
 
    res = "#ifndef AUTO_CONFIG_DOT_H\n";
    res +="#define AUTO_CONFIG_DOT_H\n";
@@ -268,7 +262,8 @@ static void write_auto_config(void) {
    opt = read_file("/kernel/include/kfun.h");
    if (opt && strlen(opt)) {
       lines = explode(opt, "\n");
-      for (i=0, sz=sizeof(lines); i < sz; i++) {
+      sz = sizeof(lines);
+      for (i=0; i < sz; i++) {
          if (sscanf(lines[i], "# define KF_%s\t%*s", opt) == 2) {
             switch(opt) {
                case "NEW_FUNCTION" :
@@ -299,8 +294,7 @@ static void _initialize(mixed * tls) {
    write_auto_config();
 
    /*
-    * Order is important.
-    * The auto object caches the security daemon
+    * Order is important: * The auto object caches the security daemon
     * so it must be loaded before anything else.
     */
    call_other(SECURE_D, "???");
@@ -345,14 +339,16 @@ static void _restored(mixed * tls) {
    write_auto_config();
 
    if (users) {
-      for (i = 0, sz = sizeof(users); i < sz; i++) {
+      sz = sizeof(users);
+      for (i = 0; i < sz; i++) {
          catch(users[i]->close(0));
       }
    }
 
 #ifdef SYS_NETWORKING
    if (ports) {
-      for (i = 0, sz = sizeof(ports); i < sz; i++) {
+      sz = sizeof(ports);
+      for (i = 0; i < sz; i++) {
          ports[i]->reopen();
       }
    }
@@ -416,10 +412,8 @@ object call_object(string name) {
 }
 
 object inherit_program(string file, string program, int priv) {
-   object ob;
-   string *old_includes;
-   object *old_inherits;
-   string old_compiling, code;
+   object ob, *old_inherits;
+   string old_compiling, code, *old_includes;
    mixed stuff;
    int c;
 
@@ -516,12 +510,15 @@ void recompile(object obj) {
    stuff = get_tlvar(TLS_INHERITS);
 
    if (stuff) {
-      stuff -= ( { obj } );
+      stuff -= ({ obj });
       set_tlvar(TLS_INHERITS, stuff);
    }
 #ifdef DEBUG_RECOMPILE
-   message("auto recompile inheritable: " +
-      (obj ? object_name(obj) : "<NIL>??") + "\n");
+   if (obj) {
+      message("auto recompile inheritable: " + object_name(obj) + "\n");
+   } else {
+      message("auto recompile inheritable: <NIL>??\n");
+   }
 #endif
    if (obj) {
       destruct_object(obj);
@@ -551,12 +548,12 @@ object binary_connect(int port) {
 }
 
 void _interrupt(mixed * tls) {
-   object *usrs;
-   object p;
-   int i;
+   object p, *usrs;
+   int i, sz;
 
    usrs = users();
-   for (i = 0; i < sizeof(usrs); i++) {
+   sz = sizeof(usrs);
+   for (i = 0; i < sz; i++) {
       p = usrs[i]->query_player();
       if (p) {
          p->do_quit();
@@ -574,11 +571,12 @@ void interrupt(void) {
 
 void start_shutdown(void) {
    object p;
-   int i;
+   int i, sz;
 
    users = users();
+   sz = sizeof(users);
 
-   for (i = 0; i < sizeof(users); i++) {
+   for (i = 0; i < sz; i++) {
       p = users[i]->query_player();
       if (p) {
          p->do_quit();
@@ -717,11 +715,11 @@ static string object_type(string from, string obtype) {
 }
 
 int compile_rlimits(string objname) {
-   if (sscanf(objname, "/kernel/%*s") == 1
-      || sscanf(objname, "/daemons/%*s") == 1
-      || sscanf(objname, "/sys/%*s") == 1 
-      || sscanf(objname, "/std/%*s") == 1
-      || objname == "/cmds/wiz/rebuild") {
+   if ((sscanf(objname, "/kernel/%*s") == 1)
+      || (sscanf(objname, "/daemons/%*s") == 1)
+      || (sscanf(objname, "/sys/%*s") == 1)
+      || (sscanf(objname, "/std/%*s") == 1)
+      || (objname == "/cmds/wiz/rebuild")) {
       return 1;
    } else {
       message("compile rlimits denied for " + objname + "\n");
@@ -764,8 +762,7 @@ void remove_program(string ob, int t, int issue) {
  * during an upgrade, this may need fixing later.
  */
 static int _touch(mixed tls, object ob, string func) {
-   object savep;
-   object *clones;
+   object savep, *clones;
    int i;
 
 #ifdef DEBUG_RECOMPILE

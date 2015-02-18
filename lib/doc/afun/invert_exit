@@ -1,0 +1,23 @@
+NAME
+	invert_exit - returns an opposing exit 
+
+SYNOPSIS
+	string invert_exit(string exit)
+
+DESCRIPTION
+	Returns an exit opposite of the exit arg, or "unknown" if exit 
+	arg does not have an opposite. 
+		
+RETURN VALUE
+	Returns a string representing the opposite direction of the input.
+	Up returns "down", east returns "west".  If the opposite is unknown
+	return "unknown".
+
+EXAMPLES
+	string x;
+
+	x = invert_exit("up");
+	x = invert_exit("northwest");
+
+SEE ALSO
+	afun/article

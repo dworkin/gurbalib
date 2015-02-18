@@ -21,4 +21,4 @@ EXAMPLES
 	write("Hello World");
 
 SEE ALSO
-	afun/console_msg, safun/out, safun/out_unmod, safun/ruler, safun/say
+	afun/console_msg, afun/out, afun/out_unmod, afun/ruler, afun/say

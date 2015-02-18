@@ -1,0 +1,28 @@
+NAME
+	set_otlvar - set the value for a tls variable inside of an object.
+
+SYNOPSIS
+	void set_otlvar(string name, mixed value)
+
+DESCRIPTION
+	Sets the value for an objects tls variable 'name'.
+
+RETURN VALUE
+	NA (void)
+
+NOTES
+	This afun only exists for code outside /kernel
+
+EXAMPLES
+	object obj;
+
+	obj = this_player();
+	set_otlvar("last_obj", obj);
+	obj = get_otlvar("last_obj");
+
+	write("Last player = " + obj->query_name() + "\n");
+
+SEE ALSO
+	afun/get_otlvar, afun/get_tlvar, afun/notify_fail,
+	afun/query_notify_fail, afun/set_tlvar, misc/tls
+

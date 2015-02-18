@@ -1,0 +1,37 @@
+NAME
+	rexplode - explode a string
+
+SYNOPSIS
+	string *rexplode(string str, string separator)
+
+
+DESCRIPTION
+	Return an array of substrings of str, divided by the given separator.
+	Unlike explode, rexplode will take the separators that str starts and 
+	ends with, if any, into account.
+
+RETURN VALUES
+	An array of strings, if there are no matches to separator return 
+	an array containing one empty string.
+
+ERRORS
+	If the resulting array size is larger than status()[ST_ARRAYSIZE], with
+	ST_ARRAYSIZE defined in the include file <status.h>, an error will
+	result.
+
+EXAMPLES
+	string *lines;
+	int x, max;
+
+	lines = rexplode("Hello:Woo:Bing:O!:fun");
+	max = sizeof(lines);
+	for(x=0;x<max;x++) {
+	   write(x + "\t" + lines[x] + "\n");
+	}
+
+SEE ALSO
+	afun/add_comma, afun/empty_str, afun/fmt_str, afun/lowercase,
+	afun/pad_string_left, afun/replace_string, afun/strcmp,
+	afun/strstr, afun/str2val, kfun/explode, kfun/implode,
+	afun/parse_range, kfun/parse_string, kfun/sscanf, afun/trim_str,
+	afun/uppercase
