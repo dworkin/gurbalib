@@ -20,6 +20,6 @@ EXAMPLES
 	a = map_array(a, "get_player_name");
 
 SEE ALSO
-	afun/filter_array, afun/member_array, afun/member_map,
-	afun/random_element, afun/split_array, afun/uniq_array
+	afun/filter_array, safun/member_array, safun/member_map,
+	safun/random_element, safun/split_array, safun/uniq_array
 

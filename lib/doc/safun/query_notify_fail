@@ -1,0 +1,31 @@
+NAME
+	query_notify_fail - set the value for a tls variable.
+
+SYNOPSIS
+	static string query_notify_fail()
+
+DESCRIPTION
+	Use the tls system to query the last  error message reported for 
+	the mud.
+
+NOTES
+	This afun only exists for code outside /kernel
+
+RETURN VALUE
+	Returns the last error message reported, or returns nil if none.
+
+EXAMPLES
+	string str;
+	str = query_notify_fail();
+
+	if (str) {
+		write("Error: str\n");
+	}
+
+NOTES
+	This afun only exists for code outside /kernel
+
+SEE ALSO
+	safun/get_otlvar, safun/get_tlvar, safun/notify_fail,
+	safun/set_otlvar, safun/set_tlvar, misc/tls
+

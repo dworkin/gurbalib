@@ -1,9 +1,21 @@
-static int file_exists(string str) {
+int file_exists(string str) {
    mixed *val;
    int *sizes;
+   string dir;
 
    argcheck(str, 1, "string");
 
+   if(!KERNEL() && !SYSTEM() ) {
+      dir = get_path_to_file(str);
+      if (!valid(dir, MODE_READ)) {
+#ifdef ENABLE_STACK_SECURITY
+         return 0;
+#else
+         console_msg("Access to " + str +
+	      " would have been denied, ignoring...\n");
+#endif
+      }
+   }
    val = get_dir(str);
    sizes = val[1];
 

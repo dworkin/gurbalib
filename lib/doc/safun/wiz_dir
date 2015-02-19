@@ -1,0 +1,21 @@
+NAME
+	wiz_dir - return a wizards work path
+
+SYNOPSIS
+	string wiz_dir(object player)
+
+DESCRIPTION
+	Returns the path to a wizards work directory.
+
+RETURN VALUE
+	A string containing the path to the wizards directory.
+
+EXAMPLES
+	string *dirname;
+	dirname = wiz_dir(this_player());
+
+SEE ALSO
+	safun/absolute_path, afun/base_name, afun/clone_object, afun/clone_num,
+	afun/compile_library, afun/compile_object, afun/destruct_object,
+	afun/file_name, afun/find_object, safun/normalize_path, safun/path_file,
+	kfun/find_object, kfun/object_name

@@ -5,9 +5,8 @@ string uppercase(string str) {
 
    sz = strlen(str);
    for (i = 0; i < sz; i++) {
-      if (str[i] >= 'a' && str[i] <= 'z') {
+      if (str[i] >= 'a' && str[i] <= 'z')
 	 str[i] -= 'a' - 'A';
-      }
    }
    return str;
 }

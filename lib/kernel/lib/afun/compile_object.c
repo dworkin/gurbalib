@@ -1,5 +1,23 @@
-static object compile_object(string path, string code ...) {
+object compile_object(string path, string code ...) {
    argcheck(path, 1, "string");
+
+   if (!KERNEL() && !SYSTEM() ) {
+#ifdef SECURITY_COMPILER_RW
+      if (!valid_write(path)) {
+         error("Permission denied.");
+      }
+#endif
+
+      if (code && sizeof(code)) {
+         if (!valid_write(path)) {
+	    error("Permission denied");
+         }
+      } else {
+         if (!valid_read(path)) {
+	     error("Permission denied");
+         }
+      }
+   }
 
    if (strlen(path) > 2) {
       if (path[strlen(path) - 2] == '.' && path[strlen(path) - 1] == 'c')

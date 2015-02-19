@@ -1,0 +1,40 @@
+NAME
+	set_difference - get difference of two sets
+
+SYNOPSIS
+	mixed *set_difference(mixed *a, mixed *b, varargs int r);
+
+DESCRIPTION
+	Get the difference of sets 'a' and 'b'. The optional argument 
+	removes repeated elements from the union.
+
+RETURN VALUE
+	The difference, optionally with repeated elements but one removed.
+EXAMPLES
+	int *a, *b, *c;
+	int x, maxx;
+	string line;
+
+	a = ({5|1, 2, 3, 4, 5,});
+	b = ({5|4, 5, 6, 7, 8,});
+
+	line = "Set ab:\n";
+        
+	c = set_difference(a,b,0);
+	maxx = sizeof(c);
+	for (x = 0; x < maxx; x++) {
+		line = line + c[x] + " ";
+	}
+	write(line + "\n");
+	line = "Set ab remove dups:\n";
+	c = set_difference(a,b,1);
+	maxx = sizeof(c);
+	for (x = 0; x < maxx; x++) {
+		line = line + c[x] + " ";
+	}
+	write(line + "\n");
+
+SEE ALSO
+	afun/bubblesort, safun/set_intersection, safun/set_invert,
+	safun/set_remove_repeats, safun/set_symmetric_difference, safun/set_union
+

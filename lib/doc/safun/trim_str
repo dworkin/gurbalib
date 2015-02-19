@@ -1,0 +1,24 @@
+NAME
+	trim_str - remove extra whitespace
+
+SYNOPSIS
+	string trim_str(string str);
+
+DESCRIPTION
+	Replaces all whitespace with a single blank space, it also
+	removes trailing and leading whitespace.
+
+RETURN VALUE
+	A new string.  See description for details.
+
+EXAMPLES
+	string x;
+	x = trim_str(" X      Woo Hoo      X ");
+	write("(" + x + ")\n");   /* Should print " (X WooHoo X) " */
+
+SEE ALSO
+	safun/add_comma, safun/empty_str, safun/fmt_str, afun/lowercase,
+	safun/pad_string_left, safun/replace_string, safun/rexplode, safun/strcmp,
+	safun/strstr, safun/str2val, kfun/explode, kfun/implode,
+	safun/parse_range, kfun/parse_string, kfun/sscanf,
+	afun/uppercase

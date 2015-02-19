@@ -18,4 +18,4 @@ EXAMPLES
 	write("The owner of that file is: " + name + "\n");
 
 SEE ALSO
-	owner_object, file_name
+	afun/owner_object, afun/file_name

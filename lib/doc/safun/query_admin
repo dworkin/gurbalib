@@ -1,0 +1,21 @@
+NAME
+	query_admin - test if a player is an admin
+
+SYNOPSIS
+	int query_admin(object arg)
+
+DESCRIPTION
+	Check if 'arg' is an admin player object.
+
+RETURN VALUE
+	Returns 1 if 'arg' is an admin player object, 0 otherwise.
+
+EXAMPLES
+	if (query_admin(this_player()) {
+	   write("Welcome the mighty admin!\n");
+	}
+
+SEE ALSO
+	safun/query_guest, safun/query_mortal, safun/query_user_type,
+	safun/query_wizard
+
