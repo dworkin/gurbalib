@@ -97,7 +97,7 @@ private string _owner;
 #include "afun/call_trace.c"
 #include "afun/connect.c"
 #ifdef SYS_NETWORKING
-#include "afun-game/open_port.c"
+#include "afun/open_port.c"
 #endif
 #include "afun/make_dir.c"
 #include "afun/get_dir.c"

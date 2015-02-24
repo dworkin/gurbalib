@@ -18,8 +18,8 @@ sys/daemons/imud_d.c:#ifdef BELIEVE_ROUTERLIST
 
 
 kernel/daemons/error_d.c:#ifdef ERROR_SHOW_ARGUMENTS
-kernel/lib/afun-game/make_dir.c:#ifdef ENABLE_STACK_SECURITY
-kernel/lib/afun-game/compile_object.c:#ifdef SECURITY_COMPILER_RW
+kernel/lib/afun/make_dir.c:#ifdef ENABLE_STACK_SECURITY
+kernel/lib/afun/compile_object.c:#ifdef SECURITY_COMPILER_RW
 kernel/daemons/secure_d.c:#ifdef SECURITY_RO_KERNEL
 
 sys/daemons/command_d.c:#ifdef DEBUG_COMMAND_D
