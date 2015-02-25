@@ -21,7 +21,6 @@ static string dump_value(mixed value, varargs mapping seen);
 static void console_msg(string message);
 
 private mapping ltable;
-private mapping properties;
 static mapping events;
 private object driver;
 private object secure_d;
@@ -33,9 +32,6 @@ private string _owner;
 #include "afun/require_priv.c"
 #include "afun/unguarded.c"
 #include "afun/find_object.c"
-#include "afun/property.c"
-#include "afun/set_property.c"
-#include "afun/remove_property.c"
 #include "afun/this_user.c"
 #include "afun/this_connection.c"
 #include "afun/caught_error.c"
@@ -93,7 +89,6 @@ private string _owner;
 #include "afun/sqlite3_exec.c"
 #include "afun/sqlite3_select.c"
 #include "afun/query_thousands_separator.c"
-#include "afun/set_property_file.c"
 #include "afun/call_trace.c"
 #include "afun/connect.c"
 #ifdef SYS_NETWORKING

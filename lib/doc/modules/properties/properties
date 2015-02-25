@@ -24,5 +24,5 @@ In order to make it possible to preserve read/write access
 information, setting a property to nil is not the same as
 removing the property.
 
-SEE ALSO
-        afun/property, afun/set_property, afun/remove_property
+You can use properties by inheriting the module found at:
+/sys/lib/modules/m_properties.c

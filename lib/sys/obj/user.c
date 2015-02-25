@@ -13,6 +13,7 @@ string newpass;
 static int logged_in;
 static int data_version;
 static int timeout_handle;
+private static int auto_admin, auto_wiz;
 object query_player(void);
 
 void create(void) {
@@ -21,8 +22,8 @@ void create(void) {
       ansid = compile_object(ANSI_D);
    }
 
-   set_property("auto_admin",0,"*","system");
-   set_property("auto_wiz",0,"*","system");
+   auto_admin = 0;
+   auto_wiz = 0;
    user_name = "who";
    data_version = 1;
    run_as("nobody");
@@ -765,6 +766,26 @@ void set_player(object p) {
 
 object query_player(void) {
    return player;
+}
+
+void set_auto_admin(int flag) {
+   if(require_priv("system") ) {
+      auto_admin = flag;
+   }
+}
+
+int query_auto_admin() {
+   return auto_admin;
+}
+
+void set_auto_wiz(int flag) {
+   if(require_priv("system") ) {
+      auto_wiz = flag;
+   }
+}
+
+int query_auto_wiz() {
+   return auto_wiz;
 }
 
 static void _receive_error(mixed * tls, string err) {

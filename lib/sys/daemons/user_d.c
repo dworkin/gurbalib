@@ -258,11 +258,11 @@ static int _new_user(string name, string secret, object u) {
    ob->set_pass(name,secret);
 
    if (auto_admin) {
-      u->set_property("auto_admin",1);
+      u->set_auto_admin(1);
       auto_admin = 0;
 #ifdef ALL_USERS_WIZ
    } else if (ALL_USERS_WIZ) {
-      u->set_property("auto_wiz",1);
+      u->set_auto_wiz(1);
 #endif
    } else {
       ob->set_type(PLAYER_L);
@@ -342,9 +342,9 @@ void user_online(string name, object user) {
 
    if (user<-USER_OB) {
       users[name] = user;
-      if (user->property("auto_admin")) {
+      if (user->query_auto_admin() ) {
          unguarded("make_admin",name);
-      } else if (user->property("auto_wiz")) {
+      } else if (user->query_auto_wiz() ) {
          unguarded("make_wizard",name);
       }
    }
