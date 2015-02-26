@@ -6,7 +6,7 @@ void usage(void) {
    string mode;
    string *lines;
 
-   if (this_player()->query_env("ansi") == 1) {
+   if (this_player()->query_ansi() == 1) {
       mode = "on";
    } else {
       mode = "off";

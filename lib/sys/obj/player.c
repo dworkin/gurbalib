@@ -42,6 +42,7 @@ mapping alias;			/* The players aliases */
 int last_login;			/* The last login */
 mapping guilds;			/* The guilds the player is a member of. 
 					The values are the guild title. */
+int ansi;               /* if ansi is on or off */
 mapping custom_colors;		/* custom color symbols for this player */
 static mixed menu_data;		/* temp storage for menu system */
 int muzzle;			/* if 0 we are allowed to shout. */
@@ -134,6 +135,15 @@ string *query_env_indices(void) {
    return map_indices(environment_variables) + ({ "PATH" });
 }
 
+int query_ansi(void) {
+   return ansi;
+}
+
+void set_ansi(int state) {
+   ansi = state;
+   save_me();
+}
+
 void create(void) {
    con::create();
    bod::create();
@@ -145,6 +155,7 @@ void create(void) {
    long_desc = "";
    set_short("A nondescript player");
    timestamp = time();
+   ansi = 1;
    set_env("cwd", "/");
    set_env("pwd", "/");
    set_env("width", "78");
@@ -275,21 +286,6 @@ string query_last_tell(void) {
 
 int is_player(void) {
    return 1;
-}
-
-int query_ansi(void) {
-   mixed x;
-
-   x = query_env("ansi");
-   if (typeof(x) == T_NIL) {
-      return 1;		/* ansi is on if query_env("ansi") is undefined */
-   }
-   return x;
-}
-
-void set_ansi(int state) {
-   set_env("ansi", state);
-   save_me();
 }
 
 void set_user(object usr) {
