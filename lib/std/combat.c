@@ -4,6 +4,9 @@ static object target;
 int kills;
 mapping killed_by;
 object killer;
+int wimpy;
+int wimpy_hp;
+string wimpy_dir;
 
 #define FIGHTING_TIMEOUT 300
 /* Ammount of Endurance required to Attack */
@@ -16,6 +19,9 @@ void create(void) {
    targets = ( {
       });
    fighting = 0;
+   wimpy = 0;
+   wimpy_hp = 0;
+   wimpy_dir = "";
 }
 
 int is_fighting(void) {
@@ -55,6 +61,30 @@ int query_killed(void) {
    return sizeof(map_indices(killed_by));
 }
 
+void set_wimpy(int w) {
+   wimpy = w;
+}
+
+int query_wimpy() {
+   return wimpy;
+}
+
+void set_wimpy_dir(string where) {
+   wimpy_dir = where;
+}
+
+string query_wimpy_dir() {
+   return wimpy_dir;
+}
+
+void set_wimpy_hp(int w) {
+   wimpy_hp = w;
+}
+
+int query_wimpy_hp() {
+   return wimpy_hp;
+}
+
 void halt_fight(void) {
    fighting = 0;
    targets = ( {
@@ -66,20 +96,19 @@ int run_away(void) {
    string *exits;
    int x, y;
 
-   dir = this_object()->query_env("wimpydir");
-
-   if (!empty_str(dir) && this_object()->query_environment()->query_exit(dir)) {
-      write("You attempt to run " + dir + ".\n");
-      error = this_object()->this_environment()->body_exit(this_object(), dir);
+   if (!empty_str(wimpy_dir) &&
+     this_object()->query_environment()->query_exit(wimpy_dir)) {
+      write("You attempt to run " + wimpy_dir + ".\n");
+      error = this_object()->this_environment()->body_exit(this_object(), wimpy_dir);
       if (error) {
          write(error);
       } else {
          return 1;
       }
-   } else if (!empty_str(dir) &&
-      this_object()->query_environment()->query_hidden_exit(dir)) {
-      write("You attempt to run " + dir + ".\n");
-      error = this_object()->this_environment()->body_exit(this_object(), dir);
+   } else if (!empty_str(wimpy_dir) &&
+      this_object()->query_environment()->query_hidden_exit(wimpy_dir)) {
+      write("You attempt to run " + wimpy_dir + ".\n");
+      error = this_object()->this_environment()->body_exit(this_object(), wimpy_dir);
       if (error) {
          write(error);
       } else {
@@ -261,8 +290,8 @@ int after_damage_hook(object aggressor, object weapon, int damage) {
 void attack_with(string skill, object weapon, object target) {
    int me, tmp, damage;
 
-   if ((this_object()->query_env("wimpy") == "on") &&
-      (this_object()->query_env("wimpyhp") > this_object()->query_hp())) {
+   if ( (wimpy == 1) &&
+      (wimpy_hp > this_object()->query_hp())) {
       run_away();
       return;
    }

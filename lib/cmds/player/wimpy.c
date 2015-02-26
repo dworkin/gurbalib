@@ -37,13 +37,13 @@ static void main(string str) {
    int hp;
 
    if (empty_str(str)) {
-      if (this_player()->query_env("wimpy") == "on") {
+      if (this_player()->query_wimpy() == 1) {
          write("Wimpy mode: on\n");
       } else {
          write("Wimpy mode: off\n");
       }
 
-      tmp = this_player()->query_env("wimpydir");
+      tmp = this_player()->query_wimpy_dir();
       if (stringp(tmp)) {
          dir = tmp;
       } else {
@@ -51,7 +51,7 @@ static void main(string str) {
       }
       write("Wimpy dir: " + dir + "\n");
 
-      tmp = this_player()->query_env("wimpyhp");
+      tmp = this_player()->query_wimpy_hp();
       if (intp(tmp)) {
          hp = tmp;
       } else {
@@ -61,19 +61,19 @@ static void main(string str) {
    } else if (sscanf(str, "-%s", str)) {
       usage();
    } else if (str == "dir" || str == "direction") {
-      this_player()->set_env("wimpydir", "");
+      this_player()->set_wimpy_dir("");
       write("Wimpy dir: unset.\n");
    } else if (sscanf(str, "dir %s", dir) == 1) {
-      this_player()->set_env("wimpydir", dir);
+      this_player()->set_wimpy_dir(dir);
       write("Wimpy dir = " + dir + "\n");
    } else if (sscanf(str, "hp %d", hp) == 1) {
-      this_player()->set_env("wimpyhp", hp);
+      this_player()->set_wimpy_hp(hp);
       write("Wimpy hp = " + hp + "\n");
    } else if (str == "on") {
-      this_player()->set_env("wimpy", "on");
+      this_player()->set_wimpy(1);
       write("Wimpy mode enabled.\n");
    } else if (str == "off") {
-      this_player()->set_env("wimpy", "off");
+      this_player()->set_wimpy(0);
       write("Wimpy mode disabled.\n");
    } else {
       usage();
