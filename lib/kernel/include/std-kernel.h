@@ -4,4 +4,10 @@
 
 #include <auto_config.h>
 
-inherit "/kernel/lib/auto-kernel";
+nomask int is_game_object(void) {
+   return 0;
+}
+
+nomask int is_kernel_object(void) {
+   return 1;
+}

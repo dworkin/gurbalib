@@ -1,24 +1,15 @@
-Gurbalib has 4 auto objects, used in either 2 or 3 levels.
+Gurbalib has 2 auto objects
 
 Primary auto object: /kernel/lib/auto.c
-  Contains afuns that have to be in every object, deals with clone tracking, 
+  Contains afuns that are in every object, deals with security, clone tracking, 
      automagic maintenance of linked lists, call_outs and communications with 
      various kernel subsystems.
 
-Kernel secondary auto object: /kernel/lib/auto-kernel.c
-  Currently doesn't do anything.
+Simulated auto object: /sys/lib/auto.c, /sys/lib/safun.c, /sys/lib/safun/*
+  /sys/lib/auto.c is a special object for implementing the safun functionality.  
+     When compiled, the source for it will be assembled from the .c files in
+     /sys/safun/.  If a function in safun needs a global variable or a
+     function prototype, put it inside of /sys/lib/safun.c
 
-Game secondary auto object: /kernel/lib/auto-game.c
-  Restricts access to privileged operations such as reading or
-     writing files. Also implements some general game utility functions.
 
-Game tertiary auto object: /sys/lib/auto.c
-  This is a special object for implementing the safun functionality.
-     When compiled, the source for it will be assembled from .c files in
-     /sys/safun/ and /sys/lib/auto.c is in fact ignored.
-
-Note: that the game secondary auto object is actually not automatically 
-inherited, the game tertiary auto object is, and this inherits the secondary 
-one. So from the view of the kernel's compiler daemon, there is 1 primary 
-and 2 secondary auto objects (one for game and one for the kernel).
 
