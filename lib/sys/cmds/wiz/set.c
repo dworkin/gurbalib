@@ -61,6 +61,25 @@ static void main(string str) {
       usage();
       return;
    } else {
+        switch(name) {
+           case "start":
+           case "height":
+           case "width":
+           case "prompt":
+           case "hidden":
+           case "autoload":
+           case "save_on_quit":
+           case "quit_message":
+           case "debug_commands":
+           case "verbose_errors":
+           case "display_caught":
+              break;
+           default:
+              write("Invalid variable name \""+name+"\".\n\n");
+              usage();
+              break;
+        }
+      write("Ok."); 
       if (str2val(value) != -1) {
 	 /* We've got a value */
 	 this_player()->set_env(name, str2val(value));
