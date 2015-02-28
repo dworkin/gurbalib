@@ -107,10 +107,8 @@ static void do_look(object obj) {
 
    if (obj == this_environment()) {
       this_environment()->event("body_look", this_player());
-      if (this_player()->is_player() == 1) {
-         if (this_player()->query_env("show_location")) {
-            write("%^BOLD%^" + this_environment()->file_name() + "%^RESET%^");
-         }
+      if (query_wizard(this_player() ) ) {
+         write("%^BOLD%^<\"" + this_environment()->file_name()[1..] + "\">%^RESET%^");
       }
 
       write(this_environment()->query_desc());

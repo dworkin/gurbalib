@@ -674,8 +674,8 @@ void do_look(int brief) {
 
    this_environment()->event("body_look", this_player());
    write(" ");
-   if (query_env("show_location")) {
-      write("%^BOLD%^" + query_environment()->file_name() + "%^RESET%^");
+   if (query_wizard(this_object() ) ) {
+      write("%^BOLD%^<\"" + query_environment()->file_name()[1..] + "\">%^RESET%^");
    }
    write(this_environment()->query_desc(0));
 
