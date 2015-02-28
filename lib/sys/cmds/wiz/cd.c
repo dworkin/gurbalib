@@ -61,6 +61,5 @@ static void main(string arg) {
    }
 
    this_player()->set_env("cwd", arg);
-   this_player()->set_env("pwd", this_player()->query_env("cwd"));
    write("%^BOLD%^" + this_player()->query_env("cwd") + "%^RESET%^\n");
 }

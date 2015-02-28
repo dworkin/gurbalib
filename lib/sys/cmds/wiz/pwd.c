@@ -23,6 +23,6 @@ static void main(string str) {
    if (!empty_str(str)) {
       usage();
    } else {
-      write("%^BOLD%^" + this_player()->query_env("pwd") + "%^RESET%^\n");
+      write("%^BOLD%^" + this_player()->query_env("cwd") + "%^RESET%^\n");
    }
 }

@@ -157,7 +157,6 @@ void create(void) {
    timestamp = time();
    ansi = 1;
    set_env("cwd", "/");
-   set_env("pwd", "/");
    set_env("width", "78");
    set_env("height", "23");
    living_name = "who";
