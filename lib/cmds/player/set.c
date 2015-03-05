@@ -5,26 +5,28 @@ void usage(void) {
 
    lines = ({ "Usage: set [-h] [VAR VALUE]" });
    lines += ({ " " });
-   lines += ({ "Set an environment variable VAR to VALUE." });
-   lines += ({ "If no VAR VALUE pair is given print your current environment."
+   lines += ({ "Make changes to the settings for your account." });
+   lines += ({ "If no VAR VALUE pair is given print your current settings."
       });
    lines += ({ "Some variables you can set:" });
-   lines += ({ "\tstart\t\tyour starting room." });
    lines += ({ "\theight\t\theight of your screen." });
    lines += ({ "\twidth\t\twidth of your screen." });
    lines += ({ "\tprompt\t\tYour prompt." });
-   lines += ({ "\thidden\t\tSet to 1 if you want to hide your login from " +
-      "users." });
-   lines += ({ "\tautoload\tSet to 1 if you want to save your equipment on " +
-      "quit." });
-   lines += ({ "\tsave_on_quit\tSet to 1 if you want to start where you last " +
-      "quit." });
-   lines += ({ "\tquit_message\tSet your quit message.  Example: $N $vquit." });
-   lines += ({ "\tdebug_commands\tSet to 1 if you want debugging of commands."
-	});
-   lines += ({ "\tverbose_errors\tSet to 1 if you want longer error codes." });
-   lines += ({ "\tdisplay_caught\tSet to 1 if you want to show caught " +
-      "runtime errors." });
+   if (query_wizard(this_player() ) ) {
+      lines += ({ "\tstart\t\tyour starting room." });
+      lines += ({ "\thidden\t\tSet to 1 if you want to hide your login from " +
+         "users." });
+      lines += ({ "\tautoload\tSet to 1 if you want to save your equipment on " +
+         "quit." });
+      lines += ({ "\tsave_on_quit\tSet to 1 if you want to start where you last " +
+         "quit." });
+      lines += ({ "\tquit_message\tSet your quit message.  Example: $N $vquit." });
+      lines += ({ "\tdebug_commands\tSet to 1 if you want debugging of commands."
+	   });
+      lines += ({ "\tverbose_errors\tSet to 1 if you want longer error codes." });
+      lines += ({ "\tdisplay_caught\tSet to 1 if you want to show caught " +
+         "runtime errors." });
+   }
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
@@ -62,10 +64,11 @@ static void main(string str) {
       return;
    } else {
         switch(name) {
-           case "start":
            case "height":
            case "width":
            case "prompt":
+           case "start":
+              break;
            case "hidden":
            case "autoload":
            case "save_on_quit":
@@ -73,11 +76,13 @@ static void main(string str) {
            case "debug_commands":
            case "verbose_errors":
            case "display_caught":
-              break;
+              if (query_wizard(this_player() ) )  {
+                 break;
+              }
            default:
               write("Invalid variable name \""+name+"\".\n\n");
               usage();
-              break;
+              return;
         }
       write("Ok."); 
       if (str2val(value) != -1) {
