@@ -32,10 +32,9 @@ void usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tset width 50" });
-   lines += ({ "\tset save_on_quit 1" });
-   lines += ({ "See also:" });
-   lines += ({ "\tunset" });
-
+   if (query_wizard(this_player() ) {
+      lines += ({ "\tset save_on_quit 1" });
+   }
    this_player()->more(lines);
 }
 
@@ -67,8 +66,8 @@ static void main(string str) {
            case "height":
            case "width":
            case "prompt":
-           case "start":
               break;
+           case "start":
            case "hidden":
            case "autoload":
            case "save_on_quit":
