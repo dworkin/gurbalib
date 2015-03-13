@@ -96,10 +96,7 @@ static void log_runtime_error(string result, int caught) {
    }
 
    if (player) {
-      verbose = player->query_env("verbose_errors");
-      if (stringp(verbose) && (verbose == "1" || verbose == "on")) {
-         verbose = 1;
-      }
+      verbose = player->query_verbose_errors();
    }
 
    lines = explode(result, "\n");
@@ -108,22 +105,12 @@ static void log_runtime_error(string result, int caught) {
       if (player && player->query_name()
          && find_object(USER_D) 
          && USER_D->query_wizard(player->query_name())) {
-         mixed display_caught;
-
-         display_caught = player->query_env("display_caught");
-         if (intp(display_caught)) {
-            display_caught = (string) display_caught;
-         }
-
-         switch (display_caught) {
-            case "on":
-            case "1":
-               if (verbose) {
-                  write(result);
-               } else {
-                  write(lines[0] + "%^RESET%^\n");
-               }
-               break;
+         if (player->display_caught() ) {
+            if (verbose) {
+               write(result);
+            } else {
+               write(lines[0] + "%^RESET%^\n");
+            }
          }
       }
    } else {
@@ -134,13 +121,8 @@ static void log_runtime_error(string result, int caught) {
       write_file("/logs/errors/runtime", result + "\n");
       if (player && find_object(USER_D)) {
          if (USER_D->query_wizard(player->query_name()) == 1) {
-            if (verbose) {
-            write("%^RED%^Runtime error: %^RESET%^" + "%^CYAN%^" + result +
-               "%^RESET%^");
-            } else {
-            write("%^RED%^Runtime error: %^RESET%^" + "%^CYAN%^" + lines[0] +
-               "%^RESET%^");
-            }
+            write("%^RED%^Runtime error: %^RESET%^" + "%^CYAN%^" + 
+               (verbose ? result : lines[0] ) + "%^RESET%^");
          } else {
             write("You have encountered a rift in reality. " +
                "Please report it to the admins.\n");

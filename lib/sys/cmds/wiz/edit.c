@@ -45,8 +45,6 @@ static void main(string str) {
       usage();
       return;
    } else {
-      int height;
-
       str = normalize_path(str, this_player()->query_env("cwd"));
 
       /* not needed for security, but allows giving nicer messages to the user. */
@@ -63,10 +61,7 @@ static void main(string str) {
       }
 
       this_player()->edit("e " + str);
-
-      height = (int) this_player()->query_env("height");
-      if (height < 5) height = 5;
-      this_player()->edit("set window=" + height);
+      this_player()->edit("set window=" + this_player()->query_height() );
       this_player()->edit("1");
    }
 }

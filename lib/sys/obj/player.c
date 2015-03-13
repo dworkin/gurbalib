@@ -43,7 +43,18 @@ int last_login;			/* The last login */
 mapping guilds;			/* The guilds the player is a member of. 
 					The values are the guild title. */
 int ansi;               /* if ansi is on or off */
-mapping custom_colors;		/* custom color symbols for this player */
+mapping custom_colors;  /* custom color symbols for this player */
+int terminal_height;    /* how many lines of text in more etc. */
+int terminal_width;     /* maximum line width before wrapping to next line */
+string prompt;          /* user definable prompt */
+string start_room;      /* the room you start in on logon */
+string quit_message;    /* the message shown when user quits */
+int hidden;             /* hide login from players */
+int autoload;           /* 1 to keep our equipment after quitting */
+int save_on_quit;       /* 1 to login to room you quit from */
+int debug_commands;     /* 1 for debugging of commands */
+int verbose_errors;     /* 1 for longer error codes */
+int display_caught;     /* 1 to show caught runtime errors */
 static mixed menu_data;		/* temp storage for menu system */
 int muzzle;			/* if 0 we are allowed to shout. */
 
@@ -156,11 +167,19 @@ void create(void) {
    set_short("A nondescript player");
    timestamp = time();
    ansi = 1;
+   prompt = ">";
    set_env("cwd", "/");
-   set_env("width", "78");
-   set_env("height", "23");
+   terminal_width = DEFAULT_WIDTH;
+   terminal_height = 23;
+   autoload = 0;
+   save_on_quit = 0;
+   hidden = 0;
+   debug_commands = 0;
+   verbose_errors = 0;
+   display_caught = 0;
+   start_room = STARTING_ROOM;
+   quit_message = "$N $vquit.";
    living_name = "who";
-
    custom_colors = ([]);
    level = 1;
 }
@@ -199,7 +218,6 @@ string query_title_string(void) {
 void login_player(void) {
    int i, is_new_player;
    string *didlog, *tmpchannels;
-   mixed autoload;
    string race;
 
    restore_privs();
@@ -262,13 +280,122 @@ void login_player(void) {
    set_short(query_title());
    set_internal_max_weight(15 + query_statbonus("str"));
    ANSI_D->set_player_translations(custom_colors);
-   autoload = query_env("autoload");
 
-   if (autoload == nil) {
-      autoload = 0;
-   } else if (autoload == 1) {
+   if (autoload == 1) {
       this_player()->clone_autoload_objects();
    }
+}
+
+int query_height() {
+   return terminal_height;
+}
+
+void set_height(int i) {
+   if (i < 0 || i == 1) {
+      terminal_height = 23;
+   }
+   else if (i == 0) {
+      terminal_height = INT_MAX;
+   }
+   else if (i < 5) {
+      terminal_height = 5;
+   }
+   else {
+      terminal_height = i - 1;
+   }
+}
+
+int query_width(void) {
+   return terminal_width;
+}
+
+void set_width(int i) {
+   if (i < 2) {
+      terminal_width = DEFAULT_WIDTH;
+   }
+   else if (i < 8) {
+      terminal_width = 8;
+   }
+   else {
+      terminal_width = i;
+   }
+}
+
+int query_hidden(void) {
+   return hidden;
+}
+
+void set_hidden(int i) {
+   if (i > 0) {
+      hidden = 1;
+   }
+   else {
+      hidden = 0;
+   }
+}
+
+int query_autoload(void) {
+   return autoload;
+}
+
+void set_autoload(int i) {
+   autoload = i;
+}
+
+int query_save_on_quit(void) {
+   return save_on_quit;
+}
+
+void set_save_on_quit(int i) {
+   save_on_quit = i;
+}
+
+string query_quit_message(void) {
+   return quit_message;
+}
+
+void set_quit_message(string str) {
+   quit_message = str;
+}
+
+int query_debug_commands(void) {
+   return debug_commands;
+}
+
+void set_debug_commands(int i) {
+   debug_commands = i;
+}
+
+int query_verbose_errors(void) {
+   return verbose_errors;
+}
+
+void set_verbose_errors(int i) {
+   verbose_errors = i;
+}
+
+int query_display_caught(void) {
+   return display_caught;
+}
+
+void set_display_caught(int i) {
+   display_caught = i;
+}
+
+string query_start_room(void) {
+   return start_room;
+}
+
+void set_start_room(string path) {
+   start_room = path;
+}
+
+string query_prompt(void) {
+   return prompt;
+}
+
+void set_prompt(string str) {
+   prompt = str;
 }
 
 int query_last_login(void) {
@@ -477,67 +604,48 @@ void message_orig(string str) {
 }
 
 void write_prompt(void) {
-   string prompt, date;
+   string result, date;
 
    if (this_object()->is_editing()) {
       out("%^GREEN%^edit> %^RESET%^");
       return;
    }
 
-   prompt = query_env("prompt");
-   if (!prompt) {
-      prompt = "> ";
-   } else {
-      date = ctime(time());
-      prompt = replace_string(prompt, "%d", date[4..10] + date[20..23]);
-      prompt = replace_string(prompt, "%t", ctime(time())[11..18]);
-      prompt = replace_string(prompt, "%n", capitalize(living_name));
-      prompt = replace_string(prompt, "%m", MUD_NAME);
-      prompt = replace_string(prompt, "%w", query_env("cwd"));
-      prompt = replace_string(prompt, "%_", "\n");
+   result = prompt;
+   date = ctime(time());
+   result = replace_string(result, "%d", date[4..10] + date[20..23]);
+   result = replace_string(result, "%t", ctime(time())[11..18]);
+   result = replace_string(result, "%n", capitalize(living_name));
+   result = replace_string(result, "%m", MUD_NAME);
+   result = replace_string(result, "%w", query_env("cwd"));
+   result = replace_string(result, "%_", "\n");
 
-      if (this_environment()) {
-	 prompt = replace_string(prompt, "%l", this_environment()->file_name());
-	 if (!this_environment()->query_area()) {
-	    prompt = replace_string(prompt, "%a", "(none)");
-	 } else {
-	    prompt =
-	       replace_string(prompt, "%a", this_environment()->query_area());
-	 }
-      } else {
-	 prompt = replace_string(prompt, "%l", "(no environment)");
-	 prompt = replace_string(prompt, "%a", "(none)");
+   if (this_environment()) {
+	  result = replace_string(result, "%l", this_environment()->file_name());
+	  if (!this_environment()->query_area()) {
+	     result = replace_string(result, "%a", "(none)");
+	  } else {
+	    result = replace_string(result, "%a", this_environment()->query_area());
+	  }
+   } else {
+	  result = replace_string(result, "%l", "(no environment)");
+	  result = replace_string(result, "%a", "(none)");
       }
 
-      prompt = replace_string(prompt, "%h", "" + this_player()->query_hp());
-      prompt = replace_string(prompt, "%H", "" + this_player()->query_max_hp());
-      prompt = replace_string(prompt, "%b", "" + this_player()->query_mana());
-      prompt = replace_string(prompt, "%B", "" + 
-         this_player()->query_max_mana());
-      prompt = replace_string(prompt, "%e", "" + this_player()->query_end());
-      prompt = replace_string(prompt, "%E", "" + 
-         this_player()->query_max_end());
-   }
-
-   out(prompt + "%^RESET%^ ");
-}
-
-int query_width(void) {
-   mixed width;
-   int x;
-
-   width = this_player()->query_env("width");
-   if (!intp(width) || (width < 2)) {
-      width = DEFAULT_WIDTH;
-   }
-   x = width;
-   return x;
+   result = replace_string(result, "%h", "" + this_player()->query_hp());
+   result = replace_string(result, "%H", "" + this_player()->query_max_hp());
+   result = replace_string(result, "%b", "" + this_player()->query_mana());
+   result = replace_string(result, "%B", "" + 
+      this_player()->query_max_mana());
+   result = replace_string(result, "%e", "" + this_player()->query_end());
+   result = replace_string(result, "%E", "" + 
+      this_player()->query_max_end());
+   out(result + "%^RESET%^ ");
 }
 
 /* More a set of lines */
 void more(string * lines, varargs int docolor) {
    string msg;
-   mixed height;
 
    if (docolor && (docolor == 1)) {
       color_more = 1;
@@ -549,29 +657,12 @@ void more(string * lines, varargs int docolor) {
       more_caller = previous_object();
    }
 
-   height = query_env("height");
-   if (height == nil) {
-      height = 23;
-   } else if (stringp(height)) {
-      height = str2val(height);
-   }
-
-   if (height == -1) {
-      height = 23;
-   } else if (height == 0) {
-      height = INT_MAX;
-   }
-
-   if (height > 1) {
-      height = height - 1;
-   }
-
    more_line_num = 0;
    more_lines = lines;
 
-   if (sizeof(lines) > height + more_line_num) {
+   if (sizeof(lines) > terminal_height + more_line_num) {
 
-      msg = implode(lines[more_line_num..more_line_num + height], "\n");
+      msg = implode(lines[more_line_num..more_line_num + terminal_height], "\n");
 
       if (docolor) {
          this_object()->query_user()->wrap_message(msg);
@@ -580,8 +671,8 @@ void more(string * lines, varargs int docolor) {
       }
 
       out("%^BOLD%^--More--(" + ((more_line_num +
-         height) * 100) / sizeof(lines) + "%)%^RESET%^");
-      more_line_num += height + 1;
+         terminal_height) * 100) / sizeof(lines) + "%)%^RESET%^");
+      more_line_num += terminal_height + 1;
       input_to("more_prompt");
    } else {
       msg = implode(lines[more_line_num..], "\n");
@@ -602,7 +693,6 @@ void more(string * lines, varargs int docolor) {
 /* Write out the more prompt after each page */
 void more_prompt(string arg) {
    string msg;
-   mixed height;
 
    if (!arg || arg == "") {
       arg = " ";
@@ -619,35 +709,17 @@ void more_prompt(string arg) {
 	 break;
    }
 
-   height = query_env("height");
-
-   if (height == nil) {
-      height = 23;
-   } else if (stringp(height)) {
-      height = str2val(height);
-   }
-
-   if (height == -1) {
-      height = 23;
-   } else if (height == 0) {
-      height = INT_MAX;
-   }
-
-   if (height > 1) {
-      height = height - 1;
-   }
-
-   if (sizeof(more_lines) > height + more_line_num) {
-      msg = implode(more_lines[more_line_num..more_line_num + height], "\n");
+   if (sizeof(more_lines) > terminal_height + more_line_num) {
+      msg = implode(more_lines[more_line_num..more_line_num + terminal_height], "\n");
       if (color_more) {
          this_object()->query_user()->wrap_message(msg);
       } else {
          out_unmod(msg + "\n");
       }
 
-      out("%^BOLD%^--More--(" + ((more_line_num + height) * 100) /
+      out("%^BOLD%^--More--(" + ((more_line_num + terminal_height) * 100) /
          sizeof(more_lines) + "%)%^RESET%^");
-      more_line_num += height + 1;
+      more_line_num += terminal_height + 1;
       input_to("more_prompt");
    } else {
       msg = implode(more_lines[more_line_num..], "\n");
@@ -696,15 +768,14 @@ void do_go(string dir) {
 void do_quit(void) {
    object sp, *objs;
    string quitcmd, *channelstmp;
-   int i, autoload;
+   int i;
 
    sp = this_player();
 
    set_this_player(this_object());
 
-   if (query_env("autoload")) {
+   if (autoload) {
       this_object()->compose_autoload_string();
-      autoload = 1;
    }
 
    objs = query_inventory() + ( { } );
@@ -736,21 +807,18 @@ void do_quit(void) {
       }
    }
 
-   if (query_env("save_on_quit")) {
+   if (save_on_quit) {
       object room;
 
       room = this_player()->query_environment();
       if (room) { 
-         set_env("start", room->file_name());
+         start_room = room->file_name();
       }
    }
 
    TOP_SCORE_D->save(this_player());
 
-   quitcmd = this_player()->query_env("quit_message");
-   if (!quitcmd || quitcmd == "") {
-      quitcmd = "$N $vquit.";
-   }
+   quitcmd = this_player()->query_quit_message();
    this_object()->simple_action(quitcmd);
 
    channelstmp = channels;

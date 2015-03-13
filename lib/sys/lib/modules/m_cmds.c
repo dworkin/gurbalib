@@ -26,16 +26,8 @@ static void create(void) {
 }
 
 private void DBT(string str) {
-   mixed flag;
-
    if (this_player()) {
-      flag = this_player()->query_env("debug_commands");
-      if (stringp(flag) && (flag == "1" || flag == "on")) {
-         flag = 1;
-      } else if (!intp(flag)) {
-         flag = 0;
-      }
-      if (flag) {
+      if (this_player()->query_debug_commands() ) {
          this_player()->out(str);
       }
    }

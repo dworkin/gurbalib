@@ -9,7 +9,8 @@ void usage(void) {
    lines += ({ "If no VAR VALUE pair is given print your current settings."
       });
    lines += ({ "Some variables you can set:" });
-   lines += ({ "\theight\t\theight of your screen." });
+   lines += ({ "\theight\t\theight of your screen.  "+
+    "Set to 0 for max height, 1 for default height, or use custom value." });
    lines += ({ "\twidth\t\twidth of your screen." });
    lines += ({ "\tprompt\t\tYour prompt." });
    if (query_wizard(this_player() ) ) {
@@ -32,7 +33,7 @@ void usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tset width 50" });
-   if (query_wizard(this_player() ) {
+   if (query_wizard(this_player() ) ) {
       lines += ({ "\tset save_on_quit 1" });
    }
    this_player()->more(lines);
@@ -42,9 +43,13 @@ void list_vars(void) {
    string name, *names;
    int i;
 
-   names = this_player()->query_env_indices();
+   names = ({ "height", "width", "prompt" });
+   if (query_wizard(this_player() ) ) {
+      names += ({ "start_room", "hidden", "autoload", "save_on_quit", "quit_message",
+         "debug_commands", "verbose_errors", "display_caught" });
+   }
    for (i = 0; i < sizeof(names); i++) {
-      out_unmod(names[i] + "=" + this_player()->query_env(names[i]) + "\n");
+      out_unmod(names[i] + "=" + call_other(this_player(), "query_" + names[i]) + "\n");
    }
 }
 
@@ -62,33 +67,42 @@ static void main(string str) {
       usage();
       return;
    } else {
+        if (value == "on") {
+           value = "1";
+        } else if (value == "off") {
+           value = "0";
+         }
         switch(name) {
            case "height":
            case "width":
            case "prompt":
               break;
-           case "start":
            case "hidden":
            case "autoload":
            case "save_on_quit":
-           case "quit_message":
            case "debug_commands":
            case "verbose_errors":
            case "display_caught":
+              if (value != "0" && value != "1") {
+                 write("The argument for " + name + " must be 1 or 0.");
+                 return;
+              }
+           case "quit_message":
+           case "start_room":
               if (query_wizard(this_player() ) )  {
                  break;
               }
            default:
-              write("Invalid variable name \""+name+"\".\n\n");
+              write("Invalid setting name \"" + name + "\".\n\n");
               usage();
               return;
         }
-      write("Ok."); 
-      if (str2val(value) != -1) {
+      write("Ok.");
+      if (str2val(value) != -1) {                     
 	 /* We've got a value */
-	 this_player()->set_env(name, str2val(value));
+	 call_other(this_player(), "set_" + name, str2val(value) );
       } else {
-	 this_player()->set_env(name, value);
+     call_other(this_player(), "set_" + name, value);
       }
    }
 }

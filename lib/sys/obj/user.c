@@ -141,11 +141,7 @@ void wrap_message(string str, varargs int chat_flag) {
    width = -1;
    /* Get the width from the player */
    if (player) {
-      catch(width = str2val((string) player->query_env("width")));
-   }
-
-   if (width < 0) {
-      width = DEFAULT_WIDTH;
+      catch(width = player->query_width());
    }
 
    rlimits(MAX_DEPTH; MAX_TICKS * MAX_TICKS) {
@@ -307,12 +303,12 @@ static void login_user(void) {
       send_message(TELNET_D->query_motd());
       player->login_player();
 
-      start = player->query_env("start");
+      start = player->query_start_room();
       done = 0;
       if (start) {
 	 done = player->move(start);
 	 if (!done) {
-	    send_message("Invalid room env(start)\n");
+	    send_message("Invalid start room.\n");
          }
       }
       if (!done) {

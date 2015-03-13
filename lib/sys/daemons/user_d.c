@@ -917,7 +917,7 @@ string *list_players(int long_flag) {
 
       line = usr[i]->query_title();
 
-      if (usr[i]->query_env("hidden") == 1) {
+      if (usr[i]->query_hidden() == 1) {
          hidden = 1;
          line += " %^BOLD%^%^RED%^(hidden)%^RESET%^";
       } else {

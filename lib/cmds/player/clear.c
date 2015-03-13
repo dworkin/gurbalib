@@ -17,22 +17,11 @@ void usage(void) {
    this_player()->more(lines);
 }
 
-int get_height(void) {
-   int height;
-   mixed height_env;
-   
-   height = (int)this_player()->query_env("height");
-   if (height < 1) {
-      height = 23;
-   }
-   return height;
-}
-
 static void main(string str) {
    int max, i;
 
    if (empty_str(str)) {
-      max = get_height();
+      max = this_player()->get_height();
       str = "\n";
       for(i=0; i < max; i++) {
          str += "\n";
