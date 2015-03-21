@@ -13,14 +13,19 @@ void usage(void) {
     "Set to 0 for max height, 1 for default height, or use custom value." });
    lines += ({ "\twidth\t\twidth of your screen." });
    lines += ({ "\tprompt\t\tYour prompt." });
+   if (!query_guest(this_player()->query_name() ) ) {
+      lines += ({ "\trealname\t\tYour real name." });
+      lines += ({ "\email\t\tYour email address." });
+      lines += ({ "\twww\t\tYour website." });
+   }
    if (query_wizard(this_player() ) ) {
       lines += ({ "\tstart\t\tyour starting room." });
       lines += ({ "\thidden\t\tSet to 1 if you want to hide your login from " +
          "users." });
-      lines += ({ "\tautoload\tSet to 1 if you want to save your equipment on " +
-         "quit." });
-      lines += ({ "\tsave_on_quit\tSet to 1 if you want to start where you last " +
-         "quit." });
+      lines += ({ "\tautoload\tSet to 1 if you want to save your equipment " +
+         "on quit." });
+      lines += ({ "\tsave_on_quit\tSet to 1 if you want to start where you " +
+         "last quit." });
       lines += ({ "\tquit_message\tSet your quit message.  Example: $N $vquit." });
       lines += ({ "\tdebug_commands\tSet to 1 if you want debugging of commands."
 	   });
@@ -33,9 +38,7 @@ void usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tset width 50" });
-   if (query_wizard(this_player() ) ) {
-      lines += ({ "\tset save_on_quit 1" });
-   }
+   lines += ({ "\tset email foo@bar.com" });
    this_player()->more(lines);
 }
 
@@ -44,6 +47,9 @@ void list_vars(void) {
    int i;
 
    names = ({ "height", "width", "prompt" });
+   if (!query_guest(this_player()->query_name() ) ) {
+      names += ({ "realname", "email", "website" });
+      }
    if (query_wizard(this_player() ) ) {
       names += ({ "start_room", "hidden", "autoload", "save_on_quit", "quit_message",
          "debug_commands", "verbose_errors", "display_caught" });
@@ -76,6 +82,14 @@ static void main(string str) {
            case "height":
            case "width":
            case "prompt":
+              break;
+           case "realname":
+           case "email":
+           case "website":
+              if (query_guest(this_player()->query_name() ) ) {
+                 write("You must be logged in with a character.");
+              return;
+              }
               break;
            case "hidden":
            case "autoload":

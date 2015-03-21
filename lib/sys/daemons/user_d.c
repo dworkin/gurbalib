@@ -471,15 +471,15 @@ void print_finger_info(object player, object player2, int cloned) {
    }
 
    if (query_admin(player)) {
-      if (player2->query_real_name()) {
+      if (player2->query_realname()) {
          player->message("%^BLUE%^Real name: %^RESET%^" +
-	    player2->query_real_name() + "\n");
+	    player2->query_realname() + "\n");
       } else {
          player->message("%^BLUE%^Real name: %^RESET%^\n");
       }
-      if (player2->query_email_address()) {
+      if (player2->query_email()) {
          player->message("%^BLUE%^Email address: %^RESET%^" +
-	    player2->query_email_address() + "\n");
+	    player2->query_email() + "\n");
       } else {
          player->message("%^BLUE%^Email address: %^RESET%^\n");
       }
@@ -550,8 +550,8 @@ string print_email_info(object player, object obj, string type) {
    }
 
    if (doit) {
-      if (obj->query_real_name()) {
-         str = obj->query_real_name();
+      if (obj->query_realname()) {
+         str = obj->query_realname();
       } else {
          str = "";
       }
@@ -560,8 +560,8 @@ string print_email_info(object player, object obj, string type) {
       } else {
          str += "() <";
       }
-      if (obj->query_email_address()) {
-         str += obj->query_email_address() + ">";
+      if (obj->query_email()) {
+         str += obj->query_email() + ">";
       } else {
          str += ">";
       }

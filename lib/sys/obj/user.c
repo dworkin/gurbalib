@@ -664,14 +664,14 @@ void input_check_passwd(string str) {
 }
 
 void input_get_real_name(string str) {
-   player->set_real_name(str);
+   player->set_realname(str);
 
    send_message("Please enter your email address : ");
    player->input_to_object(this_object(), "input_get_email");
 }
 
 void input_get_email(string str) {
-   player->set_email_address(str);
+   player->set_email(str);
    send_message("Please enter your website : ");
    player->input_to_object(this_object(), "input_get_website");
 }

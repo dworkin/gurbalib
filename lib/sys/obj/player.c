@@ -454,11 +454,11 @@ object query_user(void) {
    return user;
 }
 
-void set_real_name(string str) {
+void set_realname(string str) {
    real_name = str;
 }
 
-string query_real_name(void) {
+string query_realname(void) {
    if (!real_name) {
       return "";
    }
@@ -466,11 +466,11 @@ string query_real_name(void) {
    return real_name;
 }
 
-void set_email_address(string str) {
+void set_email(string str) {
    email_address = str;
 }
 
-string query_email_address(void) {
+string query_email(void) {
    if (!email_address) {
       return "";
    }
