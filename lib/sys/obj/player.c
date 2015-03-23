@@ -167,18 +167,13 @@ void create(void) {
    set_short("A nondescript player");
    timestamp = time();
    ansi = 1;
-   prompt = ">";
    set_env("cwd", "/");
-   terminal_width = DEFAULT_WIDTH;
-   terminal_height = 23;
    autoload = 0;
    save_on_quit = 0;
    hidden = 0;
    debug_commands = 0;
    verbose_errors = 0;
    display_caught = 0;
-   start_room = STARTING_ROOM;
-   quit_message = "$N $vquit.";
    living_name = "who";
    custom_colors = ([]);
    level = 1;
@@ -287,6 +282,10 @@ void login_player(void) {
 }
 
 int query_height() {
+   if (terminal_height < 1) {
+      return 23;
+   }
+
    return terminal_height;
 }
 
@@ -306,6 +305,11 @@ void set_height(int i) {
 }
 
 int query_width(void) {
+
+   if (terminal_width < 1) {
+      return DEFAULT_WIDTH;
+   }
+
    return terminal_width;
 }
 
@@ -351,6 +355,10 @@ void set_save_on_quit(int i) {
 }
 
 string query_quit_message(void) {
+   if (!quit_message) {
+      return "$N $vquit.";
+   }
+
    return quit_message;
 }
 
@@ -383,6 +391,10 @@ void set_display_caught(int i) {
 }
 
 string query_start_room(void) {
+   if (!start_room) {
+      return STARTING_ROOM;
+   }
+
    return start_room;
 }
 
@@ -391,6 +403,10 @@ void set_start_room(string path) {
 }
 
 string query_prompt(void) {
+   if (!prompt) {
+      return ">";
+   }
+
    return prompt;
 }
 
@@ -611,7 +627,7 @@ void write_prompt(void) {
       return;
    }
 
-   result = prompt;
+   result = query_prompt();
    date = ctime(time());
    result = replace_string(result, "%d", date[4..10] + date[20..23]);
    result = replace_string(result, "%t", ctime(time())[11..18]);
@@ -660,9 +676,9 @@ void more(string * lines, varargs int docolor) {
    more_line_num = 0;
    more_lines = lines;
 
-   if (sizeof(lines) > terminal_height + more_line_num) {
+   if (sizeof(lines) > query_height() + more_line_num) {
 
-      msg = implode(lines[more_line_num..more_line_num + terminal_height], "\n");
+      msg = implode(lines[more_line_num..more_line_num + query_height()], "\n");
 
       if (docolor) {
          this_object()->query_user()->wrap_message(msg);
@@ -671,8 +687,8 @@ void more(string * lines, varargs int docolor) {
       }
 
       out("%^BOLD%^--More--(" + ((more_line_num +
-         terminal_height) * 100) / sizeof(lines) + "%)%^RESET%^");
-      more_line_num += terminal_height + 1;
+         query_height()) * 100) / sizeof(lines) + "%)%^RESET%^");
+      more_line_num += query_height() + 1;
       input_to("more_prompt");
    } else {
       msg = implode(lines[more_line_num..], "\n");
@@ -709,17 +725,18 @@ void more_prompt(string arg) {
 	 break;
    }
 
-   if (sizeof(more_lines) > terminal_height + more_line_num) {
-      msg = implode(more_lines[more_line_num..more_line_num + terminal_height], "\n");
+   if (sizeof(more_lines) > query_height() + more_line_num) {
+      msg = implode(more_lines[more_line_num..more_line_num + query_height()],
+         "\n");
       if (color_more) {
          this_object()->query_user()->wrap_message(msg);
       } else {
          out_unmod(msg + "\n");
       }
 
-      out("%^BOLD%^--More--(" + ((more_line_num + terminal_height) * 100) /
+      out("%^BOLD%^--More--(" + ((more_line_num + query_height()) * 100) /
          sizeof(more_lines) + "%)%^RESET%^");
-      more_line_num += terminal_height + 1;
+      more_line_num += query_height() + 1;
       input_to("more_prompt");
    } else {
       msg = implode(more_lines[more_line_num..], "\n");
