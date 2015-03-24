@@ -1,4 +1,4 @@
-inherit "std/object";
+inherit "/std/object";
 
 int _numtests, _numsuccess;
 string *_errors, *_errormsgs;
@@ -19,7 +19,7 @@ void set_verbose(int x) {
 }
 
 int query_verbose() {
-   return rebose;
+   return verbose;
 }
 
 string *get_errors_summary() {
@@ -29,15 +29,15 @@ string *get_errors_summary() {
    maxx = sizeof(_errors);
    if (maxx > 0) {
       x = 0;
-      res = ({ "\tTests: " + _numtests + " Passed: " + _numsuccess + 
-         " Errors: " + maxx });
+      res = ({ "\nTests: Passed: " + _numsuccess + 
+         " Errors: " + maxx  + " Total Tests: " + _numtests });
       while (x < maxx) {
          res += ({ _errors[x] + " : " + _errormsgs[x] });
          x = x + 1;
       }
    } else {
-     res = ({ "Tests: " + _numtests + " Passed: " + _numtests + 
-        " Errors: 0" });
+     res = ({ "\nTests: Passed: " + _numtests + 
+        " Errors: 0 Total Tests: " + _numtests });
    }
 
    return res;
@@ -59,9 +59,13 @@ void print_errors_summary() {
    msgs = get_errors_summary();
    maxx = sizeof(msgs);
 
-   while(x < maxx) {
-      report_to_user(msgs[x]);
-      x = x + 1;
+   if (verbose) {
+      while(x < maxx) {
+         report_to_user(msgs[x]);
+         x = x + 1;
+      }
+   } else {
+      report_to_user(msgs[0]);
    }
 }
 
@@ -70,7 +74,7 @@ int call_success(mixed expected, mixed result, string test_desc) {
    _numsuccess = _numsuccess + 1;
 
    if (_reporter) {
-      write(test_desc + ": Passed\n");
+      report_to_user(test_desc + ": Passed\n");
    }
 
    return 1;
@@ -86,18 +90,12 @@ int call_error(mixed expected, mixed result, string test_desc) {
    _errors += ({ test_desc });
    _errormsgs += ({ "expected: " + exp + " got: " + res});
 
-   if (_reporter) {
-      write(test_desc + ": expected: " + exp + " got: " + res + "\n");
-   }
+   report_to_user("\t" + test_desc + ": failed\n");
 
    return 0;
 }
 
-/* XXX Need to expand these two functions */
-string get_error() {
-   return "woo";
-}
-
+/* XXX Need to expand this */
 int is_equal(mixed res, mixed res2) {
    if (res == res2) {
       return 1;
@@ -106,59 +104,15 @@ int is_equal(mixed res, mixed res2) {
    return 0;
 }
 
-
 /* XXX Need to catch errors as well and handle that,
    first get this working though...  */
 int run_test(mixed expected, string desc, string cmd, mixed *args) {
    mixed res;
 
-   res = this_object()->call_other(cmd, args);
+   res = this_object()->call_other(this_object(), cmd, args);
    if (is_equal(res, expected)) {
       return call_success(expected, res, desc);
    }
    return call_error(expected, res, desc);
 }
 
-
-/* This function trys to run cmd on the current object,
-   and compares it to result.
-   It will return the following values depending on what happens:
-   1  = cmd == result
-   0  = cmd != result
-   -1 = error with cmd
- */
-mixed do_test(mixed result, string cmd, mixed *args) {
-   mixed res;
-
-   catch {
-      /* May need to do more complicated check depending on type */
-      res = this_object()->call_other(cmd,args);
-      if (is_equal(res, result)) {
-         return ({1, res});
-      } 
-   } : {
-      return ({-1, get_error()});
-   }
-   return ({0, dump_value(res)});
-}
-
-void do_verbose_test(mixed result, int experror, string cmd, mixed *args) {
-   mixed ans;
-
-   write("Calling: " + cmd + "\n");
-   write("Expecting: " + dump_value(result) + "\n");
-
-   ans = do_test(result, cmd, args);
-
-   if (ans[0] == 1) {
-      write("Result: Success\n");
-   } else if (ans[0] == -1) {
-      if (experror == 1) {
-         write("Expected error: success\n");
-      } else {
-         write("Unexpected error: " + ans[1] + "\n");
-      }
-   } else {
-      write("Failed, got: " + ans[1] + "\n");
-   }
-}
