@@ -6,14 +6,16 @@ string *compose_message(object who, string msg, object target,
    string us, them, others, tmp;
    int punc, i, objnum, pronounFlag;
 
-   if (msg && msg != "") {
-      words = explode(msg, " ");
-   } else {
-      return ({});
-   }
    us = "";
    them = "";
    others = "";
+
+   if (msg && msg != "") {
+      words = explode(msg, " ");
+   } else {
+      return (({ us, them, others }));
+   }
+
    for (i = 0; i < sizeof(words); i++) {
       if (words[i] == "") {
 	 continue;
