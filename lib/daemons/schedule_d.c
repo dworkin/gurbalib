@@ -6,6 +6,8 @@ static int second_counter;
 static int minute_counter;
 static int hour_counter;
 static int reset_counter;
+static float micro_beat_interval;
+static mapping timed_events;
 
 static void setup(void) {
    EVENT_D->add_event("micro_beat");
@@ -19,9 +21,11 @@ static void setup(void) {
    minute_counter = 0;
    hour_counter = 0;
    reset_counter = 0;
+   timed_events = ([ ]);
+   micro_beat_interval = 1.0 / (float) MICROS_PER_SECOND;
 
    if (!micro_beat_handle) {
-      micro_beat_handle = call_out("micro_beat", MICRO_BEAT_INTERVAL);
+      micro_beat_handle = call_out("micro_beat", micro_beat_interval);
    }
 
    if (!WORLD_PERSIST) {
@@ -88,12 +92,9 @@ static void second_tick() { /* approximation of 1 second */
 }
 
 static void micro_beat() {
-   micro_beat_handle = call_out("micro_beat", MICRO_BEAT_INTERVAL);
+   micro_beat_handle = call_out("micro_beat", micro_beat_interval);
    second_counter++;
-/* TODO: Make this so seconds_counter calculates the number of microbeats
-     before a second is reached based on MICRO_BEAT_INTERVAL.  Hardcoded 
-     for now. */
-   if(second_counter > 4) {
+   if(second_counter >= MICROS_PER_SECOND) {
       second_counter = 0;
       second_tick();
    }
@@ -117,6 +118,10 @@ static void save_game(void) {
 #else
    save_game_handle = 0;
 #endif
+}
+
+void remove_timed_event(string what, object where) {
+   
 }
 
 void create(void) {

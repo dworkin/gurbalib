@@ -58,9 +58,13 @@ You should at least modify the first 3 entries.
 /* The time between state dumps, ignored if SYS_PERSIST = 0  */
 #define DUMP_INTERVAL           3600
 
-/* The time between heart beats */
-#define MICRO_BEAT_INTERVAL     0.2
-/* The time between heart beats */
+/* Number of micro_beats per second.  The larger this number the shorter the
+   length of time between each micro_beat.  Larger numbers here can have a
+   negative impact on performance and affect accuracy of time approximations,
+   such as second, minute etc. */
+#define MICROS_PER_SECOND  5
+
+/* The time, in seconds, between heart beats */
 #define HEART_BEAT_INTERVAL     2
 
 /* If the following is defined, all FTP functionality will be disabled */
