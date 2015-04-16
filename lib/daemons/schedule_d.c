@@ -2,9 +2,10 @@ static int micro_beat_handle;
 static int clean_up_handle;
 static int save_game_handle;
 static int heartbeat_counter;
-static int second_counter;
-static int minute_counter;
-static int hour_counter;
+static int micros_count;
+static int seconds_count;
+static int minutes_count;
+static int hours_count;
 static int reset_counter;
 static float micro_beat_interval;
 static mapping timed_events;
@@ -17,11 +18,13 @@ static void setup(void) {
    EVENT_D->add_event("heart_beat");
 
    heartbeat_counter = 0;
-   second_counter = 0;
-   minute_counter = 0;
-   hour_counter = 0;
+   micros_count = 0;
+   seconds_count = 0;
+   minutes_count = 0;
+   hours_count = 0;
    reset_counter = 0;
-   timed_events = ([ ]);
+   queued_events = ([ ]);
+   timed_events = (["seconds" : ([ ]), "minutes" : ([ ]), "hours" : ([ ]) ]);
    micro_beat_interval = 1.0 / (float) MICROS_PER_SECOND;
 
    if (!micro_beat_handle) {
@@ -45,6 +48,32 @@ static void setup(void) {
 #endif
 }
 
+void dispatch_timed_events(string unit) {
+   int i;
+   int unit_count;
+   
+   unit_count = call_other(this_object(), "get_"+unit+"_count");
+   if (timed_events[unit][unit_count]) {
+      for(i = 0; i < sizeof(timed_events[unit][unit_count]); i++) {
+         catch(call_other(timed_events[unit][unit_count][i][1],
+            timed_events[unit][unit_count][i][0]) );
+      }
+   timed_events[unit][unit_count] = nil;
+   }
+}
+
+static int get_seconds_count() {
+   return seconds_count;
+}
+
+static int get_minutes_count() {
+   return minutes_count;
+}
+
+static int get_hours_count() {
+   return hours_count;
+}
+
 static void heart_beat(void) {
    EVENT_D->event("heart_beat");
 }
@@ -54,15 +83,22 @@ static void reset(void) {
 }
 
 static void hour_tick(void) {
+   hours_count++;
+   
+   if (hours_count > 23) {
+      hours_count = 0;
+      /* XXX TODO: days_tick() */
+   }
    EVENT_D->event("hour_tick");
+   dispatch_timed_events("hours");
 }
 
 static void minute_tick(void) { /* approximation of 1 minute */
-   hour_counter++;
+   minutes_count++;
    reset_counter++;
 
-   if(hour_counter > 59) {
-      hour_counter = 0;
+   if(minutes_count > 59) {
+      minutes_count = 0;
       hour_tick();
    }
 
@@ -72,33 +108,33 @@ static void minute_tick(void) { /* approximation of 1 minute */
    }
 
    EVENT_D->event("minute_tick");
+   dispatch_timed_events("minutes");
 }
 
 static void second_tick() { /* approximation of 1 second */
+   int i;
    heartbeat_counter++;
-   minute_counter++;
+   seconds_count++;
 
    if(heartbeat_counter >= HEART_BEAT_INTERVAL) {
       heartbeat_counter = 0;
       heart_beat();
    }
-
-   if(minute_counter > 59) {
-      minute_counter = 0;
+   if(seconds_count > 59) {
+      seconds_count = 0;
       minute_tick();
    }
-      
    EVENT_D->event("second_tick");
+   dispatch_timed_events("seconds");
 }
 
 static void micro_beat() {
    micro_beat_handle = call_out("micro_beat", micro_beat_interval);
-   second_counter++;
-   if(second_counter >= MICROS_PER_SECOND) {
-      second_counter = 0;
+   micros_count++;
+   if (micros_count >= MICROS_PER_SECOND) {
+      micros_count = 0;
       second_tick();
    }
-
    EVENT_D->event("micro_beat");
 }
 
@@ -120,8 +156,50 @@ static void save_game(void) {
 #endif
 }
 
-void remove_timed_event(string what, object where) {
-   
+/* add_timed_event: calls a function after amount of time indicated in function 
+ * arguments.  'amount' is the number of times the 'unit' passes by before
+ * the function 'name' gets called inside of previous_object().  Valid intervals
+ * are 'second', 'minute' and 'hour'. */
+void add_timed_event(string unit, int amount, string name) {
+   object ob;
+   int unit_count;
+   int max_size;
+
+   ob = previous_object();
+   if (amount < 1) {
+      error("Arg 2 must be greater than 0.");
+   }
+   switch(unit) {
+      case "seconds":
+      case "minutes":
+         max_size = 60;
+         break;
+      case "hours":
+         max_size = 24;
+         break;
+      default:
+         error("Arg 1 must be a legal unit of time.");
+         break;
+   }
+   unit_count = call_other(this_object(), "get_"+unit+"_count");
+   if (amount < max_size) {
+      if (unit_count+amount < max_size) {
+         unit_count += amount;
+      }
+      else {
+         unit_count = amount - (max_size - unit_count);
+      }
+      if (!timed_events[unit][unit_count]) {
+         timed_events[unit][unit_count] = ({ ({name, ob}) });
+      }
+      else {
+         timed_events[unit][unit_count] += ({ ({name, ob}) });
+      }
+   }
+   else {
+   /* XXX TODO: allow larger values to work */
+      error("Amount cannot exceed max unit size.");
+   }
 }
 
 void create(void) {
