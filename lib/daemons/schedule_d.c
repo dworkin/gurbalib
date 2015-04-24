@@ -8,7 +8,7 @@ static int minutes_count;
 static int hours_count;
 static int reset_counter;
 static float micro_beat_interval;
-static mapping timed_events;
+static mapping timed_events, queued_events;
 
 static void setup(void) {
    EVENT_D->add_event("micro_beat");
