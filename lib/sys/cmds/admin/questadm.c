@@ -5,7 +5,6 @@ void usage(void) {
 
    lines = ({ "Usage: questadm [-h] [remove QUEST]"});
    lines += ({ "Usage: questadm [-h] [add QUEST LEVEL DOMAIN]"});
-   lines += ({ "Usage: questadm [-h] [rehash]"});
    lines += ({ ""});
    lines += ({ "Used to add, remove or list available quests on the mud."});
    lines += ({ "\tQUEST is a name for your quest,"});
@@ -33,13 +32,12 @@ static void main(string str) {
       return;
    }
 
-   if (str == "rehash") {
-      QUEST_D->rehash();
-      QUEST_D->list_quests(this_player());
+   if (sscanf(str, "-%s", str)) {
+      usage();
       return;
    }
 
-   if (sscanf(str, "-%s", str)) {
+   if (sscanf(str, "%s %s", cmd, rest) != 2) {
       usage();
       return;
    }
@@ -52,8 +50,8 @@ static void main(string str) {
    if (cmd == "add") {
       if (sscanf(rest, "%s %d %s", questname, level, domain) == 3) {
          QUEST_D->add_quest(questname, level, domain);
-			write("Quest: " + questname + " added.");
-			QUEST_D->list_quests(this_player());
+         write("Quest: " + questname + " added.");
+         QUEST_D->list_quests(this_player());
       } else {
          usage();
       }
@@ -67,9 +65,9 @@ static void main(string str) {
       }
       if (QUEST_D->remove_quest(rest)) {
          write("Quest: " + rest + " removed. ");
-			QUEST_D->list_quests(this_player());
+         QUEST_D->list_quests(this_player());
       }
-      return;
+   } else {
+      usage();
    }
-   usage();
 }
