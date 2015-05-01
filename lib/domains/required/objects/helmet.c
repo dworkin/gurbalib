@@ -1,9 +1,8 @@
 #include "../domain.h"
 
-inherit DIR + "/lib/helmet";
+inherit "/std/armor";
 
 void setup(void) {
-   ::setup();
    set_adj("small", "round");
    set_short("A small rusty helmet");
    set_long("A small rusty helmet, it looks like it has seen better days.  " +

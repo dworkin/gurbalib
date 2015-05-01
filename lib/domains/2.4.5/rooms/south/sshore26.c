@@ -49,9 +49,9 @@ int go_southeast() {
    add_exit("southeast", DIR + "/rooms/south/sislnd1.c");
    usermsg = "Trusting in your faith, you step onto the magical bridge " +
       "and move across to the Isle of the Magi.";
-   othermsg =  this_player()->query_Name() + walks across a faintly " +
+   othermsg =  this_player()->query_Name() + " walks across a faintly " +
       "glowing bridge.";
 
-   XXX domove(DIR + "/rooms/south/sislnd1.c", usermsg, othermsg);
+   /* XXX domove(DIR + "/rooms/south/sislnd1.c", usermsg, othermsg); */
    return 1;
 }

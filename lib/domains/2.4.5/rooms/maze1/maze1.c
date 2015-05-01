@@ -1,7 +1,7 @@
-inherit "/std/room";
-
 #include "../../domain.h"
-#include "maze.h"
+
+inherit "/std/room";
+inherit DIR + "/lib/maze";
 
 void setup(void) {
    add_area("2.4.5");

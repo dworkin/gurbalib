@@ -15,7 +15,7 @@ void setup(void) {
 
    add_exit("south", DIR + "/rooms/south/sislnd13.c");
    add_exit("east", DIR + "/rooms/south/sislnd2.c");
-   add_exit("northwest", '#go_northwest");
+   add_exit("northwest", "#go_northwest");
    add_exit("northeast", DIR + "/rooms/south/sislnd12.c");
 }
 
@@ -24,7 +24,7 @@ void go_northwest(void) {
 
    usermsg = "You trust in your faith and step out onto the near invisible " +
       "bridge."; 
-   $othermsg = this_player()->query_Name() + walks across a faintly " +
+   othermsg = this_player()->query_Name() + " walks across a faintly " +
       "glowing bridge.";
-   XXX domove(DIR + "/rooms/south/sshore26.c",usermsg, othermsg);
+   /* XXX domove(DIR + "/rooms/south/sshore26.c",usermsg, othermsg); */
 }
