@@ -21,7 +21,7 @@ static void main(string str) {
    int max, i;
 
    if (empty_str(str)) {
-      max = this_player()->get_height();
+      max = this_player()->query_height();
       str = "\n";
       for(i=0; i < max; i++) {
          str += "\n";
