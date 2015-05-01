@@ -1,6 +1,6 @@
 inherit "/std/test";
 
-int test_nil() {
+int test_nil(int x) {
    return intp(nil);
 }
 
@@ -26,13 +26,14 @@ void setup() {
    string s, *as;
    object o, *ao;
    mapping m, *am;
-   mixed mix, *amix, *args;
+   mixed args, mix, *amix;
 
    set_id("testobject");
 
    report_to_user("Running intp Tests.\n");
 
-   args = ({});
+   set_verbose(1);
+
    run_test(0, "intp(nil)", "test_nil", args);
 
 /* XXX Throws an error 
@@ -40,27 +41,28 @@ void setup() {
    write("intp(void) returns :" + x + "\n");
 */
 
-   args = ({ 5 });
+   args = 5;
    run_test(1, "intp(5)", "test_intp_int", args);
 
-   args = ({ 5.0 });
+   args = 5.0;
    run_test(1, "intp(5.0)", "test_intp_float", args);
 
-   args = ({ 5.5 });
+   args = 5.5;
    run_test(1, "intp(5.5)", "test_intp_float", args);
 
-   args = ({ i });
+   args = i;
    run_test(1, "int i; intp(i); /*uninitalized int */",
       "test_intp_int", args);
 
    i = 5;
-   args = ({ i });
+   args = i;
    run_test(1, "int i; i = 5; intp(i);", "test_intp_int", args);
 
-   args = ({ f });
+   args = f;
    run_test(1, "float f; intp(f); /*uninitalized float */",
       "test_intp_float", args);
 
+/*
    f = 5.0; 
    args = ({ f });
    run_test(1, "float f; f = 5.0; intp(f);", "test_intp_float", args);
@@ -90,10 +92,11 @@ void setup() {
    args = ({ m });
    run_test(0, "mixed m; m[0] = 5; intp(m);", "test_intp_obj", args);
    run_test(1, "mixed m; m[0] = 5; intp(m[0]);", "test_intp_obj", args);
+*/
 
 /* XXX Here */
-/*
 
+/*
    x = intp(ai);
    write("intp(ai) returns: " + x + "\n");
 

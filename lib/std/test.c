@@ -106,10 +106,20 @@ int is_equal(mixed res, mixed res2) {
 
 /* XXX Need to catch errors as well and handle that,
    first get this working though...  */
-int run_test(mixed expected, string desc, string cmd, mixed *args) {
+int run_test(mixed expected, string desc, string cmd, mixed args...) {
    mixed res;
+   string err;
 
-   res = this_object()->call_other(this_object(), cmd, args);
+   if (!args) {
+      err = catch( res = call_other(this_object(), cmd) );
+   } else {
+      err = catch( res = call_other(this_object(), cmd, args) );
+   }
+
+   if (err) {
+      return call_error(expected, err, desc);
+   }
+
    if (is_equal(res, expected)) {
       return call_success(expected, res, desc);
    }
