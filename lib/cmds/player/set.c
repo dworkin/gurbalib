@@ -26,10 +26,12 @@ void usage(void) {
          "on quit." });
       lines += ({ "\tsave_on_quit\tSet to 1 if you want to start where you " +
          "last quit." });
-      lines += ({ "\tquit_message\tSet your quit message.  Example: $N $vquit." });
-      lines += ({ "\tdebug_commands\tSet to 1 if you want debugging of commands."
-	   });
-      lines += ({ "\tverbose_errors\tSet to 1 if you want longer error codes." });
+      lines += ({ "\tquit_message\tSet your quit message.  " +
+         "Example: $N $vquit." });
+      lines += ({ "\tdebug_commands\tSet to 1 if you want debugging of " +
+         "commands." });
+      lines += ({ "\tverbose_errors\tSet to 1 if you want longer error " +
+         "codes." });
       lines += ({ "\tdisplay_caught\tSet to 1 if you want to show caught " +
          "runtime errors." });
    }
@@ -51,11 +53,13 @@ void list_vars(void) {
       names += ({ "realname", "email", "website" });
       }
    if (query_wizard(this_player() ) ) {
-      names += ({ "start_room", "hidden", "autoload", "save_on_quit", "quit_message",
-         "debug_commands", "verbose_errors", "display_caught" });
+      names += ({ "start_room", "hidden", "autoload", "save_on_quit", 
+         "quit_message", "debug_commands", "verbose_errors",
+         "display_caught" });
    }
    for (i = 0; i < sizeof(names); i++) {
-      out_unmod(names[i] + "=" + call_other(this_player(), "query_" + names[i]) + "\n");
+      out_unmod(names[i] + "=" + call_other(this_player(), "query_" +
+         names[i]) + "\n");
    }
 }
 
@@ -113,10 +117,10 @@ static void main(string str) {
         }
       write("Ok.");
       if (str2val(value) != -1) {                     
-	 /* We've got a value */
-	 call_other(this_player(), "set_" + name, str2val(value) );
+         /* We've got a value */
+         call_other(this_player(), "set_" + name, str2val(value) );
       } else {
-     call_other(this_player(), "set_" + name, value);
+         call_other(this_player(), "set_" + name, value);
       }
    }
 }

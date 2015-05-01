@@ -5,7 +5,7 @@ static int make_dir(string dir) {
       return 0;
 #else
       console_msg("Access to " + dir +
-	 " would have been denied, ignoring...\n");
+         " would have been denied, ignoring...\n");
 #endif
    }
 

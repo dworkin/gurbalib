@@ -42,7 +42,7 @@ int file_size(string path) {
    i = sizeof(dir[0]);
    while (i--) {
       if (dir[0][i] == base) {
-	 return dir[1][i];
+         return dir[1][i];
       }
    }
    return -1;
@@ -81,36 +81,36 @@ static void main(string arg) {
       file_data = read_file(file, offset, length);
       offset += length;
       while (catch(tmp = explode(file_data, "\n"))) {
-	 chopped = 1;
-	 file_data = file_data[0..strlen(file_data) / 2];
+         chopped = 1;
+         file_data = file_data[0..strlen(file_data) / 2];
       }
 
       for (i = 0; i < sizeof(tmp); i++) {
-	 if (sizeof(lines) < maxlines) {
-	    if (strlen(tmp[i]) > 79) {
-	       /* Big line. Break it up. */
-	       where = 0;
-	       while (where < strlen(tmp[i])) {
-		  if (sizeof(lines) < maxlines) {
-		     if (where + 79 < strlen(tmp[i])) {
-			lines += ( { tmp[i][where..where + 78] } );
-			where += 79;
-		     } else {
-			lines += ( { tmp[i][where..] } );
-			where = strlen(tmp[i]);
-		     }
-		  } else {
-		     chopped = 1;
-		     break;
-		  }
-	       }
-	    } else {
-	       lines += ( { tmp[i] } );
-	    }
-	 } else {
-	    chopped = 1;
-	    break;
-	 }
+         if (sizeof(lines) < maxlines) {
+            if (strlen(tmp[i]) > 79) {
+               /* Big line. Break it up. */
+               where = 0;
+               while (where < strlen(tmp[i])) {
+                  if (sizeof(lines) < maxlines) {
+                     if (where + 79 < strlen(tmp[i])) {
+                        lines += ( { tmp[i][where..where + 78] } );
+                        where += 79;
+                     } else {
+                        lines += ( { tmp[i][where..] } );
+                        where = strlen(tmp[i]);
+                     }
+                  } else {
+                     chopped = 1;
+                     break;
+                  }
+               }
+            } else {
+               lines += ( { tmp[i] } );
+            }
+         } else {
+            chopped = 1;
+            break;
+         }
       }
    }
    if (chopped == 1) {

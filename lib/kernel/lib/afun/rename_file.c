@@ -5,7 +5,7 @@ static int rename_file(string from, string to) {
       return 0;
 #else
       console_msg("Access to " + from +
-	 " would have been denied, ignoring...\n");
+         " would have been denied, ignoring...\n");
 #endif
    }
 

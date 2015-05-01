@@ -18,14 +18,14 @@ int file_size(string file, varargs int dir) {
 
    if (sz <= 1) {
       if (sz == 0 || files[0] != name) {
-	 return 0;		/* file does not exist */
+         return 0;    /* file does not exist */
       }
    } else {
       /* name is a pattern: find in file list */
       while (name != files[i]) {
-	 if (++i == sz) {
-	    return 0;		/* file does not exist */
-	 }
+         if (++i == sz) {
+            return 0;       /* file does not exist */
+         }
       }
    }
 

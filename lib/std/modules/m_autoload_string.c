@@ -16,24 +16,24 @@ void clone_autoload_objects(void) {
    while (str && str != "*^!") {
       if (sscanf(str, "%s:%s^!%s", file, argument, rest) == 3) {
       } else if (sscanf(str, "%s:%s^!", file, argument) != 2) {
-	 write("Autoload string corrupt.\n");
-	 return;
+         write("Autoload string corrupt.\n");
+         return;
       } else {
          rest = "";
       }
       str = rest;
       if (file_exists(file)) {
-	 ob = clone_object(file);
-	 if (ob) {
-	    ob->move(this_object()->query_environment());
-	    ob->setup();
-	    ob->move(this_object());
+         ob = clone_object(file);
+         if (ob) {
+            ob->move(this_object()->query_environment());
+            ob->setup();
+            ob->move(this_object());
             if (argument == "wield") {
                this_player()->do_wield(ob);
             } else if (argument == "wear") {
                this_player()->do_wear(ob);
             }
-	 }
+         }
       }
    }
 }

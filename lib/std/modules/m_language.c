@@ -1,12 +1,12 @@
 /* Module to allow players to translate from racial to english */
-mapping racial_words;		/* ([ "meow":"Hello","dø":"die" ]) */
+mapping racial_words;             /* ([ "meow":"Hello","dø":"die" ]) */
 
 string racial_to_english(string racialword) {
    if (!(racial_words)) {
       racial_words = ([]);
    }
    racialword = lowercase(racialword);
-   if (racial_words[racialword]) {	/*If it is in the vocabulary */
+   if (racial_words[racialword]) {       /*If it is in the vocabulary */
       return racial_words[racialword];
    } else {
       return racialword;

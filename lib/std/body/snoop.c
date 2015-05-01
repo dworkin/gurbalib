@@ -24,7 +24,7 @@ int is_snooping(object pPlayer) {
    }
    for (i = 0; i < sizeof(pSnooping); i++) {
       if (pSnooping[i] == pPlayer) {
-	 return 1;
+         return 1;
       }
    }
    return 0;
@@ -52,8 +52,8 @@ void do_snoop(string str) {
 
    for (j = 0; j < sizeof(lines); j++) {
       for (i = 0; i < sizeof(pSnoopees); i++) {
-	 pSnoopees[i]->message("%^RED%^[" + this_object()->query_Name() +
-	    "] %^RESET%^" + lines[j]);
+         pSnoopees[i]->message("%^RED%^[" + this_object()->query_Name() +
+            "] %^RESET%^" + lines[j]);
       }
    }
 }

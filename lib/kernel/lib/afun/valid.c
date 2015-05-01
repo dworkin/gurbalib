@@ -8,9 +8,9 @@ nomask static string valid(string file, int mode) {
 
    if (secure_d) {
       if (!mode) {
-	 priv = secure_d->query_read_priv(file);
+         priv = secure_d->query_read_priv(file);
       } else {
-	 priv = secure_d->query_write_priv(file);
+         priv = secure_d->query_write_priv(file);
       }
    } else {
       priv = "system";

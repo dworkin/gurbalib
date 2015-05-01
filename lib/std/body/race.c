@@ -23,7 +23,7 @@ void set_race(string name, varargs int is_new_player) {
    }
 
    if (is_new_player) {
-      initialize_stats();		/* set up stat/race bonus here */
+      initialize_stats();            /* set up stat/race bonus here */
    }
 }
 
@@ -39,7 +39,7 @@ object query_race_object(void) {
 }
 
 void set_vulnerabilities(string *new_vulnerabilities) {
-	vulnerabilities = new_vulnerabilities;
+   vulnerabilities = new_vulnerabilities;
 }
 
 void add_vulnerability(string vulnerability) {

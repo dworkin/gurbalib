@@ -52,15 +52,16 @@ void event_heart_beat(void) {
    } else {
       heal_time++;
       if (heal_time > heal_rate) {
-	 heal_time = 0;
-	 if (this_object()->query_hp() < this_object()->query_max_hp()) {
-	    this_object()->increase_hp(random(heal_amount) + 1);
+         heal_time = 0;
+
+         if (this_object()->query_hp() < this_object()->query_max_hp()) {
+            this_object()->increase_hp(random(heal_amount) + 1);
          }
-	 if (this_object()->query_mana() < this_object()->query_max_mana()) {
-	    this_object()->increase_mana(random(heal_amount) + 1);
+         if (this_object()->query_mana() < this_object()->query_max_mana()) {
+            this_object()->increase_mana(random(heal_amount) + 1);
          }
-	 if (this_object()->query_end() < this_object()->query_max_end()) {
-	    this_object()->increase_end(random(2 * heal_amount) + 1);
+         if (this_object()->query_end() < this_object()->query_max_end()) {
+            this_object()->increase_end(random(2 * heal_amount) + 1);
          }
       }
 
@@ -74,7 +75,7 @@ void event_heart_beat(void) {
          this_object()->do_fight();
       } else {
          if (function_object("event_wander", this_object())) {
-   	    call_other(this_object(), "event_wander");
+            call_other(this_object(), "event_wander");
          }
       }
    }
@@ -82,10 +83,10 @@ void event_heart_beat(void) {
    /* A player ages when not idle */
    if (this_object()->is_player()) {
       if (this_object()->query_idle() < 60) {
-	 player_age += HEART_BEAT_INTERVAL;
-			if (query_mortal(this_object())) {
-				TOP_SCORE_D->save(this_object());
-			}
+         player_age += HEART_BEAT_INTERVAL;
+         if (query_mortal(this_object())) {
+            TOP_SCORE_D->save(this_object());
+         }
       }
    }
 }
@@ -104,10 +105,11 @@ string query_age(void) {
       days += 1;
       secs -= DAY;
    }
-	while (secs > HOUR) {
-		hours += 1;
-		secs -= HOUR;
-	}
+
+   while (secs > HOUR) {
+      hours += 1;
+      secs -= HOUR;
+   }
    while (secs > MIN) {
       mins += 1;
       secs -= MIN;
@@ -165,14 +167,16 @@ void die(void) {
    object killer, obj, *inv;
    int i;
 
-	killer = this_object()->query_killer();
-	if (killer) {
-       if(killer->is_player() ) {
-          set_this_player(killer);
-       }
-		killer->message("%^BOLD%^%^CYAN%^You killed " +
-			this_object()->query_Name() + ".%^RESET%^");
-	}
+   killer = this_object()->query_killer();
+   if (killer) {
+      if (killer->is_player() ) {
+         set_this_player(killer);
+      }
+
+      killer->message("%^BOLD%^%^CYAN%^You killed " +
+         this_object()->query_Name() + ".%^RESET%^");
+   }
+
    this_object()->simple_action("$N $vfall to the ground...dead.");
 
    obj = clone_object(DOMAINS_DIR + "/required/objects/corpse");
@@ -197,9 +201,9 @@ void die(void) {
       this_object()->message("You have died.");
       this_object()->clear_money();
    } else {
-		if (this_object()<-"/std/monster") {
-			this_object()->monster_died();
-		}
+      if (this_object()<-"/std/monster") {
+         this_object()->monster_died();
+      }
       EVENT_D->unsubscribe_event("heart_beat");
       this_object()->destruct();
    }

@@ -10,18 +10,18 @@ object compile_object(string path, string code ...) {
 
       if (code && sizeof(code)) {
          if (!valid_write(path)) {
-	    error("Permission denied");
+            error("Permission denied");
          }
       } else {
          if (!valid_read(path)) {
-	     error("Permission denied");
+            error("Permission denied");
          }
       }
    }
 
    if (strlen(path) > 2) {
       if (path[strlen(path) - 2] == '.' && path[strlen(path) - 1] == 'c')
-	 path = path[..strlen(path) - 3];
+         path = path[..strlen(path) - 3];
    }
    if (find_object(COMPILER_D)) {
       path = COMPILER_D->allow_object(path);

@@ -7,45 +7,45 @@ void set_gender(string gen) {
 string query_gender(void) {
    switch (gender) {
       case "male":
-	 return "male";
+         return "male";
       case "female":
-	 return "female";
+         return "female";
       case "neuter":
          return "neuter";
       default:
-	 return "unknown";
+         return "unknown";
    }
 }
 
 string query_gender_pronoun(void) {
    switch (gender) {
       case "male":
-	 return "he";
+         return "he";
       case "female":
-	 return "she";
+         return "she";
       default:
-	 return "it";
+         return "it";
    }
 }
 
 string query_gender_possessive(void) {
    switch (gender) {
       case "male":
-	 return "his";
+         return "his";
       case "female":
-	 return "hers";
+         return "hers";
       default:
-	 return "its";
+         return "its";
    }
 }
 
 string query_gender_reflexive(void) {
    switch (gender) {
       case "male":
-	 return "himself";
+         return "himself";
       case "female":
-	 return "herself";
+         return "herself";
       default:
-	 return "itself";
+         return "itself";
    }
 }

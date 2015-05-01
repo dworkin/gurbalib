@@ -4,7 +4,7 @@ void save_object(string file) {
       error("Access to " + file + " denied");
 #else
       console_msg("Access to " + file +
-	 " would have been denied, ignoring...\n");
+         " would have been denied, ignoring...\n");
 #endif
    }
 

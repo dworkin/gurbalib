@@ -6,7 +6,7 @@ string get_path_to_file(string file) {
    while (i > 0 && !done) {
       i--;
       if (file[i] == '/') {
-	 done = 1;
+         done = 1;
       }
    }
    if (i <= 1) {

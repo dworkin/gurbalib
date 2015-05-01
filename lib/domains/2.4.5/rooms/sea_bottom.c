@@ -12,6 +12,6 @@ void setup(void) {
 
    set_objects (DIR + "/monsters/octopus.c");
 #ifdef USE_NOKICLIFFS
-	add_object(NOKICLIFFS_SEASHELL, 1);
+   add_object(NOKICLIFFS_SEASHELL, 1);
 #endif
 }

@@ -5,7 +5,7 @@ static int remove_file(string file) {
       return 0;
 #else
       console_msg("Access to " + file +
-	 " would have been denied, ignoring...\n");
+         " would have been denied, ignoring...\n");
 #endif
    }
 

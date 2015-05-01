@@ -28,7 +28,7 @@ nomask static void open_port(string proto, varargs mixed port) {
    }
    if (port_object) {
       console_msg("Port already open: " + proto + ":" +
-	 (intp(port) ? (string) port : "*") + "\n");
+         (intp(port) ? (string) port : "*") + "\n");
    } else {
       port_object = clone_object(PORT);
       port_object->set_user(this_object());

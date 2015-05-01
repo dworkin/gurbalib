@@ -31,12 +31,11 @@ int activate_cmd(string str) {
       return 1;
    }
    if (empty_str(str)) {
-		write("You can 'activate' the following pocket dimensions: " +
-			"oak groave, doomspire, abbey of law, den of chaos, " +
-			"hall of balance, candyland, murky mists.\n" +
-			"For instance, to activate " +
-			"the den of " +
-			"chaos pocket dimension, use command:\nactivate den of chaos");
+      write("You can 'activate' the following pocket dimensions: " +
+         "oak groave, doomspire, abbey of law, den of chaos, " +
+         "hall of balance, candyland, murky mists.\n" +
+         "For instance, to activate the den of " +
+         "chaos pocket dimension, use command:\nactivate den of chaos");
       return 1;
    }
 
@@ -55,12 +54,12 @@ int activate_cmd(string str) {
    } else if (lowercase(str) == "hall of balance") {
       this_player()->move(NOKICLIFFS_HALL_START);
       this_player()->do_look(0);
-	} else if (lowercase(str) == "candyland" || lowercase(str) == "candy land") {
-		this_player()->move(NOKICLIFFS_CANDYLAND_START);
-		this_player()->do_look(0);
-	} else if (lowercase(str) == "murky mists") {
-		this_player()->move(NOKICLIFFS_MURKY_MISTS_START);
-		this_player()->do_look(0);
+   } else if (lowercase(str) == "candyland" || lowercase(str) == "candy land") {
+      this_player()->move(NOKICLIFFS_CANDYLAND_START);
+      this_player()->do_look(0);
+   } else if (lowercase(str) == "murky mists") {
+      this_player()->move(NOKICLIFFS_MURKY_MISTS_START);
+      this_player()->do_look(0);
    } else {
       write("Your beads cannot activate that pocket dimension.");
    }

@@ -8,17 +8,17 @@ void do_wield(object ob) {
    }
    if (ob->query_wield_type() == "single") {
       if (sizeof(wielding) == 2) {
-	 return;
+         return;
       } else {
-	 wielding += ( { ob } );
-	 ob->set_wielded(1);
+         wielding += ( { ob } );
+         ob->set_wielded(1);
       }
    } else {
       if (sizeof(wielding) != 0) {
-	 return;
+         return;
       } else {
-	 wielding += ( { ob } );
-	 ob->set_wielded(1);
+         wielding += ( { ob } );
+         ob->set_wielded(1);
       }
    }
 }
@@ -28,9 +28,9 @@ void do_unwield(object ob) {
 
    for (i = 0; i < sizeof(wielding); i++) {
       if (wielding[i] == ob) {
-	 wielding -= ( { ob } );
-	 ob->set_wielded(0);
-	ob->after_unwield(this_player(), nil);
+         wielding -= ( { ob } );
+         ob->set_wielded(0);
+         ob->after_unwield(this_player(), nil);
       }
    }
 }

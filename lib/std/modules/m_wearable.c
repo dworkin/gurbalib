@@ -5,7 +5,7 @@ static string remove_message;
 
 /* return 1 to allow this to be worn by player. */
 int wear_hook(object player) {
-	return 1;
+   return 1;
 }
 
 void after_wear(object player) {
@@ -74,10 +74,10 @@ int query_valid_slot(string str) {
       case "waist":
       case "finger":
       case "apparel":
-	 return 1;
-	 break;
+         return 1;
+         break;
       default:
-	 break;
+         break;
    }
 
    return 0;
@@ -98,14 +98,13 @@ void set_slot(string str) {
       case "waist":
       case "finger":
       case "apparel":
-	 break;
+         break;
       default:
-	 if (this_player()) {
-	    write("Illegal bodyslot.\n");
-	    return;
-	 }
-	 return;
-	 break;
+         if (this_player()) {
+            write("Illegal bodyslot.\n");
+         }
+         return;
+         break;
    }
    slot = str;
 }
@@ -117,26 +116,26 @@ string query_wear_position(void) {
 
    switch (slot) {
       case "torso":
-	 return "on the upper body";
+         return "on the upper body";
       case "head":
-	 return "on head";
+         return "on head";
       case "hands":
-	 return "on hands";
+         return "on hands";
       case "finger":
-	 return "on one finger";
+         return "on one finger";
       case "feet":
-	 return "on feet";
+         return "on feet";
       case "arm":
-	 return "on an arm";
+         return "on an arm";
       case "neck":
-	 return "about the neck";
+         return "about the neck";
       case "body":
-	 return "about the body";
+         return "about the body";
       case "legs":
-	 return "on the lower body";
+         return "on the lower body";
       case "waist":
-	 return "about the waist";
+         return "about the waist";
       default:
-	 return "somewhere";
+         return "somewhere";
    }
 }

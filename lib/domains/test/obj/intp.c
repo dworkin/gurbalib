@@ -51,7 +51,7 @@ void setup() {
 
    args = ({ i });
    run_test(1, "int i; intp(i); /*uninitalized int */",
-	"test_intp_int", args);
+      "test_intp_int", args);
 
    i = 5;
    args = ({ i });
@@ -59,7 +59,7 @@ void setup() {
 
    args = ({ f });
    run_test(1, "float f; intp(f); /*uninitalized float */",
-	"test_intp_float", args);
+      "test_intp_float", args);
 
    f = 5.0; 
    args = ({ f });

@@ -39,7 +39,7 @@ void join_guild(string str) {
       CHANNEL_D->chan_join(query_guild(), player);
       CHANNEL_D->event_player_join(( {
          player->query_name(), GUILD_D->query_guild_title(query_guild())
-	 }));
+      }));
    }
 }
 

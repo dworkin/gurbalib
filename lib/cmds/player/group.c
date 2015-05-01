@@ -46,11 +46,11 @@ string get_group_name() {
 }
 
 int get_group_exp() {
-	return 0;
+   return 0;
 }
 
 int get_group_gold() {
-	return 0;
+   return 0;
 }
 
 /* XXX Lots of work left */

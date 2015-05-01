@@ -11,4 +11,4 @@ void setup(void) {
    set_weight(1);
    add_bane("garlic");
 }
-	
+

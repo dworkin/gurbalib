@@ -15,18 +15,18 @@
 
 #define DATA_FORMAT 1
 
-mapping inh_list;	/* mapping for support of inherit_list */
-mapping dep_list;	/* programs directly depending on the index of 
-				the mapping */
-mapping programs;	/* all programs with their direct dependencies */
-mapping includes;	/* everything that #includes the index of the mapping */
-mapping increv;		/* all files included by the index of the mapping */
+mapping inh_list;       /* mapping for support of inherit_list */
+mapping dep_list;       /* programs directly depending on the index of 
+                           the mapping */
+mapping programs;       /* all programs with their direct dependencies */
+mapping includes;       /* everything that #includes the index of the mapping */
+mapping increv;         /* all files included by the index of the mapping */
 int data_format;
-private mixed *pile;	/* pile of graph nodes, used to find edges of our 
-				inheritance graph */
+private mixed *pile;    /* pile of graph nodes, used to find edges of our 
+                           inheritance graph */
 
-mapping upqueue;	/* mapping of to be upgraded programs, 
-				([ user:({ prog, prog ... }) ]) */
+mapping upqueue;        /* mapping of to be upgraded programs, 
+                           ([ user:({ prog, prog ... }) ]) */
 
 static void remove_all_included_by(string by);
 

@@ -12,7 +12,7 @@ int file_exists(string str) {
          return 0;
 #else
          console_msg("Access to " + str +
-	      " would have been denied, ignoring...\n");
+            " would have been denied, ignoring...\n");
 #endif
       }
    }

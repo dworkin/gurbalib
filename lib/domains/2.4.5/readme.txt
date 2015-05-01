@@ -1,5 +1,5 @@
 The code in the domains/2.4.5 sub directory, is a derived work from the:
-	2.4.5 LPmud, it is copyright by Lars Pensj|, 1990.
+   2.4.5 LPmud, it is copyright by Lars Pensj|, 1990.
 
 Source code herein refers to the source code, and any executables
 created from the same source code.

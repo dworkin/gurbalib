@@ -5,7 +5,7 @@ int write_file(string file, string str, varargs int offset) {
       return 0;
 #else
       console_msg("Access to " + file +
-	 " would have been denied, ignoring...\n");
+         " would have been denied, ignoring...\n");
 #endif
    }
 

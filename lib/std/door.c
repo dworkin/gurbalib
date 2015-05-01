@@ -36,12 +36,12 @@ void refresh_sibling(void) {
       sibling_room = this_object()->query_environment()->query_exit(our_exit);
       obs = sibling_room->query_inventory();
       if (obs) {
-	 for (i = 0; i < sizeof(obs); i++) {
-	    if (obs[i]->query_door_identity() == our_identity
-	       && obs[i]->query_door_exit() == invert_exit(our_exit)) {
-	       sibling = obs[i];
-	    }
-	 }
+         for (i = 0; i < sizeof(obs); i++) {
+            if (obs[i]->query_door_identity() == our_identity
+               && obs[i]->query_door_exit() == invert_exit(our_exit)) {
+               sibling = obs[i];
+            }
+         }
       }
    }
 }
@@ -58,8 +58,8 @@ void update_sibling(void) {
 
    if (sibling) {
       if (sibling->query_open_state() == 1) {
-	 /* We need to update this doors state */
-	 this_object()->do_open(0);
+         /* We need to update this doors state */
+         this_object()->do_open(0);
       }
    }
 }
@@ -71,7 +71,7 @@ void do_on_open(object who) {
 
    if (sibling) {
       if (sibling->query_open_state() == 1) {
-	 return;
+         return;
       }
       sibling->set_open_state(1);
    }
@@ -84,7 +84,7 @@ void do_on_close(object who) {
 
    if (sibling) {
       if (!sibling->query_open_state()) {
-	 return;
+         return;
       }
       sibling->set_open_state(0);
    }

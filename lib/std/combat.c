@@ -16,8 +16,7 @@ string wimpy_dir;
 /* #define DEBUG_COMBAT 1 */
 
 void create(void) {
-   targets = ( {
-      });
+   targets = ({ });
    fighting = 0;
    wimpy = 0;
    wimpy_hp = 0;
@@ -29,7 +28,7 @@ int is_fighting(void) {
 }
 
 object query_killer(void) {
-	return killer;
+   return killer;
 }
 
 mapping query_killed_by(void) {
@@ -152,10 +151,10 @@ void receive_damage(object who, int dam) {
 
    if (this_object()->query_hp() <= dam) {
       x = this_object()->query_max_hp();
-		killer = who;
+      killer = who;
       this_object()->add_killed_by(killer, time());
       this_object()->halt_fight();
-		who->halt_fight();
+      who->halt_fight();
       who->increment_kills();
       who->increase_expr(x);
       /* make sure they are dead */
@@ -259,32 +258,33 @@ object get_target(object targ) {
          }
       }
       if (i < sizeof(targets) &&
-				targets[i] && (targets[i]->query_environment() ==
-            this_object()->query_environment())) {
+         targets[i] && (targets[i]->query_environment() ==
+         this_object()->query_environment())) {
+
          fighting = FIGHTING_TIMEOUT;
          return targets[i];
       }
    }
    fighting = fighting - 1;
    if (fighting < 1) {
-      targets = ( {
-         }
-      );
+      targets = ({ });
    }
    return nil;
 }
 
 int damage_hook(object victim, object weapon, int damage) {
-	int extra_damage;
-	extra_damage = damage;
-	if (!nilp(weapon) && victim->is_vulnerable(weapon->query_materials())) {
-		extra_damage += (damage / 3);
-	}
-	return extra_damage;
+   int extra_damage;
+
+   extra_damage = damage;
+   if (!nilp(weapon) && victim->is_vulnerable(weapon->query_materials())) {
+      extra_damage += (damage / 3);
+   }
+
+   return extra_damage;
 }
 
 int after_damage_hook(object aggressor, object weapon, int damage) {
-	return damage;
+   return damage;
 }
 
 void attack_with(string skill, object weapon, object target) {
@@ -324,21 +324,20 @@ void attack_with(string skill, object weapon, object target) {
                this_object()->query_skill("combat/unarmed"));
          }
 
-			damage = damage_hook(target, nil, damage);
-			damage = target->after_damage_hook(this_object(), nil, damage);
+         damage = damage_hook(target, nil, damage);
+         damage = target->after_damage_hook(this_object(), nil, damage);
 
-			if (damage == 0) {
-				this_object()->targeted_action("$N $v" +
-					this_object()->query_hit_string() + " $T, but $vdo no " +
-					"damage!", target);
-			} else {
-         	this_object()->targeted_action("$N $v" +
-					this_object()->query_hit_string() + " $T.", target);
-			}
-
+         if (damage == 0) {
+            this_object()->targeted_action("$N $v" +
+            this_object()->query_hit_string() + " $T, but $vdo no " +
+               "damage!", target);
+         } else {
+            this_object()->targeted_action("$N $v" +
+            this_object()->query_hit_string() + " $T.", target);
+         }
       } else {
          damage = this_object()->query_statbonus("str") +
-				weapon->query_weapon_damage();
+            weapon->query_weapon_damage();
          tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
             this_object()->query_skill(weapon->query_weapon_skill()) / 2;
          if (tmp <= target->query_skill("combat/defense")) {
@@ -347,18 +346,18 @@ void attack_with(string skill, object weapon, object target) {
                this_object()->query_skill(weapon->query_weapon_skill()));
          }
 
-			damage = damage_hook(target, weapon, damage);
-			damage = target->after_damage_hook(this_object(), weapon, damage);
+         damage = damage_hook(target, weapon, damage);
+         damage = target->after_damage_hook(this_object(), weapon, damage);
 
-			if (damage == 0) {
-				this_object()->targeted_action("$N " + 
-					"$v" + weapon->query_weapon_action() + " $T with a " +
-					weapon->query_id() + ", but $vdo no damage!", target);
-			} else {
-         	this_object()->targeted_action("$N " +
-            	"$v" + weapon->query_weapon_action() + " $T with a " +
-            	weapon->query_id() + ".", target);
-			}
+         if (damage == 0) {
+            this_object()->targeted_action("$N " + 
+               "$v" + weapon->query_weapon_action() + " $T with a " +
+               weapon->query_id() + ", but $vdo no damage!", target);
+         } else {
+            this_object()->targeted_action("$N " +
+               "$v" + weapon->query_weapon_action() + " $T with a " +
+               weapon->query_id() + ".", target);
+         }
       }
 
       this_object()->damage_target(damage, target);
@@ -524,43 +523,46 @@ void attack(object who) {
 }
 
 string *summarise_killers(void) {
-	string retval;
-	mapping killer_count, killer_map;
-	string *killers, *lines;
-	int *killed_times;
-	string killer_name;
-	object tmp_killer;
-	int i, dim, done;
+   string retval, killer_name, *killers, *lines;
+   mapping killer_count, killer_map;
+   object tmp_killer;
+   int i, dim, done, *killed_times;
 
-	killer_map = this_object()->query_killed_by();
-	killed_times = map_indices(killer_map);
-	killer_count = ([ ]);
-	killers = ({ });
-        done = 0;
-	lines = ({ "Summary of your killers:" });
-	lines += ({ "------------------------" });
-	for (i = 0, dim = sizeof(killed_times); i < dim; i++) {
-		tmp_killer = clone_object(killer_map[killed_times[i]]);
-		tmp_killer->setup();
-		killer_name = tmp_killer->query_Name();
-		destruct_object(tmp_killer);
-		if (!killer_count[killer_name]) {
-			killer_count[killer_name] = 1;
-		} else {
-			killer_count[killer_name]++;
-		}
-                done = 1;
-	}
-        if (!done) { 
-           lines += ({ "So far you have been spared, count yourself lucky.\n"
-              });
-        } else {
-	   killers = map_indices(killer_count);
-	   for (i = 0, dim = sizeof(killers); i < dim; i++) {
-              lines += ({ killers[i] + " killed you " +
-                 killer_count[killers[i]] + " time(s).\n" });
-	   }
-        }
-	return lines;
+   killer_map = this_object()->query_killed_by();
+   killed_times = map_indices(killer_map);
+   killer_count = ([ ]);
+   killers = ({ });
+
+   done = 0;
+   lines = ({ "Summary of your killers:" });
+   lines += ({ "------------------------" });
+
+   for (i = 0, dim = sizeof(killed_times); i < dim; i++) {
+      tmp_killer = clone_object(killer_map[killed_times[i]]);
+      tmp_killer->setup();
+      killer_name = tmp_killer->query_Name();
+      destruct_object(tmp_killer);
+
+      if (!killer_count[killer_name]) {
+         killer_count[killer_name] = 1;
+      } else {
+         killer_count[killer_name]++;
+      }
+
+      done = 1;
+   }
+
+   if (!done) { 
+      lines += ({ "So far you have been spared, count yourself lucky.\n" });
+   } else {
+
+      killers = map_indices(killer_count);
+      for (i = 0, dim = sizeof(killers); i < dim; i++) {
+         lines += ({ killers[i] + " killed you " +
+            killer_count[killers[i]] + " time(s).\n" });
+      }
+   }
+
+   return lines;
 }
 

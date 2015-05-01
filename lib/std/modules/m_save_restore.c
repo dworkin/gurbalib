@@ -3,25 +3,25 @@
  *
  * Emulates the MudOS save_variable and restore_variable efunctions.
  * 
- * 8 January 1997	Begun		Greg Lewis
- *	# Wrote and tested initial version.  restore_variable needs to do
- *	  error checking though (i.e., it works if the string it gets is 
- *	  right, but crashes and burns otherwise ;).
+ * 8 January 1997       Begun         Greg Lewis
+ *      # Wrote and tested initial version.  restore_variable needs to do
+ *        error checking though (i.e., it works if the string it gets is 
+ *        right, but crashes and burns otherwise ;).
  * 
- * 10 January 1997	Version 1.0	Greg Lewis
- *	# Added error checking to restore_variable, it returns RESTORE_ERROR
- *	  (#define'd in save_restore.h) upon errors in the restore process.
- *	# Everything seems to test ok, not that I've been all that thorough.
+ * 10 January 1997      Version 1.0     Greg Lewis
+ *      # Added error checking to restore_variable, it returns RESTORE_ERROR
+ *        (#define'd in save_restore.h) upon errors in the restore process.
+ *      # Everything seems to test ok, not that I've been all that thorough.
  *
  * TBD
- *	# Prolly needs some more commenting (doesn't most code?)
+ *      # Prolly needs some more commenting (doesn't most code?)
  *
  * February 2009        Version 2.0     Bart van Leeuwen
  *      # Rewritten restore_variable()
  *      # Fix implode/explode related bugs in save_variable()
  */
 
-#include	<type.h>
+#include <type.h>
 
 #define GRAMMAR \
   "escaped=/\\\\/\n"+\
@@ -121,7 +121,7 @@ string *concatstring(mixed * data) {
    maxi = sizeof(data);
    for (i = 0; i < maxi; i++) {
       if (data[i] == "\\") {
-	 i++;
+        i++;
       }
       r += data[i];
    }
@@ -188,59 +188,59 @@ string save_variable(mixed var) {
    switch (typeof(var)) {
       case T_INT:
       case T_FLOAT:
-	 result = "" + var;
-	 break;
+         result = "" + var;
+         break;
       case T_STRING:
+         if (strlen(var) > 0) {
+            if (var[0..0] == "\\") {
+               pref = "\\\\";
+            } else if (var[0..0] == "\"") {
+               pref = "\\\"";
+            } else {
+               pref = "";
+            }
 
-	 if (strlen(var) > 0) {
-	    if (var[0..0] == "\\") {
-	       pref = "\\\\";
-	    } else if (var[0..0] == "\"") {
-	       pref = "\\\"";
-	    } else {
-	       pref = "";
-	    }
+            if (var[strlen(var) - 1] == '\\') {
+               post = "\\\\";
+            } else if (var[strlen(var) - 1] == '\"') {
+               post = "\\\"";
+            } else {
+               post = "";
+            }
 
-	    if (var[strlen(var) - 1] == '\\') {
-	       post = "\\\\";
-	    } else if (var[strlen(var) - 1] == '\"') {
-	       post = "\\\"";
-	    } else {
-	       post = "";
-	    }
+            result = implode(explode(var, "\\"), "\\\\");
+            result = implode(explode(result, "\""), "\\\"");
+            result = "\"" + pref + result + post + "\"";
+         } else {
+            result = "\"\"";
+         }
 
-	    result = implode(explode(var, "\\"), "\\\\");
-	    result = implode(explode(result, "\""), "\\\"");
-	    result = "\"" + pref + result + post + "\"";
-	 } else {
-	    result = "\"\"";
-	 }
-	 break;
+         break;
       case T_OBJECT:
-	 result = object_name(var);
-	 break;
+         result = object_name(var);
+         break;
       case T_ARRAY:
-	 result = "({";
+         result = "({";
          s = sizeof(var);
-	 for (i = 0; i < s; i++) {
-	    result += save_variable(var[i]) + ",";
-	 }
-	 result += "})";
-	 break;
+         for (i = 0; i < s; i++) {
+            result += save_variable(var[i]) + ",";
+         }
+         result += "})";
+         break;
       case T_MAPPING:
-	 keys = map_indices(var);
-	 values = map_values(var);
-	 result = "([";
+         keys = map_indices(var);
+         values = map_values(var);
+         result = "([";
          s = map_sizeof(var);
-	 for (i = 0; i < s; i++) {
-	    result += save_variable(keys[i]) + ":" + save_variable(values[i])
-	       + ",";
-	 }
-	 result += "])";
-	 break;
+         for (i = 0; i < s; i++) {
+            result += save_variable(keys[i]) + ":" +
+               save_variable(values[i]) + ",";
+         }
+         result += "])";
+         break;
       default:
-	 result = nil;
-	 break;
+         result = nil;
+         break;
    }
 
    return result;

@@ -34,17 +34,17 @@ void default_data_dir(void) {
    switch (stuff[0]) {
       case "domains":
       case "wiz":
-	 data_dir = "/" + stuff[0] + "/" + stuff[1];
-	 break;
+         data_dir = "/" + stuff[0] + "/" + stuff[1];
+         break;
       case "kernel":
-	 data_dir = "/kernel";
-	 break;
+         data_dir = "/kernel";
+         break;
       case "sys":
-	 data_dir = "/sys";
-	 break;
+         data_dir = "/sys";
+         break;
       default:
-	 data_dir = "";
-	 break;
+         data_dir = "";
+         break;
    }
    data_dir += "/data/boards";
 }

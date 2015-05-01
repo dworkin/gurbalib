@@ -5,7 +5,7 @@ string read_file(string file, varargs int offset, int size) {
       return nil;
 #else
       console_msg("Access to " + file +
-	 " would have been denied, ignoring...\n");
+         " would have been denied, ignoring...\n");
 #endif
    }
 

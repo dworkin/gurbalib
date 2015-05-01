@@ -34,22 +34,22 @@ void outside_message(string msg) {
       args = 0;
       patsz = strlen(pats[i]);
       for (j = 0; j < patsz; j++) {
-	 if (pats[i][j] == '%') {
-	    args++;
+         if (pats[i][j] == '%') {
+            args++;
          }
       }
       if (args == 0) {
-	 if (strstr(msg, pats[i]) != -1) {
-	    respond(patterns[pats[i]]);
-	    return;
-	 }
+         if (strstr(msg, pats[i]) != -1) {
+            respond(patterns[pats[i]]);
+            return;
+         }
       } else if (sscanf(msg, pats[i], left, right) == args) {
-	 /* We found a match */
-	 msg = patterns[pats[i]];
-	 msg = replace_string(msg, "$1", left);
-	 msg = replace_string(msg, "$2", right);
-	 respond(msg);
-	 return;
+         /* We found a match */
+         msg = patterns[pats[i]];
+         msg = replace_string(msg, "$1", left);
+         msg = replace_string(msg, "$2", right);
+         respond(msg);
+         return;
       }
    }
 }

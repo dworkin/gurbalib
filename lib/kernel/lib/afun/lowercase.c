@@ -6,7 +6,7 @@ string lowercase(string str) {
    sz = strlen(str);
    for (i = 0; i < sz; i++) {
       if (str[i] >= 'A' && str[i] <= 'Z') {
-	 str[i] += 'a' - 'A';
+         str[i] += 'a' - 'A';
       }
    }
    return str;

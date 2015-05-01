@@ -191,7 +191,7 @@ mixed *query_all_stats(void) {
    ret = ({ });
    for (i = 0; i < sizeof(stat_names); i++) {
       ret += ({ ({ stat_names[i], base_stats[stat_names[i]],
-	  bonus_stats[stat_names[i]]}) });
+      bonus_stats[stat_names[i]]}) });
    }
    return ret;
 }
@@ -232,40 +232,40 @@ void initialize_base_stats(void) {
       s = ({ "0", "0", "0", "0", "0", "0" });
 
       s[0] = random(race->query_base_stat_maximum("str")
-	 - race->query_base_stat_minimum("str") + 1)
-	 + race->query_base_stat_minimum("str");
+         - race->query_base_stat_minimum("str") + 1)
+         + race->query_base_stat_minimum("str");
 
       s[1] = random(race->query_base_stat_maximum("dex")
-	 - race->query_base_stat_minimum("dex") + 1)
-	 + race->query_base_stat_minimum("dex");
+         - race->query_base_stat_minimum("dex") + 1)
+         + race->query_base_stat_minimum("dex");
 
       s[2] = random(race->query_base_stat_maximum("con")
-	 - race->query_base_stat_minimum("con") + 1)
-	 + race->query_base_stat_minimum("con");
+         - race->query_base_stat_minimum("con") + 1)
+         + race->query_base_stat_minimum("con");
 
       s[3] = random(race->query_base_stat_maximum("int")
-	 - race->query_base_stat_minimum("int") + 1)
-	 + race->query_base_stat_minimum("int");
+         - race->query_base_stat_minimum("int") + 1)
+         + race->query_base_stat_minimum("int");
 
       s[4] = random(race->query_base_stat_maximum("wis")
-	 - race->query_base_stat_minimum("wis") + 1)
-	 + race->query_base_stat_minimum("wis");
+         - race->query_base_stat_minimum("wis") + 1)
+         + race->query_base_stat_minimum("wis");
 
       s[5] = random(race->query_base_stat_maximum("cha")
-	 - race->query_base_stat_minimum("cha") + 1)
-	 + race->query_base_stat_minimum("cha");
+         - race->query_base_stat_minimum("cha") + 1)
+         + race->query_base_stat_minimum("cha");
 
       if (!race->is_monster_race()) {
-	 sum = 0;
-	 for (i = 0; i < 6; i++) {
-	    sum += s[i];
-	 }
+         sum = 0;
+         for (i = 0; i < 6; i++) {
+            sum += s[i];
+         }
 
-	 if (sum > 75) {
-	    sOK = 1;
-	 }
+         if (sum > 75) {
+            sOK = 1;
+         }
       } else {
-	 sOK = 1;
+         sOK = 1;
       }
    }
 

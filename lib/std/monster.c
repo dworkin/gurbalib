@@ -21,19 +21,19 @@ void create(void) {
    x = random(2) + 1;
    switch (x) {
       case 1:
-	 set_gender("male");
+         set_gender("male");
          break;
       case 2:
-	 set_gender("female");
+         set_gender("female");
          break;
       default:
-	 set_gender("unkown");
+         set_gender("unkown");
          break;
    }
 }
 
 void set_race(string str, varargs int is_new_player) {
-	::set_race(str, 1);
+   ::set_race(str, 1);
 }
 
 int is_attackable(void) {
@@ -51,16 +51,16 @@ void set_wearing(mixed obj) {
       /* We've got to compile our own copy */
       armor = clone_object(obj);
       if (armor) {
-	 armor->setup();
-	 armor->move(this_object());
-	 if (!query_slot(armor->query_slot())) {
-	    do_wear(armor);
-	 }
+         armor->setup();
+         armor->move(this_object());
+         if (!query_slot(armor->query_slot())) {
+            do_wear(armor);
+         }
       }
    } else {
       obj->move(this_object());
       if (!query_slot(obj->query_slot())) {
-	 do_wear(obj);
+         do_wear(obj);
       }
    }
 }
@@ -76,9 +76,9 @@ void set_wielding(mixed obj) {
       /* We've got to compile our own copy */
       weapon = clone_object(obj);
       if (weapon) {
-	 weapon->setup();
-	 weapon->move(this_object());
-	 do_wield(weapon);
+         weapon->setup();
+         weapon->move(this_object());
+         do_wield(weapon);
       }
    } else {
       obj->move(this_object());

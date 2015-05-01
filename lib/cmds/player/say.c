@@ -32,8 +32,8 @@ void usage(void) {
    get the correct conjugation, but it works.*/
 static void main(string str) {
    int i;
-   string me; 	                /*what I, the one who's talking, sees */
-   string you;                  /*what all the others in the room sees */
+   string me;         /*what I, the one who's talking, sees */
+   string you;        /*what all the others in the room sees */
 
    if (empty_str(str)) {
       usage();
@@ -89,159 +89,159 @@ static void main(string str) {
 
       switch (str[strlen(str) - 1]) {
          case '?':
-	    me = " ask: ";
-	    you = " asks: ";
-	    break;
-	 case '@':
-	    me = " exclaim proudly: ";
-	    you = " exclaims proudly: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '#':
-	    me = " boast: ";
-	    you = " boasts: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '$':
-	    me = " say sarcastically: ";
-	    you = " says sarcastically: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '%':
-	    me = " say thoughtfully: ";
-	    you = " says thoughtfully: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '^':
-	    me = " say admiringly: ";
-	    you = " says admiringly: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '&':
-	    me = " say mockingly: ";
-	    you = " says mockingly: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '*':
-	    me = " snap: ";
-	    you = " snarls: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '/':
-	    me = " say with a rising voice: ";
-	    you = " says with a rising voice: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '+':
-	    me = " say loudly: ";
-	    you = " says loudly: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '-':
-	    me = " whisper: ";
-	    you = " whispers: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '=':
-	    me = " correct: ";
-	    you = " corrects: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '~':
-	    me = " blurt out: ";
-	    you = " blurts out: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case ';':
-	    me = " say softly: ";
-	    you = " says softly: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case ':':
-	    me = " mumble: ";
-	    you = " mumbles: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '|':
-	    me = " reply with: ";
-	    you = " replies with: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '>':
-	    me = " point and say: ";
-	    you = " points and says: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '\{':
-	    me = " slobber out: ";
-	    you = " slobbers out: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '\]':
-	    me = " say jokingly: ";
-	    you = " says with a light chuckle: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '\}':
-	    me = " struggle to say: ";
-	    you = " has to struggle to say: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '\\':
-	    me = " say with a sinking voice: ";
-	    you = " says with a sinking voice: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '`':
-	    me = " comment: ";
-	    you = " comments: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '\[':
-	    me = " laugh and say: ";
-	    you =
-	       " laughs as " + this_player()->query_gender_pronoun() +
-	       " says: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '<':
-	    me = " point at yourself and say: ";
-	    you =
-	       " points at " + this_player()->query_gender_reflexive() +
-	       " and says: ";
-	    str = str[..strlen(str) - 2];
-	    break;
-	 case '_':
-	    me = " say under your breath: ";
-	    you =
-	       " says under " + this_player()->query_gender_possessive() +
-	       " breath: ";
-	    str = str[..strlen(str) - 2];
-	    break;
+            me = " ask: ";
+            you = " asks: ";
+            break;
+         case '@':
+            me = " exclaim proudly: ";
+            you = " exclaims proudly: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '#':
+            me = " boast: ";
+            you = " boasts: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '$':
+            me = " say sarcastically: ";
+            you = " says sarcastically: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '%':
+            me = " say thoughtfully: ";
+            you = " says thoughtfully: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '^':
+            me = " say admiringly: ";
+            you = " says admiringly: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '&':
+            me = " say mockingly: ";
+            you = " says mockingly: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '*':
+            me = " snap: ";
+            you = " snarls: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '/':
+            me = " say with a rising voice: ";
+            you = " says with a rising voice: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '+':
+            me = " say loudly: ";
+            you = " says loudly: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '-':
+            me = " whisper: ";
+            you = " whispers: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '=':
+            me = " correct: ";
+            you = " corrects: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '~':
+            me = " blurt out: ";
+            you = " blurts out: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case ';':
+            me = " say softly: ";
+            you = " says softly: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case ':':
+            me = " mumble: ";
+            you = " mumbles: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '|':
+            me = " reply with: ";
+            you = " replies with: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '>':
+            me = " point and say: ";
+            you = " points and says: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '\{':
+            me = " slobber out: ";
+            you = " slobbers out: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '\]':
+            me = " say jokingly: ";
+            you = " says with a light chuckle: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '\}':
+            me = " struggle to say: ";
+            you = " has to struggle to say: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '\\':
+            me = " say with a sinking voice: ";
+            you = " says with a sinking voice: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '`':
+            me = " comment: ";
+            you = " comments: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '\[':
+            me = " laugh and say: ";
+            you =
+               " laughs as " + this_player()->query_gender_pronoun() +
+               " says: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '<':
+            me = " point at yourself and say: ";
+            you =
+               " points at " + this_player()->query_gender_reflexive() +
+               " and says: ";
+            str = str[..strlen(str) - 2];
+            break;
+         case '_':
+            me = " say under your breath: ";
+            you =
+               " says under " + this_player()->query_gender_possessive() +
+               " breath: ";
+            str = str[..strlen(str) - 2];
+            break;
       }
 
       switch (str[strlen(str) - 1]) {
-	 case '.':
-	 case '?':
-	 case '!':
-	 case ',':
-	    break;
-	 default:
-	    str += ".";
+         case '.':
+         case '?':
+         case '!':
+         case ',':
+            break;
+         default:
+            str += ".";
             break;
       }
 
       if (this_player()->query_Name()) {
-	 this_environment()->tell_room(this_player(),
-	    "%^GREEN%^" + capitalize(this_player()->query_Name()) + you +
-	    "%^RESET%^" + capitalize(str) + "\n");
+         this_environment()->tell_room(this_player(),
+            "%^GREEN%^" + capitalize(this_player()->query_Name()) + you +
+            "%^RESET%^" + capitalize(str) + "\n");
       } else {
-	 this_environment()->tell_room(this_player(),
-	    "%^GREEN%^" + "The " + this_player()->query_id() + you +
-	    "%^RESET%^" + capitalize(str) + "\n");
+         this_environment()->tell_room(this_player(),
+            "%^GREEN%^" + "The " + this_player()->query_id() + you +
+            "%^RESET%^" + capitalize(str) + "\n");
       }
       this_player()->message("%^GREEN%^You" + me + "%^RESET%^" +
-	 capitalize(str) + "\n", 1);
+         capitalize(str) + "\n", 1);
    } else {
       write("Say what?\n");
    }

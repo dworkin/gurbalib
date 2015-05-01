@@ -5,7 +5,7 @@ nomask void destruct_object(object ob) {
       ob->_F_destruct();
    } else {
       console_msg("WARNING: destruct_object() used on an inheritable: " +
-	 ob->base_name() + "\n");
+         ob->base_name() + "\n");
       ::destruct_object(ob);
    }
 }

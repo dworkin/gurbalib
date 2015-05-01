@@ -6,12 +6,12 @@ object _reporter;
 int verbose;
 
 create() {
-        ::create();
-	_numtests = 0;
-        _numsuccess = 0;
-	_errors = ({});
-	_errormsgs = ({});
-	_reporter = this_player();
+   ::create();
+   _numtests = 0;
+   _numsuccess = 0;
+   _errors = ({});
+   _errormsgs = ({});
+   _reporter = this_player();
 }
 
 void set_verbose(int x) {

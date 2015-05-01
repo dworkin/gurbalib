@@ -140,8 +140,7 @@ private void follow(string str) {
 private void gives(string str) {
    string who, what;
    int rand;
-   object obj, next_obj;
-	object who_obj;
+   object obj, next_obj, who_obj;
 
    if (sscanf(str, "%s gives the %s to you.", who, what) != 2) {
       return;
@@ -175,12 +174,12 @@ private void gives(string str) {
       respond("say HEY, bury your corpses yourself, asshole.");
       obj = this_object()->present(what);
       if (obj) {
-			respond("give corpse to " + who);
+         respond("give corpse to " + who);
       }
    } else {
       if (this_object()->present(what)) {
-			who_obj = this_object()->query_environment()->present(who);
-			/* XXX sir, ma'am, creature... */
+         who_obj = this_object()->query_environment()->present(who);
+         /* XXX sir, ma'am, creature... */
          respond("say Thank you very much, sir.");
       }
    }

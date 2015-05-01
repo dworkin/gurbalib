@@ -18,116 +18,121 @@ string *compose_message(object who, string msg, object target,
 
    for (i = 0; i < sizeof(words); i++) {
       if (words[i] == "") {
-	 continue;
+         continue;
       }
 
       if (words[i][0] == '$' && strlen(words[i]) >= 2) {
 
-	 if (words[i][strlen(words[i]) - 1] == '.' ||
-	    words[i][strlen(words[i]) - 1] == ',' ||
-	    words[i][strlen(words[i]) - 1] == '!' ||
-	    words[i][strlen(words[i]) - 1] == '?') {
-	    punc = words[i][strlen(words[i]) - 1];
-	    words[i] = words[i][..strlen(words[i]) - 2];
-	 } else {
-	    punc = 0;
-	 }
-	 if(pronounFlag == 1 && words[i][1] != 'o') {
+         if (words[i][strlen(words[i]) - 1] == '.' ||
+            words[i][strlen(words[i]) - 1] == ',' ||
+            words[i][strlen(words[i]) - 1] == '!' ||
+            words[i][strlen(words[i]) - 1] == '?') {
+
+            punc = words[i][strlen(words[i]) - 1];
+            words[i] = words[i][..strlen(words[i]) - 2];
+         } else {
+            punc = 0;
+         }
+         if (pronounFlag == 1 && words[i][1] != 'o') {
             pronounFlag=0;
          }
-	 switch (words[i][1]) {
-	    case 'N':
-	       if (who->is_living()) {
-		  if (!who->query_name()) {
-		     us += "you ";
-		     them += "the " + who->query_id() + " ";
-		     others += "the " + who->query_id() + " ";
-		  } else {
-		     us += "you ";
-		     them += who->query_Name() + " ";
-		     others += who->query_Name() + " ";
-		  }
-	       } else {
-		  us += "you ";
-		  them += "the " + who->query_id() + " ";
-		  others += "the " + who->query_id() + " ";
-	       }
-	       break;
-	    case 'n':
-	       us += "you ";
-	       them += who->query_gender_pronoun() + " ";
-	       others += who->query_gender_pronoun() + " ";
-	       break;
-	    case 'p':
-	       us += "your ";
-	       them += who->query_gender_possessive() + " ";
-	       others += who->query_gender_possessive() + " ";
-	       pronounFlag=1;
-	       break;
-	    case 'v':
-	       if (strlen(words[i]) < 3)
-		  break;
-	       us += words[i][2..] + " ";
-	       if (words[i][2..] == "are") {
-		  them += "is ";
-		  others += "is ";
-	       } else if (words[i][2..] == "say:") {
-		  them += "says: ";
-		  others += "says: ";
-	       } else if (words[i][2..] == "ask:") {
-		  them += "asks: ";
-		  others += "asks: ";
-	       } else if (words[i][2..] == "remark:") {
-		  them += "remarks: ";
-		  others += "remarks: ";
-	       } else if (words[i][2..] == "mumble:") {
-		  them += "mumble: ";
-		  others += "mumbles: ";
-	       } else if (words[i][2..] == "shout:") {
-		  them += "shouts: ";
-		  others += "shouts: ";
-	       } else if (words[i][2..] == "ponder:") {
-		  them += "ponders: ";
-		  others += "ponders: ";
-	       } else if (words[i][2..] == "whisper:") {
-		  them += "whispers: ";
-		  others += "whispers: ";
-	       } else if (words[i][2..] == "exclaim:") {
-		  them += "exclaims: ";
-		  others += "exclaims: ";
-	       } else if (words[i][2..] == "mutter:") {
-		  them += "mutters: ";
-		  others += "mutters: ";
-	       } else if (words[i][2..] == "say") {
-		  them += "says ";
-		  others += "says ";
-	       } else if (words[i][strlen(words[i]) - 1] == 'o') {
-		  them += words[i][2..] + "es ";
-		  others += words[i][2..] + "es ";
-	       } else if (words[i][strlen(words[i]) - 1] == 'h' &&
-		  words[i][strlen(words[i]) - 2] != 'g') {
-		  them += words[i][2..] + "es ";
-		  others += words[i][2..] + "es ";
-	       } else if (words[i][strlen(words[i]) - 1] == 'y') {
-		  them += words[i][2..strlen(words[i]) - 2] + "ies ";
-		  others += words[i][2..strlen(words[i]) - 2] + "ies ";
-	       } else if (words[i][strlen(words[i]) - 1] == 's') {
-		  them += words[i][2..] + "es ";
-		  others += words[i][2..] + "es ";
-	       } else {
-		  them += words[i][2..] + "s ";
-		  others += words[i][2..] + "s ";
-	       }
-	       break;
-	    case 'T':
-	       if (who == target) {
-		  /* Doing something to ourselves. */
-		  us += "yourself ";
-		  them += who->query_gender_reflexive() + " ";
-		  others += who->query_gender_reflexive() + " ";
-	       } else {
-		  if (target->is_living()) {
-		     if (!target->query_Name()) {
+         switch (words[i][1]) {
+            case 'N':
+               if (who->is_living()) {
+                  if (!who->query_name()) {
+                     us += "you ";
+                     them += "the " + who->query_id() + " ";
+                     others += "the " + who->query_id() + " ";
+                  } else {
+                     us += "you ";
+                     them += who->query_Name() + " ";
+                     others += who->query_Name() + " ";
+                  }
+               } else {
+                  us += "you ";
+                  them += "the " + who->query_id() + " ";
+                  others += "the " + who->query_id() + " ";
+               }
+
+               break;
+            case 'n':
+               us += "you ";
+               them += who->query_gender_pronoun() + " ";
+               others += who->query_gender_pronoun() + " ";
+               break;
+            case 'p':
+               us += "your ";
+               them += who->query_gender_possessive() + " ";
+               others += who->query_gender_possessive() + " ";
+               pronounFlag=1;
+               break;
+            case 'v':
+               if (strlen(words[i]) < 3) {
+                  break;
+               }
+
+               us += words[i][2..] + " ";
+
+               if (words[i][2..] == "are") {
+                  them += "is ";
+                  others += "is ";
+               } else if (words[i][2..] == "say:") {
+                  them += "says: ";
+                  others += "says: ";
+               } else if (words[i][2..] == "ask:") {
+                  them += "asks: ";
+                  others += "asks: ";
+               } else if (words[i][2..] == "remark:") {
+                  them += "remarks: ";
+                  others += "remarks: ";
+               } else if (words[i][2..] == "mumble:") {
+                  them += "mumble: ";
+                  others += "mumbles: ";
+               } else if (words[i][2..] == "shout:") {
+                  them += "shouts: ";
+                  others += "shouts: ";
+               } else if (words[i][2..] == "ponder:") {
+                  them += "ponders: ";
+                  others += "ponders: ";
+               } else if (words[i][2..] == "whisper:") {
+                  them += "whispers: ";
+                  others += "whispers: ";
+               } else if (words[i][2..] == "exclaim:") {
+                  them += "exclaims: ";
+                  others += "exclaims: ";
+               } else if (words[i][2..] == "mutter:") {
+                  them += "mutters: ";
+                  others += "mutters: ";
+               } else if (words[i][2..] == "say") {
+                  them += "says ";
+                  others += "says ";
+               } else if (words[i][strlen(words[i]) - 1] == 'o') {
+                  them += words[i][2..] + "es ";
+                  others += words[i][2..] + "es ";
+               } else if (words[i][strlen(words[i]) - 1] == 'h' &&
+                  words[i][strlen(words[i]) - 2] != 'g') {
+                  them += words[i][2..] + "es ";
+                  others += words[i][2..] + "es ";
+               } else if (words[i][strlen(words[i]) - 1] == 'y') {
+                  them += words[i][2..strlen(words[i]) - 2] + "ies ";
+                  others += words[i][2..strlen(words[i]) - 2] + "ies ";
+               } else if (words[i][strlen(words[i]) - 1] == 's') {
+                  them += words[i][2..] + "es ";
+                  others += words[i][2..] + "es ";
+               } else {
+                  them += words[i][2..] + "s ";
+                  others += words[i][2..] + "s ";
+               }
+               break;
+            case 'T':
+               if (who == target) {
+                  /* Doing something to ourselves. */
+                  us += "yourself ";
+                  them += who->query_gender_reflexive() + " ";
+                  others += who->query_gender_reflexive() + " ";
+               } else {
+                  if (target->is_living()) {
+                     if (!target->query_Name()) {
 			us += "the " + target->query_id() + " ";
 			them += "you ";
 			others += "the " + target->query_id() + " ";

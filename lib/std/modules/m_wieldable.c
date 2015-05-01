@@ -9,7 +9,7 @@ void create(void) {
 
 /* return 1 to allow player to wield this. */
 int wield_hook(object player) {
-	return 1;
+   return 1;
 }
 
 void after_wield(object player) {

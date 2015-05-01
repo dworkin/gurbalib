@@ -1,5 +1,5 @@
 /*
- * Gurbalib's menu generator 		Aidil, March 2010
+ * Gurbalib's menu generator             Aidil, March 2010
  */
 /* #define DEBUG_MENU 1 */
 
@@ -67,11 +67,12 @@ private void prompt(string * keys) {
    disp = "\n";
    if (sizeof(keys)) {
       if (sizeof(keys) < INSANE) {
-	 disp += "[" + implode(keys, ", ") + "] ";
+         disp += "[" + implode(keys, ", ") + "] ";
       } else {
-	 int l;
-	 l = sizeof(keys) - 1;
-	 disp += "[" + implode(keys[0..3], ", ") + "..." + 
+         int l;
+
+         l = sizeof(keys) - 1;
+         disp += "[" + implode(keys[0..3], ", ") + "..." + 
             implode(keys[l - 2..l], ", ") + "] ";
       }
    }
@@ -232,19 +233,19 @@ void menu_response(string str) {
    if (actions[str]) {
       resp = FCALL(actions[str]...);
       if (intp(resp)) {
-	 switch (resp) {
-	    case 0:
-	       display_menu(header, menu, footer, map_indices(actions));
-	       break;
-	    case 2:
-	       break;
-	    default:
-	       this_player()->store_menu(nil, nil, nil, nil);
-	       break;
-	 }
+         switch (resp) {
+            case 0:
+               display_menu(header, menu, footer, map_indices(actions));
+               break;
+            case 2:
+               break;
+            default:
+               this_player()->store_menu(nil, nil, nil, nil);
+               break;
+         }
       } else {
-	 write(dump_value(resp));
-	 this_player()->store_menu(nil, nil, nil, nil);
+         write(dump_value(resp));
+         this_player()->store_menu(nil, nil, nil, nil);
       }
    } else {
       display_menu(header, menu, footer, map_indices(actions));

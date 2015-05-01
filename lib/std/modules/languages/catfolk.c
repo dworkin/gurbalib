@@ -1,5 +1,5 @@
 /* Module to allow players to translate from catfolk to english */
-mapping catfolk_words;		/* ([ "meow":"Hello","prrr":"die" ]) */
+mapping catfolk_words;      /* ([ "meow":"Hello","prrr":"die" ]) */
 
 string catfolk_to_english(string arg) {
    string translated_word;
@@ -9,7 +9,7 @@ string catfolk_to_english(string arg) {
       catfolk_words = ([]);
    }
    /* catword = lowercase(catword); */
-   if (member_map(catword, catfolk_words)) {	/*If it is in the vocabulary */
+   if (member_map(catword, catfolk_words)) {    /*If it is in the vocabulary */
       translated_word = catfolk_words[catword];
       return translated_word;
    } else {

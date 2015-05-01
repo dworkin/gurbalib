@@ -7,8 +7,8 @@ int is_blocking(string dir) {
    if (blocks) {
       max = sizeof(blocks);
       for (i = 0; i < max; i++) {
-	 if (blocks[i] == dir) {
-	    return 1;
+         if (blocks[i] == dir) {
+            return 1;
          }
       }
    }

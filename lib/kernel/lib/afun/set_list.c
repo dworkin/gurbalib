@@ -4,7 +4,7 @@ nomask void set_list(string list, object * ptr) {
       argcheck(ptr, 2, "array");
 
       if (!ltable) {
-	 ltable = ([]);
+         ltable = ([]);
       }
       ltable[list] = ptr;
    }

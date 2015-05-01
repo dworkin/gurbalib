@@ -8,7 +8,7 @@ static object this_player(void) {
 
    if (this_user() && this_user()->query_player()) {
       if (this_user()->query_player()->is_possessing()) {
-	 return (this_user()->query_player()->query_possessing());
+         return (this_user()->query_player()->query_possessing());
       }
       return this_user()->query_player();
    }

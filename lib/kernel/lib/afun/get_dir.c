@@ -3,13 +3,13 @@ mixed **get_dir(string file) {
 #ifdef ENABLE_STACK_SECURITY
       console_msg("Access to " + file + " denied\n");
       return ( {
-	    ( { }), 
-            ( { }), 
-            ( { })
+         ({ }), 
+         ({ }), 
+         ({ })
       });
 #else
-      console_msg("Access to " + file +
-	 " would have been denied, ignoring...\n");
+      console_msg("Access to " + file + 
+         " would have been denied, ignoring...\n");
 #endif
    }
 

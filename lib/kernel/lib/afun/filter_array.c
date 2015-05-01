@@ -44,7 +44,7 @@ mixed *filter_array(mixed * arr, mixed fun, varargs mixed arg... ) {
       r = call_other(obj, fun, arr[i], extra...);
 
       if (r) {
-	 res += ( { arr[i] } );
+         res += ( { arr[i] } );
       }
    }
 

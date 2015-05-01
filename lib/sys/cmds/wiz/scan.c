@@ -33,7 +33,7 @@ static void main(string str) {
       where = this_player()->query_environment()->present(str);
 
       if (!where) {
-	 where = this_player()->present(str);
+        where = this_player()->present(str);
       }
    }
 

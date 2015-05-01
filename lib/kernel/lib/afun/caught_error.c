@@ -13,8 +13,8 @@ string caught_error(varargs mixed flag) {
 
    if (!flag) {
       if (result) {
-	 lines = explode(result, "\n");
-	 result = lines[0];
+         lines = explode(result, "\n");
+         result = lines[0];
       }
    }
    return result;

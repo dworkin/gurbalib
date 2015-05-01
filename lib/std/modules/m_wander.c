@@ -53,16 +53,16 @@ void wander(void) {
     */
    if (!this_object()->query_environment()) {
       if (clone_num() != 0) {
-	 error("Wandering clone without environment");
+         error("Wandering clone without environment");
       } else {
-	 return;
+         return;
       }
    }
 
    if (wander_count++ < MAX_WANDER) {
       /* Go ahead and set up the next call_out */
       next_move = time() + random(movement_maxtime - movement_mintime) +
-	 movement_mintime;
+         movement_mintime;
    } else {
       stop_wander();
       return;
@@ -78,16 +78,16 @@ void wander(void) {
       exit = random_element(exits);
       exarea = this_object()->query_environment()->query_exit_room(exit);
       if (exarea && exit) {
-	 if (!wander_area || exarea->query_in_area(wander_area)) {
-	    this_object()->query_environment()->unsubscribe_event("body_enter");
-	    this_object()->query_environment()->body_exit(this_object(), exit);
-	    this_object()->query_environment()->subscribe_event("body_enter");
-	    return;		/* success */
-	 }
+         if (!wander_area || exarea->query_in_area(wander_area)) {
+            this_object()->query_environment()->unsubscribe_event("body_enter");
+            this_object()->query_environment()->body_exit(this_object(), exit);
+            this_object()->query_environment()->subscribe_event("body_enter");
+            return;      /* success */
+         }
       } else if (!exit) {
-	 /* No exits - no need to keep wandering. */
-	 stop_wander();
-	 return;
+         /* No exits - no need to keep wandering. */
+         stop_wander();
+         return;
       }
    }
 }
@@ -101,7 +101,7 @@ void event_body_enter(mixed * what) {
    if (what && objectp(what[0]) && what[0]->is_player()) {
       wander_count = 0;
       if (!wander_enable && movement_mintime) {
-	 start_wander(movement_mintime, movement_maxtime);
+         start_wander(movement_mintime, movement_maxtime);
       }
    }
 }
