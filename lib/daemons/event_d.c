@@ -1,5 +1,8 @@
 #include <status.h>
 
+/* Uncomment this to debug the event Daemon */
+/* #define DEBUG_EVENT_D 1 */
+
 #ifdef DEBUG_EVENT_D
 #define DB(X) console_msg("eventd: "+X+"\n")
 #else

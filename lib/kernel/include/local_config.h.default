@@ -114,3 +114,16 @@ You should at least modify the first 3 entries.
 #define MSSP_MCCP "0"
 #define MSSP_PAY_TO_PLAY "0"
 #define MSSP_PAY_FOR_PERKS "0"
+
+/* DEBUGGING OPTIONS: Enable these to debug various issues  You probably do
+   not want to do this in a live mud */
+/* #define DEBUG_PARSE 1 */
+/* #define DEBUG_BOOT 1 */
+/* #define DEBUG_RECOMPILE 1 */
+/* #define DEBUG_COMPILER_D 1 */
+/* #define DEBUG_CONNECTION 1 */
+/* #define DEBUG_PRIVS 1 */
+/* uncomment the line below to get a lot of debug output.. */
+/* #define DEBUG_STACK_SECURITY */
+/* uncomment the line below to get even more debug output.. */
+/* #define DEBUG_STACK_SECURITY_DEEP */

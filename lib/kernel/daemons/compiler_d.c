@@ -7,7 +7,8 @@
 #include <tlsvar.h>
 #include <status.h>
 
-#undef DEBUG_COMPILER_D
+/* Uncomment this to enabling debugging */
+/* #define DEBUG_COMPILER_D 1 */
 
 #define INHERIT_DIRS ({ "std", "lib" })
 #define OBJECT_DIRS ({ "obj", "mon", "npc", "vendors", "objects", \
