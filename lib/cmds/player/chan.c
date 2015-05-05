@@ -17,26 +17,25 @@ void usage(void) {
    lines += ({ "If no args are given list channels you are currently on." });
    lines += ({ "" });
    lines += ({ "Command can be: " });
-   lines += ({ "\ton\tJoin a channel" });
-   lines += ({ "\toff\tleave a channel" });
-   lines += ({ "\thist\tDisplay history of a channel" });
-   lines += ({ "\tinfo\tDisplay info on a channel" });
-   lines += ({ "\tlist\tDisplay who is on a channel" });
+   lines += ({ "\ton\tJoin a channel." });
+   lines += ({ "\toff\tleave a channel." });
+   lines += ({ "\thist\tDisplay history of a channel." });
+   lines += ({ "\tinfo\tDisplay info on a channel." });
+   lines += ({ "\tlist\tDisplay who is on a channel." });
 
    if (query_wizard(this_player())) {
       lines += ({ "\tnew\tCreate a channel." });
       lines += ({ "\tdelete\tDelete the channel." });
-      lines += ({ "\treadonly\tToggle this channel as readonly." });
-      lines += ({ "\tcolor\tChange the color of the channel." });
-      lines += ({ "\timud\tToggle this channel as an intermud channel ." });
-      lines += ({ "\tguild\tToggle this channel as a guild channel." });
+      lines += ({ "\tcolor COL\tChange the color of the channel to COL." });
    }
 
    if (query_admin(this_player())) {
+      lines += ({ "\timud CHAN\tLink this channel to intermud channel CHAN." });
+      lines += ({ "\tguild GUILD\tSet channel to be a guild channel GUILD." });
       lines += ({ "\tadmin\tSet this channel as an admin only channel." });
       lines += ({ "\twiz\tSet this channel as a wizard only channel." });
       lines += ({ "\topen\tSet this channel as an open channel." });
-      lines += ({ "\tinfo\tDisplay info about a channel." });
+      lines += ({ "\treadonly\tToggle this channel as readonly." });
       lines += ({ "\tpermanent\tToggle this channel as permanent." });
    }
 
@@ -44,8 +43,8 @@ void usage(void) {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\tchan join announce" });
-   lines += ({ "\tchan leave announce" });
+   lines += ({ "\tchan on announce" });
+   lines += ({ "\tchan off announce" });
    lines += ({ "\tchan announce hi all!" });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
@@ -106,6 +105,7 @@ static void list_channels(int x) {
 }
 
 static void chan_cmd(string cmd, string chan) {
+   string *args;
 
    switch (cmd) {
       case "join":
@@ -144,6 +144,7 @@ static void chan_cmd(string cmd, string chan) {
          CHANNEL_D->show_history(chan);
          break;
       case "delete":
+         CHANNEL_D->delete_chan(chan);
          break;
       case "info":
          CHANNEL_D->show_info(chan);
@@ -151,16 +152,33 @@ static void chan_cmd(string cmd, string chan) {
       case "help":
          usage();
          break;
-/* THESE three: color, imud and guild need fixing XXXX */
       case "color":
-         CHANNEL_D->chan_set_color(chan, cmd[7..]);
+         args = explode(chan," ");
+         write("Testing Channel: " + args[0] + " arg : '" + args[1] + "'\n");
+         write("Old color for channel " + args[1] + ": " + 
+            CHANNEL_D->chan_query_color(args[1]) + "\n");
+            CHANNEL_D->chan_set_color(args[1],args[0]);
+         write("New color for channel " + args[1] + ": " + 
+            CHANNEL_D->chan_query_color(args[1]) + "\n");
          break;
+
+/*  imud needs fixing XXXX */
       case "imud":
-         CHANNEL_D->chan_imud(chan, cmd[6..]);
+         args = explode(chan," ");
+         CHANNEL_D->chan_imud(args[1], args[0]);
+         write("Associating channel: " + args[0] + " with imud channel: " +
+            args[1] + "\n");
          break;
+
       case "guild":
-         CHANNEL_D->chan_set_guild(chan, cmd[6..]);
+         args = explode(chan," ");
+         write("Old guild for channel " + args[1] + ": " + 
+            CHANNEL_D->chan_query_guild(args[1]) + "\n");
+            CHANNEL_D->chan_set_guild(args[1],args[0]);
+         write("New guild for channel " + args[1] + ": " + 
+            CHANNEL_D->chan_query_guild(args[1]) + "\n");
          break;
+
       default:
          if ((cmd[0] == ';') || (cmd[0] == ':') || (cmd[0] == '!')) {
             if (cmd[1] != cmd[0]) {

@@ -113,6 +113,17 @@ void chan_imud(string chan, string name) {
    save_me();
 }
 
+int chan_delete(string chan) {
+   chan = lowercase(chan);
+
+   if (query_wizard(this_player()->query_name()) != 1) {
+      write("Access denied.\n");
+      return 0;
+   }
+
+   /* XXX Need to do the work here */
+}
+
 int chan_new(string name, int flags) {
 
    name = lowercase(name);
@@ -278,45 +289,6 @@ int get_num_listeners(string channel) {
    }
 
    return 0;
-}
-
-void show_info(string channel) {
-   string value;
-   int x;
-
-   this_player()->message("Channel: " + channel + "\n");
-   x = get_num_listeners(channel);
-   this_player()->message("Members: " + x + "\n");
-
-   if (imud[channel] == channel) {
-      value = "yes";
-   } else {
-      value = "no";
-   }
-   this_player()->message("Imud: " + value + "\n");
-
-   if (permanent[channel] == channel) {
-      value = "yes";
-   } else {
-      value = "no";
-   }
-   this_player()->message("Permanent: " + value + "\n");
-
-   if (guilds[channel]) {
-      this_player()->message("Guild restrictions: " + guilds[channel] + "\n");
-   } else {
-      this_player()->message("Guild restrictions: no, open\n");
-   }
-
-   if (channels[channel] == READ_ONLY) {
-      this_player()->message("Access level: Read only\n");
-   } else if (channels[channel] == ADMIN_ONLY) {
-      this_player()->message("Access level: Admin only\n");
-   } else if (channels[channel] == WIZ_ONLY) {
-      this_player()->message("Access level: Wizard only\n");
-   } else {
-      this_player()->message("Access level: open\n");
-   }
 }
 
 void chan_send_string(string chan, string from, string str,
@@ -531,15 +503,41 @@ void chan_say(string chan, string what) {
    chan_send_string(chan, this_player()->query_name(), what, NOT_EMOTE);
 }
 
+string chan_query_color(string chan) {
+   string col;
+   int len;
+
+   col = colors[chan];
+   if (!col || (col == "")) {
+      return "";
+   }
+   len = strlen(col) - 3;
+   return col[2..len];
+}
+
 void chan_set_color(string chan, string col) {
-   if (query_admin(this_player()->query_name()) != 1) {
+   if (query_wizard(this_player()->query_name()) != 1) {
       write("Access denied.\n");
       return;
    }
 
+   if (col == "") {
+      colors[chan] = "";
+   }
+
    colors[chan] = "%^" + uppercase(col) + "%^";
-   write(chan + " is now " + col + "\n");
    save_me();
+}
+
+string query_guild(string chan) {
+   string g;
+
+   g = guilds[chan];
+   if (!g || (g == "")) {
+      return "";
+   }
+
+   return guilds[chan];
 }
 
 void chan_set_guild(string chan, string guild) {
@@ -548,9 +546,9 @@ void chan_set_guild(string chan, string guild) {
       return;
    }
 
-   if (guilds[chan] == guild) {
+   if ((guild == "") || (guilds[chan] == guild)) {
       guilds[chan] == nil;
-      write(chan + " is no longer a " + guild + " guild only channel.\n");
+      write(chan + " is no longer a guild only channel.\n");
    } else {
       guilds[chan] = guild;
       write(chan + " is now a " + guild + " guild only channel.\n");
@@ -652,3 +650,47 @@ void upgraded(void) {
    resubscribe();
    data_version = DATA_VERSION;
 }
+
+void show_info(string channel) {
+   string value;
+   int x;
+
+   this_player()->message("Channel: " + channel + "\n");
+   x = get_num_listeners(channel);
+
+   value = chan_query_color(channel);
+   this_player()->message("Channel Color: " + value + "\n");
+
+   this_player()->message("Members: " + x + "\n");
+
+   if (imud[channel] == channel) {
+      value = "yes";
+   } else {
+      value = "no";
+   }
+   this_player()->message("Imud: " + value + "\n");
+
+   if (permanent[channel] == channel) {
+      value = "yes";
+   } else {
+      value = "no";
+   }
+   this_player()->message("Permanent: " + value + "\n");
+
+   if (guilds[channel]) {
+      this_player()->message("Guild restrictions: " + guilds[channel] + "\n");
+   } else {
+      this_player()->message("Guild restrictions: no, open\n");
+   }
+
+   if (channels[channel] == READ_ONLY) {
+      this_player()->message("Access level: Read only\n");
+   } else if (channels[channel] == ADMIN_ONLY) {
+      this_player()->message("Access level: Admin only\n");
+   } else if (channels[channel] == WIZ_ONLY) {
+      this_player()->message("Access level: Wizard only\n");
+   } else {
+      this_player()->message("Access level: open\n");
+   }
+}
+
