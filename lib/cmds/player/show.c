@@ -52,23 +52,6 @@ static void display_object(object who, object what) {
    }
 }
 
-/* XXX This should be redone higher up... */
-string get_name(object obj) {
-   string name;
-
-   name = obj->query_Name();
-
-   if (!name || name == "") {
-      name = obj->query_id();
-   }
-
-   if (!name) {
-      name = "";
-   }
-
-   return name;
-}
-
 static void do_show(object obj1, object obj2, int loud) {
    string name, name2;
 
@@ -93,8 +76,8 @@ static void do_show(object obj1, object obj2, int loud) {
       return;
    }
 
-   name = get_name(obj1);
-   name2 = get_name(obj2);
+   name = obj1->query_short();
+   name2 = obj2->query_Name();
 
    write("You show " + name + " to " + name2 + ".\n");
    this_environment()->tell_room(this_player(), this_player()->query_Name() +
