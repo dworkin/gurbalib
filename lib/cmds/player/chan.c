@@ -4,8 +4,6 @@ inherit M_COMMAND;
 
 #include <channel.h>
 
-static void chan_cmd(string chan, string cmd);
-
 void usage(void) {
    string *lines;
 
@@ -39,6 +37,10 @@ void usage(void) {
       lines += ({ "\tpermanent\tToggle this channel as permanent." });
    }
 
+   lines += ({ "If MSG starts with one of the following symbols it is " });
+   lines += ({ "considered an emote: ':', '!', ';' " });
+   lines += ({ "If you want your message to start with : use :: instead." });
+
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
@@ -46,6 +48,8 @@ void usage(void) {
    lines += ({ "\tchan on announce" });
    lines += ({ "\tchan off announce" });
    lines += ({ "\tchan announce hi all!" });
+   lines += ({ "\tchan announce :woo" });
+   lines += ({ "\tchan announce ::woo" });
    lines += ({ "See also:" });
    if (query_wizard(this_player())) {
       lines += ({ "\tbug, echo, echoto, emote, rsay, shout, ssay, say, " +
@@ -105,7 +109,7 @@ static void list_channels(int x) {
 }
 
 static void chan_cmd(string cmd, string chan) {
-   string *args;
+   string rest, *args;
 
    switch (cmd) {
       case "join":
@@ -180,16 +184,19 @@ static void chan_cmd(string cmd, string chan) {
          break;
 
       default:
-         if ((cmd[0] == ';') || (cmd[0] == ':') || (cmd[0] == '!')) {
-            if (cmd[1] != cmd[0]) {
-               CHANNEL_D->chan_emote(chan, cmd[1..]);
-               break;
+         rest = chan;
+         chan = cmd;
+
+         if ((rest[0] == ';') || (rest[0] == ':') || (rest[0] == '!')) {
+            if (rest[1] != rest[0]) {
+               CHANNEL_D->chan_emote(chan, rest[1..]);
+               return;
             } else {
-               cmd = cmd[1..];
+               rest = rest[1..];
             }
-            CHANNEL_D->chan_say(cmd, chan);
-            return;
          }
+         CHANNEL_D->chan_say(chan, rest);
+         break;
    }
 }
 
