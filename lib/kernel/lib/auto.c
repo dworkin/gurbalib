@@ -85,7 +85,6 @@ private string _owner;
 #include "afun/bubblesort.c"
 #include "afun/filelastmod.c"
 #include "afun/files_modified.c"
-#include "afun/call_git.c"
 #include "afun/sqlite3_exec.c"
 #include "afun/sqlite3_select.c"
 #include "afun/query_thousands_separator.c"
