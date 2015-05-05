@@ -33,8 +33,9 @@ void usage(void) {
    }
 
    if (query_admin(this_player())) {
-      lines += ({ "\tadmin\tToggle this channel as an admin channel." });
-      lines += ({ "\twiz\tToggle this channel as a wizard channel." });
+      lines += ({ "\tadmin\tSet this channel as an admin only channel." });
+      lines += ({ "\twiz\tSet this channel as a wizard only channel." });
+      lines += ({ "\topen\tSet this channel as an open channel." });
       lines += ({ "\tinfo\tDisplay info about a channel." });
       lines += ({ "\tpermanent\tToggle this channel as permanent." });
    }
@@ -87,7 +88,6 @@ static void list_channels(int x) {
       }
    }
 
-   /* XXX Need to check for x and only display if your a member */
    if (query_wizard(this_player())) {
       ichans = IMUD_D->query_chanlist();
       channels = map_indices(ichans);
@@ -125,6 +125,9 @@ static void chan_cmd(string cmd, string chan) {
       case "wiz":
          CHANNEL_D->chan_set_flag(chan, WIZ_ONLY);
          break;
+      case "open":
+         CHANNEL_D->chan_set_flag(chan, ALL);
+         break;
       case "readonly":
          CHANNEL_D->chan_set_flag(chan, READ_ONLY);
          break;
@@ -148,7 +151,7 @@ static void chan_cmd(string cmd, string chan) {
       case "help":
          usage();
          break;
-/* THESE Need Verifing XXXX */
+/* THESE three: color, imud and guild need fixing XXXX */
       case "color":
          CHANNEL_D->chan_set_color(chan, cmd[7..]);
          break;
