@@ -662,6 +662,7 @@ void write_prompt(void) {
 /* More a set of lines */
 void more(string * lines, varargs int docolor) {
    string msg;
+   int height;
 
    if (docolor && (docolor == 1)) {
       color_more = 1;
@@ -676,9 +677,11 @@ void more(string * lines, varargs int docolor) {
    more_line_num = 0;
    more_lines = lines;
 
-   if (sizeof(lines) > query_height() + more_line_num) {
+   height = query_height() - 1;
 
-      msg = implode(lines[more_line_num..more_line_num + query_height()], "\n");
+   if (sizeof(lines) > height + more_line_num) {
+
+      msg = implode(lines[more_line_num..more_line_num + height], "\n");
 
       if (docolor) {
          this_object()->query_user()->wrap_message(msg);
@@ -687,8 +690,8 @@ void more(string * lines, varargs int docolor) {
       }
 
       out("%^BOLD%^--More--(" + ((more_line_num +
-         query_height()) * 100) / sizeof(lines) + "%)%^RESET%^");
-      more_line_num += query_height() + 1;
+         height) * 100) / sizeof(lines) + "%)%^RESET%^");
+      more_line_num += height + 1;
       input_to("more_prompt");
    } else {
       msg = implode(lines[more_line_num..], "\n");
@@ -709,6 +712,7 @@ void more(string * lines, varargs int docolor) {
 /* Write out the more prompt after each page */
 void more_prompt(string arg) {
    string msg;
+   int height;
 
    if (!arg || arg == "") {
       arg = " ";
@@ -725,8 +729,10 @@ void more_prompt(string arg) {
 	 break;
    }
 
-   if (sizeof(more_lines) > query_height() + more_line_num) {
-      msg = implode(more_lines[more_line_num..more_line_num + query_height()],
+   height = query_height() -1;
+
+   if (sizeof(more_lines) > height + more_line_num) {
+      msg = implode(more_lines[more_line_num..more_line_num + height],
          "\n");
       if (color_more) {
          this_object()->query_user()->wrap_message(msg);
@@ -734,9 +740,9 @@ void more_prompt(string arg) {
          out_unmod(msg + "\n");
       }
 
-      out("%^BOLD%^--More--(" + ((more_line_num + query_height()) * 100) /
+      out("%^BOLD%^--More--(" + ((more_line_num + height) * 100) /
          sizeof(more_lines) + "%)%^RESET%^");
-      more_line_num += query_height() + 1;
+      more_line_num += height + 1;
       input_to("more_prompt");
    } else {
       msg = implode(more_lines[more_line_num..], "\n");
