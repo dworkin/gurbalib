@@ -33,9 +33,6 @@ Fix it so deep inventory works with autoload.
 Fix bunny so that it doesn't attack you second time you pick flower...
 In combat the bunny does't always attack...
 
-weight started, need to get it working against str for players and how
-	much they can carry.
-
 Fix rooms not loading objects so it loads the singularity(sing.c)
 
 Fix up Events like body_enter body_leave  good way to do 
