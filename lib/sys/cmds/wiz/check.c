@@ -350,11 +350,20 @@ void do_monster_check(object obj) {
    }
 }
 
+void do_money_check(object obj) {
+   /* XXX Need to flesh this out */
+}
+
 void do_object_check(object obj) {
    string tmpstr, *functions;
    int x;
 
    write("Doing object check: " + obj->file_name() + "\n");
+
+   if (obj->is_money()) {
+      do_money_check(obj);
+      return;
+   }
 
    if (obj->is_gettable()) {
       if (obj->query_weight() < 1) {
