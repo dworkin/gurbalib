@@ -285,7 +285,7 @@ add some things you can pickup and some things that you cannot.
 7. Adding some monsters.
 Again lets spice things up:
 	add a spider to deadend.c
-	Start by copying /domains/required/monters/rat.c to ~/monsters/spider.c
+	Start by copying /domains/required/monsters/rat.c to ~/monsters/spider.c
 
 	Make the following modifications:
 	add #include "../domain.h"
@@ -298,7 +298,7 @@ Again lets spice things up:
 	add set_aggressive(1);
 
 	add a kobold with a miners helmet to squeeze.c
-	Start by copying /domains/required/monters/rat.c to ~/monsters/kobold.c
+	Start by copying /domains/required/monsters/rat.c to ~/monsters/kobold.c
 
 	Make the following modifications:
 	set_name: kobold
@@ -318,7 +318,7 @@ Again lets spice things up:
 	set_value: 15
 
 	Next we need to make it part of the kobold's gear.  Look at 
-	/domains/2.4.5/monters/orc.c for an example.
+	/domains/2.4.5/monsters/orc.c for an example.
 	We need to add the following line to the top of the setup function:
 	object obj;
 
@@ -328,7 +328,7 @@ Again lets spice things up:
 	obj->move(this_object());
 	do_wear(obj);
 
-Before moving to our next section you should test these two monters and
+Before moving to our next section you should test these two monsters and
 make sure they are working properly.
 Once you have them working, we need to add them to our rooms.  
 You have done this before.
@@ -369,7 +369,7 @@ an entrance that only goes one way.  Once you walk into the mine
 you'll start your quest.
 
 Conflicts:
-We already have a couple of monters in the mine, but we are still missing 
+We already have a couple of monsters in the mine, but we are still missing 
 something.  What were going to do is add a locked door close to the end of
 the mine, and a key that the players will need to locate to unlock the
 door.

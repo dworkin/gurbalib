@@ -80,10 +80,6 @@ Fix listen and possibly search, it's not working right...
 When you first login on mud creation, you must logout 
 	before getting "admin rights"
 
-For /domains/boothill/rooms/mine/squeeze.c
-	Error: /domains/boothill/monters/kobold is not an object
-Note it also does not log any errors for this....
-
 Look into MPX support, MCCP or KaVir's MUD Protocol Handler
 	http://www.mudbytes.net/file-2811
 
