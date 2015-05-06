@@ -20,7 +20,7 @@ EXAMPLES
 	files = get_dir(dir);
 	names = files[0];
 	max = sizeof(names);
-	for(x=0; x<max; x++) {
+	for (x=0; x<max; x++) {
 	   write(files[1][x] + "\t" + names[x] + "\t" + files[2][x] + "\n");
 	}
 

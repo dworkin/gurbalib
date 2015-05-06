@@ -17,7 +17,7 @@ EXAMPLES
 
 	everyone = players();
 	max = sizeof(everyone);
-	for(x=0; x<max; x++) {
+	for (x=0; x<max; x++) {
 	   write("   " + everyone[x]->query_name() + "\n");
 	}
 

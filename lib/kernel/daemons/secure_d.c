@@ -269,7 +269,7 @@ string owner_file(string file) {
          }
    }
 
-   if(sizeof(parts) == 1) {
+   if (sizeof(parts) == 1) {
       return "game";
    } else {
       return "nobody";
@@ -333,9 +333,9 @@ int validate_stack(string priv, varargs int unguarded) {
 
 #ifdef DEBUG_STACK_SECURITY
    i = sizeof(stack)-5;
-   if(i<0) i = 0;
+   if (i<0) i = 0;
 
-   if(i == 0) {
+   if (i == 0) {
       sz = 0;
    } else {
       sz = (stack[i][TRACE_FUNCTION] == "unguarded" && 
@@ -514,7 +514,7 @@ string query_write_priv(string file) {
 
 /* invalidate privilege cache */
 void invalidate_pcache(void) {
-   if(previous_program() == "/sys/lib/runas") {
+   if (previous_program() == "/sys/lib/runas") {
       DRIVER->set_tlvar(TLS_CACHE, ([ ]));
    }
 }

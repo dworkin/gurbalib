@@ -1,9 +1,9 @@
 nomask void _F_upgraded(void) {
-  if(!KERNEL()) {
+  if (!KERNEL()) {
     return;
   }
 
-  if( function_object( "upgraded", this_object( ) ) ) {
+  if ( function_object( "upgraded", this_object( ) ) ) {
     this_object()->upgraded();
   }
 }

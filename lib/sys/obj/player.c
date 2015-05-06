@@ -98,9 +98,9 @@ void restore_me(void) {
 
       /* convert cmd_path */
       for (i = 0, sz = sizeof( cmd_path ); i < sz; i++) {
-         if(cmd_path[i] == "/kernel/cmds/admin") { 
+         if (cmd_path[i] == "/kernel/cmds/admin") { 
             cmd_path[i] = "/sys/cmds/admin";
-         } else if(cmd_path[i] == "/cmds/wiz") {
+         } else if (cmd_path[i] == "/cmds/wiz") {
             cmd_path[i] = "/sys/cmds/wiz";
          }
       }
@@ -1053,7 +1053,7 @@ void receive_message(string message) {
             objs = player->query_inventory();
             if (objs) {
                maxy = sizeof(objs);
-               for(y = 0; y < maxy; y++) {
+               for (y = 0; y < maxy; y++) {
 	          roomcmd_h = objs[y]->query_action(cmd);
 
 	          if (roomcmd_h) {
@@ -1092,7 +1092,7 @@ void receive_message(string message) {
             objs = room->query_inventory();
             if (objs) {
                maxy = sizeof(objs);
-               for(y = 0; y < maxy; y++) {
+               for (y = 0; y < maxy; y++) {
 	          roomcmd_h = objs[y]->query_action(cmd);
 
 	          if (roomcmd_h) {
@@ -1121,7 +1121,7 @@ void receive_message(string message) {
          when it doesn't */
       if (!flag) {
          i = command( cmd, arg );
-         if( i >= 0 ) {
+         if ( i >= 0 ) {
             flag = 1;
          }
       }

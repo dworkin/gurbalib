@@ -106,7 +106,7 @@ static mixed * mkarray(mixed * data) {
    mixed *stuff;
 
    stuff = ({ });
-   for(i=2; i<sizeof(data)-2; i += 2) {
+   for (i=2; i<sizeof(data)-2; i += 2) {
       stuff += ({ data[i] });
    }
    return ({ stuff });
@@ -132,7 +132,7 @@ mixed restore_value(string str) {
 
    result = parse_string(GRAMMAR, str);
 
-   if( !result || sizeof(result) < 1 ) {
+   if ( !result || sizeof(result) < 1 ) {
       return nil;
    } else {
       return result[0];

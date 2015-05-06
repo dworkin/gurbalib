@@ -26,14 +26,13 @@ string convert_number(int num, varargs int flag) {
    if (num>99) {
       if (num>999) {
          if (num>999999) {
-            if(str != "") {
+            if (str != "") {
                str = "far below zero";
-               }
-            else {
+            } else {
                str = "many";
-               }
-            return str;
             }
+            return str;
+         }
          str += convert_number(num/1000, 1) + " thousand";
          if (num%1000 != 0) {
             str += " " + convert_number(num%1000);
@@ -41,20 +40,20 @@ string convert_number(int num, varargs int flag) {
          return str;
       }
      str += convert_number (num/100) + " hundred";
-     if (num%100 != 0) str += " " + convert_number(num%100);
+     if (num%100 != 0) {
+        str += " " + convert_number(num%100);
+     }
      return str;
    }
    if ( (num%10) == 0) {
       str += numt[num/10-2];
       return str;
-      }
-   else {
-        if(flag) {
+   } else {
+        if (flag) {
            str += numt[num/10-2]+" "+nums[num%10-1];
-           }
-      else {
-         str += numt[num/10-2]+"-"+nums[num%10-1];
-         }
+        } else {
+           str += numt[num/10-2]+"-"+nums[num%10-1];
+        }
    }
    return str;
 }

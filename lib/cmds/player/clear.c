@@ -23,7 +23,7 @@ static void main(string str) {
    if (empty_str(str)) {
       max = this_player()->query_height();
       str = "\n";
-      for(i=0; i < max; i++) {
+      for (i=0; i < max; i++) {
          str += "\n";
       }
       write(str);

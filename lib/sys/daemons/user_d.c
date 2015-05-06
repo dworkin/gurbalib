@@ -490,7 +490,7 @@ void print_finger_info(object player, object player2, int cloned) {
 	 ctime(player2->query_last_login()));
    } else {
       
-      if(LINKDEAD_D->is_linkdead(player2) ) {
+      if (LINKDEAD_D->is_linkdead(player2) ) {
          linkd = " %^BOLD%^%^YELLOW%^[link-dead]%^RESET%^";
       } else {
          linkd = "";
@@ -930,7 +930,7 @@ string *list_players(int long_flag) {
          line += " %^CYAN%^(Wizard)%^RESET%^";
       }
 
-      if(LINKDEAD_D->is_linkdead(usr[i]) ) {
+      if (LINKDEAD_D->is_linkdead(usr[i]) ) {
          line += " %^BOLD%^%^YELLOW%^[link-dead]%^RESET%^";
       }
 

@@ -7,7 +7,7 @@
 private string cpriv;
 
 nomask static void run_as(string priv) {
-   if(ROOT()) {
+   if (ROOT()) {
       string *parts;
       int i, sz, pt;
 

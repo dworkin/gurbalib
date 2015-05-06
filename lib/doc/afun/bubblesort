@@ -20,7 +20,7 @@ EXAMPLES
 	list = bubblesort(list);
 
 	maxx =sizeof(list);
-	for( x=0; x< maxx; x++) {
+	for (x=0; x< maxx; x++) {
            write("list[ " + x + " ] = " + list[x] + "\n");
         }
 

@@ -50,8 +50,8 @@ EXAMPLES
 
 	error = catch(args = parse_string(GRAMMAR, str));
 
-	if(error) {
-	   if(sscanf(error,"Bad token at offset %d",pos) == 1) {
+	if (error) {
+	   if (sscanf(error,"Bad token at offset %d",pos) == 1) {
 	      write("Invalid character "+str[pos..pos]+".");
 	      return;
 	   } else {
@@ -67,7 +67,7 @@ EXAMPLES
 
 	string name;
 
-	if(catch(name = this_player()->query_name())) {
+	if (catch(name = this_player()->query_name())) {
 	   return;
 	}
 

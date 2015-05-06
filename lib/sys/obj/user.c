@@ -231,11 +231,11 @@ void restore_privs(void) {
 
    privs = "";
 
-   if(query_admin(user_name)) {
+   if (query_admin(user_name)) {
       privs += "system:";
    }
 
-   if(query_wizard(user_name)) {
+   if (query_wizard(user_name)) {
       int i,sz;
       string *dn;
 
@@ -463,7 +463,7 @@ void input_name(string str) {
       str = "";
    }  else if (lowercase(str) == "guest") {
       usr = "guest";
-      while(USER_D->find_user(usr) ) {
+      while (USER_D->find_user(usr) ) {
          i++;
          usr = "guest" + (string) i;
          }
@@ -733,7 +733,7 @@ void input_get_race(string str) {
       string r;
 
       r = str[5..( strlen(str) - 1)];
-      if(RACE_D->is_race( r ) ) {
+      if (RACE_D->is_race( r ) ) {
          send_message( RACE_D->query_race_long(r)+"\n\n"+
             "Please choose one of the races, or type 'info <race>' : ");
          player->input_to_object(this_object(), "input_get_race");
@@ -765,7 +765,7 @@ object query_player(void) {
 }
 
 void set_auto_admin(int flag) {
-   if(require_priv("system") ) {
+   if (require_priv("system") ) {
       auto_admin = flag;
    }
 }
@@ -775,7 +775,7 @@ int query_auto_admin() {
 }
 
 void set_auto_wiz(int flag) {
-   if(require_priv("system") ) {
+   if (require_priv("system") ) {
       auto_wiz = flag;
    }
 }

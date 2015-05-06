@@ -25,7 +25,7 @@ EXAMPLES
 
 	lines = rexplode("Hello:Woo:Bing:O!:fun");
 	max = sizeof(lines);
-	for(x=0;x<max;x++) {
+	for (x=0; x < max; x++) {
 	   write(x + "\t" + lines[x] + "\n");
 	}
 

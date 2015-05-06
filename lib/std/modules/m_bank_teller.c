@@ -23,7 +23,7 @@ int do_withdraw(string str) {
    int amount;
 
    if (sscanf(str, "%d",amount)) {
-      if(amount < 1) {
+      if (amount < 1) {
          write("Please enter a positive number.\n");
          return 1;
          }
@@ -44,7 +44,7 @@ int do_deposit(string str) {
    int amount;
 
    if (sscanf(str, "%d",amount)) {
-      if(amount < 1) {
+      if (amount < 1) {
          write("Please enter a positive number.\n");
          return 1;
          }

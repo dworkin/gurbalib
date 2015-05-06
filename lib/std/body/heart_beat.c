@@ -182,11 +182,11 @@ void die(void) {
    obj = clone_object(DOMAINS_DIR + "/required/objects/corpse");
 
    inv = this_object()->query_inventory();
-   for(i = sizeof(inv) - 1; i>=0; i--) {
-      if(inv[i]->query_worn()) {
+   for (i = sizeof(inv) - 1; i>=0; i--) {
+      if (inv[i]->query_worn()) {
          this_object()->do_remove(inv[i]);
       }
-      if(inv[i]->query_wielded()) {
+      if (inv[i]->query_wielded()) {
          this_object()->do_unwield(inv[i]);
       }
       inv[i]->move(obj);

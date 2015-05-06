@@ -188,7 +188,7 @@ int do_game_command(string message) {
 
       flag = 0;
 
-      if(!this_player()->is_player()) {
+      if (!this_player()->is_player()) {
          path = ({ "/cmds/monster/", "/cmds/player/" });
       } else {
          path = this_player()->query_path();

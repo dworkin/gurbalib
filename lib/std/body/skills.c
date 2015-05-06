@@ -95,7 +95,7 @@ void learn_skill(string skill) {
       skills = ([]);
    }
 
-   if( !skills[skill] ) {
+   if (!skills[skill]) {
       skills[skill] = 1;
       return;
    }

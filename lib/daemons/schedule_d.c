@@ -54,7 +54,7 @@ void dispatch_timed_events(string unit) {
    
    unit_count = call_other(this_object(), "get_"+unit+"_count");
    if (timed_events[unit][unit_count]) {
-      for(i = 0; i < sizeof(timed_events[unit][unit_count]); i++) {
+      for (i = 0; i < sizeof(timed_events[unit][unit_count]); i++) {
          catch(call_other(timed_events[unit][unit_count][i][1],
             timed_events[unit][unit_count][i][0]) );
       }
@@ -97,12 +97,12 @@ static void minute_tick(void) { /* approximation of 1 minute */
    minutes_count++;
    reset_counter++;
 
-   if(minutes_count > 59) {
+   if (minutes_count > 59) {
       minutes_count = 0;
       hour_tick();
    }
 
-   if(reset_counter == RESET_INTERVAL) {
+   if (reset_counter == RESET_INTERVAL) {
       reset_counter = 0;
       reset();
    }
@@ -116,11 +116,11 @@ static void second_tick() { /* approximation of 1 second */
    heartbeat_counter++;
    seconds_count++;
 
-   if(heartbeat_counter >= HEART_BEAT_INTERVAL) {
+   if (heartbeat_counter >= HEART_BEAT_INTERVAL) {
       heartbeat_counter = 0;
       heart_beat();
    }
-   if(seconds_count > 59) {
+   if (seconds_count > 59) {
       seconds_count = 0;
       minute_tick();
    }

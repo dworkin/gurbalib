@@ -25,7 +25,7 @@ int do_to_all_clones(object ob) {
    * This loops through all clones, but
    * skips the master.
    */
-  while( ob = ob->next_clone() ) {
+  while ( ob = ob->next_clone() ) {
     ob->do_something();
   }
 }

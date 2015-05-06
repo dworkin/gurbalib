@@ -16,7 +16,7 @@ atomic private void add_clone(void) {
   object next;
 
   master = find_object(base_name());
-  if(!master) {
+  if (!master) {
     error("Trying to add a clone but the master object for it is gone.");
   }
 
@@ -41,7 +41,7 @@ atomic private void add_clone(void) {
    * Change 'prev' in the next object in the clonelist
    * so it points to us.
    */
-  if(next) {
+  if (next) {
     ptr = next->get_list( "clones" );
     ptr[LIST_PREV] = this_object();
   }
@@ -60,9 +60,11 @@ nomask void _F_create(void) {
    * causing _F_create() to be called), which will call us again
    * after the cloner has been set..
    */
-  if(clone_num() && !_cloner) return;
+  if (clone_num() && !_cloner) {
+     return;
+  }
 
-  if(!configured++) {
+  if (!configured++) {
     switch(clone_num()) {
 
       /* LWO, unhandled for now */
@@ -83,15 +85,17 @@ nomask void _F_create(void) {
 
   driver = find_object(DRIVER);
 
-  if(object_name(this_object()) == SECURE_D) {
+  if (object_name(this_object()) == SECURE_D) {
     secure_d = this_object();
   } else {
     secure_d = find_object(SECURE_D);
   }
 
-  if(secure_d) _owner = secure_d->owner_file(base_name());
+  if (secure_d) {
+     _owner = secure_d->owner_file(base_name());
+  }
 
-  if( function_object( "create", this_object() ) ) {
+  if ( function_object( "create", this_object() ) ) {
     call_other(this_object(),"create");
   }
 }

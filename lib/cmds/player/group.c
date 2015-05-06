@@ -66,7 +66,7 @@ int do_group_hp() {
    lines = ({ "Group: " + get_group_name() + "\n" });
    lines += ({ "----------------------------------" });
 
-   for(x = 0; x < maxx; x++ ) {
+   for (x = 0; x < maxx; x++ ) {
       obj = USER_D->find_player(members[x]);
       if (obj) {
          name = uppercase(members[x]);

@@ -64,7 +64,7 @@ void usage(void) {
 
 /* utility function, ensure every command path has a trailing slash.  */
 private string trailing_slash( string str ) {
-   if(str && strlen(str) && str[strlen(str)-1] != '/') {
+   if (str && strlen(str) && str[strlen(str)-1] != '/') {
       str += "/";
    }
    return str;
@@ -105,12 +105,12 @@ private string padstr(string str, int len) {
 int menu_priv( string priv, string prev, string path) {
    int pt;
 
-   if(!require_priv("system")) {
+   if (!require_priv("system")) {
       error("Permission denied.");
    }
  
-   if(!priv || strlen(priv) == 0 || (pt=SECURE_D->query_priv_type(priv))==PT_UNKNOWN) {
-      if(priv && strlen(priv) && pt == PT_UNKNOWN) {
+   if (!priv || strlen(priv) == 0 || (pt=SECURE_D->query_priv_type(priv))==PT_UNKNOWN) {
+      if (priv && strlen(priv) && pt == PT_UNKNOWN) {
          this_player()->write(priv + " is not a recognized privilege.\n");
       }
       this_player()->out("Privilege required for using " + path + 
@@ -139,7 +139,7 @@ int menu_priv( string priv, string prev, string path) {
 int menu_add(string arg) {
    string path, priv;
 
-   if(!require_priv("system")) {
+   if (!require_priv("system")) {
       error("Permission denied.");
    }
 
@@ -149,30 +149,30 @@ int menu_add(string arg) {
       this_player()->input_to_object(this_object(), "menu_add");
       return 1;
    }
-   if((sscanf(arg,"\"%s\" %s", path, priv) != 2) && 
+   if ((sscanf(arg,"\"%s\" %s", path, priv) != 2) && 
       (sscanf(arg,"%s %s",path,priv) != 2)) {
       path = arg;
       priv = nil;
    }
 
-   if(path == "") {
+   if (path == "") {
       write("Canceled.\n");
       return menu_cmdadm();
    }
 
-   if(path[0] != '/') {
+   if (path[0] != '/') {
       write("Path must start with a '/'.\n");
       return menu_add( nil );
    }
 
    path = trailing_slash( path );
 
-   if(file_exists(path) != -1) {
+   if (file_exists(path) != -1) {
       write("No such directory: " + path + "\n");
       return menu_add(nil);
    }
 
-   if( priv ) {
+   if ( priv ) {
       write("Adding path " + path + " with privilege " + priv + ".\n");
       COMMAND_D->add_path(path,priv);
       return menu_cmdadm();
@@ -188,7 +188,7 @@ int menu_add(string arg) {
  */
 
 int menu_remove( string str, string arg ) {
-   if(!require_priv("system")) {
+   if (!require_priv("system")) {
       error("Permission denied.");
    }
    if (str == "y" || str == "Y") {
@@ -229,7 +229,7 @@ static int menu_cmdadm(varargs mixed junk...) {
    path = map_indices(cmdpriv);
    menu = ({ });
 
-   for(i=0,sz=sizeof(path); i<sz; i++) {
+   for (i=0,sz=sizeof(path); i<sz; i++) {
       if (COMMAND_D->query_override(path[i])) {
          info = "override:";
       } else if (COMMAND_D->query_syspath(path[i])) {
@@ -269,7 +269,7 @@ static int menu_path(string path) {
    cmdpriv = COMMAND_D->query_cmdpriv();
 
    menu = ({ });
-   if(ptype != 2) {
+   if (ptype != 2) {
       menu += ({ ({ "p", "change required privilege", cmdpriv[path], 
          make_fcall(this_object(), "menu_priv", nil, "menu_path", path) }) });
       if (ptype) {
@@ -302,7 +302,7 @@ static int menu_path(string path) {
 
 /* Ask for confirmation for removing a command path.  */
 void action_remove_yn( string str, string path ) {
-   if(!require_priv("system")) {
+   if (!require_priv("system")) {
       error("Permission denied.");
    }
 
@@ -331,14 +331,14 @@ void action_remove_yn( string str, string path ) {
  */
 
 private int action_del_path(string str) {
-   if(!str) {
+   if (!str) {
       notify_fail("delete needs a path as argument");
       return 0;
    }
 
    str = trailing_slash( str );
 
-   if(!COMMAND_D->cmd_path_exists(str)) {
+   if (!COMMAND_D->cmd_path_exists(str)) {
       notify_fail("command path does not exist");
       return 0;
    }
@@ -357,15 +357,15 @@ private int action_list_path(void) {
    path = map_indices(cmdpriv);
 
    /* determine the longest command path name */
-   for(i=0,sz=sizeof(path); i<sz; i++) {
-      if(strlen(path[i]) > len) {
+   for (i=0,sz=sizeof(path); i<sz; i++) {
+      if (strlen(path[i]) > len) {
          len = strlen(path[i]);
       }
    }
 
    len += 2;
 
-   for(i=0; i<sz; i++) {
+   for (i=0; i<sz; i++) {
       ptype = (COMMAND_D->query_override(path[i]) | 
          (COMMAND_D->query_syspath(path[i]) << 1));
       r = padstr(path[i], len) + padstr("(" + 
@@ -389,28 +389,28 @@ private int action_add_path(string str, int ch) {
    string path, priv;
    int pt;
 
-   if(!str || ((sscanf(str, "%s %s", path, priv) != 2) && 
+   if (!str || ((sscanf(str, "%s %s", path, priv) != 2) && 
       (sscanf(str, "\"%s\" %s", path, priv) != 2))) {
       notify_fail("add needs a path and a privilege as arguments");
       return 0;
    }
 
-   if(path[0] != '/') {
+   if (path[0] != '/') {
       notify_fail("path needs to start with a /");
       return 0;
    }
 
    path = trailing_slash( path );
 
-   if(!ch && COMMAND_D->cmd_path_exists( path )) {
+   if (!ch && COMMAND_D->cmd_path_exists( path )) {
       notify_fail("command path already exists");
       return 0;
-   } else if(ch && !COMMAND_D->cmd_path_exists( path )) {
+   } else if (ch && !COMMAND_D->cmd_path_exists( path )) {
       notify_fail("command path does not exist");
       return 0;
    }
 
-   if(file_exists(path) != -1) {
+   if (file_exists(path) != -1) {
       notify_fail("path does not exist");
       return 0;
    }
@@ -427,7 +427,7 @@ private int action_add_path(string str, int ch) {
    }
 
    COMMAND_D->add_path( path, priv );
-   if(ch) {
+   if (ch) {
       write("Changed privilege for " + path + " to " + priv + "\n");
    } else {
       write("Added command path " + path + " with privilege " + priv + "\n");
@@ -450,8 +450,8 @@ static void main(string str) {
    int r;
    string cmd, arg;
 
-   if(!empty_str(str)) {
-      if(sscanf(str, "%s %s", cmd, arg) != 2) {
+   if (!empty_str(str)) {
+      if (sscanf(str, "%s %s", cmd, arg) != 2) {
          cmd = str;
       }
 
@@ -507,7 +507,7 @@ static void main(string str) {
 
       str = query_notify_fail();
 
-      if(str) {
+      if (str) {
          err = ({ ANSI_D->parse_colors("%^RED%^BOLD%^Error: " + str + 
             "%^RESET%^") });
       } else {

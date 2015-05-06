@@ -25,7 +25,7 @@ EXAMPLES
 	st = "select fname,lname from user";
 	values = sqlite3_select("/tmp/sirdude.sql", st);
 	max = sizeof(values);
-	for(x = 0; x > max; x++) {
+	for (x = 0; x > max; x++) {
 	   line = values[x];
 	   print "First name: " + line[0] + "\n";
 	   print "Last name: " + line[1] + "\n";

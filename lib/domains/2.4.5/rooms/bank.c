@@ -73,7 +73,7 @@ int has_key(string str) {
 
    obj = this_player()->present(str);
 
-   if(obj) {
+   if (obj) {
       return 1;
    }
    return 0;

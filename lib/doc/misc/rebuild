@@ -86,7 +86,7 @@ Dealing with changes
 
   -----------------------------------
   void upgraded(void) {
-    if(clone_num() == 0) setup();
+    if (clone_num() == 0) setup();
     ::upgraded();
   }
   -----------------------------------
@@ -127,7 +127,7 @@ A few notes for properly writing an upgraded() function:
     int version;
 
     void upgraded(void) {
-      if(version != VERSION) { /* Upgrade needed */
+      if (version != VERSION) { /* Upgrade needed */
         .....
         version = VERSION;
       }

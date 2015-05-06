@@ -9,7 +9,7 @@ void say(string str, varargs object obj) {
       return;
    }
 
-   if(obj) {
+   if (obj) {
       player = obj;
       }
    else {
@@ -17,8 +17,8 @@ void say(string str, varargs object obj) {
    }
 
    listeners = this_environment()->query_inventory();
-   for(i = 0; i < sizeof(listeners); i++) {
-      if(listeners[i]->is_living() && listeners[i] != player) {
+   for (i = 0; i < sizeof(listeners); i++) {
+      if (listeners[i]->is_living() && listeners[i] != player) {
          listeners[i]->message(str);
       }
    }

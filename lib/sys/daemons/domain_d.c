@@ -46,7 +46,7 @@ int add_domain(string name) {
 
    if (!member_map(name,domains)) {
       domains[name] = ([]);
-      if(find_object(BANISH_D)) {
+      if (find_object(BANISH_D)) {
          BANISH_D->create();
       }
       save_me();
@@ -120,7 +120,7 @@ int remove_domain_member(string domain, string member) {
 int promote_domain_member(string domain, string member) {
    string prev;
 
-   if(!require_priv("system")) {
+   if (!require_priv("system")) {
       prev = previous_object()->base_name();
       error("Illegal call to promote_domain_member: " + prev + "\n");
    }
@@ -132,7 +132,7 @@ int promote_domain_member(string domain, string member) {
 int demote_domain_member(string domain, string member) {
    string prev;
 
-   if(!require_priv("system")) {
+   if (!require_priv("system")) {
       prev = previous_object()->base_name();
       error("Illegal call to demote_domain_member: " + prev + "\n");
    }

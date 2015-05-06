@@ -60,7 +60,7 @@ void print_errors_summary() {
    maxx = sizeof(msgs);
 
    if (verbose) {
-      while(x < maxx) {
+      while (x < maxx) {
          report_to_user(msgs[x]);
          x = x + 1;
       }

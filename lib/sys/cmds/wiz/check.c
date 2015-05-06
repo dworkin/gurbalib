@@ -265,15 +265,15 @@ int check_functions(object obj, mixed funs) {
       
    x = sizeof(funs) - 1;
    
-   if(x < 0) {
+   if (x < 0) {
       return -1;
    }
 
    c = 0;
    
-   while(x > -1) {
+   while (x > -1) {
       write("Checking Function: "+obj->query_action( funs[x] )+"\n"); 
-      if(!function_object( obj->query_action( funs[x] ), obj ) ) {
+      if (!function_object( obj->query_action( funs[x] ), obj ) ) {
          warn("Warning: Function " + obj->query_action( funs[x] ) + 
             " not defined in: " + obj->file_name() + "\n");
          c = c + 1;
@@ -449,7 +449,7 @@ static void main(string str) {
 
    max = sizeof(files);
 
-   for(x=0; x < max; x++) {
+   for (x=0; x < max; x++) {
       warn =0;
       error = 0;
       do_check(files[x]);

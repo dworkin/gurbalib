@@ -97,7 +97,7 @@ void message(string str) {
 }
 
 void init_done(void) {
-   if(previous_object()->base_name() == INIT_D) {
+   if (previous_object()->base_name() == INIT_D) {
       boot_complete = 1;
    }
 }
@@ -167,7 +167,7 @@ object compile_object(string path, varargs string code) {
       }
 
 #ifdef DEBUG_BOOT
-      if(path && !boot_complete) {
+      if (path && !boot_complete) {
          message("BOOT: loading " + path + "\n");
       }
 #endif

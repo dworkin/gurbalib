@@ -11,7 +11,7 @@ nomask static int require_priv(string priv) {
       return 0;
    }
   
-   if(!priv) {
+   if (!priv) {
       return 1;
    }
    return secure_d->validate_stack(priv);

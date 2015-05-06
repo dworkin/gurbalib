@@ -64,7 +64,7 @@ Handling of global variables and upgrading
     int verbose;
 
     void some_fun(string message) {
-      if(verbose) {
+      if (verbose) {
         write(message);
       }
     }
@@ -75,7 +75,7 @@ Handling of global variables and upgrading
     string vmsg;
 
     void some_fun(string message) {
-      if(vmsg) {
+      if (vmsg) {
         write(vmsg + " : " + message);
       }
     }
@@ -93,7 +93,7 @@ Handling of global variables and upgrading
     }
 
     void upgraded(void) {
-      if(verbose != -1) {
+      if (verbose != -1) {
         convert();
       }
     }

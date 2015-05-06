@@ -16,7 +16,7 @@ string *show_log_levels(void) {
    logs += ({ "\tdefault: " + levels["default"] });
    keys = map_indices(levels);
    max = sizeof(keys);
-   for(x = 0 ;x < max; x++) {
+   for (x = 0; x < max; x++) {
       if (keys[x] != "default") {
          logs += ({ "\t" + keys[x] + ": " + levels[keys[x]] });
       }

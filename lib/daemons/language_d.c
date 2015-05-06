@@ -19,7 +19,7 @@ string make_word(int size) {
     word = "";
     letters = "abcdefghijklmnopqurstuvwxyz";
 
-    for(x=0; x<size; x++) {
+    for (x=0; x<size; x++) {
        t = random(strlen(letters));
        word += letters[t..t];
     }
@@ -34,7 +34,7 @@ string *query_languages(void) {
    files = get_dir(RACE_DIR + "/*.c")[0];
    langs = ( { } );
 
-   for(i=sizeof(files) - 1; i>=0; i--) {
+   for (i=sizeof(files) - 1; i>=0; i--) {
       x = strlen(files[i]) - 3;
       obj = find_object(RACE_DIR + "/" + files[i][0..x]);
 
@@ -174,7 +174,7 @@ void create(void) {
       dicts = ([]);
       x = sizeof(langs);
 
-      for(i=0; i < x; i++) {
+      for (i=0; i < x; i++) {
          str = random_word(langs[i]);
          dicts[langs[i]] = ([ "bingo" : str ]);
       }

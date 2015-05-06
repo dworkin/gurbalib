@@ -53,7 +53,7 @@ string *do_work(string file1, string file2) {
 
    lines1 = explode(read_file(file1), "\n");
    max = sizeof(lines1);
-   for(i=0; i< max; i++ ) {
+   for (i=0; i< max; i++ ) {
       tmp = lines1[i];
       if (!lns1[tmp]) 
          lns1[tmp] = i + 1;
@@ -62,7 +62,7 @@ string *do_work(string file1, string file2) {
 
    lines2 = explode(read_file(file2), "\n");
    max = sizeof(lines2);
-   for(i=0; i< max; i++ ) {
+   for (i=0; i< max; i++ ) {
       tmp = lines2[i];
       if (!lns2[tmp]) 
          lns2[tmp] = i + 1;
@@ -82,9 +82,9 @@ string *do_work(string file1, string file2) {
       max = sizeof(keys) - 1;
 
       lines = ({ "Lines in file1 that are not in file2:" });
-      for(i=0; i<max; i++) {
+      for (i=0; i<max; i++) {
          tmp = keys[max-i];
-         if(tmp && !lns2[tmp]) {
+         if (tmp && !lns2[tmp]) {
             lines += ({ lns1[tmp] + " : " + tmp });
          }
       }
@@ -97,9 +97,9 @@ string *do_work(string file1, string file2) {
       max = sizeof(keys) -1;
 
       lines += ({ "Lines in file2 that are not in file1:" });
-      for(i=0; i<max; i++) {
+      for (i=0; i<max; i++) {
          tmp = keys[max-i];
-         if(tmp && !lns1[tmp]) {
+         if (tmp && !lns1[tmp]) {
             lines += ({ lns2[tmp] + " : " + tmp });
          }
       }

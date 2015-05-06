@@ -83,7 +83,7 @@ int check_dir(string dirname) {
    names = files[0];
    max = sizeof(names);
    
-   for(x = 0; x < max; x++) {
+   for (x = 0; x < max; x++) {
       tmp = dirname + "/" + names[x];
       if (file_exists(tmp) == -1) {
          check_dir(tmp);

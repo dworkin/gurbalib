@@ -1,5 +1,5 @@
 void _F_set_cloner(string user, string trace) {
-  if(!KERNEL()) {
+  if (!KERNEL()) {
     error("Illegal call to _F_set_cloner");
   }
 

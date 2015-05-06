@@ -257,7 +257,7 @@ private mixed *parse_option(string str) {
 
    if (sscanf(str, "-%s %s", opt, r) == 2) {
       str = r;
-   } else if(sscanf(str, "-%s", opt) == 1) {
+   } else if (sscanf(str, "-%s", opt) == 1) {
       str = nil;
    } else {
       return ({ 1, str, nil });

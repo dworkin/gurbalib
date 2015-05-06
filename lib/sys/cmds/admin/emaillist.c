@@ -34,7 +34,7 @@ void create_list(string type, string file) {
    if (type == "wizard") type = "wizards";
    if (type == "admin") type = "admins";
 
-   for(i=0;i<max;i++) {
+   for (i=0;i<max;i++) {
       if (query_guest(names[i])) {
          /* Skip this account it's special */
       } else {

@@ -35,7 +35,7 @@ void do_shutdown(void) {
    for (i = 0; i < max; i++) {
       objs = OBJECT_D->query_objects_by_owner(usrs[i]);
       jmax = sizeof(objs);
-      for(j=0; j< jmax; j++) {
+      for (j=0; j< jmax; j++) {
          if (objs[j]->is_player()) {
             objs[j]->message("Shutdown initiated by : " +
                this_player()->query_Name() + "\n");

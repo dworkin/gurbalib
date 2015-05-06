@@ -11,7 +11,7 @@ atomic private void del_clone(void) {
    * If there is a next object in the list, ensure its
    * 'prev' object gets set to our 'prev' object.
    */
-  if(next) {
+  if (next) {
     ptr = next->get_list( "clones" );
     ptr[LIST_PREV] = prev;
   }
@@ -22,7 +22,7 @@ atomic private void del_clone(void) {
    * occur in the master, and the code that runs here
    * should never get called in the master)
    */
-  if(prev) {
+  if (prev) {
     ptr = prev->get_list( "clones" );
     ptr[LIST_NEXT] = next;
   } else {
@@ -53,16 +53,17 @@ private void __F_destruct(void) {
 nomask void _F_destruct(void) {
   object * ptr;
 
-  if(!KERNEL())
-    return;
+  if (!KERNEL()) {
+     return;
+  }
 
 /*
  * Nice idea, but not yet...
  */
 
 #if 0
-  if( sscanf( base_name(), "/kernel/%*s" ) == 1 || sscanf( base_name(), "/sys/%*s" ) == 1 ) {
-    if( !require_priv( "system" ) ) {
+  if ( sscanf( base_name(), "/kernel/%*s" ) == 1 || sscanf( base_name(), "/sys/%*s" ) == 1 ) {
+    if ( !require_priv( "system" ) ) {
       error( "Permission denied" );
     }
   }
@@ -72,12 +73,12 @@ nomask void _F_destruct(void) {
 
   switch(clone_num()) {
     case 0  :
-      if( ptr && ( ptr[LIST_PREV] || ptr[LIST_NEXT] ) ) {
+      if ( ptr && ( ptr[LIST_PREV] || ptr[LIST_NEXT] ) ) {
         error("Trying to destruct master that has clones.");
       }
       break;
   }
-  if( function_object( "destructing", this_object() ) ) {
+  if ( function_object( "destructing", this_object() ) ) {
     call_other( this_object(), "destructing" );
   }
   __F_destruct();

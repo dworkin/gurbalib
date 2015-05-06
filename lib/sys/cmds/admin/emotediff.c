@@ -51,7 +51,7 @@ void do_diff(object obj, string emote, string myfile) {
 
    write("EMOTE_D : " + emote + "\n");
 
-   for(x = 0; x < max; x++) {
+   for (x = 0; x < max; x++) {
       value = EMOTE_D->query_emote(emote,keys[x]);
       if (!value) {
          value = " ";
@@ -61,7 +61,7 @@ void do_diff(object obj, string emote, string myfile) {
 
    write(myfile + " : " + emote + "\n");
 
-   for(x = 0; x < max; x++) {
+   for (x = 0; x < max; x++) {
       value = EMOTE_D->query_emote(emote,keys[x]);
       value2 = obj->query_emote(emote,keys[x]);
       if ((value == "") && (value2 != "")) {
@@ -170,7 +170,7 @@ static void main(string str) {
    if (x >= max ) {
       do_fulldiff(obj, myfile);
    } else {
-      for(i=x; i<max; i++) {
+      for (i=x; i<max; i++) {
          do_diff(obj, tmp[i], myfile);
       }
    }

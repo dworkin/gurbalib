@@ -186,7 +186,7 @@ string *compose_message(object who, string msg, object target,
 		  them += objs[objnum] + " ";
 		  others += objs[objnum] + " ";
 	       } else {
-	       if(!pronounFlag) { 
+	       if (!pronounFlag) { 
 	         us += "the ";
 	         them += "the ";
 	         others += "the ";

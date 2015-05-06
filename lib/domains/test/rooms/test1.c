@@ -56,7 +56,7 @@ string query_long(void) {
    write("\t" + valid + " Successful tests.\n");
    write("\t" + errors + " Failed tests.\n");
    max = sizeof(output);
-   for(x = 0 ; x < max; x++) {
+   for (x = 0; x < max; x++) {
       write(output[x] + "\n");
    }
 }
