@@ -11,7 +11,6 @@ void setup(void) {
 
    set_value(15);
    set_weight(1);
-   add_action("listen","listen");
    add_action("apply","apply");
 }
 
