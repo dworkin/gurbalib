@@ -8,5 +8,8 @@ void setup(void) {
    set_adj("short");
    set_short("A short sword");
    set_long("Your standard small sword.");
+
+   set_value(30);
+   set_weight(2);
 }
 

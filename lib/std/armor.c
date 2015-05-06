@@ -8,6 +8,7 @@ void setup(void);
 void create(void) {
    ob::create();
    add_ids("armor", "armour");
+   set_gettable(1);
 }
 
 int is_armor(void) {
