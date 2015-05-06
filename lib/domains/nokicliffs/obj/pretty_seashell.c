@@ -7,5 +7,5 @@ void setup(void) {
    set_long("A pretty seashell.");
    set_gettable(1);
    set_weight(1);
-   set_value(0);
+   set_value(1);
 }

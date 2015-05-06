@@ -7,7 +7,7 @@ void setup(void) {
    set_long("This book is attached to a large chain which is " +
       "fastened to the wall.  It is titled, the definitive guide to the " +
       "fighters guild.");
-   set_short("A sturdy book.");
+   set_short("A sturdy book");
 
    set_message("Welcome to the fighters guild.  If you want to join our " +
       "guild type 'join'.  If you want to leave the guild type " +
