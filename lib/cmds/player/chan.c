@@ -168,15 +168,12 @@ static void chan_cmd(string cmd, string chan) {
          write("New color for channel " + args[1] + ": " + 
             CHANNEL_D->chan_query_color(args[1]) + "\n");
          break;
-
-/*  imud needs fixing XXXX */
       case "imud":
          args = explode(chan," ");
          CHANNEL_D->chan_imud(args[1], args[0]);
          write("Associating channel: " + args[0] + " with imud channel: " +
             args[1] + "\n");
          break;
-
       case "guild":
          args = explode(chan," ");
          if (sizeof(args) < 2) {
@@ -187,7 +184,6 @@ static void chan_cmd(string cmd, string chan) {
             CHANNEL_D->chan_query_guild(args[1]) + "\n");
             CHANNEL_D->chan_set_guild(args[1],args[0]);
          break;
-
       default:
          rest = chan;
          chan = cmd;

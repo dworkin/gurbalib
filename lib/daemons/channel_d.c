@@ -99,13 +99,15 @@ void chan_imud(string chan, string name) {
    }
 
    if (!channels[chan]) {
-      write("Channel doesn't exist.\n");
+      write("Channel does not exist.\n");
       return;
    }
 
    if (imud[name] == chan) {
       imud[name] = nil;
-/* XXX do more here... */
+      if (permanent[chan]) {
+         chan_make_permanent(chan); /* Note this toggles it */
+      }
    } else {
       imud[name] = chan;
       chan_make_permanent(chan);
