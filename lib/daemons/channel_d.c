@@ -521,15 +521,15 @@ void chan_set_color(string chan, string col) {
       return;
    }
 
-   if (col == "") {
-      colors[chan] = "";
+   if ((col == "") || (col == "nil")) {
+      colors[chan] = nil;
+   } else {
+      colors[chan] = "%^" + uppercase(col) + "%^";
    }
-
-   colors[chan] = "%^" + uppercase(col) + "%^";
    save_me();
 }
 
-string query_guild(string chan) {
+string chan_query_guild(string chan) {
    string g;
 
    g = guilds[chan];
@@ -537,7 +537,7 @@ string query_guild(string chan) {
       return "";
    }
 
-   return guilds[chan];
+   return g;
 }
 
 void chan_set_guild(string chan, string guild) {
@@ -546,8 +546,8 @@ void chan_set_guild(string chan, string guild) {
       return;
    }
 
-   if ((guild == "") || (guilds[chan] == guild)) {
-      guilds[chan] == nil;
+   if ((guild == "") || (guild == "nil") || (guilds[chan] == guild)) {
+      guilds[chan] = nil;
       write(chan + " is no longer a guild only channel.\n");
    } else {
       guilds[chan] = guild;

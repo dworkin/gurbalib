@@ -158,7 +158,10 @@ static void chan_cmd(string cmd, string chan) {
          break;
       case "color":
          args = explode(chan," ");
-         write("Testing Channel: " + args[0] + " arg : '" + args[1] + "'\n");
+         if (sizeof(args) < 2) {
+            usage();
+            return;
+         }
          write("Old color for channel " + args[1] + ": " + 
             CHANNEL_D->chan_query_color(args[1]) + "\n");
             CHANNEL_D->chan_set_color(args[1],args[0]);
@@ -176,11 +179,13 @@ static void chan_cmd(string cmd, string chan) {
 
       case "guild":
          args = explode(chan," ");
+         if (sizeof(args) < 2) {
+            usage();
+            return;
+         }
          write("Old guild for channel " + args[1] + ": " + 
             CHANNEL_D->chan_query_guild(args[1]) + "\n");
             CHANNEL_D->chan_set_guild(args[1],args[0]);
-         write("New guild for channel " + args[1] + ": " + 
-            CHANNEL_D->chan_query_guild(args[1]) + "\n");
          break;
 
       default:
