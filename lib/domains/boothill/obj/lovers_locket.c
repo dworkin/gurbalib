@@ -15,7 +15,7 @@ void setup(void) {
    set_wear_message("$N $vput $o on.");
    set_remove_message("$N $vtake off $o.");
 
-   set_short("A lovers locket.");
+   set_short("A lovers locket");
    set_long("A golden heart shaped locket, engraved with the word LOVE!  " +
       "There appears to be some writing on the back that you can read.");
    broken = 0;
