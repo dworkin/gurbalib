@@ -275,8 +275,7 @@ void set_objects(varargs string filename ...) {
    object ob;
    mapping obs;
    string name;
-   int i, j;
-   int num;
+   int i, j, num, done;
    object *inv;
 
    inv = query_inventory();
@@ -304,17 +303,21 @@ void set_objects(varargs string filename ...) {
 
    for (i = 0; i < sizeof(filename); i++) {
       num = obs[filename[i]];
+      done = 0;
 
       for (j = 0; j < sizeof(inv); j++) {
          if ((inv[j]->file_name() == filename[i]) ||
             (inv[j]->base_name() == filename[i])) {
             num--;
-         } else {
+            done = 1;
+         }
+      }
+
+      if (!done) {
             string tmp;
             tmp = this_object()->file_name() + "->set_objects(): " +
                filename[i] + "\n";
             LOG_D->write_log("container", "[" + ctime(time()) + "] " + tmp);
-         }
       }
 
       while (num > 0) {
