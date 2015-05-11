@@ -426,9 +426,6 @@ void register_included_by(string what, string * list) {
    increv = ([ ]);
    includes = ([ ]);
 
-
-   /* XXX this is currently broken, so return and skip it.  */
-   return;
    max = sizeof(list);
    for (i = 0; i < max; i++) {
       register_included_by_single(list[i], what);

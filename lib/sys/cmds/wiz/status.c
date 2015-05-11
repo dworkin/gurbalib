@@ -69,48 +69,57 @@ void display_obj(mixed * stat, object obj) {
    lines += ({ "Program Size           : " + (string) stat[O_PROGSIZE] });
    lines += ({ "Data Size              : " + (string) stat[O_DATASIZE] });
    lines += ({ "Sectors                : " + (string) stat[O_NSECTORS] });
-   lines += ({ "Callout's              : " });
 
    tmp2 = stat[O_CALLOUTS];
    if (tmp2) {
-      lines += ({ "Depending programs	:" });
       maxi = sizeof(tmp2);
+      lines += ({ "Call outs              : "  + maxi });
       for (i = 0; i < maxi; i++) {
 	 lines += ({ "\t" + tmp2[i] });
       }
+   } else {
+      lines += ({ "Call outs              : 0" });
    }
-   lines += ({ "Undefined Functions    : " });
+
    tmp = stat[O_UNDEFINED];
    if (tmp) {
       keys = map_indices(tmp);
       maxi = sizeof(keys);
+      lines += ({ "Undefined Functions    : " + maxi });
       for (i = 0; i < maxi; i++) {
 	 lines += ({ "\t" + keys[i] + ": " + dump_value(keys[i],tmp) });
       }
+   } else {
+      lines += ({ "Undefined Functions    : 0" });
    }
 
    tmp2 = DRIVER->find_all_depending_programs(obj->file_name());
    if (tmp2) {
-      lines += ({ "Depending programs:" });
       maxi = sizeof(tmp2);
+      lines += ({ "Depending programs     : " + maxi});
       for (i = 0; i < maxi; i++) {
 	 lines += ({ "\t" + tmp2[i] });
       }
+   } else {
+      lines += ({ "Depending programs     : 0"});
    }
 
    incs = COMPILER_D->query_includes(obj->file_name());
    if (incs) {
-      lines += ({ "Includes:" });
       maxi = sizeof(incs);
+      lines += ({ "Includes               : " + maxi });
       for (i = 0; i < maxi; i++) {
 	 lines += ({ "\t" + incs[i] });
-      }
+      } 
+   } else {
+      lines += ({ "Includes               : 0" });
    }
-   lines += ({ "File Owner: " + owner_file(obj->file_name()) });
-   lines += ({ "Object Owner: " + owner_object(obj) });
+
+   lines += ({ "File Owner             : " + owner_file(obj->file_name()) });
+   lines += ({ "Object Owner           : " + owner_object(obj) });
    cloner = obj->query_cloner();
    if (cloner) { 
-      lines += ({ "Cloner: " + cloner });
+      lines += ({ "Cloner                 : " + cloner });
    }
 
    this_player()->more(lines);
