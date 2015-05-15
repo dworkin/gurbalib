@@ -14,4 +14,8 @@ void setup(void) {
       "south" : DIR + "/rooms/welcome.c", 
       "east" : DIR + "/rooms/saloon.c", 
    ]));
+
+   set_objects(
+      DIR + "/monsters/slims"
+   );
 }
