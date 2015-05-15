@@ -39,7 +39,6 @@ static void main(string msg) {
    } else {
       if (sscanf(msg, "%s default", log) == 1) {
          x = "default";
-/* XXX Do some checks against log to see if user has perms... */
          if (!LOG_D->set_log_level(log,x)) {
             write("Unable to set loglevel: " + log + ": " + x  + "\n");
          }
