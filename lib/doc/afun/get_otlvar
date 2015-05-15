@@ -24,5 +24,5 @@ EXAMPLES
 write("Last player = " + obj->query_name() + "\n");
 
 SEE ALSO
-	afun/get_tlvar, afun/notify_fail, afun/query_notify_fail,
-	afun/set_otlvar, afun/set_tlvar, misc/tls
+	afun/get_tlvar, safun/notify_fail, safun/query_notify_fail,
+	safun/set_otlvar, safun/set_tlvar, misc/tls
