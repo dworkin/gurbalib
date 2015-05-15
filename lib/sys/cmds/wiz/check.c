@@ -351,7 +351,17 @@ void do_monster_check(object obj) {
 }
 
 void do_money_check(object obj) {
-   /* XXX Need to flesh this out */
+   if (obj->query_value() == 0) {
+      warn("This money has no value.\n");
+   } else if (obj->query_value() < 0) {
+      error("This money has - value.\n");
+   }
+
+   if (obj->query_weight() > 0) {
+      warn("Money should not have a weight.\n");
+   } else if (obj->query_weight() < 0) {
+      error("Objects should not have - weight.\n");
+   }
 }
 
 void do_object_check(object obj) {
