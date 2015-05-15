@@ -10,7 +10,7 @@ void setup(void) {
    add_adj("large");
    set_short("Slim shady");
    set_long("This guy is skinny, he is also kind of creepy looking.  He " +
-      "reminds you of an anemeic scarecrow.");
+      "reminds you of an anemic scarecrow.");
 
    set_race("human");
    set_level(1);
