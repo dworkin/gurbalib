@@ -8,7 +8,7 @@
  *
  * This code is in the public domain.
  *
- * Current limitations: No unicode support (\uXXXX)
+ * Current limitations: No unicode support (\u00e9)
  *
  */
 
