@@ -36,7 +36,7 @@ int add_money(string type, int amount) {
 
    value = value * amount;
    value = coins + value;
-   if (value > 0) {
+   if (value >= 0) {
       coins = value;
       return 1;
    }
