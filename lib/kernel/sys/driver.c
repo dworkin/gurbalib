@@ -112,7 +112,7 @@ void queue_upgrade(object ob) {
 
    count = 0;
 
-   rlimits(MAX_DEPTH; (MAX_TICKS * MAX_TICKS)) {
+   rlimits(MAX_DEPTH; MAX_TICKS) {
       while (ob && count < 500) {
          /*
           * Note the order here, it is important.
