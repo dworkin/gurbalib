@@ -32,7 +32,7 @@ static int do_drop_coin(int amount,string type) {
       return 0;
    }
 
-   if (this_player()->query_total_money() > amount) {
+   if (this_player()->query_total_money() >= amount) {
       this_player()->add_money("ducat", (amount * -1));
       write("you drop " + amount + " ducats.");
       this_player()->query_environment()->tell_room(this_player(),
