@@ -45,6 +45,8 @@ void setup(void) {
    location = 1;
    set_floor(1);
    add_exit("north", DIR + "/rooms/vill_shore.c");
+   add_action("press_button", "press");
+   add_action("press_button", "push");
 }
 
 string query_long() {
@@ -58,3 +60,31 @@ string query_long() {
 }
 
 /* XXX Need to do the door, button and stuff.... */
+
+int press_button(string str) {
+   object elev;
+
+   if (str == "1") {
+      write("You press button 1.\n");
+      this_object()->tell_room(this_player(), this_player()->query_Name() +
+         " presses button 1.\n");
+      set_floor(1);
+
+   } else if (str == "2") {
+      write("You press button 2.\n");
+      this_object()->tell_room(this_player(), this_player()->query_Name() +
+         " presses button 2.\n");
+      set_floor(2);
+
+   } else if (str == "3") {
+      write("You press button 3.\n");
+      this_object()->tell_room(this_player(), this_player()->query_Name() +
+         " presses button 3.\n");
+      set_floor(3);
+
+   } else {
+	write("Which button do you want to press? (1, 2, 3)?\n");
+   }
+   return 1;
+}
+
