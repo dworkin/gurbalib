@@ -105,13 +105,6 @@ Add fullness/intoxication to score output...
 #(num) preforms that command from the history
 #(string) preforms the last history command starting with (string)
 
-creator command lists the creator of an object/room.
-
-query command, example query bull:
-You look long and hard at Bull considering his worth.
-Bull is a threat level 1.097 to you.
-Bull is worth 545 exp.
-
 a bot spams random hints to the info channel every so often.
 
 defend command allows you to proctect another player.

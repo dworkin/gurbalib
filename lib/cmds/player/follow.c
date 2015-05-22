@@ -15,7 +15,7 @@ void usage(void) {
    lines += ({ "\tfollow sirdude" });
    lines += ({ "\tfollow" });
    lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, eat, enter, go, pray, wimpy, quit" });
+   lines += ({ "\tattack, cast, eat, enter, go, pray, query, quit, wimpy" });
 
    this_player()->more(lines);
 }

@@ -28,7 +28,7 @@ void usage(string str) {
    lines += ({ "Examples:" });
    lines += ({ "\tcast missile rat" });
    lines += ({ "See also:" });
-   lines += ({ "\tattack, eat, enter, follow, go, pray, wimpy, quit" });
+   lines += ({ "\tattack, eat, enter, follow, go, pray, query, quit, wimpy" });
 
    this_player()->more(lines);
 }

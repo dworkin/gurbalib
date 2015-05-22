@@ -13,7 +13,7 @@ void usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tenter hole" });
    lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, eat, follow, go, pray, wimpy, quit" });
+   lines += ({ "\tattack, cast, eat, follow, go, pray, query, quit, wimpy" });
 
    this_player()->more(lines);
 }

@@ -26,7 +26,7 @@ void usage(void) {
    lines += ({ "\twimpy dir" });
    lines += ({ "\twimpy hp 10" });
    lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, eat, enter, follow, go, pray, quit" });
+   lines += ({ "\tattack, cast, eat, enter, follow, go, pray, query, quit" });
 
    this_player()->more(lines);
 }
