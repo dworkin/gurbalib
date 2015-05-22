@@ -7,7 +7,7 @@ cd to your gurbalib dir and perform the following actions:
                 just read the script and figure out what directorys to create.
 	cd src
 
-	Download the latest driver from github: 
+	Download the latest version of dgd from github: 
 		git clone https://github.com/dworkin/dgd.git
 		cd dgd/src
 		edit Makefile if you want networking
@@ -19,10 +19,10 @@ cd to your gurbalib dir and perform the following actions:
 		make
 		make install
 			** Note: you will get 1 error on this when it tries to
-				mv ../bin/driver ../bin/driver.old
+				mv ../bin/dgd ../bin/dgd.old
 
 	cd ../../..
-	cp src/dgd/bin/driver ./bin/
+	cp src/dgd/bin/dgd ./bin/
         cp mud.dgd.examp mud.dgd
 	edit mud.dgd
 		change the directory entry to where you installed things.

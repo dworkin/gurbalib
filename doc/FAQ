@@ -36,8 +36,7 @@ A: The file lib/kernel/include/local_config.h does not define the
    IMUD_NAME macro, probably because you created an empty file
    there or removed that macro. 
 
-Q: I changed the Makefile to build the driver with -O or -O2
-   and now it crashes.
+Q: I changed the Makefile to build dgd with -O or -O2 and now it crashes.
 A: Don't do this. It is not supported and the possible gain it
    could give is very small.
 

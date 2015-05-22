@@ -9,12 +9,12 @@ else
 	exit 1
 fi
 
-if [ -f ./bin/driver ]; then
+if [ -f ./bin/dgd ]; then
 	if [ -f ./dump ]; then
 		echo DGD starting from dump...
-		./bin/driver ./mud.dgd ./dump >& $LOG
+		./bin/dgd ./mud.dgd ./dump >& $LOG
 	else
 		echo DGD starting from scratch...
-		./bin/driver ./mud.dgd >& $LOG
+		./bin/dgd ./mud.dgd >& $LOG
 	fi
 fi
