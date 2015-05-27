@@ -35,5 +35,6 @@ EXAMPLES
 	remove_event("body_look");
 
 SEE ALSO
-	safun/add_event, safun/event, safun/remove_event, safun/unsubscribe_event
+	safun/add_event, safun/event, safun/remove_event,
+	safun/unsubscribe_event
 

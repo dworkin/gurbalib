@@ -5,8 +5,8 @@ SYNOPSIS
 	pluralize(string arg)
 
 DESCRIPTION
-	Pluralizes the end of str unless it uses form "x of y", in which case x is
-	pluralized but not y.
+	Pluralizes the end of str unless it uses form "x of y", in which
+	case x is pluralized but not y.
 
 RETURN VALUE
 	A string containing the pluralized version of arg.
@@ -17,3 +17,4 @@ EXAMPLES
 	
 SEE ALSO
 	safun/capitalize, afun/lowercase, afun/uppercase, safun/article
+
