@@ -21,6 +21,5 @@ EXAMPLES
 	write("Previous Function: " + fun + "\n");
 
 SEE ALSO
-
 	kfun/previous_object, kfun/previous_program
 

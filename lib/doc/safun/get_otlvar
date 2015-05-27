@@ -21,8 +21,9 @@ EXAMPLES
 	set_otlvar("last_obj", obj);
 	obj = get_otlvar("last_obj");
 
-write("Last player = " + obj->query_name() + "\n");
+	write("Last player = " + obj->query_name() + "\n");
 
 SEE ALSO
 	safun/get_tlvar, safun/notify_fail, safun/query_notify_fail,
 	safun/set_otlvar, safun/set_tlvar, misc/tls
+

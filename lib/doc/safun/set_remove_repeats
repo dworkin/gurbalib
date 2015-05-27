@@ -12,9 +12,9 @@ RETURN VALUE
 	The set with repeated elements but one removed.
 
 EXAMPLES
-int *a, *c;
-int x, maxx;
-string line;
+	int *a, *c;
+	int x, maxx;
+	string line;
 
 	a = ({5|1, 2, 3, 4, 4, 5,});
 

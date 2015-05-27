@@ -24,3 +24,4 @@ SEE ALSO
 	afun/compile_library, afun/compile_object, afun/destruct_object,
 	afun/file_name, afun/find_object, safun/normalize_path,
 	safun/path_file, safun/wiz_dir, kfun/find_object, kfun/object_name
+

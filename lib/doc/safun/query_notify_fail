@@ -9,7 +9,7 @@ DESCRIPTION
 	the mud.
 
 NOTES
-	This afun only exists for code outside /kernel
+	This function only exists for code outside /kernel
 
 RETURN VALUE
 	Returns the last error message reported, or returns nil if none.

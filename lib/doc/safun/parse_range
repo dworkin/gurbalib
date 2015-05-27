@@ -29,3 +29,4 @@ SEE ALSO
 	safun/strcmp, afun/strstr, afun/str2val, kfun/explode, kfun/implode,
 	kfun/parse_string, kfun/sscanf, safun/trim_str,
 	afun/uppercase
+
