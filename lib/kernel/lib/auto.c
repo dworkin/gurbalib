@@ -41,6 +41,7 @@ private string _owner;
 #include "afun/arrayp.c"
 #include "afun/mappingp.c"
 #include "afun/objectp.c"
+#include "afun/dump_value.c"
 #ifdef CLOSURES_EXTENSION
 #include "afun/functionp.c"
 #endif
@@ -53,7 +54,7 @@ private string _owner;
 #include "afun/valid.c"
 #include "afun/valid_read.c"
 #include "afun/valid_write.c"
-#include "afun/get_path_to_file.c"
+#include "afun/normalize_path.c"
 #include "afun/file_exists.c"
 #include "afun/compile_object.c"
 #include "afun/compile_library.c"

@@ -6,7 +6,7 @@ int file_exists(string str) {
    argcheck(str, 1, "string");
 
    if (!KERNEL() && !SYSTEM() ) {
-      dir = get_path_to_file(str);
+      dir = normalize_path(str, "/");
       if (!valid(dir, MODE_READ)) {
 #ifdef ENABLE_STACK_SECURITY
          return 0;

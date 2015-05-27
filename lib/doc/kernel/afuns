@@ -1,4 +1,4 @@
-What is the difference between afun, afun-game and kfun funcitons, and
+What is the difference between afun, safun and kfun funcitons, and
 how does the mud determine which one to use?
 
 Just so we are all on the same page, a kfun is a kernel function that
@@ -14,11 +14,11 @@ and are loaded by the auto object /kernel/lib/auto they are available to
 the mudlib as a whole, but not available to the "kernel" of the mudlib
 since they are not loaded at that stage of the boot process.
 
-afun-game are simulated afun's that are similar to afun's but again at a
+safuns are simulated afun's that are similar to afun's but again at a
 higher level in the boot process.
 
 If you want more details, here is a discussion I had with Aidil that should
-give you all the gory details:
+give you all the gory details: (afun-game was merged into safun's)
 
 Aidil@WOTF GL tells you: The
 difference between afun and afun-game, been looking a bit more into how dgd

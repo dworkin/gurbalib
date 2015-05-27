@@ -17,7 +17,7 @@ EXAMPLES
 	upper = uppercase(this_player()->query_name());
 
 SEE ALSO
-	safun/capitalize, safun/add_comma, afun/arrayp, safun/dump_value,
+	safun/capitalize, safun/add_comma, afun/arrayp, afun/dump_value,
 	safun/empty_str, afun/floatp, safun/fmt_str, safun/format_time,
 	afun/functionp, afun/intp, afun/lowercase, afun/mappingp, afun/nilp,
 	afun/objectp, safun/pad_string_left, safun/replace_string,

@@ -46,9 +46,9 @@ object *ports;
 #endif
 
 /* Include some useful functions from the auto object */
-#include "/sys/safun/dump_value.c"
+#include "/kernel/lib/afun/dump_value.c"
 #include "/kernel/lib/afun/argcheck.c"
-#include "/sys/safun/normalize_path.c"
+#include "/kernel/lib/afun/normalize_path.c"
 #include "/kernel/lib/afun/require_priv.c"
 #include "/kernel/lib/afun/valid.c"
 

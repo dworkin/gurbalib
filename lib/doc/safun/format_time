@@ -20,7 +20,7 @@ EXAMPLES
 	write("Idle time: " + time + "\n");
 
 SEE ALSO
-	afun/arrayp, safun/dump_value, afun/floatp, afun/functionp, afun/intp,
+	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp, afun/intp,
 	afun/lowercase, afun/mappingp, afun/nilp, afun/objectp, afun/stringp,
 	afun/uppercase
 
