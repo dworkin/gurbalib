@@ -24,3 +24,4 @@ SEE ALSO
 	afun/find_object, safun/normalize_path, afun/owner_file,
 	afun/owner_object, safun/path_file, safun/wiz_dir, kfun/find_object,
 	kfun/object_name
+

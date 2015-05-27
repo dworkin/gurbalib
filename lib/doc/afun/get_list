@@ -17,6 +17,6 @@ EXAMPLES
 		error("Your config file is out of date.\n");
 	}
 
-
 SEE ALSO
 	afun/set_list
+

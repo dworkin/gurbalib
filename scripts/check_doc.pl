@@ -111,6 +111,35 @@ sub check_seealso {
 	}
 }
 
+sub check_blank_lines {
+	my ($file) = @_;
+	my $line;
+	my $res = "woo";
+
+	open(my $fh, "<", $file) or die "Unable to open $file\n";
+	while (<$fh>) {
+		$line = $_;
+		if (($line eq "\n") && ($res eq "\n")) {
+			print "$file: Contains multiple blank " .
+				"lines in a row.\n";
+
+		}
+
+		# This isn't actually checking blank lines but also useful
+		# and more efficent to do it here than another function
+
+		if (length($line) > 80) {
+			print "$file: Has a line that is over 80 chars:\n";
+			print "$file: $line\n";
+		}
+
+		$res = $line;
+	}
+	if ($res ne "\n") {
+		print "$file: Missing blank line at the end.\n";
+	}
+}
+
 sub check_file {
 	my ($file) = @_;
 	my $subname = "check_file";
@@ -129,6 +158,7 @@ sub check_file {
 		}
 	}
 	check_seealso($file);
+	check_blank_lines($file);
 }
 
 sub check_source_doc_match {

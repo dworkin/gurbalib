@@ -10,7 +10,6 @@ DESCRIPTION
 	requested privilege or one superior (that can become the 
 	requested privilege)
 
-
 RETURN VALUE
 	Returns 1 if matched, 0 otherwise.
 
@@ -21,7 +20,6 @@ EXAMPLES
 	   prev = previous_object()->base_name();
 	   error("Illegal call to this object from: " + prev + "\n");
 	}
-
 
 SEE ALSO
 	safun/cat_file, afun/copy, afun/editor, safun/get_dir, afun/make_dir,

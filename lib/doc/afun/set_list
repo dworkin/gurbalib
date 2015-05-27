@@ -17,6 +17,6 @@ EXAMPLES
 	next = prt[LIST_NEXT];
 	set_list( "clones", ({ master, next }) );
 
-
 SEE ALSO
 	afun/get_list
+

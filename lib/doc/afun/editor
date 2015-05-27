@@ -25,3 +25,4 @@ SEE ALSO
 	afun/restore_object, afun/save_object, afun/unguarded, afun/valid,
 	afun/valid_read, afun/valid_write, afun/write_file,
 	kfun/editor, kfun/read_file, kfun/write_file
+
