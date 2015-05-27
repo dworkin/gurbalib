@@ -30,7 +30,7 @@ void display_driver(mixed * stat) {
    lines += ({ "System Boot time       : " + 
       (string) ctime(stat[ST_BOOTTIME]) });
    lines += ({ "Uptime                 :" + 
-      format_time(stat[ST_UPTIME]) });
+      fmt_time(stat[ST_UPTIME]) });
    lines += ({ "Swapsize               : " + 
       (string) stat[ST_SWAPSIZE] });
    lines += ({ "Swap used              : " + (string) stat[ST_SWAPUSED] });

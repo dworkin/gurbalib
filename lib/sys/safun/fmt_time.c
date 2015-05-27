@@ -1,4 +1,4 @@
-string format_time(int time) {
+string fmt_time(int time) {
    int mins, hrs, days;
    string str;
 

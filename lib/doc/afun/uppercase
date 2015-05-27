@@ -18,7 +18,7 @@ EXAMPLES
 
 SEE ALSO
 	safun/capitalize, safun/add_comma, afun/arrayp, afun/dump_value,
-	safun/empty_str, afun/floatp, safun/fmt_str, safun/format_time,
+	safun/empty_str, afun/floatp, safun/fmt_str, safun/fmt_time,
 	afun/functionp, afun/intp, afun/lowercase, afun/mappingp, afun/nilp,
 	afun/objectp, safun/pad_string_left, safun/replace_string,
 	safun/rexplode, safun/strcmp, afun/stringp, safun/strstr, safun/str2val,

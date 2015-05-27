@@ -1,8 +1,8 @@
 NAME
-        format_time - converts a time integer into a string.
+        fmt_time - converts a time integer into a string.
 		
 SYNOPSIS
-        string format_time(int time)
+        string fmt_time(int time)
 
 DESCRIPTION
         Converts a time integer into a string.  The returned string is 
@@ -16,7 +16,7 @@ RETURN VALUE
 EXAMPLES
 	string time;
 
-	time = format_time(this_player()->query_idle());
+	time = fmt_time(this_player()->query_idle());
 	write("Idle time: " + time + "\n");
 
 SEE ALSO

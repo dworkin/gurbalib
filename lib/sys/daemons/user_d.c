@@ -499,7 +499,7 @@ void print_finger_info(object player, object player2, int cloned) {
       player->message("%^BLUE%^Last login: %^RESET%^Now " + linkd + "\n");
       if (player2->query_idle() > 60) {
 	 player->message("%^BLUE%^Idle: %^RESET%^" +
-	    format_time(player2->query_idle()) + "\n");
+	    fmt_time(player2->query_idle()) + "\n");
       }
    }
 }
@@ -934,7 +934,7 @@ string *list_players(int long_flag) {
          line += " %^BOLD%^%^YELLOW%^[link-dead]%^RESET%^";
       }
 
-      idletime = format_time(usr[i]->query_idle());
+      idletime = fmt_time(usr[i]->query_idle());
       if (idletime == "") {
          idle = "";
       } else {

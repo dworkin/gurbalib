@@ -18,7 +18,7 @@ EXAMPLES
 	write ("Filename = " + dump_value(filenames[1]) + "\n");
 
 SEE ALSO
-	afun/arrayp, afun/floatp, safun/format_time, afun/functionp,
+	afun/arrayp, afun/floatp, safun/fmt_time, afun/functionp,
 	afun/intp, afun/lowercase, afun/mappingp, afun/nilp, afun/objectp,
 	afun/stringp, afun/uppercase
 
