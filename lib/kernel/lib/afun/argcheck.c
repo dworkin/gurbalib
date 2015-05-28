@@ -1,3 +1,5 @@
+#include <error_handling.h>
+
 static void argcheck(mixed arg, int num, varargs string type) {
    mixed **trace;
 

@@ -17,9 +17,6 @@
 #define MODE_READ 0
 #define MODE_WRITE 1
 
-static string dump_value(mixed value, varargs mapping seen);
-static void console_msg(string message);
-
 private mapping ltable;
 static mapping events;
 private object driver;
@@ -30,6 +27,11 @@ private string _clone_trace;
 private string _owner;
 
 #include "afun/require_priv.c"
+#ifdef CLOSURES_EXTENSION
+#include "afun/functionp.c"
+#endif
+#include "afun/stringp.c"
+#include "afun/argcheck.c"
 #include "afun/unguarded.c"
 #include "afun/find_object.c"
 #include "afun/this_user.c"
@@ -42,12 +44,7 @@ private string _owner;
 #include "afun/mappingp.c"
 #include "afun/objectp.c"
 #include "afun/dump_value.c"
-#ifdef CLOSURES_EXTENSION
-#include "afun/functionp.c"
-#endif
-#include "afun/stringp.c"
 #include "afun/nilp.c"
-#include "afun/argcheck.c"
 #include "afun/set_list.c"
 #include "afun/get_list.c"
 #include "afun/console_msg.c"
