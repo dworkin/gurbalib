@@ -9,7 +9,10 @@ cd to your gurbalib dir and perform the following actions:
 
 	Download the latest version of dgd from github: 
 		git clone https://github.com/dworkin/dgd.git
-		cd dgd/src
+		cd dgd
+		git submodule init
+		git submodule update
+		cd src
 		edit Makefile if you want networking
 			to enable support for intermud and the ftp daemon, 
 			change the line that looks like:
