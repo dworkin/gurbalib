@@ -1,0 +1,29 @@
+NAME
+	destruct_object - creates a new object
+
+SYNOPSIS
+	static object new_object(object obj)
+
+DESCRIPTION
+	Creates a clone of an existing object.  If obj is not compiled,
+	it will be compiled first.  If obj is not a legal object an
+	error will result.
+
+	For more info on objects see /doc/misc/objects.
+
+RETURN VALUE
+	returns an object or return nil if there is an error.
+
+EXAMPLES
+	object p;
+	p = new_object(this_object());
+
+	destruct_object(p);
+
+SEE ALSO
+	safun/absolute_path, afun/base_name, afun/clone_object, afun/clone_num,
+	afun/compile_library, afun/compile_object, afun/destruct_object,
+	afun/file_name, afun/find_object, afun/new_object, afun/normalize_path,
+	afun/new_object, safun/path_file, safun/wiz_dir, kfun/find_object,
+	kfun/object_name
+

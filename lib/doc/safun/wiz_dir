@@ -17,6 +17,7 @@ EXAMPLES
 SEE ALSO
 	safun/absolute_path, afun/base_name, afun/clone_object, afun/clone_num,
 	afun/compile_library, afun/compile_object, afun/destruct_object,
-	afun/file_name, afun/find_object, afun/normalize_path, safun/path_file,
-	kfun/find_object, kfun/object_name
+	afun/file_name, afun/find_object, afun/new_object,
+	afun/normalize_path, safun/path_file, kfun/find_object,
+	kfun/object_name
 

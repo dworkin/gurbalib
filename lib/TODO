@@ -20,7 +20,6 @@ Old stuff from ../doc/TODO:
 - Mask destruct_object() to deregister objects and clones
 - Ensure a create function in the auto object gets called
   to register new objects/clones
-- Mask new_object() to check for valid LWO master objects
 - Rewrite fake objects module to use LWOs
 - Seperate inheritables from clonables
 - Add TLS support to the driver object

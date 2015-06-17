@@ -56,6 +56,7 @@ private string _owner;
 #include "afun/compile_object.c"
 #include "afun/compile_library.c"
 #include "afun/clone_object.c"
+#include "afun/new_object.c"
 #include "afun/destruct_object.c"
 #include "afun/lowercase.c"
 #include "afun/uppercase.c"
