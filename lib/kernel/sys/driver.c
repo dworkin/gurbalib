@@ -698,14 +698,10 @@ void runtime_error(string error, int caught, int ticks) {
    }
 }
 
-static void atomic_error(string error, int a, int t) {
+static string atomic_error(string error, int a, int t) {
    error = "(atom: " + a + ", " + t + " ticks remaining) " + error;
 
-   if (error_d) {
-      error_d->runtime_error(error, call_trace(), 0, t, a);
-   } else {
-      runtime_error(error, 0, t);
-   }
+   return error;
 }
 
 static string object_type(string from, string obtype) {

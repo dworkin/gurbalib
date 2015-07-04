@@ -13,15 +13,18 @@ static void create(void) {
 
 string format_runtime_error(string error, mixed ** trace, int caught, int ticks,
    int atom) {
-   string progname, objname, func, str, tmp, args, result;
+   string progname, objname, func, str, tmp, args, result, pre;
    int i, sz, line, len;
    object player;
 
    result = "";
 
    count++;
-   if (sscanf(error, MAGIC_ERROR_RETHROWN + "%s", tmp) == 1) {
+   if (sscanf(error, "%s" + MAGIC_ERROR_RETHROWN + "%s", pre, tmp) > 0) {
       result = tmp;
+      if (pre) {
+         result = pre + ":" + result;
+      }
    } else if ((sz = sizeof(trace) - 1) > 0) {
       if (sscanf(error, MAGIC_ERROR_ARGCHECK + "%s", tmp) == 1
          && trace[sz - 1][1] == AUTO && trace[sz - 1][2] == "argcheck") {
