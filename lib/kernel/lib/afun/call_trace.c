@@ -7,9 +7,9 @@ static mixed *call_trace(void) {
    int i, sz;
 
    trace = ::call_trace();
-   sz = sizeof(trace);
-   trace = trace[0..(sz - 2)];
-   for (i = 0; i < (sz-1); i++) {
+   sz = sizeof(trace) - 2;
+   trace = trace[0..sz];
+   for (i = 0; i < sz; i++) {
       trace[i] = trace[i][0..(TRACE_FIRSTARG - 1)];
    }
    return trace;
