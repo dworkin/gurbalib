@@ -9,7 +9,7 @@ static mixed *call_trace(void) {
    trace = ::call_trace();
    sz = sizeof(trace) - 2;
    trace = trace[0..sz];
-   for (i = 0; i < sz; i++) {
+   for (i = 0; i <= sz; i++) {
       trace[i] = trace[i][0..(TRACE_FIRSTARG - 1)];
    }
    return trace;
