@@ -317,7 +317,6 @@ void set_objects(varargs string filename ...) {
             string tmp;
             tmp = this_object()->file_name() + "->set_objects(): " +
                filename[i] + "\n";
-            LOG_D->write_log("container", "[" + ctime(time()) + "] " + tmp);
       }
 
       while (num > 0) {

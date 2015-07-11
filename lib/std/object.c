@@ -195,6 +195,7 @@ void destruct(void) {
 nomask int move(mixed destination) {
    mixed err;
    object dest, curr;
+   string myname;
 
    if (!destination) {
       return 0;
@@ -242,6 +243,16 @@ nomask int move(mixed destination) {
       }
       return 0;
    }
+
+#ifdef DO_STATS
+
+   myname = this_object()->query_Name();
+   if (!myname) {
+      myname = file_name(this_object());
+   }
+   LOG_D->write_log("stats.raw", "enter: " + file_name(dest) + ":" + 
+      myname + "\n");
+#endif
 
    if (object_environment) {
       object_environment->remove_object(this_object());

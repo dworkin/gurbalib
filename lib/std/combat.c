@@ -144,7 +144,7 @@ int run_away(void) {
 }
 
 void receive_damage(object who, int dam) {
-   int x;
+   int x, when;
 
    this_object()->message("%^RED%^You took " + dam + " damage from " +
       who->query_id() + ".%^RESET%^");
@@ -152,7 +152,16 @@ void receive_damage(object who, int dam) {
    if (this_object()->query_hp() <= dam) {
       x = this_object()->query_max_hp();
       killer = who;
-      this_object()->add_killed_by(killer, time());
+
+      when = time();
+
+/* XXX Not sure why this isn't working need to figure it out */
+#ifdef STATS
+    LOG_D->write_log("stats.raw", "killed: " + this_object()->file_name() + 
+       " by " + who->file_name() + ":" + ctime(when) + "\n");
+#endif
+
+      this_object()->add_killed_by(killer, when);
       this_object()->halt_fight();
       who->halt_fight();
       who->increment_kills();

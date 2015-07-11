@@ -124,6 +124,7 @@ You should at least modify the first 3 entries.
 /* #define DEBUG_CONNECTION 1 */
 /* #define DEBUG_PRIVS 1 */
 /* uncomment the line below to get a lot of debug output.. */
-/* #define DEBUG_STACK_SECURITY */
+/* #define DEBUG_STACK_SECURITY 1 */
 /* uncomment the line below to get even more debug output.. */
-/* #define DEBUG_STACK_SECURITY_DEEP */
+/* #define DEBUG_STACK_SECURITY_DEEP 1 */
+#define DO_STATS 1

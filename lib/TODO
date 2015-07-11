@@ -89,12 +89,6 @@ Fix it so you can do the following:
 	possess rat
 	call -h
 
-work on some sort of stats:
-	How frequently a room is accessed.
-	How frequently a monster is killed.
-	How frequently a monster kills a player.
-	Loot distribution against challenge difficulty.
-
 add a rest/stand command where you gain hp otherwise you don't...
 Add fullness/intoxication to score output...
 
@@ -113,3 +107,4 @@ Fix check and checkmud functions so that they continue on errors.
 Also fix it so we avoid the too many objects error...
 
 Convert DEBUG define's to LOG_D->log's & levels...
+

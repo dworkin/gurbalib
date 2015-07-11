@@ -1,0 +1,55 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+my ($logfile, $dir) = @ARGV;
+my %hash;
+
+sub usage {
+   print "Usage: $0: LOGFILE.RAW [DIR]\n";
+   print "Parses LOGFILE.RAW and writes some reports in DIR.\n";
+   print "If DIR is not given print to stdout.\n";
+}
+
+sub parse_log {
+	my ($infile, $dir) = @_;
+	my ($fh, $outfh, $i);
+
+	open($fh, "<", $infile) or die "Unable to open $infile\n";
+	if ($dir && $dir ne "") {
+		if (!-d $dir) {
+			mkdir($dir);
+		}
+		open($outfh, ">", "$dir/enter") or die
+			"Unable to open $dir/enter\n";
+		print $outfh "Last run on " . localtime() . "\n";
+	} else {
+		print "Last run on " . localtime() . "\n";
+	}
+	while(<$fh>) {
+		my $line = $_;
+
+		if ($line =~ /enter:(.*):(.*)/) {
+			if (exists($hash{$1})) {
+				$hash{$1} = $hash{$1} + 1;
+			} else {
+				$hash{$1} = 1;
+			}
+		}
+	}
+
+	foreach $i (sort {$hash{$b} <=> $hash{$a} } keys %hash) {
+		if ($outfh) {
+			print $outfh "$i: $hash{$i}\n";
+		} else {
+			print "$i: $hash{$i}\n";
+		}
+	}
+}
+
+if (!$logfile) {
+	usage();
+} else {
+	parse_log($logfile, $dir);
+}
