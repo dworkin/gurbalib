@@ -2,7 +2,13 @@ inherit "/std/room";
 #define REQDIR "/domains/required"
 
 private string myname(void) {
-   return capitalize(owner_file(file_name()));
+   string who;
+
+   who = owner_file(file_name());
+   if (!who || who == "") {
+      who = "ERROR in owner_file:";
+   }
+   return capitalize(who);
 }
 
 void setup(void) {
