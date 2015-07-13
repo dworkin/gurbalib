@@ -1,7 +1,7 @@
 SETTING THINGS UP:
 ---------------------------------------------------------------------
 cd to your gurbalib dir and perform the following actions:
-	perl scripts/create_data_dirs.pl
+	perl scripts/create_data_dirs
 		This creates empty directories that are not stored in the
 		repository.  If you do not have perl on your system you can
                 just read the script and figure out what directorys to create.
@@ -65,7 +65,7 @@ Downloading additional documentation.
 	cd ../..
 
 	You can also run the following script to download yet more docs:
-	./scripts/download_lpc_docs.pl
+	./scripts/download_lpc_docs
 
 
 Gurbalib ships with an ftp server which is enabled by default,

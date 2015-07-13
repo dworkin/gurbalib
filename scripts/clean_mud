@@ -9,10 +9,10 @@ sub rm_dir {
    }
 }
 
-if (!-f "scripts/create_data_dirs.pl") {
+if (!-f "scripts/create_data_dirs") {
    print "Error I'm not in the right location.  You need to run this script\n";
    print "in the base directory gurablib.\n";
-   print "\tcd to your gurbalib then type: scripts/create_data_dirs.pl\n";
+   print "\tcd to your gurbalib then type: scripts/create_data_dirs\n";
    exit 1;
 }
 
@@ -42,5 +42,5 @@ rm_dir("lib/tmp");
 rm_dir("lib/logs");
 rm_dir("lib/wiz");
 
-print "You should run scripts/create_data_dirs.pl to recreate your " .
+print "You should run scripts/create_data_dirs to recreate your " .
    "data directories.\n";

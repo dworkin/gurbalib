@@ -5,7 +5,7 @@ if [ -d ./lib/logs ]; then
 	mv $LOG $LOG.old
 else
 	echo "Cannot locate ./lib/logs"
-	echo "did you run scripts/create_data_dirs.pl?"
+	echo "did you run scripts/create_data_dirs?"
 	exit 1
 fi
 

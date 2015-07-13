@@ -2,7 +2,7 @@
 #
 # Use this script to download extra introduction to LPC documentation.
 # You should run this script from the gurbalib directory 
-# (./scripts/download_lpc_docs.pl)
+# (./scripts/download_lpc_docs)
 # $root is the final location of the docs.
 my $root = "./lib/doc/lpc";
 my ($fh, $i, $wget);
