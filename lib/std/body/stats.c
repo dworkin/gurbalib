@@ -4,8 +4,9 @@ mapping base_stats;
 mapping bonus_stats;
 
 string query_valid_base_stat(string statname) {
-   if (base_stats[statname])
+   if (base_stats[statname]) {
       return statname;
+   }
 }
 
 int query_stat(string statname) {
@@ -64,9 +65,6 @@ int query_bonus_stat(string statname) {
 void trim_base_stat(string statname) {
    int max, min;
 
-/* XXX Do we need this function??? its not currently used */
-   return;
-
    max = this_object()->query_race_object()->query_base_stat_maximum(statname);
    min = this_object()->query_race_object()->query_base_stat_minimum(statname);
 
@@ -80,15 +78,9 @@ void trim_base_stat(string statname) {
 void trim_bonus_stat(string statname) {
    int max, min;
 
-   max = 0;
+   max = 10;
    min = 0;
 
-   /* removed, query_bonus_stat_X functions don't exist in std/race
-   max = this_object()->query_race_object()->
-      query_bonus_stat_maximum(statname);    
-   min = this_object()->query_race_object()->
-      query_bonus_stat_minimum(statname);
-   */
    if (query_bonus_stat(statname) < min) {
       bonus_stats[statname] = min;
    } else if (query_bonus_stat(statname) > max) {
@@ -113,24 +105,13 @@ int add_base_stat(string statname, int amt) {
 }
 
 int add_timed_bonus_stat(string statname, int amt, int time) {
-   if (!base_stats) {
-      base_stats = ([]);
-   }
-   if (member_array(statname, VALID_STATS) == -1) {
-      return 0;
-   }
-   if (!base_stats[statname]) {
-      base_stats[statname] = amt;
-   } else {
-      base_stats[statname] += amt;
-   }
-   trim_base_stat(statname);
+   add_base_stat(statname, amt);
    call_out("add_base_stat", time, -amt);
    return 1;
 }
 
 int add_bonus_stat(string statname, int amt) {
-   if (!base_stats) {
+   if (!bonus_stats) {
       bonus_stats = ([]);
    }
    if (member_array(statname, VALID_STATS) == -1) {
@@ -217,30 +198,12 @@ void initialize_base_stats(void) {
    while (!sOK) {
 
       s = ({ "0", "0", "0", "0", "0", "0" });
-
-      s[0] = random(race->query_base_stat_maximum("str")
-         - race->query_base_stat_minimum("str") + 1)
-         + race->query_base_stat_minimum("str");
-
-      s[1] = random(race->query_base_stat_maximum("dex")
-         - race->query_base_stat_minimum("dex") + 1)
-         + race->query_base_stat_minimum("dex");
-
-      s[2] = random(race->query_base_stat_maximum("con")
-         - race->query_base_stat_minimum("con") + 1)
-         + race->query_base_stat_minimum("con");
-
-      s[3] = random(race->query_base_stat_maximum("int")
-         - race->query_base_stat_minimum("int") + 1)
-         + race->query_base_stat_minimum("int");
-
-      s[4] = random(race->query_base_stat_maximum("wis")
-         - race->query_base_stat_minimum("wis") + 1)
-         + race->query_base_stat_minimum("wis");
-
-      s[5] = random(race->query_base_stat_maximum("cha")
-         - race->query_base_stat_minimum("cha") + 1)
-         + race->query_base_stat_minimum("cha");
+      i = 0;
+      for(i=0; i < 6; i++) {
+         s[i] = random(race->query_base_stat_maximum(VALID_STATS[i]) -
+            race->query_base_stat_minimum(VALID_STATS[i]) + 1) +
+            race->query_base_stat_minimum(VALID_STATS[i]);
+      }
 
       if (!race->is_monster_race()) {
          sum = 0;
@@ -256,21 +219,18 @@ void initialize_base_stats(void) {
       }
    }
 
-   this_object()->set_base_stat("str", s[0] + race->query_stat_mod("str"));
-   this_object()->set_base_stat("dex", s[1] + race->query_stat_mod("dex"));
-   this_object()->set_base_stat("con", s[2] + race->query_stat_mod("con"));
-   this_object()->set_base_stat("int", s[3] + race->query_stat_mod("int"));
-   this_object()->set_base_stat("wis", s[4] + race->query_stat_mod("wis"));
-   this_object()->set_base_stat("cha", s[5] + race->query_stat_mod("cha"));
+   for (i = 0; i < 6; i++) {
+      this_object()->set_base_stat(VALID_STATS[i], s[i] + 
+         race->query_stat_mod(VALID_STATS[i]));
+   }
 }
 
 void initialize_bonus_stats(void) {
-   this_object()->set_bonus_stat("str", 0);
-   this_object()->set_bonus_stat("con", 0);
-   this_object()->set_bonus_stat("dex", 0);
-   this_object()->set_bonus_stat("int", 0);
-   this_object()->set_bonus_stat("wis", 0);
-   this_object()->set_bonus_stat("cha", 0);
+   int i;
+
+   for(i = 0; i < 6; i++) {
+      this_object()->set_bonus_stat(VALID_STATS[i], 0);
+   }
 }
 
 void initialize_stat_dependant_variables(void) {
