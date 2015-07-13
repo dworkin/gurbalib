@@ -19,27 +19,6 @@ static int object_size;
 
 void setup();
 
-void create(void) {
-   string tmp;
-
-   if (configured++) {
-      return;
-   }
-
-   short_desc = "";
-   ids = ( { "nondescript thing" } );
-   adjs = ( { } );
-
-   tmp = file_name();
-   set_autoload_filename(tmp);
-
-   if (!clone_num()) {
-      OBJECT_D->register_object(this_object());
-   } else {
-      OBJECT_D->register_clone(this_object());
-   }
-}
-
 void set_id(string str, varargs mixed args ...) {
    int i, max;
 
@@ -365,3 +344,24 @@ void set_gettable(int get) {
    gettable = get;
 }
 
+void create(void) {
+   string tmp;
+
+   if (configured++) {
+      return;
+   }
+
+   set_short("A nondescript thing");
+   set_id("thing");
+   set_long("It looks pretty boring.");
+   adjs = ( { } );
+
+   tmp = file_name();
+   set_autoload_filename(tmp);
+
+   if (!clone_num()) {
+      OBJECT_D->register_object(this_object());
+   } else {
+      OBJECT_D->register_clone(this_object());
+   }
+}
