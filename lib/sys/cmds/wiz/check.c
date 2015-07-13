@@ -336,7 +336,7 @@ void do_monster_check(object obj) {
    write("Doing monster check: " + obj->file_name() + "\n");
 
    tmp = obj->query_name();
-   if (!tmp || (tmp == "")) {
+   if (!tmp || (tmp == "") || (tmp == "mudlib")) {
       warn("Monster has no name.\n");
    }
 

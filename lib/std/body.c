@@ -24,7 +24,7 @@ void create(void) {
    hb::create();
    com::create();
    equipment = ([]);
-   living_name = nil;
+   living_name = "mudlib";
    wielding = ( {
       });
 }
