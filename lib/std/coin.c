@@ -1,9 +1,8 @@
 /* Created by Fudge */
 inherit "/std/object";
 
-string text;
+string text, currency;
 int amount;
-string currency;
 
 int set_currency(string str) {
    if (MONEY_D->is_currency(str)) {
@@ -51,18 +50,6 @@ void set_amount(int amt) {
    }
 }
 
-/* Setup some reasonable defaults.... */
-void create(void) {
-   ::create();
-   set_currency("ducat");
-   set_amount(1);
-
-   set_id("coin");
-   add_id("coins");
-   set_gettable(1);
-   set_value(1);
-}
-
 int query_weight(void) {
    return 0;
 }
@@ -78,3 +65,16 @@ int query_value(void) {
 int is_money(void) {
    return 1;
 }
+
+/* Setup some reasonable defaults.... */
+void create(void) {
+   ::create();
+   set_currency("ducat");
+   set_amount(1);
+
+   set_id("coin");
+   add_id("coins");
+   set_gettable(1);
+   set_value(1);
+}
+

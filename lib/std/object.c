@@ -353,7 +353,8 @@ void create(void) {
 
    set_short("A nondescript thing");
    set_id("thing");
-   set_long("It looks pretty boring.");
+   set_long("Error.  Something went wrong.  Please Show a wizard this " +
+	"object or file a bug report with the \"bug\" command.");
    adjs = ( { } );
 
    tmp = file_name();

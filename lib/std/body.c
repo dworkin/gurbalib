@@ -18,17 +18,6 @@ static object possessing;    /* The object this player/monster is possessing */
 static object possessor;     /* who is possessing this object */
 string living_name;
 
-void create(void) {
-   ob::create();
-   hp::create();
-   hb::create();
-   com::create();
-   equipment = ([]);
-   living_name = "mudlib";
-   wielding = ( {
-      });
-}
-
 int is_player(void) {  /* Player objects over write this one... */
    return 0;
 }
@@ -79,3 +68,14 @@ void set_name(string name) {
    living_name = name;
    set_id(name);
 }
+
+void create(void) {
+   ob::create();
+   hp::create();
+   hb::create();
+   com::create();
+   equipment = ([]);
+   living_name = "mudlib";
+   wielding = ({ });
+}
+

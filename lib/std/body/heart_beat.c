@@ -1,6 +1,4 @@
-static int heal_rate;
-static int heal_amount;
-static int heal_time;
+static int heal_rate, heal_amount, heal_time;
 int player_age;
 
 #define YEAR 31536000
@@ -22,18 +20,6 @@ void set_heal_step(int amt) {
 
 int query_heal_step(void) {
    return heal_amount;
-}
-
-void create(void) {
-   if (clone_num() ) {
-      EVENT_D->subscribe_event("heart_beat");
-      heal_time = 0;
-      heal_rate = 10;
-      heal_amount = 2;
-      if (!intp(player_age)) {
-         player_age = 0;
-      }
-   }
 }
 
 void event_heart_beat(void) {
@@ -206,5 +192,17 @@ void die(void) {
       }
       EVENT_D->unsubscribe_event("heart_beat");
       this_object()->destruct();
+   }
+}
+
+void create(void) {
+   if (clone_num() ) {
+      EVENT_D->subscribe_event("heart_beat");
+      heal_time = 0;
+      heal_rate = 10;
+      heal_amount = 2;
+      if (!intp(player_age)) {
+         player_age = 0;
+      }
    }
 }

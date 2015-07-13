@@ -3,22 +3,6 @@
 mapping base_stats;
 mapping bonus_stats;
 
-string query_valid_base_stat(string statname);
-int query_stat(string statname);
-int query_base_stat(string statname);
-int query_bonus_stat(string statname);
-void trim_base_stat(string statname);
-void trim_bonus_stat(string statname);
-int add_base_stat(string statname, int amt);
-int add_bonus_stat(string statname, int amt);
-int set_base_stat(string statname, int amt);
-int set_bonus_stat(string statname, int amt);
-mixed *query_all_stats();
-void initialize_base_stats();
-void initialize_bonus_stats();
-void initialize_stat_dependant_variables();
-void initialize_stats();
-
 string query_valid_base_stat(string statname) {
    if (base_stats[statname])
       return statname;
@@ -79,7 +63,10 @@ int query_bonus_stat(string statname) {
 
 void trim_base_stat(string statname) {
    int max, min;
+
+/* XXX Do we need this function??? its not currently used */
    return;
+
    max = this_object()->query_race_object()->query_base_stat_maximum(statname);
    min = this_object()->query_race_object()->query_base_stat_minimum(statname);
 

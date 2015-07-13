@@ -42,3 +42,4 @@ object *query_wielding(void) {
 object *query_wielded(void) {
    return wielding;
 }
+

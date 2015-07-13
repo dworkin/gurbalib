@@ -1,5 +1,4 @@
-static object *pSnoopees;
-static object *pSnooping;
+static object *pSnoopees, *pSnooping;
 
 void create(void) {
    pSnoopees = ( { } );

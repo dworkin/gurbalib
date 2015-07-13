@@ -3,9 +3,7 @@ inherit "/std/modules/m_messages";
 inherit "/std/modules/m_triggers";
 
 static mapping stored_items;
-static int will_buy;
-static int will_sell;
-static int restock_delay;
+static int will_buy, will_sell, restock_delay;
 
 int is_vendor(void) {
    return 1;
@@ -132,8 +130,7 @@ void add_item(string name, int amount) {
 }
 
 string query_list(void) {
-   string str, num;
-   string *objs;
+   string str, num, *objs;
    object obj;
    int i;
 

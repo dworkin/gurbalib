@@ -5,12 +5,6 @@ int armor_class;
 
 void setup(void);
 
-void create(void) {
-   ob::create();
-   add_ids("armor", "armour");
-   set_gettable(1);
-}
-
 int is_armor(void) {
    return 1;
 }
@@ -21,4 +15,10 @@ void set_ac(int ac) {
 
 int query_ac(void) {
    return armor_class;
+}
+
+void create(void) {
+   ob::create();
+   add_ids("armor", "armour");
+   set_gettable(1);
 }

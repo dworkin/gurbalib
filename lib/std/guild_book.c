@@ -60,8 +60,6 @@ void leave_guild(string str) {
       this_object()->do_leave(player);
 
       if (CHANNEL_D->query_channel(query_guild())) {
-
-write("Attempting to leave channel " + query_guild() + "\n");
          CHANNEL_D->chan_leave(query_guild(), player);
       }
 

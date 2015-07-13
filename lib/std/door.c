@@ -5,9 +5,7 @@ inherit "/std/modules/m_openable";
 inherit "/std/modules/m_messages";
 inherit "/std/modules/m_block_exits";
 
-static string our_exit;
-static string our_identity;
-static string sibling_room;
+static string our_exit, our_identity, sibling_room;
 static object sibling;
 
 void create(void) {

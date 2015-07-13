@@ -7,9 +7,8 @@ inherit "/std/body/skills";
 inherit "/std/modules/m_messages";
 inherit "/std/modules/m_actions";
 
-static int aggressive;
-int spell_chance, spell_damage;
-string spell_message;
+static int aggressive, spell_chance, spell_damage;
+static string spell_message;
 
 void create(void) {
    int x;

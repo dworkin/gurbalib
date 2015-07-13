@@ -2,35 +2,11 @@
 
 inherit cont "/std/container";
 
-static mapping exits;
-static mapping hidden_exits;
-static mapping areas;
-static mapping items;
-static int last_exit;
-static int weather;
-static int light;
+static mapping exits, hidden_exits, areas, items;
+static int last_exit, weather, light;
 string dark_msg;
 
 void setup(void);
-
-void create(void) {
-   cont::create();
-   add_event("body_enter");
-   add_event("body_leave");
-   add_event("body_look");
-   add_event("body_look_at");
-   add_event("room_message");
-   if (!WORLD_PERSIST) {
-     EVENT_D->subscribe_event("clean_up");
-   }
-   exits = ([]);
-   hidden_exits = ([]);
-   areas = ([]);
-   items = ([]);
-   last_exit = 0;
-   light = 1;
-   setup();
-}
 
 int is_room(void) {
    return 1;
@@ -328,9 +304,7 @@ void add_item(string id, varargs mixed args ...) {
 void remove_item(string id) {
    mapping temp_desc;
    int size, i;
-   string *values;
-   string *indices;
-   string description;
+   string description, *indices, *values;
 
    if (!items) {
       items = ([]);
@@ -442,8 +416,7 @@ int check_block_object(object obj,string dir,object who) {
 string body_exit(object who, string dir) {
    int i, max;
    string error, lname, aname;
-   object *inventory;
-   object room;
+   object room, *inventory;
 
    if (!query_exit(dir) && !query_hidden_exit(dir)) {
       write("You can't go " + dir + ".\n");
@@ -567,3 +540,21 @@ void upgraded(void) {
    }
 }
 
+void create(void) {
+   cont::create();
+   add_event("body_enter");
+   add_event("body_leave");
+   add_event("body_look");
+   add_event("body_look_at");
+   add_event("room_message");
+   if (!WORLD_PERSIST) {
+     EVENT_D->subscribe_event("clean_up");
+   }
+   exits = ([]);
+   hidden_exits = ([]);
+   areas = ([]);
+   items = ([]);
+   last_exit = 0;
+   light = 1;
+   setup();
+}

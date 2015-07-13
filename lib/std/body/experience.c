@@ -1,5 +1,4 @@
-int experience;
-int level;
+int level, experience;
 
 int ready_for_next_level(void) {
    int tmpexp;

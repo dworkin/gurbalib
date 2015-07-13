@@ -36,14 +36,6 @@ static int extinguish(void) {
    return 1;
 }
 
-void create(void) {
-   obj::create();
-
-   set_fuel(1000);
-   add_action("do_light", "light");
-   add_action("do_extinguish", "extinguish");
-}
-
 private int burn_fuel(void) {
    object room;
 
@@ -204,5 +196,13 @@ int do_extinguish(string str) {
    }
 
    return extinguish();
+}
+
+void create(void) {
+   obj::create();
+
+   set_fuel(1000);
+   add_action("do_light", "light");
+   add_action("do_extinguish", "extinguish");
 }
 

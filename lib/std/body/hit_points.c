@@ -1,16 +1,4 @@
-int cur_hp, max_hp;
-int cur_mana, max_mana;
-int cur_end, max_end;
-int is_dead;
-
-void create(void) {
-   cur_hp = 1;
-   max_hp = 1;
-   cur_mana = 1;
-   max_mana = 1;
-   cur_end = 1;
-   max_end = 1;
-}
+int cur_hp, max_hp, cur_mana, max_mana, cur_end, max_end, is_dead;
 
 void increase_hp(int hp) {
    if (cur_hp < max_hp) {
@@ -177,3 +165,13 @@ int is_alive(void) {
    }
    return 1;
 }
+
+void create(void) {
+   cur_hp = 1;
+   max_hp = 1;
+   cur_mana = 1;
+   max_mana = 1;
+   cur_end = 1;
+   max_end = 1;
+}
+

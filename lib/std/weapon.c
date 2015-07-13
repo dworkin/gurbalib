@@ -1,25 +1,8 @@
 inherit ob "/std/object";
 inherit "/std/modules/m_wieldable";
 
-int max_damage;
-int min_damage;
-int weapon_class;
-int hit_bonus;
-string weapon_skill;
-string *weapon_action;
-string weapon_miss;
-string *materials;
-
-void create(void) {
-   ob::create();
-   set_gettable(1);
-   max_damage = 1;
-   min_damage = 1;
-   hit_bonus = 0;
-   weapon_class = 0;
-   weapon_action = ({ "bonk" });
-   materials = ({ });
-}
+int max_damage, min_damage, weapon_class, hit_bonus;
+string weapon_skill, weapon_miss, *weapon_action, *materials;
 
 string *query_materials(void) {
    return materials;
@@ -143,3 +126,13 @@ void set_combat_stats(int min_d, int max_d, int hb) {
    set_hit_bonus(hb);
 }
 
+void create(void) {
+   ob::create();
+   set_gettable(1);
+   max_damage = 1;
+   min_damage = 1;
+   hit_bonus = 0;
+   weapon_class = 0;
+   weapon_action = ({ "bonk" });
+   materials = ({ });
+}

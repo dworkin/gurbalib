@@ -6,8 +6,7 @@
 
 string race;
 object race_object;
-string *vulnerabilities;
-string  hit_string;
+string hit_string, *vulnerabilities;
 
 void initialize_stats(void);
 

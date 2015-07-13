@@ -3,12 +3,8 @@
 
 inherit "/std/body/skills";
 
-mapping base_stat_minimum;
-mapping base_stat_maximum;
-mapping stat_mod;
-
-string race_short;
-string race_long;
+mapping base_stat_minimum, base_stat_maximum, stat_mod;
+string race_short, race_long;
 
 void create(void) {
    base_stat_minimum = ([]);

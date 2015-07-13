@@ -1,8 +1,6 @@
 inherit "/std/object";
 
-string board_id;
-string data_dir;
-
+string board_id, data_dir;
 mixed *msgs;
 
 void add_message(string from, string subj, string msg);
@@ -61,10 +59,6 @@ void restore_me(void) {
       default_data_dir();
    }
    unguarded("restore_object", data_dir + "/" + query_board_id() + ".o");
-}
-
-void create(void) {
-   ::create();
 }
 
 void check_restore(void) {
@@ -163,4 +157,8 @@ string query_message_list(string who) {
       msg += "[" + tmp + "] " + from + " " + subj + " " + date + "\n";
    }
    return msg;
+}
+
+void create(void) {
+   ::create();
 }

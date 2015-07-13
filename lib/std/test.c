@@ -1,18 +1,8 @@
 inherit "/std/object";
 
-int _numtests, _numsuccess;
+int _numtests, _numsuccess, verbose;
 string *_errors, *_errormsgs;
 object _reporter;
-int verbose;
-
-create() {
-   ::create();
-   _numtests = 0;
-   _numsuccess = 0;
-   _errors = ({});
-   _errormsgs = ({});
-   _reporter = this_player();
-}
 
 void set_verbose(int x) {
    verbose = x;
@@ -126,3 +116,11 @@ int run_test(mixed expected, string desc, string cmd, mixed args...) {
    return call_error(expected, res, desc);
 }
 
+create() {
+   ::create();
+   _numtests = 0;
+   _numsuccess = 0;
+   _errors = ({});
+   _errormsgs = ({});
+   _reporter = this_player();
+}

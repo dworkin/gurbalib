@@ -4,14 +4,7 @@ inherit ob "/std/object";
 
 static object *inventory;
 static mapping inv_map;
-static int internal_weight;
-static int internal_max_weight;
-
-void create(void) {
-   ob::create();
-   inventory = nil;
-   inv_map = ([]);
-}
+static int internal_weight, internal_max_weight;
 
 void set_internal_max_weight(int x) {
    internal_max_weight = x;
@@ -361,4 +354,10 @@ void upgraded(void) {
    }
 
    ::upgraded();
+}
+
+void create(void) {
+   ob::create();
+   inventory = nil;
+   inv_map = ([]);
 }
