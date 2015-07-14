@@ -10,6 +10,5 @@ void setup(void) {
    set_gettable(1);
 
    set_value(8);
-   set_size(10);
    set_weight(2);
 }

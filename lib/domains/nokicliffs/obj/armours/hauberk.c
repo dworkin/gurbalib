@@ -26,7 +26,7 @@ void setup(void) {
 
    set_slot("torso");
    set_value(20);
-   set_size(10);
+   set_size(3);
    set_weight(2);
 
    add_action("set_ac_cmd", "ac");

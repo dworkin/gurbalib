@@ -11,5 +11,6 @@ void setup(void) {
    set_remove_message("$N $vuntie $o.");
    set_ac(1);
    set_value(2);
+   set_size(6);
    set_weight(1);
 }

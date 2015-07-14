@@ -26,6 +26,7 @@ void setup(void) {
    set_message("Think of your love, squeeze the locket and you'll be with " +
       "them.");
    set_weight(3);
+   set_size(6);
    set_value(500);
 }
 

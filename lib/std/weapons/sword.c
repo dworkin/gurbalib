@@ -25,6 +25,6 @@ void setup(void) {
    set_sword_skill("medium");
 
    set_value(30);
-   set_size(10);
+   set_size(2);
    set_weight(2);
 }

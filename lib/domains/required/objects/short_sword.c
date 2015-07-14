@@ -10,6 +10,7 @@ void setup(void) {
    set_long("Your standard small sword.");
 
    set_value(30);
+   set_size(2);
    set_weight(2);
 }
 

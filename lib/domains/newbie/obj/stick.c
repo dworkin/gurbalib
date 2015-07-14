@@ -21,6 +21,6 @@ void setup(void) {
    set_unwield_message("$N $vloosen $p $vgrip on $o, and $vput it away.");
    set_weapon_action("bash");
    set_value(1);
-   set_size(10);
+   set_size(6);
    set_weight(2);
 }

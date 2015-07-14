@@ -10,7 +10,7 @@ void set_polearm_skill(string s) {
 void setup(void) {
    set_id("polearm");
    set_adj("long");
-   set_short("A long sword");
+   set_short("A polearm");
    set_long("Your standard long polearm.");
    set_gettable(1);
 
@@ -25,6 +25,6 @@ void setup(void) {
    set_polearm_skill("medium");
 
    set_value(30);
-   set_size(10);
+   set_size(4);
    set_weight(1);
 }

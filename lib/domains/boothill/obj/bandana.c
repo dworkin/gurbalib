@@ -44,6 +44,7 @@ void setup(void) {
    set_message("The label on the bandana reads: Hand wash only.\n" +
       "Shake vigorously to dry.");
    set_weight(3);
+   set_size(6);
    set_value(5);
 }
 

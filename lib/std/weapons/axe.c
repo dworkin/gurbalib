@@ -25,7 +25,7 @@ void setup(void) {
    set_axe_skill("medium");
 
    set_value(30);
-   set_size(10);
+   set_size(4);
    set_weight(1);
 }
 

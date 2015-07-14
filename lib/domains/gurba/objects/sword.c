@@ -20,6 +20,6 @@ void setup(void) {
    set_weapon_skill("combat/sharp/small");
 
    set_value(30);
-   set_size(10);
+   set_size(1);
    set_weight(8);
 }

@@ -7,16 +7,12 @@
 
 private int actual_size;
 
-int set_size(int size);
-int query_size(void);
-string convert_size(void);
-
 int set_size(int size) {
    if (!size) {
       return 0;
    }
 
-   if (!size > 6) {
+   if (size > 6) {
       return 0;
    }
 

@@ -377,13 +377,33 @@ void do_object_check(object obj) {
 
    if (obj->is_gettable()) {
       if (obj->query_weight() < 1) {
-         warn("Object gettable and weight < 1\n");
+         warn("Object gettable and weight < 1.\n");
       }
       if (obj->query_value() < 1) {
-         warn("Object gettable and value < 1\n");
+         warn("Object gettable and value < 1.\n");
       }
-   } else if (obj->query_value() > 1) {
-      warn("Object ungettable and value > 1\n");
+      if (obj->is_wearable() || obj->is_wieldable()) {
+         x = obj->query_size();
+         if ((x > 6) || (x < 1)) {
+            warn("Object size = " + x + "; should be 0 < size < 7.\n");
+         }
+      } else {
+         x = obj->query_size();
+	 if (x > 0) {
+            warn("Object size = " + x + " this object is not wearable or " +
+               "wieldable.\n");
+         }
+      }
+   } else {
+      if (obj->query_value() > 1) {
+         warn("Object ungettable and value > 1.\n");
+      }
+      if (obj->is_wearable()) {
+         warn("Object ungettable and wearable.\n");
+      }
+      if (obj->is_wieldable()) {
+         warn("Object ungettable and wieldable.\n");
+      }
    }
 
    functions = obj->query_actions();

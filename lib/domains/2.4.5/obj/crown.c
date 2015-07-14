@@ -12,6 +12,7 @@ void setup(void) {
    set_wear_message("$N $vput on $o.");
    set_remove_message("$N $vtake off $o");
    set_ac(1);
+   set_size(1);
    set_value(30);
    set_weight(2);
 }

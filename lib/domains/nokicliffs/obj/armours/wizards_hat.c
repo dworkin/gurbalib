@@ -54,5 +54,6 @@ void setup(void) {
       "in silver. It is high and pointed, quite obviously a " +
       "wizard's hat.");
    set_weight(1);
+   set_size(6);
    add_actions();
 }

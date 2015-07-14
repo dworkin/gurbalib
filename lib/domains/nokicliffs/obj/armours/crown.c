@@ -14,5 +14,6 @@ void setup(void) {
    set_remove_message("$N $vtake off $o");
    set_ac(2);
    set_value(3000);
+   set_size(3);
    set_weight(1);
 }

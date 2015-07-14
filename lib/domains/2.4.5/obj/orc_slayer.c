@@ -22,6 +22,6 @@ void setup(void) {
    set_unwield_message("$N $vloosen $p $vgrip on $o, and $vput it away.");
    set_weapon_action("slash");
    set_value(200);
-   set_size(10);
+   set_size(2);
    set_weight(10);
 }

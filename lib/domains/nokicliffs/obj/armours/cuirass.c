@@ -17,6 +17,7 @@ void setup(void) {
    set_remove_message("$N $vremove $o.");
    set_ac(10);
    set_value(5000);
+   set_size(3);
    set_weight(2);
 }
 
