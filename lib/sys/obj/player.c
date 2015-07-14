@@ -637,11 +637,13 @@ void write_prompt(void) {
    result = replace_string(result, "%_", "\n");
 
    if (this_environment()) {
-	  result = replace_string(result, "%l", this_environment()->file_name());
+	  result = replace_string(result, "%l",
+             this_environment()->file_name());
 	  if (!this_environment()->query_area()) {
 	     result = replace_string(result, "%a", "(none)");
 	  } else {
-	    result = replace_string(result, "%a", this_environment()->query_area());
+	    result = replace_string(result, "%a",
+               this_environment()->query_area());
 	  }
    } else {
 	  result = replace_string(result, "%l", "(no environment)");
@@ -760,7 +762,7 @@ void more_prompt(string arg) {
    }
 }
 
-/* Look around */
+/* Look around XXX this should be combined with the look command! */
 void do_look(int brief) {
    object save_player;
 
@@ -770,22 +772,11 @@ void do_look(int brief) {
    this_environment()->event("body_look", this_player());
    write(" ");
    if (query_wizard(this_object() ) ) {
-      write("%^BOLD%^<\"" + query_environment()->file_name()[1..] + "\">%^RESET%^");
+      write("%^BOLD%^<\"" + query_environment()->file_name() + "\">%^RESET%^");
    }
    write(this_environment()->query_desc(0));
 
    set_this_player(save_player);
-}
-
-/* Move */
-void do_go(string dir) {
-   string error;
-
-   error = this_environment()->body_exit(this_player(), dir);
-
-   if (error) {
-      write(error);
-   }
 }
 
 void do_quit(void) {
