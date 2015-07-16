@@ -42,7 +42,7 @@ void move_player(object player, object old_room, string direction, string room) 
       direction + " the rope.\n");
    player->query_environment()->tell_room(player, player->query_Name() +
       " climbs " + direction + " the rope.\n");
-   player->do_look(0);
+   player->do_look(player->query_environment());
 }
 
 void notify_rooms(string str) {

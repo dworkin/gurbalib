@@ -79,6 +79,6 @@ static void main(string str) {
       env->tell_room(this_player(),
          this_player()->query_Name() + " looks confused.\n");
    } else {
-      this_player()->do_look(0);
+      this_player()->do_look(this_environment());
    }
 }

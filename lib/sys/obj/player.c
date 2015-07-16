@@ -763,18 +763,18 @@ void more_prompt(string arg) {
 }
 
 /* Look around XXX this should be combined with the look command! */
-void do_look(int brief) {
+void do_look(object obj) {
    object save_player;
 
    save_player = this_player();
    set_this_player(this_object());
 
-   this_environment()->event("body_look", this_player());
+   obj->event("body_look", this_player());
    write(" ");
    if (query_wizard(this_object() ) ) {
-      write("%^BOLD%^<\"" + query_environment()->file_name() + "\">%^RESET%^");
+      write("%^BOLD%^<\"" + obj->file_name() + "\">%^RESET%^");
    }
-   write(this_environment()->query_desc(0));
+   write(obj->query_desc(0));
 
    set_this_player(save_player);
 }

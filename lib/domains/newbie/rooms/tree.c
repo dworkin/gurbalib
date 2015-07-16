@@ -74,7 +74,7 @@ void enter_hole(void) {
          write("You wriggle through the hole.");
          this_object()->tell_room(this_player(),
             this_player()->query_Name() + " squeezes through the hole.\n");
-         this_player()->do_look(0);
+         this_player()->do_look(this_environment());
       }
    }
    return;

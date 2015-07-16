@@ -44,7 +44,7 @@ static void main(string str) {
 	    " disappears in a flurry of fluff.\n");
 	 usr->move(this_player()->query_environment());
 	 usr->message("You abruptly find yourself somewhere else.\n");
-	 usr->do_look(0);
+	 usr->do_look(usr->query_environment());
 	 usr->query_environment()->tell_room(usr, usr->query_Name() +
 	    " appears in a cloud of fluff.\n");
       } else {

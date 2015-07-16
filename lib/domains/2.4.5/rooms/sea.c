@@ -29,7 +29,7 @@ int dive(string str) {
          this_player()->move(dest);
          this_player()->query_environment()->tell_room(this_player(),
             this_player()->query_Name() + " swims down.\n");
-         this_player()->do_look(0);
+         this_player()->do_look(this_environment());
          return 1;
       }
    }

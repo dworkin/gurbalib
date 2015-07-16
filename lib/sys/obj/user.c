@@ -319,7 +319,7 @@ static void login_user(void) {
       }
 
       player->simple_action("$N $vlog in.\n");
-      player->do_look(0);
+      player->do_look(player->query_environment());
       player->write_prompt();
       remove_call_out(timeout_handle);
       LAST_D->add_entry(user_name, 1);

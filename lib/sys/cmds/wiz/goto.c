@@ -45,7 +45,7 @@ static void main(string str) {
 
 	 this_player()->query_environment()->tell_room(this_player(),
 	    this_player()->query_Name() + " appears from nowhere.\n");
-	 this_player()->do_look(0);
+	 this_player()->do_look(this_environment());
       } else {
 	 out("Going somewhere?\n");
       }
@@ -77,7 +77,7 @@ static void main(string str) {
 	 if (!ob || !this_player()->move(ob)) {
 	    write("\nConstruction blocks your path.\n");
 	 } else {
-	    this_player()->do_look(0);
+	    this_player()->do_look(this_environment());
 	 }
 	 this_environment()->tell_room(this_player(),
 	    this_player()->query_Name() + " appears.\n");

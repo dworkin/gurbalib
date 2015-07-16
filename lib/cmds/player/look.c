@@ -108,7 +108,8 @@ static void do_look(object obj) {
    if (obj == this_environment()) {
       this_environment()->event("body_look", this_player());
       if (query_wizard(this_player() ) ) {
-         write("%^BOLD%^<\"" + this_environment()->file_name() + "\">%^RESET%^");
+         write("%^BOLD%^<\"" + this_environment()->file_name() +
+            "\">%^RESET%^");
       }
 
       write(this_environment()->query_desc());

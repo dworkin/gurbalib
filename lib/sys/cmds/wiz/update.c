@@ -138,7 +138,7 @@ static void main(string str) {
       for (i = 0; i < sizeof(players); i++) {
 	 players[i]->move(str);
       }
-      this_player()->do_look(0);
+      this_player()->do_look(this_environment());
    } else if (file_exists(path + ".c")) {
       this_player()->write("Updating: " + path + ".c\n");
       this_player()->set_env("cwf", path + ".c");

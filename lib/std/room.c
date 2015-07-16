@@ -488,7 +488,7 @@ string body_exit(object who, string dir) {
    }
 
    if (who->is_player() || who->is_possessed()) {
-      call_other(this_player(), "do_look",0);
+      call_other(this_player(), "do_look",this_environment());
    }
 
    room = who->query_environment();

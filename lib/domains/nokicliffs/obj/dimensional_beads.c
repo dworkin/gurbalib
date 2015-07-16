@@ -41,28 +41,23 @@ int activate_cmd(string str) {
 
    if (lowercase(str) == "oak grove") {
       this_player()->move(NOKICLIFFS_OAK_GROVE_START);
-      this_player()->do_look(0);
    } else if (lowercase(str) == "doomspire") {
       this_player()->move(NOKICLIFFS_DOOMSPIRE_START);
-      this_player()->do_look(0);
    } else if (lowercase(str) == "abbey of law") {
       this_player()->move(NOKICLIFFS_ABBEY_START);
-      this_player()->do_look(0);
    } else if (lowercase(str) == "den of chaos") {
       this_player()->move(NOKICLIFFS_DEN_START);
-      this_player()->do_look(0);
    } else if (lowercase(str) == "hall of balance") {
       this_player()->move(NOKICLIFFS_HALL_START);
-      this_player()->do_look(0);
    } else if (lowercase(str) == "candyland" || lowercase(str) == "candy land") {
       this_player()->move(NOKICLIFFS_CANDYLAND_START);
-      this_player()->do_look(0);
    } else if (lowercase(str) == "murky mists") {
       this_player()->move(NOKICLIFFS_MURKY_MISTS_START);
-      this_player()->do_look(0);
    } else {
       write("Your beads cannot activate that pocket dimension.");
+      return 1;
    }
+   this_player()->do_look(this_environment());
    return 1;
 }
 
