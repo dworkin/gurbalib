@@ -123,8 +123,13 @@ int query_level(void) {
 
 /* Simple spell system for monsters */
 
-/* Takes a number 0-100 */
 int set_spell_chance(int x) {
+   if (x < 0) {
+      x = 0;
+   }
+   if (x > 100) {
+      x = 100;
+   }
    spell_chance = x;
 }
 

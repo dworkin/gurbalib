@@ -348,6 +348,16 @@ void do_monster_check(object obj) {
    if (x < 1) {
       warn("Monster has no level.\n");
    }
+
+   if (obj->query_spell_message()) {
+      x = obj->query_spell_chance();
+      if (x < 1) {
+         warn("spell chance < 1\n");
+      }
+      if (x > 99) {
+         warn("spell chance > 99\n");
+      }
+   }
 }
 
 void do_money_check(object obj) {
