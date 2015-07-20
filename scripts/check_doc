@@ -80,6 +80,21 @@ sub get_see_also {
 	return @values;
 }
 
+sub get_doc_file {
+	my ($infile) = @_;
+
+	if ($infile =~ /safun\/(.*)/) {
+		return "./lib/doc/safun/$1";
+	} elsif ($infile =~ /afun\/(.*)/) {
+		return "./lib/doc/afun/$1";
+	} elsif ($infile =~ /kfun\/(.*)/) {
+		return ""; # XXX should do this but skipping for now...
+		return "./lib/doc/kfun/$1";
+	} else {
+		return "";
+	}
+}
+
 sub check_seealso {
 	my ($fullfile) = @_;
 	my ($dir, $subdir, $file) = get_dir_info($fullfile);
@@ -94,18 +109,21 @@ sub check_seealso {
 			print "\t$i\n";
 		}
 	}
-	foreach my $i (@values) {
-		my ($sd, $fn) = split('/', $i);
 
-		if ($sd eq $subdir) {
-			if (!-f "$dir/$fn") {
-				print "$file, SEE ALSO: no such file $i\n";
-			} else {
-				if (!file_contains("$dir/$fn",
-					"$subdir/$file")) {
-					print "SEE ALSO: $i does not " .
-						"reference $subdir/$file\n";
-				}
+	foreach my $i (@values) {
+		my $fullpath = get_doc_file($i);
+
+		if ($fullpath eq "") {
+			if ($Debug) {
+				print "Skipping $i, unable to determine " .
+					"fullpath\n";
+			}
+		} elsif (!-f "$fullpath") {
+			print "$file, SEE ALSO: no such file $i\n";
+		} else {
+			if (!file_contains($fullpath, "$subdir/$file")) {
+				print "SEE ALSO: $fullpath does not " .
+					"reference $subdir/$file\n";
 			}
 		}
 	}
