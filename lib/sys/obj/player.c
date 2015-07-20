@@ -12,7 +12,7 @@ inherit "/sys/lib/editor";
 inherit "/std/modules/m_autoload_string";
 inherit "/std/modules/m_language";
 inherit "/std/body/skills";
-inherit cmd M_CMDS;
+inherit cmd "/sys/lib/modules/m_cmds";
 
 static object user;		/* This players user object */
 static string input_to_func;	/* The function we're redirecting input to */
