@@ -16,7 +16,7 @@ RETURN VALUE
 	locale.
 
 EXAMPLES
-        string st;
+	string st;
 
 	st = query_thousands_separator("US");
 

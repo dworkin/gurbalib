@@ -28,7 +28,7 @@ EXAMPLES
 
 	obj = find_object(filename);
 	if (!obj) {
-           obj = compile_object(filename);
+	   obj = compile_object(filename);
 	   obj->setup();
 	}
 

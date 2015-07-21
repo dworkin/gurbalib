@@ -21,8 +21,8 @@ EXAMPLES
 
 	maxx =sizeof(list);
 	for (x=0; x< maxx; x++) {
-           write("list[ " + x + " ] = " + list[x] + "\n");
-        }
+	   write("list[ " + x + " ] = " + list[x] + "\n");
+	}
 
 SEE ALSO
 	safun/set_difference, safun/set_intersection, safun/set_invert,

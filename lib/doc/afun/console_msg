@@ -14,5 +14,6 @@ EXAMPLES
 	console_msg("ERROR: we have an error here.\n");
 
 SEE ALSO
-	safun/out, safun/out_unmod, safun/ruler, safun/say, afun/write
+	safun/horizontal_rule, safun/out, safun/out_unmod, safun/ruler,
+	safun/say, afun/write
 

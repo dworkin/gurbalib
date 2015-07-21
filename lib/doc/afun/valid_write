@@ -13,8 +13,8 @@ RETURN VALUE
 
 EXAMPLES
 	if (valid_write("/tmp/sirdude.txt")) {
-		write("You have access.\n");
-        }
+	   write("You have access.\n");
+	}
 
 NOTES
 	This afun only exists outside /kernel

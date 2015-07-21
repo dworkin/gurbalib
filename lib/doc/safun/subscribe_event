@@ -4,7 +4,6 @@ NAME
 SYNOPSIS
 	ob->subscribe_event(string name)
 
-
 DESCRIPTION
 	Subscribes this_object() to an event with the given name in the 
 	object ob. The event must have been added by 'ob' first.

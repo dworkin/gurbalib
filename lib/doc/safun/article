@@ -17,5 +17,5 @@ EXAMPLES
 	write("You clone " + art + " rock.\n");
 
 SEE ALSO
-	safun/invert_exit
+	safun/invert_exit, safun/pluralize
 

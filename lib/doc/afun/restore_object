@@ -16,9 +16,9 @@ RETURN VALUE
 EXAMPLES
 	#define MYDATA "/kernel/daemons/data/domain_d.o"
 
-        static void restore_me(void) {
-           save_object(MYDATA);
-        }
+	static void restore_me(void) {
+	   save_object(MYDATA);
+	}
 
 	void create(void) {
 	   unguarded("restore_me");

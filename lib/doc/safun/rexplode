@@ -4,7 +4,6 @@ NAME
 SYNOPSIS
 	string *rexplode(string str, string separator)
 
-
 DESCRIPTION
 	Return an array of substrings of str, divided by the given separator.
 	Unlike explode, rexplode will take the separators that str starts and 

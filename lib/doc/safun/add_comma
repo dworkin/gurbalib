@@ -6,7 +6,7 @@ SYNOPSIS
 
 DESCRIPTION
 	Take a string as input and insert comma's for number values
-        and return the results.  1000 becomes 1,000.
+	and return the results.  1000 becomes 1,000.
 
 RETURN VALUE
 	string

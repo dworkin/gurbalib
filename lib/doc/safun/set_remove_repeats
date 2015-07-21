@@ -19,7 +19,7 @@ EXAMPLES
 	a = ({5|1, 2, 3, 4, 4, 5,});
 
 	line = "Set c:\n";
-        
+
 	c = set_remove_repeats(a);
 	maxx = sizeof(c);
 	for (x = 0; x < maxx; x++) {

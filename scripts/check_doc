@@ -88,7 +88,6 @@ sub get_doc_file {
 	} elsif ($infile =~ /afun\/(.*)/) {
 		return "./lib/doc/afun/$1";
 	} elsif ($infile =~ /kfun\/(.*)/) {
-		return ""; # XXX should do this but skipping for now...
 		return "./lib/doc/kfun/$1";
 	} else {
 		return "";
@@ -121,7 +120,15 @@ sub check_seealso {
 		} elsif (!-f "$fullpath") {
 			print "$file, SEE ALSO: no such file $i\n";
 		} else {
-			if (!file_contains($fullpath, "$subdir/$file")) {
+			if ($fullpath =~ /.lib\/doc\/kfun(.*)/ &&
+				$subdir ne "kfun") {
+				# kfun's shouldn't reference non kfun's
+				if ($Debug) {
+					print "Skipping $fullpath " .
+						"$subdir/$file kfuns should " .
+						"not ref other docs\n";
+				}
+			} elsif (!file_contains($fullpath, "$subdir/$file")) {
 				print "SEE ALSO: $fullpath does not " .
 					"reference $subdir/$file\n";
 			}
@@ -158,6 +165,14 @@ sub check_blank_lines {
 	}
 }
 
+sub check_starts_with_space {
+	my ($file) = @_;
+
+	if (file_contains($file, "^\\ \\ \\ ",)) {
+		print "$file contains lines that start with space.\n";
+	}
+}
+
 sub check_file {
 	my ($file) = @_;
 	my $subname = "check_file";
@@ -165,7 +180,7 @@ sub check_file {
 	foreach my $i ("NAME", "SYNOPSIS", "DESCRIPTION", "RETURN", 
 		"EXAMPLES", "SEE") {
 
-		if (!file_contains($file,$i)) {
+		if (!file_contains($file, $i)) {
 			if ($i eq "SEE") {
 				print("$file is missing SEE ALSO\n");
 			} elsif ($i eq "RETURN") {
@@ -175,6 +190,8 @@ sub check_file {
 			}
 		}
 	}
+
+	check_starts_with_space($file);
 	check_seealso($file);
 	check_blank_lines($file);
 }
@@ -237,12 +254,16 @@ if ($Options{"debug"}) {
 if ($Options{"help"}) {
 	usage();
 } elsif (!$fname || $fname eq "") {
-	# Run through our default checks here..
-	# XXX Was previously looking to make sure each afun had a doc
-	# Need to add that back in.
-
 	my $dir = "./lib/doc/afun";
 	my $source = "./lib/kernel/lib/afun";
+	if (-d $dir) {
+		check_source_doc_match($source, $dir);
+		check_dir($dir);
+	} else {
+		print "Unable to find $dir\n";
+	}
+	$dir = "./lib/doc/safun";
+	$source = "./lib/sys/safun";
 	if (-d $dir) {
 		check_source_doc_match($source, $dir);
 		check_dir($dir);

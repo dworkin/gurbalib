@@ -8,7 +8,7 @@ DESCRIPTION
 	Test read or write access to a file with the provided name. This 
 	file does not have to exist.  mode == 0 tests read access, 1 
 	tests write access.
-      
+
 RETURN VALUE
 	Returns 1 if the access is to be allowed and 0 if not allowed.
 

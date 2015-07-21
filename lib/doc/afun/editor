@@ -15,9 +15,9 @@ EXAMPLES
 	string tmp;
 
 	editor("edit /tmp/myfile.txt"); /* Open an existing file */
-   	editor("set sw=3");     /* Set the indent to 3 spaces */
-   	editor("I");		/* Call the function to auto indent the code */
-   	tmp = editor("wq!");    /* write and quit */
+	editor("set sw=3");     /* Set the indent to 3 spaces */
+	editor("I");		/* Call the function to auto indent the code */
+	tmp = editor("wq!");    /* write and quit */
 
 SEE ALSO
 	safun/cat_file, afun/copy, afun/get_dir, afun/make_dir, afun/read_file,

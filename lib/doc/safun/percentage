@@ -16,7 +16,7 @@ EXAMPLES
 	x = 5, y=100;
 	write("x = " + x + "\n");
 	write("y = " + y + "\n");
-        write(" x/y = " + percentage(x,y) + "%\n");
+	write(" x/y = " + percentage(x,y) + "%\n");
 
 SEE ALSO
 	 safun/round, safun/round_to_next, kfun/ceil, kfun/floor, kfun/fmod

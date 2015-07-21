@@ -25,20 +25,20 @@ EXAMPLES
 	string str;
 
 	str = "The fox\nWears socks\nIn the Spring\nNow were having fun.\n" +
-        "--------------------------- ----------------------------------\n" +
-        "bbbbbbbbbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n" +
-        "ccccccccccccccccccccccccccc cccccccccccccccccccccccccccccccccc\n";
+	   "--------------------------- ----------------------------------\n" +
+	   "bbbbbbbbbbbbbbbbbbbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n" +
+	   "ccccccccccccccccccccccccccc cccccccccccccccccccccccccccccccccc\n";
 	str = fmt_str(str, 20, 5, 1, 2);
 	write(str);
-        /* Output looks like this:
-        The fox Wears socks In the Spring Now were having fun.
-        ------------------------
-          ------------------------------------- 
-          bbbbbbbbbbbbbbbbbbbbbbbb 
-          bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb 
-          cccccccccccccccccccccccc 
-          ccccccccccccccccccccccccccccccccccccc
-        */
+	/* Output looks like this:
+	The fox Wears socks In the Spring Now were having fun.
+	------------------------
+	------------------------------------- 
+	bbbbbbbbbbbbbbbbbbbbbbbb 
+	bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb 
+	cccccccccccccccccccccccc 
+	ccccccccccccccccccccccccccccccccccccc
+	*/
 
 SEE ALSO
 	safun/add_comma, safun/empty_str, afun/lowercase,

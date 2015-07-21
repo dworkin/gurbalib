@@ -1,25 +1,26 @@
 NAME
-    say - notify all users in same room as this_player
+	say - notify all users in same room as this_player
 
 SYNOPSIS
-    void say(string message, varargs object obj)
+	void say(string message, varargs object obj)
 
 DESCRIPTION
-    Send 'message' to all players in room with obj.  If
-    obj is not defined it will be set to this_player().
-    The message may contain color codes, as described in
-    /doc/misc/ansi_colors.  Any color codes in string 
-    message are translated into ansi color codes,
-    the message is wrapped before being sent to the
-    players.
+	Send 'message' to all players in room with obj.  If
+	obj is not defined it will be set to this_player().
+	The message may contain color codes, as described in
+	/doc/misc/ansi_colors.  Any color codes in string 
+	message are translated into ansi color codes,
+	the message is wrapped before being sent to the
+	players.
 
 RETURN VALUE
-    NA (void)
+	NA (void)
 
 EXAMPLES
-    write("You look at the sign.");
-    say(this_player()->query_Name() + " looks at the sign.");
+	write("You look at the sign.");
+	say(this_player()->query_Name() + " looks at the sign.");
 
 SEE ALSO
-    afun/console_msg, safun/out, safun/out_unmod, safun/ruler, afun/write
+	afun/console_msg, safun/horizontal_rule, safun/out, safun/out_unmod,
+	safun/ruler, afun/write
 

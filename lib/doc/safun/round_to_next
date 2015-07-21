@@ -14,7 +14,6 @@ RETURN VALUE
 EXAMPLES
 	round_to_next(38, 15) returns 45.
 
-
 SEE ALSO
 	safun/percentage, safun/round, kfun/ceil, kfun/floor, kfun/fmod
 

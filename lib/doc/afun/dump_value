@@ -12,7 +12,7 @@ RETURN VALUE
 EXAMPLES
 	mixed *filenames;
 
-        filenames = ([ ]);
+	filenames = ([ ]);
 	filenames[1] = "/tmp/sirdude.txt";
 
 	write ("Filename = " + dump_value(filenames[1]) + "\n");

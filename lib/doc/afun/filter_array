@@ -18,10 +18,10 @@ RETURN VALUE
 	for which ob->fun(elem, extra) returns something other then 0 or nil.
 
 EXAMPLES
-        object *wizards, players;
+	object *wizards, players;
 
-        players = players();
-        wizards = split_array(players, "query_wizard");
+	players = players();
+	wizards = split_array(players, "query_wizard");
 
 SEE ALSO
 	afun/map_array, safun/member_array, safun/member_map,

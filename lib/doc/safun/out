@@ -20,5 +20,6 @@ EXAMPLES
 	out("Hello World\n");
 
 SEE ALSO
-	afun/console_msg, safun/out_unmod, safun/ruler, safun/say, afun/write
+	afun/console_msg, safun/horizontal_rule, safun/out_unmod,
+	safun/ruler, safun/say, afun/write
 

@@ -17,5 +17,5 @@ EXAMPLES
 	name = capitalize(this_player()->query_name());
 
 SEE ALSO
-	safun/add_comma, afun/lowercase, afun/uppercase
+	safun/add_comma, afun/lowercase, safun/pluralize, afun/uppercase
 

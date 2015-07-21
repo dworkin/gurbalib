@@ -4,7 +4,6 @@ NAME
 SYNOPSIS
 	void remove_event(string name)
 
-
 DESCRIPTION
 	Removes the event with the given name, after this the event can 
 	no longer be signaled. All subscribers are removed when an 

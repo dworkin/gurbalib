@@ -18,8 +18,8 @@ RETURN VALUE
 	returned from the external call to sqlite3_exec.
 
 EXAMPLES
-        int x;
-        string st;
+	int x;
+	string st;
 
 	st = "drop table users";
 

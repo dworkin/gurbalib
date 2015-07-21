@@ -10,6 +10,17 @@ DESCRIPTION
 	'name' can refer to either an objects id or an objects filename.
 	If the object is not present, nil is returned.
 
+RETURN VALUE
+	Returns an object, or nil if the object is not found.
+
+EXAMPLES
+	object obj;
+
+	obj = this_object()->present("piano");
+	if (!obj) {
+	   write("Error no piano here.\n";
+	}
+
 SEE ALSO
 	find_object
 

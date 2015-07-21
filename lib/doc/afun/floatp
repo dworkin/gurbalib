@@ -1,14 +1,14 @@
 NAME
-        floatp - test if a variable is a float
+	floatp - test if a variable is a float
 
 SYNOPSIS
-        int floatp(mixed arg)
+	int floatp(mixed arg)
 
 DESCRIPTION
-        Check if 'arg' is a float.
+	Check if 'arg' is a float.
 
 RETURN VALUE
-        Returns 1 if 'arg' is a float, 0 otherwise.
+	Returns 1 if 'arg' is a float, 0 otherwise.
 
 EXAMPLES
 	float x;

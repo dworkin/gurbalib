@@ -32,7 +32,7 @@ EXAMPLES
 	         write("OBJ Name: " + values[x][TRACE_OBJNAME] + "\n");
 	         write("Prog Name: " + values[x][TRACE_PROGNAME] + "\n");
 	         write("Fun Name: " + values[x][TRACE_FUNCTION] + "\n");
-   	         write("Line #: " + values[x][TRACE_LINE] + "\n");
+	         write("Line #: " + values[x][TRACE_LINE] + "\n");
 	         write("External Call: " + values[x][TRACE_EXTERNAL] + "\n");
 	         write("First ARG: " + values[x][TRACE_FIRSTARG] + "\n");
 	      }
@@ -42,6 +42,6 @@ EXAMPLES
 SEE ALSO
 	safun/players, afun/set_this_player, safun/this_body, 
 	afun/this_connection, safun/this_environment, afun/this_player, 
-	afun/this_program, safun/this_race, afun/this_user, kfun/call_trace,
+	safun/this_program, safun/this_race, afun/this_user, kfun/call_trace,
 	kfun/previous_object, kfun/previous_program
 
