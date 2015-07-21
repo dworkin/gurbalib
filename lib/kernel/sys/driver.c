@@ -23,8 +23,6 @@
 
 #undef DEBUG_RECOMPILE
 
-#define PAD "                                                                       "
-
 /*
  * Used by object_type(), maps between shortnames for
  * some common object types and their absolute path
@@ -38,8 +36,7 @@
 ])
 
 int tls_size, count, ocount, ident, shutting_down, boot_complete;
-object compiler_d, error_d, secure_d, syslog_d;
-object *users;
+object compiler_d, error_d, secure_d, syslog_d, *users;
 
 #ifdef SYS_NETWORKING
 object *ports;
@@ -255,12 +252,12 @@ void register_secure_d(void) {
  */
 
 static void write_auto_config(void) {
-   string *lines;
-   string res, opt;
+   string res, opt, *lines;
    int i, sz;
 
    remove_file("/kernel/include/auto_config.h.previous");
-   rename_file("/kernel/include/auto_config.h", "/kernel/include/auto_config.h.previous");
+   rename_file("/kernel/include/auto_config.h",
+      "/kernel/include/auto_config.h.previous");
 
    res = "#ifndef AUTO_CONFIG_DOT_H\n";
    res +="#define AUTO_CONFIG_DOT_H\n";
@@ -416,10 +413,8 @@ object call_object(string name) {
 }
 
 object inherit_program(string file, string program, int priv) {
-   object ob;
-   string *old_includes;
-   object *old_inherits;
-   string old_compiling, code;
+   object ob, *old_inherits;
+   string code, old_compiling, *old_includes;
    mixed stuff;
    int c;
 
@@ -551,12 +546,12 @@ object binary_connect(int port) {
 }
 
 void _interrupt(mixed * tls) {
-   object *usrs;
-   object p;
-   int i;
+   object p, *usrs;
+   int i, sz;
 
    usrs = users();
-   for (i = 0; i < sizeof(usrs); i++) {
+   sz = sizeof(usrs);
+   for (i = 0; i < sz; i++) {
       p = usrs[i]->query_player();
       if (p) {
          p->do_quit();
@@ -574,11 +569,12 @@ void interrupt(void) {
 
 void start_shutdown(void) {
    object p;
-   int i;
+   int i, sz;
 
    users = users();
 
-   for (i = 0; i < sizeof(users); i++) {
+   sz = sizeof(users);
+   for (i = 0; i < sz; i++) {
       p = users[i]->query_player();
       if (p) {
          p->do_quit();
@@ -760,8 +756,7 @@ void remove_program(string ob, int t, int issue) {
  * during an upgrade, this may need fixing later.
  */
 static int _touch(mixed tls, object ob, string func) {
-   object savep;
-   object *clones;
+   object savep, *clones;
    int i;
 
 #ifdef DEBUG_RECOMPILE
@@ -777,3 +772,4 @@ static int _touch(mixed tls, object ob, string func) {
 int touch(object ob, string func) {
    return _touch(allocate(query_tls_size()), ob, func);
 }
+
