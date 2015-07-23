@@ -83,6 +83,14 @@ makedir("lib/logs/errors");
 makedir("lib/logs/nobody");
 makedir("lib/wiz");
 
+if (!-f "lib/pub/README") {
+	makedir("lib/pub");
+	open($fh,">","lib/pub/README") or 
+		die "Unable to open: lib/pub/README\n";
+	print $fh "This directory is accesable via ftp, so Please be nice.\n";
+	close $fh;
+}
+
 if (!(-f "lib/daemons/data/emote_d.o")) {
    print "lib/daemons/data/emote_d.o does not exist, do you want to use " .
       "contrib/emote_d.o?  It has quite a few emotes.  If you say no here " .
