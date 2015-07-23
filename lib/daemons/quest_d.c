@@ -82,7 +82,7 @@ void create(void) {
          add_quest("AbandonedMine",1,"boothill");
       }
 
-      if (file_exists("/domains/2.4.5/monsters/leo.c")) {
+      if (file_exists("/domains/2.4.5/rooms/wiz_hall.c")) {
          add_quest("OrcSlayer",2,"2.4.5");
       }
    }
