@@ -47,7 +47,8 @@ private int baneful(object aggressor, object victim) {
    }
 
    inv = victim->query_inventory();
-   for (i = 0, dim = sizeof(inv); i < dim; i++) {
+   dim = sizeof(inv);
+   for (i = 0; i < dim; i++) {
       if (inv[i]->query_baneful(aggressor_banes)) {
          return 1;
       }
@@ -126,17 +127,19 @@ nomask object *query_inventory(void) {
 }
 
 object find_object_num(string name, int num) {
-   int i, j;
+   int i, j, maxi, maxj;
    string *ids;
    object *inv;
 
    inv = query_inventory();
 
    if (inv) {
-      for (i = 0; i < sizeof(inv); i++) {
+      maxi = sizeof(inv);
+      for (i = 0; i < maxi; i++) {
          ids = inv[i]->query_ids();
          if (ids) {
-            for (j = 0; j < sizeof(ids); j++) {
+            maxj = sizeof(ids);
+            for (j = 0; j < maxj; j++) {
                if (lowercase(ids[j]) == lowercase(name)) {
                   num--;
                   if (num == 0) {
@@ -165,16 +168,18 @@ object find_object_filename(string name) {
 }
 
 object find_adj_object_num(string adj, string name, int num) {
-   int i, j, k;
+   int i, j, k, maxi, maxj;
    string *ids, *adjs;
    object *inv;
 
    inv = query_inventory();
 
-   for (i = 0; i < sizeof(inv); i++) {
+   maxi = sizeof(inv);
+   for (i = 0; i < maxi; i++) {
       ids = inv[i]->query_ids();
       if (ids) {
-         for (j = 0; j < sizeof(ids); j++) {
+         maxj = sizeof(ids);
+         for (j = 0; j < maxj; j++) {
             if (lowercase(ids[j]) == lowercase(name)) {
                if (inv[i]->is_adj(adj) == 1) {
                   num--;
@@ -194,20 +199,23 @@ object find_adj_object(string adj, string name) {
 }
 
 object find_adjs_object_num(string * adj, string name, int num) {
-   int i, j, k;
+   int i, j, k, maxi, maxj, maxk;
    string *ids, *adjs;
    object *inv;
 
    inv = query_inventory();
 
-   for (i = 0; i < sizeof(inv); i++) {
+   maxi = sizeof(inv);
+   for (i = 0; i < maxi; i++) {
       ids = inv[i]->query_ids();
       if (ids) {
-         for (j = 0; j < sizeof(ids); j++) {
+         maxj = sizeof(ids);
+         for (j = 0; j < maxj; j++) {
             if (lowercase(ids[j]) == lowercase(name)) {
                int nFound;
                nFound = 1;
-               for (k = 0; k < sizeof(adj); k++) {
+               maxk = sizeof(adj);
+               for (k = 0; k < maxk; k++) {
                   if (!inv[i]->is_adj(adj[k])) {
                      nFound = 0;
                   }
@@ -265,11 +273,10 @@ void add_object(string filename, varargs int just_one) {
 }
 
 void set_objects(varargs string filename ...) {
-   object ob;
+   object ob, *inv;
    mapping obs;
    string name;
-   int i, j, num, done;
-   object *inv;
+   int i, j, num, done, maxi, maxj;
 
    inv = query_inventory();
    obs = ([]);
@@ -278,7 +285,8 @@ void set_objects(varargs string filename ...) {
       return;
    }
    /* remove object number */
-   for (i = 0; i < sizeof(filename); i++) {
+   maxi = sizeof(filename);
+   for (i = 0; i < maxi; i++) {
       if (strstr(filename[i], "#") != -1) {
          name = filename[i][0..strstr(filename[i], "#") - 1];
       } else {
@@ -293,12 +301,13 @@ void set_objects(varargs string filename ...) {
    }
 
    filename = map_indices(obs);
-
-   for (i = 0; i < sizeof(filename); i++) {
+   maxi = sizeof(filename);
+   for (i = 0; i < maxi; i++) {
       num = obs[filename[i]];
       done = 0;
 
-      for (j = 0; j < sizeof(inv); j++) {
+      maxj = sizeof(inv);
+      for (j = 0; j < maxj; j++) {
          if ((inv[j]->file_name() == filename[i]) ||
             (inv[j]->base_name() == filename[i])) {
             num--;
@@ -346,8 +355,8 @@ void upgraded(void) {
       inventory -= ({ 0, nil });
 
       inv_map = ([]);
-
-      for (i = 0, sz = sizeof(inventory); i < sz; i++) {
+      sz = sizeof(inventory);
+      for (i = 0; i < sz; i++) {
          inv_map[inventory[i]] = 1;
       }
       inventory = nil;
