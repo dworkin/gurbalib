@@ -1,18 +1,16 @@
-
-The channels allow group communication between users of the mud. Since
-working with others and communication is the key benefit of an online
-system these functions are highly important.
+Channels allow group communication between users of the mud, and other muds
+connected via intermud. Since working with others and communication is the
+key benefit of an online system these functions are highly important.
 
 The following are the key commands available:
 The channel system can be accessed through the chan command:
 
 chan        	Display a list of all channels available to you, and if you
 		have them on or off.
-chan /list	Display a list of channels you are subscribed to.
 
 Most of the channel commands take the form: chan (channel) /(action)
-chan gossip /on		Join the gossip channel
-chan gossip /off	Leave the gossip channel
+chan on gossip 		Join the gossip channel
+chan off gossip 	Leave the gossip channel
 
 To say something on the gossip channel you would use:
 	chan gossip Hi how is everyone today?
@@ -26,66 +24,61 @@ emotes and/or socials
     >  chan gossip ;smile
     [gossip] Mordain smiles.
 
-/hist
+hist
     shows the channel history
 
-    > chan gossip /hist
+    > chan hist gossip
     [gossip][Mar 18 19:54:14] Dil@Gev2: will have a laptop and mobile internet
     [gossip][Mar 18 19:54:54] Dil@Gev2: anyway, catch you later.
     [gossip][Mar 18 19:55:07] Han@Era: Have fun.
 
-""
-/who
+who
     if no arg, or the /who argument is given, chan will list who is
     subscribed to that channel.
+    > chan who dgd
 
-/new
+info
+    Displays information about the specified channel.
+    > chan info dgd
+
+Access level: WIZ
+new
     Access level: (WIZ)
     allows a new channel to be created
 
-/admin
-    Access level: (ADMIN)
+Access level: Admin
+admin
     Toggle a channel as Admin only access Wiz and users will be denied
     
-/wiz
-    Access level: (ADMIN)
+wiz
     Toggle a channel for Wiz access, player access will be denied
 
-/readonly
-    Access level: (ADMIN)
-    undocumented
+readonly
+    Toggle a channel as readonly.
+    > chan readonly dgdtest
 
-/permanent
-    undocumented
+permanent
+    Toggle a channel as permanent.
+    > chan permanent dgdtest
 
-/delete
-    unimplemented
+delete
+    Removes the specified channel.
+    > chan delete dgdtest
 
-/info
-    unimplemented
-
-/color
-    Access level: (ADMIN)
+color
     sets the highlight color for all users
 
-/imud
-    Access level: (ADMIN)
-    
-    chan dstest /new
-    chan dstest /imud dead_test4
-
-    >  chan dstest /new
+imud
+    >  chan new dstest
     Channel created.
-    >  chan dstest /imud dead_test4
-    >  chan dstest /on
+    >  chan imud dstest dead_test4
+    >  chan on dstest 
     Subscribed to dstest.
     >  dstest test
     >  [dstest] Admin@Warlords_Gurba: test
 
-
-/guild
-   Access level: (ADMIN)
+guild
    Toggle the channel to be for a specific guild.
 
-   > chan fighters /guild fighters
+   > chan guild fighters
    fighters is now a fighters guild only channel.
