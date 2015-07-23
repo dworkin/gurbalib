@@ -37,20 +37,21 @@ int query_will_sell(void) {
 void do_sell(object player, string what) {
    string *objs;
    object obj;
-   int i, found, value;
+   int i, found, value, maxi;
 
    objs = map_indices(stored_items);
 
    found = 0;
-   for (i = 0; i < sizeof(objs); i++) {
+   maxi = sizeof(objs);
+   for (i = 0; i < maxi; i++) {
 
       obj = clone_object(objs[i]);
       if (obj) {
          obj->move(this_object());
-    obj->setup();
+         obj->setup();
 
          /* Found the object */
-    if (obj->query_id() == what && found != 1) {
+         if (obj->query_id() == what && found != 1) {
             value = obj->query_value();
 
             if (stored_items[objs[i]] < 1) {
@@ -61,21 +62,21 @@ void do_sell(object player, string what) {
                      "$N $vgive $t $o", player, obj);
                   value = -1 * value;
                   player->add_money("ducat", value);
-             obj->move(player);
+                  obj->move(player);
                   stored_items[objs[i]] = stored_items[objs[i]] - 1;
                   found = 1;
                   return;
                } else {
                   write("You do not have enough money for that.\n");
-             obj->query_environment()->remove_object(obj);
-             obj->destruct();
+                  obj->query_environment()->remove_object(obj);
+                  obj->destruct();
                   return;
                }
             }
          } else {
-       obj->query_environment()->remove_object(obj);
-       obj->destruct();
-    }
+            obj->query_environment()->remove_object(obj);
+            obj->destruct();
+         }
       }
    }
 
@@ -132,7 +133,7 @@ void add_item(string name, int amount) {
 string query_list(void) {
    string str, num, *objs;
    object obj;
-   int i;
+   int i, maxi;
 
    if (!stored_items) {
       stored_items = ([]);
@@ -141,7 +142,8 @@ string query_list(void) {
    objs = map_indices(stored_items);
    str = "";
 
-   for (i = 0; i < sizeof(objs); i++) {
+   maxi= sizeof(objs);
+   for (i = 0; i < maxi; i++) {
 
       if (stored_items[objs[i]] > 0) {
          obj = clone_object(objs[i]);
