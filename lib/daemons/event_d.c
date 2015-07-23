@@ -13,7 +13,6 @@
 
 static mapping global_events;
 int eventid;
-int dummy;
 
 void create(void) {
    global_events = ([]);
@@ -41,7 +40,7 @@ void unsubscribe_event(string name) {
    global_events[name][previous_object()] = nil;
 }
 
-      /* set this_player for heartbeats coming from ob in player inv */
+/* set this_player for heartbeats coming from ob in player inv */
 static void special_heart_beat(object ob, string func, varargs mixed args) {
    rlimits(MAX_DEPTH; MAX_TICKS) {
       set_this_player(ob->query_environment() );
@@ -57,18 +56,16 @@ void dispatch_event(string name, object * obs, int *counters, int id,
    mixed * args) {
    int i, max_i, ticks_used, guard_handle;
 
-   dummy++;
-
    i = counters[0];
    max_i = counters[1];
 
    DB("dispatch: " + name + " (" + id + ") : starting at " + (i + 1) +
       " out of " + (max_i + 1));
 
-   /* First see if there are any more objects after this one */
+   /* First see if there are any more objects after this one
+      then dispatch for the next one to make sure all get the event
+      in case of errors */
    if (i < max_i) {
-      /* Go ahead and dispatch for the next one to make sure all get the event
-         in case of errors */
       guard_handle =
          call_out("dispatch_event", 0, name, obs, counters, id, args);
    } else {
