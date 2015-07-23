@@ -436,7 +436,7 @@ object inherit_program(string file, string program, int priv) {
       old_inherits = get_tlvar(TLS_INHERITS);
       old_compiling = get_tlvar(TLS_COMPILING);
 
-      set_tlvar(TLS_INCLUDES, ({ "/kernel/includes/std.h"}));
+      set_tlvar(TLS_INCLUDES, ({ "/kernel/include/std.h"}));
       set_tlvar(TLS_INHERITS, ({ }));
       set_tlvar(TLS_COMPILING, program);
 

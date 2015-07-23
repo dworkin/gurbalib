@@ -17,7 +17,7 @@ EXAMPLES
 	string name;
 
 	#define TLS_INCLUDES 3
-	set_tlvar(TLS_INCLUDES, ({ "/kernel/includes/std.h"}));
+	set_tlvar(TLS_INCLUDES, ({ "/kernel/include/std.h"}));
 	name = get_tlvar(TLS_INCLUDES);
 
 	write("Name = " + name + "\n");
