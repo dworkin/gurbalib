@@ -45,8 +45,6 @@ void add_skill(string skill) {
       skills = ( { } );
    }
 
-   skill = lowercase(skill);
-
    skills -= ( { skill } );
    skills += ( { skill } );
 
