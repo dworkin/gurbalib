@@ -30,21 +30,6 @@ nomask static int query_user_type(mixed player);
 nomask int query_wizard(mixed player);
 static string *rexplode(string str, string sep);
 
-#ifdef ENABLE_USER_LLISTS
-
-/* Non kernel access to kernel maintained doubly linked lists */
-
-int list_is_sentinel(string list);
-object list_next(string list);
-object list_sentinel(string list);
-atomic int list_new(string list);
-int list_prepend(string list, object member);
-int list_append(string list, object member);
-object list_next(string list);
-atomic int list_remove(string list);
-
-#endif
-
 nomask int is_game_object(void) {
    return 1;
 }
