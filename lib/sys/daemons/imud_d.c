@@ -800,7 +800,7 @@ void create(void) {
    int old_router;
 
    if (IMUD_NAME == "GurbaLib") {
-      "/kernel/sys/driver"->message("Please edit " +
+      DRIVER->message("Please edit " +
          "kernel/include/local_config.h " +
          "and change the MUD_NAME, IMUD_NAME and ADMIN_EMAIL defines\n");
       return;
