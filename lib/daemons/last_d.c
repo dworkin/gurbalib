@@ -1,16 +1,7 @@
 mapping last;
 
-static void restore_me(void);
-static void save_me(void);
-
-void create(void) {
-   last = ([]);
-   restore_me();
-}
-
 static void restore_me(void) {
    unguarded("restore_object", "/daemons/data/last.o");
-
 }
 
 static void save_me(void) {
@@ -18,7 +9,7 @@ static void save_me(void) {
 }
 
 void add_entry(string name, int on) {
-   string ip;
+   string ip, tmp;
    object usr;
 
    if ((usr = USER_D->find_player(name))) {
@@ -30,14 +21,14 @@ void add_entry(string name, int on) {
    }
 
    if (on) {
-      last[name] = "[%^CYAN%^" + ctime(time()) + "%^RESET%^] %^GREEN%^" +
-         capitalize(name) + "%^RESET%^ logs on from %^BOLD%^" +
-         ip + "%^RESET%^\n";
+      tmp = "on";
    } else {
-      last[name] = "[%^CYAN%^" + ctime(time()) + "%^RESET%^] %^GREEN%^" +
-         capitalize(name) + "%^RESET%^ logged off from %^BOLD%^" +
-         ip + "%^RESET%^\n";
+      tmp = "off";
    }
+
+   last[name] = "[%^CYAN%^" + ctime(time()) + "%^RESET%^] %^GREEN%^" +
+      capitalize(name) + "%^RESET%^ logs " + tmp + " from %^BOLD%^" + ip +
+      "%^RESET%^\n";
    save_me();
 }
 
@@ -52,12 +43,20 @@ string query_entry(string name) {
 
 string query_list(void) {
    string msg, *players;
-   int i;
+   int i, maxi;
 
    msg = "";
    players = map_indices(last);
-   for (i = 0; i < sizeof(players); i++) {
+   maxi = sizeof(players);
+   for (i = 0; i < maxi; i++) {
       msg += query_entry(players[i]);
    }
+
    return msg;
 }
+
+void create(void) {
+   last = ([]);
+   restore_me();
+}
+
