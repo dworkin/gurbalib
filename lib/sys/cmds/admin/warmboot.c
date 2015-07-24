@@ -142,7 +142,7 @@ atomic static void rebuild_critical(object p) {
    catch { compile_library(AUTO); }:{
       rethrow();
    }
-   catch { compile_library("/kernel/lib/auto-kernel"); }:{
+   catch { compile_library("/kernel/lib/auto"); }:{
       rethrow();
    }
    catch { ob = compile_object(COMPILER_D); }:{
