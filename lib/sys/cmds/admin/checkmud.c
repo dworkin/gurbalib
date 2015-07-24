@@ -98,10 +98,14 @@ int check_dir(string dirname) {
 }
 
 void check_domain(string domainname) {
-   if (file_exists("/domains/" + domainname) == -1) {
-      check_dir("/domains/" + domainname);
+   if (domainname == "") {
+      check_dir("/domains");
    } else {
-      write("No such domain: " + domainname + "\n");
+      if (file_exists("/domains/" + domainname) == -1) {
+         check_dir("/domains/" + domainname);
+      } else {
+         write("No such domain: " + domainname + "\n");
+      }
    }
 }
 
