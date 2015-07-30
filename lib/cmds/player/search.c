@@ -26,6 +26,11 @@ void usage(void) {
 static void main(string str) {
    object obj;
 
+   if (sscanf(str, "-%s", str)) {
+      usage();
+      return;
+   }
+
    if (this_environment()->is_dark()) {
       if (query_wizard(this_player())) {
          write("This room is dark, however, being a wizard allows " +
@@ -39,30 +44,13 @@ static void main(string str) {
       }
    }
 
-   if (empty_str(str)) {
-      if (!call_other(this_player()->query_environment(), "functionp", 
-         "do_search")) {
-         this_player()->query_environment()->tell_room(this_player(),
-           this_player()->query_Name() + " meticulously searches the room.\n");
-         write("You find nothing.\n");
-      } else {
-         call_other(this_player()->query_environment(),"do_search","");
+   if (!str || str == "" || strcmp(str,"room") == 0) {
+      obj = this_player()->query_environment();
+   } else {
+      obj = this_player()->present(str);
+      if (!obj) {
+         obj = this_player()->query_environment()->present(str);
       }
-      return;
-   }
-
-   if (sscanf(str, "-%s", str)) {
-      usage();
-      return;
-   }
-
-   obj = this_player()->present(lowercase(str));
-   if (!obj) {
-      obj = this_player()->query_environment()->present(lowercase(str));
-   }
-   if (!obj) {
-      write("Search what?\n");
-      return;
    }
 
    if (obj->is_living()) {
@@ -70,12 +58,10 @@ static void main(string str) {
       return;
    }
 
-   if (!call_other(obj,"functionp","do_search")) {
+   if (!call_other(obj, "do_search")) {
       this_player()->query_environment()->tell_room(this_player(),
          this_player()->query_Name() + " searches " + 
          obj->query_id() + "\n");
       write("You find nothing.\n");
-   } else {
-      call_other(obj,"do_search", "");
    }
 }

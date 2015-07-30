@@ -33,11 +33,11 @@ static void main(string str) {
    }
 
    if (!str || str == "" || strcmp(str,"room") == 0) {
-   obj = this_player()->query_environment();
+      obj = this_player()->query_environment();
    } else {
-      obj = this_player()->present(lowercase(str));
+      obj = this_player()->present(str);
       if (!obj) {
-         obj = this_player()->query_environment()->present(lowercase(str));
+         obj = this_player()->query_environment()->present(str);
       }
    }
 
