@@ -1,4 +1,26 @@
 int cur_hp, max_hp, cur_mana, max_mana, cur_end, max_end, is_dead;
+static int performance_enhancement;
+
+void set_performance_enhancement(int i) {
+   if (i < 0) {
+      i = 0;
+   }
+   performance_enhancement = i;
+}
+
+int get_performance_enhancement() {
+   if (performance_enhancement < 0) {
+      set_performance_enhancement(0);
+   }
+   return performance_enhancement;
+}
+
+int has_performance_enhancement() {
+   if (performance_enhancement < 0) {
+      set_performance_enhancement(0);
+   }
+   return performance_enhancement != 0;
+}
 
 void increase_hp(int hp) {
    if (cur_hp < max_hp) {
