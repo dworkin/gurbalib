@@ -5,8 +5,8 @@ SYNOPSIS
 	string query_thousands_separator(string locale)
 
 DESCRIPTION
-	This command works with the LPC_EXT_QUERY_THOUSANDS_SEPARATOR
-	if the extension is not enabled the function returns ",";
+	This command works with the LPC_EXT_QUERY_LOCALE_DATA extension.
+	If the extension is not enabled the function returns ",".
 
 	You can find the extension on github here:
 	https://github.com/november-kilo/dgd-lpc-ext
@@ -22,5 +22,5 @@ EXAMPLES
 
 SEE ALSO
 	afun/blog_it, afun/filelastmod, afun/files_modified, 
-	afun/sqlite3_exec, afun/sqlite3_select
+	afun/sqlite3_exec, afun/sqlite3_select, afun/query_locale_data
 

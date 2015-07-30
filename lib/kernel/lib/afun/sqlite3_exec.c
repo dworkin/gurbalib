@@ -1,10 +1,11 @@
 int *sqlite3_exec(string filename, string sql) {
-#ifdef LPC_EXT_SQLITE3_EXT
+#ifdef LPC_EXT_SQLITE3_EXEC
    int *i;
 
    argcheck(filename, 1, "string");
    argcheck(sql, 2, "string");
-   if (!valid_write(filename)) {
+
+   if (!valid_read(filename) && !valid_write(filename)) {
       return nil;
    }
 

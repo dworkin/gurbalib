@@ -1,5 +1,5 @@
 mixed **sqlite3_select(string filename, string sql) {
-#ifdef LPC_EXT_SQLITE3
+#ifdef LPC_EXT_SQLITE3_SELECT
    mixed **result_set;
 
    argcheck(filename, 1, "string");

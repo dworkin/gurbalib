@@ -1,0 +1,30 @@
+NAME
+	query_locale_data - lpc extension
+
+SYNOPSIS
+	string *query_locale_data(string locale)
+
+DESCRIPTION
+	This command works with the LPC_EXT_QUERY_LOCALE_DATA extension.
+	If the extension is not enabled the function returns nil.
+
+	You can find the extension on github here:
+	https://github.com/november-kilo/dgd-lpc-ext
+
+RETURN VALUE
+	Returns a string array that contains the locale data for the given
+	locale. The structure of the data is reflected in the lconv struct.
+
+EXAMPLES
+	string *st;
+
+	st = *query_locale_data("en_US");
+
+TODO
+	This command should take the place of afun/query_thousands_sep.
+
+SEE ALSO
+	afun/blog_it, afun/filelastmod, afun/files_modified, 
+	afun/sqlite3_exec, afun/sqlite3_select,
+	afun/query_thousands_separator
+

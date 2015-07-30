@@ -15,17 +15,20 @@ DESCRIPTION
 RETURN VALUE
 	If extension is not enabled, or filename is unreadable this
 	command will return nil.  Otherwise it will return the value
-	returned from the external call to sqlite3_exec.
+	returned from the external call to sqlite3_exec. It is an
+	array of type int; the first element is the return status
+	value (found in /usr/include/sqlite.h) and the second
+	element is the number of changes the query made. 
 
 EXAMPLES
-	int x;
+	int *x;
 	string st;
 
 	st = "drop table users";
 
 	x = sqlite3_exec("/tmp/mydatabase.sql", st);
-	if (x) {
-	   write("Success.\n");
+	if (x[0] == 0) {
+	   write("Success. " + x[1] + " change(s) were made.\n");
 	} else {
 	   write("Error in statement: " + st + "\n";
 	}
