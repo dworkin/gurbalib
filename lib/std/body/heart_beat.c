@@ -1,5 +1,7 @@
 static int heal_rate, heal_amount, heal_time;
 int player_age;
+int stunned;
+int paralysed;
 
 #define YEAR 31536000
 #define DAY 86400
@@ -20,6 +22,36 @@ void set_heal_step(int amt) {
 
 int query_heal_step(void) {
    return heal_amount;
+}
+
+int query_paralysed(void) {
+	return paralysed;
+}
+
+int query_stunned(void) {
+	return stunned;
+}
+
+void set_paralysed(int duration) {
+	paralysed = duration;
+}
+
+void set_stunned(int duration) {
+	stunned = duration;
+}
+
+void reduce_stunned() {
+	stunned--;
+	if (stunned < 0) {
+		stunned = 0;
+	}
+}
+
+void reduce_paralysed() {
+	paralysed--;
+	if (paralysed < 0) {
+		paralysed = 0;
+	}
 }
 
 void event_heart_beat(void) {
@@ -55,12 +87,17 @@ void event_heart_beat(void) {
       if (!this_object()->is_player()) {
          this_object()->do_extra_actions();
       }
+		
+		reduce_stunned();
+		reduce_paralysed();
 
       /* Check here to see is we are in combat, if so, continue battle */
-      if (this_object()->is_fighting() > 0) {
+      if (!query_paralysed() && !query_stunned() &&
+				this_object()->is_fighting() > 0) {
          this_object()->do_fight();
       } else {
-         if (function_object("event_wander", this_object())) {
+         if (!query_paralysed() &&
+					function_object("event_wander", this_object())) {
             call_other(this_object(), "event_wander");
          }
       }
