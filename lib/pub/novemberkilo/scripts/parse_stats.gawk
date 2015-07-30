@@ -19,19 +19,14 @@ END {
 	PROCINFO["sorted_in"] = "@val_num_desc";
 	print "Last run on", strftime("%d/%m/%Y at %H:%M:%S", systime());
 	print "\nMOST ENTERED";
-	print_enter_data();
+	print_data(enter_data);
 	print "\nKILLERS";
-	print_killers_data();
+	print_data(killers_data);
 }
 
-function print_killers_data() {
-	asort(killers_data, sorted_data);
-	print_simple_data(killers_data);
-}
-
-function print_enter_data() {
-	asort(enter_data, sorted_data);
-	print_simple_data(enter_data);
+function print_data(data) {
+	asort(data, sorted_data);
+	print_simple_data(data);
 }
 
 function print_simple_data(data) {
