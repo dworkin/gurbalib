@@ -11,13 +11,25 @@ BEGIN {
 	enter_data[$2]++;
 }
 
+/killed:/ {
+	killers_data[$2]++;
+}
+
 END {
+	PROCINFO["sorted_in"] = "@val_num_desc";
 	print "Last run on", strftime("%d/%m/%Y at %H:%M:%S", systime());
+	print "\nMOST ENTERED";
 	print_enter_data();
+	print "\nKILLERS";
+	print_killers_data();
+}
+
+function print_killers_data() {
+	asort(killers_data, sorted_data);
+	print_simple_data(killers_data);
 }
 
 function print_enter_data() {
-	PROCINFO["sorted_in"] = "@val_num_desc";
 	asort(enter_data, sorted_data);
 	print_simple_data(enter_data);
 }
