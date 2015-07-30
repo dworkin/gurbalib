@@ -47,10 +47,16 @@ int query_kills(void) {
 }
 
 void add_killed_by(object who, int t) {
+	string str;
    if (!mappingp(killed_by)) {
       killed_by = ([]);
    }
    killed_by[t] = who->file_name();
+#ifdef DO_STATS
+	str = "killed: " + this_object()->file_name() + " by " +
+		who->query_Name() + "(" + who->file_name() + "):" + t + "\n";
+	LOG_D->write_log("stats.raw", str);
+#endif
 }
 
 int query_killed(void) {
@@ -152,15 +158,7 @@ void receive_damage(object who, int dam) {
    if (this_object()->query_hp() <= dam) {
       x = this_object()->query_max_hp();
       killer = who;
-
       when = time();
-
-/* XXX Not sure why this isn't working need to figure it out */
-#ifdef STATS
-    LOG_D->write_log("stats.raw", "killed: " + this_object()->file_name() + 
-       " by " + who->file_name() + ":" + ctime(when) + "\n");
-#endif
-
       this_object()->add_killed_by(killer, when);
       this_object()->halt_fight();
       who->halt_fight();
