@@ -20,7 +20,7 @@ void setup(void) {
    ]));
 }
 
-int do_listen(string str) {
+int do_listen(void) {
    this_player()->write("You listen to the howling chaos winds from " +
       "the south.");
    TELL_ROOM(this_player(), this_player()->query_Name() + " listens to the " +

@@ -35,15 +35,12 @@ void setup(void) {
       "blood.");
 }
 
-int do_listen(string str) {
-   if (!str || str == "" || str == "room") {
-      write("To the north you hear metal clanging against metal, and the odd " +
-         "cry in agony. Once in a while you hear muffled laughter as well.");
-      this_player()->query_environment()->tell_room(this_player(),
-         this_player()->query_Name() + "Pauses to listen closely.\n");
-      return 1;
-   }
-   return 0;
+int do_listen(void) {
+   write("To the north you hear metal clanging against metal, and the odd " +
+      "cry in agony. Once in a while you hear muffled laughter as well.");
+   this_player()->query_environment()->tell_room(this_player(),
+      this_player()->query_Name() + "Pauses to listen closely.\n");
+   return 1;
 }
 
 /*

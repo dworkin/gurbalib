@@ -74,8 +74,6 @@ Modify combat so you can have multiple damage messages for a given weapon???
 
 Fix it so list works when objects don't compile.
 
-Fix listen and possibly search, it's not working right...
-
 When you first login on mud creation, you must logout 
 	before getting "admin rights"
 

@@ -17,7 +17,7 @@ void setup(void) {
    set_objects(NOKICLIFFS_MONSTERS_DIR + "/apep");
 }
 
-int do_listen(string str) {
+int do_listen(void) {
    this_player()->write("You listen to the howling chaos winds.");
    TELL_ROOM(this_player(), this_player()->query_Name() + " listens to the " +
       "howling chaos winds.");
