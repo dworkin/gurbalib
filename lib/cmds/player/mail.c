@@ -47,7 +47,7 @@ void delete_message(string str) {
 
    if (sscanf(str, "%d", x)) {
 
-/* XXX do the work here... delete(x); */
+/* XXX do the work here... delete(x); ... parse_range() would be good here. */
 
    } else {
       write("You need to enter a message number to delete.\n");
