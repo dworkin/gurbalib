@@ -16,15 +16,5 @@ void setup(void) {
 }
 
 void after_wear(object player) {
-   int ph;
-
-   ph = player->get_performance_enhancement();
-   player->set_performance_enhancement(ph + 1);
-}
-
-void after_unwear(object player, string cmd) {
-   int ph;
-
-   ph = player->get_performance_enhancement();
-   player->set_performance_enhancement(ph - 1);
+   player->message("You feel like your ready for some adventure.");
 }

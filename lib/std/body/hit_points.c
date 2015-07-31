@@ -71,6 +71,13 @@ void decrease_end(int end) {
    }
 }
 
+void decrease_performance_enhancement(int i) {
+   performance_enhancement -= i;
+   if (performance_enhancement < 0) {
+      performance_enhancement = 0;
+   }
+}
+
 void set_max_hp(int hp) {
    max_hp = hp;
 }

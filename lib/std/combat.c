@@ -293,6 +293,16 @@ int after_damage_hook(object aggressor, object weapon, int damage) {
    return damage;
 }
 
+private void handle_performance_enhancement_expires() {
+   if (this_object()->has_performance_enhancement()) {
+      this_object()->decrease_performance_enhancement(1);
+      if (!this_object()->has_performance_enhancement()) {
+         this_object()->message("You no longer feel like you could " +
+            "fight forever.");
+      }
+   }
+}
+
 void attack_with(string skill, object weapon, object target) {
    int me, tmp, damage;
 
@@ -307,6 +317,7 @@ void attack_with(string skill, object weapon, object target) {
       this_object()->message("You are too tired to attack.\n");
       return;
    } else {
+      handle_performance_enhancement_expires();
       if (!this_object()->has_performance_enhancement()) {
          this_object()->decrease_end(ATTACK_COST);
       }
