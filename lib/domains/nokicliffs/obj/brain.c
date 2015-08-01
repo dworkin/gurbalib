@@ -3,7 +3,7 @@
 inherit obj "/std/object";
 inherit timer "/std/body/heart_beat";
 
-#define INTERVAL 15
+#define INTERVAL 5
 static int count;
 static object guard;
 
@@ -82,8 +82,7 @@ void event_heart_beat(void) {
 }
 
 void die(void) {
-   this_object()->query_environment()->tell_room(nil,
-      "The jar explodes into a shower of sparks!");
+   TELL_ROOM(nil, "The jar explodes into a shower of sparks!");
    this_object()->destruct();
 }
 
