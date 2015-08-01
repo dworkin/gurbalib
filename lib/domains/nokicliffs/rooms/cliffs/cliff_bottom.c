@@ -17,6 +17,7 @@ void setup(void) {
       "west" : DIR + "/rooms/cliffs/path.c"
    ]));
    add_block("up");
+   set_objects(DIR + "/monsters/roving_bandit.c");
 }
 
 int do_block(object who) {
