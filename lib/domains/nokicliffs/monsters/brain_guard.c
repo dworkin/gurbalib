@@ -4,6 +4,7 @@ inherit "/std/monster";
 
 void setup(void) {
    set_name("guard");
+   add_id("brain guard");
    set_gender("male");
    set_short("Brain's guard");
    set_long("The brain's guard. He is a hulking beast with a " +

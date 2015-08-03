@@ -10,7 +10,7 @@
 #define NOKICLIFFS_HALL_START DIR + "/rooms/hall_of_balance/hall_of_balance_start.c"
 #define NOKICLIFFS_DEN_START DIR + "/rooms/den_of_chaos/den_of_chaos_start.c"
 #define NOKICLIFFS_BASE_CAMP DIR + "/rooms/cliffs/base_camp.c"
-#define NOKICLIFFS_BRAIN DIR + "/obj/brain.c"
+#define NOKICLIFFS_BRAIN DIR + "/obj/brain_in_jar.c"
 #define TELL_ROOM(o, str) o->query_environment()->tell_room(o, str)
 #define WIZHAT_COST 10
 #define NOKICLIFFS_WEAPONS_DIR DIR + "/obj/weapons"
