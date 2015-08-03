@@ -53,10 +53,6 @@ void summon_guard(void) {
    env = this_object()->query_environment();
 
    if (env) {
-      if (env->present("guard")) {
-         guard->respond("growl");
-         return;
-      }
       if (!find_object(NOKICLIFFS_BRAIN_GUARD)) {
          compile_object(NOKICLIFFS_BRAIN_GUARD);
       }
@@ -80,10 +76,5 @@ void event_heart_beat(void) {
          count = 0;
       }
    }
-}
-
-void die(void) {
-   TELL_ROOM(nil, "The jar explodes into a shower of sparks!");
-   this_object()->destruct();
 }
 

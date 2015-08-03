@@ -21,7 +21,7 @@ int cmd_break_jar(string str) {
          "a shower of sparks. The brain falls to the ground with " + 
          "a soft, wet thud.");
       destruct_object(brain);
-      /* XXX move a gettable brain into the room. */
+      add_object(NOKICLIFFS_BRAIN, 1);
    } else {
       write("There is no jar to break.");
    }
@@ -36,7 +36,7 @@ void setup(void) {
       "But it also feels like it might have been forgotten about a very long "+
       "time ago as there doesn't seem to be much left from those ancient " +
       "days.");
-   set_objects(NOKICLIFFS_BRAIN);
+   set_objects(NOKICLIFFS_BRAIN_IN_JAR);
    set_exits((["south" : DIR + "/rooms/cliffs/cave/puzzle_chamber.c"]));
    add_action("cmd_break_jar", "break");
 }

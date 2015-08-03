@@ -1,89 +1,18 @@
 #include "../domain.h"
 
 inherit obj "/std/object";
-inherit timer "/std/body/heart_beat";
-
-#define INTERVAL 5
-static int count;
-static object guard;
 
 void setup(void) {
-   obj::set_id("brain");
-   obj::add_id("jar");
-   obj::set_short("A brain in a jar of mystic fluid");
-   obj::set_long("A large brain suspended in a jar of mystic " +
-      "fluid. It has no apparent body but is definitely " +
-      "alive. At least the grey matter is, almost " +
-      "imperceptibly, pulsating within the fluid.");
-   obj::set_gettable(0);
-   obj::set_weight(1);
-   obj::set_value(0);
-   count = 0;
-}
-
-void create(void) {
-   obj::create();
-   timer::create();
-}
-
-string query_Name(void) {
-   return "brain";
-}
-
-string query_name(void) {
-   return "brain";
-}
-
-void remove_corpse(void) {
-   object *inv;
-   int i, dim;
-
-   inv = this_object()->query_environment()->query_inventory();
-   for (i = 0, dim = sizeof(inv); i < dim; i++) {
-      if (inv[i]->query_id() == "corpse") {
-         inv[i]->destruct();
-      }
-   }
-}
-
-void summon_guard(void) {
-   object env;
-
-   remove_corpse();
-   env = this_object()->query_environment();
-
-   if (env) {
-      if (env->present("guard")) {
-         guard->respond("growl");
-         return;
-      }
-      if (!find_object(NOKICLIFFS_BRAIN_GUARD)) {
-         compile_object(NOKICLIFFS_BRAIN_GUARD);
-      }
-      if (!guard) {
-         guard = clone_object(NOKICLIFFS_BRAIN_GUARD);
-         guard->setup();
-      }
-      guard->move(env);
-      env->tell_room(this_object(), "The brain's guardian " +
-         "appears in a puff of smoke.");
-      guard->announce_yourself();
-   }
-}
-
-void event_heart_beat(void) {
-   object env;
-   env = this_object()->query_environment();
-   if (env) {
-      if (++count > INTERVAL) {
-         summon_guard();
-         count = 0;
-      }
-   }
-}
-
-void die(void) {
-   TELL_ROOM(nil, "The jar explodes into a shower of sparks!");
-   this_object()->destruct();
+   set_id("brain");
+   add_adj("mystic");
+   add_id("mystic brain");
+   set_short("A mystic brain of unknown origins");
+   set_long("A mystic brain of unknown origins. It probably isn't of this " +
+      "world. It is also most likely imbued with some strange magic. You " +
+      "might consider not holding on to it longer than is absolutely " +
+      "necessary. There certainly are others who have uses for such things."); 
+   set_gettable(1);
+   set_weight(1);
+   set_value(0);
 }
 
