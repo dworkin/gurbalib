@@ -81,7 +81,6 @@ private string _owner;
 #include "afun/write.c"
 #include "afun/editor.c"
 #include "afun/blog_it.c"
-#include "afun/maths.c"
 #include "afun/bubblesort.c"
 #include "afun/filelastmod.c"
 #include "afun/files_modified.c"
