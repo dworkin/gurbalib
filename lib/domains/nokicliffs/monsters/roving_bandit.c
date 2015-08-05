@@ -48,6 +48,7 @@ void setup() {
    set_skill("combat/sharp/small", 75);
    set_skill("combat/defense", 100);
    equip();
+   add_coins("ducat", 100 + random(100));
 }
 
 void do_extra_actions() {

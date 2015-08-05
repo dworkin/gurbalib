@@ -11,7 +11,9 @@ static nomask void clothe(void) {
 }
 
 void setup(void) {
+   ::setup();
    set_gender("male");
+   set_race("human");
    clothe();
 }
 
