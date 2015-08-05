@@ -16,9 +16,9 @@ void setup(void) {
 }
 
 int do_eat(void) {
-   write("You drink the potion. You feel your stamina boost.\n");
+   write("You drink the potion. You feel your endurance boost.\n");
    this_player()->query_environment()->tell_room(this_player(),
-      this_player()->query_Name() + " drinks a potion of stamina.\n");
+      this_player()->query_Name() + " drinks a potion of endurance.\n");
    this_player()->increase_end(this_player()->query_max_end());
    this_player()->set_performance_enhancement(25 + random(25));
    this_object()->destruct();

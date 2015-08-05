@@ -36,6 +36,7 @@ void setup(void) {
    add_action("consider_cmd", "consider");
    add_action("bump_hit_points_cmd", "maxhp");
    set_materials(({"silver", "holy"}));
+   add_bane("holy");
 }
 
 int bump_hit_points_cmd(string str) {

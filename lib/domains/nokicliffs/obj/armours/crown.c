@@ -6,7 +6,7 @@ void setup(void) {
    set_short("A metal crown");
    set_long("This crown functions as a useful helmet." +
       " It is a simple crown of metal but you know that it's ancient " +
-      "and has rested upon the heads of the champions throughout the " +
+      "and has rested upon the heads of champions throughout the " +
       "ages.");
    set_gettable(1);
    set_slot("head");
