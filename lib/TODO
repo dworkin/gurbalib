@@ -12,7 +12,6 @@ makes sense.
 
 m_lockable, keys
 m_switchable, Levers
-tracking of most used rooms, objects
 auto dest/update of all instances of an object
 
 Old stuff from ../doc/TODO:
@@ -21,7 +20,6 @@ Old stuff from ../doc/TODO:
 - Ensure a create function in the auto object gets called
   to register new objects/clones
 - Rewrite fake objects module to use LWOs
-- Seperate inheritables from clonables
 - Add TLS support to the driver object
 - Rewrite object_d to track inheritance
 - Change update to deal with inheritables
