@@ -6,10 +6,10 @@ void setup(void) {
     ::setup();
 
     set_short("The summit of the Noki Cliffs");
-    set_long("You have reached the top of the Noki Cliffs. " +
+    set_long("You have reached the summit of the Noki Cliffs. " +
        "The air is very thin up here. It is not easy to " +
-       "to here breathe; you probably should not stay here " +
-       "for long.");
+       "to breathe here; you probably should not stay here " +
+       "for long if you wish to not suffocate.");
 
     set_objects(NOKICLIFFS_MONSTERS_DIR + "/guru.c");
     set_exits(([ "down" : NOKICLIFFS_BASE_CAMP ]));
