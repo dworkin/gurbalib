@@ -1,6 +1,7 @@
 #include "../../domain.h"
 
 inherit DIR + "/lib/room";
+inherit DIR + "/lib/climbing_gear_required";
 
 void setup(void) {
    ::setup();
@@ -14,4 +15,5 @@ void setup(void) {
       "up" : DIR + "/rooms/cliffs/summit.c",
       "down" : DIR + "/rooms/cliffs/cave/cave_start.c"
    ]));
+   add_block("up");
 }
