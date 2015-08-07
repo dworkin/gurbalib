@@ -5,8 +5,8 @@ void setup(void) {
    set_adj("large");
    set_short("A large tower shield");
    set_long("A large tower shield It has an intricate holy symbol " +
-      "elaborately created on the front of the tower shield. It is " +
-      "heavy and sturdy.");
+      "elaborately created on the front of it; perhaps the holy symbol " +
+      "will help those who fight the unholy. It is heavy and sturdy.");
    set_gettable(1);
 
    set_ac(4);

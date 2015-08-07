@@ -2,6 +2,7 @@
 
 inherit DIR + "/lib/room";
 inherit "/std/modules/m_block_exits";
+inherit DIR + "/lib/climbing_gear_required";
 
 void setup(void) {
    ::setup();
@@ -18,14 +19,5 @@ void setup(void) {
    ]));
    add_block("up");
    set_objects(DIR + "/monsters/roving_bandit.c");
-}
-
-int do_block(object who) {
-   if (who->present("climbing gear")) {
-      write("Fortunately you have some climbing gear that allows you to go.");
-      return 0;
-   }
-   write("You need some climbing gear first.");
-   return 1;
 }
 

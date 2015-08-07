@@ -9,7 +9,8 @@ void setup(void) {
    set_long("You are standing on a narrow ledge of the " +
       "Noki Cliffs. The drop off is steep and looks like " +
       "a fatal fall. However, you can manage to go west " +
-      "from here with sure feet.");
+      "from here with sure feet; to the west there looks " +
+      "to be a cave entrance which burrows into the cliff face.");
 
    set_exits(([
       "down" : DIR + "/rooms/cliffs/cliff_bottom.c",
