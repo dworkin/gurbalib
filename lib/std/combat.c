@@ -103,7 +103,8 @@ int run_away(void) {
    if (!empty_str(wimpy_dir) &&
     this_object()->query_environment()->query_exit(wimpy_dir)) {
       write("You attempt to run " + wimpy_dir + ".\n");
-      error = this_object()->this_environment()->body_exit(this_object(), wimpy_dir);
+      error = this_object()->this_environment()->body_exit(this_object(),
+         wimpy_dir);
       if (error) {
 	 write(error);
       } else {
@@ -112,7 +113,8 @@ int run_away(void) {
    } else if (!empty_str(wimpy_dir) &&
     this_object()->query_environment()->query_hidden_exit(wimpy_dir)) {
       write("You attempt to run " + wimpy_dir + ".\n");
-      error = this_object()->this_environment()->body_exit(this_object(), wimpy_dir);
+      error = this_object()->this_environment()->body_exit(this_object(),
+         wimpy_dir);
       if (error) {
 	 write(error);
       } else {
@@ -240,9 +242,7 @@ object get_target(object targ) {
 
    if (targ) {
       if (targ->is_dead()) {
-	 targets -= ( {
-	    targ}
-	 );
+	 targets -= ({ targ });
 	 if (sizeof(targets) == 0) {
 	    fighting = 0;
 	 }
@@ -511,30 +511,22 @@ void do_fight(void) {
 
 void attacked_by(object who) {
    if (!targets) {
-      targets = ( {
-      }
-      );
+      targets = ({ });
    }
-   targets += ( {
-      who}
-   );
+   targets += ({ who });
    target = who;
    fighting = FIGHTING_TIMEOUT;
 }
 
 void attack(object who) {
    if (!targets) {
-      targets = ( {
-      }
-      );
+      targets = ({ });
    }
    if (who->is_dead()) {
       return;
    }
 
-   targets += ( {
-      who}
-   );
+   targets += ({ who });
    fighting = FIGHTING_TIMEOUT;
    target = who;
    who->attacked_by(this_object());
