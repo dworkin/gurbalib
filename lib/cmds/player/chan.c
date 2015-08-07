@@ -125,15 +125,19 @@ static void chan_cmd(string cmd, string chan) {
          break;
       case "admin":
          CHANNEL_D->chan_set_flag(chan, ADMIN_ONLY);
+         write("Channel " + chan + " set to admin only access.\n");
          break;
       case "wiz":
          CHANNEL_D->chan_set_flag(chan, WIZ_ONLY);
+         write("Channel " + chan + " set to wizard only access.\n");
          break;
       case "open":
          CHANNEL_D->chan_set_flag(chan, ALL);
+         write("Channel " + chan + " set to open access.\n");
          break;
       case "readonly":
          CHANNEL_D->chan_set_flag(chan, READ_ONLY);
+         write("Channel " + chan + " set to read only access.\n");
          break;
       case "permanent":
          CHANNEL_D->chan_make_permanent(chan);
@@ -148,7 +152,7 @@ static void chan_cmd(string cmd, string chan) {
          CHANNEL_D->show_history(chan);
          break;
       case "delete":
-         CHANNEL_D->delete_chan(chan);
+         CHANNEL_D->chan_delete(chan);
          break;
       case "info":
          CHANNEL_D->show_info(chan);

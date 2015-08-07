@@ -123,7 +123,22 @@ int chan_delete(string chan) {
       return 0;
    }
 
-   /* XXX Need to do the work here */
+   if (permanent[chan]) {
+      write("Can not delete permanent channels.\n");
+      return 0;
+   }
+
+   channels -= ({ channels[chan] });
+   permanent -= ({ permanent[chan] });
+   colors -= ({ colors[chan] });
+   imud -= ({ imud[chan] });
+   guilds -= ({ guilds[chan] });
+   history -= ({ history[chan] });
+   listeners -= ({ listeners[chan] });
+   save_me();
+   write("Channel " + chan + " deleted.\n");
+
+   return 1;
 }
 
 int chan_new(string name, int flags) {
@@ -141,6 +156,7 @@ int chan_new(string name, int flags) {
    }
    channels[name] = flags;
    write("Channel created.\n");
+   save_me();
 
    return 1;
 }
