@@ -3,6 +3,7 @@ inherit M_COMMAND;
 #define DUMMY DOMAINS_DIR + "/required/objects/fake_emote.c"
 
 string *keys;
+int do_import;
 
 void init_keys(void) {
    keys = ({ "" });
@@ -41,11 +42,9 @@ void usage(void) {
    this_player()->more(lines);
 }
 
-/* XXX Need to add -i stuff  and get other stuff working */
-
 void do_diff(object obj, string emote, string myfile) {
-   string tag, value,value2;
-   int x, max;
+   string tag, value, value2;
+   int x, max, removal_needed;
 
    max = sizeof(keys);
 
@@ -62,16 +61,40 @@ void do_diff(object obj, string emote, string myfile) {
    write(myfile + " : " + emote + "\n");
 
    for (x = 0; x < max; x++) {
+      removal_needed = 0;
+
       value = EMOTE_D->query_emote(emote,keys[x]);
       value2 = obj->query_emote(emote,keys[x]);
       if ((value == "") && (value2 != "")) {
          tag = "+ ";
+         if (do_import) {
+            EMOTE_D->add_emote(emote,keys[x], value);
+         }
       } else if ((value != "") && (value2 == "")) {
          tag = "- ";
+         if (do_import) {
+            removal_needed = 1;
+         }
       } else if (value != value2) {
          tag = "! ";
+         if (do_import) {
+            EMOTE_D->add_emote(emote,keys[x], value);
+         }
       } else {
          tag = "= ";
+      }
+      if (removal_needed) {
+         EMOTE_D->remove_emote(emote);
+
+         if ((value == "") && (value2 != "")) {
+            EMOTE_D->add_emote(emote,keys[x], value);
+         } else if ((value != "") && (value2 == "")) {
+            /* This was a - so do nothing */
+         } else if (value != value2) {
+            EMOTE_D->add_emote(emote,keys[x], value);
+         } else {
+            EMOTE_D->add_emote(emote,keys[x], value);
+         }
       }
 
       if (!value2) {
@@ -84,7 +107,7 @@ void do_diff(object obj, string emote, string myfile) {
 void do_fulldiff(object obj, string myfile) {
    mapping big;
    string *values, *value1, *value2;
-   int x, max;
+   int x, max, y, maxy, removal_needed;
    string tag;
 
    values = EMOTE_D->query_emotes();
@@ -103,17 +126,55 @@ void do_fulldiff(object obj, string myfile) {
    write("Fulldiff EMOTE_D, " + myfile + "\n");
    max = map_sizeof(big);
    values = map_indices(big);
+
+   maxy = sizeof(keys);
+
    for (x = 0; x < max; x++) {
+      removal_needed = 0;
       value1 = EMOTE_D->query_rules(values[x]);
       value2 = obj->query_rules(values[x]);
+
       if (value1 && !value2) {
          tag = "+  ";
+         if (do_import) {
+            for (y = 0; y< maxy; y++) {
+               EMOTE_D->add_emote(values[x], keys[y], value1[y]);
+            }
+         }
       } else if (!value1 && value2) {
          tag = "-  ";
+         if (do_import) {
+            removal_needed = 1;
+         }
       } else if (value1 != value2) {
          tag = "!  ";
+         if (do_import) {
+            for (y = 0; y< maxy; y++) {
+               EMOTE_D->add_emote(values[x], keys[y], value1[y]);
+            }
+         }
       } else {
          tag = "=  ";
+      }
+
+      if (removal_needed) {
+         EMOTE_D->remove_emote(values[x]);
+
+         if ((value1 == "") && (value2 != "")) {
+            for (y = 0; y< maxy; y++) {
+               EMOTE_D->add_emote(values[x], keys[y], value1[y]);
+            }
+         } else if ((value1 != "") && (value2 == "")) {
+            /* This was a - so do nothing */
+         } else if (value1 != value2) {
+            for (y = 0; y< maxy; y++) {
+               EMOTE_D->add_emote(values[x], keys[y], value1[y]);
+            }
+         } else {
+            for (y = 0; y< maxy; y++) {
+               EMOTE_D->add_emote(values[x], keys[y], value1[y]);
+            }
+         }
       }
 
       write(tag + values[x] + "\n");
@@ -145,9 +206,11 @@ static void main(string str) {
       } 
       x = 2;
       myfile = tmp[1];
+      do_import = 1;
    } else {
       x = 1;
       myfile = tmp[0];
+      do_import = 0;
    }
    if (!file_exists(tmp[x-1])) {
       write("No such file: " + tmp[x-1] + "\n");
