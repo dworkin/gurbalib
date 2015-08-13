@@ -102,6 +102,7 @@ private string _owner;
 #include "afun/save_object.c"
 #include "afun/restore_object.c"
 #include "afun/remove_dir.c"
+#include "afun/call_array.c"
 
 #include "afun/sys/_F_create.c"
 #include "afun/sys/_F_destruct.c"

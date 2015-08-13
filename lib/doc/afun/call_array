@@ -1,0 +1,33 @@
+NAME
+	call_array - Call a function in an array of objects.
+
+SYNOPSIS
+	nomask static mixed *call_array(mixed *arr, string fun,
+		varargs mixed arg...) {
+
+
+DESCRIPTION
+	Call fun in each element of arr, passing arguments arg if supplied,
+	to the function.  Collect all of the results are return them
+	as an array.
+
+RETURN VALUE
+	Returns an array of return values from calling the function in each
+	object.
+
+EXAMPLES
+	mixed *ret;
+	object *players;
+	int x, maxx;
+
+	players = players();
+	ret = call_array(players, "query_linkdead");
+	maxx = sizeof(players);
+	for (x=0; x<maxx; x++) {
+	   write("Player: " + players[x]->query_Name() +
+	      " linkdeadstatus = " + ret[x] + "\n");
+	}
+
+SEE ALSO
+	XXX
+
