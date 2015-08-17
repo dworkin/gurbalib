@@ -53,11 +53,11 @@ Aidil@WOTF GL tells you: I didn't call the things in afun-game 'simulated
 afuns', but rather wanted to blur the difference for general use of the lib.
 Aidil@WOTF GL tells you: as for a typical mud admin there isn't really any
 difference. rather, I reserved simulated afun for things you put in
-/sys/safun
+/sys/lib/safun
 Aidil@WOTF GL tells you: the obscure bit about how /kernel/lib/auto-game gets
 inherited is that there exists a 'virtual' inheritable, /sys/lib/auto, which
 is generated on request from a header (which is where /kernel/lib/auto-game
-gets inherited) and the contents of files in /sys/safun in alphabethical
+gets inherited) and the contents of files in /sys/lib/safun in alphabethical
 order.
 Aidil@WOTF GL tells you: this is the actual so called 'second level auto
 object' in dgd speak.

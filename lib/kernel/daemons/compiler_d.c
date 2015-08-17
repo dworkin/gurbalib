@@ -568,10 +568,10 @@ mixed allow_compile(string path, string file) {
       int i, sz;
 
       code = ({ "#include \"/sys/lib/safun.c\"" });
-      files = get_dir("/sys/safun/*.c")[0];
+      files = get_dir("/sys/lib/safun/*.c")[0];
       if (files) {
          for (i = 0, sz = sizeof(files); i < sz; i++) {
-            code += ({ "#include \"/sys/safun/" + files[i] + "\"" });
+            code += ({ "#include \"/sys/lib/safun/" + files[i] + "\"" });
          }
       }
 #ifdef DEBUG_COMPILER_D
