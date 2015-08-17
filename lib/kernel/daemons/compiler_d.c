@@ -97,7 +97,8 @@ private int test_path(string path, string * comp) {
    int i, sz;
 
    parts = explode(path, "/");
-   for (i = 0, sz = sizeof(parts) - 1; i < sz; i++) {
+   sz = sizeof(parts) -1;
+   for (i = 0; i < sz; i++) {
       if (sizeof(parts[i..i] & comp) > 0) {
          return 1;
       }
@@ -124,8 +125,7 @@ int test_object(string path) {
  */
 mixed include_file(string file, string path) {
    if (path == "AUTO") {
-      string *parts;
-      string compiling;
+      string compiling, *parts;
 
       compiling = DRIVER->get_tlvar(TLS_COMPILING);
       parts = explode(compiling, "/");
@@ -159,7 +159,10 @@ void register_program(object ob) {
 
 /* Number of programs known to the system */
 int query_program_count(void) {
-   return programs ? map_sizeof(programs) : 0;
+   if (programs) {
+      return map_sizeof(programs);
+   }
+   return 0;
 }
 
 /* Clear inherit list for the file + issue */
@@ -217,7 +220,7 @@ void clear_inherits(string file, int issue) {
 
 /* Register inherits for the object */
 static void set_inherits(object ob, object * inherits) {
-   int count, issue, obissue;
+   int count, issue, obissue, sz;
    string iname, file;
 
    if (!objectp(ob)) {
@@ -236,7 +239,8 @@ static void set_inherits(object ob, object * inherits) {
    }
 
    inh_list[file] = ( { } );
-   for (count = 0; count < sizeof(inherits); count++) {
+   sz = sizeof(inherits);
+   for (count = 0; count < sz; count++) {
       if (!inherits[count]) {
          error("Empty filename in set_inherits, pos is " + count);
       }
@@ -270,7 +274,11 @@ string *inherits_this(string f, varargs int issue) {
    if (issue) {
       /* We know the issue, so a simple map lookup will work */
       f += "#" + issue;
-      return dep_list[f] ? dep_list[f][..] : ({ });
+      if (dep_list[f]) {
+         return dep_list[f][..];
+      }
+      return ({ });
+      
    } else {
       /* We don't know the issue, so have to go through the keys
          and sscanf them to find all issues */
@@ -279,8 +287,10 @@ string *inherits_this(string f, varargs int issue) {
          max = sizeof(files);
          for (fcount = 0; fcount < max; fcount++) {
             if (sscanf(files[fcount], f) == 1) {
-               return dep_list[files[fcount]] ? 
-                  dep_list[files[fcount]][..] : ({ });
+               if (dep_list[files[fcount]]) {
+                  return dep_list[files[fcount]][..];
+               }
+               return ({ });
             }
          }
       }
@@ -563,8 +573,7 @@ mixed allow_compile(string path, string file) {
    }
 
    if (path == "/sys/lib/auto") {
-      string *files;
-      string *code;
+      string *files, *code;
       int i, sz;
 
       code = ({ "#include \"/sys/lib/safun.c\"" });
@@ -686,7 +695,8 @@ void rebuild_depending(string str) {
 
    if (stuff) {
       rlimits(MAX_DEPTH; -1) {
-         for (i = 0, sz = sizeof(stuff); i < sz; i++) {
+         sz = sizeof(stuff);
+         for (i = 0; i < sz; i++) {
             sscanf(stuff[i], "%s.c", on);
             if (file_exists(stuff[i]) && find_object(on)) {
                compile_object(on);
