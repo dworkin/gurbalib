@@ -160,11 +160,11 @@ void do_fulldiff(object obj, string myfile) {
       if (removal_needed) {
          EMOTE_D->remove_emote(values[x]);
 
-         if ((value1 == "") && (value2 != "")) {
+         if ((value1) && (!value2)) {
             for (y = 0; y< maxy; y++) {
                EMOTE_D->add_emote(values[x], keys[y], value1[y]);
             }
-         } else if ((value1 != "") && (value2 == "")) {
+         } else if (!value1 && value2) {
             /* This was a - so do nothing */
          } else if (value1 != value2) {
             for (y = 0; y< maxy; y++) {
