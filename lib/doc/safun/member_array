@@ -21,6 +21,7 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/filter_array, afun/map_array, safun/member_map,
-	safun/random_element, safun/split_array, safun/uniq_array
+	afun/filter_array, afun/filter_mapping, afun/map_array,
+	safun/member_map, safun/random_element, safun/split_array,
+	safun/uniq_array
 

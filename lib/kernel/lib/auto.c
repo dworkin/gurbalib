@@ -61,6 +61,7 @@ private string _owner;
 #include "afun/lowercase.c"
 #include "afun/uppercase.c"
 #include "afun/filter_array.c"
+#include "afun/filter_mapping.c"
 #include "afun/map_array.c"
 #include "afun/owner_file.c"
 #include "afun/owner_object.c"

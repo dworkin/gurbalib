@@ -18,12 +18,27 @@ RETURN VALUE
 	for which ob->fun(elem, extra) returns something other then 0 or nil.
 
 EXAMPLES
-	object *wizards, players;
+	object *wizards, *players;
+	int i, maxi;
 
 	players = players();
-	wizards = split_array(players, "query_wizard");
+
+	maxi = sizeof(players);
+	write("Players:\n");
+	for(i=0; i < maxi; i++) {
+		write("\t" + players[i]->query_Name() + "\n");
+	}
+
+	wizards = filter_array(players, "query_wizard");
+
+	maxi = sizeof(wizards);
+	write("Wizards:\n");
+	for(i=0; i < maxi; i++) {
+		write("\t" + wizards[i]->query_Name() + "\n");
+	}
 
 SEE ALSO
-	afun/map_array, safun/member_array, safun/member_map,
-	safun/random_element, safun/split_array, safun/uniq_array
+	afun/filter_mapping, afun/map_array, safun/member_array,
+	safun/member_map, safun/random_element, safun/split_array,
+	safun/uniq_array
 
