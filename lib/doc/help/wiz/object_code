@@ -1,8 +1,8 @@
 Everything in a mud is an object.  The object is the base class for all
 items in the mud.  Rooms and monsters are specialized objects with
 extra settings in them.  This document will focus on the basics and
-show some examples of simple objects.
-
+show some examples of simple objects.  If you want to learn about rooms or
+monsters(NPCS) look at those documents after reading this one.
 
 A minimal object looks like this:
 inherit "/std/object";
@@ -18,17 +18,54 @@ void setup(void) {
    set_value(0);
 }
 
-As you can tell, this document needs a lot of love. XXX
+the setup function get's called when an object is first cloned.
+An object's id is basically it's name, if you type get xxx if an object has
+an id of xxx that is the object you will try to get.
+You can use the following functions to set an id on an object:
+set_id, add_id, add_ids.  
+
+Next we have adjectives.  They are used to add more description to a basic
+object name.  You can use the following functions to add adjectives:
+set_adj, add_adj
+
+Each object has two descriptions, a short description and a long description.
+If you look at a room containing an object, the short description of an object
+will be used.  If you look at a given object it will display the short
+description, followed by the long description.
+
+If you do not explicitly set a short description with set_short it will
+create a short based on an object's id and any adjectives you have set
+on the object.
+
+Next we have gettable vs non gettable objects If you call the function
+set_gettable(1);  Then players will be able to pick up that object.
+If you instead set_gettable(0) then that object will not be able to be
+be picked up.  If you set an object as gettable you will want to give
+that object a weight, and a value to that object.
+
+When setting weight and value you want to make sure that you set appropriate
+values to both.  The value determines how much a player can sell an object for.
+The weight factors in to how much a player can carry at one time.
+We don't want to throw the balance of the mud off, so look at other
+objects and how difficult they are to obtain to set the weight and value
+appropriately.
 
 Along with rooms and monsters there are some other basic objects that
-repeatedly get used, here are some simple examples:
+repeatedly get used, here are some simple examples to get you started
+They all have extra functionality that gets used:
 
 food:	   lib/domains/newbie/obj/potion.c
 signs:     lib/domains/newbie/sign.c
 weapon:    lib/domains/required/short_sword.c
 armor:     lib/domains/required/helmet.c
 container: lib/domains/required/chest.c
-advanced:  lib/domains/boothill/bandana.c
+
+You can also extend objects into something more advanced.  Here is
+a simple example of an extended wearable object:
+	lib/domains/boothill/bandana.c
 
 As you can tell from these examples, you should really poke around the
 sample domains to find good examples of how to do things.
+
+Once you have written an object you should run check on that object to see
+if there are any obvious problems with the object.
