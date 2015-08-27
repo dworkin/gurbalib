@@ -3,7 +3,6 @@ NAME
 		
 SYNOPSIS
 	static void copy(string src, string dst);
-	XXX Why doesn't this return an int?
 
 DESCRIPTION
 	Copies the source file to the destination.  If destination is a 

@@ -28,6 +28,6 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/filelastmod, afun/files_modified, afun/query_thousands_separator,
-	afun/sqlite3_exec, afun/sqlite3_select
+	afun/filelastmod, afun/files_modified, afun/query_locale_data,
+	afun/query_thousands_separator, afun/sqlite3_exec, afun/sqlite3_select
 

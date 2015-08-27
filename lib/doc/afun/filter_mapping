@@ -18,7 +18,7 @@ RETURN VALUE
 	for which ob->fun(elem, extra) returns something other then 0 or nil.
 
 EXAMPLES
-        object *players;
+	object *players;
 	mapping *p, *wizards;
 	int x, maxx;
 	string *keys;
@@ -40,7 +40,7 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/filter_array, afun/map_array, safun/member_array,
+	afun/call_array, afun/filter_array, afun/map_array, safun/member_array,
 	safun/member_map, safun/random_element, safun/split_array,
 	safun/uniq_array
 

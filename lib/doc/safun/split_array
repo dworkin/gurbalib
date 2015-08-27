@@ -31,7 +31,7 @@ EXAMPLES
 	({ wizards, mortals }) = split_array(players, "query_wizard");
 
 SEE ALSO
-	afun/filter_array, afun/filter_mapping, afun/map_array,
-	safun/member_array, safun/member_map, safun/random_element,
-	safun/uniq_array
+	afun/call_array, afun/filter_array, afun/filter_mapping,
+	afun/map_array, safun/member_array, safun/member_map,
+	safun/random_element, safun/uniq_array
 

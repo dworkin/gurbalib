@@ -5,7 +5,6 @@ SYNOPSIS
 	nomask static mixed *call_array(mixed *arr, string fun,
 		varargs mixed arg...) {
 
-
 DESCRIPTION
 	Call fun in each element of arr, passing arguments arg if supplied,
 	to the function.  Collect all of the results are return them
@@ -29,5 +28,7 @@ EXAMPLES
 	}
 
 SEE ALSO
-	XXX
+	afun/filter_array, afun/filter_mapping, afun/map_array,
+	safun/member_array, safun/member_map, safun/random_element,
+	safun/split_array, safun/uniq_array
 
