@@ -1,24 +1,65 @@
-A monster in a mud is kind of a robot player, there are various types
-of "monsters", you can make them passive, agressive, you can make them
-react to players actions or other environmental effects.
+A monster in a mud is kind of a robot player, sometimes called an NPC.
+there are various types of "monsters", you can make them passive, aggressive,
+you can make them react to players actions or other environmental effects.
 
-Descriptions:
-You can set the following descriptions in a monster:
-
+Monster's build on the basic object type and add extra features.
 A minimal monster object looks like this:
 inherit "/std/monster";
 
 void setup(void) {
    set_name("rat");
-   set_gender( "male" );
    add_adj("filthy");
    set_short("A small filthy rat");
    set_long("The rat smells awful.");
+
+   set_gender( "male" );
    set_race("rodent");
+
    set_level(1);
+
    set_hit_skill("combat/unarmed");
    set_skill("combat/unarmed", 50);
    set_skill("combat/defense", 100);
 }
 
-As you can tell this document needs a lot of love... XXX
+Here is a description of what is going on in this basic monster:
+
+Just like in our object code, the setup function gets called when an object
+is first cloned.
+
+XXX (set_name?  why is this different than objects?)
+
+Monsters have id's, adjectives, a short and a long, just like other objects.
+
+The set_gender function is used to set the gender of a monster.  The following
+arguments are acceptable inputs to set_gender: "male", "female", "unknown"
+
+The set_race function looks for a race object in:
+	 /domains/required/objects/races
+and inherits that file and it's settings.  It's a simple way to setup some
+basics about your monster.
+
+Likewise set_level takes a number as input and buffs up the monster to that
+basic level, similar to a player when they level up.  It sets the hp, man
+and endurance for the monster based on a formula.  You will probably want to
+make additional tweaks to each monster but this is a good start.
+
+Skills:  XXX need to explain this a bit...
+   set_hit_skill("combat/unarmed");
+   set_skill("combat/unarmed", 50);
+   set_skill("combat/defense", 100);
+
+Once you have a basic monster, you will probably want to add some equipment and
+or treasure to a monster.  Here are some more advanced monsters to look at:
+
+/domains/gurba/monsters/grim.c	A vendor with an inventory of items for sale.
+/domains/2.4.5/monsters/troll.c An aggressive monster that mumbles a bit.
+/domains/2.4.5/monsters/orc.c A monster that blocks players from going past.
+/domains/2.4.5/monsters/wyrm.c A dragon that has treasure and a breath attack.
+/domains/2.4.5/monsters/harry.c A monster that interacts with players.
+
+As you can tell from these examples, you should really poke around the
+sample domains to find good examples of how to do things.
+
+Once you have written an object you should run check on that object to see
+if there are any obvious problems with the object.

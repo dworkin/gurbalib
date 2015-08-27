@@ -18,7 +18,9 @@ void setup(void) {
    set_value(0);
 }
 
-the setup function get's called when an object is first cloned.
+Here is a description of what is going on in this basic object:
+
+the setup function gets called when an object is first cloned.
 An object's id is basically it's name, if you type get xxx if an object has
 an id of xxx that is the object you will try to get.
 You can use the following functions to set an id on an object:
