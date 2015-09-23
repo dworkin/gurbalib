@@ -263,7 +263,7 @@ if ($Options{"help"}) {
 		print "Unable to find $dir\n";
 	}
 	$dir = "./lib/doc/safun";
-	$source = "./lib/sys/safun";
+	$source = "./lib/sys/lib/safun";
 	if (-d $dir) {
 		check_source_doc_match($source, $dir);
 		check_dir($dir);
