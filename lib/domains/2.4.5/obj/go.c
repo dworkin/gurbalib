@@ -5,7 +5,7 @@ inherit "/std/object";
 void setup(void) {
    set_id("rules");
    set_short("Go rules");
-   set_long("A list of the rules fo playing Go.\n" +
+   set_long("A list of the rules for playing Go.\n" +
       "There are 5 rules.\n" +
       "Do 'rule #', to read a rule number.");
 
