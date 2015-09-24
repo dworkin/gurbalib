@@ -44,10 +44,12 @@ basic level, similar to a player when they level up.  It sets the hp, man
 and endurance for the monster based on a formula.  You will probably want to
 make additional tweaks to each monster but this is a good start.
 
-Skills:  XXX need to explain this a bit...
-   set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 50);
-   set_skill("combat/defense", 100);
+Skills: Skills are used to increase the chances of success for various tasks.
+The following configurations setup some basic skills used by the combat system.
+   set_hit_skill("combat/unarmed");  /* Set our default combat skill */
+   set_skill("combat/unarmed", 50);  /* Set our proficiency at unarmed combat */
+   set_skill("combat/defense", 100); /* Set our proficiency at defense */
+
 
 Once you have a basic monster, you will probably want to add some equipment and
 or treasure to a monster.  Here are some more advanced monsters to look at:
