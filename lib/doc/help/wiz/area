@@ -434,7 +434,7 @@ the setup function in escape.c:
    add_item("rubble", "The wall has a bunch of rocks.  It looks like " +
       "you might be able to move it.");
 
-XXX
+XXX Need to add red herrings and other fluff...
 
 10. Adding your code to the rest of the mud.
 There are 3 parts to this, you need to integrate any entrance/exits you
