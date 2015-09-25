@@ -5,6 +5,7 @@ inherit "/std/modules/m_triggers";
 
 #define INTERVAL 8
 static int count;
+string *a_str, *na_str;
 
 void setup() {
    set_name("harry");
@@ -19,6 +20,30 @@ void setup() {
    set_skill("combat/unarmed", 50);
    set_skill("combat/defense", 100);
    count = 0;
+
+   a_str = ({
+      "say Don't hit men",
+      "say That hurt!",
+      "say Help, someone!",
+      "say Why can't you go bullying elsewhere?",
+      "say Aooooo!",
+      "say I hate bashers!\n",
+      "say Bastard\n",
+      "say You big brute!\n"            
+   });
+
+   na_str = ({
+      "say What are you waiting for?",
+      "say Hello there!",
+      "say I don't like winter.",
+      "say I don't like snow.",
+      "say I don't like rain.",
+      "say Who are you?",
+      "say Why do you look like that?",
+      "say What are you doing here?",
+      "say Nice weather, isn't it?",
+      "smile"
+   });
 }
 
 void notify(string str) {
@@ -195,39 +220,13 @@ int down() {
 }
 
 void do_extra_actions() {
-   string *a_str;
-   string *str;
-
-   a_str = ({
-      "say Don't hit men",
-      "say That hurt!",
-      "say Help, someone!",
-      "say Why can't you go bullying elsewhere?",
-      "say Aooooo!",
-      "say I hate bashers!\n",
-      "say Bastard\n",
-      "say You big brute!\n"            
-   });
-
-   str = ({
-      "say What are you waiting for?",
-      "say Hello there!",
-      "say I don't like winter.",
-      "say I don't like snow.",
-      "say I don't like rain.",
-      "say Who are you?",
-      "say Why do you look like that?",
-      "say What are you doing here?",
-      "say Nice weather, isn't it?",
-      "smile"
-   });
    count++;
 
    if (count >= INTERVAL) {
       if (is_fighting()) {
          respond(a_str[random(sizeof(a_str))]);
       }else {
-         respond(str[random(sizeof(str))]);
+         respond(na_str[random(sizeof(na_str))]);
       }
       count = 0;
    }

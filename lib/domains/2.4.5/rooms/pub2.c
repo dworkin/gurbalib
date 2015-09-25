@@ -96,3 +96,7 @@ int make_move() {
       wrong_by = nil;
    }
 }
+
+int query_current_problem() {
+   return current_problem;
+}

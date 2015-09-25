@@ -38,7 +38,7 @@ void setup() {
 void do_extra_actions() {
    count = count + 1;
    if (count >= INTERVAL) {
-      switch(random(2)) {
+      switch(random(7)) {
          case 0:
             respond("say Kill him!");
             break;
