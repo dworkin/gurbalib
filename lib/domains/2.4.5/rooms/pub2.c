@@ -19,35 +19,39 @@ void setup(void) {
    );
 
    add_exit("west", DIR + "/rooms/yard.c");
+
+   add_item("puzzle", "#show_problem");
+   add_item("game", "#show_problem");
+   add_item("problem", "#show_problem");
 }
 
 /* XXX More work here go functions... */
 
-int show_problem() {
+string show_problem() {
+   string result;
    if (current_problem > 2) {
       if (present("player")) {
-         write("The player looks tired.\n");
+         result = "The player looks tired.\n";
       } else {
-         write("The board is in disarray and the player is no longer here.\n");
+         result = "The board is in disarray and the player is no " +
+            "longer here.\n";
       }
-      return 1;
+      return result;
    }
 
-   this_environment()->tell_room(this_player(), this_player()->query_Name() +
-      " examines the go problem.\n");
+   result = "You look at the go problem.\n";
 
    if (current_problem == 0) {
-      write("5|.......\n" +
+      result += "5|.......\n" +
          "4|.......\n" +
          "3|@@@@@..\n" +
          "2|OOOO@..\n" +
          "1|...O@..\n" +
          " --------\n" +
          "  abcdefg\n" +
-         "\nIt is black ('@') to play.\n");
-      return 1;
+         "\nIt is black's('@') turn to play.\n";
    } else if (current_problem == 1) {
-      write("7|.......\n" +
+      result += "7|.......\n" +
          "6|.......\n" +
          "5|@@@....\n" +
          "4|OOO@@..\n" +
@@ -56,22 +60,20 @@ int show_problem() {
          "1|..OO@..\n" +
          " --------\n" +
          "  abcdefg\n" +
-         "\nIt is black ('@') to play.\n");
-      return 1;
+         "\nIt is black's('@') turn to play.\n";
    } else if (current_problem == 2) {
-      write("5|..........\n" +
+      result += "5|..........\n" +
          "4|...@@@@@..\n" +
          "3|@@@.O...@.\n" +
          "2|@OO@OOOO@.\n" +
          "1|@OO.O...@.\n" +
          " -----------\n" +
          "  abcdefg\n" +
-         "\nIt is white ('O') to play.\n");
-      return 1;
+         "\nIt is white's('O') turn to play.\n";
    } else {
-      write("The go player does not want to be disturbed any more.\n");
+      result += "The go player does not want to be disturbed any more.\n";
    }
-   return 1;
+   return result;
 }
 
 int make_move() {
