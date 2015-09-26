@@ -5,6 +5,7 @@ inherit "/std/modules/m_triggers";
 
 #define INTERVAL 8
 int count;
+object solved_by, wrong_by;
 
 void setup(void) {
    set_name("player");
@@ -23,7 +24,10 @@ void setup(void) {
 }
 
 void do_extra_actions() {
-   if (this_environment()->query_current_problem() < 3) {
+   int x;
+   
+   x = query_environment()->query_current_problem();
+   if (x < 3) {
       count = count + 1;
       if (count > INTERVAL) {
          switch(random(5)) {
@@ -48,3 +52,79 @@ void do_extra_actions() {
       }
    }
 }
+
+int make_move(int prob) {
+   int i;
+
+   if (solved_by) {
+      say("The go player says: Right ! That works !\n" +
+         "He immediately plays out a new problem.\n");
+      solved_by->message("You feel that you have gained some experience.\n");
+
+      solved_by->increase_expr(prob * 100);
+
+      solved_by = nil;
+      query_environment()->set_current_problem( prob + 1);
+   }
+   if (wrong_by) {
+      query_environment()->tell_room(this_object(),
+         "The go player says: No, that doesn't work.\n");
+      query_environment()->tell_room(this_object(),
+         "He sinks back into his deep thought.\n");
+      wrong_by = nil;
+   }
+}
+
+void outside_message(string str) {
+   string name, what;
+   int prob;
+   object room, who;
+
+   str = ANSI_D->strip_colors(str);
+   if (sscanf(str, "%s tells you: Play %s\n", name, what) == 2 ||
+      sscanf(str, "%s says: Play %s\n", name, what) == 2) {
+      room = query_environment();
+      if (!room) {
+         return;
+      }
+      who = room->present(name);
+      if (!who) {
+         return;
+      }
+
+      prob = room->query_current_problem();
+      if (prob == 0) {
+         if (what == "b1" || what == "b 1" || what == "1b" || what == "1 b") {
+            solved_by = who;
+         } else {
+            wrong_by = who;
+         }
+      } else if (prob == 1) {
+         if (what == "b2" || what == "b 2" || what == "2b" || what == "2 b") {
+            solved_by = who;
+         } else {
+            wrong_by = who;
+         }
+      } else if (prob == 2) {
+         if (what == "d3" || what == "d 3" || what == "3d" || what == "3 d") {
+            solved_by = who;
+         } else {
+            wrong_by = who;
+         }
+      }
+      query_environment()->tell_room(this_object(),
+         "The go player contemplates a propsed play.\n");
+      if (solved_by) {
+         solved_by->message("Arne PISS OFF\n");
+      } else if (wrong_by) {
+         wrong_by->message("Arne PISS OFF\n");
+      }
+      make_move(prob);
+   } else {
+      if (sscanf(str, "%s tells you: %s\n", name, what) == 2 ||
+         sscanf(str, "%s says: %s\n", name, what) == 2) {
+         respond("say The go player says: what ?\n");
+      }
+   }
+}
+

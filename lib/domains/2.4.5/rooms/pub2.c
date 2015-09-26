@@ -2,8 +2,7 @@
 
 inherit "/std/room";
 
-int current_problem, starts_thinking, problem_value;
-object solved_by, wrong_by;
+int current_problem;
 
 void setup(void) {
    add_area("2.4.5");
@@ -18,14 +17,16 @@ void setup(void) {
       "/domains/required/objects/mer_sign.c"
    );
 
+/* XXX Need to add top_list */
+
    add_exit("west", DIR + "/rooms/yard.c");
 
    add_item("puzzle", "#show_problem");
    add_item("game", "#show_problem");
    add_item("problem", "#show_problem");
-}
 
-/* XXX More work here go functions... */
+   current_problem = 0;
+}
 
 string show_problem() {
    string result;
@@ -76,27 +77,10 @@ string show_problem() {
    return result;
 }
 
-int make_move() {
-   int i;
-
-   if (solved_by) {
-      i = current_problem + 1;
-      say("The go player says: Right ! That works !\n" +
-         "He immediately plays out a new problem.\n");
-      solved_by->message("You feel that you have gained some experience.\n");
-
-      solved_by->increase_expr(problem_value);
-
-      solved_by = nil;
-      current_problem += 1;
-   }
-   if (wrong_by) {
-      tell_room(this_object(), "The go player says: No, that doesn't work.\n");
-      tell_room(this_object(), "He sinks back into his deep thought.\n");
-      wrong_by = nil;
-   }
-}
-
 int query_current_problem() {
    return current_problem;
+}
+
+int set_current_problem(int i) {
+   current_problem = i;
 }
