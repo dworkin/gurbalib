@@ -57,9 +57,10 @@ int make_move(int prob) {
    int i;
 
    if (solved_by) {
-      say("The go player says: Right ! That works !\n" +
-         "He immediately plays out a new problem.\n");
-      solved_by->message("You feel that you have gained some experience.\n");
+      respond("say Right! That works!");
+      query_environment()->tell_object(this_object(),
+         "He immediately plays out a new problem.");
+      solved_by->message("You feel that you have gained some experience.");
 
       solved_by->increase_expr(prob * 100);
 
@@ -67,10 +68,9 @@ int make_move(int prob) {
       query_environment()->set_current_problem( prob + 1);
    }
    if (wrong_by) {
+      respond("say No, that doesn't work.");
       query_environment()->tell_room(this_object(),
-         "The go player says: No, that doesn't work.\n");
-      query_environment()->tell_room(this_object(),
-         "He sinks back into his deep thought.\n");
+         "He sinks back into his deep thought.");
       wrong_by = nil;
    }
 }
@@ -81,13 +81,15 @@ void outside_message(string str) {
    object room, who;
 
    str = ANSI_D->strip_colors(str);
-   if (sscanf(str, "%s tells you: Play %s\n", name, what) == 2 ||
-      sscanf(str, "%s says: Play %s\n", name, what) == 2) {
+   if (sscanf(str, "%s tells you: Play %s.\n", name, what) == 2 ||
+      sscanf(str, "%s says: Play %s.\n", name, what) == 2) {
       room = query_environment();
+
       if (!room) {
          return;
       }
       who = room->present(name);
+
       if (!who) {
          return;
       }
@@ -112,18 +114,19 @@ void outside_message(string str) {
             wrong_by = who;
          }
       }
+
       query_environment()->tell_room(this_object(),
-         "The go player contemplates a propsed play.\n");
+         "The go player contemplates a propsed play.");
       if (solved_by) {
-         solved_by->message("Arne PISS OFF\n");
+         solved_by->message("Arne PISS OFF!");
       } else if (wrong_by) {
-         wrong_by->message("Arne PISS OFF\n");
+         wrong_by->message("Arne PISS OFF!");
       }
       make_move(prob);
    } else {
       if (sscanf(str, "%s tells you: %s\n", name, what) == 2 ||
          sscanf(str, "%s says: %s\n", name, what) == 2) {
-         respond("say The go player says: what ?\n");
+         respond("say What?");
       }
    }
 }
