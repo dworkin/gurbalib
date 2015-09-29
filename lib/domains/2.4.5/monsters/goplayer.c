@@ -4,6 +4,8 @@ inherit "/std/monster";
 inherit "/std/modules/m_triggers";
 
 #define INTERVAL 8
+#define RESETINTERVAL 8
+
 int count;
 object solved_by, wrong_by;
 
@@ -27,8 +29,9 @@ void do_extra_actions() {
    int x;
    
    x = query_environment()->query_current_problem();
+
+   count = count + 1;
    if (x < 3) {
-      count = count + 1;
       if (count > INTERVAL) {
          switch(random(5)) {
             case 0:
@@ -49,6 +52,11 @@ void do_extra_actions() {
                break;
          }
          count = 0;
+      }
+   } else {
+      if (count > RESETINTERVAL) {
+         count = 0;
+         query_environment()->set_current_problem(0);
       }
    }
 }

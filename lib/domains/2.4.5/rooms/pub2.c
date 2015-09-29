@@ -13,11 +13,10 @@ void setup(void) {
    set_objects(
       DIR + "/monsters/barkeep.c",
       DIR + "/monsters/goplayer.c",
+      DIR + "/obj/top_list.c",
       DIR + "/obj/go.c",
       "/domains/required/objects/mer_sign.c"
    );
-
-/* XXX Need to add top_list */
 
    add_exit("west", DIR + "/rooms/yard.c");
 
