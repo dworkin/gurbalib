@@ -12,8 +12,6 @@ void setup(void) {
    set_message("#query_long");
 }
 
-/* XXX conflicts with menu in the room!!! pub2.c */
-
 string query_long() {
    string *lines, stuff;
 

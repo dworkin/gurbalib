@@ -3,7 +3,7 @@
 #define AUTH_DATA "/sys/daemons/auth_data"
 #define CACHE_INTERVAL 300
 #define AUTH_DATA_DIR "/sys/daemons/data/users"
-#define PLAYER_LIST "/data/top_layers.txt"
+#define PLAYER_LIST "/data/top_players.txt"
 
 static mapping users;
 static mapping cache;
@@ -84,63 +84,6 @@ static void cleanup(void) {
       destruct_object(c);
       c = n;
    }
-}
-
-static void create(void) {
-   object *u;
-   int i, sz;
-
-   cache = ([]);
-   sessions = ([]);
-   wizards = ([ ]);
-   restore_me();
-
-   if (sizeof(unguarded("get_dir", AUTH_DATA_DIR + "/*.o")[0]) == 0) {
-      console_msg("enabling auto_admin\n");
-      auto_admin = 1;
-   }
-
-   if (data_version <2) {
-      call_out("convert_users", 0);
-   }
-
-   users = ([]);
-
-   u = users();
-
-   for (i = 0, sz = sizeof(u); i < sz; i++) {
-      string name; 
-      object uob;
-
-      if (u[i]<-USER_OB) { 
-         if (!u[i]->online()) {
-            /* will go online itself */
-            continue;
-         }
-         uob = u[i];
-      } else if (u[i]<-CONNECTION) {
-         uob = u[i]->query_user();
-      }
-
-      if (uob) {
-         name = uob->query_name();
-         if (name && name != "who") {
-            if (uob<-USER_OB) {
-               users[name] = uob;
-            }
-
-            if (!sessions[name]) {
-               sessions[name] = ({ });
-            }
-            sessions[name] |= ({ uob });
-         }
-      }
-   }
-
-   if (!handle) {
-      handle = call_out("clean_cache", CACHE_INTERVAL);
-   }
-   cleanup();
 }
 
 static object get_data_ob(string name) {
@@ -448,10 +391,6 @@ string *list_all_users(void) {
    return names;
 }
 
-void upgraded(void) {
-   create();
-}
-
 void print_finger_info(object player, object player2, int cloned) {
    string linkd;
 
@@ -589,6 +528,35 @@ string get_email_info(object player, string name, string type) {
    }
 
    return stuff;
+}
+
+void generate_top_list() {
+   string line, *names;
+   object obj;
+   int x, max;
+
+   names = list_all_users();
+
+   remove_file(PLAYER_LIST);
+
+   max = sizeof(names);
+   for (x = 0; x < max; x++) {
+      obj = find_player(names[x]);
+
+      if (!obj) {
+         obj = clone_object(PLAYER_OB);
+         obj->set_name(names[x]);
+         obj->restore_me();
+
+         line = obj->query_level() + "\t" + obj->query_title() + "\n";
+         destruct_object(obj);
+      } else {
+         line = obj->query_level() + "\t" + obj->query_title() + "\n";
+      }
+
+/* XXX Need to sort and truncate to 10 items */
+      write_file(PLAYER_LIST , line);
+   }
 }
 
 int restore_privs(string name) {
@@ -958,4 +926,66 @@ string *list_players(int long_flag) {
    }
 
    return lines;
+}
+
+static void create(void) {
+   object *u;
+   int i, sz;
+
+   cache = ([]);
+   sessions = ([]);
+   wizards = ([ ]);
+   restore_me();
+
+   if (sizeof(unguarded("get_dir", AUTH_DATA_DIR + "/*.o")[0]) == 0) {
+      console_msg("enabling auto_admin\n");
+      auto_admin = 1;
+   }
+
+   if (data_version <2) {
+      call_out("convert_users", 0);
+   }
+
+   users = ([]);
+
+   u = users();
+
+   for (i = 0, sz = sizeof(u); i < sz; i++) {
+      string name; 
+      object uob;
+
+      if (u[i]<-USER_OB) { 
+         if (!u[i]->online()) {
+            /* will go online itself */
+            continue;
+         }
+         uob = u[i];
+      } else if (u[i]<-CONNECTION) {
+         uob = u[i]->query_user();
+      }
+
+      if (uob) {
+         name = uob->query_name();
+         if (name && name != "who") {
+            if (uob<-USER_OB) {
+               users[name] = uob;
+            }
+
+            if (!sessions[name]) {
+               sessions[name] = ({ });
+            }
+            sessions[name] |= ({ uob });
+         }
+      }
+   }
+
+   if (!handle) {
+      handle = call_out("clean_cache", CACHE_INTERVAL);
+   }
+   cleanup();
+   generate_top_list();
+}
+
+void upgraded(void) {
+   create();
 }
