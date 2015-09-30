@@ -3,7 +3,7 @@
 #define AUTH_DATA "/sys/daemons/auth_data"
 #define CACHE_INTERVAL 300
 #define AUTH_DATA_DIR "/sys/daemons/data/users"
-#define "PLAYER_LIST "/data/top_layers.txt";
+#define PLAYER_LIST "/data/top_layers.txt"
 
 static mapping users;
 static mapping cache;
