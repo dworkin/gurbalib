@@ -3,7 +3,6 @@
 #define AUTH_DATA "/sys/daemons/auth_data"
 #define CACHE_INTERVAL 300
 #define AUTH_DATA_DIR "/sys/daemons/data/users"
-#define PLAYER_LIST "/data/top_players.txt"
 
 static mapping users;
 static mapping cache;
@@ -530,35 +529,6 @@ string get_email_info(object player, string name, string type) {
    return stuff;
 }
 
-void generate_top_list() {
-   string line, *names;
-   object obj;
-   int x, max;
-
-   names = list_all_users();
-
-   remove_file(PLAYER_LIST);
-
-   max = sizeof(names);
-   for (x = 0; x < max; x++) {
-      obj = find_player(names[x]);
-
-      if (!obj) {
-         obj = clone_object(PLAYER_OB);
-         obj->set_name(names[x]);
-         obj->restore_me();
-
-         line = obj->query_level() + "\t" + obj->query_title() + "\n";
-         destruct_object(obj);
-      } else {
-         line = obj->query_level() + "\t" + obj->query_title() + "\n";
-      }
-
-/* XXX Need to sort and truncate to 10 items */
-      write_file(PLAYER_LIST , line);
-   }
-}
-
 int restore_privs(string name) {
    object *ses;
    int i,sz;
@@ -983,7 +953,6 @@ static void create(void) {
       handle = call_out("clean_cache", CACHE_INTERVAL);
    }
    cleanup();
-   generate_top_list();
 }
 
 void upgraded(void) {

@@ -42,7 +42,10 @@ static void main(string str) {
    }
    dim = sizeof(top_scores);
 
-   lines = allocate(dim);
+   lines = allocate(dim + 2);
+
+   lines[0] = "Top Ten Players list";
+   lines[1] = "-------------------------------------------";
 
    for (i = 0; i < dim; i++) {
       name = top_scores[i][0];
@@ -50,11 +53,10 @@ static void main(string str) {
       kills = add_comma("" + top_scores[i][2]);
       killed = add_comma("" + top_scores[i][3]);
       quests = add_comma("" + top_scores[i][4]);
-      lines[i] = name + ": " + xp + ", " + kills + "/" + killed + ", " +
+      lines[i + 2] = name + ": " + xp + ", " + kills + "/" + killed + ", " +
          quests;
    }
 
-   write("Top scorers:");
    this_player()->more(lines);
 }
 
