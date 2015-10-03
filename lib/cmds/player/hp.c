@@ -13,7 +13,12 @@ void usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\thp" });
    lines += ({ "See also:" });
-   lines += ({ "\tinventory, junk, levels, score, skills" });
+
+   if (query_wizard(this_player())) {
+      lines += ({ "\tinventory, junk, levels, score, skills, status, top" });
+   } else {
+      lines += ({ "\tinventory, junk, levels, score, skills, top" });
+   }
 
    this_player()->more(lines);
 }

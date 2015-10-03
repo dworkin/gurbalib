@@ -3,31 +3,22 @@ inherit M_COMMAND;
 void usage(void) {
    string *lines;
 
+   lines = ({ "Usage: score [-h] [-q] [PLAYER]" });
+   lines += ({ "" });
+   lines += ({ "Gives you basic stats about player PLAYER." });
+   lines += ({ "If no player is given give your stats." });
+   lines += ({ "" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tscore" });
+   lines += ({ "\tscore sirdude" });
+   lines += ({ "See also:" });
+
    if (query_wizard(this_player())) {
-      lines = ({ "Usage: score [-h] [-q] [PLAYER]" });
-      lines += ({ "" });
-      lines += ({ "Gives you basic stats about player PLAYER." });
-      lines += ({ "If no player is given give your stats." });
-      lines += ({ "" });
-      lines += ({ "Options:" });
-      lines += ({ "\t-h\tHelp, this usage message." });
-      lines += ({ "Examples:" });
-      lines += ({ "\tscore" });
-      lines += ({ "\tscore sirdude" });
-      lines += ({ "See also:" });
-      lines += ({ "\thp, inventory, junk, levels, skills, status" });
+      lines += ({ "\thp, inventory, junk, levels, skills, status, top" });
    } else {
-      lines = ({ "Usage: score [-h]" });
-      lines += ({ "" });
-      lines += ({ "Gives you basic stats about your character." });
-      lines += ({ "" });
-      lines += ({ "Options:" });
-      lines += ({ "\t-h\tHelp, this usage message." });
-      lines += ({ "\t-q\tAlso display quests you have completed." });
-      lines += ({ "Examples:" });
-      lines += ({ "\tscore" });
-      lines += ({ "See also:" });
-      lines += ({ "\thp, inventory, junk, levels, skills" });
+      lines += ({ "\thp, inventory, junk, levels, skills, top" });
    }
 
    this_player()->more(lines);

@@ -22,7 +22,11 @@ void usage(void) {
       lines += ({ "\tskills set spell/cure 5" });
    }
    lines += ({ "See also:" });
-   lines += ({ "\thp, inventory, junk, levels, score" });
+   if (query_wizard(this_player())) {
+      lines += ({ "\thp, inventory, junk, levels, score, status, top" });
+   } else {
+      lines += ({ "\thp, inventory, junk, levels, score, top" });
+   }
 
    this_player()->more(lines);
 }

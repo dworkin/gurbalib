@@ -19,7 +19,12 @@ void usage(void) {
    lines += ({ "\tjunk sword" });
    lines += ({ "\tjunk all" });
    lines += ({ "See also:" });
-   lines += ({ "\thp, inventory, levels, score, skills" });
+
+   if (query_wizard(this_player())) {
+      lines += ({ "\thp, inventory, levels, score, skills, status, top" });
+   } else {
+      lines += ({ "\thp, inventory, levels, score, skills, top" });
+   }
 
    this_player()->more(lines);
 }

@@ -4,15 +4,35 @@ void usage(void) {
    string *lines;
 
    lines = ({ "Usage: top" });
-   lines += ({ "", "Gives you the Top Scores list. Needs options." });
+   lines += ({ "" });
+   lines += ({  "Gives you the Top Scores list. It has the following fields:"
+      });
+   lines += ({ "\tExperience, kills, quests completed" });
+   lines += ({ "" });
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\ttop" });
+   lines += ({ "See also:" });
+
+   if (query_wizard(this_player())) {
+      lines += ({ "\thp, inventory, junk, levels, score, skills, status" });
+   } else {
+      lines += ({ "\thp, inventory, junk, levels, score, skills" });
+   }
+
    this_player()->more(lines);
 }
 
 static void main(string str) {
    mixed **top_scores;
-   string *lines;
-   string  name, xp, kills, killed, quests;
+   string  name, xp, kills, killed, quests, *lines;
    int i, dim;
+
+   if (sscanf(str, "-%s", str)) {
+      usage();
+      return;
+   }
 
    top_scores = TOP_SCORE_D->get(str);
    if (nilp(top_scores)) {
