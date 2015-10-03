@@ -144,7 +144,7 @@ void wrap_message(string str, varargs int chat_flag) {
       catch(width = player->query_width());
    }
 
-   rlimits(MAX_DEPTH; MAX_TICKS * MAX_TICKS) {
+   rlimits(MAX_DEPTH; MAX_TICKS) {
       /* Split the string into lines */
       lines = explode(str, "\n");
 
