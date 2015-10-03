@@ -20,7 +20,7 @@ mixed *query_all_coins(void) {
       } else {
           num = 0;
       }
-      c += ( { ( { currencies[i], num } ) } );
+      c += ({ ({ currencies[i], num }) });
    }
    return c;
 }
