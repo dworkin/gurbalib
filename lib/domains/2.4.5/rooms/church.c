@@ -4,16 +4,16 @@ inherit "/std/room";
 inherit "/domains/2.4.5/lib/el";
 
 object el;
+int lamp_is_lit;
+
+int query_floor() {
+   return 2;
+}
 
 void setup(void) {
    add_area("2.4.5");
 
    set_short("Village church");
-   set_long("You are in the local village church.  There is a huge " +
-      "pit in the center, and a door in the west wall.  " +
-      "There is a button beside the door.  This church has the service " +
-      "of reviving ghosts.  Dead people come to the church and pray.  " +
-      "there is a clock on the wall.  There is an exit to the south.");
 
    add_exit("south", DIR + "/rooms/vill_green.c");
 
@@ -27,7 +27,7 @@ void setup(void) {
 
    el = get_el();
    if (el) {
-      if (el->query_location() == 2) {
+      if (el->query_location() == query_floor()) {
          el_arrives();
       } else {
          el_leaves();
@@ -35,6 +35,29 @@ void setup(void) {
    }
 }
 
-int query_floor() {
-   return 2;
+string query_long() {
+   string str;
+
+   str = "You are in the local village church.  There is a huge " +
+      "pit in the center, and a door in the west wall.  " +
+      "There is a button beside the door.  This church has the service " +
+      "of reviving ghosts.  Dead people come to the church and pray.  " +
+      "there is a clock on the wall.  There is an exit to the south.";
+
+   if (lamp_is_lit) {
+      str += "The lamp beside the elevator is lit.\n";
+   } else {
+      str += "There is a lamp beside the elevator.\n";
+   }
+
+   return str;
 }
+
+void lamp_on() {
+   lamp_is_lit = 1;
+}
+
+void lamp_off() {
+   lamp_is_lit = 0;
+}
+
