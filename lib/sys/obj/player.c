@@ -545,7 +545,7 @@ string *query_channels(void) {
 }
 
 void add_ignore(string who) {
-   if (who == "") {
+   if (!who || who == "") {
       return;
    }
 
@@ -563,6 +563,10 @@ void remove_ignore(string who) {
 int query_ignored(string who) {
    if (!ignored) {
       ignored = ( { } );
+   }
+
+   if (!who || who == "") {
+      return 0;
    }
 
    who = lowercase(who);
