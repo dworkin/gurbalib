@@ -40,8 +40,6 @@ int press_button(string str) {
 
       this_object()->lamp_on();
 
-/* XXX do the work here */
-
       elev = get_el();
       call_other(elev, "set_floor", this_object()->query_floor());
       return 1;

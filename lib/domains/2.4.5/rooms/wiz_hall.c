@@ -55,5 +55,3 @@ void lamp_off() {
    lamp_is_lit = 0;
 }
 
-/* XXX Need to do the lamp, button, elevator and exits, here, attic and church
-*/
