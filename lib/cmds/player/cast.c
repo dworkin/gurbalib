@@ -4,16 +4,14 @@ inherit M_COMMAND;
 
 string find_spell(string spellname);
 
-void usage(string str) {
+string *usage(string str) {
    object target;
-   string spellpath;
-   string *lines;
+   string spellpath, *lines;
 
    if (str != "") {
       spellpath = find_spell(str);
       if (spellpath) {
-         call_other(spellpath, "usage");
-         return;
+         return call_other(spellpath, "usage");
       }
    }
 
@@ -30,7 +28,7 @@ void usage(string str) {
    lines += ({ "See also:" });
    lines += ({ "\tattack, eat, enter, follow, go, pray, query, quit, wimpy" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static int has_spell(string spellname) {
@@ -94,10 +92,10 @@ static void main(string str) {
       return;
    }
    if (sscanf(str, "-h %s", str)) {
-      usage(str);
+      this_player()->more(usage(str));
       return;
    } else if (sscanf(str, "-%s", str)) {
-      usage("");
+      this_player()->more(usage(""));
       return;
    }
 

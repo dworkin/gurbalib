@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: help [-h] [TOPIC]" });
@@ -32,7 +32,7 @@ void usage(void) {
       lines += ({ "\tcmds" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 int show_help_for_command(string cmd) {
@@ -89,12 +89,12 @@ int show_help(string filename) {
 static void main(string arg) {
    string file;
    if (empty_str(arg) || (arg == "help")) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(arg, "-%s", arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

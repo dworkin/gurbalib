@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines =({ "Usage: rm [-h] FILE" });
@@ -16,7 +16,7 @@ void usage(void) {
    lines += ({ "\tbrowse, cat, cd, cp, diff, edit, indent, ls, more, " +
       "mkdir, pwd, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 int recursive_remove_dir(string path) {
@@ -61,7 +61,7 @@ static void main(string arg) {
    }
 
    if (sscanf(arg, "-%s", arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

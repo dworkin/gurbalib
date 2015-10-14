@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: stats [-h] [object]" });
@@ -14,17 +14,16 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tadd_base, add_bonus, score" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string arg) {
    int i, j, stat, max_stat;
-   string *stat_abrvs;
-   string *stat_names;
+   string *stat_abrvs, *stat_names;
    object ob;
 
    if (sscanf(arg, "-%s", arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

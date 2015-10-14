@@ -1,7 +1,8 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
+
    lines = ({ "Usage: heal [-h] [player]" });
    lines += ({ " " });
    lines += ({ "Allows you to heal a player, if no player is given heal " +
@@ -15,7 +16,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tban, forcequit, halt, muzzle, zap" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -26,7 +27,7 @@ static void main(string str) {
    if (empty_str(str)) {
       obj = this_player();
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else {
       obj = this_environment()->present(str);

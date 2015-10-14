@@ -1,8 +1,7 @@
 inherit M_COMMAND;
 
-void usage(void) {
-   string *lines;
-   string workroom;
+string *usage(void) {
+   string workroom, *lines;
 
    workroom = WIZ_DIR + "/" + this_player()->query_name() + 
       "/rooms/workroom.c";
@@ -18,7 +17,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tgoto, summon, where" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 string get_workroom(void) {
@@ -43,7 +42,7 @@ static void main(string str) {
    string filename;
 
    if (!empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 #include <status.h>
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: status [-h] [OBJ]" });
@@ -18,7 +18,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tdate, scan, time" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void display_driver(mixed * stat) {
@@ -133,7 +133,7 @@ static void main(string str) {
       stat = status();
       display_driver(stat);
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else {
       obj = this_player()->query_environment()->present(str);

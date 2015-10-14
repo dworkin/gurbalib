@@ -1,6 +1,6 @@
 #define COST 10
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: cast missile [-h] TARGET" });
@@ -15,7 +15,7 @@ void usage(void) {
    lines += ({ "\tcast missile rabbit" });
    lines += ({ "\tcast missile sirdude" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void missile(object thisp, object target) {
@@ -34,7 +34,7 @@ void do_spell(object thisp, string target) {
    object tar;
 
    if (empty_str(target) || target == "-h") {
-      usage();
+      this_player()->more(usage());
       return;
    } else {
       tar = this_environment()->present(target);

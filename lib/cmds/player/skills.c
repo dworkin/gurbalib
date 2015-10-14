@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: skills [-h] [full]" });
@@ -28,7 +28,7 @@ void usage(void) {
       lines += ({ "\thp, inventory, junk, levels, score, top" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 /*
@@ -89,14 +89,14 @@ static void main(string str) {
       str = "";
 
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else if (sscanf(str, "set %s %d", skill, value) == 2) {
       if (query_wizard(this_player())) {
          set_skill(skill, value);
          return;
       } else {
-         usage();
+         this_player()->more(usage());
          return;
       }
    } else if (sscanf(str, "full %s", str) == 0) {

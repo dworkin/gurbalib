@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "scan [-h] [OBJ]" });
@@ -16,18 +16,17 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tdate, status, time" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
-   object where;
-   object *objs;
+   object where, *objs;
    int i, done;
 
    if (empty_str(str)) {
       where = this_environment();
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else {
       where = this_player()->query_environment()->present(str);

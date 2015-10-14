@@ -11,7 +11,7 @@ inherit "/sys/lib/modules/m_getopt";
 
 string *resubmit;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: rebuild [-h] [-v] [-c] [user,...]" });
@@ -45,7 +45,7 @@ void usage(void) {
          "update" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static int resubmit_upqueue(string f) {
@@ -100,7 +100,7 @@ static void main(string str) {
    }
 
    if (test_option("help")) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

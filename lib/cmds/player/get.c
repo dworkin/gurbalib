@@ -1,7 +1,7 @@
 inherit M_COMMAND;
 inherit "/std/modules/m_messages";
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: get [-h] [all|OBJ] [from OBJ2]" });
@@ -20,7 +20,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tdrop, open, put, remove, wear, wield" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static int get_coins(object here, int amount, string type) {
@@ -144,12 +144,12 @@ static void main(string str) {
    string what, where, type;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

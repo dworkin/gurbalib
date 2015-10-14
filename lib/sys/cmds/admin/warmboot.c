@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 #include <type.h>
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: warmboot [-h]" });
@@ -18,7 +18,7 @@ void usage(void) {
    lines += ({ "\tcheck, checkmud, clean, clone, dest, eval, graph, rebuild, " +
          "update" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 #define LAST_STAGE 3
@@ -57,7 +57,7 @@ static string validate_upgrade(void) {
 
 static void main(string str) {
    if (!empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

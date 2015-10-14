@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: emaillist [-h] [admins|players|wizards] [FILE]" });
@@ -19,7 +19,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\twho, last" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void create_list(string type, string file) {
@@ -59,7 +59,7 @@ static void main(string str) {
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

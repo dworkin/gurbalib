@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines =({ "Usage: quit [-h] [-r]" });
@@ -18,7 +18,8 @@ void usage(void) {
    lines += ({ "\tquit -r" });
    lines += ({ "See also:" });
    lines += ({ "\tattack, cast, eat, enter, follow, go, pray, query, wimpy" });
-   this_player()->more(lines);
+
+   return lines;
 }
 
 void verify_remove(string str) {
@@ -37,7 +38,7 @@ static void main(string str) {
          this_player()->input_to_object(this_object(), "verify_remove");
          return;
       }
-      usage();
+      this_player()->more(usage());
       return;
    }
 

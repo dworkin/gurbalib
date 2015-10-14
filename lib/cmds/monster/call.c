@@ -1,8 +1,7 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
-   object player;
 
    lines = ({ "Usage: call [-h] FUNCTION [ARGS]" });
    lines += ({ "call the function FUNCTION with arguments ARGS in this " +
@@ -14,22 +13,26 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\techo" });
 
-   player = this_player();
-   if (player) {
-      player->more(lines);
-   }
+   return lines;
 }
 
 static void main(string arg) {
    string *tmp;
    int i;
+   object player;
 
    if (empty_str(arg)) {
-      usage();
+      player = this_player();
+      if (player) {
+         player->more(usage());
+      }
       return;
    }
    if (sscanf(arg, "-%s", arg)) {
-      usage();
+      player = this_player();
+      if (player) {
+         player->more(usage());
+      }
       return;
    }
 

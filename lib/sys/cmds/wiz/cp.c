@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: cp [-h] [file1] [file2]" });
@@ -15,16 +15,15 @@ void usage(void) {
    lines += ({ "\tbrowse, cat, cd, diff, edit, indent, ls, more, mkdir, pwd, " +
       "rm, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
-   string file, dest, where, file_name, in;
-   string *parts;
+   string file, dest, where, file_name, in, *parts;
 
    if (empty_str(str) || (sscanf(str, "%s %s", str, where) != 2)) {
       write("Please specify a source and a destination.");
-      usage();
+      this_player()->more(usage());
       return;
    }
 

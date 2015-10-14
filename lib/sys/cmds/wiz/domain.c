@@ -11,7 +11,7 @@
 
 inherit M_COMMAND;
 
-string *query_usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: domain list" });
@@ -44,10 +44,6 @@ string *query_usage(void) {
    }
 
    return lines;
-}
-
-void usage(void) {
-   this_player()->more(query_usage());
 }
 
 static int action_list_domains(void) {
@@ -183,7 +179,7 @@ static void main(string arg) {
       if (arg == "list") {
          action_list_domains();
       } else {
-         usage();
+         this_player()->more(usage());
       }
       return;
    }
@@ -250,7 +246,7 @@ static void main(string arg) {
       } else {
          err = ({ });
       }
-      err += map_array(query_usage(), "parse_colors", ANSI_D);
+      err += map_array(usage(), "parse_colors", ANSI_D);
       this_player()->more(err);
    } else {
       write("Ok.\n");

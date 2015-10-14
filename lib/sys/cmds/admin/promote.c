@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: promote [-h] PLAYER [player|wiz|admin]" });
@@ -23,7 +23,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tban, forcequit, muzzle, rmuser, zap" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void display_level(string str) {
@@ -49,12 +49,12 @@ static void main(string str) {
    int numargs;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(str, "%s %s", who, what) != 2) {
@@ -79,6 +79,6 @@ static void main(string str) {
    } else if ((what == "player") || (what == "mortal")) {
       USER_D->make_mortal(who);
    } else {
-      usage();
+      this_player()->more(usage());
    }
 }

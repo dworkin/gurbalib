@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines =({ "Usage: wimpy [-h] [CMD ARG]" });
@@ -28,7 +28,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tattack, cast, eat, enter, follow, go, pray, query, quit" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -59,7 +59,7 @@ static void main(string str) {
       }
       write("Wimpy hp: " + hp + "\n");
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
    } else if (str == "dir" || str == "direction") {
       this_player()->set_wimpy_dir("");
       write("Wimpy dir: unset.\n");
@@ -76,6 +76,6 @@ static void main(string str) {
       this_player()->set_wimpy(0);
       write("Wimpy mode disabled.\n");
    } else {
-      usage();
+      this_player()->more(usage());
    }
 }

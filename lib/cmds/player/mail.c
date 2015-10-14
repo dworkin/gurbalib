@@ -5,9 +5,8 @@ string *to;
 string msgdate;
 string *body;
 
-void usage(void) {
-   string usage, all;
-   string *lines;
+string *usage(void) {
+   string usage, all, *lines;
 
    if (query_admin(this_player())) {
       usage = "Usage: mail [-h] [all|PLAYER1 [PLAYER2] [...]]";
@@ -39,7 +38,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tdelete, look, post, read" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void delete_message(string str) {
@@ -188,14 +187,14 @@ void view_mailbox(string str) {
 static void main(string str) {
 
    write("XXX The mail command is still under construction.\n");
-   usage();
+   this_player()->more(usage());
    return;
 
    if (empty_str(str)) {
       show_menu();
    } else {
       if (sscanf(str, "-%s", str)) {
-         usage();
+         this_player()->more(usage());
          return;
       }
 

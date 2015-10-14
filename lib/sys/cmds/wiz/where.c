@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: where [-h] [player]" });
@@ -16,7 +16,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tlast, locate, look, mudlist, possess, rwho, snoop, who" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -34,7 +34,7 @@ static void main(string str) {
       }
    } else {
       if (sscanf(str, "-%s", str)) {
-	 usage();
+         this_player()->more(usage());
       } else if (usr = USER_D->find_player(str)) {
 	 write(usr->query_Name() + " Loc: (" +
 	    usr->query_environment()->query_short() + ") " +

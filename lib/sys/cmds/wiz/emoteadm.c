@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: emoteadm -h" });
@@ -46,7 +46,7 @@ void usage(void) {
       lines += ({ "\tcmdadmin, coloradm, emotediff, rehash" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void delete_emote(string str) {
@@ -63,7 +63,7 @@ void add_emote(string str) {
    string rule, fmt;
 
    if (sscanf(str, "%s %s", name, tmp) != 2) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
@@ -88,11 +88,11 @@ static void main(string str) {
    width = this_player()->query_width();
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
@@ -103,7 +103,7 @@ static void main(string str) {
    }
 
    if (sscanf(str, "%s %s", name, fmt) != 2) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
@@ -117,7 +117,7 @@ static void main(string str) {
       delete_emote(fmt);
       return;
    } else if (name != "add") {
-      usage();
+      this_player()->more(usage());
       return;
    }
    add_emote(fmt);

@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: ban [-h] [-s SITE] [PLAYER]" });
@@ -25,7 +25,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tforcequit, halt, heal, muzzle, zap" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void show_banned(void) {
@@ -102,7 +102,7 @@ static void main(string str) {
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

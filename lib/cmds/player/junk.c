@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: junk [-h] [all|OBJECT]" });
@@ -26,7 +26,7 @@ void usage(void) {
       lines += ({ "\thp, inventory, levels, score, skills, top" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void do_junk(object obj) {
@@ -53,12 +53,12 @@ static void main(string str) {
    int x, xmax;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

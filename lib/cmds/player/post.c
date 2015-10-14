@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: post [-h] SUBJECT" });
@@ -16,7 +16,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tdelete, look, mail, read" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 private static mapping msg;
@@ -32,10 +32,10 @@ static void main(string str) {
    }
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else if (this_player()->is_dead()) {
       write("You can not do that when your are not among the living.\n");

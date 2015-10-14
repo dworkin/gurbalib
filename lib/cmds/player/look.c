@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: look [-h] [[at|in] OBJ]" });
@@ -24,7 +24,7 @@ void usage(void) {
          });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void do_look_obj(object obj) {
@@ -129,7 +129,7 @@ static void main(string str) {
    } else {
 
       if (sscanf(str, "-%s", str)) {
-         usage();
+         this_player()->more(usage());
          return;
       }
 

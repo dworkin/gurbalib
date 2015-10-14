@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: score [-h] [-q] [PLAYER]" });
@@ -21,7 +21,7 @@ void usage(void) {
       lines += ({ "\thp, inventory, junk, levels, skills, top" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -38,7 +38,7 @@ static void main(string str) {
    } else if (sscanf(str, "-q %s", str)) {
       quest = 1;
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
@@ -50,7 +50,7 @@ static void main(string str) {
             return;
          }
       } else {
-         usage();
+         this_player()->more(usage());
          return;
       }
    } else {

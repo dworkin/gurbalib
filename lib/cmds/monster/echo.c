@@ -1,8 +1,7 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
-   object player;
 
    lines = ({ "Usage: echo [-h] MSG" });
    lines += ({ "Echo the message MSG to the room." });
@@ -13,19 +12,24 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tcall" });
 
-   player = this_player();
-   if (player) {
-      player->more(lines);
-   }
+   return lines;
 }
 
 static void main(string str) {
+   object player;
+
    if (empty_str(str)) {
-      usage();
+      player = this_player();
+      if (player) {
+         player->more(usage());
+      }
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      player = this_player();
+      if (player) {
+         player->more(usage());
+      }
       return;
    }
 

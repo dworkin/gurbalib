@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: set [-h] [VAR VALUE]" });
@@ -41,7 +41,8 @@ void usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tset width 50" });
    lines += ({ "\tset email foo@bar.com" });
-   this_player()->more(lines);
+
+   return lines;
 }
 
 void list_vars(void) {
@@ -70,11 +71,11 @@ static void main(string str) {
    if (empty_str(str)) {
       list_vars();
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else if ((sscanf(str, "%s %s", name, value) != 2) &&
       (sscanf(str, "%s=%s", name, value) != 2)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else {
         if (value == "on") {
@@ -112,7 +113,7 @@ static void main(string str) {
               }
            default:
               write("Invalid setting name \"" + name + "\".\n\n");
-              usage();
+              this_player()->more(usage());
               return;
         }
       write("Ok.");

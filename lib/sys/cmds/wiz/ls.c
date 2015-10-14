@@ -2,7 +2,7 @@
 
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: ls [-l] [-h] [<dir> ...]" });
@@ -21,7 +21,7 @@ void usage(void) {
    lines += ({ "\tbrowse, cat, cd, cp, diff, edit, indent, more, mkdir, pwd, " +
       "rm, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -39,7 +39,7 @@ static void main(string str) {
       if (str == "l") {
 	 str = ".";
       } else if (!sscanf(str, "l %s", str)) {
-	 usage();
+         this_player()->more(usage());
 	 return;
       }
    }

@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: echoto [-h] [player] MSG" });
@@ -19,7 +19,7 @@ void usage(void) {
       lines += ({ "\twall" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string who) {
@@ -28,12 +28,12 @@ static void main(string who) {
    string msg;
 
    if (empty_str(who)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(who, "-%s", who)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

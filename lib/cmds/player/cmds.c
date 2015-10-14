@@ -3,9 +3,8 @@ inherit M_COMMAND;
 int col;
 string *lines;
 
-void usage(void) {
-   string flags;
-   string *lines;
+string *usage(void) {
+   string flags, *lines;
 
    flags = "player|verb";
 
@@ -35,15 +34,13 @@ void usage(void) {
       lines += ({ "\thelp" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void show_cmds(string dir) {
-   string *names;
+   string *names, *files;
    mapping cmds;
-   int c, d, sz;
-   string *files;
-   int i;
+   int c, d, sz, i;
 
    cmds = ([]);
    files = get_dir(dir + "/*.c")[0];
@@ -100,14 +97,14 @@ static void main(string str) {
                if (query_wizard(this_player())) {
                   show_cmds("/sys/cmds/wiz");
                } else {
-                  usage();
+                  this_player()->more(usage());
                }
                break;
             case "admin":
                if (query_admin(this_player())) {
                   show_cmds("/sys/cmds/admin");
                } else {
-                  usage();
+                  this_player()->more(usage());
                }
                break;
             case "emote":
@@ -119,7 +116,7 @@ static void main(string str) {
                show_cmds("/cmds/guild/fighter");
                break;
             default:
-               usage();
+               this_player()->more(usage());
                break;
          }
          this_player()->more(lines);

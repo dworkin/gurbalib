@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: aliasadm -h" });
@@ -30,7 +30,7 @@ void usage(void) {
       lines += ({ "\tcmdadm, coloradm, emotediff, rehash" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void delete_alias(string str) {
@@ -47,16 +47,16 @@ void add_alias(string str) {
    string type, name, fmt, tmp;
 
    if (sscanf(str, "%s %s", type, tmp) != 2) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if ((type != "wiz") && (type != "wizard") && (type !="player")) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(tmp, "%s %s", name, fmt) != 2) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (type == "player") {
@@ -67,16 +67,15 @@ void add_alias(string str) {
 }
 
 static void main(string str) {
-   string name, fmt;
-   string *lines;
+   string name, fmt, *lines;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
@@ -87,7 +86,7 @@ static void main(string str) {
    }
 
    if (sscanf(str, "%s %s", name, fmt) != 2) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
@@ -100,7 +99,7 @@ static void main(string str) {
       delete_alias(fmt);
       return;
    } else if (name != "add") {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

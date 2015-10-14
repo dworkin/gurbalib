@@ -4,7 +4,7 @@ inherit M_COMMAND;
 
 string *get_fortune_files(void);
 
-void usage(void) {
+string *usage(void) {
    string *lines, *filetypes;
    int i, imax;
    
@@ -17,7 +17,7 @@ void usage(void) {
    lines += ({ "Otherwise choose a random fortune of that type." });
    lines += ({ "Current types are: " });
 
-   for (i=0;i<imax;i++) {
+   for (i=0; i < imax; i++) {
       lines += ({ "   " + filetypes[i] }); 
    }
 
@@ -31,7 +31,7 @@ void usage(void) {
    lines += ({ "See Also:" });
    lines += ({ "\tmotd" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 string *get_fortune_files(void) {
@@ -79,7 +79,7 @@ int valid_fortune(string str) {
 static void main(string str) {
    if (empty_str(str)) {
    } else if (str == "-h" || !valid_fortune(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

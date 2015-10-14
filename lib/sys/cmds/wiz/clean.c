@@ -2,7 +2,7 @@
 
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: clean [-h]" });
@@ -23,7 +23,7 @@ void usage(void) {
          "update" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string arg) {
@@ -31,7 +31,7 @@ static void main(string arg) {
    int i;
 
    if (!empty_str(arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

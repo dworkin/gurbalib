@@ -2,9 +2,8 @@ inherit M_COMMAND;
 
 string parse_error;
 
-void usage(void) {
-   string mode;
-   string *lines;
+string *usage(void) {
+   string mode, *lines;
 
    if (this_player()->query_ansi() == 1) {
       mode = "on";
@@ -34,7 +33,7 @@ void usage(void) {
    lines += ({ "" });
    lines += ({ "You currently have ansi mode: " + mode });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 #define GRAMMAR "whitespace=/[ ]+/\n"+\
@@ -98,11 +97,11 @@ static void main(string str) {
    int i, sz, pos;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if ((str == "on") || (str == "On") || (str == "1")) {

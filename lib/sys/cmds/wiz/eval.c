@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: eval [-h] STRING" });
@@ -28,7 +28,7 @@ void usage(void) {
          "update" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string src) {
@@ -38,12 +38,12 @@ static void main(string src) {
    int str_size;
 
    if (empty_str(src)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (src == "-h") {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
@@ -56,7 +56,8 @@ static void main(string src) {
    rlimits(255;-1) {
       rlimits(255;2*MAX_TICKS) {
          err = catch(obj =
-            compile_object("/wiz/" + this_player()->query_name() + "/obj/eval_ob",
+            compile_object("/wiz/" + this_player()->query_name() +
+            "/obj/eval_ob",
 	       "# include <float.h>\n# include <limits.h>\n" +
                "# include <status.h>\n# include <trace.h>\n" +
 	       "# include <type.h>\n\n" +
@@ -71,8 +72,9 @@ static void main(string src) {
             obj->exec(this_player()));
       }
 
-      if (obj)
+      if (obj) {
          destruct_object(obj);
+      }
 
       if (err) {
          write("Error: " + err + ".\n");

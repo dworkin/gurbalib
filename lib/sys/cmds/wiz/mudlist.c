@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: mudlist [-h] [MUD]" });
@@ -16,7 +16,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tlast, locate, look, possess, rwho, snoop, where, who" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 /* vim:set ft=lpc: */
@@ -28,7 +28,7 @@ static void main(string str) {
    int len, slen, mlen, i, count;
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: ignore [-h] [PLAYER]" });
@@ -20,7 +20,7 @@ void usage(void) {
       lines += ({ "\tcoloradm" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 /* Add a user to your ignore list  -- Arron Cusimano (mordain) 20090321 */
@@ -40,7 +40,7 @@ static void main(string arg) {
       return;
    }
    if (sscanf(arg, "-%s", arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (this_player()->query_ignored(arg)) {

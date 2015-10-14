@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: browse [-h] [dir]" });
@@ -16,13 +16,13 @@ void usage(void) {
    lines += ({ "\tcat, cd, cp, diff, edit, indent, ls, more, mkdir, pwd, " +
       "rm, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string arg) {
 
    if (arg && sscanf(arg, "-%s", arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

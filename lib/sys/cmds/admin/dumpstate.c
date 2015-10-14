@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: dumpstate [-h]" });
@@ -19,7 +19,7 @@ void usage(void) {
    lines += ({ "\tcheck, clean, clone, dest, eval, rebuild, " +
       "shutdown, update, warmboot" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void done(void) {
@@ -28,7 +28,7 @@ void done(void) {
 
 static void main(string str) {
    if (!empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: indent [-h] FILE" });
@@ -22,19 +22,19 @@ void usage(void) {
    lines += ({ "\tbrowse, cat, cd, cp, diff, edit, ls, more, mkdir, pwd, " +
       "rm, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
    string tmp;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

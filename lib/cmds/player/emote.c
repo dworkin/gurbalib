@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: emote [-h] MSG" });
@@ -25,16 +25,16 @@ void usage(void) {
       lines += ({ "\twall" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

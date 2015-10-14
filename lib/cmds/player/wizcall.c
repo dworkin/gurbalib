@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: wizcall [-h] MSG" });
@@ -26,7 +26,7 @@ void usage(void) {
       lines += ({ "\twall" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -36,11 +36,11 @@ static void main(string str) {
    flag = 0;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

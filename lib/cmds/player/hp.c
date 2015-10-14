@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: hp [-h]" });
@@ -20,13 +20,13 @@ void usage(void) {
       lines += ({ "\tinventory, junk, levels, score, skills, top" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
    string line;
    if (!empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

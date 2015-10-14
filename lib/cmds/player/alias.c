@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: alias [-h] [ALIAS COMMAND]" });
@@ -23,7 +23,7 @@ void usage(void) {
       lines += ({ "\tcmdadm, coloradm, rehash" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void show_aliases(void) {
@@ -60,7 +60,7 @@ static void main(string str) {
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else {
       if (sscanf(str, "%s %s", cmd, arg) != 2) {
@@ -72,13 +72,13 @@ static void main(string str) {
             return;
          }
 
-         usage();
+         this_player()->more(usage());
          return;
       }
 
       /* Check for invalid input */
       if ((cmd == " ") || (arg == " ") || (cmd == "") || (arg == "")) {
-         usage();
+         this_player()->more(usage());
          return;
       }
 

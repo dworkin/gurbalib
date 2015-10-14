@@ -15,7 +15,7 @@ inherit M_COMMAND;
                 "value_list: value_list '+' value\n"+\
                 "value: TAG ? valid_value\n"
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: coloradm [-h] [SHOW|COMMAND]" });
@@ -41,7 +41,7 @@ void usage(void) {
       "describe, domain, emote, emoteadm, ignore, passwd, skilladm, rehash, " +
       "questadm" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 /* If the arg[0] is a base symbol, it can't be used as a custom tag. */
@@ -78,7 +78,7 @@ static void main(string str) {
    int i, sz, pos;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if ((str == "show") || (str == "display")) {
@@ -86,7 +86,7 @@ static void main(string str) {
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

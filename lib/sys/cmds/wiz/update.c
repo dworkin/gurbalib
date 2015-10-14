@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: update [-h] [FILE|obj]" });
@@ -25,7 +25,7 @@ void usage(void) {
           });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 object compiler_d;
@@ -85,12 +85,12 @@ static void main(string str) {
    }
 
    if (!str || (str == "")) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

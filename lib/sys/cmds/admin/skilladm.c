@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: skilladm [-h] [CMD SKILL]" });
@@ -18,7 +18,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\taliasadm, coloradm, emoteadm, skills, questadm" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -36,12 +36,12 @@ static void main(string str) {
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(str, "%s %s", cmd, skill) != 2) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
@@ -62,6 +62,6 @@ static void main(string str) {
       SKILL_D->remove_skill(skill);
       write("Skill removed. ");
    } else {
-      usage();
+      this_player()->more(usage());
    }
 }

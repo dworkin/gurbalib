@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 #include <status.h>
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: title [-h] [string]" });
@@ -17,7 +17,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tgender" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -29,7 +29,7 @@ static void main(string str) {
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    if (query_admin(this_player())) {
@@ -30,7 +30,7 @@ void usage(void) {
       lines += ({ "\tcoloradm" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string arg) {
@@ -38,7 +38,7 @@ static void main(string arg) {
 
    if (arg && (arg != "")) {
       if (!query_admin(this_player())) {
-         usage();
+         this_player()->more(usage());
          return;
       }
       if (sscanf(arg,"%s %s",who,passwd) == 2) {
@@ -51,7 +51,7 @@ static void main(string arg) {
             write(who + " is not a real user.\n");
          }
       } else {
-         usage();
+         this_player()->more(usage());
       }
       return;
    }

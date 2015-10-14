@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: more [-h] [file]" });
@@ -17,7 +17,7 @@ void usage(void) {
    lines += ({ "\tbrowse, cat, cd, cp, diff, edit, indent, ls, mkdir, pwd, " +
       "rm, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 /* A highly advanced more command
@@ -59,7 +59,7 @@ static void main(string arg) {
    }
 
    if (sscanf(arg, "-%s", arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

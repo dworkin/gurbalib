@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: edit [-h] [FILENAME]" });
@@ -32,7 +32,7 @@ void usage(void) {
    lines += ({ "\tbrowse, cat, cd, cp, diff, indent, ls, more, mkdir, pwd, " +
       "rm, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -42,12 +42,13 @@ static void main(string str) {
       this_player()->edit("");
       this_player()->edit("file");
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else {
       str = normalize_path(str, this_player()->query_env("cwd"));
 
-      /* not needed for security, but allows giving nicer messages to the user. */
+      /* not needed for security, but allows giving nicer
+         messages to the user. */
       if (!valid_read(str)) {
          this_player()->write("Permission denied.\n");
          return;
@@ -55,7 +56,8 @@ static void main(string str) {
 
       this_player()->write("Starting editor...");
 
-      /* not needed for security, but warn user that they won't be able to write the file. */
+      /* not needed for security, but warn user that they won't be able
+         to write the file. */
       if (!valid_write(str)) {
          this_player()->write("WARNING: read-only file.\n");
       }

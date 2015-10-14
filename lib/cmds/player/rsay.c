@@ -1,9 +1,8 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    int x, max;
-   string *langs;
-   string *lines;
+   string *langs, *lines;
 
    lines = ({ "Usage: rsay [-h] [LANGUAGE] MSG" });
    lines += ({ "" });
@@ -36,7 +35,7 @@ void usage(void) {
       lines += ({ "\twall" });
    }
  
-   this_player()->more(lines);
+   return lines;
 }
 
 static void tell_them(string str, string *words, string lang, string *words2) {
@@ -75,11 +74,11 @@ static void main(string str) {
    string rest, first, lang;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: go [-h] DIRECTION" });
@@ -14,9 +14,10 @@ void usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tgo north" });
    lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, eat, enter, follow, pray, query, quit, wimpy" });
+   lines += ({ "\tattack, cast, eat, enter, follow, pray, query, quit, wimpy"
+      });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -24,11 +25,11 @@ static void main(string str) {
    int len;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(str, "-%s", str) || sscanf(str, "%s -%s", str, str2)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

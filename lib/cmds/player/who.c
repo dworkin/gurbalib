@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: who [-h] [PLAYER]" });
@@ -22,7 +22,7 @@ void usage(void) {
       lines += ({ "\tlook" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 /* 'who' command Originally by Fudge Improved by Cerihan 3/15/09 */
@@ -39,7 +39,7 @@ static void main(string str) {
 
    if (!empty_str(str)) {
       if (sscanf(str, "-%s", str)) {
-         usage();
+         this_player()->more(usage());
          return;
       }
 

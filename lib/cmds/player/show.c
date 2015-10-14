@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: show [-h] [all|OBJ] [to] PLAYER" });
@@ -15,7 +15,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tget, give, drop" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void display_object(object who, object what) {
@@ -87,18 +87,17 @@ static void do_show(object obj1, object obj2, int loud) {
 }
 
 static void main(string str) {
-   object obj, obj2;
-   object *inv;
+   object obj, obj2, *inv;
    int i, max, amount;
    string what, where, coin;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

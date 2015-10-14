@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 #define CHUNK_SIZE 8024
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: tail [-h] [file]" });
@@ -18,7 +18,7 @@ void usage(void) {
    lines += ({ "\tbrowse, cat, cd, cp, diff, edit, indent, ls, more, " +
       "mkdir, pwd, rm" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string arg) {
@@ -31,7 +31,7 @@ static void main(string arg) {
    }
 
    if (sscanf(arg, "-%s", arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

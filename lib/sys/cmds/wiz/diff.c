@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: diff [-h] [-o FILE] FILE1 FILE2" });
@@ -27,7 +27,7 @@ void usage(void) {
    lines += ({ "\tbrowse, cat, cd, cp, edit, indent, ls, more, mkdir, pwd, " +
       "rm, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 /* Return an array of differences between the files */
@@ -135,7 +135,7 @@ static void main(string str) {
    string outfile, file1, file2;
 
    if (empty_str(str) || sscanf(str, "-h", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
@@ -145,7 +145,7 @@ static void main(string str) {
       if (sscanf(str, "%s %s", file1, file2)) {
 	 do_work_toscreen(file1, file2);
       } else {
-         usage();
+         this_player()->more(usage());
 	 return;
       }
    }

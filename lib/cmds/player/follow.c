@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: follow [-h] [WHO]" });
@@ -17,7 +17,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tattack, cast, eat, enter, go, pray, query, quit, wimpy" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 /* XXX need to still put backend of this in..... */
@@ -42,7 +42,7 @@ static void main(string str) {
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

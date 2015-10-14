@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: cd [-h] [dir]" });
@@ -19,7 +19,7 @@ void usage(void) {
    lines += ({ "\tbrowse, cat, cp, diff, edit, indent, ls, more, mkdir, pwd, " +
       "rm, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 #define MODE_READ 0
@@ -30,7 +30,7 @@ static void main(string arg) {
    if (empty_str(arg)) {
       arg = "/wiz/" + this_player()->query_name();
    } else if (sscanf(arg, "-%s", arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

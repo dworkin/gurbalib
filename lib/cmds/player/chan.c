@@ -4,7 +4,7 @@ inherit M_COMMAND;
 
 #include <channel.h>
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: chan [-h] [COMMAND CHANNEL | CHANNEL MSG]" });
@@ -59,7 +59,7 @@ void usage(void) {
          "wizcall" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void list_channels(int x) {
@@ -158,12 +158,12 @@ static void chan_cmd(string cmd, string chan) {
          CHANNEL_D->show_info(chan);
          break;
       case "help":
-         usage();
+         this_player()->more(usage());
          break;
       case "color":
          args = explode(chan," ");
          if (sizeof(args) < 2) {
-            usage();
+            this_player()->more(usage());
             return;
          }
          write("Old color for channel " + args[1] + ": " + 
@@ -181,7 +181,7 @@ static void chan_cmd(string cmd, string chan) {
       case "guild":
          args = explode(chan," ");
          if (sizeof(args) < 2) {
-            usage();
+            this_player()->more(usage());
             return;
          }
          write("Old guild for channel " + args[1] + ": " + 
@@ -213,7 +213,7 @@ static void main(string str) {
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (str == "list" || str == "who") {
@@ -222,7 +222,7 @@ static void main(string str) {
    }
 
    if (sscanf(str, "%s %s", cmd, chan) != 2) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

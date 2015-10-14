@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: halt [-h] "});
@@ -14,7 +14,7 @@ void usage(void) {
    lines += ({ "See also:"});
    lines += ({ "\tban, forcequit, heal, muzzle, zap"});
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -22,7 +22,7 @@ static void main(string str) {
    object *obj;
 
    if (!empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

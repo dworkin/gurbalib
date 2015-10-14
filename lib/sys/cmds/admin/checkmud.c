@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 int debug, errors;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: checkmud [-h] [TYPE [VALUE]]" });
@@ -30,7 +30,7 @@ void usage(void) {
    lines += ({ "\tcheck, clean, clone, dest, eval, graph, rebuild, " +
          "update, warmboot" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 int valid_file(string filename) {
@@ -75,9 +75,8 @@ int check_file(string filename) {
 /* Find all of the .c files in a dir and check them */
 int check_dir(string dirname) {
    mixed *files;
-   string *names;
+   string tmp, *names;
    int max, x;
-   string tmp;
 
    files = get_dir(dirname + "/*");
    names = files[0];
@@ -193,7 +192,7 @@ static void main(string str) {
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
@@ -220,7 +219,7 @@ static void main(string str) {
          check_daemon(value);
          break;
       default:
-         usage();
+         this_player()->more(usage());
          break;
    }
 }

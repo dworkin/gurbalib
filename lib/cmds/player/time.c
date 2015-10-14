@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: time [-h] [-s]" });
@@ -26,19 +26,18 @@ void usage(void) {
       lines += ({ "\tscore, time" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
    int day;
-   string txt, datetxt;
-   string *days, *hours, *years;
+   string txt, datetxt, *days, *hours, *years;
 
    if (!empty_str(str)) {
       if ((str == "-s") || (str == "-S")) {
          write(TIME_D->query_time());
       } else {
-         usage();
+         this_player()->more(usage());
       }
       return;
    }

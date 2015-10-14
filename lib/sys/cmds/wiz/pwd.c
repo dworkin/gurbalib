@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: pwd [-h]" });
@@ -15,13 +15,13 @@ void usage(void) {
    lines += ({ "\tbrowse, cat, cd, cp, diff, edit, indent, ls, more, mkdir, " +
       "rm, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
 
    if (!empty_str(str)) {
-      usage();
+      this_player()->more(usage());
    } else {
       write("%^BOLD%^" + this_player()->query_env("cwd") + "%^RESET%^\n");
    }

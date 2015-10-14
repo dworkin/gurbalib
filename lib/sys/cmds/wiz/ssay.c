@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: ssay [-h] HOW|WHAT" });
@@ -21,7 +21,7 @@ void usage(void) {
       lines += ({ "\twall" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -37,11 +37,11 @@ static void main(string str) {
    }
 
    if (sscanf(str, "%s|%s", how, what) != 2) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
@@ -61,7 +61,7 @@ static void main(string str) {
 	 this_player()->query_Name() + " " + how +
 	 ": %^RESET%^" + capitalize(what) + "\n");
    } else {
-      usage();
+      this_player()->more(usage());
       return;
    }
 }

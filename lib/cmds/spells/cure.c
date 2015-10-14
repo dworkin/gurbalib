@@ -1,7 +1,7 @@
 #define COST 10
 #define SKILLREQUIRED 15
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: cast cure [-h] [TARGET]" });
@@ -11,7 +11,8 @@ void usage(void) {
    lines += ({ "This spell requires " + COST + " mana." });
    lines += ({ "This spell heals 1-5 hit points on TARGET." });
    lines += ({ "You need to have a skill level of " + SKILLREQUIRED + 
-      " before you can cast this spell on other players." });
+      " before you can cast this spell " });
+   lines += ({ "on other players." });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
@@ -19,7 +20,7 @@ void usage(void) {
    lines += ({ "\tcast cure" });
    lines += ({ "\tcast cure sirdude" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 int max_hp(object target) {
@@ -61,7 +62,7 @@ void do_spell(object thisp, string target) {
    if (empty_str(target)) {
       tar = thisp;
    } else if (target == "-h") {
-      usage();
+      this_player()->more(usage());
       return;
    } else {
       tar = this_environment()->present(target);

@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: man [-h] [TOPIC]" });
@@ -15,7 +15,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tcmds, help" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 /* A highly advanced man command 
@@ -93,7 +93,7 @@ static void main(string arg) {
    }
 
    if (sscanf(arg, "-%s", arg) || arg == "man") {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: bug [-h] SUBJECT" });
@@ -24,7 +24,7 @@ void usage(void) {
       lines += ({ "\twall" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 private static mapping msg;
@@ -35,11 +35,11 @@ static void main(string str) {
    string player_name, tmp;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: wall [-h] MSG" });
@@ -16,7 +16,7 @@ void usage(void) {
    lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
       "sysmsg, tell, translate, whisper, wizcall" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -24,7 +24,7 @@ static void main(string str) {
    int i, max;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(str, "-w %s", str)) {
@@ -45,7 +45,7 @@ static void main(string str) {
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

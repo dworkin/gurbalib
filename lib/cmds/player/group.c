@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: group [-h] [PCOMMAND PLAYER] [GCOMMAND]" });
@@ -36,7 +36,7 @@ void usage(void) {
 
    lines += ({ "\tcmds" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 string *get_group_members() {
@@ -159,12 +159,12 @@ int do_group_say(string what) {
 static void main(string arg) {
    string file;
    if (empty_str(arg) || (arg == "help")) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(arg, "-%s", arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

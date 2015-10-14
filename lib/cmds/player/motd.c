@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: motd [-h]" });
@@ -14,7 +14,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tfortune" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -24,6 +24,6 @@ static void main(string str) {
       lines = explode(TELNET_D->query_motd(), "\n");
       this_player()->more(lines);
    } else {
-      usage();
+      this_player()->more(usage());
    }
 }

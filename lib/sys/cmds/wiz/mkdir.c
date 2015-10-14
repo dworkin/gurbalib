@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: mkdir [-h] DIR" });
@@ -16,18 +16,18 @@ void usage(void) {
    lines += ({ "\tbrowse, cat, cd, cp, diff, edit, inedent, ls, more, pwd, " +
       "rm, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string arg) {
    string file;
 
    if (empty_str(arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(arg, "-%s", arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

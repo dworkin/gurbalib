@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: clear [-h]" });
@@ -14,6 +14,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\talias, ansi, chfn, clear, describe, ignore, passwd" });
 
+   return lines;
    this_player()->more(lines);
 }
 
@@ -29,7 +30,7 @@ static void main(string str) {
       write(str);
       return;
    } else {
-      usage();
+      this_player()->more(usage());
       return;
    }
 }

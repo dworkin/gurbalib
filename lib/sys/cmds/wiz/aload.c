@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: aload [-h] [save]" });
@@ -18,13 +18,12 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tcompose" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
    string file, action, rest;
-   object ob;
-   object *inv;
+   object ob, *inv;
    int i, max;
 
    if (!empty_str(str)) {
@@ -33,7 +32,7 @@ static void main(string str) {
          str = this_player()->query_autoload_string();
          write("Autoload string set to: " + str + "\n");
       } else {
-         usage();
+         this_player()->more(usage());
          return;
       }
    }

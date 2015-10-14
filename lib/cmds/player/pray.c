@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: pray [-h] [prayer]" });
@@ -14,7 +14,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tattack, cast, eat, enter, follow, go, query, quit, wimpy" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -25,7 +25,7 @@ static void main(string str) {
       this_player()->query_environment()->tell_room(this_player(), 
          this_player()->query_Name() + " prays.\n");
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else {
       switch (str[strlen(str) - 1]) {

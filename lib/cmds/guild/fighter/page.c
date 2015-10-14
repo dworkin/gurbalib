@@ -1,4 +1,4 @@
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: page [-h] CMD" });
@@ -11,7 +11,7 @@ void usage(void) {
    lines += ({ "\tpage wield sword" });
    lines += ({ "See also:" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void main(string str) {
@@ -23,7 +23,7 @@ void main(string str) {
    ob = this_player()->query_environment()->present(page);
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

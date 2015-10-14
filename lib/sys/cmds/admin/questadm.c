@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: questadm [-h] [remove QUEST]"});
@@ -20,7 +20,7 @@ void usage(void) {
    lines += ({ "See also:"});
    lines += ({ "\taliasadm, coloradm, emoteadm, quests, skilladm, skills"});
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
@@ -33,19 +33,15 @@ static void main(string str) {
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(str, "%s %s", cmd, rest) != 2) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
-   if (sscanf(str, "%s %s", cmd, rest) != 2) {
-      usage();
-      return;
-   }
    cmd = lowercase(cmd);
    if (cmd == "add") {
       if (sscanf(rest, "%s %d %s", questname, level, domain) == 3) {
@@ -53,7 +49,7 @@ static void main(string str) {
          write("Quest: " + questname + " added.");
          QUEST_D->list_quests(this_player());
       } else {
-         usage();
+         this_player()->more(usage());
       }
       return;
    }
@@ -68,6 +64,6 @@ static void main(string str) {
          QUEST_D->list_quests(this_player());
       }
    } else {
-      usage();
+      this_player()->more(usage());
    }
 }

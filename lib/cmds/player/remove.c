@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: remove [-h] [all|OBJ]" });
@@ -17,7 +17,7 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tget, drop, put, wear, wield" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void do_remove(object obj, int loud) {
@@ -74,12 +74,12 @@ static void main(string str) {
    int i, max;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

@@ -12,7 +12,7 @@ inherit "/sys/lib/menu";
 
 static int menu_cmdadm(varargs mixed junk...);
 
-string *query_usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: cmdadm [CMD [PATH] [PRIV]]" });
@@ -56,10 +56,6 @@ string *query_usage(void) {
       "emoteadm, emotediff, help, rehash" });
 
    return lines;
-}
-
-void usage(void) {
-   this_player()->more(map_array(query_usage(), "parse_colors", ANSI_D));
 }
 
 /* utility function, ensure every command path has a trailing slash.  */
@@ -513,7 +509,7 @@ static void main(string str) {
       } else {
          err = ({ });
       }
-      err += map_array(query_usage(), "parse_colors", ANSI_D);
+      err += map_array(usage(), "parse_colors", ANSI_D);
       this_player()->more( err );
    } else {
       menu_cmdadm();

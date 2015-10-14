@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 #define CHUNK_SIZE 1024
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: cat [-h] [file]" });
@@ -19,7 +19,7 @@ void usage(void) {
    lines += ({ "\tbrowse, cd, cp, diff, edit, indent, ls, more, mkdir, pwd, " +
       "rm, tail" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void cat_the_file(string file) {
@@ -46,7 +46,7 @@ static void main(string file) {
    if (empty_str(file)) {
       file = this_player()->query_env("cwf");
    } else if (sscanf(file, "-%s", file)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

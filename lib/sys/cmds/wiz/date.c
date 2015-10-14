@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: date [-h]" });
@@ -14,13 +14,14 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tscan, status, time" });
 
+   return lines;
    this_player()->more(lines);
 }
 
 static void main(string str) {
 
    if (!empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

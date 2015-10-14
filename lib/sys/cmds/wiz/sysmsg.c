@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: sysmsg [-h] MSG" });
@@ -17,7 +17,7 @@ void usage(void) {
    lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
       "tell, translate, whisper, wizcall" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string msg) {
@@ -25,10 +25,10 @@ static void main(string msg) {
    int i;
 
    if (empty_str(msg)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else if (sscanf(msg, "-%s", msg)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else {
       usr = USER_D->query_players();

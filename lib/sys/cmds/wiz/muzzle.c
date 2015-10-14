@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: muzzle [-h] PLAYER" });
@@ -15,19 +15,18 @@ void usage(void) {
    lines += ({ "See also:" });
    lines += ({ "\tban, forcequit, halt, heal, zap" });
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
    int val;
-   object *usrs;
-   object usr;
+   object usr, *usrs;
 
    if (empty_str(str)) {
       write("You need to specify a player name.\n");
    } else {
       if (sscanf(str, "-%s", str)) {
-	 usage();
+         this_player()->more(usage());
       } else if (usr = USER_D->find_player(str)) {
 	 val = usr->toggle_muzzle();
 	 if (val) {

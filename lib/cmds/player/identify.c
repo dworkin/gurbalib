@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: identify [-h] OBJ" });
@@ -22,19 +22,18 @@ void usage(void) {
          });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 static void main(string str) {
-   object obj;
-   object *wielded;
+   object obj, *wielded;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
    if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

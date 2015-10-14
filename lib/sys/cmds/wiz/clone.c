@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: clone [-h] FILENAME [WHO]" });
@@ -21,7 +21,7 @@ void usage(void) {
          "update" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 string get_what(string str) {
@@ -49,11 +49,11 @@ static void main(string str) {
    if (empty_str(str)) {
       str = this_player()->query_env("cwf");
       if (!str) {
-	 usage();
+         this_player()->more(usage());
 	 return;
       }
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

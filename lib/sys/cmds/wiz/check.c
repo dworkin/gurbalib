@@ -2,7 +2,7 @@ inherit M_COMMAND;
 
 int warn, error;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: check [-h] FILENAME" });
@@ -23,7 +23,7 @@ void usage(void) {
          "update" });
    }
 
-   this_player()->more(lines);
+   return lines;
 }
 
 void warn(string str) {
@@ -483,10 +483,10 @@ static void main(string str) {
    int x, max;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    } else if (sscanf(str, "-%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

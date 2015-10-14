@@ -12,7 +12,7 @@ void init_keys(void) {
    keys += ({ "OBJ" });
 }
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: emotediff [-h] [-i] FILE [EMOTE]" });
@@ -38,8 +38,7 @@ void usage(void) {
    lines += ({ "\talias, aliasadmin, cmdadm, cmds, coloradm, domain, emote, " +
       "emoteadm, emotediff, help, rehash" });
 
-
-   this_player()->more(lines);
+   return lines;
 }
 
 void do_diff(object obj, string emote, string myfile) {
@@ -187,12 +186,12 @@ static void main(string str) {
    object obj;
 
    if (empty_str(str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(str, "-h%s", str)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 

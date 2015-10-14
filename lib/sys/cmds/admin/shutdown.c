@@ -4,7 +4,7 @@ inherit M_COMMAND;
 
 string reason;
 
-void usage(void) {
+string *usage(void) {
    string *lines;
 
    lines = ({ "Usage: shutdown [-h] [now|MINUTES] REASON" });
@@ -22,6 +22,7 @@ void usage(void) {
    lines += ({ "\tcheck, clean, clone, dest, eval, dumpstate, rebuild, " +
       "update, warmboot" });
 
+   return lines;
    this_player()->more(lines);
 }
 
@@ -56,7 +57,7 @@ void countdown(int mins) {
    usrs = USER_D->query_players();
   
    if (mins < 0) {
-      usage();
+      this_player()->more(usage());
       return;
    } else if (mins == 0) {
       do_shutdown();
@@ -77,17 +78,17 @@ static void main(string arg) {
    string time;
 
    if (empty_str(arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(arg, "-%s", arg)) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
    if (sscanf(arg, "%s %s", time, reason) != 2) {
-      usage();
+      this_player()->more(usage());
       return;
    }
 
