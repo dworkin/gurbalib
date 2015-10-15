@@ -165,7 +165,7 @@ static void rebuild_world(object p) {
 
    edges = COMPILER_D->query_upqueue();
 
-   rlimits(250; -1) {
+   rlimits(MAX_DEPTH; -1) {
       if (edges) {
 	 if (edges["kernel"]) {
 	    total += upgrade_uobj(edges["kernel"], verbose);

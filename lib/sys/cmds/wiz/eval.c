@@ -53,8 +53,8 @@ static void main(string src) {
    if (str_size && (src[(str_size - 1)] != ';')) {
       src += ";";
    }
-   rlimits(255; -1) {
-      rlimits(255; MAX_TICKS) {
+   rlimits(MAX_DEPTH; -1) {
+      rlimits(MAX_DEPTH; MAX_TICKS) {
          err = catch(obj =
             compile_object("/wiz/" + this_player()->query_name() +
             "/obj/eval_ob",

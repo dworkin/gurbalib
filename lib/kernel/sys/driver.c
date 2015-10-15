@@ -150,7 +150,7 @@ object compile_object(string path, varargs string code) {
    object ob, auto;
    int mark;
 
-   rlimits(255;-1) {
+   rlimits(MAX_DEPTH;-1) {
       ocount++;
 
       set_tlvar(TLS_INCLUDES, ( { "/kernel/include/std.h"}));

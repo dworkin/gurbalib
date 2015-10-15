@@ -550,7 +550,7 @@ void receive_message(string str) {
     * user object is handled by send_data which runs with its own
     * rlimits
     */
-   rlimits(2048; -1) {
+   rlimits(MAX_DEPTH; -1) {
       string packet;
       int size;
 
@@ -603,7 +603,7 @@ void receive_message(string str) {
             packet_len = 0;
             /* restore the variable in the packet and send it to the user 
              * object.  */
-            rlimits(2048; -1) {
+            rlimits(MAX_DEPTH; -1) {
                mixed data;
                string rc;
 

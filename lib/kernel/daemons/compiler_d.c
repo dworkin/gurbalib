@@ -283,7 +283,7 @@ string *inherits_this(string f, varargs int issue) {
       /* We don't know the issue, so have to go through the keys
          and sscanf them to find all issues */
       f += "#%*d";
-      rlimits(40; -1) {
+      rlimits(MAX_DEPTH; -1) {
          max = sizeof(files);
          for (fcount = 0; fcount < max; fcount++) {
             if (sscanf(files[fcount], f) == 1) {
@@ -350,7 +350,7 @@ string *find_depending_objects(string file) {
    edges = ({ });
    pile = get_nodes(file);
 
-   rlimits(40; -1) {
+   rlimits(MAX_DEPTH; -1) {
       while (sizeof(pile)) {
          newedge = filter_for_edges(edges);
 

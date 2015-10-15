@@ -179,7 +179,7 @@ static void main(string str) {
 
    edges = COMPILER_D->query_upqueue();
 
-   rlimits(250; -1) {
+   rlimits(MAX_DEPTH; -1) {
       if (edges) {
 	 if (edges["kernel"] && (!wanted || (sizeof(wanted & ({"kernel"})) != 0)) 
             && valid_write("/kernel/data")) {
@@ -246,7 +246,7 @@ static void main(string str) {
    }
 
    COMPILER_D->clear_upqueue();
-   rlimits(255; -1) {
+   rlimits(MAX_DEPTH; -1) {
       filter_array(resubmit, "resubmit_upqueue");
    }
 
