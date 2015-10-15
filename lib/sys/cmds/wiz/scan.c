@@ -21,7 +21,7 @@ string *usage(void) {
 
 static void main(string str) {
    object where, *objs;
-   int i, done;
+   int i, sz, done;
 
    if (empty_str(str)) {
       where = this_environment();
@@ -45,7 +45,8 @@ static void main(string str) {
    objs = where->query_inventory();
    if (objs) {
       done = 0;
-      for (i = 0; i < sizeof(objs); i++) {
+      sz = sizeof(objs);
+      for (i = 0; i < sz; i++) {
          done = 1;
          write("\"" + object_name(objs[i]) + "\"");
       }

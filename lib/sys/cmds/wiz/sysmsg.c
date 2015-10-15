@@ -22,7 +22,7 @@ string *usage(void) {
 
 static void main(string msg) {
    object *usr;
-   int i;
+   int i, sz;
 
    if (empty_str(msg)) {
       this_player()->more(usage());
@@ -33,7 +33,8 @@ static void main(string msg) {
    } else {
       usr = USER_D->query_players();
 
-      for (i = 0; i < sizeof(usr); i++) {
+      sz = sizeof(usr);
+      for (i = 0; i < sz; i++) {
 	 usr[i]->message("\n" +
 	    "%^RED%^System Message from %^GREEN%^" +
 	    this_player()->query_Name() +

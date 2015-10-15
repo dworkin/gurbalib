@@ -48,5 +48,4 @@ static void main(string arg) {
    } else {
       write("File or dir already exists.\n");
    }
-
 }

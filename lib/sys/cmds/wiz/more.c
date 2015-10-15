@@ -1,4 +1,11 @@
+/* A highly advanced more command
+ * By Fudge, Improved by Quixadhal
+ */
+
 inherit M_COMMAND;
+
+#include <status.h>
+#include <limits.h>
 
 string *usage(void) {
    string *lines;
@@ -19,13 +26,6 @@ string *usage(void) {
 
    return lines;
 }
-
-/* A highly advanced more command
- * By Fudge, Improved by Quixadhal
- */
-
-#include <status.h>
-#include <limits.h>
 
 int file_size(string path) {
    /* by Mikael Lind */
@@ -49,10 +49,8 @@ int file_size(string path) {
 }
 
 static void main(string arg) {
-   string file, file_data;
-   string *tmp;
-   string *lines;
-   int where, i, size, length, offset, chopped, maxlines;
+   string file, file_data, *tmp, *lines;
+   int where, i, sz, size, length, offset, chopped, maxlines;
 
    if (empty_str(arg)) {
       arg = this_environment()->file_name();
@@ -85,7 +83,8 @@ static void main(string arg) {
          file_data = file_data[0..strlen(file_data) / 2];
       }
 
-      for (i = 0; i < sizeof(tmp); i++) {
+      sz = sizeof(tmp);
+      for (i = 0; i < sz; i++) {
          if (sizeof(lines) < maxlines) {
             if (strlen(tmp[i]) > 79) {
                /* Big line. Break it up. */
@@ -114,7 +113,7 @@ static void main(string arg) {
       }
    }
    if (chopped == 1) {
-      lines += ( { "*** TRUNCATED ***" } );
+      lines += ({ "*** TRUNCATED ***" });
    }
 
    this_player()->more(lines);

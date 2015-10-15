@@ -18,7 +18,7 @@ string *usage(void) {
 }
 
 static void main(string arg) {
-   int i, j, stat, max_stat;
+   int i, j, stat, max_stat, sz;
    string *stat_abrvs, *stat_names;
    object ob;
 
@@ -50,7 +50,8 @@ static void main(string arg) {
 
       write("                        stat   base   bonus    max\n");
       write("---------------------------------------------------\n");
-      for (i = 0; i < sizeof(stat_names); i++) {
+      sz = sizeof(stat_names);
+      for (i = 0; i < sz; i++) {
 	 write("\t" + capitalize(stat_names[i]) + " :   " +
 	    ob->query_stat(stat_abrvs[i]) +
 	    "\t" + ob->query_base_stat(stat_abrvs[i]) +

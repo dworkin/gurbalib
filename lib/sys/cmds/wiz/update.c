@@ -75,10 +75,8 @@ static object recompile_object(string str) {
 
 static void main(string str) {
    string path;
-   object *objs;
-   object *players;
-   object ob;
-   int i;
+   object ob, *players, *objs;
+   int i, sz;
 
    if (empty_str(str)) {
       str = this_player()->query_env("cwf");
@@ -117,17 +115,17 @@ static void main(string str) {
 
       objs = this_environment()->query_inventory();
       players = ( { } );
-      for (i = 0; i < sizeof(objs); i++) {
+      sz = sizeof(objs);
+      for (i = 0; i < sz; i++) {
 	 if (objs[i]->is_player()) {
-	    players += ( {
-	       objs[i]}
-	    );
+	    players += ({ objs[i] });
 	 } else {
 	    objs[i]->destruct();
 	 }
       }
 
-      for (i = 0; i < sizeof(players); i++) {
+      sz = sizeof(players);
+      for (i = 0; i < sz; i++) {
 	 players[i]->move(VOID);
       }
 
@@ -135,7 +133,7 @@ static void main(string str) {
 
       /* And move into the new room */
 
-      for (i = 0; i < sizeof(players); i++) {
+      for (i = 0; i < sz; i++) {
 	 players[i]->move(str);
       }
       this_player()->do_look(this_environment());

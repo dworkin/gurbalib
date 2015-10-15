@@ -18,20 +18,22 @@ string *usage(void) {
 }
 
 static void main(string str) {
+   int sz, i;
+   object *pSnooping;
 
    if (empty_str(str)) {
-      int i;
-      object *pSnooping;
-
       pSnooping = this_player()->query_snooping();
+
       if (pSnooping && (sizeof(pSnooping) > 0)) {
 	 this_player()->message("You are snooping:");
-	 for (i = 0; i < sizeof(pSnooping); i++) {
+         sz = sizeof(pSnooping);
+	 for (i = 0; i < sz; i++) {
 	    this_player()->message(capitalize(pSnooping[i]->query_name()));
 	 }
       } else {
 	 this_player()->message("You are snooping no one.");
       }
+
       return;
    }
 
@@ -55,13 +57,14 @@ static void main(string str) {
 	    this_player()->remove_snooping(pPlayer);
 	    pPlayer->remove_snoopee(this_player());
 	 } else {
-	    int i;
-	    object *pSnooping;
-
 	    pSnooping = pPlayer->query_snooping();
+
 	    if (pSnooping && (sizeof(pSnooping) > 0)) {
-	       for (i = 0; i < sizeof(pSnooping); i++) {
-		  if (pSnooping[i]->query_name() == this_player()->query_name()) {
+               sz = sizeof(pSnooping);
+
+	       for (i = 0; i < sz; i++) {
+		  if (pSnooping[i]->query_name() ==
+                     this_player()->query_name()) {
 		     this_player()->message("He's already snooping you.");
 		     return;
 		  }

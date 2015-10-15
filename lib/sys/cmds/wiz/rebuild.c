@@ -57,8 +57,9 @@ atomic static int upgrade_uobj(string * files, int verbose) {
    int pos, sz, uc;
 
    uc = 0;
+   sz = sizeof(files);
 
-   for (pos = 0, sz = sizeof(files); pos < sz; pos++) {
+   for (pos = 0; pos < sz; pos++) {
       if (!valid_write(files[pos])) {
          resubmit += ({ files[pos] });
          continue;
@@ -88,14 +89,14 @@ atomic static int upgrade_uobj(string * files, int verbose) {
 static void main(string str) {
    int pos, sz, total, verbose, core, all;
    mapping edges;
-   string *users, *wanted, *file;
-   string tmp, err;
+   string *users, *wanted, *file, tmp, err;
 
    str = parse_for_options(str);
    err = query_parse_error();
 
    if (err) {
-      write("Parse error: " + err);
+      write("Parse error: " + err + "\n");
+      this_player()->more(usage());
       return;
    }
 
@@ -104,7 +105,11 @@ static void main(string str) {
       return;
    }
 
-   verbose = (test_option("verbose") ? query_option("verbose") : 0);
+   if (test_option("verbose")) {
+      verbose = query_option("verbose");
+   } else {
+      verbose = 0;
+   }
    core = test_option("core");
    all = test_option("all");
    file = query_option("file");
@@ -117,7 +122,7 @@ static void main(string str) {
       }
 
       if (str && strlen(str)) {
-         wanted |= explode(str," ");
+         wanted |= explode(str, " ");
       }
 
       if (!sizeof(wanted)) {
@@ -138,7 +143,8 @@ static void main(string str) {
       write("rebuild: going to perform the following actions:");
 
       if (file && sizeof(file)) {
-         for (pos=0, sz=sizeof(file); pos<sz; pos++) {
+         sz = sizeof(file);
+         for (pos=0; pos < sz; pos++) {
             write("Recompile " + file[pos]);
          }
       }
@@ -157,14 +163,16 @@ static void main(string str) {
             users -= CORE_WANTED;
          }
          if (sizeof(users)) {
-            write("rebuild all outdated objects for " + implode(users, ",") + ".");
+            write("rebuild all outdated objects for " + implode(users, ",") +
+               ".");
          }
       }
       write("---");
    }
 
    if (file && sizeof(file)) {
-      for (pos=0, sz=sizeof(file); pos<sz; pos++) {
+      sz = sizeof(file);
+      for (pos=0; pos < sz; pos++) {
          if (!valid_write(file[pos])) {
              write("No write access to " + file[pos] + ", aborted.");
              return;
@@ -181,9 +189,12 @@ static void main(string str) {
 
    rlimits(MAX_DEPTH; -1) {
       if (edges) {
-	 if (edges["kernel"] && (!wanted || (sizeof(wanted & ({"kernel"})) != 0)) 
+	 if (edges["kernel"] && (!wanted ||
+            (sizeof(wanted & ({"kernel"})) != 0)) 
             && valid_write("/kernel/data")) {
-	    if (verbose > 1) write("Rebuilding kernel.");
+	    if (verbose > 1) {
+               write("Rebuilding kernel.");
+            }
 	    err = catch(total += upgrade_uobj(edges["kernel"], verbose));
             if (err) {
                /* upgrade_uobj will put the filename in the error string.
@@ -197,9 +208,14 @@ static void main(string str) {
             edges["kernel"] = nil;
          }
 
-         if (edges["system"] && (!wanted || (sizeof(wanted & ({"system"})) != 0))
-            && valid_write("/sys/data")) {
-            if (verbose > 1) write("Rebuilding system.");
+         if (edges["system"] && (!wanted ||
+            (sizeof(wanted & ({"system"})) != 0)) &&
+            valid_write("/sys/data")) {
+
+            if (verbose > 1) {
+               write("Rebuilding system.");
+            }
+
             err = catch(total += upgrade_uobj(edges["system"], verbose));
             if (err) {
                compile_object(err);
@@ -213,7 +229,9 @@ static void main(string str) {
 
          if (edges["game"] && (!wanted || (sizeof(wanted & ({"game"})) != 0))
             && valid_write("/daemons/data")) {
-            if (verbose > 1) write("Rebuilding game.");
+            if (verbose > 1) {
+               write("Rebuilding game.");
+            }
             err = catch(total += upgrade_uobj(edges["game"], verbose));
             if (err) {
                compile_object(err);
@@ -226,8 +244,9 @@ static void main(string str) {
          }
 
 	 users = map_indices(edges);
+         sz = sizeof(users);
 
-	 for (pos = 0, sz = sizeof(users); pos < sz; pos++) {
+	 for (pos = 0; pos < sz; pos++) {
             if (!wanted || (sizeof(wanted & ({ users[pos] })) != 0)) {
                if (verbose > 1) {
                   write("Rebuilding for user " + users[pos]);
@@ -255,11 +274,11 @@ static void main(string str) {
 
 static void create(void) {
    set_options(([
-      "help":({ ({"h", "?"}), "help" }),
-      "core":({ "c", "core" }),
-      "all":({ "a", "all" }),
-      "verbose":({ ({ "v", "d" }), ({ "verbose", "debug" }), 0, 1 }),
-      "file":({ "f", "file", 1, 1 })
+      "help" : ({ ({"h", "?"}), "help" }),
+      "core" : ({ "c", "core" }),
+      "all" : ({ "a", "all" }),
+      "verbose" : ({ ({ "v", "d" }), ({ "verbose", "debug" }), 0, 1 }),
+      "file" : ({ "f", "file", 1, 1 })
    ]));
 }
 

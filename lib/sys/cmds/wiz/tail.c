@@ -22,9 +22,8 @@ string *usage(void) {
 }
 
 static void main(string arg) {
-   string file;
-   string *tmp, *lines;
-   int num_lines, start, i, where;
+   string file, *tmp, *lines;
+   int num_lines, start, i, sz, where;
 
    if (empty_str(arg)) {
       arg = this_environment()->file_name();
@@ -48,7 +47,8 @@ static void main(string arg) {
    }
    tmp = explode(read_file(file,start,CHUNK_SIZE), "\n");
    lines = ( { } );
-   for (i = 0; i < sizeof(tmp); i++) {
+   sz = sizeof(tmp);
+   for (i = 0; i < sz; i++) {
       if (strlen(tmp[i]) > 79) {
 	 /* Big line. Break it up. */
 	 where = 0;

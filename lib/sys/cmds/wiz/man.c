@@ -1,5 +1,13 @@
 inherit M_COMMAND;
 
+/* A highly advanced man command 
+ * By Aphex,  Improved by Aidil :)
+ */
+
+#define BASEDIR "/doc/"
+
+static string *topics;
+
 string *usage(void) {
    string *lines;
 
@@ -18,23 +26,17 @@ string *usage(void) {
    return lines;
 }
 
-/* A highly advanced man command 
- * By Aphex,  Improved by Aidil :)
- */
-#define BASEDIR "/doc/"
-
-static string *topics;
-
 static string *build_dir(string str) {
    string *dir;
    string *result;
-   int pos;
+   int pos, sz;
 
    result = ( { } );
 
    dir = get_dir(str + "*")[0];
    dir -= ( { ".svn" } );
-   for (pos = 0; pos < sizeof(dir); pos++) {
+   sz = sizeof(dir);
+   for (pos = 0; pos < sz; pos++) {
       if (file_exists(str + dir[pos]) == -1) {
 	 result += ( { str + dir[pos] } );
 	 result += build_dir(str + dir[pos]);
@@ -52,21 +54,21 @@ void create(void) {
 }
 
 static string *dir_index(string what, int width) {
-   string *res;
-   string *dir;
-   string line;
+   string *res, *dir, line;
    int ncollumns, i, j, sz;
 
    dir = get_dir(what + "/*")[0];
-   if (!dir)
-      return ( { } );
+   if (!dir) {
+      return ({ });
+   }
 
    ncollumns = width / 19;
 
-   dir -= ( { ".svn" } );
-   res = ( { } );
+   dir -= ({ ".svn" });
+   res = ({ });
 
-   for (i = 0, sz = sizeof(dir); i < sz; i += ncollumns) {
+   sz = sizeof(dir);
+   for (i = 0; i < sz; i += ncollumns) {
       line = "";
       for (j = 0; j < ncollumns; j++) {
 	 if (i + j < sz) {
@@ -77,16 +79,14 @@ static string *dir_index(string what, int width) {
 	    }
 	 }
       }
-      res += ( { line } );
+      res += ({ line });
    }
    return res;
 }
 
 static void main(string arg) {
-   string file, header;
-   string *tmp;
-   string *lines;
-   int i, j, found, where, width;
+   string file, header, *tmp, *lines;
+   int i, j, found, where, width, sz;
 
    if (empty_str(arg)) {
       arg = "";
@@ -108,7 +108,8 @@ static void main(string arg) {
    file = normalize_path(arg, BASEDIR);
 
    if (file_exists(file) == 0) {
-      for (j = 0; j < sizeof(topics); j++) {
+      sz = sizeof(topics);
+      for (j = 0; j < sz; j++) {
 	 file = normalize_path(arg, topics[j]);
 	 if (file_exists(file) != 0) {
 	    found++;
@@ -141,11 +142,13 @@ static void main(string arg) {
 
    lines = ( { } );
    write(header + "\n");
-   for (i = 0; i < strlen(header); i++) {
+   sz = strlen(header);
+   for (i = 0; i < sz; i++) {
       out("-");
    }
    write("\n");
-   for (i = 0; i < sizeof(tmp); i++) {
+   sz = sizeof(tmp);
+   for (i = 0; i < sz; i++) {
       if (strlen(tmp[i]) > width) {
 	 /* Big line. Break it up. */
 	 where = 0;

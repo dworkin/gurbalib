@@ -22,10 +22,8 @@ string *usage(void) {
 /* vim:set ft=lpc: */
 static void main(string str) {
    mapping mudlist;
-   string *muds;
-   string tmp, line;
-   string *lines;
-   int len, slen, mlen, i, count;
+   string tmp, line, *muds, *lines;
+   int len, slen, mlen, i, sz, count;
 
    if (sscanf(str, "-%s", str)) {
       this_player()->more(usage());
@@ -41,15 +39,14 @@ static void main(string str) {
 
    muds = map_indices(mudlist);
 
-   lines = ( {
-      "Up Mud                Address         Port  Lib            Status             "
-   } );
-   lines += ( {
-      "-----------------------------------------------------------------------------"
-   } );
+   lines = ({ "Up Mud                Address         Port  Lib" +
+      "            Status             " });
+   lines += ({ "-----------------------------------------------" +
+      "------------------------------" });
 
    count = 0;
-   for (i = 0; i < sizeof(muds); i++) {
+   sz = sizeof(muds);
+   for (i = 0; i < sz; i++) {
 
       line = "";
 
@@ -91,10 +88,10 @@ static void main(string str) {
       tmp = mudlist[muds[i]][9] + "                      ";
       line += tmp[..19];
 
-      lines += ( { line } );
+      lines += ({ line });
    }
 
-   lines = ( { "" + count + " of " + sizeof(muds) + " muds listed.\n" } ) + 
+   lines = ({ "" + count + " of " + sizeof(muds) + " muds listed.\n" }) + 
       lines;
 
    this_player()->more(lines);

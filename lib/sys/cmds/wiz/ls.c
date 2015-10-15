@@ -25,12 +25,10 @@ string *usage(void) {
 }
 
 static void main(string str) {
-   int width;
    mixed *files;
-   string *names, timestr, dirlist, path;
+   string *names, timestr, dirlist, path, cur_col;
    int *sizes, *times, long, ancient, i, j, sz, max, len, rows, time, color_len;
-	int tmp;
-   string cur_col;
+   int tmp, width;
 
    if (empty_str(str)) {
       str = ".";

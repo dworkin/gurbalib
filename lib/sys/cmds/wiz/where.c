@@ -20,14 +20,14 @@ string *usage(void) {
 }
 
 static void main(string str) {
-   int i;
-   object *usrs;
-   object usr;
+   int i, sz;
+   object usr, *usrs;
 
    if (empty_str(str)) {
       usrs = USER_D->query_players();
 
-      for (i = 0; i < sizeof(usrs); i++) {
+      sz = sizeof(usrs);
+      for (i = 0; i < sz; i++) {
 	 write(usrs[i]->query_Name() + " Loc: (" + 
             usrs[i]->query_environment()->query_short() + ") " +
 	    usrs[i]->query_environment()->base_name() + "\n");
