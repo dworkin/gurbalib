@@ -18,7 +18,7 @@ string *usage(void) {
    lines += ({ "\teval return 5 + 5;" });
    lines += ({ "\teval write(\"Sirdude's HP: \" + \n" +
       "\t\tUSER_D->find_player(\"sirdude\")->query_hp() + \"\\n\");" });
-   lines += ({ "See also" });
+   lines += ({ "See also:" });
 
    if (query_admin(this_player())) {
       lines += ({ "\tcheck, checkmud, clean, clone, dest, graph, rebuild, " +

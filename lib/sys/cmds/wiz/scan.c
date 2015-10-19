@@ -3,7 +3,7 @@ inherit M_COMMAND;
 string *usage(void) {
    string *lines;
 
-   lines = ({ "scan [-h] [OBJ]" });
+   lines = ({ "Usage: scan [-h] [OBJ]" });
    lines += ({ " " });
    lines += ({ "Print a list of objects in the current room." });
    lines += ({ "If OBJ is specified list the inventory of object OBJ" });

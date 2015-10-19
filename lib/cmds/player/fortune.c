@@ -28,7 +28,7 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tfortune" });
    lines += ({ "\tfortune samples" });
-   lines += ({ "See Also:" });
+   lines += ({ "See also:" });
    lines += ({ "\tmotd" });
 
    return lines;

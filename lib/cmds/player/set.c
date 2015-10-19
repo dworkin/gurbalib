@@ -41,6 +41,8 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tset width 50" });
    lines += ({ "\tset email foo@bar.com" });
+   lines += ({ "See also:" });
+   lines += ({ "\tansi, wimpy" });
 
    return lines;
 }

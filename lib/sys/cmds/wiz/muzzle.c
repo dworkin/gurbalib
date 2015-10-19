@@ -10,7 +10,7 @@ string *usage(void) {
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   lines += ({ "Examples" });
+   lines += ({ "Examples:" });
    lines += ({ "\tmuzzle sirdude" });
    lines += ({ "See also:" });
    lines += ({ "\tban, forcequit, halt, heal, zap" });

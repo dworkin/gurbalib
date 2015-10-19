@@ -11,6 +11,8 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tkilledby" });
+   lines += ({ "See also:" });
+   lines += ({ "\tscore" });
 
    return lines;
    this_player()->more(lines);

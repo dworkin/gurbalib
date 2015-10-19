@@ -14,7 +14,7 @@ string *usage(void) {
    lines += ({ "Options:" });
    lines += ({ "\t-l\tUse long listing, giving you more info" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   lines += ({ "Examples" });
+   lines += ({ "Examples:" });
    lines += ({ "\tls " + DOMAINS_DIR + "/required" });
    lines += ({ "\tls" });
    lines += ({ "See also:" });

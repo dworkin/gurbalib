@@ -12,7 +12,7 @@ string *usage(void) {
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
-   lines += ({ "Example:" });
+   lines += ({ "Examples:" });
    lines += ({ "\ttitle %N is the coolest kid on the block!" });
    lines += ({ "See also:" });
    lines += ({ "\tgender" });

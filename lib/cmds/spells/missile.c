@@ -14,6 +14,8 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tcast missile rabbit" });
    lines += ({ "\tcast missile sirdude" });
+   lines += ({ "See also:" });
+   lines += ({ "\tcast" });
 
    return lines;
 }

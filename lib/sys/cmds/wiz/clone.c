@@ -11,6 +11,8 @@ string *usage(void) {
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "Examples:" });
+   lines += ({ "\tclone /domains/required/objects/small_rock.c" });
    lines += ({ "See also:" });
 
    if (query_admin(this_player())) {
