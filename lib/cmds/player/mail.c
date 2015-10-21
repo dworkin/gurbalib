@@ -6,16 +6,15 @@ string msgdate;
 string *body;
 
 string *usage(void) {
-   string usage, all, *lines;
+   string all, *lines;
 
    if (query_admin(this_player())) {
-      usage = "Usage: mail [-h] [all|PLAYER1 [PLAYER2] [...]]";
+      lines = ({  "Usage: mail [-h] [all|PLAYER1 [PLAYER2] [...]]" });
       all = "\tm all\tSend a message to all players";
    } else {
-      usage = "Usage: mail [-h] [PLAYER1] [PLAYER2]]";
+      lines = ({ "Usage: mail [-h] [PLAYER1] [PLAYER2]]" });
    }
 
-   lines = ({ usage });
    lines += ({ " " });
    lines += ({ "Send a mud mail to the players specified." });
    lines += ({ "You may also use all to send a mudmail to all players." });

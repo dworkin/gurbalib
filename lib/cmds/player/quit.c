@@ -3,7 +3,7 @@ inherit M_COMMAND;
 string *usage(void) {
    string *lines;
 
-   lines =({ "Usage: quit [-h] [-r]" });
+   lines = ({ "Usage: quit [-h] [-r]" });
    lines += ({ "" });
    lines += ({ "This is how you leave the game." });
    lines += ({ "Note: You will keep your money, but you will drop all " +

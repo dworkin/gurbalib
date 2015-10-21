@@ -273,13 +273,16 @@ static void main(string str) {
 }
 
 static void create(void) {
-   set_options(([
-      "help" : ({ ({"h", "?"}), "help" }),
-      "core" : ({ "c", "core" }),
-      "all" : ({ "a", "all" }),
-      "verbose" : ({ ({ "v", "d" }), ({ "verbose", "debug" }), 0, 1 }),
-      "file" : ({ "f", "file", 1, 1 })
-   ]));
+   mapping tmp;
+
+   tmp = ([]);
+   tmp["help"] =  ({ ({"h", "?"}), "help" });
+   tmp["core"] = ({ "c", "core" });
+   tmp["all"] = ({ "a", "all" });
+   tmp["verbose"] = ({ ({ "v", "d" }), ({ "verbose", "debug" }), 0, 1 });
+   tmp["file"] = ({ "f", "file", 1, 1 });
+
+   set_options(tmp);
 }
 
 void upgraded(void) {

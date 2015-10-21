@@ -3,7 +3,7 @@ inherit M_COMMAND;
 string *usage(void) {
    string *lines;
 
-   lines =({ "Usage: rm [-h] FILE" });
+   lines = ({ "Usage: rm [-h] FILE" });
    lines += ({ " " });
    lines += ({ "Remove a file or directory FILE." });
    lines += ({ " " });

@@ -14,7 +14,7 @@ inherit M_COMMAND;
 string *usage(void) {
    string *lines;
 
-   lines = ({ "Usage: domain list" });
+   lines = ({ "Usage: [-h] domain list" });
    lines += ({ "\tList all known domains." });
    lines += ({ " " });
    lines += ({ "Usage: domain <domain> <command> [arg]" });
@@ -31,6 +31,8 @@ string *usage(void) {
    lines += ({ "\tlist       : lists the members of a domain." });
    lines += ({ "\tleave      : leave the named domain (if you are a member)" });
 
+   lines += ({ "Options:" });
+   lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tdomain boothill list" });
    lines += ({ "\tdomain boothill add sirdude" });

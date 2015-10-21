@@ -185,14 +185,51 @@ sub check_fun_file {
 	foreach my $i ("Usage:", "Options:", "Examples:", "also:") {
 
 		if (!file_contains($file, $i)) {
-			if ($i eq "SEE") {
-				print("$file is missing SEE ALSO\n");
-			} elsif ($i eq "RETURN") {
-				print("$file is missing RETURN VALUE\n");
+			if ($i eq "also:") {
+				print("$file is missing See also:\n");
 			} else {
 				print("$file is missing $i\n");
 			}
 		}
+	}
+
+	my $line = `grep Usage: $file`;
+	if ($line =~ /lines\ \=\ \(\{ \"Usage:(.*)/) {
+		my @values = `grep lines $file | grep \+\=`;
+		my $done = 0;
+		my @cmds;
+		foreach my $i (@values) {
+			if ($done) {
+				if ($i =~ /lines += \(\{ \"(.*)\" \}\);(.*)/) {
+					my @vals = split(",", $1);
+
+					foreach my $t (@vals) {
+						push(@cmds, $t);
+					}
+				} elsif ($i =~ /lines += \(\{ \"(.*)\" \+/) {
+					my @vals = split(",", $1);
+
+					foreach my $t (@vals) {
+						push(@cmds, $t);
+					}
+				} elsif ($i =~ /\"(.*)\" \}\)(.*)/) {
+					my @vals = split(",", $1);
+
+					foreach my $t (@vals) {
+						push(@cmds, $t);
+					}
+				} else  {
+# Ignore these lines...
+#					print "$file: Error: $i\n";
+				}
+			} elsif ($i =~ /(.*)See also:(.)/) {
+				$done = 1;
+			}
+# XXX Here need to look at all cmds to see if they reference our command.
+#			print "$file: @cmds\n";
+		}
+	} else { 
+		print "Error $file : usage: $line\n";
 	}
 }
 

@@ -3,7 +3,7 @@ inherit M_COMMAND;
 string *usage(void) {
    string *lines;
 
-   lines =({ "Usage: wimpy [-h] [CMD ARG]" });
+   lines = ({ "Usage: wimpy [-h] [CMD ARG]" });
    lines += ({ "" });
    lines += ({ "The wimpy command allows you to define if and when you " +
       "will run away from a fight." });
