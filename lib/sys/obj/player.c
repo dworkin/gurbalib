@@ -766,21 +766,97 @@ void more_prompt(string arg) {
    }
 }
 
-/* Look around XXX this should be combined with the look command! */
-void do_look(object obj) {
-   object save_player;
+static void do_look_obj(object obj) {
+   int i, flag;
+   object *objs;
 
-   save_player = this_player();
-   set_this_player(this_object());
+   this_environment()->event("body_look_at", this_player(), obj);
+   this_environment()->tell_room(this_player(), this_player()->query_Name() +
+      " looks at the " + obj->query_id() + ".\n");
+   write(obj->query_long());
+   if (obj->is_closed()) {
+      write("It is closed.");
+   } else if (obj->is_container()) {
+      flag = 0;
+      objs = obj->query_inventory();
+      write(" \nIt contains:\n");
 
-   obj->event("body_look", this_player());
-   write(" ");
-   if (query_wizard(this_object() ) ) {
-      write("%^BOLD%^<\"" + obj->file_name() + "\">%^RESET%^");
+      for (i = 0; i < sizeof(objs); i++) {
+         write("  " + objs[i]->query_short() + "\n");
+      }
    }
-   write(obj->query_desc(0));
+}
 
-   set_this_player(save_player);
+static void do_look_liv(object obj) {
+   int i, flag;
+   object *objs;
+
+   this_environment()->tell_room(this_player(), this_player()->query_Name() +
+      " looks at " + capitalize(obj->query_id()) + ".\n");
+
+   write("%^PLAYER%^" + obj->query_short() + "%^RESET%^\n");
+
+   write(obj->query_long());
+   write("A " + obj->query_gender() + " " + obj->query_race() +
+      " who is " + obj->query_status() + "\n");
+
+   flag = 0;
+   objs = obj->query_inventory();
+
+   if (obj->query_gender() == "male") {
+      write(" \nHe is using:\n");
+   } else if (obj->query_gender() == "female") {
+      write(" \nShe is using:\n");
+   } else {
+      write(" \nIt is using:\n");
+   }
+
+   for (i = 0; i < sizeof(objs); i++) {
+      if (objs[i]->is_worn()) {
+         write("  " + objs[i]->query_short() + " %^CYAN%^[" +
+            objs[i]->query_wear_position() + "]%^RESET%^\n");
+         flag = 1;
+      } else if (objs[i]->is_wielded()) {
+         write("  " + objs[i]->query_short() + " %^CYAN%^[" +
+            objs[i]->query_wield_position() + "]%^RESET%^\n");
+         flag = 1;
+      }
+   }
+   if (flag == 0) {
+      write("  Nothing.");
+   }
+}
+
+void do_look(object obj) {
+   int i, flag;
+   object *objs;
+
+   if (this_environment()->is_dark()) {
+      if (query_wizard(this_player())) {
+         write("This room is dark, however, being a wizard allows " +
+            "you to see in the dark.\n");
+      } else if (this_player()->query_race_object()->has_darkvision()) {
+         write("This room is dark, however, your race allows " +
+            "you to see in the dark.\n");
+      } else {
+         write("It is too dark to see.\n");
+         return;
+      }
+   }
+
+   if (obj == this_environment()) {
+      this_environment()->event("body_look", this_player());
+      if (query_wizard(this_player() ) ) {
+         write("%^BOLD%^<\"" + this_environment()->file_name() +
+            "\">%^RESET%^");
+      }
+
+      write(this_environment()->query_desc());
+   } else if (obj->is_living()) {
+      do_look_liv(obj);
+   } else {
+      do_look_obj(obj);
+   }
 }
 
 void do_quit(void) {
