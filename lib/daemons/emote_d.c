@@ -86,9 +86,8 @@ void remove_emote(string name) {
 }
 
 string *show_emote(string str, int width) {
-   string *rules, *lines;
+   string line, *rules, *lines;
    int i, tmp, max;
-   string line;
 
    lines = ({ });
 

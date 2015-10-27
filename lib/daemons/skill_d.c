@@ -10,6 +10,8 @@ static void restore_me(void) {
 }
 
 void create(void) {
+   skills = ({ });
+
    if (file_exists(DATAFILE)) {
       restore_me();
    } else {
@@ -41,22 +43,14 @@ void create(void) {
 }
 
 void add_skill(string skill) {
-   if (!skills) {
-      skills = ( { } );
-   }
-
-   skills -= ( { skill } );
-   skills += ( { skill } );
+   skills -= ({ skill });
+   skills += ({ skill });
 
    save_me();
 }
 
 void remove_skill(string skill) {
-   if (!skills) {
-      skills = ( { } );
-   }
-
-   skills -= ( { skill } );
+   skills -= ({ skill });
    save_me();
 }
 

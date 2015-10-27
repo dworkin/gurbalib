@@ -15,7 +15,7 @@ void create(void) {
 
 void add_entry(string str) {
    object *usr;
-   int i;
+   int i, sz;
 
    if (!query_wizard(this_player())) {
       write("Sorry, only true wizards may add to the did log.\n");
@@ -26,7 +26,8 @@ void add_entry(string str) {
    save_me();
 
    usr = USER_D->query_users();
-   for (i = 0; i < sizeof(usr); i++) {
+   sz = sizeof(usr);
+   for (i = 0; i < sz; i++) {
       if (query_wizard(usr[i]->query_player()->query_name()) > 0
          && usr[i] != this_player()) {
          usr[i]->query_player()->message("** " + str);
@@ -40,25 +41,27 @@ int start_index(int after) {
 
    index = sizeof(did);
 
-   while (index > 0 && did[index - 1][0] > after)
+   while (index > 0 && did[index - 1][0] > after) {
       index--;
+   }
 
    return index;
 }
 
 string *get_entries(int after) {
-   int index;
+   int index, sz;
    string *output;
 
    index = start_index(after);
 
-   if (index >= sizeof(did)) {
+   sz = sizeof(did);
+   if (index >= sz) {
       return nil;
    }
 
    output = ( { "Change Log\n", "**********\n" } );
 
-   for (; index < sizeof(did); index++) {
+   for (; index < sz; index++) {
       output += ( { ctime(did[index][0]) + ": " + did[index][1] + "\n" } );
       output += ( { "" } );
    }

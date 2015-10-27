@@ -5,11 +5,14 @@ void save_me(void);
 mapping guilds;
 
 void create(void) {
+
+   guilds = ([ ]);
+
    if (file_exists(DATAFILE)) {
       restore_me();
    } else {
-      /* Create a default list encase we do not already have one. */
-      guilds = (["fighter" : "The Fighters Guild"]);
+      /* Create a default list if we do not already have one. */
+      guilds["fighter"] = "The Fighters Guild";
 
       save_me();
    }
@@ -25,17 +28,12 @@ static void save_me(void) {
 }
 
 void add_guild(string guild, string title) {
-   if (!guilds) {
-      guilds = ([]);
-   }
+
    guilds[guild] = title;
    save_me();
 }
 
 int is_guild(string guild) {
-   if (!guilds) {
-      guilds = ([]);
-   }
    if (guilds[guild]) {
       return 1;
    }
@@ -44,25 +42,16 @@ int is_guild(string guild) {
 }
 
 void remove_guild(string guild) {
-   if (!guilds) {
-      guilds = ([]);
-   }
    guilds[guild] = nil;
    save_me();
 }
 
 void set_guild_title(string guild, string title) {
-   if (!guilds) {
-      guilds = ([]);
-   }
    guilds[guild] = title;
    save_me();
 }
 
 string query_guild_title(string guild) {
-   if (!guilds) {
-      guilds = ([]);
-   }
    return (guilds[guild]);
 }
 
@@ -72,9 +61,5 @@ void remove_all_guilds(void) {
 }
 
 string *query_guilds(void) {
-   if (!guilds) {
-      guilds = ([]);
-   }
-
    return map_indices(guilds);
 }

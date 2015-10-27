@@ -80,7 +80,8 @@ int query_number_objects(void) {
    total = 0;
    keys = map_indices(objs);
 
-   for (i = 0, sz = sizeof(keys); i < sz; i++) {
+   sz = sizeof(keys);
+   for (i = 0; i < sz; i++) {
       total += map_sizeof(objs[keys[i]]);
    }
    return total;
@@ -91,7 +92,7 @@ string *query_object_owners(void) {
 }
 
 object *query_objects_by_owner(string owner) {
-   return objs[owner] ? map_indices(objs[owner]) : ( { } );
+   return objs[owner] ? map_indices(objs[owner]) : ({ });
 }
 
 string *query_cloners(void) {
@@ -105,7 +106,8 @@ int query_number_clones(void) {
    total = 0;
    keys = map_indices(clones);
 
-   for (i = 0, sz = sizeof(keys); i < sz; i++) {
+   sz = sizeof(keys);
+   for (i = 0; i < sz; i++) {
       total += clones[keys[i]];
    }
    return total;

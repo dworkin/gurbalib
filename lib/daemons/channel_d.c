@@ -42,10 +42,39 @@ void create(void) {
       restore_me();
    } else {
 
-      permanent = (["admin": 3, "announce": 4, "dchat": 2, "dgd": 2, "dstest": 2, "fighter": 1, "gossip": 1, "icode": 2, "igossip": 2, "wiz":2,]);
-      colors = (["admin": "%^BLUE%^", "announce": "%^CYAN%^", "dchat": "%^CYAN%^", "dgd": "%^BLUE%^", "fighter": "%^BLUE%^", "gossip": "%^GREEN%^", "icode": "%^RED%^", "igossip": "%^GREEN%^", "imud_code": "%^YELLOW%^", "imud_gossip": "%^GREEN%^", "inews": "%^RED%^", "wiz":"%^RED%^"]);
-      imud = (["dchat": "dchat", "dgd": "dgd", "imud_code": "icode", "imud_dgd": "idgd", "imud_gossip": "igossip", "inews":"inews"]);
-      guilds = (["fighter":"fighter"]);
+      permanent["admin"] = 3;
+      permanent["announce"] = 4;
+      permanent["dchat"] = 2;
+      permanent["dgd"] = 2;
+      permanent["dstest"] = 2;
+      permanent["fighter"] = 1;
+      permanent["gossip"] = 1;
+      permanent["icode"] = 2;
+      permanent["igossip"] = 2;
+      permanent["wiz"] = 2;
+
+      colors["admin"] = "%^BLUE%^";
+      colors["announce"] = "%^CYAN%^";
+      colors["dchat"] = "%^CYAN%^"; 
+      colors["dgd"] = "%^BLUE%^";
+      colors["fighter"] = "%^BLUE%^";
+      colors["gossip"] = "%^GREEN%^";
+      colors["icode"] = "%^RED%^";
+      colors["igossip"] = "%^GREEN%^";
+      colors["imud_code"] = "%^YELLOW%^";
+      colors["imud_gissip"] = "%^GREEN%^";
+      colors["inews"] = "%^RED%^";
+      colors["wiz"] = "%^RED%^";
+
+      imud["dchat"] = "dchat";
+      imud["dgd"] = "dgd";
+      imud["imud_code"] = "icode";
+      imud["imud_dgd"] = "idgd";
+      imud["imud_gossip"] = "igossip";
+      imud["inews"] = "inews";
+
+      guilds["figher"] = "fighter";
+
       save_me();
    }
 
@@ -209,9 +238,7 @@ int chan_leave(string chan, object ob) {
    }
 
    if (listeners[chan]) {
-      listeners[chan] -= ( {
-         ob}
-      );
+      listeners[chan] -= ({ ob });
    }
    write("No longer subscribed to " + chan + ".\n");
    this_player()->remove_channel(chan);

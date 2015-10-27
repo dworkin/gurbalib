@@ -14,10 +14,6 @@ int add_quest(string name, int level, string domain) {
    int i, max, index;
    string *keys;
 
-   if (!levels) {
-      levels = ([]);
-   }
-
    if (quests[name]) {
       write("I'm sorry but there is already a quest titled: " + name + "\n");
       return 0;
@@ -31,9 +27,7 @@ int add_quest(string name, int level, string domain) {
 }
 
 int is_quest(string name) {
-   if (!quests) {
-      quests = ([]);
-   }
+
    if (quests[name]) {
       return 1;
    }
@@ -68,12 +62,12 @@ void list_quests(object thisp) {
 }
 
 void create(void) {
+   quests = ([]);
+   levels = ([]);
+
    if (file_exists(DATAFILE)) {
       restore_me();
    } else {
-      quests = ([]);
-      levels = ([]);
-
       if (file_exists("/domains/newbie/rooms/quest.c")) {
          add_quest("NewbieVille",1,"newbie");
       }

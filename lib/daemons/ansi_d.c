@@ -166,13 +166,13 @@ void create(void) {
 }
 
 string strip_colors(string str) {
-   string *tmp;
-   string msg;
-   int i;
+   string msg, *tmp;
+   int i, sz;
 
    tmp = explode(str, "%^");
 
-   for (i = 0; i < sizeof(tmp); i++) {
+   sz = sizeof(tmp);
+   for (i = 0; i < sz; i++) {
       if (translations[tmp[i]] || symbolic_trans[tmp[i]]) {
          tmp[i] = "";
       }
@@ -183,8 +183,7 @@ string strip_colors(string str) {
 
 static string _parse_colors(string str, int curdepth, mapping cache,
    object player) {
-   string *tmp;
-   string msg;
+   string msg, *tmp;
    mixed *ind, *sym;
    int i;
 
@@ -324,7 +323,7 @@ string color_table(void) {
 void ansi_set_color(string name, string * symbols) {
    string tmp;
    mixed *ind, *sym;
-   int i;
+   int i, sz;
 
    if (query_admin(this_player()->query_name()) != 1) {
       write("Access denied.\n");
@@ -336,7 +335,8 @@ void ansi_set_color(string name, string * symbols) {
    sym = map_indices(symbolic_trans);
    tmp = "";
 
-   for (i = 0; i < sizeof(symbols); i++) {
+   sz = sizeof(symbols);
+   for (i = 0; i < sz; i++) {
       if (strstr("%^", symbols[i]) == -1) {
          symbols[i] = uppercase(symbols[i]);
          if (!translations[symbols[i]] && !symbolic_trans[symbols[i]]) {
