@@ -92,9 +92,10 @@ if (!-f "lib/pub/README") {
 }
 
 if (!(-f "lib/daemons/data/emote_d.o")) {
-   print "lib/daemons/data/emote_d.o does not exist, do you want to use " .
-      "contrib/emote_d.o?  It has quite a few emotes.  If you say no here " .
-      "you will get the default which only contains one emote.\n(Y/N) ?";
+   print "lib/daemons/data/emote_d.o does not exist, do you want to use" .
+      "contrib/emote_d.o?\nIt has quite a few emotes.\n";
+   print "If you say no here you will get the default, ";
+   print "which only contains one emote.\n(Y/N)? ";
    chomp($word = <STDIN>);
 
    if ($word eq "y" || $word eq "Y") {
@@ -105,7 +106,7 @@ if (!(-f "lib/daemons/data/emote_d.o")) {
 if (!(-f "lib/data/messages/login")) {
    print "lib/data/messages/login does not exist, do you want to use " .
       "contrib/login?\nIf you say no here " .
-      "you will need to create that file later.\n(Y/N) ?";
+      "you will need to create that file later.\n(Y/N)? ";
    chomp($word = <STDIN>);
 
    if ($word eq "y" || $word eq "Y") {
@@ -116,7 +117,7 @@ if (!(-f "lib/data/messages/login")) {
 if (!(-f "lib/data/messages/motd")) {
    print "lib/data/messages/motd does not exist, do you want to use " .
       "contrib/motd?\nIf you say no here " .
-      "you will need to create that file later.\n(Y/N) ?";
+      "you will need to create that file later.\n(Y/N)? ";
    chomp($word = <STDIN>);
 
    if ($word eq "y" || $word eq "Y") {
@@ -127,7 +128,7 @@ if (!(-f "lib/data/messages/motd")) {
 if (!(-d "lib/data/fortunes")) {
    print "lib/data/fortunes does not exist, do you want to use " .
       "contrib/fortunes?\nIf you say no here you will need to create those " .
-      "files later.\n(Y/N) ?";
+      "files later.\n(Y/N)? ";
 
    chomp($word = <STDIN>);
 

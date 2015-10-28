@@ -17,7 +17,7 @@ if (!-f "scripts/create_data_dirs") {
 }
 
 print "WARNING: You are about to remove all user data on your mud,\nare you " .
-   "Really, I MEAN REALLY? sure you want to continue? (Y/N)";
+   "Really, I MEAN REALLY? sure you want to continue (Y/N)? ";
 chomp($word = <STDIN>);
 
 if ($word eq "y" || $word eq "Y") {
