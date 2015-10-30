@@ -4,14 +4,9 @@
 #define CACHE_INTERVAL 300
 #define AUTH_DATA_DIR "/sys/daemons/data/users"
 
-static mapping users;
-static mapping cache;
-static mapping sessions;
-static mapping wizards;
+static mapping users, cache, sessions, wizards;
 static object  spare;
-static int     auto_admin;
-static int     handle;
-
+static int     auto_admin, handle;
 int data_version;
 
 static void secure(void) {
@@ -120,7 +115,8 @@ static void clean_cache(void) {
    handle = 0;
    names = map_indices(cache);
 
-   for (i = 0, sz = sizeof(names); i < sz; i++) {
+   sz = sizeof(names);
+   for (i = 0; i < sz; i++) {
       if (!USER_D->query_sessions(names[i])) {
 	 logout(names[i]);
       }
@@ -313,11 +309,11 @@ void user_offline(string name, object user) {
 }
 
 object *query_users(void) {
-   return (map_values(users));
+   return map_values(users);
 }
 
 string *query_user_names(void) {
-   return (map_indices(users));
+   return map_indices(users);
 }
 
 object find_player(string name) {
@@ -326,7 +322,7 @@ object find_player(string name) {
    ob = find_user(lowercase(name));
 
    if (ob) {
-      return (ob->query_player());
+      return ob->query_player();
    }
 
    return ob;
@@ -338,9 +334,10 @@ object *query_players(void) {
 
    usr = query_users();
 
-   players = ( { } );
+   players = ({ });
 
-   for (i = 0, sz = sizeof(usr); i < sz; i++) {
+   sz = sizeof(usr);
+   for (i = 0; i < sz; i++) {
       if (usr[i]->query_name() != "who") {
          players += ({ usr[i]->query_player() });
       }
@@ -354,13 +351,15 @@ object *query_wizards(void) {
 
    usr = query_users();
 
-   wizards = ( { } );
+   wizards = ({ });
 
-   for (i = 0, sz = sizeof(usr); i < sz; i++) {
+   sz = sizeof(usr);
+   for (i = 0; i < sz; i++) {
       if (query_wizard(usr[i]->query_player()->query_name()) > 0) {
 	 wizards += ({ usr[i]->query_player() });
       }
    }
+
    return wizards;
 }
 
@@ -376,14 +375,14 @@ string *list_all_users(void) {
    string name, *files, *names;
    int x, i;
 
-   names = ( { } );
+   names = ({ });
    files = unguarded( "get_dir", "/data/players/*.o")[0];
 
    rlimits(MAX_DEPTH; -1) {
       for (i = sizeof(files) - 1; i >= 0; i--) {
          x = strlen(files[i]) - 3;
          name = files[i][..x];
-         names += ( { name } );
+         names += ({ name });
       }
    }
 
@@ -395,6 +394,7 @@ void print_finger_info(object player, object player2, int cloned) {
 
    player->message("%^BLUE%^Name:%^RESET%^ " + player2->query_Name() + "\n");
    player->message("%^BLUE%^Title:%^RESET%^ " + player2->query_title() + "\n");
+
    if (query_admin(player2->query_name()) == 1) {
       player->message("%^BLUE%^Status: %^RESET%^Administrator\n");
    } else if (query_wizard(player2->query_name()) == 1) {
@@ -531,14 +531,15 @@ string get_email_info(object player, string name, string type) {
 
 int restore_privs(string name) {
    object *ses;
-   int i,sz;
+   int i, sz;
 
    if (sessions[name]) {
       ses = sessions[name] - ({ nil });
       if (!sizeof(ses)) {
          ses = nil;
       } else {
-         for (i=0, sz=sizeof(ses); i<sz; i++) {
+         sz = sizeof(ses);
+         for (i=0; i < sz; i++) {
             ses[i]->restore_privs();
          }
       }
@@ -565,6 +566,7 @@ int query_type(string name) {
    object ob;
 
    ob = get_data_ob(name);
+
    if (ob) {
       return ob->query_type();
    }
@@ -626,7 +628,8 @@ static void convert_users(void) {
    c = clone_object(AUTH_DATA);
 
    rlimits(MAX_DEPTH; -1) {
-      for (i = 0, sz = sizeof(names); i < sz; i++) {
+      sz = sizeof(names);
+      for (i = 0; i < sz; i++) {
          catch {
             if (data_version < 2) {
                sscanf(names[i], "%s.o", n);
@@ -695,6 +698,7 @@ void make_mortal(string name) {
    prev = previous_object()->base_name();
    if ((prev != "/sys/cmds/admin/promote") &&
       (prev != this_object()->base_name())) {
+
       LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() +
          " was trying to make_mortal(" + name + ") with this object " +
          prev + "\n");
@@ -742,7 +746,8 @@ void make_wizard(string name) {
 
    prev = previous_object()->base_name();
    if (prev != "/sys/cmds/admin/promote" &&
-       prev != this_object()->base_name()) {
+      prev != this_object()->base_name()) {
+
       LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() +
          " was trying to make_wizard(" + name + ") with this object " +
          prev + "\n");
@@ -772,6 +777,7 @@ void make_wizard(string name) {
          player->remove_cmd_path("/sys/cmds/admin");
          player->add_cmd_path("/sys/cmds/wiz");
          player->save_me();
+
          if (player != this_player()) {
             player->message(this_player()->query_Name() +
                " has promoted you to a wizard.");
@@ -791,7 +797,8 @@ void make_admin(string name) {
 
    prev = previous_object()->base_name();
    if (prev != "/sys/cmds/admin/promote" &&
-       prev != this_object()->base_name()) {
+      prev != this_object()->base_name()) {
+
       LOG_D->write_log("cheating", "Player: " + this_player()->query_Name() +
          " was trying to make_admin(" + name + ") with this object " +
          prev + "\n");
@@ -847,8 +854,7 @@ string *list_players(int long_flag) {
    usr = query_players();
    nump = sizeof(usr);
 
-   lines = ({ MUD_NAME + " currently has " + nump + " user" +
-      (nump > 1 ? "s" : "") + " online." });
+   lines = ({ MUD_NAME + " currently has " + nump + " users online." });
 
    max = sizeof(usr);
    for (i = 0; i < max; i++) {
