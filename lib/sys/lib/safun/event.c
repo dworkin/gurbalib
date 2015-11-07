@@ -4,15 +4,16 @@ void event(string name, varargs mixed args ...) {
 
    argcheck(name, 1, "string");
 
-   if (!events[name])
+   if (!events[name]) {
       return;
+   }
 
    obs = map_indices(events[name]);
 
    sz = sizeof(obs);
    for (i = 0; i < sz; i++) {
       if (obs[i]) {
-	 call_other(obs[i], "event_" + name, args);
+         call_other(obs[i], "event_" + name, args);
       }
    }
 }

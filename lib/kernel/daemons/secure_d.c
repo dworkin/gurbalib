@@ -351,8 +351,8 @@ int validate_stack(string priv, varargs int unguarded) {
       tmp = "";
    }
    DB( "validate_stack start : " + stack[i-sz][TRACE_PROGNAME] + ":" +
-      stack[i-sz][TRACE_FUNCTION] + " called " + stack[i+1][TRACE_FUNCTION] +
-      tmp + "\n");
+      stack[i - sz][TRACE_FUNCTION] + " called " +
+      stack[i + 1][TRACE_FUNCTION] + tmp + "\n");
    switch(privtype & 0x1f) {
       case PT_UNKNOWN : tmp = "unknown";
                         break;
@@ -431,7 +431,7 @@ int validate_stack(string priv, varargs int unguarded) {
          deny++;
       }
    }
-   DRIVER->set_tlvar(TLS_CACHE,cache);
+   DRIVER->set_tlvar(TLS_CACHE, cache);
 
    if (!deny) {
       DB("validate_stack finish : allow\n");

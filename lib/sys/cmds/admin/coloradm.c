@@ -65,7 +65,7 @@ mixed *collect_map(mixed * arg) {
 
    for (i = 0, sz = sizeof(arg); i < sz; i++) {
       if (mappingp(arg[i])) {
-	 result += arg[i];
+         result += arg[i];
       }
    }
    return ( { result } );
@@ -96,26 +96,26 @@ static void main(string str) {
 
    if (error) {
       if (sscanf(error, "Bad token at offset %d", pos) == 1) {
-	 write("Invalid character " + str[pos..pos] + ".");
-	 return;
+         write("Invalid character " + str[pos..pos] + ".");
+         return;
       } else {
-	 rethrow();
+         rethrow();
       }
    }
    if (!arrayp(args) || !mappingp(args[0])) {
       write("I didn't quite understand that.\n" +
-	 "Try something like 'coloradm SYMBOL = ATTRIBUTE + COLOR'\n" +
-	 "                or 'coloradm SYMBOL = COLOR, SYMBOL = COLOR'\n" +
-	 "Note that using predefined color names as SYMBOL is not allowed.");
+         "Try something like 'coloradm SYMBOL = ATTRIBUTE + COLOR'\n" +
+         "                or 'coloradm SYMBOL = COLOR, SYMBOL = COLOR'\n" +
+         "Note that using predefined color names as SYMBOL is not allowed.");
    } else {
       symbols = map_indices(args[0]);
 
       for (i = 0, sz = sizeof(symbols); i < sz; i++) {
-	 if (args[0][symbols[i]][0] == "NIL") {
-	    ANSI_D->ansi_remove_color(symbols[i]);
-	 } else {
-	    ANSI_D->ansi_set_color(symbols[i], args[0][symbols[i]]);
-	 }
+         if (args[0][symbols[i]][0] == "NIL") {
+            ANSI_D->ansi_remove_color(symbols[i]);
+         } else {
+            ANSI_D->ansi_set_color(symbols[i], args[0][symbols[i]]);
+         }
       }
    }
 }

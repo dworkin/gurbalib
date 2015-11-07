@@ -22,9 +22,9 @@ string article(string name) {
       case 'i':
       case 'o':
       case 'u':
-	 return "an";
+         return "an";
       default:
-	 return "a";
+         return "a";
    }
 
    return nil;

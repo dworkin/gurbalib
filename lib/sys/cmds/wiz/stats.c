@@ -30,10 +30,10 @@ static void main(string arg) {
    if (arg != "") {
       ob = this_player()->query_environment()->present(arg);
       if (!ob) {
-	 write(arg + " is not here!\n");
-	 ob = nil;
+         write(arg + " is not here!\n");
+         ob = nil;
       } else {
-	 write(object_name(ob) + "(" + ob->query_name() + "):");
+         write(object_name(ob) + "(" + ob->query_name() + "):");
       }
    } else {
       ob = this_player();
@@ -43,7 +43,7 @@ static void main(string arg) {
       stat_abrvs = ( { "str", "int", "wis", "dex", "con", "cha" } );
 
       stat_names = ( {
-	 "strength    ", "intelligence", "wisdom      ", "dexterity   ",
+         "strength    ", "intelligence", "wisdom      ", "dexterity   ",
          "constitution", "charisma    ",
       } );
       j = 0;
@@ -52,20 +52,21 @@ static void main(string arg) {
       write("---------------------------------------------------\n");
       sz = sizeof(stat_names);
       for (i = 0; i < sz; i++) {
-	 write("\t" + capitalize(stat_names[i]) + " :   " +
-	    ob->query_stat(stat_abrvs[i]) +
-	    "\t" + ob->query_base_stat(stat_abrvs[i]) +
-	    "\t" + ob->query_bonus_stat(stat_abrvs[i]) +
+         write("\t" + capitalize(stat_names[i]) + " :   " +
+            ob->query_stat(stat_abrvs[i]) +
+            "\t" + ob->query_base_stat(stat_abrvs[i]) +
+            "\t" + ob->query_bonus_stat(stat_abrvs[i]) +
             "\t" + ob->query_race_object()->
             query_base_stat_maximum(stat_abrvs[i]) +
-	    "\n");
-	 ++j;
-	 if (j == 3) {
-	    write("\n");
-	    j = 0;
-	 }
+            "\n");
+         ++j;
 
+         if (j == 3) {
+            write("\n");
+            j = 0;
+         }
       }
+
       stat = ob->query_hp();
       max_stat = ob->query_max_hp();
       write("\n\t" + "Hit points   :  " + stat + "/" + max_stat + "\n");

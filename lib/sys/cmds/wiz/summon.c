@@ -35,20 +35,20 @@ static void main(string str) {
    usr = USER_D->find_player(lowercase(str));
    if (usr) {
       if (usr->query_environment() != this_player()->query_environment()) {
-	 mixed desc;
-	 write("We're summoning " + str + ", who is currently here: " +
-	    usr->query_environment()->file_name());
-	 usr->message("%^RED%^" +
-	    this_player()->query_Name() + " requests your presence.%^RESET%^");
-	 usr->query_environment()->tell_room(usr, usr->query_Name() +
-	    " disappears in a flurry of fluff.\n");
-	 usr->move(this_player()->query_environment());
-	 usr->message("You abruptly find yourself somewhere else.\n");
-	 usr->do_look(usr->query_environment());
-	 usr->query_environment()->tell_room(usr, usr->query_Name() +
-	    " appears in a cloud of fluff.\n");
+         mixed desc;
+         write("We're summoning " + str + ", who is currently here: " +
+            usr->query_environment()->file_name());
+         usr->message("%^RED%^" +
+            this_player()->query_Name() + " requests your presence.%^RESET%^");
+         usr->query_environment()->tell_room(usr, usr->query_Name() +
+            " disappears in a flurry of fluff.\n");
+         usr->move(this_player()->query_environment());
+         usr->message("You abruptly find yourself somewhere else.\n");
+         usr->do_look(usr->query_environment());
+         usr->query_environment()->tell_room(usr, usr->query_Name() +
+            " appears in a cloud of fluff.\n");
       } else {
-	 write(capitalize(str) + " is already here.\n");
+         write(capitalize(str) + " is already here.\n");
       }
    } else {
       write("Unable to find " + str + ".\n");

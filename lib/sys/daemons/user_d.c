@@ -135,7 +135,7 @@ int set_password(string name, string secret) {
    if (!data) {
       return 0;
    }
-   data->set_pass(name,secret);
+   data->set_pass(name, secret);
    save_me();
 }
 
@@ -194,7 +194,7 @@ static int _new_user(string name, string secret, object u) {
 
    cache[name] = ob;
    ob->set_name(name);
-   ob->set_pass(name,secret);
+   ob->set_pass(name, secret);
 
    if (auto_admin) {
       u->set_auto_admin(1);
@@ -241,7 +241,8 @@ int _delete_user(string name) {
    if (sessions[name]) {
       int i, sz;
 
-      for (i=0, sz=sizeof(sessions[name]); i<sz; i++) {
+      sz = sizeof(sessions[name]);
+      for (i = 0; i < sz; i++) {
          if (sessions[name][i]) {
             destruct_object(sessions[name][i]);
          }
@@ -282,9 +283,9 @@ void user_online(string name, object user) {
    if (user<-USER_OB) {
       users[name] = user;
       if (user->query_auto_admin() ) {
-         unguarded("make_admin",name);
+         unguarded("make_admin", name);
       } else if (user->query_auto_wiz() ) {
-         unguarded("make_wizard",name);
+         unguarded("make_wizard", name);
       }
    }
 
@@ -539,7 +540,7 @@ int restore_privs(string name) {
          ses = nil;
       } else {
          sz = sizeof(ses);
-         for (i=0; i < sz; i++) {
+         for (i = 0; i < sz; i++) {
             ses[i]->restore_privs();
          }
       }

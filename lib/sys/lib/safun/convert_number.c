@@ -4,11 +4,11 @@ string convert_number(int num, varargs int flag) {
    string str;
  
    str = "";
-   nums = ({"one","two","three","four","five","six","seven","eight","nine",
- 	   "ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen",
- 	   "seventeen","eighteen","nineteen"});
-   numt = ({"twenty","thirty","forty","fifty","sixty",
- 	   "seventy","eighty","ninety"});
+   nums = ({"one", "two", "three", "four", "five", "six", "seven", "eight",
+      "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+      "sixteen", "seventeen", "eighteen", "nineteen"});
+   numt = ({"twenty", "thirty", "forty", "fifty", "sixty",
+      "seventy", "eighty", "ninety"});
  
    if (num == 0) {
       return "no";
@@ -33,26 +33,26 @@ string convert_number(int num, varargs int flag) {
             }
             return str;
          }
-         str += convert_number(num/1000, 1) + " thousand";
-         if (num%1000 != 0) {
-            str += " " + convert_number(num%1000);
+         str += convert_number(num / 1000, 1) + " thousand";
+         if (num % 1000 != 0) {
+            str += " " + convert_number(num % 1000);
          }
          return str;
       }
-     str += convert_number (num/100) + " hundred";
-     if (num%100 != 0) {
-        str += " " + convert_number(num%100);
+     str += convert_number (num / 100) + " hundred";
+     if (num % 100 != 0) {
+        str += " " + convert_number(num % 100);
      }
      return str;
    }
-   if ( (num%10) == 0) {
-      str += numt[num/10-2];
+   if ( (num % 10) == 0) {
+      str += numt[num / 10 - 2];
       return str;
    } else {
         if (flag) {
-           str += numt[num/10-2]+" "+nums[num%10-1];
+           str += numt[num / 10 - 2] + " " + nums[num % 10 - 1];
         } else {
-           str += numt[num/10-2]+"-"+nums[num%10-1];
+           str += numt[num / 10 - 2] + "-" + nums[num % 10 - 1];
         }
    }
    return str;

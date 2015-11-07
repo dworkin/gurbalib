@@ -106,9 +106,9 @@ int run_away(void) {
       error = this_object()->this_environment()->body_exit(this_object(),
          wimpy_dir);
       if (error) {
-	 write(error);
+         write(error);
       } else {
-	 return 1;
+         return 1;
       }
    } else if (!empty_str(wimpy_dir) &&
     this_object()->query_environment()->query_hidden_exit(wimpy_dir)) {
@@ -116,35 +116,35 @@ int run_away(void) {
       error = this_object()->this_environment()->body_exit(this_object(),
          wimpy_dir);
       if (error) {
-	 write(error);
+         write(error);
       } else {
-	 return 1;
+         return 1;
       }
    } else {
       exits = this_object()->query_environment()->query_exit_indices();
 
       if (exits) {
-	 x = sizeof(exits);
-	 if (x < 1) {
-	    write("You attempt to run away but can not find " + "an exit.\n");
-	 } else {
-	    if (x > 1) {
-	       y = random(x);
-	    } else {
-	       y = 0;
-	    }
-	    this_object()->message("RUNAWAY : " + exits[y] + "\n");
-	    write("You attempt to run " + exits[y] + ".\n");
-	    error = this_object()->this_environment()->body_exit(this_object(),
-	     exits[y]);
-	    if (error) {
-	       write(error);
-	    } else {
-	       return 1;
-	    }
-	 }
+         x = sizeof(exits);
+         if (x < 1) {
+            write("You attempt to run away but can not find " + "an exit.\n");
+         } else {
+            if (x > 1) {
+               y = random(x);
+            } else {
+               y = 0;
+            }
+            this_object()->message("RUNAWAY : " + exits[y] + "\n");
+            write("You attempt to run " + exits[y] + ".\n");
+            error = this_object()->this_environment()->body_exit(this_object(),
+               exits[y]);
+            if (error) {
+               write(error);
+            } else {
+               return 1;
+            }
+         }
       } else {
-	 write("You attempt to run away but can not find " + "an exit.\n");
+         write("You attempt to run away but can not find " + "an exit.\n");
       }
    }
    return 0;
@@ -198,7 +198,7 @@ int query_defense(void) {
    max = sizeof(armor);
    for (i = 0; i < max; i++) {
       if (armor[i]->is_armor()) {
-	 me += armor[i]->query_ac();
+         me += armor[i]->query_ac();
       }
    }
 
@@ -206,7 +206,7 @@ int query_defense(void) {
    max = sizeof(armor);
    for (i = 0; i < max; i++) {
       if (armor[i]->is_armor()) {
-	 me += armor[i]->query_ac();
+         me += armor[i]->query_ac();
       }
    }
 
@@ -242,33 +242,34 @@ object get_target(object targ) {
 
    if (targ) {
       if (targ->is_dead()) {
-	 targets -= ({ targ });
-	 if (sizeof(targets) == 0) {
-	    fighting = 0;
-	 }
+         targets -= ({ targ });
+         if (sizeof(targets) == 0) {
+            fighting = 0;
+         }
       } else if (targ->query_environment() ==
-       this_object()->query_environment()) {
-	 fighting = FIGHTING_TIMEOUT;
-	 return targ;
+         this_object()->query_environment()) {
+
+         fighting = FIGHTING_TIMEOUT;
+         return targ;
       }
    }
    max = sizeof(targets);
    for (i = 0; i < max; i++) {
       if (targets[i] && targets[i]->is_dead()) {
-	 targets -= ({targets[i]});
-	 i--;
-	 max--;                 /* shorten up our array.... */
-	 if (sizeof(targets) == 0) {
-	    fighting = 0;
-	    i = max;
-	 }
+         targets -= ({targets[i]});
+         i--;
+         max--;                 /* shorten up our array.... */
+
+         if (sizeof(targets) == 0) {
+            fighting = 0;
+            i = max;
+         }
       }
       if (i < sizeof(targets) &&
        targets[i] && (targets[i]->query_environment() ==
        this_object()->query_environment())) {
-
-	 fighting = FIGHTING_TIMEOUT;
-	 return targets[i];
+          fighting = FIGHTING_TIMEOUT;
+          return targets[i];
       }
    }
    fighting = fighting - 1;
@@ -334,49 +335,49 @@ void attack_with(string skill, object weapon, object target) {
 
    if (do_swing(me) == 1) {
       if (!weapon) {
-	 damage = random(3) + this_object()->query_statbonus("str");
-	 tmp = this_object()->query_skill("combat/unarmed") +
-	 this_object()->query_skill("combat/unarmed") / 2;
-	 if (tmp <= target->query_skill("combat/defense")) {
-	    this_object()->learn_skill(this_object()->query_hit_skill());
-	    this_object()->message("Learn: hit_skill, " +
-	     this_object()->query_skill("combat/unarmed"));
-	 }
+         damage = random(3) + this_object()->query_statbonus("str");
+         tmp = this_object()->query_skill("combat/unarmed") +
+         this_object()->query_skill("combat/unarmed") / 2;
+         if (tmp <= target->query_skill("combat/defense")) {
+            this_object()->learn_skill(this_object()->query_hit_skill());
+            this_object()->message("Learn: hit_skill, " +
+               this_object()->query_skill("combat/unarmed"));
+         }
 
-	 damage = damage_hook(target, nil, damage);
-	 damage = target->after_damage_hook(this_object(), nil, damage);
+         damage = damage_hook(target, nil, damage);
+         damage = target->after_damage_hook(this_object(), nil, damage);
 
-	 if (damage == 0) {
-	    this_object()->targeted_action("$N $v" +
-	     this_object()->query_hit_string() + " $T, but $vdo no " +
-	     "damage!", target);
-	 } else {
-	    this_object()->targeted_action("$N $v" +
-	     this_object()->query_hit_string() + " $T.", target);
-	 }
+         if (damage == 0) {
+            this_object()->targeted_action("$N $v" +
+               this_object()->query_hit_string() + " $T, but $vdo no " +
+               "damage!", target);
+         } else {
+            this_object()->targeted_action("$N $v" +
+               this_object()->query_hit_string() + " $T.", target);
+         }
       } else {
-	 damage = this_object()->query_statbonus("str") +
-	 weapon->query_weapon_damage();
-	 tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
-	 this_object()->query_skill(weapon->query_weapon_skill()) / 2;
-	 if (tmp <= target->query_skill("combat/defense")) {
-	    this_object()->learn_skill(weapon->query_weapon_skill());
-	    this_object()->message("Learn: hit_skill, " +
-	     this_object()->query_skill(weapon->query_weapon_skill()));
-	 }
+         damage = this_object()->query_statbonus("str") +
+         weapon->query_weapon_damage();
+         tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
+            this_object()->query_skill(weapon->query_weapon_skill()) / 2;
+         if (tmp <= target->query_skill("combat/defense")) {
+            this_object()->learn_skill(weapon->query_weapon_skill());
+            this_object()->message("Learn: hit_skill, " +
+               this_object()->query_skill(weapon->query_weapon_skill()));
+         }
 
-	 damage = damage_hook(target, weapon, damage);
-	 damage = target->after_damage_hook(this_object(), weapon, damage);
+         damage = damage_hook(target, weapon, damage);
+         damage = target->after_damage_hook(this_object(), weapon, damage);
 
-	 if (damage == 0) {
-	    this_object()->targeted_action("$N " + 
-	     "$v" + weapon->query_weapon_action() + " $T with a " +
-	     weapon->query_id() + ", but $vdo no damage!", target);
-	 } else {
-	    this_object()->targeted_action("$N " +
-	     "$v" + weapon->query_weapon_action() + " $T with a " +
-	     weapon->query_id() + ".", target);
-	 }
+         if (damage == 0) {
+            this_object()->targeted_action("$N " + 
+               "$v" + weapon->query_weapon_action() + " $T with a " +
+               weapon->query_id() + ", but $vdo no damage!", target);
+         } else {
+            this_object()->targeted_action("$N " +
+               "$v" + weapon->query_weapon_action() + " $T with a " +
+               weapon->query_id() + ".", target);
+         }
       }
 
       this_object()->damage_target(damage, target);
@@ -384,26 +385,26 @@ void attack_with(string skill, object weapon, object target) {
       string miss;
 
       if (weapon) {
-	 miss = weapon->query_weapon_miss();
+         miss = weapon->query_weapon_miss();
       }
 
       if (!miss) {
-	 this_object()->targeted_action("$N $vmiss $T.", target);
+         this_object()->targeted_action("$N $vmiss $T.", target);
       } else {
-	 this_object()->targeted_action("$N " + miss + " $T.", target);
+         this_object()->targeted_action("$N " + miss + " $T.", target);
       }
 
       if (!weapon) {
-	 tmp = this_object()->query_skill("combat/unarmed") +
-	 this_object()->query_skill("combat/unarmed") / 2;
+         tmp = this_object()->query_skill("combat/unarmed") +
+         this_object()->query_skill("combat/unarmed") / 2;
       } else {
-	 tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
-	 this_object()->query_skill(weapon->query_weapon_skill()) / 2;
+         tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
+         this_object()->query_skill(weapon->query_weapon_skill()) / 2;
       }
       if (target->query_skill("combat/defense") <= tmp) {
-	 target->learn_skill("combat/defense");
-	 target->message("Learn: defense, " +
-	  this_object()->query_skill("combat/defense"));
+         target->learn_skill("combat/defense");
+         target->message("Learn: defense, " +
+            this_object()->query_skill("combat/defense"));
       }
    }
 }
@@ -476,26 +477,26 @@ void do_fight(void) {
 
    if (target) {
       if (!this_object()->is_player()) {
-	 x = this_object()->query_spell_chance();
+         x = this_object()->query_spell_chance();
 
-	 if (x && (random(100) <= x)) {
-	    cast_spell(target);
-	 }
+         if (x && (random(100) <= x)) {
+            cast_spell(target);
+         }
       }
 
       weapons = this_object()->query_wielded();
       max = sizeof(weapons);
 
       if (max == 0) {
-	 this_object()->attack_with("combat/unarmed", nil, target);
+         this_object()->attack_with("combat/unarmed", nil, target);
       } else {
-	 for (i = 0; i < max; i++) {
-	    if (!weapons[i]->query_offensive()) {
-	       continue;
-	    }
-	    this_object()->attack_with(weapons[i]->query_weapon_skill(),
-	     weapons[i], target);
-	 }
+         for (i = 0; i < max; i++) {
+            if (!weapons[i]->query_offensive()) {
+               continue;
+            }
+            this_object()->attack_with(weapons[i]->query_weapon_skill(),
+               weapons[i], target);
+         }
       }
 
       /* Need to check target again, because target may have died. */
@@ -555,9 +556,9 @@ string *summarise_killers(void) {
       destruct_object(tmp_killer);
 
       if (!killer_count[killer_name]) {
-	 killer_count[killer_name] = 1;
+         killer_count[killer_name] = 1;
       } else {
-	 killer_count[killer_name]++;
+         killer_count[killer_name]++;
       }
 
       done = 1;
@@ -568,9 +569,10 @@ string *summarise_killers(void) {
    } else {
 
       killers = map_indices(killer_count);
-      for (i = 0, dim = sizeof(killers); i < dim; i++) {
-	 lines += ({ killers[i] + " killed you " +
-	  killer_count[killers[i]] + " time(s).\n" });
+      dim = sizeof(killers);
+      for (i = 0; i < dim; i++) {
+         lines += ({ killers[i] + " killed you " +
+            killer_count[killers[i]] + " time(s).\n" });
       }
    }
 

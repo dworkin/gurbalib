@@ -147,7 +147,7 @@ int menu_add(string arg) {
       return 1;
    }
    if ((sscanf(arg, "\"%s\" %s", path, priv) != 2) && 
-      (sscanf(arg, "%s %s",path,priv) != 2)) {
+      (sscanf(arg, "%s %s", path, priv) != 2)) {
       path = arg;
       priv = nil;
    }
@@ -216,7 +216,7 @@ static int menu_quit(void) {
  *
  */
 static int menu_cmdadm(varargs mixed junk...) {
-   int i,sz;
+   int i, sz;
    mapping cmdpriv;
    string *path;
    mixed **menu;
@@ -237,7 +237,7 @@ static int menu_cmdadm(varargs mixed junk...) {
       }
       info += cmdpriv[path[i]];
 
-      menu += ({ ({ "" + (i+1), path[i], info, make_fcall(this_object(), 
+      menu += ({ ({ "" + (i + 1), path[i], info, make_fcall(this_object(), 
          "menu_path", path[i]) }) });
    }
    menu += ({ ({ "a", "add a new command path", nil, make_fcall(this_object(),
@@ -364,7 +364,7 @@ private int action_list_path(void) {
 
    len += 2;
 
-   for (i=0; i<sz; i++) {
+   for (i = 0; i < sz; i++) {
       ptype = (COMMAND_D->query_override(path[i]) | 
          (COMMAND_D->query_syspath(path[i]) << 1));
       r = padstr(path[i], len) + padstr("(" + 

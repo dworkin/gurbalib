@@ -38,8 +38,8 @@ static string *build_dir(string str) {
    sz = sizeof(dir);
    for (pos = 0; pos < sz; pos++) {
       if (file_exists(str + dir[pos]) == -1) {
-	 result += ( { str + dir[pos] } );
-	 result += build_dir(str + dir[pos]);
+         result += ( { str + dir[pos] } );
+         result += build_dir(str + dir[pos]);
       }
    }
    return result;
@@ -71,13 +71,13 @@ static string *dir_index(string what, int width) {
    for (i = 0; i < sz; i += ncollumns) {
       line = "";
       for (j = 0; j < ncollumns; j++) {
-	 if (i + j < sz) {
-	    if (file_exists(what + dir[i + j]) == -1) {
-	       line += (dir[i + j] + "/                     ")[0..18];
-	    } else {
-	       line += (dir[i + j] + "                              ")[0..18];
-	    }
-	 }
+         if (i + j < sz) {
+            if (file_exists(what + dir[i + j]) == -1) {
+               line += (dir[i + j] + "/                     ")[0..18];
+            } else {
+               line += (dir[i + j] + "                              ")[0..18];
+            }
+         }
       }
       res += ({ line });
    }
@@ -110,11 +110,11 @@ static void main(string arg) {
    if (file_exists(file) == 0) {
       sz = sizeof(topics);
       for (j = 0; j < sz; j++) {
-	 file = normalize_path(arg, topics[j]);
-	 if (file_exists(file) != 0) {
-	    found++;
-	    break;
-	 }
+         file = normalize_path(arg, topics[j]);
+         if (file_exists(file) != 0) {
+            found++;
+            break;
+         }
       }
    } else {
       found = 1;
@@ -125,7 +125,7 @@ static void main(string arg) {
       write("If \"" + arg + "\" is a command, for more info try:\n\t" +
          arg + " -h\n");
       LOG_D->write_log("man", this_player()->query_Name() + " on " +
-	 ctime(time()) + ": " + arg + "\n");
+         ctime(time()) + ": " + arg + "\n");
       return;
    }
 
@@ -150,19 +150,19 @@ static void main(string arg) {
    sz = sizeof(tmp);
    for (i = 0; i < sz; i++) {
       if (strlen(tmp[i]) > width) {
-	 /* Big line. Break it up. */
-	 where = 0;
-	 while (where < strlen(tmp[i])) {
-	    if (where + width < strlen(tmp[i])) {
-	       lines += ( { tmp[i][where..where + (width - 1)] } );
-	       where += width;
-	    } else {
-	       lines += ( { tmp[i][where..] } );
-	       where = strlen(tmp[i]);
-	    }
-	 }
+         /* Big line. Break it up. */
+         where = 0;
+         while (where < strlen(tmp[i])) {
+            if (where + width < strlen(tmp[i])) {
+               lines += ( { tmp[i][where..where + (width - 1)] } );
+               where += width;
+            } else {
+               lines += ( { tmp[i][where..] } );
+               where = strlen(tmp[i]);
+            }
+         }
       } else {
-	 lines += ( { tmp[i] } );
+         lines += ( { tmp[i] } );
       }
    }
 

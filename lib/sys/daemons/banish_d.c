@@ -4,7 +4,7 @@ string *banished_names;
 
 #ifndef SYS_RESERVED_NAMES                                 
 #define SYS_RESERVED_NAMES ({ "kernel", "system", "network", "wizard", "wiz",\
-	 "game" })
+    "game" })
 #endif               
 
 void create(void) {

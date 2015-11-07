@@ -22,7 +22,7 @@ string normalize_path(string file, string dir) {
          if (strlen(file) == 1 || file[1] == '/') {
             file = WIZ_DIR + "/" + this_user()->query_name() + file[1..];
          } else {
-            if (secure_d && secure_d->is_domain(explode(file[1..],"/")[0])) {
+            if (secure_d && secure_d->is_domain(explode(file[1..], "/")[0])) {
                file = DOMAINS_DIR + "/" + file[1..];
             } else {
                file = WIZ_DIR + "/" + file[1..];

@@ -31,7 +31,8 @@ mixed **split_array(mixed * arr, mixed fun, varargs mixed arg... ) {
       extra = ({ });
    }
 
-   match = nomatch = ( { } );
+   nomatch = ({ });
+   match = nomatch;
 
    for (i = 0, sz = sizeof(arr); i < sz; i++) {
       mixed r;
@@ -43,9 +44,9 @@ mixed **split_array(mixed * arr, mixed fun, varargs mixed arg... ) {
       r = call_other(obj, fun, arr[i], extra...);
 
       if (r) {
-         match += ( { arr[i] } );
+         match += ({ arr[i] });
       } else {
-         nomatch += ( { arr[i] } );
+         nomatch += ({ arr[i] });
       }
    }
 

@@ -14,7 +14,7 @@ inherit "/std/modules/m_language";
 inherit "/std/body/skills";
 inherit cmd "/sys/lib/modules/m_cmds";
 
-static object user;		/* This players user object */
+static object user; 		/* This players user object */
 static string input_to_func;	/* The function we're redirecting input to */
 static mixed input_to_arg;      /* Optional extra argument(s) to the function 
                                    we're redirecting input to */
@@ -1258,19 +1258,19 @@ void set_custom_color(string name, string * symbols) {
                return;
             } else {
                switch (ANSI_D->check_recursion(name, symbols[i])) {
-		  case 2:
-		     write("Loop in symbolic tag " + name + " : " + symbols[i]);
-		     return;
-		  case 1:
-		     write("Too many levels of symbolic tags for " + name);
-		     return;
-	       }
-	    }
-	    tmp += "%^" + symbols[i] + "%^";
-	 } else {
-	    write("Symbolic color tokens cannot (YET) contain custom tokens\n");
-	    return;
-	 }
+                  case 2:
+                     write("Loop in symbolic tag " + name + " : " + symbols[i]);
+                     return;
+                  case 1:
+                     write("Too many levels of symbolic tags for " + name);
+                     return;
+               }
+            }
+            tmp += "%^" + symbols[i] + "%^";
+         } else {
+            write("Symbolic color tokens cannot (YET) contain custom tokens\n");
+            return;
+         }
       }
 
       custom_colors[name] = tmp;

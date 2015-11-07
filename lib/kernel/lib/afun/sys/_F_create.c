@@ -96,6 +96,6 @@ nomask void _F_create(void) {
   }
 
   if ( function_object( "create", this_object() ) ) {
-    call_other(this_object(),"create");
+    call_other(this_object(), "create");
   }
 }

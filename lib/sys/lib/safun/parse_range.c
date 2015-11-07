@@ -31,7 +31,7 @@ int *parse_range(string str) {
    }
 
    while (sscanf(str, "%s,,%s", left_str, right_str)) {
-      str = left_str+","+right_str;
+      str = left_str + "," + right_str;
    }
 
    parsed_arr = ({ });

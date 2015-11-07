@@ -153,58 +153,58 @@ void wrap_message(string str, varargs int chat_flag) {
          str = lines[j];
          msg = str;
          if (strlen(ansid->strip_colors(str)) > width) {
-	    int adding;
-	    string word_todo;
+            int adding;
+            string word_todo;
 
-	    sz = 0;
-	    words = explode(str, " ");
-	    msg = "";
+            sz = 0;
+            words = explode(str, " ");
+            msg = "";
 
-	    for (i = 0; i < sizeof(words); i++) {
-	       word_todo = nil;
-	       if (strlen(words[i]) > 4 && (strstr(words[i], "%^") != -1)) {
-		  word_todo = ansid->strip_colors(words[i]);
-	       }
-	       /* word_todo is the word stripped from ansi codes */
+            for (i = 0; i < sizeof(words); i++) {
+               word_todo = nil;
+               if (strlen(words[i]) > 4 && (strstr(words[i], "%^") != -1)) {
+                  word_todo = ansid->strip_colors(words[i]);
+               }
+               /* word_todo is the word stripped from ansi codes */
                if (!word_todo) {
-	          word_todo = words[i];
+                  word_todo = words[i];
                }
 
-	       if (sz + strlen(word_todo) + adding > width) {
-		  msg += "\n";
+               if (sz + strlen(word_todo) + adding > width) {
+                  msg += "\n";
 
-		  if (chat_flag) {
-		     msg += "  ";
-		  }
+                  if (chat_flag) {
+                     msg += "  ";
+                  }
 
                   /* add length of word without ansi codes */
-		  sz = strlen(word_todo) + 2;
+                  sz = strlen(word_todo) + 2;
 
                   /* add word with ansi codes */
-		  msg += words[i];
-	       } else {
-                  if (adding) {
-		     msg += " " + words[i];
-                  } else {
-		     msg += words[i];
-                  }
-		  sz += strlen(word_todo) + adding;
-	       }
-	       /* determine how many spaces will be added next run */
-               if (sz == 0) {
-	          adding = 0;
+                  msg += words[i];
                } else {
-	          adding = 1;
+                  if (adding) {
+                     msg += " " + words[i];
+                  } else {
+                     msg += words[i];
+                  }
+                  sz += strlen(word_todo) + adding;
                }
-	    }
-	 }
-	 if (query_player()->query_ansi()) {
-	    msg = ansid->parse_colors(msg);
-	 } else {
-	    msg = ansid->strip_colors(msg);
+               /* determine how many spaces will be added next run */
+               if (sz == 0) {
+                  adding = 0;
+               } else {
+                  adding = 1;
+               }
+            }
+         }
+         if (query_player()->query_ansi()) {
+            msg = ansid->parse_colors(msg);
+         } else {
+            msg = ansid->strip_colors(msg);
          }
 
-	 send_message(msg + "\n");
+         send_message(msg + "\n");
       }
    }
 }
@@ -242,7 +242,8 @@ void restore_privs(void) {
       privs += "wizard:";
       dn = DOMAIN_D->query_domains();
 
-      for (i=0, sz=sizeof(dn); i < sz; i++) {
+      sz = sizeof(dn);
+      for (i = 0; i < sz; i++) {
          if (DOMAIN_D->query_domain_member(dn[i], user_name)) {
             privs += dn[i] + ":";
          }
@@ -278,11 +279,11 @@ static void login_user(void) {
          tmp_player = usr->query_player();
          usr->set_player(player);
          player = tmp_player;
-	 set_this_player(player);
-	 LINKDEAD_D->remove_linkdead(player);
-	 usr->quit();
-	 LOG_D->write_log("logins",
-	    ctime(time()) + "\t" + query_ip_number(this_object()) + "\t" +
+         set_this_player(player);
+         LINKDEAD_D->remove_linkdead(player);
+         usr->quit();
+         LOG_D->write_log("logins",
+            ctime(time()) + "\t" + query_ip_number(this_object()) + "\t" +
             this_object()->query_name() + " reconnects\n");
          player->set_linkdead(0);
          player->set_user(this_object());
@@ -416,12 +417,12 @@ void mssp_reply(void) {
 
 void login_who(void) {
    string *out;
-   int i,max;
+   int i, max;
 
    out = USER_D->list_players(0);
 
    max = sizeof(out);
-   for (i=0;i< max; i++) {
+   for (i = 0;i < max; i++) {
       write(out[i]);
    }
 }
@@ -449,7 +450,7 @@ void input_name(string str) {
    if (str == "MSSP-REQUEST") {
       mssp_reply();
 
-      str = "";			/* force login fail */
+      str = "";            /* force login fail */
    }
 
    if (lowercase(str) == "quit") {
@@ -795,7 +796,9 @@ void receive_error(string err) {
 
 static void upgraded(void) {
    ansid = find_object(ANSI_D);
-   if (data_version) return;
+   if (data_version) {
+      return;
+   }
    if (query_player()) {
       logged_in = data_version = 1;
    }

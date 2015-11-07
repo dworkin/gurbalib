@@ -11,6 +11,7 @@ static mixed get_tlvar(string name) {
    argcheck(stringp(name), 1, "string");
 
    vars = DRIVER->get_tlvar(TLS_UVARS);
-   if (vars)
+   if (vars) {
       return vars[name];
+   }
 }

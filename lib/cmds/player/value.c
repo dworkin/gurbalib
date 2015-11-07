@@ -44,8 +44,9 @@ static void main(string str) {
    str = lowercase(str);
 
    obj = this_player()->present(str);
-   if (!obj)
+   if (!obj) {
       obj = this_environment()->present(str);
+   }
 
    if (!obj) {
       write("You don't see " + str + " here.");

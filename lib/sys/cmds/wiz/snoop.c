@@ -25,13 +25,13 @@ static void main(string str) {
       pSnooping = this_player()->query_snooping();
 
       if (pSnooping && (sizeof(pSnooping) > 0)) {
-	 this_player()->message("You are snooping:");
+         this_player()->message("You are snooping:");
          sz = sizeof(pSnooping);
-	 for (i = 0; i < sz; i++) {
-	    this_player()->message(capitalize(pSnooping[i]->query_name()));
-	 }
+         for (i = 0; i < sz; i++) {
+            this_player()->message(capitalize(pSnooping[i]->query_name()));
+         }
       } else {
-	 this_player()->message("You are snooping no one.");
+         this_player()->message("You are snooping no one.");
       }
 
       return;
@@ -46,33 +46,33 @@ static void main(string str) {
       pPlayer = USER_D->find_player(str);
 
       if (pPlayer == this_player()) {
-	 this_player()->message("You can't snoop yourself.");
-	 return;
+         this_player()->message("You can't snoop yourself.");
+         return;
       }
 
       if (!pPlayer) {
-	 this_player()->message("That player isn't here now.");
+         this_player()->message("That player isn't here now.");
       } else {
-	 if (this_player()->is_snooping(pPlayer)) {
-	    this_player()->remove_snooping(pPlayer);
-	    pPlayer->remove_snoopee(this_player());
-	 } else {
-	    pSnooping = pPlayer->query_snooping();
+         if (this_player()->is_snooping(pPlayer)) {
+            this_player()->remove_snooping(pPlayer);
+            pPlayer->remove_snoopee(this_player());
+         } else {
+            pSnooping = pPlayer->query_snooping();
 
-	    if (pSnooping && (sizeof(pSnooping) > 0)) {
+            if (pSnooping && (sizeof(pSnooping) > 0)) {
                sz = sizeof(pSnooping);
 
-	       for (i = 0; i < sz; i++) {
-		  if (pSnooping[i]->query_name() ==
+               for (i = 0; i < sz; i++) {
+                  if (pSnooping[i]->query_name() ==
                      this_player()->query_name()) {
-		     this_player()->message("He's already snooping you.");
-		     return;
-		  }
-	       }
-	    }
-	    this_player()->add_snooping(pPlayer);
-	    pPlayer->add_snoopee(this_player());
-	 }
+                     this_player()->message("He's already snooping you.");
+                     return;
+                  }
+               }
+            }
+            this_player()->add_snooping(pPlayer);
+            pPlayer->add_snoopee(this_player());
+         }
       }
    }
 }

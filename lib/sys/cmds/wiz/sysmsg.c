@@ -35,13 +35,13 @@ static void main(string msg) {
 
       sz = sizeof(usr);
       for (i = 0; i < sz; i++) {
-	 usr[i]->message("\n" +
-	    "%^RED%^System Message from %^GREEN%^" +
-	    this_player()->query_Name() +
-	    "%^RED%^ on %^WHITE%^" + ctime(time()) + "%^RED%^:%^RESET%^\n");
-	 usr[i]->message("\"" + msg + "\"");
+         usr[i]->message("\n" +
+            "%^RED%^System Message from %^GREEN%^" +
+            this_player()->query_Name() +
+            "%^RED%^ on %^WHITE%^" + ctime(time()) + "%^RED%^:%^RESET%^\n");
+         usr[i]->message("\"" + msg + "\"");
       }
       LOG_D->write_log("sysmsg", this_player()->query_Name() +
-	 " on " + ctime(time()) + ": \"" + msg + "\"\n");
+         " on " + ctime(time()) + ": \"" + msg + "\"\n");
    }
 }

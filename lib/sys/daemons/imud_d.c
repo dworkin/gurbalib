@@ -129,8 +129,9 @@ private void write_imud_stream(string sType, mixed sTargetMUD,
    sSend[strlen(sSend) - 1] = 0;
 
    /*  Send it to the router */
-   if (catch(send_message(sSend)))
+   if (catch(send_message(sSend))) {
       IMUDLOG("There was an error writing the data to the Intermud connection");
+   }
 }
 
 /*
@@ -629,8 +630,9 @@ void receive_message(string str) {
 */
 int close(varargs int force) {
    IMUDLOG("Connection closed.\n");
-   if (enabled && !reconnect_handle)
+   if (enabled && !reconnect_handle) {
       reconnect_handle = call_out("reconnect", RECONNECT_INTERVAL);
+   }
    if (connected) {
       event("i3_connection",
          "I3 connection to " + mpRouterList[current_router][0] + " lost");
@@ -725,8 +727,9 @@ void keepalive(void) {
       } else {
          connected = 0;
          IMUDLOG("Connection lost.\n");
-         if (enabled && !reconnect_handle)
+         if (enabled && !reconnect_handle) {
             reconnect_handle = call_out("reconnect", RECONNECT_INTERVAL);
+         }
       }
    } else {
       send_to_mud("auth-mud-req", IMUD_NAME, ({0}));
@@ -852,7 +855,30 @@ void create(void) {
 
    use_default_router();
 
- aServices = (["tell": "rcv_tell", "emoteto": "rcv_emoteto", "who-req": "rcv_who_req", "who-reply": "rcv_who_reply", "finger-req": "rcv_finger_req", "finger-reply": "rcv_finger_reply", "locate-req": "rcv_locate_req", "locate-reply": "rcv_locate_reply", "chanlist-reply": "rcv_chanlist_reply", "chan-who-req": "rcv_chan_who_req", "chan-who-reply": "rcv_chan_who_reply", "channel-m": "rcv_channel_m", "channel-e": "rcv_channel_e", "channel-t": "rcv_channel_t", "chan-user-req": "rcv_chan_user_req", "chan-user-reply": "rcv_chan_user_reply", "auth-mud-req": "rcv_auth_mud_req", "auth-mud-reply": "rcv_auth_mud_reply", "ucache-update": "rcv_ucache_update", "mudlist": "rcv_mudlist", "startup-reply": "rcv_startup_reply", "error": "rcv_error", "oob-req":"rcv_oob_req",]);
+   aServices = (["tell": "rcv_tell",
+      "emoteto": "rcv_emoteto",
+      "who-req": "rcv_who_req",
+      "who-reply": "rcv_who_reply",
+      "finger-req": "rcv_finger_req",
+      "finger-reply": "rcv_finger_reply",
+      "locate-req": "rcv_locate_req",
+      "locate-reply": "rcv_locate_reply",
+      "chanlist-reply": "rcv_chanlist_reply",
+      "chan-who-req": "rcv_chan_who_req",
+      "chan-who-reply": "rcv_chan_who_reply",
+      "channel-m": "rcv_channel_m",
+      "channel-e": "rcv_channel_e",
+      "channel-t": "rcv_channel_t",
+      "chan-user-req": "rcv_chan_user_req",
+      "chan-user-reply": "rcv_chan_user_reply",
+      "auth-mud-req": "rcv_auth_mud_req",
+      "auth-mud-reply": "rcv_auth_mud_reply",
+      "ucache-update": "rcv_ucache_update",
+      "mudlist": "rcv_mudlist",
+      "startup-reply": "rcv_startup_reply",
+      "error": "rcv_error",
+      "oob-req":"rcv_oob_req",
+   ]);
 
    spAddress = explode(mpRouterList[current_router][1], " ");
 

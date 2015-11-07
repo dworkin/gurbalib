@@ -1,7 +1,7 @@
 private void _F_call_out2(mixed * tls, string fun, varargs mixed pl, mixed arg) {
 
   if (objectp(pl)) {
-    DRIVER->set_tlvar(TLS_THIS_PLAYER,pl);
+    DRIVER->set_tlvar(TLS_THIS_PLAYER, pl);
   } else if (pl && !arg) {
     arg = pl;
     pl = nil;
@@ -10,9 +10,9 @@ private void _F_call_out2(mixed * tls, string fun, varargs mixed pl, mixed arg) 
 
   rlimits(MAX_DEPTH; MAX_TICKS) {
     if (arg && sizeof(arg)) {
-      call_other(this_object(),fun,arg...);
+      call_other(this_object(), fun, arg...);
     } else {
-      call_other(this_object(),fun);
+      call_other(this_object(), fun);
     }
   }
 }

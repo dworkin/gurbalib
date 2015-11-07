@@ -44,7 +44,7 @@ int add_domain(string name) {
       error("Illegal call to add_domain: " + prev + "\n");
    }
 
-   if (!member_map(name,domains)) {
+   if (!member_map(name, domains)) {
       domains[name] = ([]);
       if (find_object(BANISH_D)) {
          BANISH_D->create();

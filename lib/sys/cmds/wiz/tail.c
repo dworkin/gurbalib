@@ -45,7 +45,7 @@ static void main(string arg) {
    if (start < 0) {
       start = 0;
    }
-   tmp = explode(read_file(file,start,CHUNK_SIZE), "\n");
+   tmp = explode(read_file(file, start, CHUNK_SIZE), "\n");
    lines = ( { } );
    sz = sizeof(tmp);
    for (i = 0; i < sz; i++) {

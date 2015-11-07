@@ -95,7 +95,7 @@ static void set_searchpath( mixed path ) {
          }
       } else {
          if (path[i][0] != '/') {
-            error("Command path must start with a / ["+path[i]+"]");
+            error("Command path must start with a / [" + path[i] + "]");
          }
          path[i] = trailing_slash(path[i]);
          if (validate_cmd_path(path[i])) {

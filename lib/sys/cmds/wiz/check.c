@@ -402,7 +402,7 @@ void do_object_check(object obj) {
          }
       } else {
          x = obj->query_size();
-	 if (x > 0) {
+         if (x > 0) {
             warn("Object size = " + x + " this object is not wearable or " +
                "wieldable.\n");
          }

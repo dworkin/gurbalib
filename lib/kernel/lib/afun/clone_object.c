@@ -42,7 +42,7 @@ static object clone_object(string path) {
       call_other(ob, "???");
    }
 
-   ob =::clone_object(ob);
+   ob = ::clone_object(ob);
    ob->_F_set_cloner(cloner, trace);
    ob->_F_create();
 

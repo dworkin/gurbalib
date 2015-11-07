@@ -1,12 +1,14 @@
 object present(string name, varargs mixed where...) {
    string what;
-   int which;
-   int i;
+   int i, maxi, which;
    object result;
 
-   if (sizeof(where) == 0) where = ({ this_object() });
+   if (sizeof(where) == 0) {
+      where = ({ this_object() });
+   }
 
-   for (i = 0; i < sizeof(where); i++) {
+   maxi = sizeof(where);
+   for (i = 0; i < maxi; i++) {
    
       if (where[i]<-"/std/container") {
          if (file_exists(name)) {
@@ -21,8 +23,8 @@ object present(string name, varargs mixed where...) {
             result = where[i]->find_object_num(name, 1);
          }
       }
-   if (result) {
-      return result;
-   }
+      if (result) {
+         return result;
+      }
    }
 }

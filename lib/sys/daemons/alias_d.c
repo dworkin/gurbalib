@@ -146,7 +146,11 @@ string do_expand(string alias, string arg) {
    if (arg && arg != "") {
       args = explode(arg, " ");
 
-      for (i = 0, sz = sizeof(args), sz=(sz<10 ? sz:10); i < sz; i++) {
+      sz = sizeof(args);
+      if (sz >= 10) {
+         sz = 10;
+      }
+      for (i = 0; i < sz; i++) {
          alias = replace_string(alias, "$" + i, args[i]);
       }
    }

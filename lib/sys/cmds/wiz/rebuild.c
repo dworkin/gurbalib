@@ -144,7 +144,7 @@ static void main(string str) {
 
       if (file && sizeof(file)) {
          sz = sizeof(file);
-         for (pos=0; pos < sz; pos++) {
+         for (pos = 0; pos < sz; pos++) {
             write("Recompile " + file[pos]);
          }
       }
@@ -172,7 +172,7 @@ static void main(string str) {
 
    if (file && sizeof(file)) {
       sz = sizeof(file);
-      for (pos=0; pos < sz; pos++) {
+      for (pos = 0; pos < sz; pos++) {
          if (!valid_write(file[pos])) {
              write("No write access to " + file[pos] + ", aborted.");
              return;

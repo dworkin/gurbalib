@@ -48,7 +48,7 @@ private int new_format(string format) {
 private void test_format(string format) {
    if (!formats || !formats[format]) {
       if (!new_format(format)) {
-	 error("Unknown format: " + format);
+         error("Unknown format: " + format);
       }
    }
 }

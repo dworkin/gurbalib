@@ -124,8 +124,8 @@ void do_work_tofile(string outfile, string file1, string file2) {
    } else {
       lines = do_work(file1, file2);
       max = sizeof(lines);
-      for (i = 0;i < max; i++) {
-         write_file(outfile,lines[i]);
+      for (i = 0; i < max; i++) {
+         write_file(outfile, lines[i]);
       }
    }
 }
@@ -149,10 +149,10 @@ static void main(string str) {
       do_work_tofile(outfile, file1, file2);
    } else {
       if (sscanf(str, "%s %s", file1, file2)) {
-	 do_work_toscreen(file1, file2);
+         do_work_toscreen(file1, file2);
       } else {
          this_player()->more(usage());
-	 return;
+         return;
       }
    }
 }

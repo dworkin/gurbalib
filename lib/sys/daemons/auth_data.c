@@ -43,7 +43,9 @@ int load(string str) {
 int test(string user, string str) {
    secure();
 
-   if (hash_string("SHA1", str, user) == password) return 1;
+   if (hash_string("SHA1", str, user) == password) {
+      return 1;
+   }
    return (hash_string("crypt", str, "gurba") == password);
 }
 

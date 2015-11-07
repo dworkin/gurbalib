@@ -199,7 +199,7 @@ void initialize_base_stats(void) {
 
       s = ({ "0", "0", "0", "0", "0", "0" });
       i = 0;
-      for(i = 0; i < 6; i++) {
+      for (i = 0; i < 6; i++) {
          s[i] = random(race->query_base_stat_maximum(VALID_STATS[i]) -
             race->query_base_stat_minimum(VALID_STATS[i]) + 1) +
             race->query_base_stat_minimum(VALID_STATS[i]);

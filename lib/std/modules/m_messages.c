@@ -34,7 +34,7 @@ string *compose_message(object who, string msg, object target,
             punc = 0;
          }
          if (pronounFlag == 1 && words[i][1] != 'o') {
-            pronounFlag=0;
+            pronounFlag = 0;
          }
          switch (words[i][1]) {
             case 'N':
@@ -64,7 +64,7 @@ string *compose_message(object who, string msg, object target,
                us += "your ";
                them += who->query_gender_possessive() + " ";
                others += who->query_gender_possessive() + " ";
-               pronounFlag=1;
+               pronounFlag = 1;
                break;
             case 'v':
                if (strlen(words[i]) < 3) {
@@ -133,83 +133,86 @@ string *compose_message(object who, string msg, object target,
                } else {
                   if (target->is_living()) {
                      if (!target->query_Name()) {
-			us += "the " + target->query_id() + " ";
-			them += "you ";
-			others += "the " + target->query_id() + " ";
-		     } else {
-			us += target->query_Name() + " ";
-			them += "you ";
-			others += target->query_Name() + " ";
-		     }
-		  } else {
-		     us += "the " + target->query_id() + " ";
-		     them += "you " + target->query_id() + " ";
-		     others += "the " + target->query_id() + " ";
-		  }
-	       }
-	       break;
-	    case 't':
-	       if (who == target) {
-		  /* Doing something to ourselves. */
-		  us += "yourself ";
-		  them += who->query_gender_reflexive() + " ";
-		  others += who->query_gender_reflexive() + " ";
-	       } else {
-		  if (target->is_living()) {
-		     if (!target->query_Name()) {
-			us += "the " + target->query_id() + " ";
-			them += "you ";
-			others += "the " + target->query_id() + " ";
-		     } else {
-			us += target->query_Name() + " ";
-			them += "you ";
-			others += target->query_Name() + " ";
-		     }
-		  } else {
-		     us += "the " + target->query_id() + " ";
-		     them += "you " + target->query_id() + " ";
-		     others += "the " + target->query_id() + " ";
-		  }
-	       }
-	       break;
-	    case 'o':
-	       if (strlen(words[i]) > 2 && words[i][2] >= '0'
-		  && words[i][2] <= '9') {
-		  objnum = words[i][2] - '0';
-	       } else {
-		  objnum = 0;
-	       }
-	       if (!objs || !objs[objnum])
-		  break;
-	       if (typeof(objs[objnum]) == T_STRING) {
-		  us += objs[objnum] + " ";
-		  them += objs[objnum] + " ";
-		  others += objs[objnum] + " ";
-	       } else {
-	       if (!pronounFlag) { 
-	         us += "the ";
-	         them += "the ";
-	         others += "the ";
-	         }
-		  us += objs[objnum]->query_id() + " ";
-		  them += objs[objnum]->query_id() + " ";
-		  others += objs[objnum]->query_id() + " ";
-		  pronounFlag = 0;
-	       }
-	       break;
-	 }
-	 if (punc) {
-	    us[strlen(us) - 1] = punc;
-	    them[strlen(them) - 1] = punc;
-	    others[strlen(others) - 1] = punc;
-	    us += " ";
-	    them += " ";
-	    others += " ";
-	 }
+                        us += "the " + target->query_id() + " ";
+                        them += "you ";
+                        others += "the " + target->query_id() + " ";
+                     } else {
+                        us += target->query_Name() + " ";
+                        them += "you ";
+                        others += target->query_Name() + " ";
+                     }
+                  } else {
+                     us += "the " + target->query_id() + " ";
+                     them += "you " + target->query_id() + " ";
+                     others += "the " + target->query_id() + " ";
+                  }
+               }
+               break;
+            case 't':
+               if (who == target) {
+                  /* Doing something to ourselves. */
+                  us += "yourself ";
+                  them += who->query_gender_reflexive() + " ";
+                  others += who->query_gender_reflexive() + " ";
+               } else {
+                  if (target->is_living()) {
+                     if (!target->query_Name()) {
+                        us += "the " + target->query_id() + " ";
+                        them += "you ";
+                        others += "the " + target->query_id() + " ";
+                     } else {
+                        us += target->query_Name() + " ";
+                        them += "you ";
+                        others += target->query_Name() + " ";
+                     }
+                  } else {
+                     us += "the " + target->query_id() + " ";
+                     them += "you " + target->query_id() + " ";
+                     others += "the " + target->query_id() + " ";
+                  }
+               }
+               break;
+            case 'o':
+               if (strlen(words[i]) > 2 && words[i][2] >= '0'
+                  && words[i][2] <= '9') {
+                  objnum = words[i][2] - '0';
+               } else {
+                  objnum = 0;
+               }
+               if (!objs || !objs[objnum]) {
+                  break;
+               }
+               if (typeof(objs[objnum]) == T_STRING) {
+                  us += objs[objnum] + " ";
+                  them += objs[objnum] + " ";
+                  others += objs[objnum] + " ";
+               } else {
+                  if (!pronounFlag) { 
+                     us += "the ";
+                     them += "the ";
+                     others += "the ";
+                  }
+
+                  us += objs[objnum]->query_id() + " ";
+                  them += objs[objnum]->query_id() + " ";
+                  others += objs[objnum]->query_id() + " ";
+                  pronounFlag = 0;
+               }
+               break;
+         }
+
+         if (punc) {
+            us[strlen(us) - 1] = punc;
+            them[strlen(them) - 1] = punc;
+            others[strlen(others) - 1] = punc;
+            us += " ";
+            them += " ";
+            others += " ";
+         }
       } else {
-	 us += words[i] + " ";
-	 them += words[i] + " ";
-	 others += words[i] + " ";
+         us += words[i] + " ";
+         them += words[i] + " ";
+         others += words[i] + " ";
       }
    }
    if (us[strlen(us) - 1] == ' ') {

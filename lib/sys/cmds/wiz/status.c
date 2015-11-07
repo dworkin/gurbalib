@@ -75,7 +75,7 @@ void display_obj(mixed * stat, object obj) {
       maxi = sizeof(tmp2);
       lines += ({ "Call outs              : "  + maxi });
       for (i = 0; i < maxi; i++) {
-	 lines += ({ "\t" + tmp2[i] });
+         lines += ({ "\t" + tmp2[i] });
       }
    } else {
       lines += ({ "Call outs              : 0" });
@@ -87,7 +87,7 @@ void display_obj(mixed * stat, object obj) {
       maxi = sizeof(keys);
       lines += ({ "Undefined Functions    : " + maxi });
       for (i = 0; i < maxi; i++) {
-	 lines += ({ "\t" + keys[i] + ": " + dump_value(keys[i],tmp) });
+         lines += ({ "\t" + keys[i] + ": " + dump_value(keys[i], tmp) });
       }
    } else {
       lines += ({ "Undefined Functions    : 0" });
@@ -98,7 +98,7 @@ void display_obj(mixed * stat, object obj) {
       maxi = sizeof(tmp2);
       lines += ({ "Depending programs     : " + maxi});
       for (i = 0; i < maxi; i++) {
-	 lines += ({ "\t" + tmp2[i] });
+         lines += ({ "\t" + tmp2[i] });
       }
    } else {
       lines += ({ "Depending programs     : 0"});
@@ -109,7 +109,7 @@ void display_obj(mixed * stat, object obj) {
       maxi = sizeof(incs);
       lines += ({ "Includes               : " + maxi });
       for (i = 0; i < maxi; i++) {
-	 lines += ({ "\t" + incs[i] });
+         lines += ({ "\t" + incs[i] });
       } 
    } else {
       lines += ({ "Includes               : 0" });
@@ -139,36 +139,36 @@ static void main(string str) {
       obj = this_player()->query_environment()->present(str);
 
       if (!obj) {
-	 obj = this_player()->present(str);
+         obj = this_player()->present(str);
       }
 
       if (!obj) {
-	 obj = USER_D->find_player(str);
+         obj = USER_D->find_player(str);
       }
 
       if (!obj) {
          str = normalize_path(str, this_player()->query_env("cwd"));
 
          if (file_exists(str)) {
-	    if (!obj) {
-	       obj = find_object(str);
+            if (!obj) {
+               obj = find_object(str);
             }
-	    if (!obj) {
+            if (!obj) {
                obj = compile_object(str);
                if (obj) {
-	          obj->setup();
-	          obj->setup_mudlib();
-	       }
-	    }
+                  obj->setup();
+                  obj->setup_mudlib();
+               }
+            }
          }
       }
 
       if (obj) {
-	 stat = status(obj);
-	 display_obj(stat, obj);
+         stat = status(obj);
+         display_obj(stat, obj);
       } else {
-	 write("Unable to locate: " + str + "\n");
-	 return;
+         write("Unable to locate: " + str + "\n");
+         return;
       }
    }
 }

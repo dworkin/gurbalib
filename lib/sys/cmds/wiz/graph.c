@@ -40,7 +40,7 @@ int valid_extension(string str) {
    if (x < 3) {
       return 0;
    }
-   x= x - 2;
+   x = x - 2;
    if (str[x..] == ".c") {
       return 1;
    }

@@ -11,7 +11,7 @@ nomask int query_guest(mixed player) {
    }
 
    /* If player name starts with guest return 1 */
-   if (strstr(player,"guest") == 0) { 
+   if (strstr(player, "guest") == 0) { 
      return 1;
    }
 

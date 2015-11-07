@@ -375,38 +375,36 @@ void rescan_verbs(void) {
       }
    }
 
-   grammar = "\
-OBJ: Object ? find_direct_object \
-OBJA: Object ? construct_obj_packet \
-OBJI: Object ? find_inv_object \
-OBJE: Object ? find_environment_object \
-LIV: Object ? find_living_object \
-OBJC: Object ? find_container_object \
-OBJX: Object \
-Object: Article_List Adjective_List Noun Obj_Index \
-Article: 'the' \
-Article: 'a' \
-Article: 'an' \
-Article: 'any' \
-Article: 'my' \
-Article: 'in' \
-Article: 'at' \
-Article: 'on' \
-Article: 'from' \
-Article: \
-Article_List: Article ? group_results \
-Adjectives: word Adjectives \
-Adjectives: \
-Adjective_List: Adjectives ? group_results \
-Preposition: word \
-Preposition: \
-Preposition_List: Preposition ? group_results \
-Noun: word \
-words: word ? group_results \
-Index: number \
-Index: \
-Obj_Index: Index ? define_obj_index \
-";
+   grammar = "OBJ: Object ? find_direct_object\n" +
+      "OBJA: Object ? construct_obj_packet\n" +
+      "OBJI: Object ? find_inv_object\n" +
+      "OBJE: Object ? find_environment_object\n" +
+      "LIV: Object ? find_living_object\n" +
+      "OBJC: Object ? find_container_object\n" +
+      "OBJX: Object\n" +
+      "Object: Article_List Adjective_List Noun Obj_Index\n" +
+      "Article: 'the'\n" +
+      "Article: 'a'\n" +
+      "Article: 'an'\n" +
+      "Article: 'any'\n" +
+      "Article: 'my'\n" +
+      "Article: 'in'\n" +
+      "Article: 'at'\n" +
+      "Article: 'on'\n" +
+      "Article: 'from'\n" +
+      "Article:\n" +
+      "Article_List: Article ? group_results\n" +
+      "Adjectives: word Adjectives\n" +
+      "Adjectives:\n" +
+      "Adjective_List: Adjectives ? group_results\n" +
+      "Preposition: word\n" +
+      "Preposition:\n" +
+      "Preposition_List: Preposition ? group_results\n" +
+      "Noun: word\n" +
+      "words: word ? group_results\n" +
+      "Index: number\n" +
+      "Index:\n" +
+      "Obj_Index: Index ? define_obj_index";
 }
 
 string scan_local_verbs(void) {

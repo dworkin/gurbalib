@@ -65,23 +65,22 @@ void display_istat(void) {
 
    switch (s) {
       case 0:
-	 r = "not loaded";
-	 break;
+         r = "not loaded";
+         break;
       case 1:
-	 r = "loaded and offline\n";
-	 if (IMUD_D->query_enabled()) {
-	    r += "I3 is enabled\n";
-	 } else {
-	    r += "I3 is disabled\n";
-	 }
-	 r += "Default router: " + IMUD_D->query_default_router() + "\n"; 
-	 break;
+         r = "loaded and offline\n";
+         if (IMUD_D->query_enabled()) {
+            r += "I3 is enabled\n";
+         } else {
+            r += "I3 is disabled\n";
+         }
+         r += "Default router: " + IMUD_D->query_default_router() + "\n"; 
+         break;
       case 2:
-	 r = "loaded and online\n";
-	 r +=
-	    "Connected to " + IMUD_D->query_current_router_name() + " (" +
-	    IMUD_D->query_current_router_ip() + ")\n";
-	 break;
+         r = "loaded and online\n";
+         r += "Connected to " + IMUD_D->query_current_router_name() + " (" +
+            IMUD_D->query_current_router_ip() + ")\n";
+         break;
    }
    write("I3 status: " + r + "\n");
 }
@@ -104,11 +103,11 @@ static void main(string str) {
       int pos;
 
       if (sscanf(error, "Bad token at offset %d", pos) == 1) {
-	 write("Invalid character " + str[pos..pos] + " at position " + pos +
-	    ".");
-	 return;
+         write("Invalid character " + str[pos..pos] + " at position " + pos +
+            ".");
+         return;
       } else {
-	 rethrow();
+         rethrow();
       }
    }
 
@@ -119,63 +118,63 @@ static void main(string str) {
 
    switch (args[0]) {
       case "restart":
-	 if (!find_object(IMUD_D)) {
-	    write("IMUD_D is not loaded");
-	 } else if (!IMUD_D->query_enabled()) {
-	    write("IMUD_D is not enabled");
-	 } else {
-	    if (IMUD_D->query_connection()) {
-	       IMUD_D->query_connection()->set_mode(MODE_DISCONNECT);
-	    }
-	 }
-	 break;
+         if (!find_object(IMUD_D)) {
+            write("IMUD_D is not loaded");
+         } else if (!IMUD_D->query_enabled()) {
+            write("IMUD_D is not enabled");
+         } else {
+            if (IMUD_D->query_connection()) {
+               IMUD_D->query_connection()->set_mode(MODE_DISCONNECT);
+            }
+         }
+         break;
       case "status":
-	 display_istat();
-	 break;
+         display_istat();
+         break;
       case "enable":
-	 IMUD_D->enable_i3();
-	 display_istat();
-	 break;
+         IMUD_D->enable_i3();
+         display_istat();
+         break;
       case "disable":
-	 if (!find_object(IMUD_D)) {
-	    write("IMUD_D is not loaded");
-	 } else {
-	    IMUD_D->disable_i3();
-	    display_istat();
-	 }
-	 break;
+         if (!find_object(IMUD_D)) {
+            write("IMUD_D is not loaded");
+         } else {
+            IMUD_D->disable_i3();
+            display_istat();
+         }
+         break;
       case "start":
-	 if (find_object(IMUD_D)) {
-	    write("Already active");
-	 } else {
-	    call_other(IMUD_D, "???");
-	    write("IMUD_D loaded and starting");
-	 }
-	 break;
+         if (find_object(IMUD_D)) {
+            write("Already active");
+         } else {
+            call_other(IMUD_D, "???");
+            write("IMUD_D loaded and starting");
+         }
+         break;
       case "stop":
-	 if (!find_object(IMUD_D)) {
-	    write("IMUD_D is not active");
-	 } else {
-	    destruct_object(find_object(IMUD_D));
-	    write("IMUD_D unloaded");
-	 }
-	 break;
+         if (!find_object(IMUD_D)) {
+            write("IMUD_D is not active");
+         } else {
+            destruct_object(find_object(IMUD_D));
+            write("IMUD_D unloaded");
+         }
+         break;
       case "switch":
-	 if (!find_object(IMUD_D)) {
-	    write("IMUD_D is not active");
-	 } else {
-	    IMUD_D->switch_router();
-	 }
-	 break;
+         if (!find_object(IMUD_D)) {
+            write("IMUD_D is not active");
+         } else {
+            IMUD_D->switch_router();
+         }
+         break;
       case "default":
-	 if (!find_object(IMUD_D)) {
-	    write("IMUD_D is not active");
-	 } else {
-	    if (sizeof(args) > 1) {
-	       IMUD_D->set_default_router(args[1]);
-	    }
-	    write("Default router: " + IMUD_D->query_default_router());
-	 }
-	 break;
+         if (!find_object(IMUD_D)) {
+            write("IMUD_D is not active");
+         } else {
+            if (sizeof(args) > 1) {
+               IMUD_D->set_default_router(args[1]);
+            }
+            write("Default router: " + IMUD_D->query_default_router());
+         }
+         break;
    }
 }

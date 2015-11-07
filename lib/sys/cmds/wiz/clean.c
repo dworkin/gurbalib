@@ -38,7 +38,7 @@ static void main(string arg) {
    objs = this_environment()->query_inventory();
    for (i = 0; i < sizeof(objs); i++) {
       if (!objs[i]->is_player()) {
-	 objs[i]->destruct();
+         objs[i]->destruct();
       }
    }
    this_player()->simple_action("$N $vclean the room.", nil);

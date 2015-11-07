@@ -3,7 +3,8 @@
 string plur(string str);
 
 string pluralize(string str) {
-   string a,b;
+   string a, b;
+
    if (sscanf(str, "%s of %s", a, b) == 2) {
       return (plur(a) + " of " + b);
       }
@@ -82,7 +83,7 @@ string plur(string str) {
       default:
          break;
     }
-    a=str[(strlen(str) - 2)..(strlen(str) - 1)];
+    a = str[(strlen(str) - 2)..(strlen(str) - 1)];
     switch (a) { 
         case "sh":
         case "ch":
@@ -103,23 +104,23 @@ string plur(string str) {
            break;
         case "y":
            if (member_array(str[(strlen(str) - 2)..(strlen(str) - 2)],
-              VOWELS)==-1) {
-              b="ies";
+              VOWELS) == -1) {
+              b = "ies";
            } else {
               b = "ys";
            }
            break;
         case "o":
-           if (member_array(str[(strlen(str)-2)..(strlen(str)-2)],
-              VOWELS)==-1) {
+           if (member_array(str[(strlen(str) - 2)..(strlen(str) - 2)],
+              VOWELS) == -1) {
                b = "oes";
            } else {
               b = "os";
            }
            break;
         default:
-           b=a + "s";
+           b = a + "s";
            break;
     }
-    return str[0..(strlen(str)-2)]+b;
+    return str[0..(strlen(str) - 2)] + b;
 }

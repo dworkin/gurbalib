@@ -25,33 +25,33 @@ int query_heal_step(void) {
 }
 
 int query_paralysed(void) {
-	return paralysed;
+   return paralysed;
 }
 
 int query_stunned(void) {
-	return stunned;
+   return stunned;
 }
 
 void set_paralysed(int duration) {
-	paralysed = duration;
+   paralysed = duration;
 }
 
 void set_stunned(int duration) {
-	stunned = duration;
+   stunned = duration;
 }
 
 void reduce_stunned() {
-	stunned--;
-	if (stunned < 0) {
-		stunned = 0;
-	}
+   stunned--;
+   if (stunned < 0) {
+      stunned = 0;
+   }
 }
 
 void reduce_paralysed() {
-	paralysed--;
-	if (paralysed < 0) {
-		paralysed = 0;
-	}
+   paralysed--;
+   if (paralysed < 0) {
+      paralysed = 0;
+   }
 }
 
 void event_heart_beat(void) {
@@ -60,7 +60,7 @@ void event_heart_beat(void) {
          heal_time++;
          if (heal_time > heal_rate) {
             heal_time = 0;
-            this_object()->message("You are dead.  You must pray to get your "+
+            this_object()->message("You are dead.  You must pray to get your " +
              "body back.\n");
          }
       } else {
@@ -87,17 +87,17 @@ void event_heart_beat(void) {
       if (!this_object()->is_player()) {
          this_object()->do_extra_actions();
       }
-		
-		reduce_stunned();
-		reduce_paralysed();
+
+      reduce_stunned();
+      reduce_paralysed();
 
       /* Check here to see is we are in combat, if so, continue battle */
       if (!query_paralysed() && !query_stunned() &&
-				this_object()->is_fighting() > 0) {
+         this_object()->is_fighting() > 0) {
          this_object()->do_fight();
       } else {
          if (!query_paralysed() &&
-					function_object("event_wander", this_object())) {
+            function_object("event_wander", this_object())) {
             call_other(this_object(), "event_wander");
          }
       }
@@ -205,7 +205,7 @@ void die(void) {
    obj = clone_object(DOMAINS_DIR + "/required/objects/corpse");
 
    inv = this_object()->query_inventory();
-   for (i = sizeof(inv) - 1; i>=0; i--) {
+   for (i = sizeof(inv) - 1; i >= 0; i--) {
       if (inv[i]->query_worn()) {
          this_object()->do_remove(inv[i]);
       }

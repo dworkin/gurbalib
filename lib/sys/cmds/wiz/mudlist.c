@@ -51,21 +51,21 @@ static void main(string str) {
       line = "";
 
       if (mudlist[muds[i]][0] != -1) {
-	 continue;
+         continue;
       }
 
       if (sizeof(mudlist[muds[i]]) < 9) {
-	 continue;
+         continue;
       }
 
       if (str && (strlen(str) > 0)) {
-	 slen = strlen(str) - 1;
-	 mlen = strlen(muds[i]) - 1;
-	 len = slen < mlen ? slen : mlen;
+         slen = strlen(str) - 1;
+         mlen = strlen(muds[i]) - 1;
+         len = slen < mlen ? slen : mlen;
 
-	 if (("" + mudlist[muds[i]][1] != str)
-	    && ("" + uppercase(muds[i][..len]) != uppercase(str[..len]))) {
-	    continue;
+         if (("" + mudlist[muds[i]][1] != str)
+            && ("" + uppercase(muds[i][..len]) != uppercase(str[..len]))) {
+            continue;
          }
       }
       count++;

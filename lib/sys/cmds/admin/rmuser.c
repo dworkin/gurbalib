@@ -69,5 +69,5 @@ static void main(string str) {
    }
 
    write("Removing " + name + ", are you sure? (y/n)");
-   this_player()->input_to_object(this_object(), "confirm_remove",name);
+   this_player()->input_to_object(this_object(), "confirm_remove", name);
 }

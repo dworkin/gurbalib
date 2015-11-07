@@ -83,7 +83,7 @@ int file_is_daemon(string str) {
    dirs += ({"/sys/daemons/"});
 
    max = sizeof(dirs);
-   for (x=0; x < max; x++) {
+   for (x = 0; x < max; x++) {
       if (strstr(str, dirs[x]) == 0) {
          return 1;
       }
