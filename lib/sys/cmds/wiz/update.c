@@ -60,8 +60,8 @@ static object recompile_object(string str) {
        * we aren't left with half constructed objects.
        */
       if (catch(call_other(ob, "???"))) {
-	 destruct_object(ob);
-	 rethrow();
+         destruct_object(ob);
+         rethrow();
       }
    } else {
       /*
@@ -96,7 +96,7 @@ static void main(string str) {
 
    if (strlen(str) > 2) {
       if ((str[strlen(str) - 2] == '.') && (str[strlen(str) - 1] == 'c')) {
-	 str = str[..strlen(str) - 3];
+         str = str[..strlen(str) - 3];
       }
    }
 
@@ -117,16 +117,16 @@ static void main(string str) {
       players = ( { } );
       sz = sizeof(objs);
       for (i = 0; i < sz; i++) {
-	 if (objs[i]->is_player()) {
-	    players += ({ objs[i] });
-	 } else {
-	    objs[i]->destruct();
-	 }
+         if (objs[i]->is_player()) {
+            players += ({ objs[i] });
+         } else {
+            objs[i]->destruct();
+         }
       }
 
       sz = sizeof(players);
       for (i = 0; i < sz; i++) {
-	 players[i]->move(VOID);
+         players[i]->move(VOID);
       }
 
       ob = compile_object(str);
@@ -134,43 +134,43 @@ static void main(string str) {
       /* And move into the new room */
 
       for (i = 0; i < sz; i++) {
-	 players[i]->move(str);
+         players[i]->move(str);
       }
       this_player()->do_look(this_environment());
    } else if (file_exists(path + ".c")) {
       this_player()->write("Updating: " + path + ".c\n");
       this_player()->set_env("cwf", path + ".c");
       if (compiler_d->test_inheritable(path)) {
-	 if (recompile_library(path)) {
-	    write("Compilation successful.\n");
-	 } else {
-	    write("Something went wrong.\n");
-	 }
+         if (recompile_library(path)) {
+            write("Compilation successful.\n");
+         } else {
+            write("Something went wrong.\n");
+         }
       } else if (compiler_d->test_object(path)) {
-	 catch { ob = recompile_object(path); } : {
-	    switch (caught_error()) {
-	       case "Cannot recompile inherited object":
-		  write(path + " is inherited, trying to destruct/compile.");
-		  if (!recompile_library(path)) {
-		     write("Something went wrong. ");
-		  } else {
-		     write("Compilation successful.\n");
-		  }
-		  return;
-		  break;
-	       default:
-		  rethrow();
-		  break;
-	    }
-	 }
+         catch { ob = recompile_object(path); } : {
+            switch (caught_error()) {
+               case "Cannot recompile inherited object":
+                  write(path + " is inherited, trying to destruct/compile.");
+                  if (!recompile_library(path)) {
+                     write("Something went wrong. ");
+                  } else {
+                     write("Compilation successful.\n");
+                  }
+                  return;
+                  break;
+               default:
+                  rethrow();
+                  break;
+            }
+         }
       } else {
-	 write("Cannot compile " + path +
-	    ", it is neither object or inheritable (see 'man objects')");
-	 return;
+         write("Cannot compile " + path +
+            ", it is neither object or inheritable (see 'man objects')");
+         return;
       }
 
       if (ob) {
-	 write("Compilation successful.\n");
+         write("Compilation successful.\n");
       }
    } else if (ob = this_environment()->present(str)) {
       path = ob->file_name();

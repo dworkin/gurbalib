@@ -17,7 +17,7 @@ void restore_me(void) {
       return;
    }
    max = sizeof(myitems);
-   for (i=0; i<max; i++) {
+   for (i = 0; i < max; i++) {
       obj = clone_object(myitems[i]);
       unguarded("restore_object", DIR + "/data/lockers/" + player_name + 
          "/" + i + ".o");
@@ -38,7 +38,7 @@ void clean_up(void) {
    }
    max = max - 1;
 
-   for (x=max; x>=0; x--) {
+   for (x = max; x >= 0; x--) {
       if (objs[x]->is_living()) {
          objs[x]->move(VOID);
       } else {
@@ -62,7 +62,7 @@ void save_me(void) {
       max = 0;
    }
    y = 0;
-   for (x=0; x<max; x++) {
+   for (x = 0; x < max; x++) {
       if (objs[x]->is_living()) {
       } else {
          myitems += ({ objs[x]->base_name() });

@@ -13,7 +13,7 @@ static object clone_object(string path) {
     */
    if (ed) {
       trace =
-         ed->format_runtime_error("Clone calltrace",::call_trace(), 0, 0, 0);
+         ed->format_runtime_error("Clone calltrace", ::call_trace(), 0, 0, 0);
    } else {
       trace = "No clone calltrace available\n";
    }

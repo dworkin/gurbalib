@@ -14,5 +14,5 @@ void create(void) {
       "and\nstories go of incidents where a frail half-giant has survived " +
       "where the\nstrongest humans have fallen.");
    set_language("grunt");
-   set_skill("language/grunt",100);
+   set_skill("language/grunt", 100);
 }

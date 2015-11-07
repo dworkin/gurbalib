@@ -20,8 +20,8 @@ void setup(void) {
    add_action("press_button", "press");
    add_action("press_button", "push");
 
-   add_item("clock","The clock appears to be broken, it is stuck at: 1:26");
-   add_item("pit","In the middle of the church is a deep pit.  IT was used " +
+   add_item("clock", "The clock appears to be broken, it is stuck at: 1:26");
+   add_item("pit", "In the middle of the church is a deep pit.  IT was used " +
       "for sacrifice in the old times, but nowadays it is only " +
       "left for tourists to look at.");
 

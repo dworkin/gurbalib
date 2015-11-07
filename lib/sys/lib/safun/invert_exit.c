@@ -3,21 +3,21 @@ string invert_exit(string exit) {
 
    switch (exit) {
       case "north":
-	 return "south";
+         return "south";
       case "south":
-	 return "north";
+         return "north";
       case "east":
-	 return "west";
+         return "west";
       case "west":
-	 return "east";
+         return "east";
       case "northeast":
-	 return "southwest";
+         return "southwest";
       case "southeast":
-	 return "northwest";
+         return "northwest";
       case "northwest":
-	 return "southeast";
+         return "southeast";
       case "southwest":
-	 return "northeast";
+         return "northeast";
       case "up":
          return "down";
       case "down":

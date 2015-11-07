@@ -42,7 +42,7 @@ void setup(void) {
    set_long("This is a demon of chaos. It is not evil, not good, not " +
       "neutral. It is -- chaotic. It shimmers and wavers like a cloud " +
       "of poison gas, but you can still make out some features, like the " +
-      "gleeming teeth, the dangerously glowing eyes, and the "+
+      "gleeming teeth, the dangerously glowing eyes, and the " +
       "industrial strength muscles in what should probably be called " +
       "arms. This creature looks very powerful, and clearly a very " +
       "special weapon is needed if you want to hurt it.");

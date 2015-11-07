@@ -25,7 +25,7 @@ int query_internal_weight(void) {
 int query_weight(void) {
    int x;
 
-   x =::query_weight();
+   x = ::query_weight();
    if (internal_max_weight) {
       return x + internal_weight;
    }

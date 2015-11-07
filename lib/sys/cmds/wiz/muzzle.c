@@ -28,18 +28,18 @@ static void main(string str) {
       if (sscanf(str, "-%s", str)) {
          this_player()->more(usage());
       } else if (usr = USER_D->find_player(str)) {
-	 val = usr->toggle_muzzle();
-	 if (val) {
-	    write(capitalize(str) + " muzzled.\n");
-	    usr->message("You have been muzzled by:" +
-	       this_player()->query_Name() + "\n");
-	 } else {
-	    write(capitalize(str) + " unmuzzled.\n");
-	    usr->message("You have been unmuzzled by:" +
-	       this_player()->query_Name() + "\n");
-	 }
+         val = usr->toggle_muzzle();
+         if (val) {
+            write(capitalize(str) + " muzzled.\n");
+            usr->message("You have been muzzled by:" +
+               this_player()->query_Name() + "\n");
+         } else {
+            write(capitalize(str) + " unmuzzled.\n");
+            usr->message("You have been unmuzzled by:" +
+               this_player()->query_Name() + "\n");
+         }
       } else {
-	 write("Who are you looking for?  I can't find: " + str + "!\n");
+         write("Who are you looking for?  I can't find: " + str + "!\n");
       }
    }
 }

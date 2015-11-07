@@ -43,9 +43,9 @@ static void main(string who) {
    flag = 0;
    for (i = 0; i < sizeof(usr); i++) {
       if (usr[i]->query_name() == who) {
-	 usr[i]->message("\n" + msg + "\n");
-	 write("You echo to " + who + ": '" + msg + "'\n");
-	 flag = 1;
+         usr[i]->message("\n" + msg + "\n");
+         write("You echo to " + who + ": '" + msg + "'\n");
+         flag = 1;
       }
    }
 

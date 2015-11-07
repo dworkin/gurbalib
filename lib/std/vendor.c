@@ -142,7 +142,7 @@ string query_list(void) {
    objs = map_indices(stored_items);
    str = "";
 
-   maxi= sizeof(objs);
+   maxi = sizeof(objs);
    for (i = 0; i < maxi; i++) {
 
       if (stored_items[objs[i]] > 0) {

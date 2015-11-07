@@ -12,7 +12,8 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tbug the rabbit hole does not work in newbieville" });
-      lines += ({ "See also:" });
+   lines += ({ "See also:" });
+
    if (query_wizard(this_player())) {
       lines += ({ "\tchan, echo, echoto, emote, rsay, shout, ssay, say, " +
          "sysmsg, tell, translate, whisper, wizcall" });

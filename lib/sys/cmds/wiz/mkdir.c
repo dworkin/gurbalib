@@ -39,11 +39,11 @@ static void main(string arg) {
 
    if (!file_exists(file)) {
       if (!make_dir(file)) {
-	 write("Unable to create directory.\n");
-	 return;
+         write("Unable to create directory.\n");
+         return;
       } else {
-	 write("Directory created.\n");
-	 return;
+         write("Directory created.\n");
+         return;
       }
    } else {
       write("File or dir already exists.\n");

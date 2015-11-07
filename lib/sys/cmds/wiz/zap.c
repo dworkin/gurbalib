@@ -67,38 +67,38 @@ static void main(string str) {
 
    switch (perc) {
       case 1..20:
-	 this_player()->targeted_action("$N $vlook slightly annoyed at $T.",
-	    target);
-	 target->message("You feel uncomfortable.");
-	 break;
+         this_player()->targeted_action("$N $vlook slightly annoyed at $T.",
+            target);
+         target->message("You feel uncomfortable.");
+         break;
       case 21..40:
-	 this_player()->targeted_action("$N $vlook intensely at $T.", target);
-	 target->message("Your skin burns.");
-	 break;
+         this_player()->targeted_action("$N $vlook intensely at $T.", target);
+         target->message("Your skin burns.");
+         break;
       case 41..60:
-	 this_player()->targeted_action("$N $vlook angrily at $T.", target);
-	 target->message("You feel as if you're hit by a tree.");
-	 break;
+         this_player()->targeted_action("$N $vlook angrily at $T.", target);
+         target->message("You feel as if you're hit by a tree.");
+         break;
       case 61..80:
-	 this_player()->targeted_action("$N $vstare at $T for a while.",
-	    target);
-	 target->message("Your head hurts, and your nose begins to bleed.");
-	 break;
+         this_player()->targeted_action("$N $vstare at $T for a while.",
+            target);
+         target->message("Your head hurts, and your nose begins to bleed.");
+         break;
       case 81..99:
-	 this_player()-> targeted_action("Sparks fly as $N $vstare " +
+         this_player()-> targeted_action("Sparks fly as $N $vstare " +
             "intensely at $T.", target);
-	 target->message("Your brain starts to ooze out of your ears.");
-	 break;
+         target->message("Your brain starts to ooze out of your ears.");
+         break;
       case 100:
-	 this_player()->targeted_action("$N $vgive $T the evil eye.", target);
-	 target->message("Your head explodes.");
-	 break;
+         this_player()->targeted_action("$N $vgive $T the evil eye.", target);
+         target->message("Your head explodes.");
+         break;
    }
    target->decrease_hp(target_damage);
 
    if (target->query_hp() > 0) {
       write(target->query_id() + " is left with " + target->query_hp() +
-	 " hit points.");
+         " hit points.");
    } else {
       write("You zap " + target->query_id() + ", and they are now dead.\n");
    }

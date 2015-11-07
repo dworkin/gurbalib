@@ -10,8 +10,8 @@ object *players(void) {
    sz = sizeof(u);
    for (i = 0; i < sz; i++) {
       if (player = u[i]->query_player()) {
-	 if (player->query_Name()) {
-	    p += ( { player } );
+         if (player->query_Name()) {
+            p += ( { player } );
          }
       }
    }

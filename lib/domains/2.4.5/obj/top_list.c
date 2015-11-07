@@ -2,7 +2,7 @@ inherit "/std/sign";
 
 
 void setup(void) {
-   set_id("list","top","top players", "top list", "list of top players");
+   set_id("list", "top", "top players", "top list", "list of top players");
    set_short("A list of the top players");
    set_gettable(1);
    set_value(5);
@@ -18,7 +18,7 @@ string query_long() {
 
    top_scores = TOP_SCORE_D->get("");
    if (nilp(top_scores)) {
-      return "There have been no top scores generated yet. "+
+      return "There have been no top scores generated yet. " +
          "Start adventuring!";
    }
    dim = sizeof(top_scores);
@@ -34,7 +34,7 @@ string query_long() {
       kills = add_comma("" + top_scores[i][2]);
       killed = add_comma("" + top_scores[i][3]);
       quests = add_comma("" + top_scores[i][4]);
-      lines[i+ 2] = name + ": " + xp + ", " + kills + "/" + killed + ", " +
+      lines[i + 2] = name + ": " + xp + ", " + kills + "/" + killed + ", " +
          quests;
    }
 

@@ -18,7 +18,7 @@ void setup(void) {
 
    set_short("Computer room");
 
-   add_exit("east","/domains/2.4.5/rooms/rum2.c");
+   add_exit("east", "/domains/2.4.5/rooms/rum2.c");
    add_action("sesame", "sesame");
    add_action("power", "power");
    add_action("test", "test");
@@ -86,7 +86,9 @@ int power(string str) {
 }
 
 int fac(int n) {
-   if (n <= 0) return 1;
+   if (n <= 0) {
+      return 1;
+   }
    return n * fac(n-1);
 }
 

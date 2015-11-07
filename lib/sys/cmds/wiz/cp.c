@@ -55,7 +55,7 @@ static void main(string str) {
 
    if (file_exists(dest) == -1) {
       if (dest[strlen(dest) - 1] != '/') {
-	 dest += "/";
+         dest += "/";
       }
 
       dest += file_name;

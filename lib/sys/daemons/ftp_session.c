@@ -23,18 +23,19 @@ void restore_privs(void) {
       cpriv = name;
 
       if (query_wizard(name)) {
-         int i,sz;
+         int i, sz;
          string *dn;
 
          priv = 1;
-         cpriv = "wizard:"+cpriv;
+         cpriv = "wizard:" + cpriv;
          if (query_admin(name)) {
-            cpriv = "system:"+cpriv;
+            cpriv = "system:" + cpriv;
          }
 
          dn = DOMAIN_D->query_domains();
 
-         for (i=0, sz=sizeof(dn); i<sz; i++) {
+         sz = sizeof(dn);
+         for (i = 0; i < sz; i++) {
             if (DOMAIN_D->query_domain_member(dn[i], name)) {
                cpriv += ":" + dn[i];
             }
@@ -90,7 +91,7 @@ static string normalize_path(string file, string dir) {
 
    path = ::normalize_path(file, dir);
 
-   if ((priv != 0) || (path == "/pub") || (sscanf(path,"/pub/%*s") == 1)) {
+   if ((priv != 0) || (path == "/pub") || (sscanf(path, "/pub/%*s") == 1)) {
       return path;
    } else {
       return nil;
@@ -186,11 +187,11 @@ void FTP_CMD_retr(string str) {
       where = strlen(chunk);
       chunk = implode(explode(chunk, "\n"), "\r\n");
       send_message("150 Opening ASCII mode data connection for " + str + " (" +
-	 filesize + " bytes).\n");
+         filesize + " bytes).\n");
    } else {
       where = strlen(chunk);
       send_message("150 Opening binary mode data connection for " + str + " (" +
-	 filesize + " bytes).\n");
+         filesize + " bytes).\n");
    }
 
    if (filesize < CHUNK_SIZE) {
@@ -245,7 +246,7 @@ void FTP_CMD_stor(string arg) {
       send_message("150 Opening ASCII mode data connection for " + arg + ".\n");
    } else {
       send_message("150 Opening binary mode data connection for " + arg +
-	 ".\n");
+         ".\n");
    }
    where = 0;
    FTPLOG(name + " PUT " + store_file_name + ".\n");
@@ -266,9 +267,9 @@ void FTP_CMD_nlst(string str) {
    } else if (sscanf(str, "-%s", str) != 0) {
       long = 1;
       if (str == "l") {
-	 str = ".";
+         str = ".";
       } else if (sscanf(str, "l %s", str) == 0) {
-	 return;
+         return;
       }
    }
 
@@ -346,9 +347,9 @@ void FTP_CMD_list(string str) {
    } else if (sscanf(str, "-%s", str) != 0) {
       long = 1;
       if (str == "l") {
-	 str = ".";
+         str = ".";
       } else if (sscanf(str, "l %s", str) == 0) {
-	 return;
+         return;
       }
    }
 
@@ -388,17 +389,16 @@ void FTP_CMD_list(string str) {
 
    for (i = 0; i < sizeof(names); i++) {
       if (sizes[i] < 0) {
-	 /* We're dealing with a directory */
-	 dirlist +=
-	    "drwxr-xr-x   1 gurba    gurba        1024 " +
-	    FTP_myctime(times[i]) + " " + names[i] + "\r\n";
+         /* We're dealing with a directory */
+         dirlist += "drwxr-xr-x   1 gurba    gurba        1024 " +
+            FTP_myctime(times[i]) + " " + names[i] + "\r\n";
       } else {
-	 /* We're dealing with a file */
-	 dirlist += "-rw-r--r--   1 gurba    gurba ";
-	 size = "                    " + sizes[i];
-	 size = size[strlen(size) - 11..];
-	 dirlist +=
-	    size + " " + FTP_myctime(times[i]) + " " + names[i] + "\r\n";
+         /* We're dealing with a file */
+         dirlist += "-rw-r--r--   1 gurba    gurba ";
+         size = "                    " + sizes[i];
+         size = size[strlen(size) - 11..];
+         dirlist += size + " " + FTP_myctime(times[i]) + " " + names[i] +
+            "\r\n";
       }
 
    }
@@ -458,17 +458,17 @@ void FTP_CMD_type(string arg) {
    switch (arg) {
       case "a":
       case "A":
-	 binary = 0;
-	 send_message("200 Type set to A.\n");
-	 return;
+         binary = 0;
+         send_message("200 Type set to A.\n");
+         return;
       case "i":
       case "I":
-	 binary = 1;
-	 send_message("200 Type set to I.\n");
-	 return;
+         binary = 1;
+         send_message("200 Type set to I.\n");
+         return;
       default:
-	 send_message("550 Unknown file type.\n");
-	 return;
+         send_message("550 Unknown file type.\n");
+         return;
    }
 }
 
@@ -483,11 +483,11 @@ void FTP_CMD_mkd(string arg) {
 
    if (file_exists(file) == 0) {
       if (make_dir(file) == 0) {
-	 send_message("550 Unable to create directory.\n");
-	 return;
+         send_message("550 Unable to create directory.\n");
+         return;
       } else {
-	 send_message("257 MKD command successful.\n");
-	 return;
+         send_message("257 MKD command successful.\n");
+         return;
       }
    } else {
       send_message("550 File or dir already exists.\n");
@@ -531,15 +531,15 @@ void FTP_CMD_dele(string arg) {
 
    if (file_exists(file) == -1) {
       if (remove_dir(file) == 0) {
-	 send_message("550 " + arg + ": Not empty.\n");
+         send_message("550 " + arg + ": Not empty.\n");
       } else {
-	 send_message("250 DELE command successful.\n");
+         send_message("250 DELE command successful.\n");
       }
    } else if (file_exists(file) != 0) {
       if (remove_file(file) == 0) {
-	 send_message("550 " + arg + ": Unable to DELE.\n");
+         send_message("550 " + arg + ": Unable to DELE.\n");
       } else {
-	 send_message("250 DELE command successful.\n");
+         send_message("250 DELE command successful.\n");
       }
    } else {
       send_message("550 " + arg + ": Not found.\n");
@@ -564,10 +564,10 @@ void FTP_retr(void) {
 
    if (binary == 0 && chunk != "") {
       if (chunk[strlen(chunk) - 1] == '\n') {
-	 chunk += " ";
+         chunk += " ";
       }
       if (chunk[0] == '\n') {
-	 chunk = " " + chunk;
+         chunk = " " + chunk;
       }
       converted = explode(chunk, "\n");
       chunk = implode(converted, "\r\n");
@@ -596,13 +596,13 @@ void receive_message(string message) {
 
    if (message != "" && strlen(message) >= 2) {
       if (message[strlen(message) - 1] == '\n') {
-	 message = message[..strlen(message) - 2];
+         message = message[..strlen(message) - 2];
       }
    }
 
    if (message != "" && strlen(message) >= 2) {
       if (message[strlen(message) - 1] == '\r') {
-	 message = message[..strlen(message) - 2];
+         message = message[..strlen(message) - 2];
       }
    }
 
@@ -616,21 +616,21 @@ void receive_message(string message) {
    if (connected == 0) {
       /* Only allow these commands if not connected */
       switch (cmd) {
-	 case "user":
-	    FTP_CMD_user(arg);
-	    return;
-	 case "pass":
-	    FTP_CMD_pass(arg);
-	    return;
-	 case "quit":
-	    FTP_CMD_quit(arg);
-	    return;
-	 case "noop":
-	    FTP_CMD_noop(arg);
-	    return;
-	 default:
-	    send_message("503 Log in with USER first.\n");
-	    return;
+         case "user":
+            FTP_CMD_user(arg);
+            return;
+         case "pass":
+            FTP_CMD_pass(arg);
+            return;
+         case "quit":
+            FTP_CMD_quit(arg);
+            return;
+         case "noop":
+            FTP_CMD_noop(arg);
+            return;
+         default:
+            send_message("503 Log in with USER first.\n");
+            return;
       }
    }
    func = cmds[cmd];

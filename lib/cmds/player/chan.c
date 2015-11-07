@@ -105,7 +105,7 @@ static void list_channels(int x) {
       }
    }
 
-   this_player()->more(lines,1);
+   this_player()->more(lines, 1);
 }
 
 static void chan_cmd(string cmd, string chan) {
@@ -161,32 +161,32 @@ static void chan_cmd(string cmd, string chan) {
          this_player()->more(usage());
          break;
       case "color":
-         args = explode(chan," ");
+         args = explode(chan, " ");
          if (sizeof(args) < 2) {
             this_player()->more(usage());
             return;
          }
          write("Old color for channel " + args[1] + ": " + 
             CHANNEL_D->chan_query_color(args[1]) + "\n");
-            CHANNEL_D->chan_set_color(args[1],args[0]);
+            CHANNEL_D->chan_set_color(args[1], args[0]);
          write("New color for channel " + args[1] + ": " + 
             CHANNEL_D->chan_query_color(args[1]) + "\n");
          break;
       case "imud":
-         args = explode(chan," ");
+         args = explode(chan, " ");
          CHANNEL_D->chan_imud(args[1], args[0]);
          write("Associating channel: " + args[0] + " with imud channel: " +
             args[1] + "\n");
          break;
       case "guild":
-         args = explode(chan," ");
+         args = explode(chan, " ");
          if (sizeof(args) < 2) {
             this_player()->more(usage());
             return;
          }
          write("Old guild for channel " + args[1] + ": " + 
             CHANNEL_D->chan_query_guild(args[1]) + "\n");
-            CHANNEL_D->chan_set_guild(args[1],args[0]);
+            CHANNEL_D->chan_set_guild(args[1], args[0]);
          break;
       default:
          rest = chan;

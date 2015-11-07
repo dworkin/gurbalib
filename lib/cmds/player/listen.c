@@ -32,7 +32,7 @@ static void main(string str) {
       return;
    }
 
-   if (!str || str == "" || strcmp(str,"room") == 0) {
+   if (!str || str == "" || strcmp(str, "room") == 0) {
       obj = this_player()->query_environment();
    } else {
       obj = this_player()->present(str);
@@ -46,7 +46,7 @@ static void main(string str) {
       return;
    }
 
-   if (!call_other(obj,"do_listen")) {
+   if (!call_other(obj, "do_listen")) {
       this_player()->query_environment()->tell_room(this_player(),
          this_player()->query_Name() + " Pauses to listens to " + 
          obj->query_id() + "\n");

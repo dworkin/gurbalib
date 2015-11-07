@@ -115,9 +115,11 @@ private string *display_conv(string str) {
       will fail on long words deal with lines that are too long still, 
       should only happen when width < 40  */
    if (len > width) {
-      words=rexplode(str," ");
+      words = rexplode(str, " ");
       line = "";
-      for (i = 0, total = 0, sz = sizeof(words); i < sz; i++) {
+      total = 0;
+      sz = sizeof(words);
+      for (i = 0; i < sz; i++) {
          if (strlen(words[i]) > 0) {
             total += strlen(ANSI_D->strip_colors(words[i]));
             if (total > width) {

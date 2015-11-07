@@ -196,7 +196,7 @@ static void main(string str) {
       return;
    }
 
-   if (sscanf(str, "%s %s",type, value) == 2) {
+   if (sscanf(str, "%s %s", type, value) == 2) {
    } else {
       type = str;
    }

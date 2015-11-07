@@ -332,8 +332,11 @@ int validate_stack(string priv, varargs int unguarded) {
    stack = call_trace();
 
 #ifdef DEBUG_STACK_SECURITY
-   i = sizeof(stack)-5;
-   if (i<0) i = 0;
+   i = sizeof(stack) - 5;
+
+   if (i<0) {
+      i = 0;
+   }
 
    if (i == 0) {
       sz = 0;
@@ -392,7 +395,9 @@ int validate_stack(string priv, varargs int unguarded) {
    }
 
    cache = DRIVER->get_tlvar(TLS_CACHE);
-   if (!cache) cache = ([]);
+   if (!cache) {
+      cache = ([]);
+   }
 
    for (i = sizeof(stack) - 4; (i >= 0) && !deny && (unguarded < 2); i--) {
       progname = stack[i][TRACE_PROGNAME];

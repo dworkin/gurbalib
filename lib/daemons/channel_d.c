@@ -343,7 +343,9 @@ void chan_send_string(string chan, string from, string str,
    int i, sz;
 
    line = "%^CHAN_NAME%^";
-   line += colors[chan] ? colors[chan] : "";
+   if (colors[chan]) {
+      line += colors[chan];
+   }
    line += "[" + chan + "]%^RESET%^ ";
    if (!is_emote) {
       line += "%^CHAN_USER%^" + capitalize(from) + "%^RESET%^: ";
@@ -492,8 +494,9 @@ void chan_emote(string chan, string what) {
                compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
                nil, nil);
             what = result[2];
-         } else
+         } else {
             write("No such emote.\n");
+         }
       }
    } else {
       if (arg && arg != "") {

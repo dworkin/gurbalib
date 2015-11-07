@@ -55,7 +55,7 @@ static void set_searchpath( mixed path ) {
    int i, sz;
    string *result;
 
-   DBT("set_searchpath("+dump_value(path)+")\n");
+   DBT("set_searchpath(" + dump_value(path) + ")\n");
 
    result = ({ });
 
@@ -86,7 +86,7 @@ static void set_searchpath( mixed path ) {
          switch (path[i][1..]) {
             case "PATH":
                DBT("replacing $PATH with " + dump_value( searchpath ) + "\n");
-               path = path[..i-1] + searchpath + path[i+1..];
+               path = path[..i - 1] + searchpath + path[i + 1..];
                i--; /* need to re-iterate over this one as we replaced it */
                break;
             default:

@@ -2,18 +2,18 @@ inherit M_COMMAND;
 
 #include <ports.h>
 
-#define grammar "whitespace=/[ 	]/ "+\
-                "command=/restart/ "+\
-                "command=/status/  "+\
-                "command=/stop/ "+\
-                "command=/start/ "+\
-                "command=/enable/ "+\
-                "command=/disable/ "+\
-                "command=/switch/ "+\
-                "command=/default/ "+\
-                "arg=/[a-zA-Z0-9*]*/ "+\
-                "arguments: command "+\
-                "arguments: command arg"\
+#define grammar "whitespace=/[ 	]/ " + \
+                "command=/restart/ " + \
+                "command=/status/  " + \
+                "command=/stop/ " + \
+                "command=/start/ " + \
+                "command=/enable/ " + \
+                "command=/disable/ " + \
+                "command=/switch/ " + \
+                "command=/default/ " + \
+                "arg=/[a-zA-Z0-9*]*/ " + \
+                "arguments: command " + \
+                "arguments: command arg"
 
 string *usage(void) {
    string *lines;

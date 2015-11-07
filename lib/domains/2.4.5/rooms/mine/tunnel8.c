@@ -20,7 +20,7 @@ int is_rope() {
 
 string query_long() {
    string str;
-   str =::query_long();
+   str = ::query_long();
    if (is_rope()) {
       str += " " + query_extra_long(1, 1);
    }

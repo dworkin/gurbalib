@@ -19,7 +19,7 @@ string *usage(void) {
    return lines;
 }
 
-static int do_drop_coin(int amount,string type) {
+static int do_drop_coin(int amount, string type) {
    object obj;
 
    if ((type == "ducat") || (type == "ducats") || (type == "coins")) {
@@ -126,7 +126,7 @@ static void main(string str) {
       inv = this_player()->query_inventory();
       max = sizeof(inv);
       for (i = 0; i < max; i++) {
-         if (do_drop(inv[i],0)) {
+         if (do_drop(inv[i], 0)) {
             done = 1;
          }
       }
@@ -138,11 +138,11 @@ static void main(string str) {
    }
 
    if (sscanf(str, "%d %s", amount, type) == 2) {
-      if (do_drop_coin(amount,type)) {
+      if (do_drop_coin(amount, type)) {
          return;
       }
    }
 
    obj = this_player()->present(lowercase(str));
-   do_drop(obj,1);
+   do_drop(obj, 1);
 }

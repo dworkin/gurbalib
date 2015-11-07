@@ -128,7 +128,7 @@ static void main(string str) {
             } else {
                /*Mess up the word... */
                words2 += ({ LANGUAGE_D->random_word(lang) });
-               words= words2;
+               words = words2;
             }
          }
 

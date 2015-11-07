@@ -33,7 +33,7 @@ void setup(void) {
    set_short("A large cave chamber in the Noki Cliffs");
    set_long("The chamber here is huge. You get the feeling that this is " +
       "an ancient place of magic where wondrous (and strange) things occur. " +
-      "But it also feels like it might have been forgotten about a very long "+
+      "But it also feels like it might have been forgotten about a very long " +
       "time ago as there doesn't seem to be much left from those ancient " +
       "days.");
    set_objects(NOKICLIFFS_BRAIN_IN_JAR);

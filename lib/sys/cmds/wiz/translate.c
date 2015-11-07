@@ -32,8 +32,8 @@ private void do_translations(string str) {
 
    for (i = 0; i < maxi; i++) {
       if (!LANGUAGE_D->valid_language(race_names[i])) {
-	 lines[i] = "" + race_names[i] + ": unknown language.";
-	 continue;
+         lines[i] = "" + race_names[i] + ": unknown language.";
+         continue;
       }
       lines[i] = "" + race_names[i] + ": '" +
       LANGUAGE_D->english_to_racial(race_names[i], str) + "'.";

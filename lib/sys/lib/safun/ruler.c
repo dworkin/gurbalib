@@ -14,7 +14,7 @@ string ruler(int length) {
       } else if (!(counter % 5)) {
          ruler_str += "+";
       } else if (!(counter % 10)) {
-         ruler_str += ""+(counter / 10)+"";
+         ruler_str += "" + (counter / 10) + "";
       } else {
          ruler_str += "-";
       }

@@ -10,26 +10,26 @@ int test_area(void) {
 
    areas = query_areas();
    if (!areas) {
-      errors +=1;
-      output+= ({ "Error in query_areas() when areas nill" });
+      errors += 1;
+      output += ({ "Error in query_areas() when areas nill" });
    } else {
-      valid +=1;
+      valid += 1;
    }
 
    if (query_in_area("test")) {
-      errors+= 1;
-      output+= ({ "Error in query_in_area(\"test\") invalid area" });
+      errors += 1;
+      output += ({ "Error in query_in_area(\"test\") invalid area" });
    } else {
-      valid +=1;
+      valid += 1;
    }
 
    add_area("test");
 
    if (!query_in_area("test")) {
-      errors+= 1;
-      output+= ({ "Error in query_in_area(\"test\") valid area" });
+      errors += 1;
+      output += ({ "Error in query_in_area(\"test\") valid area" });
    } else {
-      valid +=1;
+      valid += 1;
    }
 }
 

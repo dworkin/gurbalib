@@ -14,7 +14,7 @@ void create(void) {
       "elves do not get along with dwarves, trolls or orcs. They are\n" +
       "considered crude, foul, and smelly.");
    set_language("elvish");
-   set_skill("language/elvish",100);
+   set_skill("language/elvish", 100);
 }
 
 int has_darkvision(void) {

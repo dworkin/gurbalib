@@ -39,11 +39,11 @@ static void main(string msg) {
    } else {
       if (sscanf(msg, "%s default", log) == 1) {
          x = "default";
-         if (!LOG_D->set_log_level(log,x)) {
+         if (!LOG_D->set_log_level(log, x)) {
             write("Unable to set loglevel: " + log + ": " + x  + "\n");
          }
       } else if (sscanf(msg, "%s %d", log, x) == 2) {
-         if (!LOG_D->set_log_level(log,x)) {
+         if (!LOG_D->set_log_level(log, x)) {
             write("Unable to set loglevel: " + log + ": " + x  + "\n");
          }
       } else {

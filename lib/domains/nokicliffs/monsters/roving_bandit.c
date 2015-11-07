@@ -56,14 +56,14 @@ void do_extra_actions() {
    if (count >= INTERVAL) {
       switch(random(3)) {
       case 0:
-	      respond("say I know all there is to know and I ain't tellin'.");
-	      break;
+         respond("say I know all there is to know and I ain't tellin'.");
+         break;
       case 1:
-	      respond("say You ain't gonna survive much longer.");
-	      break;
+         respond("say You ain't gonna survive much longer.");
+         break;
       case 2:
-	      respond("say Nature doesn't care if ya live or die.");
-	      break;
+         respond("say Nature doesn't care if ya live or die.");
+         break;
       }
       count = 0;
    }

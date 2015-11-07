@@ -81,7 +81,7 @@ static void main(string str) {
       }
 
       if (sscanf(str, "in %s", what) == 1) {
-      } else if (sscanf(str, "at %s",what) == 1) {
+      } else if (sscanf(str, "at %s", what) == 1) {
       } else {
          what = str;
       }
@@ -95,7 +95,9 @@ static void main(string str) {
       }
 
       obj = this_player()->present(lowercase(what));
-      if (!obj) obj = this_environment()->present(lowercase(what));
+      if (!obj) {
+         obj = this_environment()->present(lowercase(what));
+      }
    } 
 
    if (!obj) {

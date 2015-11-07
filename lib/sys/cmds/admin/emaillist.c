@@ -30,15 +30,21 @@ void create_list(string type, string file) {
    names = USER_D->list_all_users();
    max = sizeof(names);
 
-   if (type == "wiz") type = "wizards";
-   if (type == "wizard") type = "wizards";
-   if (type == "admin") type = "admins";
+   if (type == "wiz") {
+      type = "wizards";
+   }
+   if (type == "wizard") {
+      type = "wizards";
+   }
+   if (type == "admin") {
+      type = "admins";
+   }
 
-   for (i=0;i<max;i++) {
+   for (i = 0; i < max; i++) {
       if (query_guest(names[i])) {
          /* Skip this account it's special */
       } else {
-         line = USER_D->get_email_info(this_player(),names[i], type);
+         line = USER_D->get_email_info(this_player(), names[i], type);
          if (line && (line != "")) {
             if (!file || (file == "")) {
                write(line);
@@ -54,7 +60,7 @@ static void main(string str) {
    string type, file;
 
    if (empty_str(str)) {
-      create_list("","");
+      create_list("", "");
       return;
    }
 

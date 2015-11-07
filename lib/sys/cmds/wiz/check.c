@@ -31,12 +31,12 @@ string *usage(void) {
 
 void warn(string str) {
    write("Warning: " + str);
-   warn+=1;
+   warn += 1;
 }
 
 void error(string str) {
    write("Warning: " + str);
-   error+=1;
+   error += 1;
 }
 
 string add_dotc(string input) {
@@ -138,7 +138,7 @@ void check_a_daemon(string filename) {
 }
 
 void check_a_library(string filename) {
-	object obj;
+   object obj;
 
    write("Check library: " + filename + "\n");
 
@@ -186,7 +186,7 @@ int check_exits(object obj, mapping myexits) {
    int x, len, c;
 
    if (!myexits) {
-	return -1;
+      return -1;
    }
 
    c = 0;
@@ -275,7 +275,7 @@ int check_functions(object obj, mixed funs) {
    c = 0;
    
    while (x > -1) {
-      write("Checking Function: "+obj->query_action( funs[x] )+"\n"); 
+      write("Checking Function: " + obj->query_action( funs[x] ) + "\n"); 
       if (!function_object( obj->query_action( funs[x] ), obj ) ) {
          warn("Warning: Function " + obj->query_action( funs[x] ) + 
             " not defined in: " + obj->file_name() + "\n");
@@ -297,7 +297,7 @@ void do_room_check(object obj) {
 
    write("Checking exits:\n");
    myexits = obj->query_exits();
-   x = check_exits(obj,myexits);
+   x = check_exits(obj, myexits);
 
    if (x == -1) {
       write("\tNo visible exits.\n");
@@ -309,7 +309,7 @@ void do_room_check(object obj) {
 
    write("Checking hidden exits: ");
    myexits = obj->query_hidden_exits();
-   x = check_exits(obj,myexits);
+   x = check_exits(obj, myexits);
 
    if (x == -1) {
       write("\tNo hidden exits.\n");
@@ -321,7 +321,7 @@ void do_room_check(object obj) {
 
    write("Checking room commands: ");
    myexits = obj->query_actions();
-   x = check_functions(obj,myexits);
+   x = check_functions(obj, myexits);
 
    if (x == -1) {
       write("\tNo room commands.\n");
@@ -421,7 +421,7 @@ void do_object_check(object obj) {
 
    functions = obj->query_actions();
    write("Checking object functions.\n");
-   x = check_functions(obj,functions);
+   x = check_functions(obj, functions);
 
    if (x == -1) {
       write("\tNo object functions.\n");
@@ -493,7 +493,7 @@ static void main(string str) {
       return;
    }
 
-   files = explode(str," ");
+   files = explode(str, " ");
 
    if (!files) {
       files = ({ str });
@@ -501,8 +501,8 @@ static void main(string str) {
 
    max = sizeof(files);
 
-   for (x=0; x < max; x++) {
-      warn =0;
+   for (x = 0; x < max; x++) {
+      warn = 0;
       error = 0;
       do_check(files[x]);
       write("Errors: " + error + " Warnings: " + warn + "\n");

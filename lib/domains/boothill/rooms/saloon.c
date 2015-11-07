@@ -22,7 +22,9 @@ void setup(void) {
 int do_play(string str) {
    int x;
 
-   if (!this_object()->present("piano")) return 0;
+   if (!this_object()->present("piano")) {
+      return 0;
+   }
 
    if (str == "piano") {
       x = random(5);

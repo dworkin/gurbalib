@@ -113,9 +113,9 @@ static void main(string str) {
       return;
    }
 
-   if (sscanf(str, "%s in %s",what,where) == 2) {
-   } else if (sscanf(str, "%s at %s",what,where) == 2) {
-   } else if (sscanf(str, "%s %s",what,where) == 2) {
+   if (sscanf(str, "%s in %s", what, where) == 2) {
+   } else if (sscanf(str, "%s at %s", what, where) == 2) {
+   } else if (sscanf(str, "%s %s", what, where) == 2) {
    } else {
       write("You want to put what where?");
       return;

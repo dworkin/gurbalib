@@ -8,7 +8,7 @@ void setup(void) {
    set_short("The local prison");
    set_long("You are in the local prison.  There are no exits.");
 
-   add_action("do_quit","quit");
+   add_action("do_quit", "quit");
 }
 
 int do_quit(string str) {

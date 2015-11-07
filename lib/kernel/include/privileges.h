@@ -4,10 +4,11 @@
 /* check our caller */
 
 #define DAEMON()  (sscanf(previous_program(), "/daemons/%*s") == 1)
-#define KERNEL()  (sscanf(previous_program(),"/kernel/%*s") == 1)
-#define SYSTEM()  (sscanf(previous_program(),"/sys/%*s") == 1)
+#define KERNEL()  (sscanf(previous_program(), "/kernel/%*s") == 1)
+#define SYSTEM()  (sscanf(previous_program(), "/sys/%*s") == 1)
 #define ROOT()    (KERNEL() || SYSTEM())
-#define CALLOUT() ((previous_program()==AUTO) && (previous_function()=="_F_call_out2"))
+#define CALLOUT() ((previous_program() == AUTO) && \
+   (previous_function() == "_F_call_out2"))
 
 /* special privilege flags for users */
 

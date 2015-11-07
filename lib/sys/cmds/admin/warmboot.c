@@ -31,13 +31,15 @@ static int validate_kernel(void) {
 }
 
 static int validate_user(void) {
-   if (find_object("/obj/user"))
+   if (find_object("/obj/user")) {
       return 222;
+   }
 }
 
 static int validate_player(void) {
-   if (find_object("/obj/player"))
+   if (find_object("/obj/player")) {
       return 222;
+   }
 }
 
 static string validate_upgrade(void) {
@@ -45,12 +47,13 @@ static string validate_upgrade(void) {
 
    req = 0;
 
-   for (i = 0, sz = sizeof(CHECKS); i < sz; i++) {
+   sz = sizeof(CHECKS);
+   for (i = 0; i < sz; i++) {
       req = call_other(this_object(), CHECKS[i]);
 
       if (req) {
-	 return CHECKS[i] + " failed.\nPlease revert to revision " + req +
-	    ", do a warmboot, and then try this upgrade again.";
+         return CHECKS[i] + " failed.\nPlease revert to revision " + req +
+            ", do a warmboot, and then try this upgrade again.";
       }
    }
 }
@@ -79,9 +82,9 @@ private int virtual_object(mixed ob) {
    }
    switch (ob) {
       case "/sys/lib/auto.c":
-	 return 1;
+         return 1;
       default:
-	 return 0;
+         return 0;
    }
 }
 
@@ -104,27 +107,27 @@ static int upgrade_uobj(string * files, int verbose) {
    for (pos = 0, sz = sizeof(files); pos < sz; pos++) {
       fn = files[pos];
       if (sscanf(fn, "%s.c", on) != 1) {
-	 on = fn;
+         on = fn;
       }
 
       if (!virtual_object(fn) && !file_exists(fn)) {
-	 if (find_object(on)) {
-	    this_player()->message("Warning: " + files[pos] +
-	       " is loaded but there is no source for it, cannot recompile.");
-	 } else {
-	    this_player()->message("Ignoring " + files[pos]);
-	 }
-	 continue;
+         if (find_object(on)) {
+            this_player()->message("Warning: " + files[pos] +
+               " is loaded but there is no source for it, cannot recompile.");
+         } else {
+            this_player()->message("Ignoring " + files[pos]);
+         }
+         continue;
       }
 
       if (COMPILER_D->test_inheritable(files[pos])) {
-	 if (find_object(on, 1)) {
-	    compile_library(files[pos]);
-	 }
+         if (find_object(on, 1)) {
+            compile_library(files[pos]);
+         }
       } else if (find_object(on)) {
-	 compile_object(files[pos]);
+         compile_object(files[pos]);
       } else {
-	 write("Warning: " + files[pos] + " not recompiled!");
+         write("Warning: " + files[pos] + " not recompiled!");
       }
    }
    return pos;
@@ -167,16 +170,17 @@ static void rebuild_world(object p) {
 
    rlimits(MAX_DEPTH; -1) {
       if (edges) {
-	 if (edges["kernel"]) {
-	    total += upgrade_uobj(edges["kernel"], verbose);
-	    edges["kernel"] = nil;
-	 }
+         if (edges["kernel"]) {
+            total += upgrade_uobj(edges["kernel"], verbose);
+            edges["kernel"] = nil;
+         }
 
-	 users = map_indices(edges);
+         users = map_indices(edges);
 
-	 for (pos = 0, sz = sizeof(users); pos < sz; pos++) {
-	    total += upgrade_uobj(edges[users[pos]], verbose);
-	 }
+         sz = sizeof(users);
+         for (pos = 0; pos < sz; pos++) {
+            total += upgrade_uobj(edges[users[pos]], verbose);
+         }
       }
    }
    COMPILER_D->clear_upqueue();
@@ -190,34 +194,34 @@ void next_stage(int count, object player) {
    stage = 0;
    switch (count) {
       case 0:
-	 error = validate_upgrade();
-	 if (!error) {
-	    error = catch(rebuild_critical(player));
-	 } else {
-	    player->message(error);
-	 }
-	 break;
+         error = validate_upgrade();
+         if (!error) {
+            error = catch(rebuild_critical(player));
+         } else {
+            player->message(error);
+         }
+         break;
       case 1:
-	 error = post_kernel_upgrade(player);
-	 if (error) {
-	    player->message(error);
-	 }
-	 break;
+         error = post_kernel_upgrade(player);
+         if (error) {
+            player->message(error);
+         }
+         break;
       case 2:
-	 error = catch(rebuild_world(player));
-	 break;
+         error = catch(rebuild_world(player));
+         break;
       case 3:
-	 error = post_world_upgrade(player);
-	 if (error) {
-	    player->message(error);
-	 }
-	 break;
+         error = post_world_upgrade(player);
+         if (error) {
+            player->message(error);
+         }
+         break;
    }
 
    if (error) {
       player->message("Something went wrong, aborting.");
       if (caught_error()) {
-	 player->tell(caught_error(1));
+         player->tell(caught_error(1));
       }
       rethrow();
    } else if (count != LAST_STAGE) {

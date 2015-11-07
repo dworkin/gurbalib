@@ -9,7 +9,7 @@ string *usage(void) {
    lines += ({ "If no VAR VALUE pair is given print your current settings."
       });
    lines += ({ "Some variables you can set:" });
-   lines += ({ "\theight\t\theight of your screen.  "+
+   lines += ({ "\theight\t\theight of your screen.  " +
     "Set to 0 for max height, 1 for default height, or use custom value." });
    lines += ({ "\twidth\t\twidth of your screen." });
    lines += ({ "\tprompt\t\tYour prompt." });

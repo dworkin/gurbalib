@@ -105,7 +105,8 @@ int menu_priv( string priv, string prev, string path) {
       error("Permission denied.");
    }
  
-   if (!priv || strlen(priv) == 0 || (pt=SECURE_D->query_priv_type(priv))==PT_UNKNOWN) {
+   if (!priv || strlen(priv) == 0 || (pt = SECURE_D->query_priv_type(priv)) ==
+      PT_UNKNOWN) {
       if (priv && strlen(priv) && pt == PT_UNKNOWN) {
          this_player()->write(priv + " is not a recognized privilege.\n");
       }
@@ -145,8 +146,8 @@ int menu_add(string arg) {
       this_player()->input_to_object(this_object(), "menu_add");
       return 1;
    }
-   if ((sscanf(arg,"\"%s\" %s", path, priv) != 2) && 
-      (sscanf(arg,"%s %s",path,priv) != 2)) {
+   if ((sscanf(arg, "\"%s\" %s", path, priv) != 2) && 
+      (sscanf(arg, "%s %s",path,priv) != 2)) {
       path = arg;
       priv = nil;
    }
@@ -170,7 +171,7 @@ int menu_add(string arg) {
 
    if ( priv ) {
       write("Adding path " + path + " with privilege " + priv + ".\n");
-      COMMAND_D->add_path(path,priv);
+      COMMAND_D->add_path(path, priv);
       return menu_cmdadm();
    } else {
       return menu_priv( nil, "menu_cmdadm", path );
@@ -224,8 +225,9 @@ static int menu_cmdadm(varargs mixed junk...) {
    cmdpriv = COMMAND_D->query_cmdpriv();
    path = map_indices(cmdpriv);
    menu = ({ });
+   sz = sizeof(path);
 
-   for (i=0,sz=sizeof(path); i<sz; i++) {
+   for (i = 0; i < sz; i++) {
       if (COMMAND_D->query_override(path[i])) {
          info = "override:";
       } else if (COMMAND_D->query_syspath(path[i])) {
@@ -353,7 +355,8 @@ private int action_list_path(void) {
    path = map_indices(cmdpriv);
 
    /* determine the longest command path name */
-   for (i=0,sz=sizeof(path); i<sz; i++) {
+   sz = sizeof(path);
+   for (i = 0; i < sz; i++) {
       if (strlen(path[i]) > len) {
          len = strlen(path[i]);
       }

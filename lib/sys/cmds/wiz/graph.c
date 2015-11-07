@@ -36,11 +36,11 @@ string *usage(void) {
 int valid_extension(string str) {
    int x;
 
-   x =strlen(str);
+   x = strlen(str);
    if (x < 3) {
       return 0;
    }
-   x= x -2;
+   x= x - 2;
    if (str[x..] == ".c") {
       return 1;
    }
@@ -65,16 +65,16 @@ void print_node(string room, string dir) {
       exits = obj->query_exits();
       keys = obj->query_exit_indices();
       if (exits) {
-	 maxi = sizeof(keys);
-	 for (i = 0; i < maxi; i++) {
-	    tmp = exits[keys[i]];
+         maxi = sizeof(keys);
+         for (i = 0; i < maxi; i++) {
+            tmp = exits[keys[i]];
             if (!valid_extension(tmp)) {
                tmp += ".c";
             }
-	    filepath = replace_string(tmp, dir, "");
-	    write_file(filename, "\t\"" + room + "\" -> \"" + filepath +
-	       "\" [label = \"" + keys[i] + "\"];\n");
-	 }
+            filepath = replace_string(tmp, dir, "");
+            write_file(filename, "\t\"" + room + "\" -> \"" + filepath +
+               "\" [label = \"" + keys[i] + "\"];\n");
+         }
       }
    } else {
       write_file(filename, "# Failed to load " + dir + room + "\n");
@@ -91,16 +91,16 @@ void print_nodes_step(string * files, string str, int i) {
    } else {
       ticks = MAX_TICKS - status()[ST_TICKS];
       while ((i < size) && (ticks < TIMEOUT)) {
-	 print_node(files[i], str);
-	 ticks = MAX_TICKS - status()[ST_TICKS];
-	 i = i + 1;
+         print_node(files[i], str);
+         ticks = MAX_TICKS - status()[ST_TICKS];
+         i = i + 1;
       }
       if (i >= size) {
-	 write_file(filename, "}\n");
-	 write_file(filename, "# End: size = " + size + " Dir = " + str + "\n");
+         write_file(filename, "}\n");
+         write_file(filename, "# End: size = " + size + " Dir = " + str + "\n");
          write("Output went to :" + filename + "\n");
       } else {
-	 call_out("print_nodes_step", 0, files, str, i);
+         call_out("print_nodes_step", 0, files, str, i);
       }
    }
 }

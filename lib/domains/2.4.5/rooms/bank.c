@@ -16,7 +16,7 @@ void setup(void) {
    add_exit("west", DIR + "/rooms/narr_alley.c");
    add_exit("east", "#enter_door");
 
-   add_item("counter","There is a sign on the counter that says\n" +
+   add_item("counter", "There is a sign on the counter that says\n" +
       "CLOSED FOR RECONSTRUCTION.\n");
 
    add_item("door", "#look_door");

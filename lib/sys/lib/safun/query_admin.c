@@ -3,7 +3,7 @@ nomask int query_admin(mixed player) {
 
    if (objectp(player)) {
       if (!player <-PLAYER_OB && !player <-USER_OB) {
-	 return 0;
+         return 0;
       }
       player = player->query_name();
    } else {

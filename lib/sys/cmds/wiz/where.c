@@ -28,19 +28,19 @@ static void main(string str) {
 
       sz = sizeof(usrs);
       for (i = 0; i < sz; i++) {
-	 write(usrs[i]->query_Name() + " Loc: (" + 
+         write(usrs[i]->query_Name() + " Loc: (" + 
             usrs[i]->query_environment()->query_short() + ") " +
-	    usrs[i]->query_environment()->base_name() + "\n");
+            usrs[i]->query_environment()->base_name() + "\n");
       }
    } else {
       if (sscanf(str, "-%s", str)) {
          this_player()->more(usage());
       } else if (usr = USER_D->find_player(str)) {
-	 write(usr->query_Name() + " Loc: (" +
-	    usr->query_environment()->query_short() + ") " +
-	    usr->query_environment()->base_name() + "\n");
+         write(usr->query_Name() + " Loc: (" +
+            usr->query_environment()->query_short() + ") " +
+            usr->query_environment()->base_name() + "\n");
       } else {
-	 write("Who are you looking for?  I can't find: " + str + "!\n");
+         write("Who are you looking for?  I can't find: " + str + "!\n");
       }
    }
 }

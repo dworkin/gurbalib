@@ -36,7 +36,7 @@ static void main(string str) {
 
    top_scores = TOP_SCORE_D->get(str);
    if (nilp(top_scores)) {
-      write("There have been no top scores generated yet. "+
+      write("There have been no top scores generated yet. " +
          "Start adventuring!");
       return;
    }

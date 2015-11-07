@@ -50,7 +50,7 @@ void do_diff(object obj, string emote, string myfile) {
    write("EMOTE_D : " + emote + "\n");
 
    for (x = 0; x < max; x++) {
-      value = EMOTE_D->query_emote(emote,keys[x]);
+      value = EMOTE_D->query_emote(emote, keys[x]);
       if (!value) {
          value = " ";
       }
@@ -62,12 +62,12 @@ void do_diff(object obj, string emote, string myfile) {
    for (x = 0; x < max; x++) {
       removal_needed = 0;
 
-      value = EMOTE_D->query_emote(emote,keys[x]);
-      value2 = obj->query_emote(emote,keys[x]);
+      value = EMOTE_D->query_emote(emote, keys[x]);
+      value2 = obj->query_emote(emote, keys[x]);
       if ((value == "") && (value2 != "")) {
          tag = "+ ";
          if (do_import) {
-            EMOTE_D->add_emote(emote,keys[x], value);
+            EMOTE_D->add_emote(emote, keys[x], value);
          }
       } else if ((value != "") && (value2 == "")) {
          tag = "- ";
@@ -77,7 +77,7 @@ void do_diff(object obj, string emote, string myfile) {
       } else if (value != value2) {
          tag = "! ";
          if (do_import) {
-            EMOTE_D->add_emote(emote,keys[x], value);
+            EMOTE_D->add_emote(emote, keys[x], value);
          }
       } else {
          tag = "= ";
@@ -86,13 +86,13 @@ void do_diff(object obj, string emote, string myfile) {
          EMOTE_D->remove_emote(emote);
 
          if ((value == "") && (value2 != "")) {
-            EMOTE_D->add_emote(emote,keys[x], value);
+            EMOTE_D->add_emote(emote, keys[x], value);
          } else if ((value != "") && (value2 == "")) {
             /* This was a - so do nothing */
          } else if (value != value2) {
-            EMOTE_D->add_emote(emote,keys[x], value);
+            EMOTE_D->add_emote(emote, keys[x], value);
          } else {
-            EMOTE_D->add_emote(emote,keys[x], value);
+            EMOTE_D->add_emote(emote, keys[x], value);
          }
       }
 
@@ -182,7 +182,7 @@ void do_fulldiff(object obj, string myfile) {
 
 static void main(string str) {
    string myfile, *tmp;
-   int i,max, x;
+   int i, max, x;
    object obj;
 
    if (empty_str(str)) {
@@ -232,7 +232,7 @@ static void main(string str) {
    if (x >= max ) {
       do_fulldiff(obj, myfile);
    } else {
-      for (i=x; i<max; i++) {
+      for (i = x; i < max; i++) {
          do_diff(obj, tmp[i], myfile);
       }
    }

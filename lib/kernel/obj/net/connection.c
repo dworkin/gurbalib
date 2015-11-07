@@ -104,8 +104,9 @@ void set_protocol(string proto) {
 
 static void _open(mixed * tls) {
    opened = 1;
-   if (user)
+   if (user) {
       user->open();
+   }
    DEBUG("Connection established");
 }
 

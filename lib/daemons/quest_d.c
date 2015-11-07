@@ -69,15 +69,15 @@ void create(void) {
       restore_me();
    } else {
       if (file_exists("/domains/newbie/rooms/quest.c")) {
-         add_quest("NewbieVille",1,"newbie");
+         add_quest("NewbieVille", 1, "newbie");
       }
 
       if (file_exists("/domains/boothill/rooms/escape.c")) {
-         add_quest("AbandonedMine",1,"boothill");
+         add_quest("AbandonedMine", 1, "boothill");
       }
 
       if (file_exists("/domains/2.4.5/rooms/wiz_hall.c")) {
-         add_quest("OrcSlayer",2,"2.4.5");
+         add_quest("OrcSlayer", 2, "2.4.5");
       }
    }
 }

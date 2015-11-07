@@ -14,34 +14,34 @@
 
 #include <type.h>
 
-#define TOKENS  "whitespace=/[ 	]*/\n\
-                 string=/\"([^\\\\\"\n]*(\\\\.)*)*\"/\n\
-                 int=/-?[0-9]+/\n\
-                 kvsep=/:/\n\
-                 vsep=/,/\n\
-                 e=/e[+\-]?/\n\
-                 e=/E[+\-]?/\n"
+#define TOKENS  "whitespace=/[ 	]*/\n" + \
+                "string=/\"([^\\\\\"\n]*(\\\\.)*)*\"/\n" + \
+                "int=/-?[0-9]+/\n" + \
+                "kvsep=/:/\n" + \
+                "vsep=/,/\n" + \
+                "e=/e[+\-]?/\n" + \
+                "e=/E[+\-]?/\n"
 
-#define RULES   "msg : value\n\
-                 jsmap : '{' pairs '}' ? collect_mapping\n\
-                 jslist : '[' values ']' ? wrap_list\n\
-                 values : value\n\
-                 values : values vsep value\n\
-                 pairs : pair\n\
-                 pairs : pairs vsep pair\n\
-                 pair : key kvsep value ? wrap_kvpair\n\
-                 key : ustring\n\
-                 value: ustring\n\
-                 value: number\n\
-                 value: jsmap\n\
-                 value: jslist\n\
-                 number: int ? to_int\n\
-                 number: int frac ? to_float\n\
-                 number: int exp ? to_float\n\
-                 number: int frac exp ? to_float\n\
-                 exp: e int ? normalize_exp\n\
-                 frac: '.' int\n\
-                 ustring: string ? unquote_string"
+#define RULES   "msg : value\n" + \
+                "jsmap : '{' pairs '}' ? collect_mapping\n" + \
+                "jslist : '[' values ']' ? wrap_list\n" + \
+                "values : value\n" + \
+                "values : values vsep value\n" + \
+                "pairs : pair\n" + \
+                "pairs : pairs vsep pair\n" + \
+                "pair : key kvsep value ? wrap_kvpair\n" + \
+                "key : ustring\n" + \
+                "value: ustring\n" + \
+                "value: number\n" + \
+                "value: jsmap\n" + \
+                "value: jslist\n" + \
+                "number: int ? to_int\n" + \
+                "number: int frac ? to_float\n" + \
+                "number: int exp ? to_float\n" + \
+                "number: int frac exp ? to_float\n" + \
+                "exp: e int ? normalize_exp\n" + \
+                "frac: '.' int\n" + \
+                "ustring: string ? unquote_string"
 
 string save_value(mixed data) {
    string service, action, result;

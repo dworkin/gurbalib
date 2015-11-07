@@ -17,7 +17,7 @@ string *usage(void) {
    lines += ({ "Otherwise choose a random fortune of that type." });
    lines += ({ "Current types are: " });
 
-   for (i=0; i < imax; i++) {
+   for (i = 0; i < imax; i++) {
       lines += ({ "   " + filetypes[i] }); 
    }
 

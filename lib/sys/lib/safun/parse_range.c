@@ -5,11 +5,11 @@ int *parse_range(string str) {
    int     left_nr, right_nr, tmp_nr, nr, nr2, nr3, flag;
 
    if (sscanf(str, "-%s", tmp_str)) {
-      str = "1"+str;
+      str = "1" + str;
    }
 
-   while (str[strlen(str)-1] == '-') {
-      str = str[0..strlen(str)-2];
+   while (str[strlen(str) - 1] == '-') {
+      str = str[0..strlen(str) - 2];
    }
 
    while (sscanf(str, "%s--%s", left_str, right_str)) {
@@ -38,13 +38,13 @@ int *parse_range(string str) {
    ret_arr = ({ });
 
    while (sscanf(str, "%s-%s", left_str, right_str) == 2) {
-      tmp_arr = explode(left_str+",", ",");
+      tmp_arr = explode(left_str + ",", ",");
 
-      if (!sscanf(tmp_arr[sizeof(tmp_arr)-1], "%d", left_nr)) {
+      if (!sscanf(tmp_arr[sizeof(tmp_arr) - 1], "%d", left_nr)) {
          return nil;
       }
 
-      tmp_arr = explode(right_str+",", ",");
+      tmp_arr = explode(right_str + ",", ",");
 
       if (!sscanf(tmp_arr[0], "%d", right_nr)) {
          return nil;
@@ -60,12 +60,13 @@ int *parse_range(string str) {
          parsed_arr += ({ nr });
       }
 
-      str = left_str+","+right_str;
+      str = left_str + "," + right_str;
    }
 
-   tmp2_arr = explode(str+",", ",");
+   tmp2_arr = explode(str + ",", ",");
 
-   for (nr = 0, nr2 = sizeof(tmp2_arr); nr < nr2; nr++) {
+   nr2 = sizeof(tmp2_arr);
+   for (nr = 0; nr < nr2; nr++) {
       if (!intp(tmp2_arr[nr])) {
          sscanf(tmp2_arr[nr], "%d", nr3);
       }

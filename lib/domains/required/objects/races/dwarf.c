@@ -23,8 +23,8 @@ void create(void) {
       "and they   \nshare the elves' distrust of one another. ");
 
    set_language("dwarven");
-   set_skill("language/dwarven",100);
-   set_skill("value",50);
+   set_skill("language/dwarven", 100);
+   set_skill("value", 50);
 }
 
 int has_darkvision(void) {

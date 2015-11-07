@@ -5,7 +5,7 @@ static mixed unguarded(mixed fun, varargs mixed args ...) {
 #else 
    argcheck( stringp(fun) || functionp(fun), 1, "string or function pointer"); 
 
-   if(stringp(fun)) { 
+   if (stringp(fun)) { 
 #endif 
       if (!function_object(fun, this_object())) { 
          error("Undefined function: " + fun); 

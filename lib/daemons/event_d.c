@@ -4,7 +4,7 @@
 /* #define DEBUG_EVENT_D 1 */
 
 #ifdef DEBUG_EVENT_D
-#define DB(X) console_msg("eventd: "+X+"\n")
+#define DB(X) console_msg("eventd: " + X + "\n")
 #else
 #define DB(X)
 #endif
@@ -52,8 +52,8 @@ static void special_heart_beat(object ob, string func, varargs mixed args) {
    }
 }
 
-void dispatch_event(string name, object * obs, int *counters, int id,
-   mixed * args) {
+void dispatch_event(string name, object *obs, int *counters, int id,
+   mixed *args) {
    int i, max_i, ticks_used, guard_handle;
 
    i = counters[0];

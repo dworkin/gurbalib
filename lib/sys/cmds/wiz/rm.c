@@ -37,7 +37,7 @@ int recursive_remove_dir(string path) {
          write("Error no such file " + tfile + "\n");
       } else {
          if (!remove_file(tfile)) {
-	    write("Unable to delete:" + tfile + "\n");
+            write("Unable to delete:" + tfile + "\n");
          } else {
             write("Removing: " + tfile + "\n");
          }
@@ -75,11 +75,11 @@ static void main(string arg) {
       if (!remove_dir(file)) {
          recursive_remove_dir(file);
       } else {
-	 write("Deleted.\n");
+         write("Deleted.\n");
       }
    } else if (file_exists(file)) {
       if (!remove_file(file)) {
-	 write(arg + ": Unable to delete.\n");
+         write(arg + ": Unable to delete.\n");
       }
    } else {
       write(arg + ": Not found.\n");

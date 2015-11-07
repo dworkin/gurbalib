@@ -7,19 +7,20 @@ private string *get_default_objects(void) {
    objects = ( { EVENT_D, SCHEDULE_D, TIME_D, USER_D } );
 
    objects += ({
+
 #ifdef SYS_NETWORKING
-        TELNET_D,
+      TELNET_D,
 #ifndef DISABLE_FTP
-        FTP_D,
+      FTP_D,
 #endif
 #endif
 
 #ifndef DISABLE_IMUD
-	IMUD_D,
+      IMUD_D,
 #endif
-   } );
+   });
 
-   objects += ( {
+   objects += ({
       COMMAND_D,
       CHANNEL_D,
       OBJECT_D,
@@ -36,7 +37,7 @@ private string *get_default_objects(void) {
       QUEST_D,
       LINKDEAD_D,
       STARTING_ROOM
-   } );
+   });
 
    return objects;
 }
@@ -61,14 +62,14 @@ static void create(void) {
    console_msg("Loading daemons\n");
    rlimits(MAX_DEPTH; -1) {
       for (count = 0, size = sizeof(objects); count < size; count++) {
-	 object ob;
+         object ob;
 
-	 if (!(ob = find_object(objects[count]))) {
-	    rlimits(MAX_DEPTH; MAX_TICKS) {
+         if (!(ob = find_object(objects[count]))) {
+            rlimits(MAX_DEPTH; MAX_TICKS) {
                console_msg("init: loading " + objects[count] + "\n");
-	       call_other(objects[count], "???");
-	    }
-	 }
+               call_other(objects[count], "???");
+            }
+         }
       }
    }
    DRIVER->init_done();

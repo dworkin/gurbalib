@@ -5,7 +5,7 @@ string plur(string str);
 string pluralize(string str) {
    string a,b;
    if (sscanf(str, "%s of %s", a, b) == 2) {
-      return (plur(a)+" of "+b);
+      return (plur(a) + " of " + b);
       }
    return plur(str);
 }
@@ -13,16 +13,16 @@ string pluralize(string str) {
 string plur(string str) {
    string a, b;
    if (sscanf(str, "%swife", a) ) {
-      return a+"wives";
+      return a + "wives";
       }
    if (sscanf(str, "%sman", a) ) {
-      return a+"men";
+      return a + "men";
       }
    if (sscanf(str, "%schild", a) ) {
-      return a+"children";
+      return a + "children";
       }
    if (sscanf(str, "%sknife", a) ) {
-      return a+"knives";
+      return a + "knives";
       }
    switch (str) {
       case "life":
@@ -76,13 +76,13 @@ string plur(string str) {
       case "shelf":
       case "half":
       case "leaf":
-         return str[0..(strlen(str)-2)]+"ves";
+         return str[0..(strlen(str) - 2)] + "ves";
          break;
 
       default:
          break;
     }
-    a=str[(strlen(str)-2)..(strlen(str)-1)];
+    a=str[(strlen(str) - 2)..(strlen(str) - 1)];
     switch (a) { 
         case "sh":
         case "ch":
@@ -99,20 +99,27 @@ string plur(string str) {
         case "s":
         case "x":
         case "z":
-            b = a+"es";
-            break;
+           b = a + "es";
+           break;
         case "y":
-            if (member_array(str[(strlen(str)-2)..(strlen(str)-2)], VOWELS)==-1)
-                b="ies";
-            else b="ys";
-            break;
+           if (member_array(str[(strlen(str) - 2)..(strlen(str) - 2)],
+              VOWELS)==-1) {
+              b="ies";
+           } else {
+              b = "ys";
+           }
+           break;
         case "o":
-            if (member_array(str[(strlen(str)-2)..(strlen(str)-2)], VOWELS)==-1)
-                b="oes";
-            else b="os";
-            break;
+           if (member_array(str[(strlen(str)-2)..(strlen(str)-2)],
+              VOWELS)==-1) {
+               b = "oes";
+           } else {
+              b = "os";
+           }
+           break;
         default:
-            b=a+"s"; break;
+           b=a + "s";
+           break;
     }
     return str[0..(strlen(str)-2)]+b;
 }

@@ -49,8 +49,10 @@ private void set_protocol(string proto) {
 
 static void _open(mixed * tls, int p) {
    port = p;
-   if (user)
+
+   if (user) {
       user->_F_open(p);
+   }
 }
 
 void open(int p) {
@@ -121,8 +123,10 @@ static void datagram_done(void) {
 
 static void _receive_error(mixed * tls, string err) {
    console_msg(err + "\n");
-   if (user)
+
+   if (user) {
       user->_F_receive_error(err);
+   }
 }
 
 static void receive_error(string err) {
@@ -130,8 +134,9 @@ static void receive_error(string err) {
 }
 
 static void _receive_datagram(mixed * tls, string str, string ip, int p) {
-   if (user)
+   if (user) {
       user->_F_receive_datagram(ip, p);
+   }
 }
 
 static void receive_datagram(string str, string ip, int p) {

@@ -3,7 +3,7 @@ nomask int query_wizard(mixed player) {
 
    if (objectp(player)) {
       if (!player <-"/sys/obj/player") {
-	 return 0;
+         return 0;
       }
       player = player->query_name();
    } else {

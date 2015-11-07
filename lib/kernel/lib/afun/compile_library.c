@@ -19,7 +19,7 @@ static int compile_library(string path, string code ...) {
    }
 
    if (path) {
-      tmp =::find_object(path);
+      tmp = ::find_object(path);
       if (tmp) {
          string **depends;
          int i, sz, ret;

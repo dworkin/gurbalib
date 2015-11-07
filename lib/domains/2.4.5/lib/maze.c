@@ -21,7 +21,7 @@ void goto_the(string location, string dir) {
       }
    }
 
-   call_other(this_player(), "do_look",this_environment());
+   call_other(this_player(), "do_look", this_environment());
 
    room = this_player()->query_environment();
    room->event("body_enter", this_player());

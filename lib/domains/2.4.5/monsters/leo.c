@@ -67,7 +67,7 @@ void outside_message(string str) {
                 "Orc Slayer quest.\n");
           }
        }
-   } else if (sscanf(str, "%s says: %s",who,what) == 2) {
+   } else if (sscanf(str, "%s says: %s", who, what) == 2) {
       if (strstr(what[0..3], "hello") == 0 || 
           strstr(what[0..1], "hi") == 0) {
           player = this_environment()->present(who);
@@ -75,7 +75,7 @@ void outside_message(string str) {
           this_object()->respond("say Welcome " + who + ".");
           give_castle(who);
       }
-   } else if (sscanf(str, "%s says:%scastle%s",who, what, where) == 3) {
+   } else if (sscanf(str, "%s says:%scastle%s", who, what, where) == 3) {
       give_castle(who);
    }
 }

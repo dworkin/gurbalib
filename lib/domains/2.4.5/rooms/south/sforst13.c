@@ -9,7 +9,7 @@ void setup(void) {
    set_long("You are in part of a dimly lit forest.  " +
       "Trails lead north, south and west.");
 
-   add_exit("north",DIR + "/rooms/south/sforst12.c");
+   add_exit("north", DIR + "/rooms/south/sforst12.c");
    add_exit("south", DIR + "/rooms/south/sforst14.c");
    add_exit("west", DIR + "/rooms/south/sshore5.c");
 }

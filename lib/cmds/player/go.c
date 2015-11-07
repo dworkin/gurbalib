@@ -34,8 +34,9 @@ static void main(string str) {
    }
 
    len = strlen(str);
-   if (str[len - 1] == ' ')
+   if (str[len - 1] == ' ') {
       str = str[..len - 2];
+   }
 
    error = this_environment()->body_exit(this_player(), str);
 

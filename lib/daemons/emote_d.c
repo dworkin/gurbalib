@@ -65,7 +65,7 @@ string get_random_emote(void) {
 }
 
 string query_emote(string name, string rule) {
-   if (member_map(name,emotes) && member_map(rule,emotes[name])) {
+   if (member_map(name, emotes) && member_map(rule, emotes[name])) {
       return emotes[name][rule];
    } 
 
@@ -73,7 +73,7 @@ string query_emote(string name, string rule) {
 }
 
 string *query_rules(string name) {
-   if (member_map(name,emotes)) {
+   if (member_map(name, emotes)) {
       return map_indices(emotes[name]);
    }
 

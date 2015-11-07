@@ -4,7 +4,7 @@ inherit "/std/vendor";
 
 void setup(void) {
    set_name("innkeeper");
-   add_ids("innkeep","tom", "shopkeeper", "merchant");
+   add_ids("innkeep", "tom", "shopkeeper", "merchant");
    set_gender("male");
    set_short("Tom, the innkeeper");
    set_long("He is a large healthy man.");

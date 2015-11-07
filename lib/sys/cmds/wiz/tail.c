@@ -50,21 +50,19 @@ static void main(string arg) {
    sz = sizeof(tmp);
    for (i = 0; i < sz; i++) {
       if (strlen(tmp[i]) > 79) {
-	 /* Big line. Break it up. */
-	 where = 0;
-	 while (where < strlen(tmp[i])) {
-	    if (where + 79 < strlen(tmp[i])) {
-	       lines += ( {
-		  tmp[i][where..where + 78]}
-	       );
-	       where += 79;
-	    } else {
-	       lines += ( { tmp[i][where..] } );
-	       where = strlen(tmp[i]);
-	    }
-	 }
+         /* Big line. Break it up. */
+         where = 0;
+         while (where < strlen(tmp[i])) {
+            if (where + 79 < strlen(tmp[i])) {
+               lines += ({ tmp[i][where..where + 78] });
+               where += 79;
+            } else {
+               lines += ( { tmp[i][where..] } );
+               where = strlen(tmp[i]);
+            }
+         }
       } else {
-	 lines += ( { tmp[i] } );
+         lines += ({ tmp[i] });
       }
    }
 

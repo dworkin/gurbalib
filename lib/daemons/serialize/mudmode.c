@@ -26,45 +26,43 @@
 #include        <type.h>
 
 #define GRAMMAR \
-  "whitespace = /[ ]*/\n"+\
-  "string = /\"([^\\\\\"\n]*(\\\\.)*)*\"/\n"+\
-  "int = /-?[0-9]*/"+\
-  "float = /-?[0-9]*\\.[0-9]+/\n"+\
-  "float = /-?[0-9]+\\.[0-9]*([eE][-+]?[0-9]+)/\n"+\
-  "float = /-?[0-9]*\\.[0-9]+([eE][-+]?[0-9]+)/\n"+\
-  "result: data\n"+\
-  "data: \n"+\
-  "data: var\n"+\
-  "var: string ? cnvstring\n"+\
-  "var: map\n ? mkmap\n"+\
-  "var: array ? mkarray\n"+\
-  "var: int ? cnvint\n"+\
-  "var: float ? cnvfloat\n"+\
-  "map: '(' '[' opt_melements ']' ')'\n"+\
-  "array: '(' '{' opt_aelements '}' ')'\n"+\
-  "melement: var ':' var\n"+\
-  "opt_melements: \n"+\
-  "opt_melements: melements\n"+\
-  "opt_melements: melements ','\n"+\
-  "melements: melement\n"+\
-  "melements: melements ',' melement\n"+\
-  "opt_aelements: \n"+\
-  "opt_aelements: aelements\n"+\
-  "opt_aelements: aelements ','\n"+\
-  "aelements: var\n"+\
+  "whitespace = /[ ]*/\n" + \
+  "string = /\"([^\\\\\"\n]*(\\\\.)*)*\"/\n" + \
+  "int = /-?[0-9]*/" + \
+  "float = /-?[0-9]*\\.[0-9]+/\n" + \
+  "float = /-?[0-9]+\\.[0-9]*([eE][-+]?[0-9]+)/\n" + \
+  "float = /-?[0-9]*\\.[0-9]+([eE][-+]?[0-9]+)/\n" + \
+  "result: data\n" + \
+  "data: \n" + \
+  "data: var\n" + \
+  "var: string ? cnvstring\n" + \
+  "var: map\n ? mkmap\n" + \
+  "var: array ? mkarray\n" + \
+  "var: int ? cnvint\n" + \
+  "var: float ? cnvfloat\n" + \
+  "map: '(' '[' opt_melements ']' ')'\n" + \
+  "array: '(' '{' opt_aelements '}' ')'\n" + \
+  "melement: var ':' var\n" + \
+  "opt_melements: \n" + \
+  "opt_melements: melements\n" + \
+  "opt_melements: melements ','\n" + \
+  "melements: melement\n" + \
+  "melements: melements ',' melement\n" + \
+  "opt_aelements: \n" + \
+  "opt_aelements: aelements\n" + \
+  "opt_aelements: aelements ','\n" + \
+  "aelements: var\n" + \
   "aelements: aelements ',' var\n"
-
 
 /*
  * Conversion functions used by the above grammar
  */
 
-
 /* convert int litteral into an int */
 static int * cnvint(mixed * data) {
    int r;
 
-   sscanf(data[0],"%d",r);
+   sscanf(data[0], "%d", r);
    return ({ r });
 }
 
@@ -72,7 +70,7 @@ static int * cnvint(mixed * data) {
 static float * cnvfloat(mixed * data) {
    float r;
 
-   sscanf(data[0],"%f",r);
+   sscanf(data[0], "%f", r);
    return ({ r });
 }
 
@@ -94,8 +92,8 @@ static string * cnvstring(mixed * data) {
 
    r = data[0];
 
-   r = implode(explode(r,"\\\""),"\"");
-   r = implode(explode(r,"\\\\"),"\\");
+   r = implode(explode(r, "\\\""), "\"");
+   r = implode(explode(r, "\\\\"), "\\");
 
    return ({ r[1..strlen(r)-2] });
 }
@@ -106,7 +104,7 @@ static mixed * mkarray(mixed * data) {
    mixed *stuff;
 
    stuff = ({ });
-   for (i=2; i<sizeof(data)-2; i += 2) {
+   for (i = 2; i < sizeof(data) - 2; i += 2) {
       stuff += ({ data[i] });
    }
    return ({ stuff });
@@ -119,9 +117,10 @@ static mixed * mkmap(mixed * data) {
    mixed key, val;
 
    stuff = ([ ]);
-   for (i=2; i<sizeof(data)-1 && ((data[i]+data[i+1]) != "])"); i += 4) {
+   for (i = 2; i < sizeof(data) - 1 && ((data[i] + data[i + 1]) != "])");
+      i += 4) {
       key = data[i];
-      val = data[i+2];
+      val = data[i + 2];
       stuff[key] = val;
    }
    return ({ stuff });
@@ -150,7 +149,7 @@ string save_value(mixed var) {
    }
    switch (typeof(var)) {
    case T_INT : case T_FLOAT :
-      result = ""+var;
+      result = "" + var;
       break;
    case T_STRING :
       if (strlen(var) > 0) {
@@ -172,7 +171,7 @@ string save_value(mixed var) {
 
          result = implode(explode(var, "\\"), "\\\\");
          result = implode(explode(result, "\""), "\\\"");
-         result = "\""+pref+result+post+"\"";
+         result = "\"" + pref + result + post + "\"";
       } else {
          result = "\"\"";
       }

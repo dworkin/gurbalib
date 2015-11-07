@@ -64,13 +64,13 @@ static void main(string str) {
       inv = this_player()->query_environment()->query_inventory();
       max = sizeof(inv);
       for (i = 0; i < max; i++) {
-         do_close(inv[i],0);
+         do_close(inv[i], 0);
       }
 
       inv = this_player()->query_inventory();
       max = sizeof(inv);
       for (i = 0; i < max; i++) {
-         do_close(inv[i],0);
+         do_close(inv[i], 0);
       }
       return;
    }
@@ -84,5 +84,5 @@ static void main(string str) {
    if (!obj) {
       obj = this_player()->query_environment()->present(str);
    }
-   do_close(obj,1);
+   do_close(obj, 1);
 }

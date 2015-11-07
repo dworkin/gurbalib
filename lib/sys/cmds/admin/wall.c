@@ -29,16 +29,16 @@ static void main(string str) {
    }
    if (sscanf(str, "-w %s", str)) {
       if (!require_priv("system")) {
-	 write("You need admin permissions to do that.");
-	 return;
+         write("You need admin permissions to do that.");
+         return;
       }
 
       users = USER_D->query_wizards();
 
       max = sizeof(users);
       for (i = 0; i < max; i++) {
-	 users[i]->message("WALL from " +
-	    this_player()->query_Name() + ": " + str + "\n");
+         users[i]->message("WALL from " +
+            this_player()->query_Name() + ": " + str + "\n");
       }
 
       return;
@@ -53,6 +53,6 @@ static void main(string str) {
    max = sizeof(users);
    for (i = 0; i < max; i++) {
       users[i]->message("WALL from " +
-	 this_player()->query_Name() + ": " + str + "\n");
+         this_player()->query_Name() + ": " + str + "\n");
    }
 }

@@ -9,7 +9,7 @@ void setup(void) {
       "There are 5 rules.\n" +
       "Do 'rule #', to read a rule number.");
 
-   add_action("do_rule","rule");
+   add_action("do_rule", "rule");
 }
 
 string get_rules1() {

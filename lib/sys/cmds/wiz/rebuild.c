@@ -64,20 +64,20 @@ atomic static int upgrade_uobj(string * files, int verbose) {
          resubmit += ({ files[pos] });
          continue;
       } else if (verbose > 2) {
-	 write("Upgrading " + files[pos]);
+         write("Upgrading " + files[pos]);
       }
 
       uc++;
 
       if (COMPILER_D->test_inheritable(files[pos])) {
          catch {
-	    compile_library(files[pos]);
+            compile_library(files[pos]);
          } : {
             error("Error compiling " + files[pos]);
          }
       } else {
          catch {
-	    compile_object(files[pos]);
+            compile_object(files[pos]);
          } : {
             error(files[pos]);
          }
@@ -189,21 +189,21 @@ static void main(string str) {
 
    rlimits(MAX_DEPTH; -1) {
       if (edges) {
-	 if (edges["kernel"] && (!wanted ||
+         if (edges["kernel"] && (!wanted ||
             (sizeof(wanted & ({"kernel"})) != 0)) 
             && valid_write("/kernel/data")) {
-	    if (verbose > 1) {
+            if (verbose > 1) {
                write("Rebuilding kernel.");
             }
-	    err = catch(total += upgrade_uobj(edges["kernel"], verbose));
+            err = catch(total += upgrade_uobj(edges["kernel"], verbose));
             if (err) {
                /* upgrade_uobj will put the filename in the error string.
                   do a non-atomic, uncaught compile to show compiler errors */
                compile_object(err);
                return;
             }
-	    edges["kernel"] = nil;
-	 } else if (edges["kernel"]) {
+            edges["kernel"] = nil;
+         } else if (edges["kernel"]) {
             resubmit += edges["kernel"];
             edges["kernel"] = nil;
          }
@@ -243,10 +243,10 @@ static void main(string str) {
             edges["game"] = nil;
          }
 
-	 users = map_indices(edges);
+         users = map_indices(edges);
          sz = sizeof(users);
 
-	 for (pos = 0; pos < sz; pos++) {
+         for (pos = 0; pos < sz; pos++) {
             if (!wanted || (sizeof(wanted & ({ users[pos] })) != 0)) {
                if (verbose > 1) {
                   write("Rebuilding for user " + users[pos]);
@@ -260,7 +260,7 @@ static void main(string str) {
             } else {
                resubmit += edges[users[pos]];
             }
-	 }
+         }
       }
    }
 

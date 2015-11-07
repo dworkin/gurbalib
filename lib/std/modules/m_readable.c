@@ -24,7 +24,7 @@ int do_read(object who) {
    msg = query_message();
 
    if (msg[0] == '#') {
-      msg = call_other(this_object(),msg[1..]);
+      msg = call_other(this_object(), msg[1..]);
    }
    write(msg);
    return 1;

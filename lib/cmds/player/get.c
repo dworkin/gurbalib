@@ -158,13 +158,13 @@ static void main(string str) {
       return;
    }
 
-   if (sscanf(str, "%s in %s",what,where) == 2) {
-   } else if (sscanf(str, "%s from %s",what,where) == 2) {
-   } else if (sscanf(str, "%s %d",what,amount) == 2) {
+   if (sscanf(str, "%s in %s", what, where) == 2) {
+   } else if (sscanf(str, "%s from %s", what, where) == 2) {
+   } else if (sscanf(str, "%s %d", what, amount) == 2) {
       what = str;
-   } else if (sscanf(str, "%s %s",what,where) == 2) {
-   } else if (sscanf(str, "%d %s",amount, type) == 2) {
-      if (get_coins(this_environment(),amount,type)) {
+   } else if (sscanf(str, "%s %s", what, where) == 2) {
+   } else if (sscanf(str, "%d %s", amount, type) == 2) {
+      if (get_coins(this_environment(), amount, type)) {
          return;
       } else {
          what = str;
@@ -195,7 +195,9 @@ static void main(string str) {
       done = 0;
 
       for (i = 0; i < max; i++) {
-         if (do_get(inv[i], obj, 0)) done = 1;
+         if (do_get(inv[i], obj, 0)) {
+            done = 1;
+         }
       }
       if (!done) {
          write("There is nothing here to get.\n");

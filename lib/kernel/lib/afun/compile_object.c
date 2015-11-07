@@ -20,8 +20,9 @@ object compile_object(string path, string code ...) {
    }
 
    if (strlen(path) > 2) {
-      if (path[strlen(path) - 2] == '.' && path[strlen(path) - 1] == 'c')
+      if (path[strlen(path) - 2] == '.' && path[strlen(path) - 1] == 'c') {
          path = path[..strlen(path) - 3];
+      }
    }
    if (find_object(COMPILER_D)) {
       path = COMPILER_D->allow_object(path);

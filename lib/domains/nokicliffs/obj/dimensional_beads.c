@@ -9,7 +9,7 @@ void setup(void) {
    set_short("A string of dimensional beads");
    set_long("Some dimensional beads. You can 'activate' them. " +
       "The enchantment on these beads, when activated, teleport you " +
-      "to small explorable pocket dimensions. These pocket dimensions "+
+      "to small explorable pocket dimensions. These pocket dimensions " +
       "alien places but you will find some degree of familiarity among " +
       "them. These beads belong to you now.");
    set_gettable(1);

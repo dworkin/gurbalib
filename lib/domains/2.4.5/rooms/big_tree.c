@@ -11,9 +11,9 @@ void setup(void) {
    add_exit("east", DIR + "/rooms/plain7.c");
    add_exit("west", DIR + "/rooms/giant_path.c");
 
-   add_item("tree","The branches are very high up.");
+   add_item("tree", "The branches are very high up.");
 
-   add_action("climb","climb");
+   add_action("climb", "climb");
 
    set_objects (DIR + "/obj/rope.c");
 }

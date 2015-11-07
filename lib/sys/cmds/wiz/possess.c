@@ -24,14 +24,16 @@ static void main(string str) {
 
    if (empty_str(str)) {
       if (this_user()->query_player()->is_possessing()) {
-	 write("Your release your grasp on " + this_player()->query_name() +
-	    ".");
-	 this_user()->query_player()->query_possessing()->set_possessor(nil);
-	 this_user()->query_player()->set_possessing(nil);
-	 return;
+         write("Your release your grasp on " + this_player()->query_name() +
+            ".");
+         this_user()->query_player()->query_possessing()->set_possessor(nil);
+         this_user()->query_player()->set_possessing(nil);
+
+         return;
       } else {
-	 write("Please specify what to possess.\n");
-	 return;
+         write("Please specify what to possess.\n");
+
+         return;
       }
    }
 
@@ -53,13 +55,15 @@ static void main(string str) {
 
    if (ob->is_living()) {
       if (ob->is_player()) {
-	 write("You can't possess other players.");
-	 return;
+         write("You can't possess other players.");
+
+         return;
       }
 
       if (ob->is_possessed()) {
-	 write("You can't possess a creature someone is already possessing.");
-	 return;
+         write("You can't possess a creature someone is already possessing.");
+
+         return;
       }
 
       this_user()->query_player()->set_possessing(ob);

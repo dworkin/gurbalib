@@ -40,7 +40,7 @@ void create(void) {
 
 string query_banner(void) {
 
-   if (unguarded("file_exists","/data/messages/login")) {
+   if (unguarded("file_exists", "/data/messages/login")) {
       return unguarded("read_file", "/data/messages/login");
    } else {
       return "Missing /data/messages/login you may want to reread " +
@@ -49,7 +49,7 @@ string query_banner(void) {
 }
 
 string query_motd(void) {
-   if (unguarded("file_exists","/data/messages/motd")) {
+   if (unguarded("file_exists", "/data/messages/motd")) {
       return unguarded("read_file", "/data/messages/motd");
    } else {
       return "Missing /data/messages/login you may want to reread " +

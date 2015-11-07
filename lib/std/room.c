@@ -48,7 +48,7 @@ int is_dark(void) {
 
    if (is_container()) {
       objs = query_inventory();
-      for (x=sizeof(objs) -1; x >= 0; x--) {
+      for (x = sizeof(objs) -1; x >= 0; x--) {
          if (object_is_lighted(objs[x])) {
             return 0;
          }
@@ -405,7 +405,7 @@ void tell_room(object originator, string str, varargs mixed obj ...) {
    }
 }
 
-int check_block_object(object obj,string dir,object who) {
+int check_block_object(object obj, string dir, object who) {
    if (obj->is_blocking(dir) && obj->do_block(who)) {
       obj->other_action(obj, obj->query_block_action(), who, dir);
       return 1;
@@ -434,7 +434,7 @@ string body_exit(object who, string dir) {
    inventory = query_inventory();
 
    if (query_exit(dir) || query_hidden_exit(dir)) {
-      if (check_block_object(this_object(),dir,who)) {
+      if (check_block_object(this_object(), dir, who)) {
          return nil;
       }
    }
@@ -444,7 +444,7 @@ string body_exit(object who, string dir) {
       max = sizeof(inventory);
 
       for (i = 0; i < max; i++) {
-         if (check_block_object(inventory[i],dir,who)) {
+         if (check_block_object(inventory[i], dir, who)) {
              return nil;
          }
       }
@@ -462,7 +462,7 @@ string body_exit(object who, string dir) {
    } else if (query_hidden_exit(dir)) {
       max = sizeof(inventory);
       for (i = 0; i < max; i++) {
-         if (check_block_object(inventory[i],dir,who)) {
+         if (check_block_object(inventory[i], dir, who)) {
              return nil;
          }
       }
@@ -488,7 +488,7 @@ string body_exit(object who, string dir) {
    }
 
    if (who->is_player() || who->is_possessed()) {
-      call_other(this_player(), "do_look",this_environment());
+      call_other(this_player(), "do_look", this_environment());
    }
 
    room = who->query_environment();

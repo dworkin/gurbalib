@@ -7,7 +7,7 @@ inherit DIR + "/lib/wizards_hat/light";
 string query_long(void) {
    string str;
 
-   str =::query_long();
+   str = ::query_long();
    if (query_worn()) {
       str += " It fits very well, and since it is thick and well " +
          "made it probably offers some protection against blows.";

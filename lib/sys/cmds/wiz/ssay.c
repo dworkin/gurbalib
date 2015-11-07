@@ -26,13 +26,13 @@ string *usage(void) {
 
 static void main(string str) {
    int i;
-   string how;			/*It's not what you say, but how you say it. */
-   string what;			/*But what you say is important too. */
+   string how;          /*It's not what you say, but how you say it. */
+   string what;         /*But what you say is important too. */
 
    /* Strip trailing whitespaces */
    for (i = strlen(str) - 1; i > 0; i--) {
       if (str[i] != ' ')
-	 break;
+         break;
       str = str[0..(i - 1)];
    }
 
@@ -48,18 +48,18 @@ static void main(string str) {
    if (str != "") {
 
       switch (what[strlen(what) - 1]) {
-	 case '.':
-	 case '?':
-	 case '!':
-	 case ',':
-	    break;
-	 default:
-	    what += ".";
+         case '.':
+         case '?':
+         case '!':
+         case ',':
+            break;
+         default:
+            what += ".";
       }
 
       this_player()->query_environment()->tell_room(nil, "%^GREEN%^" +
-	 this_player()->query_Name() + " " + how +
-	 ": %^RESET%^" + capitalize(what) + "\n");
+         this_player()->query_Name() + " " + how +
+         ": %^RESET%^" + capitalize(what) + "\n");
    } else {
       this_player()->more(usage());
       return;

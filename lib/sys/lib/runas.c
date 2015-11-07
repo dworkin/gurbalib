@@ -15,8 +15,9 @@ nomask static void run_as(string priv) {
          error("Attempt to set custom privileges in non system object");
       }
 
-      parts = explode(priv,":");
-      for (i=0, sz=sizeof(parts); i<sz; i++) {
+      parts = explode(priv, ":");
+      sz = sizeof(parts);
+      for (i = 0; i < sz; i++) {
          pt = SECURE_D->query_priv_type(parts[i]);
          if (pt == PT_UNKNOWN || parts[i] == "-" || parts[i] == "*" ||
             parts[i] == "?") {

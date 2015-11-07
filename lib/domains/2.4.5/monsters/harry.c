@@ -225,7 +225,7 @@ void do_extra_actions() {
    if (count >= INTERVAL) {
       if (is_fighting()) {
          respond(a_str[random(sizeof(a_str))]);
-      }else {
+      } else {
          respond(na_str[random(sizeof(na_str))]);
       }
       count = 0;

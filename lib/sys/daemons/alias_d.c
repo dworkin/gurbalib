@@ -58,7 +58,7 @@ int remove_player_alias(string cmd) {
       player_alias = ([]);
    }
 
-   if (!member_map(cmd,player_alias)) {
+   if (!member_map(cmd, player_alias)) {
       return 0;
    }
 
@@ -83,7 +83,7 @@ int remove_wizard_alias(string cmd) {
       wizard_alias = ([]);
    }
 
-   if (!member_map(cmd,wizard_alias)) {
+   if (!member_map(cmd, wizard_alias)) {
       return 0;
    }
    wizard_alias[cmd] = nil;
@@ -108,7 +108,7 @@ int is_alias(string cmd) {
 
    if (query_wizard(this_player()->query_name())) {
       if (wizard_alias[cmd]) {
-	 return 1;
+         return 1;
       }
    }
 
@@ -130,7 +130,7 @@ string query_alias(string cmd) {
 
    if (query_wizard(this_player()->query_name())) {
       if (wizard_alias[cmd]) {
-	 return wizard_alias[cmd];
+         return wizard_alias[cmd];
       }
    }
 
@@ -147,7 +147,7 @@ string do_expand(string alias, string arg) {
       args = explode(arg, " ");
 
       for (i = 0, sz = sizeof(args), sz=(sz<10 ? sz:10); i < sz; i++) {
-	 alias = replace_string(alias, "$" + i, args[i]);
+         alias = replace_string(alias, "$" + i, args[i]);
       }
    }
    return alias;
@@ -167,12 +167,12 @@ string expand_alias(string cmd) {
    if (is_alias(cmd)) {
       alias = query_alias(cmd);
       if (!alias) {
-	 return nil;
+         return nil;
       }
       return do_expand(alias, arg);
    } else {
       if (!arg || arg == "") {
-	 return cmd;
+         return cmd;
       }
       return cmd + " " + arg;
    }
@@ -186,21 +186,21 @@ string *show_alias(string type, string str) {
    rules = ( { } );
    if (!str || str == "") {
       if (!type || type == "" || type == "player") {
-	 rules += ( { "Player aliases:" } );
-	 aliases = map_indices(player_alias);
-	 for (i = 0; i < sizeof(aliases); i++) {
+         rules += ( { "Player aliases:" } );
+         aliases = map_indices(player_alias);
+         for (i = 0; i < sizeof(aliases); i++) {
             line = aliases[i];
-	    rules += ({ "   " + line + ": " + player_alias[line] });
-	 }
+            rules += ({ "   " + line + ": " + player_alias[line] });
+         }
       }
       if (!type || type == "" || type == "wizard" || type == "wiz") {
-	 rules += ( { "Wizard aliases:" } );
-	 aliases = ({ });
-	 aliases = map_indices(wizard_alias);
-	 for (i = 0; i < sizeof(aliases); i++) {
+         rules += ( { "Wizard aliases:" } );
+         aliases = ({ });
+         aliases = map_indices(wizard_alias);
+         for (i = 0; i < sizeof(aliases); i++) {
             line = aliases[i];
-	    rules += ( { "   " + line + ": " + wizard_alias[line] });
-	 }
+            rules += ( { "   " + line + ": " + wizard_alias[line] });
+         }
       }
       return rules;
    }
@@ -208,14 +208,14 @@ string *show_alias(string type, string str) {
    if (type == "" || type == "player") {
       if (player_alias[str]) {
          done = 1;
-	 rules += ( { "Player alias: " + str + " : " + player_alias[str] } );
+         rules += ( { "Player alias: " + str + " : " + player_alias[str] } );
       }
    }
 
    if (type == "" || type == "wizard" || type == "wiz") {
       if (wizard_alias[str]) {
          done = 1;
-	 rules += ( { "Wizard alias: " + str + " : " + wizard_alias[str] } );
+         rules += ( { "Wizard alias: " + str + " : " + wizard_alias[str] } );
       }
    }
    if (!done) {

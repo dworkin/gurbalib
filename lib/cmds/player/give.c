@@ -89,7 +89,7 @@ static void do_give(object obj1, object obj2, int loud) {
    }
 }
 
-static int transfer_money(int amount,string cointype, string where) {
+static int transfer_money(int amount, string cointype, string where) {
    object obj;
    int worth;
 
@@ -113,7 +113,7 @@ static int transfer_money(int amount,string cointype, string where) {
       amount = amount * worth;
       if (this_player()->query_total_money() > amount) {
          this_player()->add_money("ducat", (amount * -1));
-         obj->add_money("ducat",amount);
+         obj->add_money("ducat", amount);
          this_player()->targeted_action("$N $vgive " + amount +
             " ducats to $t.", obj);
          return 1;
@@ -149,20 +149,20 @@ static void main(string str) {
       return;
    }
 
-   if (sscanf(str, "%s to %s",what,where) == 2) {
-      if (sscanf(what, "%d %s",amount, coin) == 2) {
+   if (sscanf(str, "%s to %s", what, where) == 2) {
+      if (sscanf(what, "%d %s", amount, coin) == 2) {
          if ((coin == "ducat") || (coin == "ducats") || (coin == "coins")) {
-            transfer_money(amount,"ducat",where);
+            transfer_money(amount, "ducat", where);
             return;
          } else if ((coin == "royal") || (coin == "royals")) {
-            transfer_money(amount,"royal",where);
+            transfer_money(amount, "royal", where);
             return;
          } else if ((coin == "crown") || (coin == "crowns")) {
-            transfer_money(amount,"crown",where);
+            transfer_money(amount, "crown", where);
             return;
          }
       }
-   } else if (sscanf(str, "%s %s",what,where) == 2) {
+   } else if (sscanf(str, "%s %s", what, where) == 2) {
    } else {
       write("You want to give what to who?");
       return;

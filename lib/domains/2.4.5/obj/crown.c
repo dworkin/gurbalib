@@ -4,7 +4,7 @@ inherit "/std/armor";
 
 void setup(void) {
    set_id("crown");
-   set_adj("small","iron");
+   set_adj("small", "iron");
    set_short("A small iron crown");
    set_long("It looks cute.");
    set_gettable(1);

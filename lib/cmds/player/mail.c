@@ -24,7 +24,9 @@ string *usage(void) {
    lines += ({ "\td #\tDelete message #" });
    lines += ({ "\tm PLAYER\tSend a message to PLAYER" });
 
-   if (all) lines += ({ all });
+   if (all) {
+      lines += ({ all });
+   }
 
    lines += ({ "\tl \tView your mail." });
    lines += ({ "\tq \tQuit." });
@@ -167,10 +169,11 @@ void view_mailbox(string str) {
    }
 
    /* messages = MAIL_D->get_messages(this_player()->query_name()); */
-   if (messages)
+   if (messages) {
       max = sizeof(messages);
-   else
+   } else {
       max = 0;
+   }
 
    for (x = 0; x < max; x++) {
       write(x + "\t" + messages[x]->query_subject() + "(" +

@@ -26,7 +26,7 @@ int do_movementn() {
       room = DIR + "/rooms/maze1/maze1.c";
    }
 
-   goto_the(room,"north");
+   goto_the(room, "north");
 }
 
 int do_movements() {
@@ -40,7 +40,7 @@ int do_movements() {
       room = DIR + "/rooms/maze1/maze1.c";
    }
 
-   goto_the(room,"north");
+   goto_the(room, "north");
 }
 
 int do_movemente() {
@@ -54,7 +54,7 @@ int do_movemente() {
       room = DIR + "/rooms/well.c";
    }
 
-   goto_the(room,"east");
+   goto_the(room, "east");
 }
 
 int do_movementw() {
@@ -68,5 +68,5 @@ int do_movementw() {
       room = DIR + "/rooms/well.c";
    }
 
-   goto_the(room,"east");
+   goto_the(room, "east");
 }

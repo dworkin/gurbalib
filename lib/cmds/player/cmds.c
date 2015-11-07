@@ -8,10 +8,12 @@ string *usage(void) {
 
    flags = "player|verb";
 
-   if (query_wizard(this_player()))
+   if (query_wizard(this_player())) {
       flags += "|wiz";
-   if (query_admin(this_player()))
+   }
+   if (query_admin(this_player())) {
       flags += "|admin";
+   }
 
    lines = ({ "Usage: cmds [-h] [-v] [" + flags + "]" });
    lines += ({ "" });
@@ -109,7 +111,7 @@ static void main(string str) {
                break;
             case "emote":
             case "emotes":
-               lines += EMOTE_D->show_emote("",width);
+               lines += EMOTE_D->show_emote("", width);
                break;
             case "fighter":
             case "fighters":
@@ -133,7 +135,7 @@ static void main(string str) {
    /* Currently we have none... */
    /* show_cmds("/cmds/verb"); */
 
-   lines += EMOTE_D->show_emote("",width);
+   lines += EMOTE_D->show_emote("", width);
 
    this_player()->more(lines);
 }

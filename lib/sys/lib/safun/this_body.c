@@ -1,9 +1,9 @@
 static object this_body(void) {
    if (!this_user()) {
       if (!monster) {
-	 return previous_object();
+         return previous_object();
       } else {
-	 return monster;
+         return monster;
       }
    }
 

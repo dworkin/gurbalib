@@ -277,9 +277,21 @@ string color_table_chunk(mapping m, int codes) {
    ind = map_indices(m);
    /* val = map_values(m); */
    msg = "";
-   reset = (codes) ? "%^RESET%^" : "";
+
+   if (codes) {
+      reset = "%^RESET%^";
+   } else {
+      reset = "";
+   }
+
    for (i = 0; i < sz; i++) {
-      tokenized = (codes) ? "%^" + ind[i] + "%^" : "";
+
+      if (codes) {
+         tokenized = "%^" + ind[i] + "%^";
+      } else {
+         tokenized = "";
+      }
+
       pad = 16 - strlen(ind[i]) - 1;
       /* Bizzare... if I remove the space in the line below, I get nothing! */
       msg += tokenized + " " + ind[i];
@@ -287,7 +299,11 @@ string color_table_chunk(mapping m, int codes) {
          msg += " ";
       }
       msg += reset;
-      msg += (i % 4 == 3) ? "\n" : " ";
+      if (i % 4 == 3) {
+         msg += "\n";
+      } else {
+         msg += " ";
+      }
    }
 
    if (sz % 4 != 0) {

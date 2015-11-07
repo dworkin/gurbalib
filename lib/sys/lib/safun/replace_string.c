@@ -14,20 +14,20 @@ string replace_string(string str, string old, string newstr) {
    for (i = 0; i < slen; i++) {
 
       if (slen > (i + olen)) {
-	 /* Still not reached the end of the string */
-	 if (str[i..(i + olen)] == old) {
-	    /*Found an occurance of the old string */
-	    done += newstr;
-	    d += strlen(newstr);
-	    i += olen;
-	 } else {
-	    done += " ";
-	    done[d] = str[i];
-	    d++;
-	 }
+         /* Still not reached the end of the string */
+         if (str[i..(i + olen)] == old) {
+            /*Found an occurance of the old string */
+            done += newstr;
+            d += strlen(newstr);
+            i += olen;
+         } else {
+            done += " ";
+            done[d] = str[i];
+            d++;
+         }
       } else {
-	 done += str[i..];
-	 return done;
+         done += str[i..];
+         return done;
       }
    }
 

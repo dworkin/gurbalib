@@ -32,8 +32,8 @@ static void main(string str) {
    } else {
       obj = this_environment()->present(str);
       if (!obj) {
-	 write("heal who?\n");
-	 return;
+         write("heal who?\n");
+         return;
       }
    }
 

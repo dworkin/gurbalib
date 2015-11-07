@@ -83,9 +83,9 @@ int query_message_count(void) {
 }
 
 void remove_message(string str) {
-   int x,size;
+   int x, size;
 
-   if (sscanf(str,"%d",x) < 1 || x == 0) {
+   if (sscanf(str, "%d", x) < 1 || x == 0) {
       write("Usage: delete #\n");
       return;
    }

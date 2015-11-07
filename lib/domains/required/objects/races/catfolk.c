@@ -10,7 +10,7 @@ void create(void) {
       "Catfolk tend to be smaller that humans but are extremely dexterous.");
 
    set_language("catfolk");
-   set_skill("language/catfolk",100);
+   set_skill("language/catfolk", 100);
 }
 
 int has_darkvision(void) {

@@ -22,7 +22,7 @@ int do_balance(varargs string str) {
 int do_withdraw(string str) {
    int amount;
 
-   if (sscanf(str, "%d",amount)) {
+   if (sscanf(str, "%d", amount)) {
       if (amount < 1) {
          write("Please enter a positive number.\n");
          return 1;
@@ -43,7 +43,7 @@ int do_withdraw(string str) {
 int do_deposit(string str) {
    int amount;
 
-   if (sscanf(str, "%d",amount)) {
+   if (sscanf(str, "%d", amount)) {
       if (amount < 1) {
          write("Please enter a positive number.\n");
          return 1;
@@ -65,7 +65,7 @@ int do_loan(string str) {
    int amount;
 
    if (query_wizard(this_player())) {
-      if (sscanf(str, "%d",amount)) {
+      if (sscanf(str, "%d", amount)) {
          this_player()->add_money("ducat", amount);
          write("The bank loans you " + amount + " ducats.\n");
          return 1;

@@ -11,7 +11,7 @@ void setup(void) {
    set_max_hp(3000);
    set_hp(3000);
    set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed",1300);
+   set_skill("combat/unarmed", 1300);
    set_actions(30, ( { "dervish", "purr" } ) );
    add_pattern("%s pets you.", "say yo wassup?");
    add_pattern("%s kicks you.", "say I'll kick your f**king ass!");

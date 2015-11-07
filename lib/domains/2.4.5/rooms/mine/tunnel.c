@@ -11,6 +11,6 @@ void setup(void) {
    add_exit("north", DIR + "/rooms/mine/tunnel2.c");
    add_exit("south", DIR + "/rooms/mount_pass.c");
 
-   add_item("sign","WARNING!!\n\nThe mines are closed due to risk of " +
+   add_item("sign", "WARNING!!\n\nThe mines are closed due to risk of " +
       "falling rock.");
 }

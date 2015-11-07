@@ -6,7 +6,7 @@ int member_array(mixed item, mixed * arr) {
    sz = sizeof(arr);
    for (i = 0; i < sz; i++) {
       if (arr[i] == item) {
-	 return i;
+         return i;
       }
    }
    return -1;

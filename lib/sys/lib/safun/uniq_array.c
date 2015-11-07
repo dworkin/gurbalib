@@ -5,7 +5,7 @@
  */
 
 nomask static mixed *uniq_array(mixed * arr) {
-   int i,sz;
+   int i, sz;
    mapping rv;
 
    rv = ([]);
@@ -13,7 +13,7 @@ nomask static mixed *uniq_array(mixed * arr) {
    sz = sizeof(arr);
    for (i = 0; i < sz; i++) {
       if (!rv[arr[i]]) {
-	 rv[arr[i]] = 1;
+         rv[arr[i]] = 1;
       }
    }
 

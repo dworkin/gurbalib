@@ -12,7 +12,7 @@ void setup(void) {
 
    set_exits(([
       "north" : DIR + "/rooms/drinkme", 
-      "out" : DIR + "/rooms/tree",]));
+      "out" : DIR + "/rooms/tree", ]));
 
    add_item("button", "A giant red BUTTON!\nIt is glowing and says PRESS ME!");
    add_action("do_push", "push");

@@ -92,11 +92,11 @@ static void main(string str) {
       inv = this_player()->query_inventory();
       max = sizeof(inv);
       for (i = 0; i < max; i++) {
-         do_remove(inv[i],0);
+         do_remove(inv[i], 0);
       }
       return;
    }
 
    obj = this_player()->present(lowercase(str));
-   do_remove(obj,1);
+   do_remove(obj, 1);
 }

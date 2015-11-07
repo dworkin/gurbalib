@@ -92,7 +92,11 @@ string *query_object_owners(void) {
 }
 
 object *query_objects_by_owner(string owner) {
-   return objs[owner] ? map_indices(objs[owner]) : ({ });
+   if (objs[owner]) {
+      return  map_indices(objs[owner]);
+   } else {
+      return ({ });
+   }
 }
 
 string *query_cloners(void) {

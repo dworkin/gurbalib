@@ -36,7 +36,7 @@ void do_shutdown(void) {
    for (i = 0; i < max; i++) {
       objs = OBJECT_D->query_objects_by_owner(usrs[i]);
       jmax = sizeof(objs);
-      for (j=0; j< jmax; j++) {
+      for (j = 0; j < jmax; j++) {
          if (objs[j]->is_player()) {
             objs[j]->message("Shutdown initiated by : " +
                this_player()->query_Name() + "\n");
@@ -63,11 +63,11 @@ void countdown(int mins) {
       do_shutdown();
    } else {
       for (i = 0; i < sizeof(usrs); i++) {
-	 usrs[i]->message("Shutdown initiated by : " +
-	    this_player()->query_Name() + "\n");
-	 usrs[i]->message("Game driver tells you: " +
-	    "Shutting down in " + mins + " minutes!\n");
-	 usrs[i]->message("  Reason : " + reason + "\n");
+         usrs[i]->message("Shutdown initiated by : " +
+            this_player()->query_Name() + "\n");
+         usrs[i]->message("Game driver tells you: " +
+            "Shutting down in " + mins + " minutes!\n");
+         usrs[i]->message("  Reason : " + reason + "\n");
       }
       call_out("countdown", 60, mins - 1);
    }
@@ -94,13 +94,13 @@ static void main(string arg) {
 
    if (lowercase(time) == "now") {
       LOG_D->write_log("shutdown", ctime(time()) + ": " +
-	 this_player()->query_Name() + " forced a shutdown.\n" + "REASON: "
-	 + reason + "\n");
+         this_player()->query_Name() + " forced a shutdown.\n" + "REASON: " +
+         reason + "\n");
       do_shutdown();
    } else {
       LOG_D->write_log("shutdown", ctime(time()) + ": " +
-	 this_player()->query_Name() + " forced a shutdown.\n" + "REASON: " +
-	 reason + "\n");
+         this_player()->query_Name() + " forced a shutdown.\n" + "REASON: " +
+         reason + "\n");
       countdown(str2val(time));
    }
 }

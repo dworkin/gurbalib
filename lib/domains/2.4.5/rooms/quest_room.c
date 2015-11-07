@@ -17,7 +17,7 @@ void setup(void) {
       "in this room, which has as short description the name of the " +
       "wizard.  All objects in this room will be checked when a player " +
       "wants to become a wizard. The player must have solved ALL quests.  " +
-      "To mark that a quest is solved, call 'set_quest(\"name\")' "+
+      "To mark that a quest is solved, call 'set_quest(\"name\")' " +
       "in the player object. The objects must all accept the id 'quest' " +
       "and the name of the wizard. The objects must also define a " +
       "function hint(), that should return a message giving a hint of " +

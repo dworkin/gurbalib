@@ -40,7 +40,7 @@ int logout(string name) {
 
       if (ob) {
          if (!spare) {
-	    spare = ob;
+            spare = ob;
          } else {
             destruct_object(ob);
          }
@@ -73,7 +73,7 @@ static void cleanup(void) {
    while (c) {
       n = c->next_clone();
       if (c == spare) {
-	 spare = nil;
+         spare = nil;
       }
       destruct_object(c);
       c = n;
@@ -101,7 +101,7 @@ static object get_data_ob(string name) {
       return ob;
    } else {
       if (!spare) {
-	 spare = ob;
+         spare = ob;
       } else {
          destruct_object(ob);
       }
@@ -118,7 +118,7 @@ static void clean_cache(void) {
    sz = sizeof(names);
    for (i = 0; i < sz; i++) {
       if (!USER_D->query_sessions(names[i])) {
-	 logout(names[i]);
+         logout(names[i]);
       }
    }
 
@@ -234,7 +234,7 @@ int _delete_user(string name) {
       p = u->query_player();
       destruct_object(u);
       if (p) {
-	 destruct_object(p);
+         destruct_object(p);
       }
    }
 
@@ -251,7 +251,7 @@ int _delete_user(string name) {
 
    if (cache[name]) {
       if (!spare) {
-	 spare = cache[name];
+         spare = cache[name];
       } else {
          destruct_object(cache[name]);
       }
@@ -356,7 +356,7 @@ object *query_wizards(void) {
    sz = sizeof(usr);
    for (i = 0; i < sz; i++) {
       if (query_wizard(usr[i]->query_player()->query_name()) > 0) {
-	 wizards += ({ usr[i]->query_player() });
+         wizards += ({ usr[i]->query_player() });
       }
    }
 
@@ -406,19 +406,19 @@ void print_finger_info(object player, object player2, int cloned) {
 
    if (query_wizard(player)) {
       player->message("%^BLUE%^Description:%^RESET%^ " +
-	 player2->query_long() + "\n");
+         player2->query_long() + "\n");
    }
 
    if (query_admin(player)) {
       if (player2->query_realname()) {
          player->message("%^BLUE%^Real name: %^RESET%^" +
-	    player2->query_realname() + "\n");
+            player2->query_realname() + "\n");
       } else {
          player->message("%^BLUE%^Real name: %^RESET%^\n");
       }
       if (player2->query_email()) {
          player->message("%^BLUE%^Email address: %^RESET%^" +
-	    player2->query_email() + "\n");
+            player2->query_email() + "\n");
       } else {
          player->message("%^BLUE%^Email address: %^RESET%^\n");
       }
@@ -426,7 +426,7 @@ void print_finger_info(object player, object player2, int cloned) {
 
    if (cloned == 1) {
       player->message("%^BLUE%^Last login: %^RESET%^" +
-	 ctime(player2->query_last_login()));
+         ctime(player2->query_last_login()));
    } else {
       
       if (LINKDEAD_D->is_linkdead(player2) ) {
@@ -437,8 +437,8 @@ void print_finger_info(object player, object player2, int cloned) {
 
       player->message("%^BLUE%^Last login: %^RESET%^Now " + linkd + "\n");
       if (player2->query_idle() > 60) {
-	 player->message("%^BLUE%^Idle: %^RESET%^" +
-	    fmt_time(player2->query_idle()) + "\n");
+         player->message("%^BLUE%^Idle: %^RESET%^" +
+            fmt_time(player2->query_idle()) + "\n");
       }
    }
 }
@@ -455,12 +455,12 @@ void finger(object player, string name) {
       obj = get_data_ob(name);
 
       if (obj) {
-	 obj = clone_object(PLAYER_OB);
-	 obj->set_name(name);
-	 obj->restore_me();
+         obj = clone_object(PLAYER_OB);
+         obj->set_name(name);
+         obj->restore_me();
 
-	 print_finger_info(player, obj, 1);
-	 destruct_object(obj);
+         print_finger_info(player, obj, 1);
+         destruct_object(obj);
       }
    } else {
       print_finger_info(player, obj, 0);
@@ -664,7 +664,7 @@ void create_homedir(string wiz) {
    if (file_exists(path) == 0) {
       make_dir(path);
       make_dir(path + "rooms/");
-		make_dir(path + "logs/");
+      make_dir(path + "logs/");
       copy(DOMAINS_DIR + "/required/rooms/workroom.c",
          path + "rooms/workroom.c");
    }

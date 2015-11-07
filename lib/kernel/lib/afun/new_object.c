@@ -13,14 +13,14 @@ static object new_object(object o) {
     */
    if (ed) {
       trace =
-         ed->format_runtime_error("LWO calltrace",::call_trace(), 0, 0, 0);
+         ed->format_runtime_error("LWO calltrace", ::call_trace(), 0, 0, 0);
    } else {
       trace = "No LWO calltrace available\n";
    }
 
    cloner = previous_program();
 
-   ob =::new_object(o);
+   ob = ::new_object(o);
    ob->_F_set_cloner(cloner, trace);
    ob->_F_create();
 

@@ -117,7 +117,7 @@ void set_env(string name, mixed value) {
    if (name == "PATH") {
       /* we always require the wiz cmdpath so set remains available 
          for changing the path again */
-      if (sizeof(explode(value,":") & 
+      if (sizeof(explode(value, ":") & 
          ({ "$PATH", "/sys/cmds/wiz", "/sys/cmds/wiz/" }) ) >= 1) {
          cmd::set_searchpath(value);
       }
@@ -222,13 +222,13 @@ void login_player(void) {
       didlog = DID_D->get_entries(last_login);
 
       if (didlog) {
-	 for (i = 0; i < sizeof(didlog); i++) {
-	    if (didlog[i] == "") {
-	       write("\n");
-	    } else {
-	       write(didlog[i]);
+         for (i = 0; i < sizeof(didlog); i++) {
+            if (didlog[i] == "") {
+               write("\n");
+            } else {
+               write(didlog[i]);
             }
-	 }
+         }
       }
    }
 
@@ -257,12 +257,12 @@ void login_player(void) {
    /* Register with the subscribed channels */
    for (i = 0; i < sizeof(tmpchannels); i++) {
       if (CHANNEL_D->query_channel(tmpchannels[i])) {
-	 if (!CHANNEL_D->chan_join(tmpchannels[i], this_player())) {
+         if (!CHANNEL_D->chan_join(tmpchannels[i], this_player())) {
             write("Error joining channel: " + tmpchannels[i] + "\n");
          }
       } else {
          write("Error no such channel: " + tmpchannels[i] + "\n");
-	 tmpchannels[i] = nil;
+         tmpchannels[i] = nil;
       }
    }
 
@@ -641,17 +641,16 @@ void write_prompt(void) {
    result = replace_string(result, "%_", "\n");
 
    if (this_environment()) {
-	  result = replace_string(result, "%l",
-             this_environment()->file_name());
-	  if (!this_environment()->query_area()) {
-	     result = replace_string(result, "%a", "(none)");
-	  } else {
-	    result = replace_string(result, "%a",
-               this_environment()->query_area());
-	  }
+      result = replace_string(result, "%l", this_environment()->file_name());
+      if (!this_environment()->query_area()) {
+         result = replace_string(result, "%a", "(none)");
+      } else {
+         result = replace_string(result, "%a",
+            this_environment()->query_area());
+      }
    } else {
-	  result = replace_string(result, "%l", "(no environment)");
-	  result = replace_string(result, "%a", "(none)");
+      result = replace_string(result, "%l", "(no environment)");
+      result = replace_string(result, "%a", "(none)");
       }
 
    result = replace_string(result, "%h", "" + this_player()->query_hp());
@@ -709,8 +708,8 @@ void more(string * lines, varargs int docolor) {
       }
 
       if (more_caller) {
-	 more_caller->more_done();
-	 more_caller = nil;
+         more_caller->more_done();
+         more_caller = nil;
       }
    }
 }
@@ -726,13 +725,13 @@ void more_prompt(string arg) {
    switch (arg[0]) {
       case 'q':
       case 'Q':
-	 write_prompt();
-	 if (more_caller) {
-	    more_caller->more_done();
-	    more_caller = nil;
-	 }
-	 return;
-	 break;
+         write_prompt();
+         if (more_caller) {
+            more_caller->more_done();
+            more_caller = nil;
+         }
+         return;
+         break;
    }
 
    height = query_height() -1;
@@ -759,8 +758,8 @@ void more_prompt(string arg) {
          out_unmod(msg + "\n");
       }
       if (more_caller) {
-	 more_caller->more_done();
-	 more_caller = nil;
+         more_caller->more_done();
+         more_caller = nil;
       }
       write_prompt();
    }
@@ -918,9 +917,9 @@ void do_quit(void) {
    channelstmp = channels;
    for (i = 0; i < sizeof(channels); i++) {
       if (CHANNEL_D->query_channel(channels[i])) {
-	 CHANNEL_D->chan_leave(channels[i], this_object());
+         CHANNEL_D->chan_leave(channels[i], this_object());
       } else {
-	 channels[i] = nil;
+         channels[i] = nil;
       }
    }
    channels = channelstmp;
@@ -1073,48 +1072,48 @@ void receive_message(string message) {
       /* Expand the command */
       temp = ALIAS_D->expand_alias(message);
       if (temp) {
-	 message = temp;
+         message = temp;
       }
 
       /* Split the input into command and argument */
       if (sscanf(message, "%s %s", cmd, arg) != 2) {
-	 cmd = message;
+         cmd = message;
       }
 
       if (is_alias(cmd)) {
-	 message = ALIAS_D->do_expand(query_alias(cmd), arg);
-	 if (sscanf(message, "%s %s", cmd, arg) != 2) {
-	    cmd = message;
+         message = ALIAS_D->do_expand(query_alias(cmd), arg);
+         if (sscanf(message, "%s %s", cmd, arg) != 2) {
+            cmd = message;
          }
       }
 
       if (cmd != "") {
-	 if (cmd[0] == '\'') {
-	    if (arg == "") {
-	       arg = cmd[1..];
-	    } else {
-	       arg = cmd[1..] + " " + arg;
-	    }
-	    cmd = "say";
-	 } else if (cmd[0] == ';') {
-	    if (arg == "") {
-	       arg = cmd[1..];
-	    } else {
-	       arg = cmd[1..] + " " + arg;
-	    }
-	    cmd = "emote";
-	 }
+         if (cmd[0] == '\'') {
+            if (arg == "") {
+               arg = cmd[1..];
+            } else {
+               arg = cmd[1..] + " " + arg;
+            }
+            cmd = "say";
+         } else if (cmd[0] == ';') {
+            if (arg == "") {
+               arg = cmd[1..];
+            } else {
+               arg = cmd[1..] + " " + arg;
+            }
+            cmd = "emote";
+         }
       }
 
       /* Substitute 'me' with my name */
       if (arg == "me") {
-	 arg = this_player()->query_id();
+         arg = this_player()->query_id();
       }
 
       /* Check for an object command in objects in my inv */
       if (!flag) {
-	 object player;
-	 string roomcmd_h;
+         object player;
+         string roomcmd_h;
 
          player = this_player();
          if (player) {
@@ -1125,11 +1124,11 @@ void receive_message(string message) {
             if (objs) {
                maxy = sizeof(objs);
                for (y = 0; y < maxy; y++) {
-	          roomcmd_h = objs[y]->query_action(cmd);
+                  roomcmd_h = objs[y]->query_action(cmd);
 
-	          if (roomcmd_h) {
-	             flag = call_other(objs[y], roomcmd_h, arg);
-	          }
+                  if (roomcmd_h) {
+                     flag = call_other(objs[y], roomcmd_h, arg);
+                  }
                }
             }
          }
@@ -1140,7 +1139,7 @@ void receive_message(string message) {
          object room;
          string objectcmd_h;
 
-	 room = this_player()->query_environment();
+         room = this_player()->query_environment();
          if (room) {
             objectcmd_h = room->query_action(cmd);
 
@@ -1152,8 +1151,8 @@ void receive_message(string message) {
 
       /* Check for an object command in objects in the room */
       if (!flag) {
-	 object room;
-	 string roomcmd_h;
+         object room;
+         string roomcmd_h;
 
          room = this_player()->query_environment();
          if (room) {
@@ -1164,11 +1163,11 @@ void receive_message(string message) {
             if (objs) {
                maxy = sizeof(objs);
                for (y = 0; y < maxy; y++) {
-	          roomcmd_h = objs[y]->query_action(cmd);
+                  roomcmd_h = objs[y]->query_action(cmd);
 
-	          if (roomcmd_h) {
-	             flag = call_other(objs[y], roomcmd_h, arg);
-	          }
+                  if (roomcmd_h) {
+                     flag = call_other(objs[y], roomcmd_h, arg);
+                  }
                }
             }
          }
@@ -1176,15 +1175,15 @@ void receive_message(string message) {
 
       /* Check for a room command */
       if (!flag) {
-	 object room;
-	 string roomcmd_h;
+         object room;
+         string roomcmd_h;
 
          room = this_environment();
          if (room) {
-	    roomcmd_h = room->query_action(cmd);
-	    if (roomcmd_h) {
-	       flag = call_other(room, roomcmd_h, arg);
-	    }
+            roomcmd_h = room->query_action(cmd);
+            if (roomcmd_h) {
+               flag = call_other(room, roomcmd_h, arg);
+            }
          }
       }
 
@@ -1198,39 +1197,39 @@ void receive_message(string message) {
       }
 
       if (!flag) {
-	 /* XXX shouldn't add cmd and arg but have to right now */
+         /* XXX shouldn't add cmd and arg but have to right now */
          flag = do_game_command(cmd + " " + arg);
       }
 
       if (!flag) {
-	 /* Is it a channel? */
-	 if (CHANNEL_D->query_channel(cmd) == 1) {
-	    /* Okay, it's a channel. Are we privileged enough to use it? */
-	    if (CHANNEL_D->query_priv(cmd) + 1 == READ_ONLY ||
-	       CHANNEL_D->query_priv(cmd) <= query_user_type(living_name)) {
+         /* Is it a channel? */
+         if (CHANNEL_D->query_channel(cmd) == 1) {
+            /* Okay, it's a channel. Are we privileged enough to use it? */
+            if (CHANNEL_D->query_priv(cmd) + 1 == READ_ONLY ||
+               CHANNEL_D->query_priv(cmd) <= query_user_type(living_name)) {
 
-	       flag = 1;
-	       command("chan", cmd + " " + arg);
-	    }
-	 }
+               flag = 1;
+               command("chan", cmd + " " + arg);
+            }
+         }
       }
 
       if (!flag) {
-	 /* Is it an exit? */
-	 exits = this_environment()->query_exit_indices();
-	 for (i = 0; i < sizeof(exits); i++) {
-	    if (exits[i] == lowercase(cmd)) {
-	       command("go", cmd);
-	       flag = 1;
-	    }
-	 }
+         /* Is it an exit? */
+         exits = this_environment()->query_exit_indices();
+         for (i = 0; i < sizeof(exits); i++) {
+            if (exits[i] == lowercase(cmd)) {
+               command("go", cmd);
+               flag = 1;
+            }
+         }
       }
 
       if (!flag && cmd != "") {
-	 write(random_error());
+         write(random_error());
       }
       if (!quitting && (input_to_func == "") && !is_editing()) {
-	 write_prompt();
+         write_prompt();
       }
    }
 }
@@ -1249,16 +1248,16 @@ void set_custom_color(string name, string * symbols) {
       write("Removed color symbol " + name + "\n");
    } else {
       for (i = 0, sz = sizeof(symbols); i < sz; i++) {
-	 if (strstr("%^", symbols[i]) == -1) {
-	    symbols[i] = uppercase(symbols[i]);
-	    if (!ANSI_D->query_any_symbol(symbols[i])) {
-	       /* Each symbol must resolve to a pre-defined token */
-	       write("Symbolic color tokens must be composed of only " +
+         if (strstr("%^", symbols[i]) == -1) {
+            symbols[i] = uppercase(symbols[i]);
+            if (!ANSI_D->query_any_symbol(symbols[i])) {
+               /* Each symbol must resolve to a pre-defined token */
+               write("Symbolic color tokens must be composed of only " +
                   "valid base color tokens or pre-existing custom tokens.\n" +
-		  "see 'ansi show' for valid tokens");
-	       return;
-	    } else {
-	       switch (ANSI_D->check_recursion(name, symbols[i])) {
+                  "see 'ansi show' for valid tokens");
+               return;
+            } else {
+               switch (ANSI_D->check_recursion(name, symbols[i])) {
 		  case 2:
 		     write("Loop in symbolic tag " + name + " : " + symbols[i]);
 		     return;

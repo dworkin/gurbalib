@@ -6,8 +6,11 @@ void setup(void) { }
 
 void create(void) {
    ::create();
-   if (clone_num() != 0)
+
+   if (clone_num() != 0) {
       call_out("decompose", 30);
+   }
+
    set_id("corpse");
    set_short("A foul smelling corpse");
    set_long("It looks just as awful as it smells.");

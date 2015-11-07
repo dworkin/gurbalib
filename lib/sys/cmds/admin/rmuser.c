@@ -28,17 +28,18 @@ void confirm_remove(string str, string name) {
 
    switch (lowercase(str[0..0])) {
       case "y":
-	 rmuser(name);
-	 write("Ok.");
-	 dirname = "/wiz/" + name;
-	 if (file_exists(dirname) == -1) {
-	    write("You may also want to remove their wiz dir: " + dirname +
-	       "\n");
-	 }
-	 break;
+         rmuser(name);
+         write("Ok.");
+         dirname = "/wiz/" + name;
+
+         if (file_exists(dirname) == -1) {
+            write("You may also want to remove their wiz dir: " + dirname +
+               "\n");
+         }
+         break;
       default:
-	 write("Aborted.");
-	 break;
+         write("Aborted.");
+         break;
    }
 }
 

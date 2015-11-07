@@ -44,7 +44,7 @@ static void main(string str) {
       }
    }
 
-   if (!str || str == "" || strcmp(str,"room") == 0) {
+   if (!str || str == "" || strcmp(str, "room") == 0) {
       obj = this_player()->query_environment();
    } else {
       obj = this_player()->present(str);

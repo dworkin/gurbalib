@@ -35,7 +35,7 @@ static void setup(void) {
       EVENT_D->add_event("clean_up");
 
       if (!clean_up_handle) {
-	 clean_up_handle = call_out("clean_up", CLEAN_UP_INTERVAL);
+         clean_up_handle = call_out("clean_up", CLEAN_UP_INTERVAL);
       }
 
       EVENT_D->add_event("reset");
@@ -52,7 +52,7 @@ void dispatch_timed_events(string unit) {
    int i;
    int unit_count;
    
-   unit_count = call_other(this_object(), "get_"+unit+"_count");
+   unit_count = call_other(this_object(), "get_" + unit + "_count");
    if (timed_events[unit][unit_count]) {
       for (i = 0; i < sizeof(timed_events[unit][unit_count]); i++) {
          catch(call_other(timed_events[unit][unit_count][i][1],
@@ -181,9 +181,9 @@ void add_timed_event(string unit, int amount, string name) {
          error("Arg 1 must be a legal unit of time.");
          break;
    }
-   unit_count = call_other(this_object(), "get_"+unit+"_count");
+   unit_count = call_other(this_object(), "get_" + unit + "_count");
    if (amount < max_size) {
-      if (unit_count+amount < max_size) {
+      if (unit_count + amount < max_size) {
          unit_count += amount;
       }
       else {

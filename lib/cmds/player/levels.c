@@ -45,7 +45,7 @@ static void main(string str) {
    for (i = 0; i < 20; i++) {
       exp = i * i * 2000;
       title = this_player()->query_level_title(i + 1);
-      if ((i+ 1 == level) || ((level >= 20) && (i == 19))) {
+      if ((i + 1 == level) || ((level >= 20) && (i == 19))) {
          write((i + 1) + " *\t" + exp + "\t" + title);
       } else {
          write((i + 1) + "\t" + exp + "\t" + title);

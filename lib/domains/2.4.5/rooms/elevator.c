@@ -8,7 +8,7 @@ string open;
 void set_floor(int x) {
    destination = x;
 
-   tell_room(this_object(),"The elevator starts moving.\n");
+   tell_room(this_object(), "The elevator starts moving.\n");
 
    switch (location) {
       case 0:
@@ -83,7 +83,7 @@ int press_button(string str) {
       set_floor(3);
 
    } else {
-	write("Which button do you want to press? (1, 2, 3)?\n");
+      write("Which button do you want to press? (1, 2, 3)?\n");
    }
    return 1;
 }

@@ -11,7 +11,7 @@ string get_filename(string who) {
 
    filen = "" + time();
    if (file_exists(filen)) {
-      x= 1;
+      x = 1;
       tmp = DATA_DIR + "/" + who + "/" + filen + x;
 
       while (file_exists(tmp)) {
@@ -50,7 +50,7 @@ int add_index(string who, object mail, string filename) {
     index += ({ line });
 */
 
-   save_index(who,index);
+   save_index(who, index);
    return 1;
 }
 
@@ -62,7 +62,7 @@ int delete_index(string who, int num) {
 
 /* XXX Need to do the work here... */
 
-   save_index(who,index);
+   save_index(who, index);
    return 1;
 }
 
@@ -72,7 +72,7 @@ int send_email_to_player(string who, object mail) {
 
    dir = DATA_DIR + "/" + who;
    if (file_exists(dir) == 0) {
-      if (!unguarded("make_dir",dir)) {
+      if (!unguarded("make_dir", dir)) {
          console_msg("MAIL_D: unable to create maildir: " + dir + "\n");
          return 0;
       }
@@ -84,7 +84,7 @@ int send_email_to_player(string who, object mail) {
    console_msg("MAIL_D: unable to create mailfile: " + fullfile + "\n");
 
    mail->save_me(fullfile);
-   if (add_index(who,mail,filename)) {
+   if (add_index(who, mail, filename)) {
 
       if (usr = USER_D->find_player(who)) {
          usr->message("You have new email.\n");

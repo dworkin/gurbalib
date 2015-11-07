@@ -38,16 +38,16 @@ static void main(string str) {
    usr = USER_D->find_player(str);
    if (usr) {
       if (this_player()->query_environment() != usr->query_environment()) {
-	 this_player()->query_environment()->tell_room(this_player(),
-	    this_player()->query_Name() + " disappears.\n");
+         this_player()->query_environment()->tell_room(this_player(),
+            this_player()->query_Name() + " disappears.\n");
 
-	 this_player()->move(usr->query_environment()->base_name());
+         this_player()->move(usr->query_environment()->base_name());
 
-	 this_player()->query_environment()->tell_room(this_player(),
-	    this_player()->query_Name() + " appears from nowhere.\n");
-	 this_player()->do_look(this_environment());
+         this_player()->query_environment()->tell_room(this_player(),
+            this_player()->query_Name() + " appears from nowhere.\n");
+         this_player()->do_look(this_environment());
       } else {
-	 out("Going somewhere?\n");
+         out("Going somewhere?\n");
       }
    } else {
       string file;
@@ -55,34 +55,34 @@ static void main(string str) {
 
       file = normalize_path(str, this_player()->query_env("cwd"));
       if (file_exists(file + ".c")) {
-	 file = file + ".c";
+         file = file + ".c";
       }
       if (file_exists(file)) {
-	 if (!(ob = find_object(file))) {
-	    catch {
-	       ob = compile_object(file);
-	       ob->setup();
-	       ob->setup_mudlib();
-	    } : {
-	       write("Could not load " + str);
-	    }
-	 }
-	 if (ob == this_environment()) {
-	    write("You are already there.\n");
-	    return;
-	 }
+         if (!(ob = find_object(file))) {
+            catch {
+               ob = compile_object(file);
+               ob->setup();
+               ob->setup_mudlib();
+            } : {
+               write("Could not load " + str);
+            }
+         }
+         if (ob == this_environment()) {
+            write("You are already there.\n");
+            return;
+         }
 
-	 this_environment()->tell_room(this_player(),
-	    this_player()->query_Name() + " disappears.\n");
-	 if (!ob || !this_player()->move(ob)) {
-	    write("\nConstruction blocks your path.\n");
-	 } else {
-	    this_player()->do_look(this_environment());
-	 }
-	 this_environment()->tell_room(this_player(),
-	    this_player()->query_Name() + " appears.\n");
+         this_environment()->tell_room(this_player(),
+            this_player()->query_Name() + " disappears.\n");
+         if (!ob || !this_player()->move(ob)) {
+            write("\nConstruction blocks your path.\n");
+         } else {
+            this_player()->do_look(this_environment());
+         }
+         this_environment()->tell_room(this_player(),
+            this_player()->query_Name() + " appears.\n");
       } else {
-	 write("Unable to find " + str + ".\n");
+         write("Unable to find " + str + ".\n");
       }
    }
 }

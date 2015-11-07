@@ -179,9 +179,9 @@ object compile_object(string path, varargs string code) {
       }
 
       if (code) {
-         ob =::compile_object(path, code);
+         ob = ::compile_object(path, code);
       } else {
-         ob =::compile_object(path);
+         ob = ::compile_object(path);
       }
 
       if (ob) {
@@ -260,23 +260,23 @@ static void write_auto_config(void) {
       "/kernel/include/auto_config.h.previous");
 
    res = "#ifndef AUTO_CONFIG_DOT_H\n";
-   res +="#define AUTO_CONFIG_DOT_H\n";
+   res += "#define AUTO_CONFIG_DOT_H\n";
 
    opt = read_file("/kernel/include/kfun.h");
    if (opt && strlen(opt)) {
       lines = explode(opt, "\n");
-      for (i=0, sz=sizeof(lines); i < sz; i++) {
+      for (i = 0, sz = sizeof(lines); i < sz; i++) {
          if (sscanf(lines[i], "# define KF_%s\t%*s", opt) == 2) {
             switch(opt) {
                case "NEW_FUNCTION" :
-                  res +="#define CLOSURES_EXTENSION\n";
+                  res += "#define CLOSURES_EXTENSION\n";
                   break;
                default :
                   break;
             }
          }
       }
-      res +="#define OPERATOR_OVERLOADING\n";
+      res += "#define OPERATOR_OVERLOADING\n";
    } else {
       message("WARNING: operator overloading not available, please " +
          "upgrade your driver!\n");
@@ -450,9 +450,9 @@ object inherit_program(string file, string program, int priv) {
       }
 
       if (code) {
-         ob =::compile_object(program, code);
+         ob = ::compile_object(program, code);
       } else {
-         ob =::compile_object(program);
+         ob = ::compile_object(program);
       }
 
       if (get_tlvar(TLS_COMPILING) != AUTO) {

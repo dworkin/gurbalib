@@ -92,7 +92,7 @@ int write_log(string log, string message, varargs int level) {
       level = 1;
    }
 
-   if (!check_level(log,level)) {
+   if (!check_level(log, level)) {
       return 0;
    }
 
@@ -100,18 +100,18 @@ int write_log(string log, string message, varargs int level) {
       case "system":
       case "kernel":
       case "game":
-	 basedir = "/logs/";
-	 break;
+         basedir = "/logs/";
+         break;
       default:
-	 if (unguarded("file_exists", WIZ_DIR + "/" + user + "/logs") == -1) {
-	    basedir = WIZ_DIR + "/" + user + "/logs/";
-	 } else if (unguarded("file_exists", DOMAINS_DIR + "/" + user + 
+         if (unguarded("file_exists", WIZ_DIR + "/" + user + "/logs") == -1) {
+            basedir = WIZ_DIR + "/" + user + "/logs/";
+         } else if (unguarded("file_exists", DOMAINS_DIR + "/" + user + 
             "/logs") == -1) {
-	    basedir = DOMAINS_DIR + "/" + user + "/logs/";
-	 } else {
-	    basedir = "/logs/nobody/";
-	 }
-	 break;
+            basedir = DOMAINS_DIR + "/" + user + "/logs/";
+         } else {
+            basedir = "/logs/nobody/";
+         }
+         break;
    }
 
    unguarded("write_file", basedir + log, message);

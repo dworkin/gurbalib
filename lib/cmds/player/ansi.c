@@ -36,19 +36,19 @@ string *usage(void) {
    return lines;
 }
 
-#define GRAMMAR "whitespace=/[ ]+/\n"+\
-                "TAG=/[A-Z_][A-Z0-9_]*/ \n"+\
-                "TAG=/NIL/\n"+\
-                "args: tags ? collect_map\n"+\
-                "assign: tag '=' values ? wrap_assign\n"+\
-                "tags: assign\n"+\
-                "tags: tags assign\n"+\
-                "tags: tags ',' assign\n"+\
-                "tags: tags 'and' assign\n"+\
-                "tag: TAG ? valid_tag_name\n"+\
-                "values: value_list\n"+\
-                "value_list: value\n"+\
-                "value_list: value_list '+' value\n"+\
+#define GRAMMAR "whitespace=/[ ]+/\n" + \
+                "TAG=/[A-Z_][A-Z0-9_]*/ \n" + \
+                "TAG=/NIL/\n" + \
+                "args: tags ? collect_map\n" + \
+                "assign: tag '=' values ? wrap_assign\n" + \
+                "tags: assign\n" + \
+                "tags: tags assign\n" + \
+                "tags: tags ',' assign\n" + \
+                "tags: tags 'and' assign\n" + \
+                "tag: TAG ? valid_tag_name\n" + \
+                "values: value_list\n" + \
+                "value_list: value\n" + \
+                "value_list: value_list '+' value\n" + \
                 "value: TAG ? valid_value\n"
 
 /*

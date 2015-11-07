@@ -11,7 +11,7 @@ void setup(void) {
 
    set_value(15);
    set_weight(1);
-   add_action("apply","apply");
+   add_action("apply", "apply");
 }
 
 int do_listen(string str) {
@@ -25,8 +25,9 @@ int apply(string str) {
    object obj;
    string what;
 
-   if (!str) 
+   if (!str) {
       return 0;
+   }
 
    if (query_environment() != this_player()) {
       write("You must have the stethoscope on you to use it.\n");

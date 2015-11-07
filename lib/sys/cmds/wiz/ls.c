@@ -35,10 +35,10 @@ static void main(string str) {
    } else if (sscanf(str, "-%s", str)) {
       long = 1;
       if (str == "l") {
-	 str = ".";
+         str = ".";
       } else if (!sscanf(str, "l %s", str)) {
          this_player()->more(usage());
-	 return;
+         return;
       }
    }
 
@@ -48,15 +48,15 @@ static void main(string str) {
       return;
    }
 
-	tmp = file_exists(str);
-	if (!long && tmp == 1) {
-		write("ls: " + str + " is a file.");
-		return;
-	}
-	if (!long && tmp != -1) {
-		write("ls: " + str + " is not found.");
-		return;
-	}
+   tmp = file_exists(str);
+   if (!long && tmp == 1) {
+      write("ls: " + str + " is a file.");
+      return;
+   }
+   if (!long && tmp != -1) {
+      write("ls: " + str + " is not found.");
+      return;
+   }
 
    width = this_player()->query_width();
 
@@ -87,11 +87,11 @@ static void main(string str) {
    for (i = 0; i < sz; i++) {
       j = strlen(names[i]);
       if (j > max) {
-	 max = j;
+         max = j;
       }
       j = sizes[i];
       if (j > len) {
-	 len = j;
+         len = j;
       }
    }
    if (long) {
@@ -112,14 +112,15 @@ static void main(string str) {
    for (i = 0; i < rows; i++) {
       j = i;
       for (;;) {
-	 if (sizes[j] < 0) {
-	    cur_col = "%^MAGENTA%^";
-	 } else {
-	    string *parts;
-	    parts = explode(names[j], ".");
+         if (sizes[j] < 0) {
+            cur_col = "%^MAGENTA%^";
+         } else {
+            string *parts;
 
-	    if (sizeof(parts) > 1) {
-	       if (parts[sizeof(parts) - 1] == "c") {
+            parts = explode(names[j], ".");
+
+            if (sizeof(parts) > 1) {
+               if (parts[sizeof(parts) - 1] == "c") {
                   string name;
                   name = path + names[j][..strlen(names[j])-3];
 
@@ -129,52 +130,52 @@ static void main(string str) {
                   } else {
                     cur_col = "%^YELLOW%^";
                   }
-	       } else if (parts[sizeof(parts) - 1] == "o") {
-		  cur_col = "%^BLUE%^";
-	       } else if (strstr(parts[sizeof(parts) - 1], "~") != -1) {
-		  cur_col = "%^ORANGE%^";
-	       } else {
-		  cur_col = "%^GREEN%^";
-	       }
-	    } else {
-	       cur_col = "%^CYAN%^";
-	    }
-	 }
+               } else if (parts[sizeof(parts) - 1] == "o") {
+                  cur_col = "%^BLUE%^";
+               } else if (strstr(parts[sizeof(parts) - 1], "~") != -1) {
+                  cur_col = "%^ORANGE%^";
+               } else {
+                  cur_col = "%^GREEN%^";
+               }
+            } else {
+               cur_col = "%^CYAN%^";
+            }
+         }
 
-	 if (long) {
-	    str = "            ";
-	    if (sizes[j] >= 0) {
-	       str += (string) sizes[j];
-	    }
+         if (long) {
+            str = "            ";
+            if (sizes[j] >= 0) {
+               str += (string) sizes[j];
+            }
 
-	    time = times[j];
-	    timestr = ctime(time);
-	    if (time >= ancient) {
-	       timestr = timestr[3..15];
-	    } else {
-	       timestr = timestr[3..10] + timestr[19..23];
-	    }
-	    str =
-	       str[strlen(str) - len..] + timestr + " " + cur_col + names[j] +
-	       "%^RESET%^";
-	 } else {
-	    str = cur_col + names[j] + "%^RESET%^";
-	 }
+            time = times[j];
+            timestr = ctime(time);
+            if (time >= ancient) {
+               timestr = timestr[3..15];
+            } else {
+               timestr = timestr[3..10] + timestr[19..23];
+            }
+            str = str[strlen(str) - len..] + timestr + " " +
+               cur_col + names[j] + "%^RESET%^";
+         } else {
+            str = cur_col + names[j] + "%^RESET%^";
+         }
 
-	 if (sizes[j] < 0) {
-	    str += "/";
-	 }
-	 j += rows;
-	 if (j >= sz) {
-	    dirlist += str + "\n";
-	    break;
-	 }
+         if (sizes[j] < 0) {
+            str += "/";
+         }
+         j += rows;
 
-	 color_len = strlen(str) - strlen(ANSI_D->strip_colors(str));
+         if (j >= sz) {
+            dirlist += str + "\n";
+            break;
+         }
 
-	 dirlist +=
-	    (str + "                                        ")[0..(max +
-	       color_len)];
+         color_len = strlen(str) - strlen(ANSI_D->strip_colors(str));
+
+         dirlist +=
+            (str + "                                        ")[0..(max +
+            color_len)];
       }
    }
    write(dirlist);

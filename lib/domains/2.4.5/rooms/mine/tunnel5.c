@@ -11,6 +11,6 @@ void setup(void) {
    add_exit("north", DIR + "/rooms/mine/tunnel_room.c");
    add_exit("south", DIR + "/rooms/mine/tunnel4.c");
 
-   add_item("table","You see nothing special about it.");
-   add_item("stone table","You see nothing special about it.");
+   add_item("table", "You see nothing special about it.");
+   add_item("stone table", "You see nothing special about it.");
 }

@@ -10,7 +10,7 @@ void setup(void) {
       "random fashion, many of them broken or shattered.  The only way out " +
       "is the way in, back up the ladder.");
 
-   add_exit("up",DIR + "/rooms/south/sislnd17.c");
+   add_exit("up", DIR + "/rooms/south/sislnd17.c");
 
-   set_objects (DIR + "/monsters/wyrm.c");
+   set_objects(DIR + "/monsters/wyrm.c");
 }
