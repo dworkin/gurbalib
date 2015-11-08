@@ -10,6 +10,7 @@ void setup(void) {
    set_long("A stubby dwarf with bulging muscles. He's covered with " +
       "sweat, probably from standing in front of his forge..");
    set_race("dwarf");
+   set_level(15);
 
    set_restock_delay(7200);
 
