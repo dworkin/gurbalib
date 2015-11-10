@@ -15,12 +15,16 @@ string *usage(void) {
    lines += ({ "\tshout I am the fluffy bunny king!" });
    lines += ({ "\tshout no your not!" });
    lines += ({ "See also:" });
+
    if (query_wizard(this_player())) {
-      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, ssay, say, " +
-         "sysmsg, tell, translate, whisper, wizcall" });
+      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, say, " +
+         "ssay, sysmsg, tell, translate, whisper, wizcall, wizlog" });
    } else {
-      lines += ({ "\tbug, chan, emote, rsay, say, tell, whisper, " + 
-         "wizcall" });
+      lines += ({ "\tbug, chan, emote, rsay, say, " +
+         "tell, whisper, wizcall" });
+   }
+   if (query_admin(this_player())) {
+      lines += ({ "\twall" });
    }
 
    return lines;

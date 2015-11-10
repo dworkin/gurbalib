@@ -3,7 +3,7 @@ inherit M_COMMAND;
 string *usage(void) {
    string *lines;
 
-   lines = ({ "Usage: I [-h] MSG" });
+   lines = ({ "Usage: wizlog [-h] MSG" });
    lines += ({ " " });
    lines += ({ "Allows a wizard to tell other wizards what they " +
       "have been up to." });
@@ -14,9 +14,16 @@ string *usage(void) {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\tI worked on the usage for wizard commands." });
+   lines += ({ "\twizlog worked on the usage for wizard commands." });
    lines += ({ "See also:" });
-   lines += ({ "\tbug" });
+
+   if (query_wizard(this_player())) {
+      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, say, shout, " +
+         "ssay, sysmsg, tell, translate, whisper, wizcall" });
+   }
+   if (query_admin(this_player())) {
+      lines += ({ "\twall" });
+   }
 
    return lines;
 }

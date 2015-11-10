@@ -15,11 +15,11 @@ string *usage(void) {
    lines += ({ "See also:" });
 
    if (query_wizard(this_player())) {
-      lines += ({ "\tchan, echo, echoto, emote, rsay, shout, ssay, say, " +
-         "sysmsg, tell, translate, whisper, wizcall" });
+      lines += ({ "\tchan, echo, echoto, emote, rsay, say, shout, " +
+         "ssay, sysmsg, tell, translate, whisper, wizcall, wizlog" });
    } else {
-      lines += ({ "\tchan, emote, rsay, say, shout, tell, whisper, " +
-         "wizcall" });
+      lines += ({ "\tchan, emote, rsay, say, shout, " +
+         "tell, whisper, wizcall" });
    }
    if (query_admin(this_player())) {
       lines += ({ "\twall" });

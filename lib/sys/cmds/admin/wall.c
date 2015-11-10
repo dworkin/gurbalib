@@ -13,8 +13,9 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\twall We are upgrading the server in 10 minutes." });
    lines += ({ "See also:" });
-   lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
-      "sysmsg, tell, translate, whisper, wizcall" });
+
+   lines += ({ "\tbug, chan, echo, echoto, emote, rsay, say, shout, " +
+      "ssay, sysmsg, tell, translate, whisper, wizcall, wizlog" });
 
    return lines;
 }

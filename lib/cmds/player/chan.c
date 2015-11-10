@@ -51,13 +51,18 @@ string *usage(void) {
    lines += ({ "\tchan announce :woo" });
    lines += ({ "\tchan announce ::woo" });
    lines += ({ "See also:" });
+
    if (query_wizard(this_player())) {
-      lines += ({ "\tbug, echo, echoto, emote, rsay, shout, ssay, say, " +
-         "sysmsg, tell, translate, whisper, wizcall" });
+      lines += ({ "\tbug, echo, echoto, emote, rsay, say, shout, " +
+         "ssay, sysmsg, tell, translate, whisper, wizcall, wizlog" });
    } else {
-      lines += ({ "\tbug, emote, rsay, say, shout, tell, whisper, " +
-         "wizcall" });
+      lines += ({ "\tbug, emote, rsay, say, shout, " +
+         "tell, whisper, wizcall" });
    }
+   if (query_admin(this_player())) {
+      lines += ({ "\twall" });
+   }
+
 
    return lines;
 }

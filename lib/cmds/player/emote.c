@@ -13,17 +13,18 @@ string *usage(void) {
    lines += ({ "\temote does a flip!" });
    lines += ({ "\temote beep sirdude" });
    lines += ({ "See also:" });
-   if (query_wizard(this_player())) {
-      lines += ({ "\tbug, chan, echo, echoto, rsay, shout, ssay, say, " +
-         "sysmsg, tell, translate, whisper, wizcall" });
-   } else {
-      lines += ({ "\tbug, chan, rsay, say, shout, tell, whisper, " +
-         "wizcall" });
-   }
 
+   if (query_wizard(this_player())) {
+      lines += ({ "\tbug, chan, echo, echoto, rsay, say, shout, " +
+         "ssay, sysmsg, tell, translate, whisper, wizcall, wizlog" });
+   } else {
+      lines += ({ "\tbug, chan, rsay, say, shout, " +
+         "tell, whisper, wizcall" });
+   }
    if (query_admin(this_player())) {
       lines += ({ "\twall" });
    }
+
 
    return lines;
 }

@@ -19,14 +19,14 @@ string *usage(void) {
    lines += ({ "\ttell guest Hi how are you?" });
    lines += ({ "\ttell \"sirdude@Dead Souls Dev\" Hi how are you?" });
    lines += ({ "See also:" });
-   if (query_wizard(this_player())) {
-      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
-         "sysmsg, translate, whisper, wizcall" });
-   } else {
-      lines += ({ "\tbug, chan, emote, rsay, say, shout, whisper, " + 
-         "wizcall" });
-   }
 
+   if (query_wizard(this_player())) {
+      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, say, shout, " +
+         "ssay, sysmsg, translate, whisper, wizcall, wizlog" });
+   } else {
+      lines += ({ "\tbug, chan, emote, rsay, say, shout, " +
+         "whisper, wizcall" });
+   }
    if (query_admin(this_player())) {
       lines += ({ "\twall" });
    }

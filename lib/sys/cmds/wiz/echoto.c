@@ -12,9 +12,11 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\techoto sirdude You hear a odd noise." });
    lines += ({ "See also:" });
-   lines += ({ "\tbug, chan, echo, emote, rsay, shout, ssay, say, " +
-      "sysmsg, tell, translate, whisper, wizcall" });
 
+   if (query_wizard(this_player())) {
+      lines += ({ "\tbug, chan, echo, emote, rsay, say, shout, " +
+         "ssay, sysmsg, tell, translate, whisper, wizcall, wizlog" });
+   }
    if (query_admin(this_player())) {
       lines += ({ "\twall" });
    }

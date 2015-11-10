@@ -14,8 +14,13 @@ string *usage(void) {
    lines += ({ "\tsysmsg Let the games begin." });
    lines += ({ "See also:" });
 
-   lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, say, " +
-      "tell, translate, whisper, wizcall" });
+   if (query_wizard(this_player())) {
+      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, say, shout, " +
+         "ssay, tell, translate, whisper, wizcall, wizlog" });
+   }
+   if (query_admin(this_player())) {
+      lines += ({ "\twall" });
+   }
 
    return lines;
 }

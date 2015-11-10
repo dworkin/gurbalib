@@ -13,17 +13,18 @@ string *usage(void) {
    lines += ({ "\tsay I'm sleepy, I should go now." });
    lines += ({ "\tsay no your not!" });
    lines += ({ "See also:" });
-   if (query_wizard(this_player())) {
-      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, ssay, " +
-         "sysmsg, tell, translate, whisper, wizcall" });
-   } else {
-      lines += ({ "\tbug, chan, emote, rsay, shout, tell, whisper, " +
-         "wizcall" });
-   }
 
+   if (query_wizard(this_player())) {
+      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, " +
+         "ssay, sysmsg, tell, translate, whisper, wizcall, wizlog" });
+   } else {
+      lines += ({ "\tbug, chan, emote, rsay, shout, " +
+         "tell, whisper, wizcall" });
+   }
    if (query_admin(this_player())) {
       lines += ({ "\twall" });
    }
+
 
    return lines;
 }
