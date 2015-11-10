@@ -109,8 +109,12 @@ int exec_command(string cmd, string arg, string * syspath) {
       error("Permission denied.");
    }
 
-   DBT("exec_command: " + (cmd ? cmd : "<NIL>") + " " + dump_value(syspath) +
-      "\n");
+   if (cmd) {
+      DBT("exec_command: " + cmd + " " + dump_value(syspath) + "\n");
+   } else {
+      DBT("exec_command: <NIL> " + dump_value(syspath) + "\n");
+   }
+
    if (!cmd || cmd == "") {
       return -1;
    }
@@ -134,8 +138,13 @@ int exec_command(string cmd, string arg, string * syspath) {
    }
 
    if (cmd_ob && cmd_ob <-M_COMMAND && !function_object("main", cmd_ob)) {
-      DBT("Calling " + dump_value(cmd_ob) + "->_main( " +
-         (arg ? ("\"" + arg + "\"") : "<NIL>") + ", \"" + cmd + "\" )\n");
+      if (arg) {
+      DBT("Calling " + dump_value(cmd_ob) + "->_main( \"" + arg + "\"" +
+         ", \"" + cmd + "\" )\n");
+      } else {
+      DBT("Calling " + dump_value(cmd_ob) + "->_main( <NIL>" + 
+         ", \"" + cmd + "\" )\n");
+      }
       cmd_ob->_main(arg, cmd);
       return 1;
    } else {

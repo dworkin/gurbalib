@@ -46,11 +46,17 @@ string *usage(void) {
 
 /* If the arg[0] is a base symbol, it can't be used as a custom tag. */
 mixed *valid_tag_name(mixed * arg) {
-   return !ANSI_D->query_base_symbol(arg[0]) ? arg : nil;
+   if (!ANSI_D->query_base_symbol(arg[0])) {
+      return arg;
+   }
+   return nil;
 }
 
 mixed *valid_value(mixed * arg) {
-   return (arg[0] == "NIL" || ANSI_D->query_any_symbol(arg[0])) ? arg : nil;
+   if (arg[0] == "NIL" || ANSI_D->query_any_symbol(arg[0])) {
+      return arg;
+   }
+   return  nil;
 }
 
 mixed *wrap_assign(mixed * arg) {

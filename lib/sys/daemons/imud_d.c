@@ -743,7 +743,7 @@ void open(void) {
    send_to_router("startup-req-3", ({
             password,           /* Password - Send 0 if you're new */
             query_mudlist_id(), /* Mudlist ID - Send 0 if you're new */
-            query_chanlist_id(),/* Channel List ID - Send 0 if you're new */
+            query_chanlist_id(), /* Channel List ID - Send 0 if you're new */
             LOGIN_PORT,         /* What port people use to connect to your MUD */
             I3_TCP_PORT,        /* The designated port for Imud TCP comm */
             I3_UDP_PORT,        /* The designated port for Imud UDP/OOB comm */
@@ -761,15 +761,15 @@ void open(void) {
                   /*      "emoteto" : 1, */
                   /*      "file"    : 1, */
                   /*      "finger"  : 1, */
- "ftp": FTP_PORT, "locate":1,
+               "ftp": FTP_PORT, "locate":1,
                   /*      "mail"    : 1, */
- "tell": 1, "who":1,
+               "tell": 1, "who":1,
                   /*      "ucache"  : 1, */
                ]),
             /* This is a list of custom services that are support by your MUD,
                but not by the I-3 protocol.
              */
-            ([]),}));
+            ([]), }));
 
    sBuffer = "";
    IMUDLOG("Connected to " + mpRouterList[current_router][0] + " : " +
@@ -896,7 +896,11 @@ void receive_error(string err) {
 
 #ifndef SYS_NETWORKING
 static void unconnected(int refused) {
-   receive_error((refused) ? "Connection refused" : "Connection failed");
+   if (refused) {
+      receive_error("Connection refused");
+   } else {
+      receive_error("Connection failed");
+   }
 }
 #endif
 
