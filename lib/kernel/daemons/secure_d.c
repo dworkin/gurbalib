@@ -334,7 +334,7 @@ int validate_stack(string priv, varargs int unguarded) {
 #ifdef DEBUG_STACK_SECURITY
    i = sizeof(stack) - 5;
 
-   if (i<0) {
+   if (i < 0) {
       i = 0;
    }
 
@@ -365,9 +365,17 @@ int validate_stack(string priv, varargs int unguarded) {
       case PT_PLAYER  : tmp = "player";
                         break;
    }
-   tmp = "(" + tmp + (privtype & PF_ORPHAN ? ", orphaned":"") + 
-      (privtype & PF_NO_ACCESS ? ", no_access":"") +
-      (privtype & PF_NO_CHECK ? ", no_check":"") + ") ";
+   tmp = "(" + tmp;
+   if (privtype & PF_ORPHAN) {
+      tmp +=  ", orphaned"; 
+   }
+   if (privtype & PF_NO_ACCESS) {
+      tmp +=  ", no_access";
+   }
+   if (privtype & PF_NO_CHECK) {
+      tmp +=  ", no_check";
+   } 
+   tmp += ") ";
 
    DBD("require : " + priv + " " + tmp + "\n");
 #endif

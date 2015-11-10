@@ -29,6 +29,601 @@ string *usage(void) {
    return lines;
 }
 
+string get_hour0() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "It's midnight.";
+         break;
+      case 11..20:
+         return "It's not possible to read the time more accurately " +
+            "than 'midnight'.";
+         break;
+      case 21..30:
+         return "About half an hour has passed since midnight.";
+         break;
+      case 31..40:
+         return "You feel it's starting to close in on one o'clock.";
+         break;
+      case 41..50:
+         return "Less than an hour since midnight.";
+         break;
+      default :
+         return "It's about one o'clock.";
+         break;
+   }
+}
+
+string get_hour1() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "An hour has passed since midnight.";
+         break;
+      case 11..20:
+         return "It's too dark to tell the time, but you think it's " +
+            "a little past one.";
+         break;
+      case 21..30:
+         return "It's probably half past one, but you can't be quite " +
+            "sure.";
+         break;
+      case 31..40:
+         return "The time is in between one and two, you guess.";
+         break;
+      case 41..50:
+         return "You feel time approaching on two o'clock.";
+         break;
+      default:
+         return "About two hours passed since midnight.";
+         break;
+   }
+}
+
+string get_hour2() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "Two o'clock and all's well.";
+         break;
+      case 11..20:
+         return "Everyone should be asleep now. Everyone except you...";
+         break;
+      case 21..30:
+         return "Given the lack of a sun, you estimate that it's " +
+            "about two thirty.";
+         break;
+      case 31..40:
+         return "It's not easy to tell time in this darkness.";
+         break;
+      case 41..50:
+         return "It's too dark to tell time.";
+         break;
+      default:
+         return "The time is probably around three.";
+   }
+}
+
+string get_hour3() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "It's probably around three o'clock.";
+         break;
+      case 11..20:
+         return "What are you doing up at this hour? It's past three!.";
+         break;
+      case 21..30:
+         return "Midways between three and four, nothing exciting " +
+            "is happening.";
+         break;
+      case 31..40:
+         return "You estimate the time to be almost four o'clock.";
+         break;
+      case 41..50:
+         return "It's closing in on four o'clock.";
+         break;
+      default:
+         return "The night watchman should soon yell: 'Four " +
+            "o'clock and all's well!'";
+         break;
+   }
+}
+
+string get_hour4() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "The night watchman yells his usual 'Four o'clock " +
+            "and all's well!'";
+         break;
+      case 11..20:
+         return "About fifteen minutes past since four o'clock.";
+         break;
+      case 21..30:
+         return "About thirty minutes past four.";
+         break;
+      case 31..40:
+         return "It's starting to close in on five o'clock.";
+         break;
+      case 41..50:
+         return "You tremble in anticipation of five o'clock. Well almost.";
+         break;
+      default :
+         return "The baker is awakening to bake his bread. Must be " +
+            "about five.";
+         break;
+   }
+}
+
+string get_hour5() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "You hear the baker starting his job. It's " +
+            "five o'clock.";
+         break;
+      case 11..20:
+         return "It's about twenty minutes past five.";
+         break;
+      case 21..30:
+         return "Half an hour has passed since five.";
+         break;
+      case 31..40:
+         return "You can barely see a glimpse of the sun on the " +
+            "horizon.";
+         break;
+      case 41..50:
+         return "The sun is starting to come out of its sleep.";
+         break;
+      default:
+         return "Freshly baked bread is in the air; it's six o'clock.";
+         break;
+   }
+}
+
+string get_hour6() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "The sun has risen. A new day has begun.";
+         break;
+      case 11..20:
+         return "Everywhere people are getting up from their " +
+            "sleep. Except you.";
+         break;
+      case 21..30:
+         return "The town is starting to come alive ever so slowly.";
+         break;
+      case 31..40:
+         return "Breakfast would be nice at this time.";
+         break;
+      case 41..50:
+         return "Almost an hour after sunrise, there are still not " +
+            "many people about.";
+         break;
+      default:
+         return "The watchman is doing his seven o'clock round.";
+         break;
+   }
+}
+
+string get_hour7() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "'Seven o'clock; time to start the day!' the " +
+            "watchman shouts.";
+         break;
+      case 11..20:
+         return "You feel the city really starting to awaken.";
+         break;
+      case 21..30:
+         return "The occasional farmer walks out to his fields. " +
+            "It's seven thirty.";
+         break;
+      case 31..40:
+         return "Merchants are setting up their stands and opening " +
+            "their shops.";
+         break;
+      case 41..50:
+         return "The flags are raised over the castle meaning that " +
+            "the king has awoken.";
+         break;
+      default:
+         return "Merchants have started yelling although they're " +
+            "not officially open until 8.";
+         break;
+   }
+}
+
+string get_hour8() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "The watchman yells that it's eight o'clock.";
+         break;
+      case 11..20:
+         return "The city is now bustling with life, a little " +
+            "past eight.";
+         break;
+      case 21..30:
+         return "It's almost half an hour past eight.";
+         break;
+      case 31..40:
+         return "More than half an hour past eight.";
+         break;
+      case 41..50:
+         return "It's closing in on nine o'clock.";
+         break;
+      default:
+         return "It's almost nine o'clock.";
+         break;
+   }
+}
+
+string get_hour9() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "It's nine o'clock.";
+         break;
+      case 11..20:
+         return "It's about ten minutes past nine.";
+         break;
+      case 21..30:
+         return "Half an hour until ten.";
+         break;
+      case 31..40:
+         return "About a quarter to ten.";
+         break;
+      case 41..50:
+         return "Almost ten.";
+         break;
+      case 51..60:
+         return "Just about eleven o'clock.";
+         break;
+   }
+}
+
+string get_hour10() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "It's still morning, ten o'clock.";
+         break;
+      case 11..20:
+         return "The sun is rising on the sky, it's a little past ten.";
+         break;
+      case 21..30:
+         return "From looking at the sun's position, you deem it to " +
+            "be ten thirty.";
+         break;
+      case 31..40:
+         return "Slowly the sun is climbing to its peak, still a " +
+            "long way to go.";
+         break;
+      case 41..50:
+         return "Time passes slowly, it's now almost eleven.";
+         break;
+      default:
+         return "It's just a little before eleven.";
+         break;
+   }
+}
+
+string get_hour11() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "It's eleven o'clock.";
+         break;
+      case 11..20:
+         return "Fifteen minutes past eleven, forty-five until noon.";
+         break;
+      case 21..30:
+         return "Half an hour past eleven.";
+         break;
+      case 31..40:
+         return "The sun is almost at its peak.";
+         break;
+      case 41..50:
+         return "It's just about noon.";
+         break;
+      default:
+         return "It's noon. The sun is at its peak.";
+         break;
+   }
+}
+
+string get_hour12() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "It's noon.";
+         break;
+      case 11..20:
+         return "People are starting to think about their mid-day " +
+            "meals.";
+         break;
+      case 21..30:
+         return "If you have a routine that you do at half one, " +
+            "you should be doing it now.";
+         break;
+      case 31..40:
+         return "The shopkeepers are preparing to close their " +
+            "shops for lunch.";
+         break;
+      case 41..50:
+         return "The city calms itself down as people go for their " +
+            "noon break.";
+         break;
+      default:
+         return "Suddenly the town goes silent; people are taking a " +
+            "break at one.";
+         break;
+   }
+}
+
+string get_hour13() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "The city is calm as the noon break goes undisturbed.";
+         break;
+      case 11..20:
+         return "People are slowly returning to their posts from " +
+            "their break.";
+         break;
+      case 21..30:
+         return "You can not see that there has been a one o'clock " +
+            "break, twenty minutes after.";
+         break;
+      case 31..40:
+         return "At half past one, everything is as it should be.";
+         break;
+      case 41..50:
+         return "It's a quarter to two.";
+         break;
+      default:
+         return "It's almost two.";
+         break;
+   }
+}
+
+string get_hour14() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "It's two o'clock.";
+         break;
+      case 11..20:
+         return "A few minutes past two.";
+         break;
+      case 21..30:
+         return "It's almost two thirty.";
+         break;
+      case 31..40:
+         return "It's starting to close in on three o'clock.";
+         break;
+      case 41..50:
+         return "Soon it'll be three.";
+         break;
+      default:
+         return "You await the watchman's yell at three.";
+         break;
+   }
+}
+
+string get_hour15() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "'Three o'clock!', the watchman yells.";
+         break;
+      case 11..20:
+         return "The city's bustling life goes on no matter if " +
+            "the time is a quarter past three or not.";
+         break;
+      case 21..30:
+         return "It's half past three.";
+         break;
+      case 31..40:
+         return "It's a little over three thirty.";
+         break;
+      case 41..50:
+         return "It's way past three thirty.";
+         break;
+      default:
+         return "It's almost four.";
+         break;
+   }
+}
+
+string get_hour16() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "The city is at its peak of activity; it's four o'clock.";
+         break;
+      case 11..20:
+         return "The sun is setting ever so slowly in the west, at " +
+            "four and a few minutes.";
+         break;
+      case 21..30:
+         return "The city life is gradually decreasing, it's four thirty.";
+         break;
+      case 31..40:
+         return "You see many housewives starting to prepare for " +
+            "dinner, which is often at five.";
+         break;
+      case 41..50:
+         return "Many shops are closing up in order to go home for " +
+            "dinner at five.";
+         break;
+      default:
+         return "Dinner would really be good about now. It's five o'clock.";
+         break;
+   }
+}
+
+string get_hour17() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "Dinnertime.";
+         break;
+      case 11..20:
+         return "People are having dinner; it's a little past five.";
+         break;
+      case 21..30:
+         return "Slowly people are returning to their workplaces " +
+            "from dinner for a last haul.";
+         break;
+      case 31..40:
+         return "Peasants are starting to return from the fields " +
+            "with their crop.";
+         break;
+      case 41..50:
+         return "It's almost six o'clock, the sun will be setting soon.";
+         break;
+      default:
+         return "The sun is almost gone over the horizon.";
+         break;
+   }
+}
+
+string get_hour18() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "Sunset, dusk, call it what you want. The sun is " +
+            "almost gone now.";
+         break;
+      case 11..20:
+         return "A little past six, it is slowly getting dark.";
+         break;
+      case 21..30:
+         return "It is darkening at six thirty.";
+         break;
+      case 31..40:
+         return "The shopkeepers are starting to pack their stuff " +
+            "for the day.";
+         break;
+      case 41..50:
+         return "The shopkeepers close at seven, that is not long away.";
+         break;
+      default:
+         return "The shops close their doors. It is seven o'clock.";
+         break;
+   } 
+}
+
+string get_hour19() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "Shopkeepers gone home, the shops lie deserted.  " +
+            "It's a little past seven.";
+         break;
+      case 11..20:
+         return "Although the sun is down, there is still quite a " +
+            "bit of activity.";
+         break;
+      case 21..30:
+         return "Most of the activity moves to the local taverns.  " +
+            "It's seven thirty.";
+         break;
+      case 31..40:
+         return "It's about an hour and a half after sunset.";
+         break;
+      case 41..50:
+         return "You're pushing eight o'clock.";
+         break;
+      default:
+         return "It's just a few minutes before eight.";
+         break;
+   }
+}
+
+string get_hour20() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "The night watchman begins his route by yelling " +
+            "that it's eight o'clock.";
+         break;
+      case 11..20:
+         return "It's a quarter or so past eight.";
+         break;
+      case 21..30:
+         return "It's a quarter or so past eight.";
+         break;
+      case 31..40:
+         return "It's half past eight.";
+         break;
+      case 41..50:
+         return "It's closing in on nine.";
+         break;
+      default:
+         return "It's almost nine.";
+         break;
+   }
+}
+
+string get_hour21() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "'Nine o'clock and all's well!'";
+         break;
+      case 11..20:
+         return "It's getting too dark to see the time, but you " +
+            "think it's a little over nine.";
+         break;
+      case 21..30:
+         return "Most people are indoors by nine thirty. You aren't.";
+         break;
+      case 31..40:
+         return "The activity at local taverns always rises before ten.";
+         break;
+      case 41..50:
+         return "Most children have gone to bed. It's almost ten.";
+         break;
+      default:
+         return "Most sound people are in bed now, resting for the " +
+            "upcoming day.";
+         break;
+   }
+}
+
+string get_hour22() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "The night watchman yells that it's ten o'clock.";
+         break;
+      case 11..20:
+         return "It's about fifteen minutes since the ten o'clock bell.";
+         break;
+      case 21..30:
+         return "There is always a roar in the taverns at ten thirty.";
+         break;
+      case 31..40:
+         return "Given how dark it is, you're quite proud for " +
+            "managing to tell the time to be ten thirty.";
+         break;
+      case 41..50:
+         return "It'll be eleven sometime soon.";
+         break;
+      default:
+         return "Just a few more minutes before eleven...";
+         break;
+   }
+}
+
+string get_hour23() {
+   switch (TIME_D->query_minute()) {
+      case 0..10:
+         return "The night watchman yells that it's eleven o'clock.";
+         break;
+      case 11..20:
+         return "It's not possible to know the time more " +
+            "accurately than 'a little past eleven'";
+         break;
+      case 21..30:
+         return "It's around eleven thirty, but you can't be sure.";
+         break;
+      case 31..40:
+         return "It's too dark to tell the time, but you think " +
+            "it's half past eleven.";
+         break;
+      case 41..50:
+         return "From the looks of things, midnight is approaching.";
+         break;
+      default:
+         return "Midnight is right around the corner.";
+         break;
+   }
+}
+
 static void main(string str) {
    int day;
    string txt, datetxt, *days, *hours, *years;
@@ -43,585 +638,78 @@ static void main(string str) {
    }
 
    switch (TIME_D->query_hour()) {
-      case 0:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "It's midnight.";
-                  break;
-               case 11..20:
-                  txt = "It's not possible to read the time more accurately " +
-                     "than 'midnight'.";
-                  break;
-               case 21..30:
-                  txt = "About half an hour has passed since midnight.";
-                  break;
-               case 31..40:
-                  txt = "You feel it's starting to close in on one o'clock.";
-                  break;
-               case 41..50:
-                  txt = "Less than an hour since midnight.";
-                  break;
-               case 51..60:
-                  txt = "It's about one o'clock.";
-            }
-         }
+      case 0:
+         txt = get_hour0();
          break;
-      case 1:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "An hour has passed since midnight.";
-                  break;
-               case 11..20:
-                  txt = "It's too dark to tell the time, but you think it's " +
-                     "a little past one.";
-                  break;
-               case 21..30:
-                  txt = "It's probably half past one, but you can't be quite " +
-                     "sure.";
-                  break;
-               case 31..40:
-                  txt = "The time is in between one and two, you guess.";
-                  break;
-               case 41..50:
-                  txt = "You feel time approaching on two o'clock.";
-                  break;
-               case 51..60:
-                  txt = "About two hours passed since midnight.";
-            }
-         }
+      case 1:
+         txt = get_hour1();
          break;
-      case 2:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "Two o'clock and all's well.";
-                  break;
-               case 11..20:
-                  txt = "Everyone should be asleep now. Everyone except you...";
-                  break;
-               case 21..30:
-                  txt = "Given the lack of a sun, you estimate that it's " +
-                     "about two thirty.";
-                  break;
-               case 31..40:
-                  txt = "It's not easy to tell time in this darkness.";
-                  break;
-               case 41..50:
-                  txt = "It's too dark to tell time.";
-                  break;
-               case 51..60:
-                  txt = "The time is probably around three.";
-            }
-         }
+      case 2:
+         txt = get_hour2();
          break;
-      case 3:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "It's probably around three o'clock.";
-                  break;
-               case 11..20:
-                  txt = "What are you doing up at this hour? It's past three!.";
-                  break;
-               case 21..30:
-                  txt = "Midways between three and four, nothing exciting " +
-                     "is happening.";
-                  break;
-               case 31..40:
-                  txt = "You estimate the time to be almost four o'clock.";
-                  break;
-               case 41..50:
-                  txt = "It's closing in on four o'clock.";
-                  break;
-               case 51..60:
-                  txt = "The night watchman should soon yell: 'Four " +
-                     "o'clock and all's well!'";
-            }
-         }
+      case 3:
+         txt = get_hour3();
          break;
-      case 4:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "The night watchman yells his usual 'Four o'clock " +
-                     "and all's well!'";
-                  break;
-               case 11..20:
-                  txt = "About fifteen minutes past since four o'clock.";
-                  break;
-               case 21..30:
-                  txt = "About thirty minutes past four.";
-                  break;
-               case 31..40:
-                  txt = "It's starting to close in on five o'clock.";
-                  break;
-               case 41..50:
-                  txt = "You tremble in anticipation of five o'clock. Well " +
-                     "almost.";
-                  break;
-               case 51..60:
-                  txt = "The baker is awakening to bake his bread. Must be " +
-                     "about five.";
-            }
-         }
+      case 4:
+         txt = get_hour4();
          break;
-      case 5:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "You hear the baker starting his job. It's " +
-                     "five o'clock.";
-                  break;
-               case 11..20:
-                  txt = "It's about twenty minutes past five.";
-                  break;
-               case 21..30:
-                  txt = "Half an hour has passed since five.";
-                  break;
-               case 31..40:
-                  txt = "You can barely see a glimpse of the sun on the " +
-                     "horizon.";
-                  break;
-               case 41..50:
-                  txt = "The sun is starting to come out of its sleep.";
-                  break;
-               case 51..60:
-                  txt = "Freshly baked bread is in the air; it's six o'clock.";
-            }
-         }
+      case 5:
+         txt = get_hour5();
          break;
-      case 6:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "The sun has risen. A new day has begun.";
-                  break;
-               case 11..20:
-                  txt = "Everywhere people are getting up from their " +
-                     "sleep. Except you.";
-                  break;
-               case 21..30:
-                  txt = "The town is starting to come alive ever so slowly.";
-                  break;
-               case 31..40:
-                  txt = "Breakfast would be nice at this time.";
-                  break;
-               case 41..50:
-                  txt = "Almost an hour after sunrise, there are still not " +
-                     "many people about.";
-                  break;
-               case 51..60:
-                  txt = "The watchman is doing his seven o'clock round.";
-            }
-         }
+      case 6:
+         txt = get_hour6();
          break;
-      case 7:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "'Seven o'clock; time to start the day!' the " +
-                     "watchman shouts.";
-                  break;
-               case 11..20:
-                  txt = "You feel the city really starting to awaken.";
-                  break;
-               case 21..30:
-                  txt = "The occasional farmer walks out to his fields. " +
-                     "It's seven thirty.";
-                  break;
-               case 31..40:
-                  txt = "Merchants are setting up their stands and opening " +
-                     "their shops.";
-                  break;
-               case 41..50:
-                  txt = "The flags are raised over the castle meaning that " +
-                     "the king has awoken.";
-                  break;
-               case 51..60:
-                  txt = "Merchants have started yelling although they're " +
-                     "not officially open until 8.";
-            }
-         }
+      case 7:
+         txt = get_hour7();
          break;
-      case 8:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "The watchman yells that it's eight o'clock.";
-                  break;
-               case 11..20:
-                  txt = "The city is now bustling with life, a little " +
-                     "past eight.";
-                  break;
-               case 21..30:
-                  txt = "It's almost half an hour past eight.";
-                  break;
-               case 31..40:
-                  txt = "More than half an hour past eight.";
-                  break;
-               case 41..50:
-                  txt = "It's closing in on nine o'clock.";
-                  break;
-               case 51..60:
-                  txt = "It's almost nine o'clock.";
-            }
-         }
+      case 8:
+         txt = get_hour8();
          break;
-      case 9:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "It's nine o'clock.";
-                  break;
-               case 11..20:
-                  txt = "It's about ten minutes past nine.";
-                  break;
-               case 21..30:
-                  txt = "Half an hour until ten.";
-                  break;
-               case 31..40:
-                  txt = "About a quarter to ten.";
-                  break;
-               case 41..50:
-                  txt = "Almost ten.";
-                  break;
-               case 51..60:
-                  txt = "Just about eleven o'clock.";
-            }
-         }
+      case 9:
+         txt = get_hour9();
          break;
-      case 10:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "It's still morning, ten o'clock.";
-                  break;
-               case 11..20:
-                  txt = "The sun is rising on the sky, it's a little past ten.";
-                  break;
-               case 21..30:
-                  txt = "From looking at the sun's position, you deem it to " +
-                     "be ten thirty.";
-                  break;
-               case 31..40:
-                  txt = "Slowly the sun is climbing to its peak, still a " +
-                     "long way to go.";
-                  break;
-               case 41..50:
-                  txt = "Time passes slowly, it's now almost eleven.";
-                  break;
-               case 51..60:
-                  txt = "It's just a little before eleven.";
-            }
-         }
+      case 10:
+         txt = get_hour10();
          break;
-      case 11:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "It's eleven o'clock.";
-                  break;
-               case 11..20:
-                  txt = "Fifteen minutes past eleven, forty-five until noon.";
-                  break;
-               case 21..30:
-                  txt = "Half an hour past eleven.";
-                  break;
-               case 31..40:
-                  txt = "The sun is almost at its peak.";
-                  break;
-               case 41..50:
-                  txt = "It's just about noon.";
-                  break;
-               case 51..60:
-                  txt = "It's noon. The sun is at its peak.";
-            }
-         }
+      case 11:
+         txt = get_hour11();
          break;
-      case 12:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "It's noon.";
-                  break;
-               case 11..20:
-                  txt = "People are starting to think about their mid-day " +
-                     "meals.";
-                  break;
-               case 21..30:
-                  txt = "If you have a routine that you do at half one, " +
-                     "you should be doing it now.";
-                  break;
-               case 31..40:
-                  txt = "The shopkeepers are preparing to close their " +
-                     "shops for lunch.";
-                  break;
-               case 41..50:
-                  txt = "The city calms itself down as people go for their " +
-                     "noon break.";
-                  break;
-               case 51..60:
-                  txt = "Suddenly the town goes silent; people are taking a " +
-                     "break at one.";
-            }
-         }
+      case 12:
+         txt = get_hour12();
          break;
-      case 13:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "The city is calm as the noon break goes undisturbed.";
-                  break;
-               case 11..20:
-                  txt = "People are slowly returning to their posts from " +
-                     "their break.";
-                  break;
-               case 21..30:
-                  txt = "You can not see that there has been a one o'clock " +
-                     "break, twenty minutes after.";
-                  break;
-               case 31..40:
-                  txt = "At half past one, everything is as it should be.";
-                  break;
-               case 41..50:
-                  txt = "It's a quarter to two.";
-                  break;
-               case 51..60:
-                  txt = "It's almost two.";
-            }
-         }
+      case 13:
+         txt = get_hour13();
          break;
-      case 14:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "It's two o'clock.";
-                  break;
-               case 11..20:
-                  txt = "A few minutes past two.";
-                  break;
-               case 21..30:
-                  txt = "It's almost two thirty.";
-                  break;
-               case 31..40:
-                  txt = "It's starting to close in on three o'clock.";
-                  break;
-               case 41..50:
-                  txt = "Soon it'll be three.";
-                  break;
-               case 51..60:
-                  txt = "You await the watchman's yell at three.";
-            }
-         }
+      case 14:
+         txt = get_hour14();
          break;
-      case 15:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "'Three o'clock!', the watchman yells.";
-                  break;
-               case 11..20:
-                  txt = "The city's bustling life goes on no matter if " +
-                     "the time is a quarter past three or not.";
-                  break;
-               case 21..30:
-                  txt = "It's half past three.";
-                  break;
-               case 31..40:
-                  txt = "It's a little over three thirty.";
-                  break;
-               case 41..50:
-                  txt = "It's way past three thirty.";
-                  break;
-               case 51..60:
-                  txt = "It's almost four.";
-            }
-         }
+      case 15:
+         txt = get_hour15();
          break;
-      case 16:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "The city is at its peak of activity; it's four " +
-                     "o'clock.";
-                  break;
-               case 11..20:
-                  txt = "The sun is setting ever so slowly in the west, at " +
-                     "four and a few minutes.";
-                  break;
-               case 21..30:
-                  txt = "The city life is gradually decreasing, it's four " +
-                     "thirty.";
-                  break;
-               case 31..40:
-                  txt = "You see many housewives starting to prepare for " +
-                     "dinner, which is often at five.";
-                  break;
-               case 41..50:
-                  txt = "Many shops are closing up in order to go home for " +
-                     "dinner at five.";
-                  break;
-               case 51..60:
-                  txt = "Dinner would really be good about now. It's five " +
-                     "o'clock.";
-            }
-         }
+      case 16:
+         txt = get_hour16();
          break;
-      case 17:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "Dinnertime.";
-                  break;
-               case 11..20:
-                  txt = "People are having dinner; it's a little past five.";
-                  break;
-               case 21..30:
-                  txt = "Slowly people are returning to their workplaces " +
-                     "from dinner for a last haul.";
-                  break;
-               case 31..40:
-                  txt = "Peasants are starting to return from the fields " +
-                     "with their crop.";
-                  break;
-               case 41..50:
-                  txt = "It's almost six o'clock, the sun will be " +
-                     "setting soon.";
-                  break;
-               case 51..60:
-                  txt = "The sun is almost gone over the horizon.";
-            }
-         }
+      case 17:
+         txt = get_hour17();
          break;
-      case 18:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "Sunset, dusk, call it what you want. The sun is " +
-                     "almost gone now.";
-                  break;
-               case 11..20:
-                  txt = "A little past six, it is slowly getting dark.";
-                  break;
-               case 21..30:
-                  txt = "It is darkening at six thirty.";
-                  break;
-               case 31..40:
-                  txt = "The shopkeepers are starting to pack their stuff " +
-                     "for the day.";
-                  break;
-               case 41..50:
-                  txt = "The shopkeepers close at seven, that is not " +
-                     "long away.";
-                  break;
-               case 51..60:
-                  txt = "The shops close their doors. It is seven o'clock.";
-            }
-         }
+      case 18:
+         txt = get_hour18();
          break;
-      case 19:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "Shopkeepers gone home, the shops lie deserted.  " +
-                     "It's a little past seven.";
-                  break;
-               case 11..20:
-                  txt = "Although the sun is down, there is still quite a " +
-                     "bit of activity.";
-                  break;
-               case 21..30:
-                  txt = "Most of the activity moves to the local taverns.  " +
-                     "It's seven thirty.";
-                  break;
-               case 31..40:
-                  txt = "It's about an hour and a half after sunset.";
-                  break;
-               case 41..50:
-                  txt = "You're pushing eight o'clock.";
-                  break;
-               case 51..60:
-                  txt = "It's just a few minutes before eight.";
-            }
-         }
+      case 19:
+         txt = get_hour19();
          break;
-      case 20:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "The night watchman begins his route by yelling " +
-                     "that it's eight o'clock.";
-                  break;
-               case 11..20:
-                  txt = "It's a quarter or so past eight.";
-                  break;
-               case 21..30:
-                  txt = "It's a quarter or so past eight.";
-                  break;
-               case 31..40:
-                  txt = "It's half past eight.";
-                  break;
-               case 41..50:
-                  txt = "It's closing in on nine.";
-                  break;
-               case 51..60:
-                  txt = "It's almost nine.";
-            }
-         }
+      case 20:
+         txt = get_hour20();
          break;
-      case 21:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "'Nine o'clock and all's well!'";
-                  break;
-               case 11..20:
-                  txt = "It's getting too dark to see the time, but you " +
-                     "think it's a little over nine.";
-                  break;
-               case 21..30:
-                  txt = "Most people are indoors by nine thirty. You aren't.";
-                  break;
-               case 31..40:
-                  txt = "The activity at local taverns always rises before " +
-                     "ten.";
-                  break;
-               case 41..50:
-                  txt = "Most children have gone to bed. It's almost ten.";
-                  break;
-               case 51..60:
-                  txt = "Most sound people are in bed now, resting for the " +
-                     "upcoming day.";
-            }
-         }
+      case 21:
+         txt = get_hour21();
          break;
-      case 22:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "The night watchman yells that it's ten o'clock.";
-                  break;
-               case 11..20:
-                  txt = "It's about fifteen minutes since the ten o'clock " +
-                     "bell.";
-                  break;
-               case 21..30:
-                  txt = "There is always a roar in the taverns at ten thirty.";
-                  break;
-               case 31..40:
-                  txt = "Given how dark it is, you're quite proud for " +
-                     "managing to tell the time to be ten thirty.";
-                  break;
-               case 41..50:
-                  txt = "It'll be eleven sometime soon.";
-                  break;
-               case 51..60:
-                  txt = "Just a few more minutes before eleven...";
-            }
-         }
+      case 22:
+         txt = get_hour22();
          break;
-      case 23:{
-            switch (TIME_D->query_minute()) {
-               case 0..10:
-                  txt = "The night watchman yells that it's eleven o'clock.";
-                  break;
-               case 11..20:
-                  txt = "It's not possible to know the time more " +
-                     "accurately than 'a little past eleven'";
-                  break;
-               case 21..30:
-                  txt = "It's around eleven thirty, but you can't be sure.";
-                  break;
-               case 31..40:
-                  txt = "It's too dark to tell the time, but you think " +
-                     "it's half past eleven.";
-                  break;
-               case 41..50:
-                  txt = "From the looks of things, midnight is approaching.";
-                  break;
-               case 51..60:
-                  txt = "Midnight is right around the corner.";
-            }
-         }
+      default:
+         txt = get_hour23();
+         break;
    }
 
    days = ({

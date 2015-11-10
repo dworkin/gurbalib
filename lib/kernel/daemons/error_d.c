@@ -124,8 +124,13 @@ static void log_runtime_error(string result, int caught) {
       write_file("/logs/errors/runtime", result + "\n");
       if (player && find_object(USER_D)) {
          if (USER_D->query_wizard(player->query_name()) == 1) {
+            if (verbose) {
             write("%^RED%^Runtime error: %^RESET%^" + "%^CYAN%^" + 
-               (verbose ? result : lines[0] ) + "%^RESET%^");
+               result + "%^RESET%^");
+            } else {
+            write("%^RED%^Runtime error: %^RESET%^" + "%^CYAN%^" + 
+               lines[0] + "%^RESET%^");
+            }
          } else {
             write("You have encountered a rift in reality. " +
                "Please report it to the admins.\n");

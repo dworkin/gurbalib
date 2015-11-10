@@ -515,8 +515,11 @@ void recompile(object obj) {
       set_tlvar(TLS_INHERITS, stuff);
    }
 #ifdef DEBUG_RECOMPILE
-   message("auto recompile inheritable: " +
-      (obj ? object_name(obj) : "<NIL>??") + "\n");
+   if (obj) {
+      message("auto recompile inheritable: " + object_name(obj) + "\n");
+   } else {
+      message("auto recompile inheritable: <NIL>??\n");
+   }
 #endif
    if (obj) {
       destruct_object(obj);
