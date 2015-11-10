@@ -422,7 +422,7 @@ void login_who(void) {
    out = USER_D->list_players(0);
 
    max = sizeof(out);
-   for (i = 0;i < max; i++) {
+   for (i = 0; i < max; i++) {
       write(out[i]);
    }
 }

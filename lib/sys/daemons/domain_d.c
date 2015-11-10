@@ -152,8 +152,11 @@ int query_domain_admin(string domain, string member) {
 }
 
 string *query_domain_members(string domain) {
-   return (domains[domain] && mappingp(domains[domain])) ?
-      map_indices(domains[domain]) : ({ });
+   if (domains[domain] && mappingp(domains[domain])) {
+      return map_indices(domains[domain]);
+   }
+
+   return ({ });
 }
 
 string *query_domains(void) {

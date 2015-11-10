@@ -28,65 +28,7 @@ string *usage(void) {
    return lines;
 }
 
-/* Ok so it isn't the best method in the world for making sure that you 
-   get the correct conjugation, but it works.*/
-static void main(string str) {
-   int i;
-   string me;         /*what I, the one who's talking, sees */
-   string you;        /*what all the others in the room sees */
-
-   if (empty_str(str)) {
-      this_player()->more(usage());
-      return;
-   }
-   if (sscanf(str, "-%s", str)) {
-      this_player()->more(usage());
-      return;
-   }
-
-   /* Strip trailing whitespaces */
-
-   if (!this_environment()) {
-      write("You have no environment, so there is no way to " +
-         "say things either.");
-      return;
-   }
-
-   for (i = strlen(str) - 1; i > 0; i--) {
-      if (str[i] != ' ') {
-         break;
-      }
-      str = str[0..(i - 1)];
-   }
-
-   /*default values */
-   me = " say: ";
-   you = " says: ";
-
-   if (str != "") {
-      if ((str[strlen(str) - 1]) == '!') {
-         me = " say excitedly: ";
-         you = " says excitedly: ";
-         if ((str[strlen(str) - 2]) == '!') {
-            if ((str[strlen(str) - 3]) == '!') {
-               me = " shout: ";
-               you = " shouts: ";
-            } else {
-               me = " yell: ";
-               you = " yells: ";
-            }
-         }
-      }
-
-      if ((str[strlen(str) - 1]) == '.') {
-         if ((str[strlen(str) - 2]) == '.') {
-            if ((str[strlen(str) - 3]) == '.') {
-               me = " trail off: ";
-               you = " trails off: ";
-            }
-         }
-      }
-
+string *get_strtype(string me, string you, string str) {
       switch (str[strlen(str) - 1]) {
          case '?':
             me = " ask: ";
@@ -219,6 +161,69 @@ static void main(string str) {
             str = str[..strlen(str) - 2];
             break;
       }
+      return ({me, you, str});
+}
+
+/* Ok so it isn't the best method in the world for making sure that you 
+   get the correct conjugation, but it works.*/
+static void main(string str) {
+   int i;
+   string me;         /*what I, the one who's talking, sees */
+   string you;        /*what all the others in the room sees */
+
+   if (empty_str(str)) {
+      this_player()->more(usage());
+      return;
+   }
+   if (sscanf(str, "-%s", str)) {
+      this_player()->more(usage());
+      return;
+   }
+
+   /* Strip trailing whitespaces */
+
+   if (!this_environment()) {
+      write("You have no environment, so there is no way to " +
+         "say things either.");
+      return;
+   }
+
+   for (i = strlen(str) - 1; i > 0; i--) {
+      if (str[i] != ' ') {
+         break;
+      }
+      str = str[0..(i - 1)];
+   }
+
+   /*default values */
+   me = " say: ";
+   you = " says: ";
+
+   if (str != "") {
+      if ((str[strlen(str) - 1]) == '!') {
+         me = " say excitedly: ";
+         you = " says excitedly: ";
+         if ((str[strlen(str) - 2]) == '!') {
+            if ((str[strlen(str) - 3]) == '!') {
+               me = " shout: ";
+               you = " shouts: ";
+            } else {
+               me = " yell: ";
+               you = " yells: ";
+            }
+         }
+      }
+
+      if ((str[strlen(str) - 1]) == '.') {
+         if ((str[strlen(str) - 2]) == '.') {
+            if ((str[strlen(str) - 3]) == '.') {
+               me = " trail off: ";
+               you = " trails off: ";
+            }
+         }
+      }
+
+      ({me, you, str}) = get_strtype(me, you, str);
 
       switch (str[strlen(str) - 1]) {
          case '.':

@@ -432,8 +432,9 @@ string scan_local_verbs(void) {
       inventory_environment = ( { room } ) +
          room->query_inventory();
       for (i = 0; i < sizeof(inventory_environment); i++) {
-         if (typeof(object_rules[inventory_environment[i]]) != T_MAPPING)
+         if (typeof(object_rules[inventory_environment[i]]) != T_MAPPING) {
             continue;
+         }
          production_rules +=
             parse_verb_rules(object_rules[inventory_environment[i]]);
       }

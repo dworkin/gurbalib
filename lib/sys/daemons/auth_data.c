@@ -33,7 +33,8 @@ int load(string str) {
    file = AUTH_DATA_DIR + "/" + str + ".o";
 
    priv = 0;
-   name = password = nil;
+   name = nil;
+   password = nil;
 
    /* we are either called from USER_D, or did a require_priv("system")
       already */

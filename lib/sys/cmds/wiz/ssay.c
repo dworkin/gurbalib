@@ -31,8 +31,9 @@ static void main(string str) {
 
    /* Strip trailing whitespaces */
    for (i = strlen(str) - 1; i > 0; i--) {
-      if (str[i] != ' ')
+      if (str[i] != ' ') {
          break;
+      }
       str = str[0..(i - 1)];
    }
 

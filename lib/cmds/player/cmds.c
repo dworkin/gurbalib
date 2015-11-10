@@ -56,14 +56,19 @@ static void show_cmds(string dir) {
 
    for (d = 0, sz = sizeof(names); d < sz; d += col) {
       int colnum;
-      string line;
+      string line, tmp;
 
       line = "";
 
       for (colnum = 0; colnum < col; colnum++) {
          if (d + colnum < sz) {
-            line += (names[d + colnum] +
-               (col == 1 ? " (" + cmds[names[d + colnum]] + ")" : "") +
+            if (col == 1) {
+               tmp = " (" + cmds[names[d + colnum]] + ")";
+            } else {
+               tmp = "";
+            }
+
+            line += (names[d + colnum] + tmp +
                "                                             " +
                "                         ")[0..(70 / col)];
          }

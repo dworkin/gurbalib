@@ -40,10 +40,14 @@ static void main(string str) {
       for (i = 0; i < sizeof(inv); i++) {
          loc = "  " + inv[i]->query_short();
          if (inv[i]->is_wielded() || inv[i]->is_worn()) {
-            loc += " %^CYAN%^[" +
-               (inv[i]->is_wielded() ? inv[i]->query_wield_position() :
-               inv[i]->is_worn() ? inv[i]->query_wear_position() : "") +
-               "]%^RESET%^";
+            loc += " %^CYAN%^[";
+               if (inv[i]->is_wielded() ) {
+                  loc += inv[i]->query_wield_position();
+               }
+               if (inv[i]->is_worn()) {
+                 loc +=  inv[i]->query_wear_position();
+               }
+               loc += "]%^RESET%^";
          }
          lines += ({ loc });
       }

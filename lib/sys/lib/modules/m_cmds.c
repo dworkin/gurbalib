@@ -112,7 +112,11 @@ static void set_searchpath( mixed path ) {
 }
 
 static string query_searchpath(void) {
-   return searchpath ? implode( searchpath, ":" ) : nil;
+   if (searchpath) {
+      return implode( searchpath, ":" );
+   }
+
+   return nil;
 }
 
 static void set_cmd_path( string *path ) {

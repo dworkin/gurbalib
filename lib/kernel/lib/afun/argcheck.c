@@ -5,8 +5,12 @@ static void argcheck(mixed arg, int num, varargs string type) {
 
    if (!arg) {
       trace = call_trace();
-      error(MAGIC_ERROR_ARGCHECK + (string) num + " to " +
-         trace[sizeof(trace) - 2][2] + (type ? " (needs " + type + ")" : "")
-      );
+      if (type) {
+         error(MAGIC_ERROR_ARGCHECK + (string) num + " to " +
+            trace[sizeof(trace) - 2][2] +  " (needs " + type + ")");
+      } else {
+         error(MAGIC_ERROR_ARGCHECK + (string) num + " to " +
+            trace[sizeof(trace) - 2][2]);
+      }
    }
 }

@@ -61,7 +61,12 @@ static void main(string str) {
       if (str && (strlen(str) > 0)) {
          slen = strlen(str) - 1;
          mlen = strlen(muds[i]) - 1;
-         len = slen < mlen ? slen : mlen;
+
+         if (slen < mlen) {
+            len = slen;
+         } else {
+            len = mlen;
+         }
 
          if (("" + mudlist[muds[i]][1] != str)
             && ("" + uppercase(muds[i][..len]) != uppercase(str[..len]))) {

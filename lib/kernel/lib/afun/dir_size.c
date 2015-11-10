@@ -11,8 +11,13 @@ int dir_size(string file) {
    i = sizeof(sizes);
    while (--i >= 0) {
       sz = sizes[i];
-      size += (sz > 0) ?
-         (sz + 1023) >> 10 : (sz == 0) ? 1 : dir_size(file + "/" + info[0][i]);
+      if (sz > 0) {
+         size += (sz + 1023) >> 10;
+      } else if (sz == 0) { 
+         size += 1;
+      } else {
+         size += dir_size(file + "/" + info[0][i]);
+      }
    }
 
    return size;

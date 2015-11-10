@@ -310,7 +310,11 @@ string get_history(string channel) {
    }
 
    for (i = 0; i < sz; ++i) {
-      out += "%^CHAN_NAME%^" + (colors[channel] ? colors[channel] : "");
+      if (colors[channel]) {
+         out += "%^CHAN_NAME%^" + colors[channel];
+      } else {
+         out += "%^CHAN_NAME%^";
+      }
       out += "[" + channel + "]%^RESET%^" + history[channel][i] + "%^RESET%^\n";
    }
 
