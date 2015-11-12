@@ -66,8 +66,8 @@ void dispatch_event(string name, object *obs, int *counters, int id,
       then dispatch for the next one to make sure all get the event
       in case of errors */
    if (i < max_i) {
-      guard_handle =
-         call_out("dispatch_event", 0, name, obs, counters, id, args);
+      guard_handle = call_out("dispatch_event", 0, name, obs, counters,
+         id, args);
    } else {
       guard_handle = 0;
    }
@@ -82,8 +82,7 @@ void dispatch_event(string name, object *obs, int *counters, int id,
                 obs[i]->query_environment()->is_player() ) {
                  call_out("special_heart_beat", 0, obs[i],           
                   "event_" + name, args);
-               }
-               else {
+               } else {
                   if (sizeof(args) > 0) {
                      call_other(obs[i], "event_" + name, args);
                   } else {

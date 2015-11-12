@@ -85,36 +85,42 @@ void remove_emote(string name) {
    save_me();
 }
 
-string *show_emote(string str, int width) {
+string *get_all_emotes(string str, int width) {
    string line, *rules, *lines;
    int i, tmp, max;
+
+   rules = query_emotes();
+
+   lines = ({ "Emotes:" });
+
+   line = "   ";
+   max = sizeof(rules) -1;
+   if (max >= 0) {
+      for (i = 0; i < max; i++) {
+         tmp = strlen(rules[i]) + 3 + strlen(line);
+         if (tmp >= width) {
+            lines += ({ line });
+            line = "   " + rules[i] + ", ";
+         } else {
+            line += rules[i] + ", ";
+         }
+      }
+      line += rules[max];
+   }
+
+   lines += ({ line });
+   lines += ({ "Total emotes: " + sizeof(rules) });
+
+   return lines;
+}
+
+string *show_emote(string str, int width) {
+   string *rules, *lines;
 
    lines = ({ });
 
    if (!str || str == "") {
-      rules = query_emotes();
-
-      lines = ({ "Emotes:" });
-
-      line = "   ";
-      max = sizeof(rules) -1;
-      if (max >= 0) {
-         for (i = 0; i < max; i++) {
-            tmp = strlen(rules[i]) + 3 + strlen(line);
-            if (tmp >= width) {
-               lines += ({ line });
-               line = "   " + rules[i] + ", ";
-            } else {
-               line += rules[i] + ", ";
-            }
-         }
-         line += rules[max];
-      }
-
-      lines += ( {line } );
-      lines += ( { "Total emotes: " + sizeof(rules) } );
-
-      return lines;
+      return get_all_emotes(str, width);
    }
 
    if (is_emote(str)) {

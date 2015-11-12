@@ -130,6 +130,24 @@ void add_item(string name, int amount) {
    stored_items[name] = amount;
 }
 
+string build_string(string str, object obj, string num, string *objs) {
+   if (!obj->query_Name()) {
+      if (!obj->query_adj() || obj->query_adj() == "") {
+         str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_id() +
+            ", " + obj->query_value() + " ducats.\n";
+      } else {
+         str += " %^CYAN%^[" + num + "]%^RESET%^ " +
+            obj->query_adj() + " " + obj->query_id() + ", " +
+            obj->query_value() + " ducats.\n";
+      }
+   } else {
+      str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_Name() +
+         ", " + objs->query_value() + " ducats.\n";
+   }
+
+   return str;
+}
+
 string query_list(void) {
    string str, num, *objs;
    object obj;
@@ -155,19 +173,7 @@ string query_list(void) {
             num = "   " + stored_items[objs[i]];
             num = num[strlen(num) - 3..];
 
-            if (!obj->query_Name()) {
-               if (!obj->query_adj() || obj->query_adj() == "") {
-                  str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_id() +
-                     ", " + obj->query_value() + " ducats.\n";
-               } else {
-                  str += " %^CYAN%^[" + num + "]%^RESET%^ " +
-                     obj->query_adj() + " " + obj->query_id() + ", " +
-                     obj->query_value() + " ducats.\n";
-               }
-            } else {
-               str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_Name() +
-                  ", " + objs->query_value() + " ducats.\n";
-            }
+            str = build_string(str, obj, num, objs);
 
             obj->query_environment()->remove_object(obj);
             obj->destruct();

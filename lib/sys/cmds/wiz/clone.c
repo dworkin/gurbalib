@@ -44,6 +44,52 @@ string get_what(string str) {
    return path;
 }
 
+void setup_object(object ob, object player) {
+   string id;
+
+   ob->setup();
+   this_player()->simple_action("$N $vclap $p hands.\n");
+   id = ob->query_id();
+
+   if (player) {
+      if (id) {
+         write("You clone: " + article(id) + " " +
+            id + " and send it to " + player->query_Name() + "\n");
+         if (player->query_environment() != this_environment()) {
+            player->query_environment()->tell_room(player,
+            article(id) + " " + id + " appears out of thin air.\n");
+         } else {
+            this_player()->query_environment()->tell_room(player,
+               article(id) + " " + id + " appears out of thin air.\n");
+         }
+      } else {
+         write("Error that object is missing an id: " + 
+            ob->file_name() + "\n");
+      }
+
+      if (ob->is_gettable()) {
+         ob->move(player);
+      } else {
+         ob->move(player->query_environment());
+      }
+   } else {
+      if (id) {
+         write("You clone: " + article(id) + " " + id + "\n");
+         this_player()->query_environment()->tell_room(this_player(),
+            capitalize(article(id)) + " " + id +
+            " appears out of thin air.\n");
+      } else {
+         write("Error that object is missing an id: " + 
+            ob->file_name() + "\n");
+      }
+      if (ob->is_gettable()) {
+         ob->move(this_player());
+      } else {
+         ob->move(this_environment());
+      }
+   }
+}
+
 static void main(string str) {
    string who, what, id;
    object ob, player;
@@ -75,49 +121,7 @@ static void main(string str) {
       ob = clone_object(what);
       this_player()->set_env("cwf", what);
       if (ob) {
-
-         ob->setup();
-         this_player()->simple_action("$N $vclap $p hands.\n");
-         id = ob->query_id();
-
-         if (player) {
-            if (id) {
-               write("You clone: " + article(id) + " " +
-                  id + " and send it to " + player->query_Name() + "\n");
-               if (player->query_environment() != this_environment()) {
-                  player->query_environment()->tell_room(player,
-                     article(id) + " " + id + " appears out of thin air.\n");
-               } else {
-                  this_player()->query_environment()->tell_room(player,
-                     article(id) + " " + id + " appears out of thin air.\n");
-               }
-            } else {
-               write("Error that object is missing an id: " + 
-                  ob->file_name() + "\n");
-            }
-
-            if (ob->is_gettable()) {
-               ob->move(player);
-            } else {
-               ob->move(player->query_environment());
-            }
-         } else {
-            if (id) {
-            write("You clone: " + article(id) + " " + id + "\n");
-            this_player()->query_environment()->tell_room(this_player(),
-               capitalize(article(id)) + " " + id +
-               " appears out of thin air.\n");
-            } else {
-               write("Error that object is missing an id: " + 
-                  ob->file_name() + "\n");
-            }
-            if (ob->is_gettable()) {
-               ob->move(this_player());
-            } else {
-               ob->move(this_environment());
-            }
-         }
-
+         setup_object(ob, player);
       } else {
          write("Unable to clone object : " + what + "\n");
       }

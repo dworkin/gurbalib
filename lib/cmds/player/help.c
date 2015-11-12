@@ -43,11 +43,8 @@ int show_help_for_command(string cmd) {
 }
 
 int show_help(string filename) {
-   string *tmp;
-   string blah;
-   string *lines;
-   int i, len, where, width;
-
+   string blah, *tmp, *lines;
+   int i, sz, len, where, width;
 
    if (file_exists(filename) < 1) {
       return 0;
@@ -56,14 +53,17 @@ int show_help(string filename) {
    width = this_player()->query_width();
 
    lines = ( { "Help for " + capitalize(filename) + "." } );
+
    blah = "";
-   for (i = 0; i < strlen("Help for " + filename + "."); i++) {
+   sz = strlen(lines[0]);
+   for (i = 0; i < sz; i++) {
       blah += "-";
    }
    lines += ( { blah } );
 
    tmp = explode(read_file(filename), "\n");
-   for (i = 0; i < sizeof(tmp); i++) {
+   sz = sizeof(tmp);
+   for (i = 0; i < sz; i++) {
       if (strlen(tmp[i]) > width) {
          /* Big line. Break it up. */
          where = 0;

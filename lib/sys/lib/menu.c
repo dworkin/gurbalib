@@ -56,7 +56,10 @@ static void do_menu(mixed header, mixed * menu, varargs mixed footer) {
  * and is used for constructing the 'action' part of a menu item.
  */
 static mixed *make_fcall(object ob, string fun, mixed args ...) {
-   return ({ ob, fun }) + ((args && sizeof(args)) ? args : ({ }));
+   if (args && sizeof(args)) {
+      return ({ ob, fun }) + args;
+   }
+   return ({ ob, fun });
 }
 
 /* Private functions */

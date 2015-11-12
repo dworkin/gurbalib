@@ -75,7 +75,9 @@ private string padstr(string str, int len) {
    string r;
 
    argcheck(str != nil, 1, "string");
-   r = str + "                                                                                                                                                      ";
+   r = str + "                                                        " +
+      "                                                               " +
+      "                               ";
    argcheck((len >= 0 && len < strlen(r)), 2, "ranged int [" + 0 + ".." + 
       (strlen(r)-1) + "], got " + len);
    return r[..len-1];
@@ -348,7 +350,7 @@ private int action_del_path(string str) {
 /* Handle the list/show command */
 private int action_list_path(void) {
    int i, sz, ptype, len;
-   string *path, r;
+   string *path, r, tmp;
    mapping cmdpriv;
 
    cmdpriv = COMMAND_D->query_cmdpriv();
@@ -367,9 +369,16 @@ private int action_list_path(void) {
    for (i = 0; i < sz; i++) {
       ptype = (COMMAND_D->query_override(path[i]) | 
          (COMMAND_D->query_syspath(path[i]) << 1));
-      r = padstr(path[i], len) + padstr("(" + 
-         (!(ptype & 3) ? "custom" : (ptype & 1) ? "override" : "predefined" ) +
-         ")", 14);
+
+      if (!(ptype & 3)) {
+         tmp = "(custom)";
+      } else if (ptype & 1) {
+         tmp = "(override)";
+      } else {
+         tmp = "(predefined)";
+      }
+      
+      r = padstr(path[i], len) + padstr(tmp, 14);
       r += " : " + cmdpriv[path[i]];
       write(r + "\n");
    }

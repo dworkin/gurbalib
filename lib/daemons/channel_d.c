@@ -361,9 +361,12 @@ void chan_send_string(string chan, string from, string str,
       users -= ({ nil });
       for (i = 0, sz = sizeof(users); i < sz; i++) {
          if (!users[i]->query_ignored(from)) {
-            users[i]->message(
-               (users[i]->query_env("imud_timestamp") ? "%^CHAN_DATE%^[" +
-               (ctime(time())[11..18]) + "]%^RESET%^" : "") + line, 1);
+            if (users[i]->query_env("imud_timestamp")) {
+               users[i]->message( "%^CHAN_DATE%^[" + (ctime(time())[11..18]) + 
+                  "]%^RESET%^" + line, 1);
+            } else {
+               users[i]->message( line, 1);
+            }
          }
       }
    }

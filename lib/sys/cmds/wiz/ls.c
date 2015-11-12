@@ -111,7 +111,7 @@ static void main(string str) {
    dirlist = "";
    for (i = 0; i < rows; i++) {
       j = i;
-      for (;;) {
+      while (1) {
          if (sizes[j] < 0) {
             cur_col = "%^MAGENTA%^";
          } else {

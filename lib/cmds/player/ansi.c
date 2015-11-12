@@ -91,10 +91,39 @@ mixed *collect_map(mixed * arg) {
    return ( { result } );
 }
 
+void set_colors(mixed *args) {
+   int i, sz;
+   string *symbols;
+
+   if (!arrayp(args) || !mappingp(args[0])) {
+      write("I didn't quite understand that.\n" +
+         "Try something like 'color symbol = ATTRIBUTE + COLOR'\n" +
+         "                or 'color symbol = COLOR, symbol = COLOR'\n" +
+         "Note that using predefined color names as symbol is not " +
+         "allowed\nbut using symbols as colors is allowed, ie\n" +
+         " 'color room_desc = room_exit' will work\n\n" +
+         "Valid color and symbol names:\n\n");
+         "/cmds/player/ansi"->main("show");
+   } else {
+      symbols = map_indices(args[0]);
+      sz = sizeof(symbols);
+      for (i = 0; i < sz; i++) {
+         /* special case, 'NIL' tag means remove this symbol.
+            also note this is a string, not the nil value */
+         if (args[0][symbols[i]][0] == "NIL") {
+            this_player()->set_custom_color(symbols[i], nil);
+         } else {
+            this_player()->set_custom_color(symbols[i],
+               args[0][symbols[i]]);
+         }
+      }
+   }
+}
+
 static void main(string str) {
    mixed *args;
-   string error, *symbols, *values;
-   int i, sz, pos;
+   string error;
+   int i, pos;
 
    if (empty_str(str)) {
       this_player()->more(usage());
@@ -130,28 +159,8 @@ static void main(string str) {
             }
          }
 
-         if (!arrayp(args) || !mappingp(args[0])) {
-            write("I didn't quite understand that.\n" +
-               "Try something like 'color symbol = ATTRIBUTE + COLOR'\n" +
-               "                or 'color symbol = COLOR, symbol = COLOR'\n" +
-               "Note that using predefined color names as symbol is not " +
-               "allowed\nbut using symbols as colors is allowed, ie\n" +
-               " 'color room_desc = room_exit' will work\n\n" +
-               "Valid color and symbol names:\n\n");
-               "/cmds/player/ansi"->main("show");
-         } else {
-            symbols = map_indices(args[0]);
-            for (i = 0, sz = sizeof(symbols); i < sz; i++) {
-               /* special case, 'NIL' tag means remove this symbol.
-                * also note this is a string, not the nil value */
-               if (args[0][symbols[i]][0] == "NIL") {
-                  this_player()->set_custom_color(symbols[i], nil);
-               } else {
-                  this_player()->set_custom_color(symbols[i],
-                     args[0][symbols[i]]);
-               }
-            }
-         }
+         set_colors(args);
       }
    }
 }
+

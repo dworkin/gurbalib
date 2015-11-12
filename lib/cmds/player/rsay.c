@@ -69,6 +69,24 @@ static void tell_them(string str, string *words, string lang, string *words2) {
    }
 }
 
+void garble_tell(string str, string lang, string *words, string *words2) {
+   int k, kmax, x;
+
+   kmax = sizeof(words);
+   for (k = 0; k < kmax; k++) {
+      x = random(100) + 1;
+      if (x < this_player()->query_skill("language/" + lang)) {
+         words2 += ({ LANGUAGE_D->english_to_racial(lang, words[k]) });
+      } else {
+         /*Mess up the word... */
+         words2 += ({ LANGUAGE_D->random_word(lang) });
+         words = words2;
+      }
+   }
+
+   tell_them(str, words, lang, words2);
+}
+
 static void main(string str) {
    int i, k, x, kmax;
    string *words, *words2;
@@ -120,20 +138,9 @@ static void main(string str) {
       if (lang == "english") {
          tell_them(str, words, lang, words);
       } else {
-         kmax = sizeof(words);
-         for (k = 0; k < kmax; k++) {
-            x = random(100) + 1;
-            if (x < this_player()->query_skill("language/" + lang)) {
-               /*Translate it to cat */
-               words2 += ({ LANGUAGE_D->english_to_racial(lang, words[k]) });
-            } else {
-               /*Mess up the word... */
-               words2 += ({ LANGUAGE_D->random_word(lang) });
-               words = words2;
-            }
-         }
 
-         tell_them(str, words, lang, words2);
+         garble_tell(str, lang, words, words2);
       }
    }
 }
+

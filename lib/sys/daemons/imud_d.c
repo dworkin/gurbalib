@@ -470,19 +470,41 @@ void rcv_startup_reply(string origmud, mixed origuser, mixed destuser,
 
 void rcv_error(string origmud, mixed origuser, mixed destuser, mixed rest) {
    object user;
+   string tr, tr2;
 
-   IMUDLOG("Got an error packet! " + (rest[0] ? rest[0] : "<none>") + " : " +
-      (rest[1] ? rest[1] : "<none>") + "\n");
+   if (rest[0]) {
+     tr = rest[0];
+   } else {
+     tr = "<none>";
+   }
+
+   if (rest[1]) {
+     tr2 = rest[1];
+   } else {
+     tr2 = "<none>";
+   }
+
+   IMUDLOG("Got an error packet! " + tr + " : " + tr2 + "\n");
    if (stringp(destuser)) {
       user = USER_D->find_player(destuser);
       if (!user) {
          return;
       }
 
-      user->message("%^RED%^Intermud error " + (rest[0] ? ("'" + rest[0] +
-               "'") : "<no error>") + " received from " + origmud +
-         "%^RESET%^\n" + "%^CYAN%^" + (rest[1] ? rest[1] : "<no message>") +
-         "%^RESET%^\n");
+      if (rest[0]) {
+         tr = "'" + rest[0] + "'";
+      } else {
+         tr = "<no error>";
+      }
+
+      if (rest[1]) {
+         tr2 = rest[1];
+      } else {
+         tr2 = "<no message>";
+      }
+
+      user->message("%^RED%^Intermud error " + tr + " received from " +
+         origmud + "%^RESET%^\n" + "%^CYAN%^" + tr2 + "%^RESET%^\n");
    }
 }
 
