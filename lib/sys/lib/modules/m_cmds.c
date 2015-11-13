@@ -170,8 +170,88 @@ void remove_item_command(string command) {
    item_commands[command] = nil;
 }
 
+/* Check for an item command */
+int check_item_command(string cmd, string arg) {
+   int i, sz;
+   string *item_cmds;
+
+   if (!item_commands) {
+      item_commands = ([]);
+   }
+
+   item_cmds = map_indices(item_commands);
+   sz = sizeof(item_cmds);
+   for (i = 0; i < sz; i++) {
+      if (item_cmds[i] == cmd) {
+         /* Should we return the call_other not 1? XXX */
+         call_other(item_commands[item_cmds[i]], "do_" + cmd, arg);
+         return 1;
+      }
+   }
+   return 0;
+}
+
+int check_emote(string cmd, string arg) {
+   string rule, *rules;
+   object target;
+
+   if (EMOTE_D->is_emote(cmd) || cmd == "random") {
+
+      if (cmd == "random") {
+         cmd = EMOTE_D->get_random_emote();
+      }
+
+      rules = EMOTE_D->query_rules(cmd);
+
+      if (arg != "") {
+         target = this_environment()->present(arg);
+      } else {
+         target = nil;
+      }
+
+      if (target) {
+         /* We've found our target, check for the correct rule */
+         if (target->is_living()) {
+            /* We're looking for a LIV rule */
+            if (member_array("LIV", rules) != -1) {
+               rule = "LIV";
+            } else {
+               rule = "";
+            }
+         } else {
+            /* We're looking for a OBJ rule */
+            if (member_array("OBJ", rules) != -1) {
+               rule = "OBJ";
+            } else {
+               rule = "";
+            }
+         }
+      } else {
+         /* Or are we just looking for a string? */
+         if ((member_array("STR", rules) != -1) && (arg != "")) {
+            rule = "STR";
+         } else {
+            rule = "";
+         }
+      }
+
+      if (rule == "LIV") {
+         targeted_action(EMOTE_D->query_emote(cmd, rule), target);
+      } else if (rule == "OBJ") {
+         simple_action(EMOTE_D->query_emote(cmd, rule), target);
+      } else if (rule == "STR") {
+         simple_action(EMOTE_D->query_emote(cmd, rule), arg);
+      } else if (member_array("", rules) != -1) {
+         simple_action(EMOTE_D->query_emote(cmd, rule));
+      } else {
+         write("No such emote.\n");
+      }
+      return 1;
+   }
+   return 0;
+}
+
 int do_game_command(string message) {
-   mixed result;
    string cmd, arg, *path;
    int flag;
    object save_player;
@@ -203,79 +283,14 @@ int do_game_command(string message) {
       }
 
       if (!flag) {
-         /* Check for an item command */
-         int i;
-         string *item_cmds;
-
-         if (!item_commands) {
-            item_commands = ([]);
-         }
-         item_cmds = map_indices(item_commands);
-         for (i = 0; i < sizeof(item_cmds); i++) {
-            if (item_cmds[i] == cmd) {
-               call_other(item_commands[item_cmds[i]], "do_" + cmd, arg);
-               flag = 1;
-            }
-         }
+         flag = check_item_command(cmd, arg);
       }
 
       /* check for emotes */
       if (!flag) {
-         if (EMOTE_D->is_emote(cmd) || cmd == "random") {
-            string rule, *rules;
-            object target;
-
-            if (cmd == "random") {
-                cmd = EMOTE_D->get_random_emote();
-            }
-
-            rules = EMOTE_D->query_rules(cmd);
-
-            if (arg != "") {
-               target = this_environment()->present(arg);
-            } else {
-               target = nil;
-            }
-            if (target) {
-               /* We've found our target, check for the correct rule */
-               if (target->is_living()) {
-                  /* We're looking for a LIV rule */
-                  if (member_array("LIV", rules) != -1) {
-                     rule = "LIV";
-                  } else {
-                     rule = "";
-                  }
-               } else {
-                  /* We're looking for a OBJ rule */
-                  if (member_array("OBJ", rules) != -1) {
-                     rule = "OBJ";
-                  } else {
-                     rule = "";
-                  }
-               }
-            } else {
-               /* Or are we just looking for a string? */
-               if ((member_array("STR", rules) != -1) && (arg != "")) {
-                  rule = "STR";
-               } else {
-                  rule = "";
-               }
-            }
-
-            if (rule == "LIV") {
-               targeted_action(EMOTE_D->query_emote(cmd, rule), target);
-            } else if (rule == "OBJ") {
-               simple_action(EMOTE_D->query_emote(cmd, rule), target);
-            } else if (rule == "STR") {
-               simple_action(EMOTE_D->query_emote(cmd, rule), arg);
-            } else if (member_array("", rules) != -1) {
-               simple_action(EMOTE_D->query_emote(cmd, rule));
-            } else {
-               write("No such emote.\n");
-            }
-            flag = 1;
-         }
+         flag = check_emote(cmd, arg);
       }
+
    } : {
       set_this_player(save_player);
       rethrow();

@@ -17,6 +17,21 @@ string *usage(void) {
    return lines;
 }
 
+int found_snooping(object *pSnooping) {
+   int i, sz;
+
+   sz = sizeof(pSnooping);
+   for (i = 0; i < sz; i++) {
+      if (pSnooping[i]->query_name() ==
+         this_player()->query_name()) {
+
+         this_player()->message("They are already snooping you.");
+         return 1;
+      }
+   }
+   return 0;
+}
+
 static void main(string str) {
    int sz, i;
    object *pSnooping;
@@ -60,14 +75,8 @@ static void main(string str) {
             pSnooping = pPlayer->query_snooping();
 
             if (pSnooping && (sizeof(pSnooping) > 0)) {
-               sz = sizeof(pSnooping);
-
-               for (i = 0; i < sz; i++) {
-                  if (pSnooping[i]->query_name() ==
-                     this_player()->query_name()) {
-                     this_player()->message("He's already snooping you.");
-                     return;
-                  }
+               if (found_snooping(pSnooping)) {
+                  return;
                }
             }
             this_player()->add_snooping(pPlayer);

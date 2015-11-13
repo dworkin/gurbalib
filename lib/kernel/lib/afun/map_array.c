@@ -35,12 +35,17 @@ static mixed *map_array(mixed * arr, mixed fun, varargs mixed arg...) {
    result = allocate(sz);
 
    for (i = 0; i < sz; i++) {
+
 #ifdef CLOSURES_EXTENSION
       if (functionp(fun)) {
          result[i] = (*fun)(arr[i], extra...);
-      } else
-#endif
+      } else {
+         result[i] = call_other(obj, fun, arr[i], extra...);
+      }
+#else
       result[i] = call_other(obj, fun, arr[i], extra...);
+#endif
+
    }
    return result;
 }
