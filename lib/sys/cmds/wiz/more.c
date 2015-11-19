@@ -90,30 +90,29 @@ static void main(string arg) {
 
       sz = sizeof(tmp);
       for (i = 0; i < sz; i++) {
-         if (sizeof(lines) < maxlines) {
-            if (strlen(tmp[i]) > 79) {
-               /* Big line. Break it up. */
-               where = 0;
-               while (where < strlen(tmp[i])) {
-                  if (sizeof(lines) < maxlines) {
-                     if (where + 79 < strlen(tmp[i])) {
-                        lines += ( { tmp[i][where..where + 78] } );
-                        where += 79;
-                     } else {
-                        lines += ( { tmp[i][where..] } );
-                        where = strlen(tmp[i]);
-                     }
-                  } else {
-                     chopped = 1;
-                     break;
-                  }
-               }
-            } else {
-               lines += ( { tmp[i] } );
-            }
-         } else {
+         if (sizeof(lines) >= maxlines) {
             chopped = 1;
             break;
+         }
+
+         if (strlen(tmp[i]) > 79) {
+            /* Big line. Break it up. */
+            where = 0;
+            while (where < strlen(tmp[i])) {
+               if (sizeof(lines) >= maxlines) {
+                  chopped = 1;
+                  break;
+               }
+               if (where + 79 < strlen(tmp[i])) {
+                  lines += ({ tmp[i][where..where + 78] });
+                  where += 79;
+               } else {
+                  lines += ({ tmp[i][where..] });
+                  where = strlen(tmp[i]);
+               }
+            }
+         } else {
+            lines += ({ tmp[i] });
          }
       }
    }
