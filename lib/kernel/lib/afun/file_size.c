@@ -30,5 +30,12 @@ int file_size(string file, varargs int dir) {
    }
 
    i = info[1][i];
-   return (i > 0) ? i : (i == 0) ? 1 : (i == -2 && dir) ? dir_size(file) : 0;
+   if (i > 0) {
+      return i;
+   } else if (i == 0) {
+      return  1;
+   } else if (i == -2 && dir) { 
+      return dir_size(file);
+   }
+   return 0;
 }

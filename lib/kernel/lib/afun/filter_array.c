@@ -39,9 +39,12 @@ mixed *filter_array(mixed * arr, mixed fun, varargs mixed arg... ) {
 #ifdef CLOSURES_EXTENSION
       if (functionp(fun)) {
          r = (*fun)(arr[i], extra...);
-      } else 
-#endif
+      } else {
+         r = call_other(obj, fun, arr[i], extra...);
+      }
+# else 
       r = call_other(obj, fun, arr[i], extra...);
+#endif
 
       if (r) {
          res += ( { arr[i] } );
