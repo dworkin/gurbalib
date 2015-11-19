@@ -27,10 +27,10 @@ nomask static void open_port(string proto, varargs mixed port) {
       error("Permission denied.");
    }
    if (port_object) {
-      if (intp(port) {
+      if (intp(port)) {
          console_msg("Port already open: " + proto + ":" + (string)port + "\n");
       } else {
-         console_msg("Port already open: " + proto + ":*\n";
+         console_msg("Port already open: " + proto + ":*\n");
       }
    } else {
       port_object = clone_object(PORT);
