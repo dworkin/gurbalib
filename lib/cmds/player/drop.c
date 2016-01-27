@@ -13,10 +13,18 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tdrop sword" });
    lines += ({ "\tdrop all" });
-   lines += ({ "See also:" });
-   lines += ({ "\tget, put, remove, wear, wield" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "get");
+   add_also("player", "put");
+   add_also("player", "remove");
+   add_also("player", "wear");
+   add_also("player", "wield");
 }
 
 static int do_drop_coin(int amount, string type) {
@@ -106,6 +114,10 @@ static void main(string str) {
    object *inv;
    int i, max, amount, done;
    string type;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

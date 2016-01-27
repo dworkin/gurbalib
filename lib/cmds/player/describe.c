@@ -13,17 +13,28 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tdescribe The unassuming little elf." });
-   lines += ({ "See also:" });
-   lines += ({ "\talias, ansi, chfn, clear, ignore, passwd" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcoloradm" });
-   }
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("player", "alias");
+   add_also("player", "ansi");
+   add_also("player", "chfn");
+   add_also("player", "clear");
+   add_also("player", "ignore");
+   add_also("player", "passwd");
+
+   add_also("admin", "coloradm");
+}
+
 static void main(string str) {
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       write("Your current description:\n   " + this_player()->query_long() +

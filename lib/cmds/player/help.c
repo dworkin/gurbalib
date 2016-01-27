@@ -24,15 +24,16 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\thelp newbie" });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\tcmds, man" });
-   } else {
-      lines += ({ "\tcmds" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "cmds");
+
+   add_also("wiz", "man");
 }
 
 int show_help_for_command(string cmd) {
@@ -88,6 +89,11 @@ int show_help(string filename) {
 
 static void main(string arg) {
    string file;
+
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(arg) || (arg == "help")) {
       this_player()->more(usage());
       return;

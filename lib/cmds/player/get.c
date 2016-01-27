@@ -17,10 +17,18 @@ string *usage(void) {
    lines += ({ "\tget sword from chest" });
    lines += ({ "\tget all" });
    lines += ({ "\tget all from chest" });
-   lines += ({ "See also:" });
-   lines += ({ "\tdrop, open, put, remove, wear, wield" });
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "drop");
+   add_also("player", "open");
+   add_also("player", "put");
+   add_also("player", "remove");
+   add_also("player", "wear");
+   add_also("player", "wield");
 }
 
 static int get_coins(object here, int amount, string type) {
@@ -142,6 +150,10 @@ static void main(string str) {
    object obj, obj2, *inv;
    int i, max, done, amount;
    string what, where, type;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

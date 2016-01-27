@@ -14,21 +14,29 @@ string *usage(void) {
    lines += ({ "\twizcall I need help I'm stuck in a room I can not get " + 
       "out of." });
    lines += ({ "\twizcall I found a bug in the look command." });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, say, shout, " +
-         "ssay, sysmsg, tell, translate, whisper, wizlog" });
-   } else {
-      lines += ({ "\tbug, chan, emote, rsay, say, shout, " +
-         "tell, whisper" });
-   }
-   if (query_admin(this_player())) {
-      lines += ({ "\twall" });
-   }
-
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "bug");
+   add_also("player", "chan");
+   add_also("player", "emote");
+   add_also("player", "rsay");
+   add_also("player", "say");
+   add_also("player", "shout");
+   add_also("player", "tell");
+   add_also("player", "whisper");
+   add_also("wiz", "echo");
+   add_also("wiz", "echoto");
+   add_also("wiz", "ssay");
+   add_also("wiz", "sysmsg");
+   add_also("wiz", "translate");
+   add_also("wiz", "wizlog");
+
+   add_also("admin", "wall");
 }
 
 static void main(string str) {
@@ -36,6 +44,10 @@ static void main(string str) {
    object *usrs;
 
    flag = 0;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

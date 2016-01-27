@@ -14,10 +14,21 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tfollow sirdude" });
    lines += ({ "\tfollow" });
-   lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, eat, enter, go, pray, query, quit, wimpy" });
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "attack");
+   add_also("player", "cast");
+   add_also("player", "eat");
+   add_also("player", "enter");
+   add_also("player", "go");
+   add_also("player", "pray");
+   add_also("player", "query");
+   add_also("player", "quit");
+   add_also("player", "wimpy");
 }
 
 /* XXX need to still put backend of this in..... */
@@ -25,6 +36,10 @@ string *usage(void) {
 static void main(string str) {
    string name;
    object obj;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    name = this_player()->query_follower();
    if (empty_str(str)) {

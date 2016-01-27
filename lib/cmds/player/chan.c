@@ -50,21 +50,29 @@ string *usage(void) {
    lines += ({ "\tchan announce hi all!" });
    lines += ({ "\tchan announce :woo" });
    lines += ({ "\tchan announce ::woo" });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\tbug, echo, echoto, emote, rsay, say, shout, " +
-         "ssay, sysmsg, tell, translate, whisper, wizcall, wizlog" });
-   } else {
-      lines += ({ "\tbug, emote, rsay, say, shout, " +
-         "tell, whisper, wizcall" });
-   }
-   if (query_admin(this_player())) {
-      lines += ({ "\twall" });
-   }
-
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "bug");
+   add_also("player", "emote");
+   add_also("player", "rsay");
+   add_also("player", "say");
+   add_also("player", "shout");
+   add_also("player", "tell");
+   add_also("player", "whisper");
+   add_also("player", "wizcall");
+
+   add_also("wiz", "echoto");
+   add_also("wiz", "ssay");
+   add_also("wiz", "sysmsg");
+   add_also("wiz", "translate");
+   add_also("wiz", "wizlog");
+
+   add_also("admin", "wall");
 }
 
 static void list_channels(int x) {
@@ -213,14 +221,20 @@ static void chan_cmd(string cmd, string chan) {
 static void main(string str) {
    string chan, cmd;
 
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(str)) {
       list_channels(1);
       return;
    }
+
    if (sscanf(str, "-%s", str)) {
       this_player()->more(usage());
       return;
    }
+
    if (str == "list" || str == "who") {
       list_channels(0);
       return;

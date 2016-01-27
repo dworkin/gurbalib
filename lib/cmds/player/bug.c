@@ -12,22 +12,31 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tbug the rabbit hole does not work in newbieville" });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\tchan, echo, echoto, emote, rsay, say, shout, " +
-         "ssay, sysmsg, tell, translate, whisper, wizcall, wizlog" });
-   } else {
-      lines += ({ "\tchan, emote, rsay, say, shout, " +
-         "tell, whisper, wizcall" });
-   }
-   if (query_admin(this_player())) {
-      lines += ({ "\twall" });
-   }
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("player", "chan");
+   add_also("player", "emote");
+   add_also("player", "rsay");
+   add_also("player", "say");
+   add_also("player", "shout");
+   add_also("player", "tell");
+   add_also("player", "whisper");
+   add_also("player", "wizcall");
+
+   add_also("wiz", "echo");
+   add_also("wiz", "echoto");
+   add_also("wiz", "ssay");
+   add_also("wiz", "sysmsg");
+   add_also("wiz", "translate");
+   add_also("wiz", "wizlog");
+
+   add_also("admin", "wall");
+}
 private static mapping msg;
 private static mapping subject;
 private static mapping ob;
@@ -35,10 +44,15 @@ private static mapping ob;
 static void main(string str) {
    string player_name, tmp;
 
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(str)) {
       this_player()->more(usage());
       return;
    }
+
    if (sscanf(str, "-%s", str)) {
       this_player()->more(usage());
       return;
@@ -49,6 +63,7 @@ static void main(string str) {
       subject = ([]);
       ob = ([]);
    }
+
    player_name = this_player()->query_Name();
 
    tmp = DOMAINS_DIR + "/required/rooms/bug_room";

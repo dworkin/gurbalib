@@ -36,10 +36,17 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tmail" });
    lines += ({ "\tmail sirdude" });
-   lines += ({ "See also:" });
-   lines += ({ "\tdelete, look, post, read" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "delete");
+   add_also("player", "look");
+   add_also("player", "post");
+   add_also("player", "read");
 }
 
 void delete_message(string str) {
@@ -187,6 +194,10 @@ void view_mailbox(string str) {
 }
 
 static void main(string str) {
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    write("XXX The mail command is still under construction.\n");
    this_player()->more(usage());

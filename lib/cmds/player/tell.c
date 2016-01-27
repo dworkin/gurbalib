@@ -18,25 +18,39 @@ string *usage(void) {
    lines += ({ "\ttell sirdude You have a large nose." });
    lines += ({ "\ttell guest Hi how are you?" });
    lines += ({ "\ttell \"sirdude@Dead Souls Dev\" Hi how are you?" });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, say, shout, " +
-         "ssay, sysmsg, translate, whisper, wizcall, wizlog" });
-   } else {
-      lines += ({ "\tbug, chan, emote, rsay, say, shout, " +
-         "whisper, wizcall" });
-   }
-   if (query_admin(this_player())) {
-      lines += ({ "\twall" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "bug");
+   add_also("player", "chan");
+   add_also("player", "emote");
+   add_also("player", "rsay");
+   add_also("player", "say");
+   add_also("player", "shout");
+   add_also("player", "whisper");
+   add_also("player", "wizcall");
+
+   add_also("wiz", "echo");
+   add_also("wiz", "echoto");
+   add_also("wiz", "ssay");
+   add_also("wiz", "sysmsg");
+   add_also("wiz", "translate");
+   add_also("wiz", "wizlog");
+
+   add_also("admin", "wall");
 }
 
 static void main(string who) {
    object usr;
    string what, where;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(who)) {
       this_player()->more(usage());

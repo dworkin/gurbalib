@@ -25,10 +25,22 @@ string *usage(string str) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tcast missile rat" });
-   lines += ({ "See also:" });
-   lines += ({ "\tattack, eat, enter, follow, go, pray, query, quit, wimpy" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "attack");
+   add_also("player", "eat");
+   add_also("player", "enter");
+   add_also("player", "follow");
+   add_also("player", "go");
+   add_also("player", "pray");
+   add_also("player", "query");
+   add_also("player", "quit");
+   add_also("player", "wimpy");
 }
 
 static int has_spell(string spellname) {
@@ -87,10 +99,15 @@ static void cast_spell(string spell, string who) {
 static void main(string str) {
    string spellname, who;
 
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(str)) {
       list_spells();
       return;
    }
+
    if (sscanf(str, "-h %s", str)) {
       this_player()->more(usage(str));
       return;

@@ -13,10 +13,18 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tput sword in chest" });
    lines += ({ "\tput all in chest" });
-   lines += ({ "See also:" });
-   lines += ({ "\tget, drop, remove, wear, wield" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "get");
+   add_also("player", "drop");
+   add_also("player", "remove");
+   add_also("player", "wear");
+   add_also("player", "wield");
 }
 
 static void do_put(object obj1, object obj2, int loud) {
@@ -97,6 +105,10 @@ static void main(string str) {
    object *inv;
    int i, max;
    string what, where;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

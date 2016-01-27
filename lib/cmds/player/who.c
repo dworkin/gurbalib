@@ -14,15 +14,21 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\twho" });
    lines += ({ "\twho sirdude" });
-   lines += ({ "See also:" });
-   if (query_wizard(this_player())) {
-      lines += ({ "\tlast, locate, look, mudlist, possess, rwho, " +
-         "snoop, where" });
-   } else {
-      lines += ({ "\tlook" });
-   }
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "look");
+   add_also("wiz", "last");
+   add_also("wiz", "locate");
+   add_also("wiz", "mudlist");
+   add_also("wiz", "possess");
+   add_also("wiz", "rwho");
+   add_also("wiz", "snoop");
+   add_also("wiz", "where");
 }
 
 /* 'who' command Originally by Fudge Improved by Cerihan 3/15/09 */
@@ -30,6 +36,11 @@ static void main(string str) {
    object *usr;
    int long_flag;
    string *out;
+
+   if (!alsos) {
+      setup_alsos();
+   }
+
 
    if (query_wizard(this_player())) {
       long_flag = 1;

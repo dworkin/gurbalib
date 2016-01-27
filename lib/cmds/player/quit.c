@@ -16,10 +16,22 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tquit" });
    lines += ({ "\tquit -r" });
-   lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, eat, enter, follow, go, pray, query, wimpy" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "attack");
+   add_also("player", "cast");
+   add_also("player", "eat");
+   add_also("player", "enter");
+   add_also("player", "follow");
+   add_also("player", "go");
+   add_also("player", "pray");
+   add_also("player", "query");
+   add_also("player", "wimpy");
 }
 
 void verify_remove(string str) {
@@ -31,6 +43,11 @@ void verify_remove(string str) {
 }
 
 static void main(string str) {
+
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (!empty_str(str)) {
       if (str == "-r") {
          write("WARNING!!! this is not reversible.\n");

@@ -23,18 +23,28 @@ string *usage(void) {
       lines += ({ "\tpasswd sirdude bingo" });
    }
 
-   lines += ({ "See also:" });
-   lines += ({ "\talias, ansi, chfn, clear, describe, ignore" });
-
-   if (query_admin(this_player())) {
-      lines += ({ "\tcoloradm" });
-   }
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("player", "alias");
+   add_also("player", "ansi");
+   add_also("player", "chfn");
+   add_also("player", "clear");
+   add_also("player", "describe");
+   add_also("player", "ignore");
+
+   add_also("admin", "coloradm");
+}
+
 static void main(string arg) {
    string who, passwd;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (arg && (arg != "")) {
       if (!query_admin(this_player())) {

@@ -28,10 +28,14 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tfortune" });
    lines += ({ "\tfortune samples" });
-   lines += ({ "See also:" });
-   lines += ({ "\tmotd" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "motd");
 }
 
 string *get_fortune_files(void) {
@@ -77,6 +81,10 @@ int valid_fortune(string str) {
 }
 
 static void main(string str) {
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(str)) {
    } else if (str == "-h" || !valid_fortune(str)) {
       this_player()->more(usage());

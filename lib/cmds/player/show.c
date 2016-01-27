@@ -12,10 +12,16 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tshow sword to sirdude" });
    lines += ({ "\tshow sword sirdude" });
-   lines += ({ "See also:" });
-   lines += ({ "\tget, give, drop" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "get");
+   add_also("player", "give");
+   add_also("player", "drop");
 }
 
 static void display_object(object who, object what) {
@@ -90,6 +96,10 @@ static void main(string str) {
    object obj, obj2, *inv;
    int i, max, amount;
    string what, where, coin;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

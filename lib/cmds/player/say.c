@@ -12,21 +12,30 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tsay I'm sleepy, I should go now." });
    lines += ({ "\tsay no your not!" });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, shout, " +
-         "ssay, sysmsg, tell, translate, whisper, wizcall, wizlog" });
-   } else {
-      lines += ({ "\tbug, chan, emote, rsay, shout, " +
-         "tell, whisper, wizcall" });
-   }
-   if (query_admin(this_player())) {
-      lines += ({ "\twall" });
-   }
-
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "bug");
+   add_also("player", "chan");
+   add_also("player", "emote");
+   add_also("player", "rsay");
+   add_also("player", "shout");
+   add_also("player", "tell");
+   add_also("player", "whisper");
+   add_also("player", "wizcall");
+
+   add_also("wiz", "echo");
+   add_also("wiz", "echoto");
+   add_also("wiz", "ssay");
+   add_also("wiz", "sysmsg");
+   add_also("wiz", "translate");
+   add_also("wiz", "wizlog");
+
+   add_also("admin", "wall");
 }
 
 string *get_strtype(string me, string you, string str) {
@@ -171,6 +180,10 @@ static void main(string str) {
    int i;
    string me;         /*what I, the one who's talking, sees */
    string you;        /*what all the others in the room sees */
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

@@ -11,14 +11,30 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tattack rat" });
-   lines += ({ "See also:" });
-   lines += ({ "\tcast, eat, enter, follow, go, pray, query, quit, wimpy" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("player", "cast");
+   add_also("player", "eat");
+   add_also("player", "enter");
+   add_also("player", "follow");
+   add_also("player", "go");
+   add_also("player", "pray");
+   add_also("player", "query");
+   add_also("player", "quit");
+   add_also("player", "wimpy");
+}
+
 static void main(string str) {
    object obj;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!str && (str != "")) {
       this_player()->more(usage());

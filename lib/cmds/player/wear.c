@@ -13,15 +13,27 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\twear helmet" });
    lines += ({ "\twear pants" });
-   lines += ({ "See also:" });
-   lines += ({ "\tget, drop, put, remove, wield" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "get");
+   add_also("player", "drop");
+   add_also("player", "put");
+   add_also("player", "remove");
+   add_also("player", "wield");
 }
 
 int do_wear(object obj, int loud) {
    string slot;
    object worn;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!obj) {
       if (loud) {

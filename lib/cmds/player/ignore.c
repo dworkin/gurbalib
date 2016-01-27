@@ -13,14 +13,21 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tignore sirdude" });
-   lines += ({ "See also:" });
-   lines += ({ "\talias, ansi, chfn, clear, describe, passwd" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcoloradm" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "alias");
+   add_also("player", "ansi");
+   add_also("player", "chfn");
+   add_also("player", "clear");
+   add_also("player", "describe");
+   add_also("player", "passwd");
+
+   add_also("admin", "coloradm");
 }
 
 /* Add a user to your ignore list  -- Arron Cusimano (mordain) 20090321 */
@@ -28,6 +35,10 @@ static void main(string arg) {
    string out;
    int i, sz;
    string *list;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(arg)) {
       out = "Ignored list:\n";

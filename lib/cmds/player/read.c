@@ -11,15 +11,26 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tread sign" });
-   lines += ({ "See also:" });
-   lines += ({ "\tdelete, look, mail, post" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "delete");
+   add_also("player", "look");
+   add_also("player", "mail");
+   add_also("player", "post");
 }
 
 static void main(string str) {
    object ob;
    string *lines;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

@@ -11,13 +11,21 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tmotd" });
-   lines += ({ "See also:" });
-   lines += ({ "\tfortune" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+setup_alsos() {
+   add_also("player", "motd");
+}
+
 static void main(string str) {
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(str)) {
       string *lines;
 

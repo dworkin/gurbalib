@@ -13,16 +13,31 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tvalue sword" });
    lines += ({ "\tvalue helmet" });
-   lines += ({ "See also:" });
-   lines += ({ "\tbuy, extinguish, identify, light, list, listen, look, " +
-      "search, sell " });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\tlast, locate, mudlist, possess, rwho, snoop, where, who"
-         });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "buy");
+   add_also("player", "extinguish");
+   add_also("player", "identify");
+   add_also("player", "light");
+   add_also("player", "list");
+   add_also("player", "listen");
+   add_also("player", "look");
+   add_also("player", "search");
+   add_also("player", "sell");
+
+   add_also("wiz", "last");
+   add_also("wiz", "locate");
+   add_also("wiz", "mudlist");
+   add_also("wiz", "possess");
+   add_also("wiz", "rwho");
+   add_also("wiz", "snoop");
+   add_also("wiz", "where");
+   add_also("wiz", "who");
 }
 
 static void main(string str) {
@@ -30,6 +45,10 @@ static void main(string str) {
    int diff;                    /*Difference between roll and chance */
    int dev;                     /*Deviation from the actual value */
    object obj;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

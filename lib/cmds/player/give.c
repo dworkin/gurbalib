@@ -15,10 +15,14 @@ string *usage(void) {
    lines += ({ "\tgive sword sirdude" });
    lines += ({ "\tgive all to sirdude" });
    lines += ({ "\tgive 5 ducats to sirdude" });
-   lines += ({ "See also:" });
-   lines += ({ "\tget, drop" });
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "get");
+   add_also("player", "drop");
 }
 
 static void do_give(object obj1, object obj2, int loud) {
@@ -133,6 +137,10 @@ static void main(string str) {
    object *inv;
    int i, max, amount;
    string what, where, coin;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

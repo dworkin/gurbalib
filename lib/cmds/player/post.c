@@ -13,10 +13,17 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tpost This is a message" });
-   lines += ({ "See also:" });
-   lines += ({ "\tdelete, look, mail, read" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "delete");
+   add_also("player", "look");
+   add_also("player", "mail");
+   add_also("player", "read");
 }
 
 private static mapping msg;
@@ -24,6 +31,10 @@ private static mapping subject;
 private static mapping ob;
 
 static void main(string str) {
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!msg) {
       msg = ([]);

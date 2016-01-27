@@ -32,11 +32,13 @@ string *usage(void) {
    lines += ({ "\tgroup say Lets attack the frog." });
    lines += ({ "\tgroup split" });
   
-   lines += ({ "See also:" });
-
-   lines += ({ "\tcmds" });
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "cmds");
 }
 
 string *get_group_members() {
@@ -158,6 +160,11 @@ int do_group_say(string what) {
 
 static void main(string arg) {
    string file;
+
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(arg) || (arg == "help")) {
       this_player()->more(usage());
       return;

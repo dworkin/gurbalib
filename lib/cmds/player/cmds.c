@@ -29,20 +29,26 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tcmds" });
    lines += ({ "\tcmds players" });
-   lines += ({ "See also:" });
-   if (query_wizard(this_player())) {
-      lines += ({ "\tman, help" });
-   } else {
-      lines += ({ "\thelp" });
-   }
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("help", "player");
+
+   add_also("wiz", "man");
 }
 
 static void show_cmds(string dir) {
    string *names, *files;
    mapping cmds;
    int c, d, sz, i;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    cmds = ([]);
    files = get_dir(dir + "/*.c")[0];

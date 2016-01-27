@@ -41,16 +41,24 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tset width 50" });
    lines += ({ "\tset email foo@bar.com" });
-   lines += ({ "See also:" });
-   lines += ({ "\tansi, wimpy" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "ansi");
+   add_also("player", "wimpy");
 }
 
 void list_vars(void) {
    string name, *names;
    int i;
 
+   if (!alsos) {
+      setup_alsos();
+   }
    names = ({ "height", "width", "prompt" });
    if (!query_guest(this_player()->query_name() ) ) {
       names += ({ "realname", "email", "website" });

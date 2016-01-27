@@ -19,14 +19,19 @@ string *usage(void) {
    lines += ({ "\t-s\tShow the short version of game time." });
    lines += ({ "Examples:" });
    lines += ({ "\ttime" });
-   lines += ({ "See also:" });
-   if (query_wizard(this_player())) {
-      lines += ({ "\tdate, scan, score, status, time" });
-   } else {
-      lines += ({ "\tscore, time" });
-   }
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "score");
+   add_also("player", "time");
+
+   add_also("wiz", "date");
+   add_also("wiz", "scan");
+   add_also("wiz", "status");
 }
 
 string get_hour0() {
@@ -627,6 +632,10 @@ string get_hour23() {
 static void main(string str) {
    int day;
    string txt, datetxt, *days, *hours, *years;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!empty_str(str)) {
       if ((str == "-s") || (str == "-S")) {

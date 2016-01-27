@@ -12,19 +12,30 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\thp" });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\tinventory, junk, levels, score, skills, status, top" });
-   } else {
-      lines += ({ "\tinventory, junk, levels, score, skills, top" });
-   }
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("player", "inventory");
+   add_also("player", "junk");
+   add_also("player", "levels");
+   add_also("player", "score");
+   add_also("player", "skills");
+   add_also("player", "top");
+
+   add_also("wiz", "status");
+}
+
 static void main(string str) {
    string line;
+
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (!empty_str(str)) {
       this_player()->more(usage());
       return;

@@ -18,15 +18,21 @@ string *usage(void) {
    lines += ({ "\tjunk corpse" });
    lines += ({ "\tjunk sword" });
    lines += ({ "\tjunk all" });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\thp, inventory, levels, score, skills, status, top" });
-   } else {
-      lines += ({ "\thp, inventory, levels, score, skills, top" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "hp");
+   add_also("player", "inventory");
+   add_also("player", "levels");
+   add_also("player", "score");
+   add_also("player", "skills");
+   add_also("player", "top");
+
+   add_also("wiz", "status");
 }
 
 void do_junk(object obj) {
@@ -51,6 +57,10 @@ void do_junk(object obj) {
 static void main(string str) {
    object obj, *inv;
    int x, xmax;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

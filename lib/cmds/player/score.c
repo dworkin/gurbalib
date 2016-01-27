@@ -13,23 +13,32 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tscore" });
    lines += ({ "\tscore sirdude" });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\thp, inventory, junk, levels, skills, status, top" });
-   } else {
-      lines += ({ "\thp, inventory, junk, levels, skills, top" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "hp");
+   add_also("player", "inventory");
+   add_also("player", "junk");
+   add_also("player", "levels");
+   add_also("player", "skills");
+   add_also("player", "top");
+
+   add_also("wiz", "status");
 }
 
 static void main(string str) {
    int mh, h, expr, level, quest, mm, m, me, e, ac, i, mw, w, next_xp;
    mixed *money;
    object obj;
-   string age;
-   string *l;
+   string age, *l;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    quest = 0;
    if (str == "-q") {

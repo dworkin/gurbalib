@@ -12,15 +12,23 @@ string *usage(void) {
    lines += ({ "\tall\tClose everything you can." });
    lines += ({ "Examples:" });
    lines += ({ "\tclose chest" });
-   lines += ({ "See also:" });
-   lines += ({ "\topen" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "open");
 }
 
 static void do_close(object obj, int loud) {
    string slot;
    object worn;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!obj) {
       if (loud) {

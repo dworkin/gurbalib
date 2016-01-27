@@ -14,16 +14,28 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tremove helmet" });
    lines += ({ "\tremove all" });
-   lines += ({ "See also:" });
-   lines += ({ "\tget, drop, put, wear, wield" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "get");
+   add_also("player", "drop");
+   add_also("player", "put");
+   add_also("player", "wear");
+   add_also("player", "wield");
 }
 
 static void do_remove(object obj, int loud) {
    string slot;
    object worn;
    int wielded;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!obj) {
       if (loud) {

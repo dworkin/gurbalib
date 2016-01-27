@@ -25,16 +25,32 @@ string *usage(void) {
    lines += ({ "\twimpy dir north" });
    lines += ({ "\twimpy dir" });
    lines += ({ "\twimpy hp 10" });
-   lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, eat, enter, follow, go, pray, query, quit" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "attack");
+   add_also("player", "cast");
+   add_also("player", "eat");
+   add_also("player", "enter");
+   add_also("player", "follow");
+   add_also("player", "go");
+   add_also("player", "pray");
+   add_also("player", "query");
+   add_also("player", "quit");
 }
 
 static void main(string str) {
    mixed tmp;
    string dir;
    int hp;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       if (this_player()->query_wimpy() == 1) {

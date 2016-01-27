@@ -23,17 +23,24 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tansi on" });
    lines += ({ "\tansi show" });
-   lines += ({ "See also:" });
-   lines += ({ "\talias, chfn, clear, describe, ignore, passwd" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcoloradm" });
-   }
+   lines += get_alsos();
 
    lines += ({ "" });
    lines += ({ "You currently have ansi mode: " + mode });
 
    return lines;
+}
+
+setup_alsos() {
+   add_also("player", "alias");
+   add_also("player", "chfn");
+   add_also("player", "clear");
+   add_also("player", "describe");
+   add_also("player", "ignore");
+   add_also("player", "passwd");
+
+   add_also("admin", "coloradm");
 }
 
 #define GRAMMAR "whitespace=/[ ]+/\n" + \
@@ -125,14 +132,20 @@ static void main(string str) {
    string error;
    int i, pos;
 
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(str)) {
       this_player()->more(usage());
       return;
    }
+
    if (sscanf(str, "-%s", str)) {
       this_player()->more(usage());
       return;
    }
+
    if ((str == "on") || (str == "On") || (str == "1")) {
       this_player()->set_ansi(1);
       out("Turning on ANSI.\n");

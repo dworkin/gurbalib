@@ -13,16 +13,31 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tgo north" });
-   lines += ({ "See also:" });
-   lines += ({ "\tattack, cast, eat, enter, follow, pray, query, quit, wimpy"
-      });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "attack");
+   add_also("player", "cast");
+   add_also("player", "eat");
+   add_also("player", "enter");
+   add_also("player", "follow");
+   add_also("player", "pray");
+   add_also("player", "query");
+   add_also("player", "quit");
+   add_also("player", "wimpy");
 }
 
 static void main(string str) {
    string error, str2;
    int len;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

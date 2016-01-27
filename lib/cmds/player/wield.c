@@ -13,15 +13,27 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\twield sword" });
    lines += ({ "\twield axe" });
-   lines += ({ "See also:" });
-   lines += ({ "\tget, drop, put, remove, wear" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "get");
+   add_also("player", "drop");
+   add_also("player", "put");
+   add_also("player", "remove");
+   add_also("player", "wear");
 }
 
 static int do_wield(object obj, int loud) {
    string slot;
    object *wielded;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!obj) {
       if (loud) {

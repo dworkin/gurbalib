@@ -16,14 +16,23 @@ string *usage(void) {
    lines += ({ "\talias ga get all" });
    lines += ({ "\talias da drop all" });
    lines += ({ "\talias da" });
-   lines += ({ "See also:" });
-   lines += ({ "\tansi, chfn, clear, describe, ignore, passwd" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcmdadm, coloradm, rehash" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "ansi");
+   add_also("player", "chfn");
+   add_also("player", "clear");
+   add_also("player", "describe");
+   add_also("player", "ignore");
+   add_also("player", "passwd");
+
+   add_also("admin", "cmdadm");
+   add_also("admin", "coloradm");
+   add_also("admin", "rehash");
 }
 
 void show_aliases(void) {
@@ -53,6 +62,10 @@ void show_aliases(void) {
 
 static void main(string str) {
    string cmd, arg;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       show_aliases();

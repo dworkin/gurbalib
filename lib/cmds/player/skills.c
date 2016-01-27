@@ -21,14 +21,21 @@ string *usage(void) {
    if (query_wizard(this_player())) {
       lines += ({ "\tskills set spell/cure 5" });
    }
-   lines += ({ "See also:" });
-   if (query_wizard(this_player())) {
-      lines += ({ "\thp, inventory, junk, levels, score, status, top" });
-   } else {
-      lines += ({ "\thp, inventory, junk, levels, score, top" });
-   }
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "hp");
+   add_also("player", "inventory");
+   add_also("player", "junk");
+   add_also("player", "levels");
+   add_also("player", "score");
+   add_also("player", "top");
+
+   add_also("wiz", "status");
 }
 
 /*
@@ -72,6 +79,10 @@ static int set_skill(string skill, int value) {
 static void main(string str) {
    string skill, *skills;
    int i, value;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    /*
     * Check to see if the player wants to see all skills in game

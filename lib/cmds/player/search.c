@@ -12,15 +12,32 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tsearch junk" });
    lines += ({ "\tsearch" });
-   lines += ({ "See also:" });
-   lines += ({ "\tbuy, extinguish, identify, light, list, listen, look, " +
-      "sell, value" });
-   if (query_wizard(this_player())) {
-      lines += ({ "\tlast, locate, mudlist, possess, rwho, snoop, where, who" 
-      });
-   }
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "buy");
+   add_also("player", "extinguish");
+   add_also("player", "identify");
+   add_also("player", "light");
+   add_also("player", "list");
+   add_also("player", "listen");
+   add_also("player", "look");
+   add_also("player", "sell");
+   add_also("player", "value");
+
+   add_also("wiz", "last");
+   add_also("wiz", "locate");
+   add_also("wiz", "mudlist");
+   add_also("wiz", "possess");
+   add_also("wiz", "rwho");
+   add_also("wiz", "snoop");
+   add_also("wiz", "where");
+   add_also("wiz", "who");
+   
 }
 
 static void main(string str) {

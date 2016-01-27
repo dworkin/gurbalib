@@ -22,27 +22,40 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\trsay catfolk Hi, are we being sneaky?" });
    lines += ({ "\trsay Can you read this?" });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\tbug, chan, echo, echoto, emote, say, shout, " +
-         "ssay, sysmsg, tell, translate, whisper, wizcall, wizlog" });
-   } else {
-      lines += ({ "\tbug, chan, emote, say, shout, " +
-         "tell, whisper, wizcall" });
-   }
-   if (query_admin(this_player())) {
-      lines += ({ "\twall" });
-   }
+   lines += get_alsos();
 
- 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "bug");
+   add_also("player", "chan");
+   add_also("player", "emote");
+   add_also("player", "say");
+   add_also("player", "shout");
+   add_also("player", "tell");
+   add_also("player", "whisper");
+   add_also("player", "wizcall");
+
+   add_also("wiz", "echo");
+   add_also("wiz", "echoto");
+   add_also("wiz", "ssay");
+   add_also("wiz", "sysmsg");
+   add_also("wiz", "translate");
+   add_also("wiz", "wizlog");
+
+   add_also("admin", "wall");
 }
 
 static void tell_them(string str, string *words, string lang, string *words2) {
    object *usr;
    int i, imax, k, kmax, x;
    string tmp;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    usr = USER_D->query_players();
    imax = sizeof(usr);

@@ -15,7 +15,6 @@ string *usage(void) {
    lines += ({ "\talias, ansi, chfn, clear, describe, ignore, passwd" });
 
    return lines;
-   this_player()->more(lines);
 }
 
 static void main(string str) {
