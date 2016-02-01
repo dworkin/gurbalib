@@ -14,16 +14,34 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\ttail void.c" });
    lines += ({ "\ttail " + DOMAINS_DIR + "/required/rooms/void.c" });
-   lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, cp, diff, edit, indent, ls, more, " +
-      "mkdir, pwd, rm" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "browse");
+   add_also("wiz", "cat");
+   add_also("wiz", "cd");
+   add_also("wiz", "cp");
+   add_also("wiz", "diff");
+   add_also("wiz", "edit");
+   add_also("wiz", "indent");
+   add_also("wiz", "ls");
+   add_also("wiz", "more");
+   add_also("wiz", "mkdir");
+   add_also("wiz", "pwd");
+   add_also("wiz", "rm");
 }
 
 static void main(string arg) {
    string file, *tmp, *lines;
    int num_lines, start, i, sz, where;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(arg)) {
       arg = this_environment()->file_name();

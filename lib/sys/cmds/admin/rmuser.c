@@ -13,10 +13,17 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\trmuser sirdude" });
-   lines += ({ "See also:" });
-   lines += ({ "\tban, forcequit, muzzle, zap" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "ban");
+   add_also("wiz", "forcequit");
+   add_also("wiz", "muzzle");
+   add_also("wiz", "zap");
 }
 
 static void rmuser(string name) {
@@ -45,6 +52,10 @@ void confirm_remove(string str, string name) {
 
 static void main(string str) {
    string name;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

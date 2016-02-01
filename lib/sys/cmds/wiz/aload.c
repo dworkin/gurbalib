@@ -15,16 +15,24 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\taload save" });
    lines += ({ "\taload" });
-   lines += ({ "See also:" });
-   lines += ({ "\tcompose" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "compose");
 }
 
 static void main(string str) {
    string file, action, rest;
    object ob, *inv;
    int i, max;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!empty_str(str)) {
       if (str == "save") {

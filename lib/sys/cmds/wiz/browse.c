@@ -12,14 +12,31 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tbrowse void.c" });
    lines += ({ "\tbrowse " + DOMAINS_DIR + "/required/rooms" });
-   lines += ({ "See also:" });
-   lines += ({ "\tcat, cd, cp, diff, edit, indent, ls, more, mkdir, pwd, " +
-      "rm, tail" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("wiz", "cat");
+   add_also("wiz", "cd");
+   add_also("wiz", "cp");
+   add_also("wiz", "diff");
+   add_also("wiz", "edit");
+   add_also("wiz", "indent");
+   add_also("wiz", "ls");
+   add_also("wiz", "more");
+   add_also("wiz", "mkdir");
+   add_also("wiz", "pwd");
+   add_also("wiz", "rm");
+   add_also("wiz", "tail");
+}
+
 static void main(string arg) {
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (arg && sscanf(arg, "-%s", arg)) {
       this_player()->more(usage());

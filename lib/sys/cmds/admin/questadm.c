@@ -17,15 +17,29 @@ string *usage(void) {
    lines += ({ "Examples:"});
    lines += ({ "\tquestadm remove NewbieVille"});
    lines += ({ "\tquestadm add NewbieVille 1 newbie"});
-   lines += ({ "See also:"});
-   lines += ({ "\taliasadm, coloradm, emoteadm, quests, skilladm, skills"});
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "quests");
+   add_also("player", "skills");
+
+   add_also("admin", "aliasadm");
+   add_also("admin", "coloradm");
+   add_also("admin", "emoteadm");
+   add_also("admin", "skilladm");
 }
 
 static void main(string str) {
    string cmd, rest, questname, domain;
    int i, max, level;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       QUEST_D->list_quests(this_player());

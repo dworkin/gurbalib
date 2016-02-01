@@ -13,15 +13,31 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\twhere" });
    lines += ({ "\twhere sirdude" });
-   lines += ({ "See also:" });
-   lines += ({ "\tlast, locate, look, mudlist, possess, rwho, snoop, who" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "look");
+
+   add_also("wiz", "last");
+   add_also("wiz", "locate");
+   add_also("wiz", "mudlist");
+   add_also("wiz", "possess");
+   add_also("wiz", "rwho");
+   add_also("wiz", "snoop");
+   add_also("wiz", "who");
 }
 
 static void main(string str) {
    int i, sz;
    object usr, *usrs;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       usrs = USER_D->query_players();

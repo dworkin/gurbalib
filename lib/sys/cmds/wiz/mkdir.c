@@ -12,15 +12,33 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tmkdir test" });
    lines += ({ "\tmkdir /tmp/test" });
-   lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, cp, diff, edit, inedent, ls, more, pwd, " +
-      "rm, tail" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("wiz", "browse");
+   add_also("wiz", "cat");
+   add_also("wiz", "cd");
+   add_also("wiz", "cp");
+   add_also("wiz", "diff");
+   add_also("wiz", "edit");
+   add_also("wiz", "indent");
+   add_also("wiz", "ls");
+   add_also("wiz", "more");
+   add_also("wiz", "pwd");
+   add_also("wiz", "rm");
+   add_also("wiz", "tail");
+}
+
 static void main(string arg) {
    string file;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(arg)) {
       this_player()->more(usage());

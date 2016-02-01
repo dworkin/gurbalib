@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 string *usage(void) {
    string *lines;
 
@@ -9,15 +11,23 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tpage bow" });
    lines += ({ "\tpage wield sword" });
-   lines += ({ "See also:" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
-void main(string str) {
+void setup_alsos() {
+}
+
+static void main(string str) {
    object ob;
 
    string page;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    page = this_player()->query_name() + "s page";
    ob = this_player()->query_environment()->present(page);

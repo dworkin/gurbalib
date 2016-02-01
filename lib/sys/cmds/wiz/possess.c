@@ -13,14 +13,29 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tpossess rat" });
-   lines += ({ "See also:" });
-   lines += ({ "\tlast, locate, look, mudlist, rwho, snoop, where, who" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("wiz", "last");
+   add_also("wiz", "locate");
+   add_also("wiz", "look");
+   add_also("wiz", "mudlist");
+   add_also("wiz", "rwho");
+   add_also("wiz", "snoop");
+   add_also("wiz", "where");
+   add_also("wiz", "who");
+}
+
 static void main(string str) {
    object ob;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       if (this_user()->query_player()->is_possessing()) {

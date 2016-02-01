@@ -39,14 +39,25 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\temoteadm add blink $N $sblink." });
    lines += ({ "\temoteadm add LIV $N $vblink at $t" });
-   lines += ({ "See also:" });
-   lines += ({ "\talias, aliasadmin, cmds, domain, emote, help" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcmdadmin, coloradm, emotediff, rehash" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "alias");
+   add_also("player", "cmds");
+   add_also("player", "emote");
+   add_also("player", "help");
+
+   add_also("wiz", "aliasadm");
+   add_also("wiz", "domain");
+
+   add_also("admin", "cmdadmin");
+   add_also("admin", "coloradmin");
+   add_also("admin", "emotediff");
+   add_also("admin", "rehash");
 }
 
 void delete_emote(string str) {
@@ -81,9 +92,12 @@ void add_emote(string str) {
 }
 
 static void main(string str) {
-   string name, fmt;
-   string *lines;
+   string name, fmt, *lines;
    int width;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    width = this_player()->query_width();
 

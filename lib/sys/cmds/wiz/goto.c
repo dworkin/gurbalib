@@ -17,19 +17,30 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tgoto sirdude" });
    lines += ({ "\tgoto " + DOMAINS_DIR + "/required/rooms/start.c" });
-   lines += ({ "See also:" });
-   lines += ({ "\thome, summon, where" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "home");
+   add_also("wiz", "summon");
+   add_also("wiz", "where");
 }
 
 static void main(string str) {
    object usr;
 
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(str)) {
       this_player()->more(usage());
       return;
    }
+
    if (sscanf(str, "-%s", str)) {
       this_player()->more(usage());
       return;

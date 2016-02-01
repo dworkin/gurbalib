@@ -13,16 +13,28 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\theal sirdude" });
    lines += ({ "\theal" });
-   lines += ({ "See also:" });
-   lines += ({ "\tban, forcequit, halt, muzzle, zap" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "ban");
+   add_also("wiz", "forcequit");
+   add_also("wiz", "halt");
+   add_also("wiz", "muzzle");
+   add_also("wiz", "zap");
 }
 
 static void main(string str) {
    int max;
    object obj;
    string who;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       obj = this_player();

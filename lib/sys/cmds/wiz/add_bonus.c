@@ -11,13 +11,23 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tadd_bonus dex" });
-   lines += ({ "See also:" });
-   lines += ({ "\tadd_base, score, stats" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("player", "score");
+
+   add_also("wiz", "add_base");
+   add_also("wiz", "stats");
+}
+
 static void main(string statname) {
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(statname)) {
       this_player()->more(usage());

@@ -11,21 +11,31 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tdest sword" });
-   lines += ({ "See also:" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcheck, checkmud, clean, clone, eval, graph, rebuild, " +
-         "update, warmboot" });
-   } else {
-      lines += ({ "\tcheck, clean, clone, eval, graph, rebuild, " +
-         "update" });
-   }
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("wiz", "check");
+   add_also("wiz", "clean");
+   add_also("wiz", "clone");
+   add_also("wiz", "eval");
+   add_also("wiz", "graph");
+   add_also("wiz", "rebuild");
+   add_also("wiz", "update");
+
+   add_also("admin", "checkmud");
+   add_also("admin", "warmboot");
+}
+
 static void main(string str) {
    object ob;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

@@ -11,15 +11,27 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message."});
    lines += ({ "Examples:"});
    lines += ({ "\thalt"});
-   lines += ({ "See also:"});
-   lines += ({ "\tban, forcequit, heal, muzzle, zap"});
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "ban");
+   add_also("wiz", "forcequit");
+   add_also("wiz", "heal");
+   add_also("wiz", "muzzle");
+   add_also("wiz", "zap");
 }
 
 static void main(string str) {
    int i, was_fight;
    object *obj;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!empty_str(str)) {
       this_player()->more(usage());

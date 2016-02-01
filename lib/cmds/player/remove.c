@@ -33,10 +33,6 @@ static void do_remove(object obj, int loud) {
    object worn;
    int wielded;
 
-   if (!alsos) {
-      setup_alsos();
-   }
-
    if (!obj) {
       if (loud) {
          write("what are you trying to remove?");
@@ -84,6 +80,10 @@ static void do_remove(object obj, int loud) {
 static void main(string str) {
    object obj, *inv;
    int i, max;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

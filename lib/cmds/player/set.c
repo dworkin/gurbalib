@@ -56,9 +56,6 @@ void list_vars(void) {
    string name, *names;
    int i;
 
-   if (!alsos) {
-      setup_alsos();
-   }
    names = ({ "height", "width", "prompt" });
    if (!query_guest(this_player()->query_name() ) ) {
       names += ({ "realname", "email", "website" });
@@ -77,6 +74,10 @@ void list_vars(void) {
 static void main(string str) {
    string name, value;
    int i;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       list_vars();

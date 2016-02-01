@@ -18,16 +18,23 @@ string *usage(void) {
    lines += ({ "\tloglevel" });
    lines += ({ "\tloglevel default 1" });
    lines += ({ "\tloglevel imud_d 5" });
-   lines += ({ "See also:" });
 
-   lines += ({ "\t" });
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "status");
 }
 
 static void main(string msg) {
    string log, *lines;
    mixed x;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(msg)) {
       lines = LOG_D->show_log_levels();

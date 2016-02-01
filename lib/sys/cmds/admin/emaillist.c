@@ -16,15 +16,19 @@ string *usage(void) {
    lines += ({ "\temaillist" });
    lines += ({ "\temaillist wizards" });
    lines += ({ "\temaillist wizards /tmp/email.txt" });
-   lines += ({ "See also:" });
-   lines += ({ "\twho, last" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("player", "who");
+   add_also("player", "last");
+}
+
 void create_list(string type, string file) {
-   string *names;
-   string line;
+   string line, *names;
    int i, max;
 
    names = USER_D->list_all_users();
@@ -58,6 +62,10 @@ void create_list(string type, string file) {
 
 static void main(string str) {
    string type, file;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       create_list("", "");

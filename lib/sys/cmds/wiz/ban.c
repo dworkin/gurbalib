@@ -22,10 +22,18 @@ string *usage(void) {
    lines += ({ "\tban -s 128.101.32.*" });
    lines += ({ "\tban -s 128.101.32.new" });
    lines += ({ "\tban -s new.new.new.new" });
-   lines += ({ "See also:" });
-   lines += ({ "\tforcequit, halt, heal, muzzle, zap" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "forcequit");
+   add_also("wiz", "halt");
+   add_also("wiz", "heal");
+   add_also("wiz", "muzzle");
+   add_also("wiz", "zap");
 }
 
 void show_banned(void) {
@@ -91,6 +99,10 @@ void ban_site(string str) {
 }
 
 static void main(string str) {
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(str)) {
       show_banned();
       return;

@@ -15,17 +15,35 @@ string *usage(void) {
    lines += ({ "\tcd /cmds         Change cwd to the /cmds directory." });
    lines += ({ "\tcd ..            Move up one directory." });
    lines += ({ "\tcd               Change cwd to /wiz/(username)." });
-   lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cp, diff, edit, indent, ls, more, mkdir, pwd, " +
-      "rm, tail" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "browse");
+   add_also("wiz", "cat");
+   add_also("wiz", "cp");
+   add_also("wiz", "diff");
+   add_also("wiz", "edit");
+   add_also("wiz", "indent");
+   add_also("wiz", "ls");
+   add_also("wiz", "more");
+   add_also("wiz", "mkdir");
+   add_also("wiz", "pwd");
+   add_also("wiz", "rm");
+   add_also("wiz", "tail");
 }
 
 #define MODE_READ 0
 
 static void main(string arg) {
    int tmp;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(arg)) {
       arg = "/wiz/" + this_player()->query_name();

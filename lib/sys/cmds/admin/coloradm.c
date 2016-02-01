@@ -36,12 +36,27 @@ string *usage(void) {
    lines += ({ "\tcoloradm ROOM_NAME=GREEN" });
    lines += ({ "\tcoloradm ROOM_NAME=RED+REVERSE" });
    lines += ({ "\tcoloradm ROOM_NAME=RED+REVERSE+UNDERLINE" });
-   lines += ({ "See also:" });
-   lines += ({ "\tansi, alias, aliasadm, chfn, cmds, cmdadm, " +
-      "describe, domain, emote, emoteadm, ignore, passwd, skilladm, rehash, " +
-      "questadm" });
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "ansi");
+   add_also("player", "alias");
+   add_also("player", "cmds");
+   add_also("player", "emote");
+   add_also("player", "ignore");
+   add_also("player", "passwd");
+
+   add_also("wiz", "aliasadm");
+   add_also("wiz", "cmdadm");
+   add_also("wiz", "describe");
+   add_also("wiz", "domain");
+   add_also("wiz", "emoteadm");
+   add_also("wiz", "skilladm");
+   add_also("wiz", "rehash");
+   add_also("wiz", "questadm");
 }
 
 /* If the arg[0] is a base symbol, it can't be used as a custom tag. */
@@ -78,10 +93,13 @@ mixed *collect_map(mixed * arg) {
 }
 
 static void main(string str) {
-   string error;
-   mixed * args;
-   string *symbols, *values;
+   mixed *args;
+   string error, *symbols, *values;
    int i, sz, pos;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

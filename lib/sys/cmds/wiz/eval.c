@@ -18,17 +18,23 @@ string *usage(void) {
    lines += ({ "\teval return 5 + 5;" });
    lines += ({ "\teval write(\"Sirdude's HP: \" + \n" +
       "\t\tUSER_D->find_player(\"sirdude\")->query_hp() + \"\\n\");" });
-   lines += ({ "See also:" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcheck, checkmud, clean, clone, dest, graph, rebuild, " +
-         "update, warmboot" });
-   } else {
-      lines += ({ "\tcheck, clean, clone, dest, graph, rebuild, " +
-         "update" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "check");
+   add_also("wiz", "clean");
+   add_also("wiz", "clone");
+   add_also("wiz", "dest");
+   add_also("wiz", "graph");
+   add_also("wiz", "rebuild");
+   add_also("wiz", "update");
+
+   add_also("admin", "checkmud");
+   add_also("admin", "warmboot");
 }
 
 static void main(string src) {
@@ -36,6 +42,10 @@ static void main(string src) {
    string err;
    mixed result;
    int str_size;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(src)) {
       this_player()->more(usage());

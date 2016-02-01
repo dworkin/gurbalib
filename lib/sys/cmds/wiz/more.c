@@ -20,11 +20,25 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tmore void.c" });
    lines += ({ "\tmore " + DOMAINS_DIR + "/required/rooms/void.c" });
-   lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, cp, diff, edit, indent, ls, mkdir, pwd, " +
-      "rm, tail" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "browse");
+   add_also("wiz", "cat");
+   add_also("wiz", "cd");
+   add_also("wiz", "cp");
+   add_also("wiz", "diff");
+   add_also("wiz", "edit");
+   add_also("wiz", "indent");
+   add_also("wiz", "ls");
+   add_also("wiz", "mkdir");
+   add_also("wiz", "pwd");
+   add_also("wiz", "rm");
+   add_also("wiz", "tail");
 }
 
 int file_size(string path) {
@@ -51,6 +65,10 @@ int file_size(string path) {
 static void main(string arg) {
    string file, file_data, *tmp, *lines;
    int where, i, sz, size, length, offset, chopped, maxlines;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(arg)) {
       arg = this_environment()->file_name();

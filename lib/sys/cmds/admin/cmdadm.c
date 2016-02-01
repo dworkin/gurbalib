@@ -51,11 +51,25 @@ string *usage(void) {
    lines += ({ "\tcmdadm delete \"/tmp/cmds\"" });
    lines += ({ "\tcmdadm priv /tmp/cmds *" });
    lines += ({ " " });
-   lines += ({ "See also:" });
-   lines += ({ "\talias, aliasadmin, cmds, coloradm, domain, emote, " +
-      "emoteadm, emotediff, help, rehash" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "alias");
+   add_also("player", "cmds");
+   add_also("player", "emote");
+   add_also("player", "help");
+
+   add_also("wiz", "aliasadm");
+   add_also("wiz", "coloradm");
+   add_also("wiz", "domain");
+   add_also("wiz", "emoteadm");
+
+   add_also("admin", "emotediff");
+   add_also("admin", "rehash");
 }
 
 /* utility function, ensure every command path has a trailing slash.  */
@@ -457,6 +471,10 @@ private int action_add_path(string str, int ch) {
 static void main(string str) {
    int r;
    string cmd, arg;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!empty_str(str)) {
       if (sscanf(str, "%s %s", cmd, arg) != 2) {

@@ -11,15 +11,33 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tcp " + DOMAINS_DIR + "/newbie/rooms/workroom.c workroom.c" });
-   lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, diff, edit, indent, ls, more, mkdir, pwd, " +
-      "rm, tail" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("wiz", "browse");
+   add_also("wiz", "cat");
+   add_also("wiz", "cd");
+   add_also("wiz", "diff");
+   add_also("wiz", "edit");
+   add_also("wiz", "indent");
+   add_also("wiz", "ls");
+   add_also("wiz", "more");
+   add_also("wiz", "mkdir");
+   add_also("wiz", "pwd");
+   add_also("wiz", "rm");
+   add_also("wiz", "tail");
+}
+
 static void main(string str) {
    string file, dest, where, file_name, in, *parts;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str) || (sscanf(str, "%s %s", str, where) != 2)) {
       write("Please specify a source and a destination.");

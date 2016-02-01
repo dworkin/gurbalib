@@ -15,16 +15,28 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tzap sirdude" });
    lines += ({ "\tzap sirdude 50" });
-   lines += ({ "See also:" });
-   lines += ({ "\tban, forcequit, halt, heal, muzzle" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "ban");
+   add_also("wiz", "halt");
+   add_also("wiz", "heal");
+   add_also("wiz", "muzzle");
+   add_also("wiz", "forcequit");
 }
 
 static void main(string str) {
    object target;
    int i, sz, perc, target_hp, target_damage;
    string who, target_name;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

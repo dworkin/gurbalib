@@ -34,11 +34,26 @@ string *usage(void) {
    lines += ({ "\temotediff /tmp/emote_d.o" });
    lines += ({ "\temotediff /tmp/emote_d.o smile" });
    lines += ({ "\temotediff -i /tmp/emote_d.o smile" });
-   lines += ({ "See also:" });
-   lines += ({ "\talias, aliasadmin, cmdadm, cmds, coloradm, domain, emote, " +
-      "emoteadm, emotediff, help, rehash" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "alias");
+   add_also("player", "cmds");
+   add_also("player", "emote");
+   add_also("player", "help");
+
+   add_also("wiz", "aliasadm");
+   add_also("wiz", "domain");
+
+   add_also("admin", "cmdadm");
+   add_also("admin", "coloradm");
+   add_also("admin", "emoteadm");
+   add_also("admin", "emotediff");
+   add_also("admin", "rehash");
 }
 
 void do_diff(object obj, string emote, string myfile) {
@@ -184,6 +199,10 @@ static void main(string str) {
    string myfile, *tmp;
    int i, max, x;
    object obj;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

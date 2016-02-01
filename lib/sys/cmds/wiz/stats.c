@@ -11,16 +11,27 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tstats rat" });
-   lines += ({ "See also:" });
-   lines += ({ "\tadd_base, add_bonus, score" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "score");
+
+   add_also("wiz", "add_base");
+   add_also("wiz", "add_bonus");
 }
 
 static void main(string arg) {
    int i, j, stat, max_stat, sz;
    string *stat_abrvs, *stat_names;
    object ob;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (sscanf(arg, "-%s", arg)) {
       this_player()->more(usage());

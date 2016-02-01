@@ -16,17 +16,23 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tcheck /domains/required/rooms/void.c" });
    lines += ({ "\tcheck /domains/required/objects/small_rock.c" });
-   lines += ({ "See also:" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcheckmud, clean, clone, dest, eval, graph, rebuild, " +
-         "update, warmboot" });
-   } else {
-      lines += ({ "\tclean, clone, dest, eval, graph, rebuild, " +
-         "update" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "clean");
+   add_also("wiz", "clone");
+   add_also("wiz", "dest");
+   add_also("wiz", "eval");
+   add_also("wiz", "graph");
+   add_also("wiz", "rebuild");
+   add_also("wiz", "update");
+
+   add_also("admin", "checkmud");
+   add_also("admin", "warmboot");
 }
 
 void warn(string str) {
@@ -485,6 +491,9 @@ static void main(string str) {
    string *files;
    int x, max;
 
+   if (!alsos) {
+      setup_alsos();
+   }
    if (empty_str(str)) {
       this_player()->more(usage());
       return;

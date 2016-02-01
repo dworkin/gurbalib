@@ -13,12 +13,23 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\twarmboot" });
-   lines += ({ "See also:" });
 
-   lines += ({ "\tcheck, checkmud, clean, clone, dest, eval, graph, rebuild, " +
-         "update" });
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "check");
+   add_also("wiz", "clean");
+   add_also("wiz", "clone");
+   add_also("wiz", "dest");
+   add_also("wiz", "eval");
+   add_also("wiz", "graph");
+   add_also("wiz", "rebuild");
+   add_also("wiz", "update");
+
+   add_also("admin", "checkmud");
 }
 
 #define LAST_STAGE 3
@@ -59,6 +70,10 @@ static string validate_upgrade(void) {
 }
 
 static void main(string str) {
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (!empty_str(str)) {
       this_player()->more(usage());
       return;

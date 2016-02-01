@@ -38,14 +38,24 @@ string *usage(void) {
    lines += ({ "\tdomain boothill add sirdude" });
    lines += ({ "\tdomain boothill pro sirdude" });
    lines += ({ "\tdomain boothill del sirdude" });
-   lines += ({ "See also:" });
-   lines += ({ "\talias, aliasadm, cmds, emote, emoteadm, help" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcmdadm, coloradm, emotediff, rehash" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "alias");
+   add_also("player", "emote");
+   add_also("player", "help");
+
+   add_also("wiz", "aliasadm");
+   add_also("wiz", "emoteadm");
+
+   add_also("admin", "cmdadm");
+   add_also("admin", "coloradm");
+   add_also("admin", "emotediff");
+   add_also("admin", "rehash");
 }
 
 static int action_list_domains(void) {
@@ -175,6 +185,10 @@ static int query_domain_admin(string domain, object player) {
 static void main(string arg) {
    string dname, cmd, uname;
    int r;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if ((sscanf(arg, "%s %s %s", dname, cmd, uname) != 3) &&
       (sscanf(arg, "%s %s", dname, cmd) != 2)) {

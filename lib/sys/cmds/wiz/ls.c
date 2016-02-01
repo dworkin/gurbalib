@@ -17,11 +17,25 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tls " + DOMAINS_DIR + "/required" });
    lines += ({ "\tls" });
-   lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, cp, diff, edit, indent, more, mkdir, pwd, " +
-      "rm, tail" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "browse");
+   add_also("wiz", "cat");
+   add_also("wiz", "cd");
+   add_also("wiz", "cp");
+   add_also("wiz", "diff");
+   add_also("wiz", "edit");
+   add_also("wiz", "indent");
+   add_also("wiz", "more");
+   add_also("wiz", "mkdir");
+   add_also("wiz", "pwd");
+   add_also("wiz", "rm");
+   add_also("wiz", "tail");
 }
 
 static void main(string str) {
@@ -29,6 +43,10 @@ static void main(string str) {
    string *names, timestr, dirlist, path, cur_col;
    int *sizes, *times, long, ancient, i, j, sz, max, len, rows, time, color_len;
    int tmp, width;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       str = ".";

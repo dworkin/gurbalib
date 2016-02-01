@@ -46,10 +46,6 @@ static void show_cmds(string dir) {
    mapping cmds;
    int c, d, sz, i;
 
-   if (!alsos) {
-      setup_alsos();
-   }
-
    cmds = ([]);
    files = get_dir(dir + "/*.c")[0];
    for (i = sizeof(files) - 1; i >= 0; i--) {
@@ -92,6 +88,10 @@ static void main(string str) {
    width = this_player()->query_width();
 
    lines = ( { } ); 
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (str == "-v") {
       col = 1;

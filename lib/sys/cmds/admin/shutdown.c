@@ -18,12 +18,22 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tshutdown 5 were upgrading the server's memory." });
    lines += ({ "\tshutdown now sorry were experiencing major problems." });
-   lines += ({ "See also:" });
-   lines += ({ "\tcheck, clean, clone, dest, eval, dumpstate, rebuild, " +
-      "update, warmboot" });
+   lines += get_alsos();
 
    return lines;
-   this_player()->more(lines);
+}
+
+void setup_alsos() {
+   add_also("wiz", "check");
+   add_also("wiz", "clean");
+   add_also("wiz", "clone");
+   add_also("wiz", "dest");
+   add_also("wiz", "eval");
+   add_also("wiz", "update");
+
+   add_also("admin", "dumpstate");
+   add_also("admin", "rebuild");
+   add_also("admin", "warmboot");
 }
 
 void do_shutdown(void) {
@@ -76,6 +86,10 @@ void countdown(int mins) {
 static void main(string arg) {
    object *usrs;
    string time;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(arg)) {
       this_player()->more(usage());

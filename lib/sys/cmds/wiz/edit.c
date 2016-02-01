@@ -28,14 +28,31 @@ string *usage(void) {
    lines += ({ "\t-5\tJump back 5 lines.  (you can use other numbers." });
    lines += ({ "Examples:" });
    lines += ({ "\tedit workroom.c" });
-   lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, cp, diff, indent, ls, more, mkdir, pwd, " +
-      "rm, tail" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("wiz", "browse");
+   add_also("wiz", "cat");
+   add_also("wiz", "cd");
+   add_also("wiz", "cp");
+   add_also("wiz", "diff");
+   add_also("wiz", "indent");
+   add_also("wiz", "ls");
+   add_also("wiz", "more");
+   add_also("wiz", "mkdir");
+   add_also("wiz", "pwd");
+   add_also("wiz", "rm");
+   add_also("wiz", "tail");
+}
+
 static void main(string str) {
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       /* Not starting with a file */

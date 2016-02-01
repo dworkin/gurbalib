@@ -13,15 +13,25 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tscan" });
    lines += ({ "\tscan rat" });
-   lines += ({ "See also:" });
-   lines += ({ "\tdate, status, time" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "date");
+   add_also("wiz", "status");
+   add_also("wiz", "time");
 }
 
 static void main(string str) {
    object where, *objs;
    int i, sz, done;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       where = this_environment();

@@ -15,10 +15,16 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tstatus" });
    lines += ({ "\tstatus sirdude" });
-   lines += ({ "See also:" });
-   lines += ({ "\tdate, scan, time" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "date");
+   add_also("wiz", "scan");
+   add_also("wiz", "time");
 }
 
 void display_driver(mixed * stat) {
@@ -128,6 +134,10 @@ void display_obj(mixed * stat, object obj) {
 static void main(string str) {
    mixed *stat;
    object obj;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       stat = status();

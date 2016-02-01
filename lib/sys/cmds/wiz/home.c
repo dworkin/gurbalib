@@ -14,10 +14,16 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\thome" });
-   lines += ({ "See also:" });
-   lines += ({ "\tgoto, summon, where" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "goto");
+   add_also("wiz", "summon");
+   add_also("wiz", "where");
 }
 
 string get_workroom(void) {
@@ -40,6 +46,10 @@ string get_workroom(void) {
 static void main(string str) {
    object env, ob;
    string filename;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!empty_str(str)) {
       this_player()->more(usage());

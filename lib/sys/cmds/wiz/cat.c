@@ -15,11 +15,25 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tcat void.c" });
    lines += ({ "\tcat " + DOMAINS_DIR + "/required/rooms/void.c" });
-   lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cd, cp, diff, edit, indent, ls, more, mkdir, pwd, " +
-      "rm, tail" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "browse");
+   add_also("wiz", "cd");
+   add_also("wiz", "cp");
+   add_also("wiz", "diff");
+   add_also("wiz", "edit");
+   add_also("wiz", "indent");
+   add_also("wiz", "ls");
+   add_also("wiz", "more");
+   add_also("wiz", "mkdir");
+   add_also("wiz", "pwd");
+   add_also("wiz", "rm");
+   add_also("wiz", "tail");
 }
 
 void cat_the_file(string file) {
@@ -42,6 +56,10 @@ void cat_the_file(string file) {
 
 static void main(string file) {
    string name;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(file)) {
       file = this_player()->query_env("cwf");

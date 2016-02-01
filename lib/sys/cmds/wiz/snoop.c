@@ -11,10 +11,22 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tsnoop sirdude" });
-   lines += ({ "See also:" });
-   lines += ({ "\tlast, locate, look, mudlist, possess, rwho, where, who" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "look");
+   add_also("player", "who");
+
+   add_also("wiz", "last");
+   add_also("wiz", "locate");
+   add_also("wiz", "mudlist");
+   add_also("wiz", "possess");
+   add_also("wiz", "rwho");
+   add_also("wiz", "where");
 }
 
 int found_snooping(object *pSnooping) {
@@ -35,6 +47,10 @@ int found_snooping(object *pSnooping) {
 static void main(string str) {
    int sz, i;
    object *pSnooping;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       pSnooping = this_player()->query_snooping();

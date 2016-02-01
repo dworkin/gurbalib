@@ -13,13 +13,20 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tgender" });
    lines += ({ "\tgender male" });
-   lines += ({ "See also:" });
-   lines += ({ "\ttitle" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("wiz", "title");
+}
+
 static void main(string str) {
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       write("Your current gender is: " + this_player()->query_gender() + "\n");

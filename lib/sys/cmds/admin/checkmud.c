@@ -26,11 +26,24 @@ string *usage(void) {
    lines += ({ "\tcheckmud cmds wiz" });
    lines += ({ "\tcheckmud domains newbie" });
    lines += ({ "\tcheckmud daemons time_d" });
-   lines += ({ "See also:" });
+   lines += get_alsos();
+
    lines += ({ "\tcheck, clean, clone, dest, eval, graph, rebuild, " +
          "update, warmboot" });
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "check");
+   add_also("wiz", "clean");
+   add_also("wiz", "clone");
+   add_also("wiz", "dest");
+   add_also("wiz", "eval");
+   add_also("wiz", "graph");
+   add_also("wiz", "rebuild");
+   add_also("wiz", "update");
+   add_also("wiz", "warmboot");
 }
 
 int valid_file(string filename) {
@@ -187,10 +200,15 @@ static void main(string str) {
    string type, value;
    debug = 0;
 
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(str)) {
       do_full_check();
       return;
    }
+
    if (sscanf(str, "-%s", str)) {
       this_player()->more(usage());
       return;
@@ -200,9 +218,11 @@ static void main(string str) {
    } else {
       type = str;
    }
+
    if (!value) {
       value = "";
    }
+
    switch(type) {
       case "domain":
       case "domains":

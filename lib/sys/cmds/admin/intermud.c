@@ -43,10 +43,15 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tintermud start" });
    lines += ({ "\tintermud status" });
-   lines += ({ "See also:" });
-   lines += ({ "\tchan, mudlist, rwho" });
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "chan");
+   add_also("player", "mudlist");
+   add_also("player", "rwho");
 }
 
 static int check_istat(void) {
@@ -88,6 +93,10 @@ void display_istat(void) {
 static void main(string str) {
    mixed *args;
    string error;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

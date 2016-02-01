@@ -15,17 +15,23 @@ string *usage(void) {
    lines += ({ "\tupdate start.c" });
    lines += ({ "\tupdate here" });
    lines += ({ "\tupdate sword" });
-   lines += ({ "See also:" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcheck, checkmud, clean, clone, dest, eval, graph, " +
-         "rebuild, warmboot" });
-   } else {
-      lines += ({ "\tcheck, clean, clone, dest, eval, graph, rebuild, "
-          });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "check");
+   add_also("wiz", "clean");
+   add_also("wiz", "clone");
+   add_also("wiz", "dest");
+   add_also("wiz", "eval");
+   add_also("wiz", "graph");
+   add_also("wiz", "rebuild");
+
+   add_also("admin", "checkmud");
+   add_also("admin", "warmboot");
 }
 
 object compiler_d;
@@ -77,6 +83,10 @@ static void main(string str) {
    string path;
    object ob, *players, *objs;
    int i, sz;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       str = this_player()->query_env("cwf");

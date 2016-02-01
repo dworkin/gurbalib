@@ -14,13 +14,19 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\ttitle %N is the coolest kid on the block!" });
-   lines += ({ "See also:" });
-   lines += ({ "\tgender" });
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("wiz", "gender");
+}
+
 static void main(string str) {
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       write("Your current title is: " + this_player()->query_title_string() +

@@ -20,10 +20,20 @@ string *usage(void) {
    lines += ({ "\tpromote sirdude admin\tMake sirdude an admin" });
    lines += ({ "\tpromote sirdude wiz\tMake sirdude a wizard" });
    lines += ({ "\tpromote sirdude player\tMake sirdude a normal player" });
-   lines += ({ "See also:" });
+   lines += get_alsos();
+
    lines += ({ "\tban, forcequit, muzzle, rmuser, zap" });
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "ban");
+   add_also("wiz", "forcequit");
+   add_also("wiz", "muzzle");
+   add_also("wiz", "zap");
+
+   add_also("admin", "rmuser");
 }
 
 void display_level(string str) {
@@ -47,6 +57,10 @@ void display_level(string str) {
 static void main(string str) {
    string who, what;
    int numargs;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

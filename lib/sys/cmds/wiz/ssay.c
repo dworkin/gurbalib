@@ -13,23 +13,40 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tssay sleepily drones|Hiya" });
    lines += ({ "\tssay kicks Dran in the pants and says|Muahhahahaha!" });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, say, shout, " +
-         "sysmsg, tell, translate, whisper, wizcall, wizlog" });
-   }
-   if (query_admin(this_player())) {
-      lines += ({ "\twall" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "bug");
+   add_also("player", "chan");
+   add_also("player", "emote");
+   add_also("player", "say");
+   add_also("player", "shout");
+   add_also("player", "tell");
+   add_also("player", "whisper");
+   add_also("player", "wizcall");
+
+   add_also("wiz", "echo");
+   add_also("wiz", "echoto");
+   add_also("wiz", "rsay");
+   add_also("wiz", "sysmsg");
+   add_also("wiz", "translate");
+   add_also("wiz", "wizlog");
+
+   add_also("admin", "wall");
 }
 
 static void main(string str) {
    int i;
    string how;          /*It's not what you say, but how you say it. */
    string what;         /*But what you say is important too. */
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    /* Strip trailing whitespaces */
    for (i = strlen(str) - 1; i > 0; i--) {

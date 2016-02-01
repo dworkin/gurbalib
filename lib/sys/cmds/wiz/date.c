@@ -11,14 +11,22 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tdate" });
-   lines += ({ "See also:" });
-   lines += ({ "\tscan, status, time" });
+
+   lines += get_alsos();
 
    return lines;
-   this_player()->more(lines);
+}
+
+void setup_alsos() {
+   add_also("wiz", "scan");
+   add_also("wiz", "status");
+   add_also("wiz", "time");
 }
 
 static void main(string str) {
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!empty_str(str)) {
       this_player()->more(usage());

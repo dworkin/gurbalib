@@ -15,16 +15,28 @@ string *usage(void) {
    lines += ({ "\tskilladm" });
    lines += ({ "\tskilladm remove english" });
    lines += ({ "\tskilladm add dodge" });
-   lines += ({ "See also:" });
-   lines += ({ "\taliasadm, coloradm, emoteadm, skills, questadm" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("player", "skills");
+
+   add_also("admin", "aliasadm");
+   add_also("admin", "coloradm");
+   add_also("admin", "emoteadm");
+   add_also("admin", "questadm");
+}
+
 static void main(string str) {
-   string cmd, skill;
-   string *skills;
+   string cmd, skill, *skills;
    int i, max;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       skills = SKILL_D->query_skills();

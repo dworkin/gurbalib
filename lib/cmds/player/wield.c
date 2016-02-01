@@ -31,10 +31,6 @@ static int do_wield(object obj, int loud) {
    string slot;
    object *wielded;
 
-   if (!alsos) {
-      setup_alsos();
-   }
-
    if (!obj) {
       if (loud) {
          write("Maybe you should get one first?");
@@ -79,6 +75,10 @@ static int do_wield(object obj, int loud) {
 static void main(string str) {
    object obj, *inv;
    int i, max, done;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

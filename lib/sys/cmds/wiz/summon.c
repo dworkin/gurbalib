@@ -12,14 +12,24 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tsummon guest" });
-   lines += ({ "See also:" });
-   lines += ({ "\tgoto, home, where" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("wiz", "goto");
+   add_also("wiz", "home");
+   add_also("wiz", "where");
+}
+
 static void main(string str) {
    object usr;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       write("Get whom?");

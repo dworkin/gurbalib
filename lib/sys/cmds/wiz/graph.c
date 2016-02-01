@@ -20,17 +20,23 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tgraph " + DOMAINS_DIR + "/gurba/rooms" });
    lines += ({ "\tgraph rooms" });
-   lines += ({ "See also:" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcheck, checkmud, clean, clone, dest, eval, rebuild, " +
-         "update, warmboot" });
-   } else {
-      lines += ({ "\tcheck, clean, clone, dest, eval, rebuild, " +
-         "update" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "check");
+   add_also("wiz", "clean");
+   add_also("wiz", "clone");
+   add_also("wiz", "dest");
+   add_also("wiz", "eval");
+   add_also("wiz", "rebuild");
+   add_also("wiz", "update");
+
+   add_also("admin", "checkmud");
+   add_also("admin", "warmboot");
 }
 
 int valid_extension(string str) {
@@ -109,10 +115,15 @@ static void main(string str) {
    string *files;
    mixed *dirent;
 
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (empty_str(str)) {
       this_player()->more(usage());
       return;
    }
+
    if (sscanf(str, "-%s", str)) {
       this_player()->more(usage());
       return;

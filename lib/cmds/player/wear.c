@@ -31,10 +31,6 @@ int do_wear(object obj, int loud) {
    string slot;
    object worn;
 
-   if (!alsos) {
-      setup_alsos();
-   }
-
    if (!obj) {
       if (loud) {
          write("what are you trying to wear?");
@@ -78,9 +74,12 @@ int do_wear(object obj, int loud) {
 }
 
 static void main(string str) {
-   object obj;
-   object *inv;
+   object obj, *inv;
    int i, max, done;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

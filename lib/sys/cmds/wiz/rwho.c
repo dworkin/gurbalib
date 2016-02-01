@@ -13,13 +13,28 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\t rwho gurbalib" });
-   lines += ({ "See also:" });
-   lines += ({ "\tlast, locate, look, mudlist, possess, snoop, where, who" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("player", "look");
+   add_also("player", "who");
+
+   add_also("wiz", "last");
+   add_also("wiz", "locate");
+   add_also("wiz", "mudlist");
+   add_also("wiz", "possess");
+   add_also("wiz", "snoop");
+   add_also("wiz", "where");
+}
+
 static void main(string str) {
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

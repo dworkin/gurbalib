@@ -35,17 +35,23 @@ string *usage(void) {
    lines += ({ "\trebuild -v -c" });
    lines += ({ "\trebuild -v game" });
    lines += ({ "\trebuild -a" });
-   lines += ({ "See also:" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcheck, checkmud, clean, clone, dest, eval, graph, " +
-         "update, warmboot" });
-   } else {
-      lines += ({ "\tcheck, clean, clone, dest, eval, graph, " +
-         "update" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "check");
+   add_also("wiz", "clean");
+   add_also("wiz", "clone");
+   add_also("wiz", "dest");
+   add_also("wiz", "eval");
+   add_also("wiz", "graph");
+   add_also("wiz", "update");
+
+   add_also("admin", "checkmud");
+   add_also("admin", "warmboot");
 }
 
 static int resubmit_upqueue(string f) {
@@ -90,6 +96,10 @@ static void main(string str) {
    int pos, sz, total, verbose, core, all;
    mapping edges;
    string *users, *wanted, *file, tmp, err;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    str = parse_for_options(str);
    err = query_parse_error();

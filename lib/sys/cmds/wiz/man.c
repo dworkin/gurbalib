@@ -20,10 +20,15 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tman man" });
-   lines += ({ "See also:" });
-   lines += ({ "\tcmds, help" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "cmds");
+   add_also("player", "help");
 }
 
 static string *build_dir(string str) {
@@ -87,6 +92,10 @@ static string *dir_index(string what, int width) {
 static void main(string arg) {
    string file, header, *tmp, *lines;
    int i, j, found, where, width, sz;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(arg)) {
       arg = "";

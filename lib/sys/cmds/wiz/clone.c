@@ -13,17 +13,23 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tclone /domains/required/objects/small_rock.c" });
-   lines += ({ "See also:" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcheck, checkmud, clean, dest, eval, graph, rebuild, " +
-         "update, warmboot" });
-   } else {
-      lines += ({ "\tcheck, clean, dest, eval, graph, rebuild, " +
-         "update" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "check");
+   add_also("wiz", "clean");
+   add_also("wiz", "dest");
+   add_also("wiz", "eval");
+   add_also("wiz", "graph");
+   add_also("wiz", "rebuild");
+   add_also("wiz", "update");
+
+   add_also("admin", "checkmud");
+   add_also("admin", "warmboot");
 }
 
 string get_what(string str) {
@@ -93,6 +99,10 @@ void setup_object(object ob, object player) {
 static void main(string str) {
    string who, what, id;
    object ob, player;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       str = this_player()->query_env("cwf");

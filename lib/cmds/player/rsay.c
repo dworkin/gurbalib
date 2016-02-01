@@ -53,10 +53,6 @@ static void tell_them(string str, string *words, string lang, string *words2) {
    int i, imax, k, kmax, x;
    string tmp;
 
-   if (!alsos) {
-      setup_alsos();
-   }
-
    usr = USER_D->query_players();
    imax = sizeof(usr);
    for (i = 0; i < imax; i++) {
@@ -104,6 +100,10 @@ static void main(string str) {
    int i, k, x, kmax;
    string *words, *words2;
    string rest, first, lang;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());

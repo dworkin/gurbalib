@@ -23,11 +23,25 @@ string *usage(void) {
       });
    lines += ({ "Examples:" });
    lines += ({ "\tdiff start.c void.c\t" });
-   lines += ({ "See also:" });
-   lines += ({ "\tbrowse, cat, cd, cp, edit, indent, ls, more, mkdir, pwd, " +
-      "rm, tail" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "browse");
+   add_also("wiz", "cat");
+   add_also("wiz", "cd");
+   add_also("wiz", "cp");
+   add_also("wiz", "edit");
+   add_also("wiz", "indent");
+   add_also("wiz", "ls");
+   add_also("wiz", "more");
+   add_also("wiz", "mkdir");
+   add_also("wiz", "pwd");
+   add_also("wiz", "rm");
+   add_also("wiz", "tail");
 }
 
 /* Return an array of differences between the files */
@@ -139,6 +153,10 @@ void do_work_toscreen(string file1, string file2) {
 
 static void main(string str) {
    string outfile, file1, file2;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str) || sscanf(str, "-h", str)) {
       this_player()->more(usage());

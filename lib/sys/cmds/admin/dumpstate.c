@@ -15,11 +15,23 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tdumpstate" });
-   lines += ({ "See also:" });
-   lines += ({ "\tcheck, clean, clone, dest, eval, rebuild, " +
-      "shutdown, update, warmboot" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("wiz", "check");
+   add_also("wiz", "clean");
+   add_also("wiz", "clone");
+   add_also("wiz", "dest");
+   add_also("wiz", "eval");
+   add_also("wiz", "update");
+
+   add_also("admin", "rebuild");
+   add_also("admin", "shutdown");
+   add_also("admin", "warmboot");
 }
 
 void done(void) {
@@ -27,6 +39,10 @@ void done(void) {
 }
 
 static void main(string str) {
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (!empty_str(str)) {
       this_player()->more(usage());
       return;

@@ -12,22 +12,39 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tsysmsg Let the games begin." });
-   lines += ({ "See also:" });
 
-   if (query_wizard(this_player())) {
-      lines += ({ "\tbug, chan, echo, echoto, emote, rsay, say, shout, " +
-         "ssay, tell, translate, whisper, wizcall, wizlog" });
-   }
-   if (query_admin(this_player())) {
-      lines += ({ "\twall" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "bug");
+   add_also("player", "chan");
+   add_also("player", "emote");
+   add_also("player", "say");
+   add_also("player", "shout");
+   add_also("player", "tell");
+   add_also("player", "whisper");
+   add_also("player", "wizcall");
+
+   add_also("wiz", "echo");
+   add_also("wiz", "echoto");
+   add_also("wiz", "rsay");
+   add_also("wiz", "ssay");
+   add_also("wiz", "translate");
+   add_also("wiz", "wizlog");
+
+   add_also("admin", "wall");
 }
 
 static void main(string msg) {
    object *usr;
    int i, sz;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(msg)) {
       this_player()->more(usage());

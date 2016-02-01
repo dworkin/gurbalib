@@ -13,10 +13,22 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tmudlist" });
    lines += ({ "\tmudlist gurbalib" });
-   lines += ({ "See also:" });
-   lines += ({ "\tlast, locate, look, possess, rwho, snoop, where, who" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "look");
+   add_also("player", "who");
+
+   add_also("wiz", "last");
+   add_also("wiz", "locate");
+   add_also("wiz", "possess");
+   add_also("wiz", "rwho");
+   add_also("wiz", "snoop");
+   add_also("wiz", "where");
 }
 
 /* vim:set ft=lpc: */
@@ -24,6 +36,10 @@ static void main(string str) {
    mapping mudlist;
    string tmp, line, *muds, *lines;
    int len, slen, mlen, i, sz, count;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (sscanf(str, "-%s", str)) {
       this_player()->more(usage());

@@ -13,14 +13,30 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\trehash" });
-   lines += ({ "See also:" });
-   lines += ({ "\talias, aliasadmin, cmds, cmdadm, coloradm, domain, emote, " +
-      "emoteadm, help" });
+
+   lines += get_alsos();
 
    return lines;
 }
 
+void setup_alsos() {
+   add_also("player", "alias");
+   add_also("player", "cmds");
+   add_also("player", "emote");
+   add_also("player", "help");
+
+   add_also("wiz", "aliasadm");
+   add_also("wiz", "emoteadm");
+
+   add_also("admin", "cmdadm");
+   add_also("admin", "coloradm");
+   add_also("admin", "domain");
+}
+
 static void main(string str) {
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (!empty_str(str)) {
       this_player()->more(usage());

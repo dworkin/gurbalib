@@ -43,6 +43,10 @@ void setup_alsos() {
 static void main(string str) {
    object obj;
 
+   if (!alsos) {
+      setup_alsos();
+   }
+
    if (sscanf(str, "-%s", str)) {
       this_player()->more(usage());
       return;

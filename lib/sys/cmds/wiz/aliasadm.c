@@ -23,14 +23,27 @@ string *usage(void) {
    lines += ({ "\taliasadm add wiz z update $*" });
    lines += ({ "\taliasadm show a" });
    lines += ({ "\taliasadm del a" });
-   lines += ({ "See also:" });
-   lines += ({ "\talias, aliasadm, cmds, domain, emote, emoteadm, help" });
 
-   if (query_admin(this_player())) {
-      lines += ({ "\tcmdadm, coloradm, emotediff, rehash" });
-   }
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "alias");
+   add_also("player", "cmds");
+   add_also("player", "emote");
+   add_also("player", "help");
+
+   add_also("wiz", "aliasadm");
+   add_also("wiz", "domain");
+   add_also("wiz", "emote");
+   add_also("wiz", "emoteadm");
+
+   add_also("admin", "cmdadm");
+   add_also("admin", "coloradm");
+   add_also("admin", "emotediff");
+   add_also("admin", "rehash");
 }
 
 void delete_alias(string str) {
@@ -68,6 +81,10 @@ void add_alias(string str) {
 
 static void main(string str) {
    string name, fmt, *lines;
+
+   if (!alsos) {
+      setup_alsos();
+   }
 
    if (empty_str(str)) {
       this_player()->more(usage());
