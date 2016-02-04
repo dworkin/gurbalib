@@ -32,6 +32,9 @@ void setup_alsos() {
    add_also("player", "pray");
    add_also("player", "query");
    add_also("player", "wimpy");
+
+   add_also("wiz", "aload");
+   add_also("wiz", "forcequit");
 }
 
 void verify_remove(string str) {

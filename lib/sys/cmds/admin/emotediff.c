@@ -52,7 +52,6 @@ void setup_alsos() {
    add_also("admin", "cmdadm");
    add_also("admin", "coloradm");
    add_also("admin", "emoteadm");
-   add_also("admin", "emotediff");
    add_also("admin", "rehash");
 }
 

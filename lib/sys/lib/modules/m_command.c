@@ -15,6 +15,14 @@ nomask void _main(string arg, string cmd) {
   }
 }
 
+string *query_alsos() {
+   if (!alsos) {
+      return ({ });
+   }
+
+   return map_indices(alsos);
+}
+
 string *get_alsos() {
    string *lines, *values, tmp;
    int i, sz, done, tmplen, width;

@@ -18,6 +18,8 @@ string *usage(void) {
 }
 
 void setup_alsos() {
+   add_also("player", "quit");
+
    add_also("wiz", "ban");
    add_also("wiz", "halt");
    add_also("wiz", "heal");

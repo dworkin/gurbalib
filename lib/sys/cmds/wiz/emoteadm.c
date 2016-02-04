@@ -54,8 +54,8 @@ void setup_alsos() {
    add_also("wiz", "aliasadm");
    add_also("wiz", "domain");
 
-   add_also("admin", "cmdadmin");
-   add_also("admin", "coloradmin");
+   add_also("admin", "cmdadm");
+   add_also("admin", "coloradm");
    add_also("admin", "emotediff");
    add_also("admin", "rehash");
 }

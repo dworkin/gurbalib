@@ -101,23 +101,9 @@ void rehash(void) {
    console_msg("Rehash done.\n");
 }
 
-int exec_command(string cmd, string arg, string * syspath) {
+object find_command(string cmd, string arg, string *syspath) {
    object cmd_ob;
    int i, sz;
-
-   if (!previous_object() <-"/sys/lib/modules/m_cmds") {
-      error("Permission denied.");
-   }
-
-   if (cmd) {
-      DBT("exec_command: " + cmd + " " + dump_value(syspath) + "\n");
-   } else {
-      DBT("exec_command: <NIL> " + dump_value(syspath) + "\n");
-   }
-
-   if (!cmd || cmd == "") {
-      return -1;
-   }
 
    for (i = 0, sz = sizeof(syspath); (i < sz) && !cmd_ob; i++) {
       DBT("Locating " + cmd + " in " + syspath[i] + ": ");
@@ -136,6 +122,28 @@ int exec_command(string cmd, string arg, string * syspath) {
          DBT("not found\n");
       }
    }
+
+   return cmd_ob;
+}
+
+int exec_command(string cmd, string arg, string * syspath) {
+   object cmd_ob;
+
+   if (!previous_object() <-"/sys/lib/modules/m_cmds") {
+      error("Permission denied.");
+   }
+
+   if (cmd) {
+      DBT("exec_command: " + cmd + " " + dump_value(syspath) + "\n");
+   } else {
+      DBT("exec_command: <NIL> " + dump_value(syspath) + "\n");
+   }
+
+   if (!cmd || cmd == "") {
+      return -1;
+   }
+
+   cmd_ob = find_command(cmd, arg, syspath);
 
    if (cmd_ob && cmd_ob <-M_COMMAND && !function_object("main", cmd_ob)) {
       if (arg) {

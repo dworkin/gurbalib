@@ -18,7 +18,7 @@ string *usage(void) {
 }
 
 setup_alsos() {
-   add_also("player", "motd");
+   add_also("player", "fortune");
 }
 
 static void main(string str) {

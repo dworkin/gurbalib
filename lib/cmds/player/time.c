@@ -27,7 +27,6 @@ string *usage(void) {
 
 void setup_alsos() {
    add_also("player", "score");
-   add_also("player", "time");
 
    add_also("wiz", "date");
    add_also("wiz", "scan");

@@ -22,7 +22,7 @@ string *usage(void) {
 }
 
 void setup_alsos() {
-   add_also("wiz", "compose");
+   add_also("player", "quit");
 }
 
 static void main(string str) {

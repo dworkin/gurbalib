@@ -24,7 +24,6 @@ string *usage(void) {
 
 void setup_alsos() {
    add_also("player", "ansi");
-   add_also("player", "chfn");
    add_also("player", "clear");
    add_also("player", "describe");
    add_also("player", "ignore");

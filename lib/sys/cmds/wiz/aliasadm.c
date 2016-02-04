@@ -35,7 +35,6 @@ void setup_alsos() {
    add_also("player", "emote");
    add_also("player", "help");
 
-   add_also("wiz", "aliasadm");
    add_also("wiz", "domain");
    add_also("wiz", "emote");
    add_also("wiz", "emoteadm");

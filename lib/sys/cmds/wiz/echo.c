@@ -27,7 +27,6 @@ void setup_alsos() {
    add_also("player", "whisper");
    add_also("player", "wizcall");
 
-   add_also("wiz", "echo");
    add_also("wiz", "echoto");
    add_also("wiz", "rsay");
    add_also("wiz", "ssay");

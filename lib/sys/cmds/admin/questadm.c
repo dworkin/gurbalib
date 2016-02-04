@@ -24,7 +24,7 @@ string *usage(void) {
 }
 
 void setup_alsos() {
-   add_also("player", "quests");
+   add_also("player", "score");
    add_also("player", "skills");
 
    add_also("admin", "aliasadm");

@@ -36,7 +36,7 @@ string *usage(void) {
 }
 
 void setup_alsos() {
-   add_also("help", "player");
+   add_also("player", "help");
 
    add_also("wiz", "man");
 }

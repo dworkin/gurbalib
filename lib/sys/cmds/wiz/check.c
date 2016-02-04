@@ -1,6 +1,7 @@
 inherit M_COMMAND;
 
 int warn, error;
+string *syspath;
 
 string *usage(void) {
    string *lines;
@@ -20,6 +21,15 @@ string *usage(void) {
    lines += get_alsos();
 
    return lines;
+}
+
+void setup_syspath() {
+   syspath = ({ "/sys/cmds/admin/",
+      "/sys/cmds/wiz/",
+      "/cmds/player/",
+      "/cmds/guild/fighter/",
+      "/cmds/spells/",
+      "/cmds/monster/" });
 }
 
 void setup_alsos() {
@@ -103,8 +113,8 @@ void check_a_spell(string filename) {
 }
 
 void check_a_command(string filename) {
-   object obj;
-   string *functionlist;
+   object obj, tobj;
+   string *functionlist, *talsos, *fname, tf;
    int x, max;
    
    write("Check command: " + filename + "\n");
@@ -116,6 +126,8 @@ void check_a_command(string filename) {
       return;
    }
 
+   fname = path_file(filename);
+
    functionlist = ({ "usage" });
 /*
    functionlist += ({ "main" });
@@ -126,6 +138,31 @@ void check_a_command(string filename) {
    for (x = 0; x < max; x++) {
       if (!function_object(functionlist[x], obj)) {
          warn(obj->file_name() + ": " + functionlist[x] + " undefined.\n");
+      }
+   }
+
+   obj->setup_alsos();
+   talsos = obj->query_alsos();
+   max = sizeof(talsos);
+
+
+   for (x = 0; x < max; x++) {
+      tf = talsos[x] + ".c";
+      if (fname[1] == tf) {
+         warn(obj->file_name() + ": references itself in also.\n");
+      } else {
+         tobj = COMMAND_D->find_command(talsos[x],"", syspath);
+
+         if (!tobj) {
+            warn(obj->file_name() + ": references unknown also " + talsos[x] +
+               "\n");
+         } else {
+	    tobj->setup_alsos();
+            if (!member_array(talsos[x], tobj->query_alsos())) {
+               warn(obj->file_name() + ": also " + talsos[x] + 
+                  " not back referenced.\n");
+            }
+         }
       }
    }
 }
@@ -494,6 +531,11 @@ static void main(string str) {
    if (!alsos) {
       setup_alsos();
    }
+
+   if (!syspath) {
+      setup_syspath();
+   }
+
    if (empty_str(str)) {
       this_player()->more(usage());
       return;

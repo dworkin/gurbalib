@@ -34,7 +34,6 @@ string *usage(void) {
 
 setup_alsos() {
    add_also("player", "alias");
-   add_also("player", "chfn");
    add_also("player", "clear");
    add_also("player", "describe");
    add_also("player", "ignore");
