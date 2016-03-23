@@ -1,0 +1,29 @@
+NAME
+	set_similarity - quantify the similarity of two sets
+
+SYNOPSIS
+	nomask static float set_similarity(mixed *a1, mixed *a2)
+
+DESCRIPTION
+	Calculate the jaccard similarity between 2 sets.
+	If the sets are similar it will be close to 1 and if they
+	are not similar it will be closer to 0.
+
+RETURN VALUE
+	Returns a value in the range 0 (not similar at all) to 1 (very similar).
+	
+EXAMPLES
+	int *a, *b;
+	float res;
+
+	a = ({5|1, 2, 3, 4, 5,});
+	b = ({5|4, 5, 6, 7, 8,});
+
+	res = set_similarity(a,b);
+	write("Set Similarity = " + res + "\n";
+
+SEE ALSO
+	afun/bubblesort, safun/set_difference, safun/set_intersection,
+	safun/set_invert, safun/set_remove_repeats,
+	safun/set_symmetric_difference, safun/set_union
+

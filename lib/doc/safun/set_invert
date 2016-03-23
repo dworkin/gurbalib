@@ -37,6 +37,6 @@ EXAMPLES
 
 SEE ALSO
 	afun/bubblesort, safun/set_difference, safun/set_intersection,
-	safun/set_remove_repeats, safun/set_symmetric_difference,
-	safun/set_union
+	safun/set_remove_repeats, safun/set_similarity,
+	safun/set_symmetric_difference, safun/set_union
 
