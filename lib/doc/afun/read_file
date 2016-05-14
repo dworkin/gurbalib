@@ -2,29 +2,28 @@ NAME
 	read_file - return the data in a file.
 		
 SYNOPSIS
-	static string read_file(string filepath, varargs int offset, 
+	static string read_file(string filepath, varargs int offset,
 	int size)
 
 DESCRIPTION
-	Read in a file and return the contents of it.  If offset is given 
-	start there instead of at the beginning of the file.  If offset is 
-	negative, start the offset from the end of the file. If size is 
+	Read in a file and return the contents of it.  If offset is given
+	start there instead of at the beginning of the file.  If offset is
+	negative, start the offset from the end of the file. If size is
 	given, only read that much data from the file.
 		
 RETURN VALUE
-	Returns the file contents in a string.  If no file is found 
+	Returns the file contents in a string.  If no file is found
 	return nil.
 
 EXAMPLES
 	string data;
 
 	data = read_file("/tmp/sirdude.txt");
-	data = read_file("/std/room.c",10,100);
-	data = read_file("/std/room.c",-10);
+	data = read_file("/std/room.c", 10, 100);
+	data = read_file("/std/room.c", -10);
 
 SEE ALSO
 	safun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
 	afun/rename_file, afun/remove_dir, afun/remove_file, afun/require_priv,
 	afun/restore_object, afun/save_object, afun/unguarded, afun/valid,
 	afun/valid_read, afun/valid_write, afun/write_file
-

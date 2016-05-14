@@ -5,17 +5,16 @@ SYNOPSIS
 	mixed *uniq_array(mixed *arr)
 
 DESCRIPTION
-	Function filters through array arr and returns an array where each 
+	Function filters through array arr and returns an array where each
 	element is unique.
 
 RETURN VALUE
 	Returns an array.  If empty returns an empty array.
 
 EXAMPLES
-	uniq_array(({ 1,2,2,3,3,3 }));      returns ({ 1,2,3 })
+	uniq_array(({ 1, 2, 2, 3, 3, 3 }));      returns ({ 1, 2, 3 })
 
 SEE ALSO
 	afun/call_array, afun/filter_array, afun/filter_mapping,
 	afun/map_array, safun/member_array, safun/member_map,
 	safun/random_element, safun/split_array
-

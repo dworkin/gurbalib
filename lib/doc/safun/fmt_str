@@ -2,7 +2,7 @@ NAME
 	fmt_str - format a string
 
 SYNOPSIS
-	string fmt_str(string str, varargs int length, int indent_first, 
+	string fmt_str(string str, varargs int length, int indent_first,
 		int indent_all, int second_indent_length);
 
 DESCRIPTION
@@ -10,7 +10,7 @@ DESCRIPTION
 	added such that the string is no longer than the argument 'length'.
 	If this argument is not given, a default value is used.
 
-	The argument 'indent_first' means to indent the first line of the 
+	The argument 'indent_first' means to indent the first line of the
 	output.
 
 	The argument 'indent_all' means to indent all from the lines of output.
@@ -33,10 +33,10 @@ EXAMPLES
 	/* Output looks like this:
 	The fox Wears socks In the Spring Now were having fun.
 	------------------------
-	------------------------------------- 
-	bbbbbbbbbbbbbbbbbbbbbbbb 
-	bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb 
-	cccccccccccccccccccccccc 
+	-------------------------------------
+	bbbbbbbbbbbbbbbbbbbbbbbb
+	bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+	cccccccccccccccccccccccc
 	ccccccccccccccccccccccccccccccccccccc
 	*/
 
@@ -46,4 +46,3 @@ SEE ALSO
 	safun/strcmp, safun/strstr, safun/str2val, kfun/explode, kfun/implode,
 	safun/parse_range, kfun/parse_string, kfun/sscanf, safun/trim_str,
 	afun/uppercase
-

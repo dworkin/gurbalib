@@ -1,24 +1,24 @@
 Many things about the driver can be configured in the config file (.dgd file)
 used for starting it.
 
-This man page will explain some of the more important things you can change there
-for tuning your mud.
+This man page will explain some of the more important things you can
+change there for tuning your mud.
 
-The numbers provided are for a somewhat larger mud, whereas the default configuration
-provided with Gurbalib is for a very small mud.
+The numbers provided are for a somewhat larger mud, whereas the default
+configuration provided with Gurbalib is for a very small mud.
 
 The number of connections the mud can support. Note that connecting to
 the I3 network will require a 'user', and each ftp session requires 2
 users.
 
-The maximum number (without changing the driver itself) is 192 with
-the network package and 255 without the network package.
+The maximum number (without changing the driver itself) is 192 with the
+network package and 255 without the network package.
 
-  users         = 40;
+  users = 40;
 
 Somewhat related to this, the number of editor sessions supported:
 
-  editors       = 40;
+  editors = 40;
 
 The number of ports the mud is allowed to listen on. ports + users must
 be less then 256 (unless the driver has been modified for more users)
@@ -36,7 +36,7 @@ for dgd (or use the default driver from svn) in which case it will be
 
 Increasing the cache_size will improve performance, but require more memory.
 
-  cache_size = 1024;	
+  cache_size = 1024;
 
 When you are still running out of sectors with swap_size set to its maximum,
 or are using a lot of large objects, you should increase the sector_size.
@@ -44,23 +44,23 @@ or are using a lot of large objects, you should increase the sector_size.
 Please be careful when doing this, you can increase it, but not decrease it
 without discarding your statedumps.
 
-  sector_size = 2048;	
+  sector_size = 2048;
 
 Amount of static memory dgd can use. See the status command for how much you
-are currently using. 
+are currently using.
 
-  static_chunk	= 64512;		/* static memory chunk */
+  static_chunk = 64512;
 
 Amount of dynamic memory dgd can use. See the status command for how much you
 are currently using.
 
-  dynamic_chunk	= 261120;
+  dynamic_chunk = 261120;
 
 This defines how large arrays and mappings can be. Due to requiring
 reallocations for various map/array operations, putting some sane limit
 on them is a good idea. Max (without modifying the driver) is 16384
 
-  array_size	= 16384;
+  array_size = 16384;
 
 Object table size. Same limits as for swap_size. Note that a large object
 table needs a lot of memory.
@@ -71,4 +71,4 @@ Max number of call outs. What is sane here depends on how fast your cpu is.
 Unlike traditional lpc drivers, dgd's call_out handling is very fast and having
 a few thousand of them running should not be a big concern on a modern cpu.
 
-  call_outs = 8192;	
+  call_outs = 8192;

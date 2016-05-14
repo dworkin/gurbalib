@@ -29,5 +29,3 @@ int do_to_all_clones(object ob) {
     ob->do_something();
   }
 }
-
-

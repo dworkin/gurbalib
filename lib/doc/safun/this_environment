@@ -5,7 +5,7 @@ SYNOPSIS
 	object this_environment()
 
 DESCRIPTION
-	Get the object representing the environment the current 'player' 
+	Get the object representing the environment the current 'player'
 	is in.
 
 RETURN VALUE
@@ -20,8 +20,7 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/call_trace, safun/players, afun/set_this_player, safun/this_body, 
+	afun/call_trace, safun/players, afun/set_this_player, safun/this_body,
 	afun/this_connection, afun/this_player, safun/this_program,
 	safun/this_race, afun/this_user, kfun/call_trace, kfun/previous_object,
 	kfun/previous_program
-

@@ -5,10 +5,10 @@ SYNOPSIS
 	void argcheck(mixed test, int pos, varargs string message)
 
 DESCRIPTION
-	When the test expression is 0 or nil, argcheck will cause a Bad 
-	argument <pos> to function <calling function> error. If the 
-	optional message is provided, it will be appended to the error as 
-	follows: Bad argument <pos> to function <calling function> 
+	When the test expression is 0 or nil, argcheck will cause a Bad
+	argument <pos> to function <calling function> error. If the
+	optional message is provided, it will be appended to the error as
+	follows: Bad argument <pos> to function <calling function>
 		(needs <message>)
 
 RETURN VALUE
@@ -16,7 +16,7 @@ RETURN VALUE
 
 EXAMPLES
 	void foo(int a, string b) {
-	   argcheck(( a > 10 ), 1, "to be > 10");
+	   argcheck((a > 10), 1, "to be > 10");
 	   argcheck(b, 2, "non empty string");
 	}
 	when called with the first argument <= 10 will result in
@@ -24,4 +24,3 @@ EXAMPLES
 
 SEE ALSO
 	error
-

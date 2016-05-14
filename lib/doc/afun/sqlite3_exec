@@ -18,7 +18,7 @@ RETURN VALUE
 	returned from the external call to sqlite3_exec. It is an
 	array of type int; the first element is the return status
 	value (found in /usr/include/sqlite.h) and the second
-	element is the number of changes the query made. 
+	element is the number of changes the query made.
 
 EXAMPLES
 	int *x;
@@ -37,4 +37,3 @@ SEE ALSO
 	afun/blog_it, afun/filelastmod, afun/files_modified,
 	afun/query_locale_data, afun/query_thousands_separator,
 	afun/sqlite3_select
-

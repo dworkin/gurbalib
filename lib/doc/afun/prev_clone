@@ -5,8 +5,8 @@ SYNOPSIS
 	object next_clone()
 
 DESCRIPTION
-	Get the previous object on the clone list or the master of the 
-	object if there is no previous clone.  Calling this on the master 
+	Get the previous object on the clone list or the master of the
+	object if there is no previous clone.  Calling this on the master
 	of an object will return nil.
 
 RETURN VALUE
@@ -24,4 +24,3 @@ EXAMPLES
 
 SEE ALSO
 	afun/num_clones, afun/next_clone, afun/query_cloner
-

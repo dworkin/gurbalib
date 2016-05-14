@@ -8,7 +8,7 @@ DESCRIPTION
 	removes the named property with its access controls.
 
 RETURN VALUE
-	Returns 1 on success or 0 when privilege checks do not allow the 
+	Returns 1 on success or 0 when privilege checks do not allow the
 	changes.
 
 EXAMPLES

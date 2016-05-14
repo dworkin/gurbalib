@@ -5,22 +5,21 @@ SYNOPSIS
 	int clone_num(varargs object obj)
 
 DESCRIPTION
-	If obj is given, return clone number for that object.  
+	If obj is given, return clone number for that object.
 	If no obj argument, return clone number for this_object().
 
 RETURN VALUE
-	An int corresponding to an objects clone number.  Clone numbers 
-	exist for all cloned objects, and each objects clone number is 
+	An int corresponding to an objects clone number.  Clone numbers
+	exist for all cloned objects, and each objects clone number is
 	unique to that clone.  If a clone does not exist return -1.
 
 EXAMPLES
-	XXX Some code checks ! clone_num  some code checks ==0 and checks -1
+	XXX Some code checks ! clone_num  some code checks == 0 and checks -1
 	I think we need to redo some of it and find out what the code should
-	be.	
+	be.
 
 SEE ALSO
 	safun/absolute_path, afun/base_name, afun/clone_object,
 	afun/compile_library, afun/compile_object, afun/destruct_object,
 	afun/file_name, afun/find_object, afun/new_object, afun/normalize_path,
 	safun/path_file, safun/wiz_dir, kfun/find_object, kfun/object_name
-

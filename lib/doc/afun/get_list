@@ -1,5 +1,5 @@
 NAME
-	get_list - add an element to a list before the specified object 
+	get_list - add an element to a list before the specified object
 	in a list.
 
 SYNOPSIS
@@ -19,4 +19,3 @@ EXAMPLES
 
 SEE ALSO
 	afun/set_list
-

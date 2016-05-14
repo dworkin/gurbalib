@@ -5,7 +5,7 @@ SYNOPSIS
 	static string query_notify_fail()
 
 DESCRIPTION
-	Use the tls system to query the last  error message reported for 
+	Use the tls system to query the last error message reported for
 	the mud.
 
 NOTES
@@ -28,4 +28,3 @@ NOTES
 SEE ALSO
 	safun/get_otlvar, safun/get_tlvar, safun/notify_fail,
 	safun/set_otlvar, safun/set_tlvar, misc/tls
-

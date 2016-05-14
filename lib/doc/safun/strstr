@@ -5,8 +5,8 @@ SYNOPSIS
 	int strstr(string str, sting what)
 
 DESCRIPTION
-	Checks str for a match to what.  The index for the first character 
-	of the first match is returned, or else -1 is returned when no 
+	Checks str for a match to what.  The index for the first character
+	of the first match is returned, or else -1 is returned when no
 	match is found.
 
 	strstr is expensive, in most cases you can use sscanf instead.
@@ -30,4 +30,3 @@ SEE ALSO
 	safun/strcmp, safun/str2val, kfun/explode, kfun/implode,
 	safun/parse_range, kfun/parse_string, kfun/sscanf, safun/trim_str,
 	afun/uppercase
-

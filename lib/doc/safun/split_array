@@ -2,7 +2,7 @@ NAME
 	split_array - split an array through a function
 
 SYNOPSIS
-	mixed **split_array(mixed *arr, string fun, varargs object ob, 
+	mixed **split_array(mixed *arr, string fun, varargs object ob,
 		mixed extra...)
 
 DESCRIPTION
@@ -13,15 +13,15 @@ DESCRIPTION
 	split_array returns an array of 2 arrays, the first array contains
 	matching elements, the second array contains non matching elements.
 
-	If fun returns 1, the element passed to it will be put in the 
+	If fun returns 1, the element passed to it will be put in the
 	'matched' result array.
 
-	If fun returns 0 or nil, the element passed to it will be put in 
-	the 'non matching' result array, 
+	If fun returns 0 or nil, the element passed to it will be put in
+	the 'non matching' result array,
 
 RETURN VALUE
 	Returns a new array containing 2 (possibly empty) arrays containing
-	all elements for which ob->fun(elem, extra) returns something or 
+	all elements for which ob->fun(elem, extra) returns something or
 	nothing respectively.
 
 EXAMPLES
@@ -34,4 +34,3 @@ SEE ALSO
 	afun/call_array, afun/filter_array, afun/filter_mapping,
 	afun/map_array, safun/member_array, safun/member_map,
 	safun/random_element, safun/uniq_array
-

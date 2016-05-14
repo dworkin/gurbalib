@@ -10,7 +10,7 @@ DESCRIPTION
 	error will result.  A filepath must contain a legal subdirectory
 	for an object to be cloned.  File paths are legal if they contain
 	one of the following subdirectories:
-		/obj/, /mon/, /objects/, /monsters/, /daemons/, /rooms/, 
+		/obj/, /mon/, /objects/, /monsters/, /daemons/, /rooms/,
 		/cmds/
 
 	For more info on objects see /doc/misc/objects.
@@ -32,4 +32,3 @@ SEE ALSO
 	afun/compile_library, afun/compile_object, afun/destruct_object,
 	afun/file_name, afun/find_object, afun/new_object, afun/normalize_path,
 	safun/path_file, safun/wiz_dir, kfun/find_object, kfun/object_name
-

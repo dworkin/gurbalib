@@ -5,7 +5,7 @@ SYNOPSIS
 	object this_race()
 
 DESCRIPTION
-	If a users race_object is found return that object, or else 
+	If a users race_object is found return that object, or else
 	return the object that called this function.
 
 RETURN VALUE
@@ -17,8 +17,7 @@ EXAMPLES
 	write("Language: " + p->query_language() + "\n");
 
 SEE ALSO
-	afun/call_trace, safun/players, afun/set_this_player, safun/this_body, 
+	afun/call_trace, safun/players, afun/set_this_player, safun/this_body,
 	afun/this_connection, safun/this_environment, afun/this_player,
 	safun/this_program, afun/this_user, kfun/call_trace,
 	kfun/previous_object, kfun/previous_program
-

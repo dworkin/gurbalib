@@ -5,10 +5,10 @@ SYNOPSIS
 	string file_name(varargs object obj)
 
 DESCRIPTION
-	Returns the filename for obj, or if obj is not defined, for 
-	this_object().  File_name differs from base_name in that the ".c" 
+	Returns the filename for obj, or if obj is not defined, for
+	this_object().  File_name differs from base_name in that the ".c"
 	extension is included with filename.
-		
+
 RETURN VALUE
 	The filename of obj, or if obj is not defined, for this_object().
 
@@ -24,4 +24,3 @@ SEE ALSO
 	afun/find_object, afun/new_object, afun/normalize_path,
 	afun/owner_file, afun/owner_object, safun/path_file, safun/wiz_dir,
 	kfun/find_object, kfun/object_name
-

@@ -7,7 +7,7 @@ SYNOPSIS
 DESCRIPTION
 	Write variables of an object to the specified file.  Note, it will
 	not save object variables or variables that are local to functions
-	defined in the object.  It will also not save private or static 
+	defined in the object.  It will also not save private or static
 	variables.  An error will occur if there is a problem saving the file.
 
 RETURN VALUE
@@ -19,10 +19,9 @@ EXAMPLES
 	static void save_me(void) {
 	   save_object(MYDATA);
 	}
-		
+
 SEE ALSO
 	safun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
 	afun/read_file, afun/rename_file, afun/remove_dir, afun/remove_file,
-	afun/require_priv, afun/restore_object, afun/unguarded, 
+	afun/require_priv, afun/restore_object, afun/unguarded,
 	afun/valid, afun/valid_read, afun/valid_write, afun/write_file
-

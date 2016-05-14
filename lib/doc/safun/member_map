@@ -23,4 +23,3 @@ SEE ALSO
 	afun/call_array, afun/filter_array, afun/filter_mapping,
 	afun/map_array, safun/member_array, safun/random_element,
 	safun/split_array, safun/uniq_array
-

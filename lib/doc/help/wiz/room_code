@@ -15,14 +15,14 @@ Commands:
 
 
 A minimal room object looks like this:
-inherit "/std/room";	
+inherit "/std/room";
 
 void setup( void ) {
   add_area( "required" );
   set_short( "The void" );
   set_long( "If you're in here unintentionally, something bugged out. " +
     "Report what you did to the staff." );
-  set_exits( ([ 
+  set_exits( ([
                "out" : STARTING_ROOM,
 	       "north" : "/domains/required/rooms/void.c"
   ]) );
@@ -38,19 +38,19 @@ and you have a working room.
 
 Next we have our setup function.  At a minimum you'll want to call the
 4 functions we have shown in our example.  There are other things you
-can do as well though.  We'll cover the 4 required functions and then 
+can do as well though.  We'll cover the 4 required functions and then
 after that we'll talk about other options.
 
 void add_area(string *area );
 	This function basically labels this room as part of the given area.
 	That way you can limit wandering monsters to specific areas and
-	other nifty tricks.  You could also for example make an object 
+	other nifty tricks.  You could also for example make an object
 	that only functions in a given area.
 
 void set_short(string *desc );
 	Set the short description of the room.
 	Sometimes you can only see the short description of the room so
-	you will want to make it descriptive so that users will know where 
+	you will want to make it descriptive so that users will know where
 	they are.
 
 void set_long(string *desc );
@@ -97,4 +97,3 @@ void remove_hidden_exit(string direction );
 int query_in_area( string area );
 	Tells you if the room is a part of the area you specify.
 	It returns 1 if it is, 0 if not.
-

@@ -1,8 +1,8 @@
 Welcome to wizard boot camp.
 
 The idea behind this document is not to teach you how to program, or answer
-all of your questions. there are other documents that cover that.  
-The idea is to introduce you to the basics of being a wizard and let you 
+all of your questions. there are other documents that cover that.
+The idea is to introduce you to the basics of being a wizard and let you
 jump in and start creating great things as soon as possible.
 
 A word of warning.  Just a reminder you are now a creator of the universe,
@@ -35,7 +35,7 @@ dgd lpmud and you can find lots of great documentation.
 
 A MUDLIB is a library built on top of the driver to handle user connections
 and really is the meat of the virtual environment.  This is where your going
-to focus on working, but its nice to know how every thing works at a high 
+to focus on working, but its nice to know how every thing works at a high
 level.
 
 GURBALIB can be downloaded from: http://www.github.com/sirdude/gurbalib
@@ -44,7 +44,7 @@ Basic wizard commands:
 Now that you are a wizard, you have a bunch of additional commands that
 are now available to you.  Many of them are based on basic UNIX commands:
 cat, cp, cd, ls, pwd, diff, edit, mkdir, rm to name a few.
-If you type cmds wizard you will get a list of all of the wizard specific 
+If you type cmds wizard you will get a list of all of the wizard specific
 commands.  To get more info about a command type: (cmd) -h
  For the most part we are just going to assume you know what a command does,
 if your not sure look at the help and that should give you an idea of
@@ -73,7 +73,7 @@ To sum things up try typing the following commands in order:
 	cd
 	pwd
 
-So you should have just done the following: 
+So you should have just done the following:
 	print the current working directory
 	list the files in the current working directory
 	cd to the root filesystem  (/)
@@ -92,7 +92,7 @@ So you should have just done the following:
 Basic mudlib objects:
 If you cd /std you can find the basic inheritable objects in our mudlib.
 Inheritable objects are the building blocks of the mud.  In general there
-are 3 different basic object types you will be using: 
+are 3 different basic object types you will be using:
 	rooms 		/std/room.c
 	monsters 	/std/monster.c
 	objects		/std/object.c
@@ -184,7 +184,7 @@ It should look something like this:
 
 Again, we inherit our basic monster code: /std/monster.c
 and then we have a function setup that sets our monster up by
-setting a bunch of properties.  
+setting a bunch of properties.
 
 By poking around in the /domains directory and looking at the various
 files, you will quickly get the hang of what you need to set to create
@@ -211,7 +211,7 @@ Before we modify it, lets look at it a little:
 When we clone an object it creates a running copy of that object.  If the
 item is gettable it will appear in our inventory.  If not it will appear in
 the room we are in instead.  You do not need to clone a room, instead just
-goto it and the room will get cloned automatically if it doesn't already 
+goto it and the room will get cloned automatically if it doesn't already
 exist.
 
 There are a couple of other wizard commands you should learn at this point:
@@ -282,14 +282,14 @@ edit the easy way:
 
 Ok what we just did is remove the petrock.c file, then edit it.
 edit works on a single line at a time and has a couple of different
-modes to it.  What we did here was enter insert mode : i 
+modes to it.  What we did here was enter insert mode : i
 typed in all of our code.  When were done, to leave insert mode : .
 write the file: w
 quit: q
 
 In a bit, I'll show you the more complicated way to edit a file, when
 we fix our typo, again though if you have a better way to edit files, use
-that instead.  For now, lets look at the typo: 
+that instead.  For now, lets look at the typo:
 	update petrock.c
 You'll notice the mud gave you an error similar to this:
 Compiler error:
@@ -337,7 +337,7 @@ to your wizard's work room:
 	cp /domains/required/rooms/void.c backroom.c
 	edit backroom.c
 
-Using the void room as an example, lets modify it to look something 
+Using the void room as an example, lets modify it to look something
 like this:
 
 	inherit "/std/room";
@@ -359,9 +359,9 @@ like this:
 
 Once you have that, you'll of course want to modify it so that it points
 to your workroom and your petrock instead of sirdude's.  When you have it
-cleaned up try going to it with the following command, again replacing 
+cleaned up try going to it with the following command, again replacing
 'sirdude' with your name:
-	goto /wiz/sirdude/rooms/backroom.c      
+	goto /wiz/sirdude/rooms/backroom.c
 
 If there are errors look at the logs and fix things up.  Once you have
 it working we need to modify your workroom to add a way into the backroom.
@@ -370,7 +370,7 @@ what is what.  Go ahead and edit the file and add an exit north:
 	"north" : "/wiz/sirdude/rooms/backroom.c",
 and modify the set_long to give a hint what is where..., we can delete the
 following line:
-	   "pretty busy."); 
+	   "pretty busy.");
 and replace it with the following:
 	   "pretty busy.  There is a backroom to the north.");
 
@@ -397,14 +397,14 @@ Now update your workroom with the command:
 
 
 What next?
-If you have managed to get this far and have a working backroom and a 
+If you have managed to get this far and have a working backroom and a
 pet rock, you have successfully completed wizard boot camp.
 Now its time for you to grab a sheet of paper and a pencil and do some planing
 for your first area.  You'll probably want to poke around in /domains
 and look at how a proper area is done.  You need to do some thinking though.
-Every good area has some sort of "quest" involved with it.  
+Every good area has some sort of "quest" involved with it.
 
-What type of a quest are you going to make for your players?  
+What type of a quest are you going to make for your players?
 Save the old man, kill the dragon, get the sacred item, etc...
 
 What is the theme of your area?  It should be clear to the players when they
@@ -419,7 +419,7 @@ character.  A "flaming hot sword" is much better than "a sword" even if it
 has the same stats, a player is more likely to use the cool one.
 
 What level player is this area for?  In general you want to pick a range
-say 1-3, 4-6 etc...  Don't try to 
+say 1-3, 4-6 etc...  Don't try to
 
 Now get started and make something sweet.
 

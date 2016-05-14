@@ -8,7 +8,7 @@ DESCRIPTION
 	Send 'message' to all players in room with obj.  If
 	obj is not defined it will be set to this_player().
 	The message may contain color codes, as described in
-	/doc/misc/ansi_colors.  Any color codes in string 
+	/doc/misc/ansi_colors.  Any color codes in string
 	message are translated into ansi color codes,
 	the message is wrapped before being sent to the
 	players.
@@ -23,4 +23,3 @@ EXAMPLES
 SEE ALSO
 	afun/console_msg, safun/horizontal_rule, safun/out, safun/out_unmod,
 	safun/ruler, afun/write
-

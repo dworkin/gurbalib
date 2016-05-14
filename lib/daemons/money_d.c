@@ -31,7 +31,6 @@ int query_value(string coin) {
    }
    return 0;
 }
-   
 
 string *query_currencies(void) {
    int i;

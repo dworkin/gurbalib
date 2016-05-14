@@ -21,14 +21,14 @@ EXAMPLES
 
 	line = "Set c:\n";
 
-	c = set_invert(a,sizeof(a),0);
+	c = set_invert(a, sizeof(a), 0);
 	maxx = sizeof(c);
 	for (x = 0; x < maxx; x++) {
 		line = line + c[x] + " ";
 	}
 	write(line + "\n");
 	line = "Set c remove dups:\n";
-	c = set_invert(a,sizeof(a),1);
+	c = set_invert(a, sizeof(a), 1);
 	maxx = sizeof(c);
 	for (x = 0; x < maxx; x++) {
 		line = line + c[x] + " ";
@@ -39,4 +39,3 @@ SEE ALSO
 	afun/bubblesort, safun/set_difference, safun/set_intersection,
 	safun/set_remove_repeats, safun/set_similarity,
 	safun/set_symmetric_difference, safun/set_union
-

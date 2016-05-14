@@ -5,12 +5,12 @@ SYNOPSIS
 	string query_cloner(varargs int flag)
 
 DESCRIPTION
-	Returns the 'owner' of object that caused this clone to exist. 
-	If flag is provided, this will return a text representation of 
+	Returns the 'owner' of object that caused this clone to exist.
+	If flag is provided, this will return a text representation of
 	the call trace as it was when this object was cloned.
 
 RETURN VALUE
-	Returns a string with information on a clone.  returns nil when 
+	Returns a string with information on a clone.  returns nil when
 	called on a 'blueprint'.
 EXAMPLES
 	string name;
@@ -26,4 +26,3 @@ EXAMPLES
 
 SEE ALSO
 	afun/next_clone, afun/prev_clone, afun/num_clones
-

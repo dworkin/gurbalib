@@ -5,8 +5,8 @@ SYNOPSIS
 	void remove_event(string name)
 
 DESCRIPTION
-	Removes the event with the given name, after this the event can 
-	no longer be signaled. All subscribers are removed when an 
+	Removes the event with the given name, after this the event can
+	no longer be signaled. All subscribers are removed when an
 	event is removed, and objects can no longer subscribe to it.
 
 RETURN VALUE
@@ -14,7 +14,7 @@ RETURN VALUE
 
 EXAMPLES
 	/* Note this code is normally spread across multiple objects,
-	   You in general add events at a high level, then have 
+	   You in general add events at a high level, then have
 	   certain objects that look for events and others that trigger
 	   events */
 
@@ -35,6 +35,5 @@ EXAMPLES
 	remove_event("body_look");
 
 SEE ALSO
-	safun/add_event, safun/event, safun/subscribe_event, 
+	safun/add_event, safun/event, safun/subscribe_event,
 	safun/unsubscribe_event
-

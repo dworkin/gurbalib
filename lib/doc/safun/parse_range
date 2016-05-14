@@ -5,11 +5,11 @@ SYNOPSIS
 	int *parse_range(string range);
 
 DESCRIPTION
-	The argument 'range' is a range of integers. For instance 
+	The argument 'range' is a range of integers. For instance
 	"1-5,7,9,15-17".
 
 RETURN VALUE
-	A set of integers with all integers in the range. For instance the 
+	A set of integers with all integers in the range. For instance the
 	above range would produce: ({ 1, 2, 3, 4, 5, 7, 9, 15, 16, 17 }).
 
 EXAMPLES
@@ -28,4 +28,3 @@ SEE ALSO
 	safun/strcmp, safun/strstr, safun/str2val, kfun/explode, kfun/implode,
 	kfun/parse_string, kfun/sscanf, safun/trim_str,
 	afun/uppercase
-

@@ -5,7 +5,7 @@ SYNOPSIS
 	int valid_read(string name)
 
 DESCRIPTION
-	Test read access to a file with the provided name.  This file 
+	Test read access to a file with the provided name.  This file
 	does not have to exist.
 
 RETURN VALUE
@@ -23,6 +23,5 @@ NOTES
 SEE ALSO
 	safun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
 	afun/read_file, afun/rename_file, afun/remove_dir, afun/remove_file,
-	afun/require_priv, afun/restore_object, afun/save_object, 
+	afun/require_priv, afun/restore_object, afun/save_object,
 	afun/unguarded, afun/valid, afun/valid_write, afun/write_file
-

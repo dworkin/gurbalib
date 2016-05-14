@@ -5,13 +5,13 @@ SYNOPSIS
 	string *path_file(string str)
 
 DESCRIPTION
-	The function takes argument str, assume that it is a file path, 
+	The function takes argument str, assume that it is a file path,
 	and split it into the directory path and the filename.
 
 RETURN VALUE
-	An array with 2 members, where the first member is the directory 
+	An array with 2 members, where the first member is the directory
 	path, and the second the filename. If the function can't determine
-	either, the value will be "". Do take note of the fact that the 
+	either, the value will be "". Do take note of the fact that the
 	function doesn't check existence.
 
 EXAMPLES
@@ -25,4 +25,3 @@ SEE ALSO
 	afun/compile_library, afun/compile_object, afun/destruct_object,
 	afun/file_name, afun/find_object, afun/new_object,
 	afun/normalize_path, safun/wiz_dir, kfun/find_object, kfun/object_name
-

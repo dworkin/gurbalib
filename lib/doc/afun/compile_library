@@ -8,8 +8,8 @@ DESCRIPTION
 	This command is similar to compile_object, but should be used
 	on inheritables instead of standard objects.
 
-	If object is already compiled, it will be upgraded if a newer 
-	version exists at filepath.  If filepath is not a legal object an 
+	If object is already compiled, it will be upgraded if a newer
+	version exists at filepath.  If filepath is not a legal object an
 	error will result.
 
 	For more info on objects see /doc/misc/objects.
@@ -31,4 +31,3 @@ SEE ALSO
 	afun/compile_object, afun/destruct_object, afun/file_name,
 	afun/find_object, afun/normalize_path, afun/new_object,
 	safun/path_file, safun/wiz_dir, kfun/find_object, kfun/object_name
-

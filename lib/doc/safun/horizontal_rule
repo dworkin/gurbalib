@@ -3,7 +3,7 @@ NAME
 
 SYNOPSIS
 	string horizontal_rule(object "/sys/obj/player" player, string str);
-	
+
 DESCRIPTION
 	Draw a horizontal set of characters with the repeating pattern str,
 	and a length that is equal to this_players 'width' environment
@@ -18,4 +18,3 @@ EXAMPLES
 SEE ALSO
 	afun/console_msg, safun/out, safun/say, safun/out_unmod, afun/write,
 	safun/ruler
-

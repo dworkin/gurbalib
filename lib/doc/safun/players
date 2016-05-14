@@ -8,7 +8,7 @@ DESCRIPTION
 	Create an array of player objects and return it.
 
 RETURN VALUE
-	Returns ( { } ); if there are no players otherwise a list of 
+	Returns ({ }); if there are no players otherwise a list of
 	player objects.
 
 EXAMPLES
@@ -17,7 +17,7 @@ EXAMPLES
 
 	everyone = players();
 	max = sizeof(everyone);
-	for (x=0; x<max; x++) {
+	for (x = 0; x < max; x++) {
 	   write("   " + everyone[x]->query_name() + "\n");
 	}
 
@@ -26,4 +26,3 @@ SEE ALSO
 	afun/this_connection, safun/this_environment, afun/this_player,
 	safun/this_program, safun/this_race, afun/this_user, kfun/call_trace,
 	kfun/previous_object, kfun/previous_program
-

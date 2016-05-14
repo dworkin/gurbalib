@@ -5,11 +5,12 @@ SYNOPSIS
 	mixed *set_symmetric_difference(mixed *a, mixed *b, varargs int r);
 
 DESCRIPTION
-	Get the symmetric difference of sets 'a' and 'b'.  The optional 
+	Get the symmetric difference of sets 'a' and 'b'.  The optional
 	argument r, removes repeated elements from the union.
 
 RETURN VALUE
 	A mixed array of elements.
+
 EXAMPLES
 	int *a, *b, *c;
 	int x, maxx;
@@ -20,14 +21,14 @@ EXAMPLES
 
 	line = "Set ab:\n";
 
-	c = set_symmetric_difference(a,b,0);
+	c = set_symmetric_difference(a, b, 0);
 	maxx = sizeof(c);
 	for (x = 0; x < maxx; x++) {
 	   line = line + c[x] + " ";
 	}
 	write(line + "\n");
 	line = "Set ab remove dups:\n";
-	c = set_symmetric_difference(a,b,1);
+	c = set_symmetric_difference(a, b, 1);
 	maxx = sizeof(c);
 	for (x = 0; x < maxx; x++) {
 	   line = line + c[x] + " ";
@@ -38,4 +39,3 @@ SEE ALSO
 	afun/bubblesort, safun/set_difference, safun/set_intersection,
 	safun/set_invert, safun/set_remove_repeats, safun/set_similarity,
 	safun/set_union
-

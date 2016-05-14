@@ -1,15 +1,15 @@
 NAME
 	fmt_time - converts a time integer into a string.
-		
+
 SYNOPSIS
 	string fmt_time(int time)
 
 DESCRIPTION
-	Converts a time integer into a string.  The returned string is 
-	in form of x1y1 x2y2..., where y's correspond to units of time, 
-	and x's denote quantity of the units they are paired with.  
+	Converts a time integer into a string.  The returned string is
+	in form of x1y1 x2y2..., where y's correspond to units of time,
+	and x's denote quantity of the units they are paired with.
 	Eg 6h 20m 0s for 6 hours 20 minutes 0 seconds.
-		
+
 RETURN VALUE
 	Returns a string expressing an elapsed amount of time.
 
@@ -23,4 +23,3 @@ SEE ALSO
 	afun/arrayp, afun/dump_value, afun/floatp, afun/functionp, afun/intp,
 	afun/lowercase, afun/mappingp, afun/nilp, afun/objectp, afun/stringp,
 	afun/uppercase
-

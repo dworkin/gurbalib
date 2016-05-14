@@ -5,7 +5,7 @@ SYNOPSIS
 	string owner_file(string file)
 
 DESCRIPTION
-	Determine the owner of a file. The file doesn't have to exist, 
+	Determine the owner of a file. The file doesn't have to exist,
 	if it doesn't then the would be owner is returned.
 
 RETURN VALUE
@@ -19,4 +19,3 @@ EXAMPLES
 
 SEE ALSO
 	afun/owner_object, afun/file_name
-

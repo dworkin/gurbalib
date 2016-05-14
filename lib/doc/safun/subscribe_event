@@ -5,7 +5,7 @@ SYNOPSIS
 	ob->subscribe_event(string name)
 
 DESCRIPTION
-	Subscribes this_object() to an event with the given name in the 
+	Subscribes this_object() to an event with the given name in the
 	object ob. The event must have been added by 'ob' first.
 
 RETURN VALUE
@@ -13,7 +13,7 @@ RETURN VALUE
 
 EXAMPLES
 	/* Note this code is normally spread across multiple objects,
-	   You in general add events at a high level, then have 
+	   You in general add events at a high level, then have
 	   certain objects that look for events and others that trigger
 	   events */
 
@@ -36,4 +36,3 @@ EXAMPLES
 SEE ALSO
 	safun/add_event, safun/event, safun/remove_event,
 	safun/unsubscribe_event
-

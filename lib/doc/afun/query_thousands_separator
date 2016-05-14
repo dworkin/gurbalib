@@ -21,6 +21,5 @@ EXAMPLES
 	st = query_thousands_separator("US");
 
 SEE ALSO
-	afun/blog_it, afun/filelastmod, afun/files_modified, 
+	afun/blog_it, afun/filelastmod, afun/files_modified,
 	afun/sqlite3_exec, afun/sqlite3_select, afun/query_locale_data
-

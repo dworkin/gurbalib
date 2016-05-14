@@ -42,19 +42,19 @@ area/domain: http://www.infinitymud.com/area_making.shtml
 2. Layout
 It's a good idea to graph out your area on paper.  I'm going to use
 simple ASCII art here but in general you want to do something more detailed.
-This area is going to break some of the rules, thats Ok but the rules are 
+This area is going to break some of the rules, thats Ok but the rules are
 there for a good reason.  Knowing when to break the rules is what makes
 a good area.  Some things to keep in mind:
 
 	1. Use standard exit names: north, south, northwest, southeast,
 		up, down, in, out.
-	2. Make sure your exits line up.  If you leave north from room1 
+	2. Make sure your exits line up.  If you leave north from room1
 		to room2, room2 should leave south to room1.
 	3. Make your short descriptions unique.
 	4. Try to be descriptive, and verbose for your long descriptions.  Make
 		it interesting.
-	5. Make your descriptions stateless.  If you say it's dark and you 
-		can't see, it is odd if someone is walking around with a 
+	5. Make your descriptions stateless.  If you say it's dark and you
+		can't see, it is odd if someone is walking around with a
 		flashlight.
 Map for our area:
 
@@ -73,7 +73,7 @@ Map for our area:
 
 
 Now that we have the start of our layout, its time to start writing some code.
-For now we are going to put this in our wizard's directory.  (For me that 
+For now we are going to put this in our wizard's directory.  (For me that
 is /wiz/sirdude, if your following along just substitute your name
 wherever you see sirdude)
 on the mud issue the following commands:
@@ -87,8 +87,8 @@ Let's edit a file "domain.h" and add the following line to it:
 You are free to use any editor you choose so I'm not going to go into
 all of the commands to use the mud's built in editor.
 
-The idea behind this domain.h file is, we can make our code portable 
-so that once it's done all we need to do is change this one line to 
+The idea behind this domain.h file is, we can make our code portable
+so that once it's done all we need to do is change this one line to
 move the code to a new location.
 
 You may want to copy the map we have above to a file ~/minemap.txt just
@@ -98,8 +98,8 @@ to have a copy of it you can reference quickly.
 It's a good idea to name your files after your short descriptions, make
 sure you do not use spaces in the names and try to keep them around 8 chars
 or so, but still distinct.  What were going to do in this section is,
-create a basic room, copy it over to all of the files, fix the short 
-descriptions in all of the rooms, fix the exits, then flesh them out with 
+create a basic room, copy it over to all of the files, fix the short
+descriptions in all of the rooms, fix the exits, then flesh them out with
 long descriptions.
 	cd ~/rooms/mine
 	edit mineent.c and add the following:
@@ -171,7 +171,7 @@ narrow.c:
 	      "south" : DIR + "/rooms/mine/rough.c",
 	   ]));
 
-If you run the check script, once you are done with all of the exits you 
+If you run the check script, once you are done with all of the exits you
 should get 0 warnings and 0 errors.
 
 Now it's time to add our long descriptions to each of these rooms.
@@ -186,7 +186,7 @@ split.c
 	The cavern splits into a fork here.  You can go back west or continue
 	further into the cave east or south.
 narrow.c
-	The cave becomes thiner here.  It takes a sharp turn, it looks pretty 
+	The cave becomes thinner here.  It takes a sharp turn, it looks pretty
 	skinny towards the south.  It might be safer to go back west.
 large.c
 	This is a really big room in the mine.  It looks like they must have
@@ -197,7 +197,7 @@ rough.c
 	there were better places to dig.
 squeeze.c
 	The mine is really narrow here.  You wonder why they skimped on
-	this section.  The timer supports are only half the width of 
+	this section.  The timer supports are only half the width of
 	the rest of the mine.
 cavein.c
 	The supports here have collapsed.  There use to be a crawlspace
@@ -208,7 +208,7 @@ bigrock.c
 	digging through it they just carved out enough room to wiggle
 	around the thing.
 station.c
-	This use to be the supply station for the mine.  There are a 
+	This use to be the supply station for the mine.  There are a
 	number of shelves and abandoned mine carts here.  Back in the
 	day you could have stocked up big time.
 passages.c
@@ -219,13 +219,13 @@ deadend.c
 	The walls are roughly cut and ends abruptly.
 mineshaft.c
 	You are in the bowels of the mountain now.
-	There is a large rusty Iron door here to the west.  
+	There is a large rusty Iron door here to the west.
 escape.c
-	After walking down an endless mine shaft, you finally see the 
-	light at the end of the tunnel.  There is a hole to the east.  
+	After walking down an endless mine shaft, you finally see the
+	light at the end of the tunnel.  There is a hole to the east.
 	To the west the mine crawls deeper into the mountain.
 
-Again it would be a good idea to check your files and make sure things are 
+Again it would be a good idea to check your files and make sure things are
 working properly.  If not, look at the logs and get things working again.
 
 There are lots of other things to do with rooms for more details look at
@@ -243,7 +243,7 @@ add some things you can pickup and some things that you cannot.
 	set_id: pickaxe
 	set_adj: rusty
 	set_short: A rusty pickaxe
-	set_long: This axe has seen better days.  It could use a sharpening 
+	set_long: This axe has seen better days.  It could use a sharpening
 		and a whole lot of grease.
 	set_value: 8
 	set_weight: 7
@@ -259,8 +259,8 @@ add some things you can pickup and some things that you cannot.
 	set_id: rock
 	set_adj: big
 	set_short: A big rock
-	set_long: This rock takes up half of the room.  While the walls 
-	have been chipped away with axes, this thing doesn't even have a 
+	set_long: This rock takes up half of the room.  While the walls
+	have been chipped away with axes, this thing doesn't even have a
 	scratch on it.  It looks like you would need an elephant or two to
 	move it.
 
@@ -304,7 +304,7 @@ Again lets spice things up:
 	set_name: kobold
 	set_gender: male
 	set_short: A filthy little kobold
-	set_long: This dirty little creature is not your friend.  In fact he 
+	set_long: This dirty little creature is not your friend.  In fact he
 		looks rather grumpy.
 	set_race: kobold
 	set_aggressive(1);
@@ -313,11 +313,11 @@ Again lets spice things up:
 	Start by copying /domains/required/objects/helmet.c to ~/obj/minehelm.c
 
 	Make the following modifications:
-	set_adj: rusty 
+	set_adj: rusty
 	set_short: A rusty miners helmet
 	set_value: 15
 
-	Next we need to make it part of the kobold's gear.  Look at 
+	Next we need to make it part of the kobold's gear.  Look at
 	/domains/2.4.5/monsters/orc.c for an example.
 	We need to add the following line to the top of the setup function:
 	object obj;
@@ -330,7 +330,7 @@ Again lets spice things up:
 
 Before moving to our next section you should test these two monsters and
 make sure they are working properly.
-Once you have them working, we need to add them to our rooms.  
+Once you have them working, we need to add them to our rooms.
 You have done this before.
 Add the kobold to: ~/rooms/mine/squeeze.c
 and the spider to: ~/rooms/mine/deadend.c
@@ -369,7 +369,7 @@ an entrance that only goes one way.  Once you walk into the mine
 you'll start your quest.
 
 Conflicts:
-We already have a couple of monsters in the mine, but we are still missing 
+We already have a couple of monsters in the mine, but we are still missing
 something.  What were going to do is add a locked door close to the end of
 the mine, and a key that the players will need to locate to unlock the
 door.
@@ -401,11 +401,11 @@ can find the key with the search command:
 
 int do_search(void) {
 
-   if (this_player()->present("rusty key")) || 
+   if (this_player()->present("rusty key")) ||
       this_player()->is_completed_quest("NewbieVille")) {
       write("You find nothing.\n");
       this_player()->query_environment()->tell_room(this_player(),
-         this_player()->query_Name() + 
+         this_player()->query_Name() +
          " digs through the rubble.\n");
       return 1;
    }
@@ -420,16 +420,16 @@ End:
 Reward:
 The reward for this quest is that you are no longer trapped.  Not that
 great but at least you'll be free to adventure again.  You'll also
-get a quest completed entry, many mud's will not allow you to be a 
+get a quest completed entry, many mud's will not allow you to be a
 wizard until you have completed a certain number of quests.  The idea
 behind this is, once you have experienced a number of areas/quests you'll
 have a better idea of what makes a good area and what makes a not so good one.
 
 9. Fleshing things out.
-Need to fix our rubble, add some red herrings and some other stuff to 
+Need to fix our rubble, add some red herrings and some other stuff to
 make it more interesting.
 
-Next we'll add a hint for how to escape. Add a rubble description to 
+Next we'll add a hint for how to escape. Add a rubble description to
 the setup function in escape.c:
    add_item("rubble", "The wall has a bunch of rocks.  It looks like " +
       "you might be able to move it.");
@@ -451,7 +451,7 @@ For the entrance, we will add an exit to your workroom, just add a line
 similar to the following in the exits section of: ~/rooms/workroom.c
 	"mine" : "/wiz/sirdude/rooms/mine/mineent.c",
 
-Next is the exit function to bring us back to ~/rooms/workroom.c when we 
+Next is the exit function to bring us back to ~/rooms/workroom.c when we
 are done. For that we are going to add a function: move rubble
 inside the file: rooms/mine/escape.c
 We are going to add the following function to the file:
@@ -474,7 +474,7 @@ to the setup function in escape.c:
 
 Finally we need to register our quest.  To do that, an admin needs to just
 run the following command:
-questadm add AbandonedMine 1 (area)  
+questadm add AbandonedMine 1 (area)
 where (area) is the area you are adding this quest to. Were not going to
 do this though because this quest is already in the mudlib you can
 find everything in /domains/boothill, you should check it out and compare it
@@ -494,4 +494,3 @@ If your looking for more quest ideas look here:
 	return it to Leo.
 		Start: /domains/2.4.5/room/adv_guild.c
 		End: /domains/2.4.5/monsters/leo.c
-

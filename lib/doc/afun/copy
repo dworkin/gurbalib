@@ -5,8 +5,8 @@ SYNOPSIS
 	static void copy(string src, string dst);
 
 DESCRIPTION
-	Copies the source file to the destination.  If destination is a 
-	directory, a file will be created based on the name of the source 
+	Copies the source file to the destination.  If destination is a
+	directory, a file will be created based on the name of the source
 	file.
 
 RETURN VALUE
@@ -14,11 +14,10 @@ RETURN VALUE
 
 EXAMPLES
 	copy("/wiz/sirdude/rooms/workroom.c","/tmp/workroom.c");
-		
+
 SEE ALSO
 	safun/cat_file, afun/editor, afun/get_dir, afun/make_dir,
 	afun/read_file, afun/rename_file, afun/remove_dir, afun/remove_file,
-	afun/require_priv, afun/restore_object, afun/save_object, 
-	afun/unguarded, afun/valid, afun/valid_read, afun/valid_write, 
+	afun/require_priv, afun/restore_object, afun/save_object,
+	afun/unguarded, afun/valid, afun/valid_read, afun/valid_write,
 	afun/write_file
-

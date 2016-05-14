@@ -6,11 +6,11 @@ SYNOPSIS
 
 DESCRIPTION
 	Return an array of substrings of str, divided by the given separator.
-	Unlike explode, rexplode will take the separators that str starts and 
+	Unlike explode, rexplode will take the separators that str starts and
 	ends with, if any, into account.
 
 RETURN VALUES
-	An array of strings, if there are no matches to separator return 
+	An array of strings, if there are no matches to separator return
 	an array containing one empty string.
 
 ERRORS
@@ -24,7 +24,7 @@ EXAMPLES
 
 	lines = rexplode("Hello:Woo:Bing:O!:fun");
 	max = sizeof(lines);
-	for (x=0; x < max; x++) {
+	for (x = 0; x < max; x++) {
 	   write(x + "\t" + lines[x] + "\n");
 	}
 
@@ -34,4 +34,3 @@ SEE ALSO
 	safun/strstr, safun/str2val, kfun/explode, kfun/implode,
 	safun/parse_range, kfun/parse_string, kfun/sscanf, safun/trim_str,
 	afun/uppercase
-
