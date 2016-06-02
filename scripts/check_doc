@@ -182,14 +182,10 @@ sub check_fun_file {
 		return;
 	}
 
-	foreach my $i ("Usage:", "Options:", "Examples:", "also:") {
+	foreach my $i ("Usage:", "Options:", "Examples:", "get_alsos") {
 
 		if (!file_contains($file, $i)) {
-			if ($i eq "also:") {
-				print("$file is missing See also:\n");
-			} else {
-				print("$file is missing $i\n");
-			}
+			print("$file is missing $i\n");
 		}
 	}
 

@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 #define COST 10
 #define SKILLREQUIRED 15
 
@@ -19,10 +21,14 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tcast cure" });
    lines += ({ "\tcast cure sirdude" });
-   lines += ({ "See also:" });
-   lines += ({ "\tcast" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "cast");
 }
 
 int max_hp(object target) {
@@ -85,3 +91,4 @@ void do_spell(object thisp, string target) {
       }
    }
 }
+

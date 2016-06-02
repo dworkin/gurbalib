@@ -115,6 +115,7 @@ void check_a_spell(string filename) {
 void check_a_command(string filename) {
    object obj, tobj;
    string *functionlist, *talsos, *fname, tf;
+   string atype, pfile, wizfile, adminfile;
    int x, max;
    
    write("Check command: " + filename + "\n");
@@ -161,6 +162,19 @@ void check_a_command(string filename) {
             if (!member_array(talsos[x], tobj->query_alsos())) {
                warn(obj->file_name() + ": also " + talsos[x] + 
                   " not back referenced.\n");
+            } else {
+               atype = tobj->get_also_type(talsos[x]);
+write("looking at " + talsos[x] + " type: " + atype + "\n");
+               pfile = "/cmds/player/" + talsos[x]+ ".c";
+               wizfile = "/sys/cmds/wiz/" + talsos[x] + ".c";
+               adminfile = "/sys/cmds/admin/" + talsos[x] + ".c";
+               if (((atype == "player") && file_exists(pfile)) ||
+                  ((atype == "wiz") && file_exists(wizfile)) ||
+                  ((atype == "admin") && file_exists(adminfile))) {
+               } else {
+                  warn(obj->file_name() + " has wrong type \"" + atype + 
+                     "\" for also: " + talsos[x] + "\n");
+               }
             }
          }
       }

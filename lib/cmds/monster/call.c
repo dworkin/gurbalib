@@ -10,10 +10,14 @@ string *usage(void) {
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tcall set_gender male" });
-   lines += ({ "See also:" });
-   lines += ({ "\techo" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("monster", "echo");
 }
 
 static void main(string arg) {

@@ -11,6 +11,7 @@ string *usage(string str) {
    if (str != "") {
       spellpath = find_spell(str);
       if (spellpath) {
+         call_other(spellpath, "setup_alsos");
          return call_other(spellpath, "usage");
       }
    }

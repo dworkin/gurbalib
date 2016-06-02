@@ -23,6 +23,14 @@ string *query_alsos() {
    return map_indices(alsos);
 }
 
+string get_also_type(string value) {
+   if (member_map(value, alsos)) {
+       return alsos[value];
+   }
+
+   return "";
+}
+
 string *get_alsos() {
    string *lines, *values, tmp;
    int i, sz, done, tmplen, width;

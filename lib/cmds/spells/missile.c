@@ -1,3 +1,5 @@
+inherit M_COMMAND;
+
 #define COST 10
 
 string *usage(void) {
@@ -14,10 +16,14 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\tcast missile rabbit" });
    lines += ({ "\tcast missile sirdude" });
-   lines += ({ "See also:" });
-   lines += ({ "\tcast" });
+
+   lines += get_alsos();
 
    return lines;
+}
+
+void setup_alsos() {
+   add_also("player", "cast");
 }
 
 void missile(object thisp, object target) {
@@ -55,3 +61,4 @@ void do_spell(object thisp, string target) {
       write("You want to cast magic missile on who?\n");
    }
 }
+
