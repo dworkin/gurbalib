@@ -169,8 +169,8 @@ sub check_blank_lines {
 
 		$res = $line;
 	}
-	if ($res ne "\n") {
-		print "$file: Missing blank line at the end.\n";
+	if ($res eq "\n") {
+		print "$file: blank line at the end.\n";
 	}
 }
 
