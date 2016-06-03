@@ -8,7 +8,7 @@ DESCRIPTION
 	Checks of 'item' is a member of the array 'arr'.
 
 RETURN VALUE
-	Returns the index of the first occurrence of item in array arr. 
+	Returns the index of the first occurrence of item in array arr.
 	If not found, then -1 is returned.
 
 EXAMPLES
@@ -24,4 +24,3 @@ SEE ALSO
 	afun/call_array, afun/filter_array, afun/filter_mapping,
 	afun/map_array, safun/member_map, safun/random_element,
 	safun/split_array, safun/uniq_array
-

@@ -46,4 +46,3 @@ atomic functions:
 
 - Destructing and recompiling objects will also be undone when an
   error occurs during atomic execution.
-  

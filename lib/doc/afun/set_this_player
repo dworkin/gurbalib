@@ -5,7 +5,7 @@ SYNOPSIS
 	void set_this_player(object ob)
 
 DESCRIPTION
-	Sets the return value of this_player() to ob.  
+	Sets the return value of this_player() to ob.
 
 RETURN VALUE
 	NA (void)
@@ -20,8 +20,7 @@ EXAMPLES
 	}
 
 SEE ALSO
-	afun/call_trace, safun/players, safun/this_body, afun/this_connection, 
-	safun/this_environment, afun/this_player, safun/this_program, 
+	afun/call_trace, safun/players, safun/this_body, afun/this_connection,
+	safun/this_environment, afun/this_player, safun/this_program,
 	safun/this_race, afun/this_user, kfun/call_trace, kfun/previous_object,
 	kfun/previous_program
-

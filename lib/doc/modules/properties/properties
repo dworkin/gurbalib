@@ -6,8 +6,8 @@ Related functions:
 
   int ob->set_property(string name, mixed value,
      varargs string rpriv, string wpriv)
-  
-Properties are a generic way for storing information on an 
+
+Properties are a generic way for storing information on an
 object such that that information can easily be accessed by
 other objects without a need for 'set/get' methods.
 
@@ -16,7 +16,7 @@ on properties which can be set with the set_property() method.
 
 The property system uses require_priv() for this, so using
 anything other then * for read access is bound to be quite
-expensive when used a lot. Restricting write access can be 
+expensive when used a lot. Restricting write access can be
 quite useful. It is possible to create 'read-only' properties
 by setting wpriv to '-' (without the quotes).
 

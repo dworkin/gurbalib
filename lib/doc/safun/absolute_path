@@ -14,7 +14,7 @@ RETURN VALUE
 EXAMPLES
 	int x;
 
-	x = absolute_path("/tmp/myfile.txt"); 
+	x = absolute_path("/tmp/myfile.txt");
 	write("X = " + x + "\n");        /* x = 1 */
 	x = absolute_path("/tmp/../domains/required/rooms/start.c");
 	write("X = " + x + "\n");        /* x = 0 */
@@ -24,4 +24,3 @@ SEE ALSO
 	afun/compile_library, afun/compile_object, afun/destruct_object,
 	afun/file_name, afun/find_object, afun/new_object, afun/normalize_path,
 	safun/path_file, safun/wiz_dir, kfun/find_object, kfun/object_name
-

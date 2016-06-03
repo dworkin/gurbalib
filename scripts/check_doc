@@ -84,10 +84,19 @@ sub get_doc_file {
 	my ($infile) = @_;
 
 	if ($infile =~ /safun\/(.*)/) {
+		if (-d "./safun") {
+			return "./safun/$1";
+		}
 		return "./lib/doc/safun/$1";
 	} elsif ($infile =~ /afun\/(.*)/) {
+		if (-d "./afun") {
+			return "./afun/$1";
+		}
 		return "./lib/doc/afun/$1";
 	} elsif ($infile =~ /kfun\/(.*)/) {
+		if (-d "./kfun") {
+			return "./kfun/$1";
+		}
 		return "./lib/doc/kfun/$1";
 	} else {
 		return "";

@@ -11,9 +11,9 @@ Code blocks are indented 3 spaces:
 
 There is one blank line between function definitions.
 
-There are blanks after keywords, commas, and other structures:   
+There are blanks after keywords, commas, and other structures:
 	Correct:
-		if (int x, int y) {  
+		if (int x, int y) {
 	Wrong:
 		if(int x,int y){
 
@@ -29,14 +29,14 @@ Optional ()'s are also required, see the example in the next if statement
 
 Lines are limited to 80 chars, try to break it at something logical before the
 	limit, and indent 3 spaces after the fact:
-if ((this_object()->query_name() == "sirdude")) && 
+if ((this_object()->query_name() == "sirdude")) &&
    (this_object()->query_environment() == obj)) {
 
    do_stuff();
 }
 
 Do not use comments that just fill up whitespace, or just restate the code:
-	/* 
+	/*
 	*
 	* bingo
 	*
@@ -51,9 +51,8 @@ Should be something similar or remove the comment completely:
 	}
 
 There is an auxlillary function gurbalib/scripts/indent_it that uses
-	gnu indent to do a pretty good job of formating things.  It does 
+	gnu indent to do a pretty good job of formating things.  It does
 	mess up mappings and arrays though so you'll want to check them.
 
 The best way to get a feel for the rules is to look at the example code
 	(the current mudlib)  If you see any conflicts please let us know.
-

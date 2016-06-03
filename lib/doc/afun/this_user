@@ -5,9 +5,9 @@ SYNOPSIS
 	object this_user()
 
 DESCRIPTION
-	Get the object representing the current 'user'.  A user is not 
-	the same as a player, it points to the 'session' object for an 
-	online player, or to the ftp session object for an ftp user for 
+	Get the object representing the current 'user'.  A user is not
+	the same as a player, it points to the 'session' object for an
+	online player, or to the ftp session object for an ftp user for
 	example.
 
 RETURN VALUE
@@ -19,8 +19,7 @@ EXAMPLES
 	write(p->query_player()->query_name() + "\n");
 
 SEE ALSO
-	afun/call_trace, safun/players, afun/set_this_player, safun/this_body, 
+	afun/call_trace, safun/players, afun/set_this_player, safun/this_body,
 	afun/this_connection, safun/this_environment, afun/this_player,
 	safun/this_program, safun/this_race, kfun/call_trace,
 	kfun/previous_object, kfun/previous_program
-

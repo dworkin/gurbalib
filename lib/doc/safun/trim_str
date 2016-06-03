@@ -22,4 +22,3 @@ SEE ALSO
 	safun/strcmp, safun/strstr, safun/str2val, kfun/explode, kfun/implode,
 	safun/parse_range, kfun/parse_string, kfun/sscanf,
 	afun/uppercase
-

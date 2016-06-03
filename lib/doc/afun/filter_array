@@ -2,19 +2,19 @@ NAME
 	filter_array - filter an array through a function
 
 SYNOPSIS
-	mixed *filter_array(mixed *arr, string fun, varargs object ob, 
+	mixed *filter_array(mixed *arr, string fun, varargs object ob,
 		mixed extra...)
 
 DESCRIPTION
 	Filter the array 'arr' through the function fun in the object ob.
-	If ob is not provided or is nil, this_object() is used. The 
+	If ob is not provided or is nil, this_object() is used. The
 	optional 'extra' arguments are passed to this function.
 
-	If fun returns 0 or nil, the element passed to it will not be 
+	If fun returns 0 or nil, the element passed to it will not be
 	included, otherwise it will be included in the returned array.
 
 RETURN VALUE
-	Returns a new (possibly empty) array containing all elements of arr 
+	Returns a new (possibly empty) array containing all elements of arr
 	for which ob->fun(elem, extra) returns something other then 0 or nil.
 
 EXAMPLES
@@ -41,4 +41,3 @@ SEE ALSO
 	afun/call_array, afun/filter_mapping, afun/map_array,
 	safun/member_array, safun/member_map, safun/random_element,
 	safun/split_array, safun/uniq_array
-

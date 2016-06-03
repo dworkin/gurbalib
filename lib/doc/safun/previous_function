@@ -5,7 +5,7 @@ SYNOPSIS
 	string previous_function()
 
 DESCRIPTION
-	This enables code to determine the name of the function in 
+	This enables code to determine the name of the function in
 	previous_object that called the code.
 
 RETURN VALUE
@@ -22,4 +22,3 @@ EXAMPLES
 
 SEE ALSO
 	kfun/previous_object, kfun/previous_program
-

@@ -1,14 +1,14 @@
 NAME
-	unguarded - restrict stack verification to the calling object 
+	unguarded - restrict stack verification to the calling object
 		and program
 
 SYNOPSIS
 	mixed unguarded(string fun, varargs mixed arg...)
 
 DESCRIPTION
-	Stack verification will be limited to the calling object and 
-	program. 'fun' is the to be called function (which should be 
-	using require_priv()), arg... is the list of arguments to 'fun'. 
+	Stack verification will be limited to the calling object and
+	program. 'fun' is the to be called function (which should be
+	using require_priv()), arg... is the list of arguments to 'fun'.
 
 RETURN VALUE
 	Returns whatever 'fun' returns.
@@ -20,6 +20,5 @@ EXAMPLES
 SEE ALSO
 	safun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
 	afun/read_file, afun/rename_file, afun/remove_dir, afun/remove_file,
-	afun/require_priv, afun/restore_object, afun/save_object, 
+	afun/require_priv, afun/restore_object, afun/save_object,
 	afun/valid, afun/valid_read, afun/valid_write, afun/write_file
-

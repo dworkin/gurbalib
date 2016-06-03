@@ -5,7 +5,7 @@ SYNOPSIS
 	int round_to_next(int what, int to_what);
 
 DESCRIPTION
-	The argument 'what' is the integer to be rounded. The argument 
+	The argument 'what' is the integer to be rounded. The argument
 	'to_what' is the target integer.
 
 RETURN VALUE
@@ -16,4 +16,3 @@ EXAMPLES
 
 SEE ALSO
 	safun/percentage, safun/round, kfun/ceil, kfun/floor, kfun/fmod
-

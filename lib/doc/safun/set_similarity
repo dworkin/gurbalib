@@ -11,7 +11,7 @@ DESCRIPTION
 
 RETURN VALUE
 	Returns a value in the range 0 (not similar at all) to 1 (very similar).
-	
+
 EXAMPLES
 	int *a, *b;
 	float res;
@@ -26,4 +26,3 @@ SEE ALSO
 	afun/bubblesort, safun/set_difference, safun/set_intersection,
 	safun/set_invert, safun/set_remove_repeats,
 	safun/set_symmetric_difference, safun/set_union
-

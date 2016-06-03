@@ -5,8 +5,8 @@ SYNOPSIS
 	void event(string name, varargs mixed arg...)
 
 DESCRIPTION
-	Signals an event with the given name to all objects that subscribed 
-	to it. A function event_<name> is called in all those objects, the 
+	Signals an event with the given name to all objects that subscribed
+	to it. A function event_<name> is called in all those objects, the
 	optional arguments are passed to this function.
 
 RETURN VALUE
@@ -14,7 +14,7 @@ RETURN VALUE
 
 EXAMPLES
 	/* Note this code is normally spread across multiple objects,
-	   You in general add events at a high level, then have 
+	   You in general add events at a high level, then have
 	   certain objects that look for events and others that trigger
 	   events */
 
@@ -37,4 +37,3 @@ EXAMPLES
 SEE ALSO
 	safun/add_event, safun/remove_event, safun/subscribe_event,
 	safun/unsubscribe_event
-

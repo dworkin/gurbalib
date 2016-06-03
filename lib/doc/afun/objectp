@@ -23,4 +23,3 @@ SEE ALSO
 	afun/arrayp, afun/dump_value, afun/floatp, safun/fmt_time,
 	afun/functionp, afun/intp, afun/lowercase, afun/mappingp, afun/nilp,
 	afun/stringp, afun/uppercase
-

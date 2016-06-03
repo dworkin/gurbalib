@@ -116,7 +116,7 @@ static int transfer_money(int amount, string cointype, string where) {
    if (worth > 0) {
       amount = amount * worth;
       if (this_player()->query_total_money() > amount) {
-         this_player()->add_money("ducat", (amount * -1));
+         this_player()->add_money("ducat", -amount);
          obj->add_money("ducat", amount);
          this_player()->targeted_action("$N $vgive " + amount +
             " ducats to $t.", obj);

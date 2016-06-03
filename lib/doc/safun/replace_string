@@ -5,7 +5,7 @@ SYNOPSIS
 	string replace_string(string str, string old, string new)
 
 DESCRIPTION
-	In str, replace instances of the substring old with new.  
+	In str, replace instances of the substring old with new.
 	I.E. replace_string("old old", "old", "new") = "new new".
 
 RETURN VALUE
@@ -24,4 +24,3 @@ SEE ALSO
 	safun/strstr, safun/str2val, kfun/explode, kfun/implode,
 	safun/parse_range, kfun/parse_string, kfun/sscanf, safun/trim_str,
 	afun/uppercase
-

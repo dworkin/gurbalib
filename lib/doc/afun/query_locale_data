@@ -24,7 +24,6 @@ TODO
 	This command should take the place of afun/query_thousands_sep.
 
 SEE ALSO
-	afun/blog_it, afun/filelastmod, afun/files_modified, 
+	afun/blog_it, afun/filelastmod, afun/files_modified,
 	afun/sqlite3_exec, afun/sqlite3_select,
 	afun/query_thousands_separator
-

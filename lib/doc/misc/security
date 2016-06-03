@@ -18,7 +18,7 @@ Objects and inheritables:
 
   Objects get the privilege of the program from which they are
   constructed.
-  
+
   User objects are special in this, they get the privilege of
   the user logged into them, and if this is an admin user, they
   also get the system privilege.
@@ -33,7 +33,7 @@ Validation of privileges:
 
   Validation of privileges is done with the afun
 
-  int require_priv( string privilege )
+  int require_priv(string privilege)
 
   This function will call the security daemon which will then verify
   all objects and programs it finds on the stack to see if they have
@@ -65,7 +65,7 @@ File system privileges
     /sys/data
     /sys/daemons/data
     /wiz/*
-   
+
   For files in the mentioned directories (and those directories themselves)
   owner or system or kernel privileges are required.
 
@@ -84,4 +84,3 @@ Other privileges
 
   require_priv() is used in various places, not just for filesystem security.
   require_priv() is a somewhat expensive afun, use with care.
-

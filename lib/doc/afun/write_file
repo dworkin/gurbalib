@@ -5,10 +5,10 @@ SYNOPSIS
 	static int write_file(string file, string str, varargs int offset)
 
 DESCRIPTION
-	Write a string to a file.  If the offset is specified, write the 
-	string at the given offset, otherwise append the string to the end 
-	of the file.  If the offset is a negative value, start from the end 
-	of the file and work towards the front to find the location to write 
+	Write a string to a file.  If the offset is specified, write the
+	string at the given offset, otherwise append the string to the end
+	of the file.  If the offset is a negative value, start from the end
+	of the file and work towards the front to find the location to write
 	the data.
 		
 RETURN VALUE
@@ -24,6 +24,5 @@ EXAMPLES
 SEE ALSO
 	safun/cat_file, afun/copy, afun/editor, afun/get_dir, afun/make_dir,
 	afun/read_file, afun/rename_file, afun/remove_dir, afun/remove_file,
-	afun/require_priv, afun/restore_object, afun/save_object, 
+	afun/require_priv, afun/restore_object, afun/save_object,
 	afun/unguarded, afun/valid, afun/valid_read, afun/valid_write
-

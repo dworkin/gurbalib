@@ -5,7 +5,7 @@ SYNOPSIS
 	void add_event(string name)
 
 DESCRIPTION
-	Adds an event with the given name, needed before the event can be 
+	Adds an event with the given name, needed before the event can be
 	signaled or other objects subscribe to the event.
 
 RETURN VALUE
@@ -13,7 +13,7 @@ RETURN VALUE
 
 EXAMPLES
 	/* Note this code is normally spread across multiple objects,
-	   You in general add events at a high level, then have 
+	   You in general add events at a high level, then have
 	   certain objects that look for events and others that trigger
 	   events */
 
@@ -23,7 +23,7 @@ EXAMPLES
 	/* start looking for an event with the current object */
 	EVENT_D->subscribe_event("body_look");
 
-	/* Trigger an event this calls the function event_body_look 
+	/* Trigger an event this calls the function event_body_look
 	   in all objects that subscribed to "body_look" */
 	this_environment()->event("body_look", this_player());
 
@@ -34,6 +34,5 @@ EXAMPLES
 	remove_event("body_look");
 
 SEE ALSO
-	safun/event, safun/remove_event, safun/subscribe_event, 
+	safun/event, safun/remove_event, safun/subscribe_event,
 	safun/unsubscribe_event
-

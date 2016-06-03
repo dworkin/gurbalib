@@ -5,8 +5,8 @@ SYNOPSIS
 	void out_unmod(string message)
 
 DESCRIPTION
-	Send 'message' to this_player().  The message is unmodified.  
-	No ansi color codes will be translated, and no lines will be 
+	Send 'message' to this_player().  The message is unmodified.
+	No ansi color codes will be translated, and no lines will be
 	wrapped.
 
 RETURN VALUE
@@ -22,4 +22,3 @@ EXAMPLES
 SEE ALSO
 	afun/console_msg, safun/horizontal_rule, safun/out, safun/ruler,
 	safun/say, afun/write
-

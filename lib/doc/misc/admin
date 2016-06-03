@@ -15,10 +15,8 @@ Important documentation:
   Configuration:
 
     local_config, driver_config
-    
+
   The following man pages contain important information about coding for 
   Gurbalib:
 
     objects, rebuild, security, kfun, afun
-
-  

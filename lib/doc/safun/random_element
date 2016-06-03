@@ -5,11 +5,12 @@ SYNOPSIS
 	mixed random_element(mixed *arr)
 
 DESCRIPTION
-	Returns random element from the given array.  Returns nil if 
+	Returns random element from the given array.  Returns nil if
 	array is empty.
 
 RETURN VALUE
 	Any single element from given array.
+
 EXAMPLES
 	object *peoples;
 	object winner;
@@ -22,4 +23,3 @@ SEE ALSO
 	afun/call_array, afun/filter_array, afun/filter_mapping,
 	afun/map_array, safun/member_array, safun/member_map,
 	safun/split_array, safun/uniq_array
-

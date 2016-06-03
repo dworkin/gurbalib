@@ -16,7 +16,7 @@ To say something on the gossip channel you would use:
 	chan gossip Hi how is everyone today?
 
 emotes and/or socials
-    ;   - You can use the semi-colon to send emotes in channel, best shown 
+    ;   - You can use the semi-colon to send emotes in channel, best shown
           in example:
 
     >  chan gossip hi everyone
@@ -49,7 +49,7 @@ new
 Access level: Admin
 admin
     Toggle a channel as Admin only access Wiz and users will be denied
-    
+
 wiz
     Toggle a channel for Wiz access, player access will be denied
 
@@ -72,7 +72,7 @@ imud
     >  chan new dstest
     Channel created.
     >  chan imud dstest dead_test4
-    >  chan on dstest 
+    >  chan on dstest
     Subscribed to dstest.
     >  dstest test
     >  [dstest] Admin@Warlords_Gurba: test

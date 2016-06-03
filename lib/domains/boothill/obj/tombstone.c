@@ -37,4 +37,3 @@ string query_long(void) {
 string query_message(void) {
    return query_long();
 }
-

@@ -5,8 +5,8 @@ SYNOPSIS
 	void out(string message)
 
 DESCRIPTION
-	Send 'message' to this_player().  The message may contain color 
-	codes, as described in /doc/misc/ansi_colors.  Unlike the write 
+	Send 'message' to this_player().  The message may contain color
+	codes, as described in /doc/misc/ansi_colors.  Unlike the write
 	afun, out does not wrap the message before sending to this_player().
 
 RETURN VALUE
@@ -22,4 +22,3 @@ EXAMPLES
 SEE ALSO
 	afun/console_msg, safun/horizontal_rule, safun/out_unmod,
 	safun/ruler, safun/say, afun/write
-

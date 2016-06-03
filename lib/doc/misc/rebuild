@@ -159,4 +159,3 @@ Testing your changes
   Often, it is useful to try to recompile the code you changed
   including a few objects that use that code. This is not
   mandatory.
-

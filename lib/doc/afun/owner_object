@@ -1,16 +1,16 @@
 NAME
-	owner_object - determine the owner of the file from which an 
+	owner_object - determine the owner of the file from which an
 	object has been compiled.
 
 SYNOPSIS
 	string owner_object(object ob)
 
 DESCRIPTION
-	Determine the owner of the file from which an object has been 
+	Determine the owner of the file from which an object has been
 	compiled.
 
 RETURN VALUE
-	Returns a string with the name of the owner of the file from 
+	Returns a string with the name of the owner of the file from
 	which ob has been compiled.
 
 EXAMPLES
@@ -26,4 +26,3 @@ EXAMPLES
 
 SEE ALSO
 	afun/owner_file, afun/file_name
-

@@ -10,6 +10,3 @@ Simulated auto object: /sys/lib/auto.c, /sys/lib/safun.c, /sys/lib/safun/*
      When compiled, the source for it will be assembled from the .c files in
      /sys/safun/.  If a function in safun needs a global variable or a
      function prototype, put it inside of /sys/lib/safun.c
-
-
-

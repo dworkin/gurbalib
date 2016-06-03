@@ -9,6 +9,7 @@ DESCRIPTION
 
 RETURN VALUE
 	Returns a string representing the value of arg.
+
 EXAMPLES
 	mixed *filenames;
 
@@ -21,4 +22,3 @@ SEE ALSO
 	afun/arrayp, afun/floatp, safun/fmt_time, afun/functionp,
 	afun/intp, afun/lowercase, afun/mappingp, afun/nilp, afun/objectp,
 	afun/stringp, afun/uppercase
-

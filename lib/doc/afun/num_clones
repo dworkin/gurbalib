@@ -5,9 +5,9 @@ SYNOPSIS
 	int num_clones()
 
 DESCRIPTION
-	Returns the number of clones of an object that exist in the 
-	system. The 'master' of an object is not counted as a clone for 
-	this. The object this is called on is included in the count 
+	Returns the number of clones of an object that exist in the
+	system. The 'master' of an object is not counted as a clone for
+	this. The object this is called on is included in the count
 	(unless it is the master)
 
 RETURN VALUE
@@ -28,4 +28,3 @@ EXAMPLES
 
 SEE ALSO
 	afun/next_clone, afun/prev_clone, afun/query_cloner
-

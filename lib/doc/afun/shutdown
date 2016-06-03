@@ -5,7 +5,7 @@ SYNOPSIS
 	void shutdown()
 
 DESCRIPTION
-	Logs out all players, does a statedump if persistent and then 
+	Logs out all players, does a statedump if persistent and then
 	shutdown the mud.
 
 RETURN VALUE
@@ -16,4 +16,3 @@ EXAMPLES
 
 SEE ALSO
 	kfun/shutdown
-

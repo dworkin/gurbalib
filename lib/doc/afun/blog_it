@@ -5,7 +5,7 @@ SYNOPSIS
 	int blog_it(string title, string html_content, string author);
 
 DESCRIPTION
-	If the mud is configured to use the blog_it LPC extension, then this 
+	If the mud is configured to use the blog_it LPC extension, then this
 	function can be used to post to the gurbalib blog. The blog is found
 	at: http://gurbalib.blogspot.com/
 
@@ -30,4 +30,3 @@ EXAMPLES
 SEE ALSO
 	afun/filelastmod, afun/files_modified, afun/query_locale_data,
 	afun/query_thousands_separator, afun/sqlite3_exec, afun/sqlite3_select
-

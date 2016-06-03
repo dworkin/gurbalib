@@ -5,9 +5,9 @@ SYNOPSIS
 	int dir_size(string path)
 
 DESCRIPTION
-	Returns the size of all files in a directory, including all files 
+	Returns the size of all files in a directory, including all files
 	in directories of path.
-		
+
 RETURN VALUE
 	Size of files in path.
 
@@ -21,4 +21,3 @@ EXAMPLES
 
 SEE ALSO
 	afun/file_size, afun/file_exists
-

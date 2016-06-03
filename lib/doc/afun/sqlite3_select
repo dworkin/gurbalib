@@ -13,7 +13,7 @@ DESCRIPTION
 	https://github.com/november-kilo/dgd-lpc-ext
 
 RETURN VALUE
-	Returns nil if the extension is not enabled, or if filename is 
+	Returns nil if the extension is not enabled, or if filename is
 	unreadable.  Otherwise returns the results of calling the specified
 	select statement.
 
@@ -35,4 +35,3 @@ SEE ALSO
 	afun/blog_it, afun/filelastmod, afun/files_modified,
 	afun/query_locale_data, afun/query_thousands_separator,
 	afun/sqlite3_exec
-

@@ -6,7 +6,7 @@ SYNOPSIS
 
 DESCRIPTION
 	Returns the size of a file, in k's.
-		
+
 RETURN VALUE
 	The size of file found at filepath, or 0 if no file found.
 
@@ -22,4 +22,3 @@ EXAMPLES
 
 SEE ALSO
 	afun/dir_size, afun/file_exists
-

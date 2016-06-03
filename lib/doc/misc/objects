@@ -153,4 +153,3 @@ How separation is handled
 
   The lists of valid object and inheritable directories is
   defined at the top of /kernel/daemons/compiler_d
-
