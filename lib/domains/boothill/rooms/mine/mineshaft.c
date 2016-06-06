@@ -10,8 +10,8 @@ void setup(void) {
       "rusty Iron door here to the west.");
 
    set_exits(([
-      "east" : DIR + "/rooms/mine/bigrock.c",
-      "west" : DIR + "/rooms/mine/escape.c",
+      "west" : DIR + "/rooms/mine/bigrock.c",
+      "east" : DIR + "/rooms/mine/escape.c",
    ]));
 
    set_objects(DIR + "/obj/irondoor.c");
