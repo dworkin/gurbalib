@@ -26,6 +26,7 @@ void setup(void) {
       "squeeze into it.");
 
    add_action("break_branch", "break");
+   add_action("squeeze_hole", "squeeze");
 }
 
 int break_branch(string str) {
@@ -78,4 +79,14 @@ void enter_hole(void) {
       }
    }
    return;
+}
+
+int squeeze_hole(string str) {
+   object obj;
+
+   if ((str == "hole") || (str == "")) {
+      enter_hole();
+      return 1;
+   }
+   return 0;
 }

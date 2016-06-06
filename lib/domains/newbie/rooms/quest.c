@@ -15,6 +15,8 @@ void setup(void) {
       "out" : DIR + "/rooms/tree", ]));
 
    add_item("button", "A giant red BUTTON!\nIt is glowing and says PRESS ME!");
+   add_item("red button",
+      "A giant red BUTTON!\nIt is glowing and says PRESS ME!");
    add_action("do_push", "push");
    add_action("do_push", "press");
 }
@@ -26,7 +28,8 @@ int do_push(string arg) {
       } else {
          this_player()->add_completed_quest("NewbieVille");
          this_player()->increase_expr(200);
-         write("Congratulations!!! You have just completed the NewbieVille " +
+         write("Congratulations!!!\n);
+         write("You have just completed the NewbieVille " +
             "Quest which earns you 200 exp!\n");
       }
       return 1;
