@@ -152,20 +152,20 @@ void check_a_command(string filename) {
       if (fname[1] == tf) {
          warn(obj->file_name() + ": references itself in also.\n");
       } else {
-         tobj = COMMAND_D->find_command(talsos[x],"", syspath);
+         tobj = COMMAND_D->find_command(talsos[x], "", syspath);
 
          if (!tobj) {
             warn(obj->file_name() + ": references unknown also " + talsos[x] +
                "\n");
          } else {
-	    tobj->setup_alsos();
+            tobj->setup_alsos();
             if (!member_array(talsos[x], tobj->query_alsos())) {
                warn(obj->file_name() + ": also " + talsos[x] + 
                   " not back referenced.\n");
             } else {
                atype = tobj->get_also_type(talsos[x]);
 write("looking at " + talsos[x] + " type: " + atype + "\n");
-               pfile = "/cmds/player/" + talsos[x]+ ".c";
+               pfile = "/cmds/player/" + talsos[x] + ".c";
                wizfile = "/sys/cmds/wiz/" + talsos[x] + ".c";
                adminfile = "/sys/cmds/admin/" + talsos[x] + ".c";
                if (((atype == "player") && file_exists(pfile)) ||

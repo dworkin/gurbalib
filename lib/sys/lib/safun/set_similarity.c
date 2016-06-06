@@ -5,7 +5,7 @@ nomask static float set_similarity( mixed *a1, mixed *a2 ) {
    argcheck( arrayp(a1), 1, "array" );
    argcheck( arrayp(a2), 2, "array" );
 
-   if( !sizeof( a2 ) ) {
+   if ( !sizeof( a2 ) ) {
       return (float) !sizeof( a1 );
    }
 
