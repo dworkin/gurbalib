@@ -625,8 +625,8 @@ void compile_error(string file, int line, string err) {
    usr = this_user();
    if (usr) {
       if (usr->query_player()) {
-         if (secure_d
-            && secure_d->query_wizard(usr->query_player()->query_name()) == 1) {
+         if (secure_d &&
+            (secure_d->query_wizard(usr->query_player()->query_name()) == 1)) {
             usr->query_player()->write(error);
          } else {
             usr->query_player()->
@@ -712,11 +712,11 @@ static string object_type(string from, string obtype) {
 }
 
 int compile_rlimits(string objname) {
-   if (sscanf(objname, "/kernel/%*s") == 1
-      || sscanf(objname, "/daemons/%*s") == 1
-      || sscanf(objname, "/sys/%*s") == 1 
-      || sscanf(objname, "/std/%*s") == 1
-      || objname == "/cmds/wiz/rebuild") {
+   if ((sscanf(objname, "/kernel/%*s") == 1) ||
+      (sscanf(objname, "/daemons/%*s") == 1) ||
+      (sscanf(objname, "/sys/%*s") == 1) || 
+      (sscanf(objname, "/std/%*s") == 1) ||
+      (objname == "/cmds/wiz/rebuild")) {
       return 1;
    } else {
       message("compile rlimits denied for " + objname + "\n");

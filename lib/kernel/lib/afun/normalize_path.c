@@ -19,7 +19,7 @@ string normalize_path(string file, string dir) {
    switch (file[0]) {
       case '~':
          /* ~path */
-         if (strlen(file) == 1 || file[1] == '/') {
+         if ((strlen(file) == 1) || (file[1] == '/')) {
             file = WIZ_DIR + "/" + this_user()->query_name() + file[1..];
          } else {
             if (secure_d && secure_d->is_domain(explode(file[1..], "/")[0])) {
@@ -35,14 +35,14 @@ string normalize_path(string file, string dir) {
 
          path = explode(file, "/");
 
-         if (sscanf(file, "%*s//") == 0 && sscanf(file, "%*s/.") == 0) {
+         if ((sscanf(file, "%*s//") == 0) && (sscanf(file, "%*s/.") == 0)) {
             return file;         /* no changes */
          }
          break;
 
       default: /* relative path */
-         if (sscanf(file, "%*s//") == 0 && sscanf(file, "%*s/.") == 0 &&
-            sscanf(dir, "%*s/..") == 0) {
+         if ((sscanf(file, "%*s//") == 0) && (sscanf(file, "%*s/.") == 0) &&
+            (sscanf(dir, "%*s/..") == 0)) {
 
             /* simple relative path */
 

@@ -148,58 +148,58 @@ string save_value(mixed var) {
       return "0";
    }
    switch (typeof(var)) {
-   case T_INT : case T_FLOAT :
-      result = "" + var;
-      break;
-   case T_STRING :
-      if (strlen(var) > 0) {
-         if (var[0..0] == "\\") {
-            pref = "\\\\";
-         } else if (var[0..0] == "\"") {
-            pref = "\\\"";
+      case T_INT : case T_FLOAT :
+         result = "" + var;
+         break;
+      case T_STRING :
+         if (strlen(var) > 0) {
+            if (var[0..0] == "\\") {
+               pref = "\\\\";
+            } else if (var[0..0] == "\"") {
+               pref = "\\\"";
+            } else {
+               pref = "";
+            }
+
+            if (var[strlen(var)-1] == '\\') {
+               post = "\\\\";
+            } else if (var[strlen(var)-1] == '\"') {
+               post = "\\\"";
+            } else {
+               post = "";
+            }
+
+            result = implode(explode(var, "\\"), "\\\\");
+            result = implode(explode(result, "\""), "\\\"");
+            result = "\"" + pref + result + post + "\"";
          } else {
-            pref = "";
+            result = "\"\"";
+         }
+         break;
+      case T_OBJECT :
+         result = object_name(var);
+         break;
+      case T_ARRAY :
+         result = "({";
+         for (i = 0, s = sizeof(var); i < s; i++) {
+            result += save_value(var[i]) + ",";
+         }
+         result += "})";
+         break;
+      case T_MAPPING :
+         keys = map_indices(var);
+         values = map_values(var);
+         result = "([";
+
+         for (i = 0, s = map_sizeof(var); i < s; i++) {
+            result += save_value(keys[i]) + ":" + save_value(values[i]) + ",";
          }
 
-         if (var[strlen(var)-1] == '\\') {
-            post = "\\\\";
-         } else if (var[strlen(var)-1] == '\"') {
-            post = "\\\"";
-         } else {
-            post = "";
-         }
-
-         result = implode(explode(var, "\\"), "\\\\");
-         result = implode(explode(result, "\""), "\\\"");
-         result = "\"" + pref + result + post + "\"";
-      } else {
-         result = "\"\"";
-      }
-      break;
-   case T_OBJECT :
-      result = object_name(var);
-      break;
-   case T_ARRAY :
-      result = "({";
-      for (i = 0, s = sizeof(var); i < s; i++) {
-         result += save_value(var[i]) + ",";
-      }
-      result += "})";
-      break;
-   case T_MAPPING :
-      keys = map_indices(var);
-      values = map_values(var);
-      result = "([";
-
-      for (i = 0, s = map_sizeof(var); i < s; i++) {
-         result += save_value(keys[i]) + ":" + save_value(values[i]) + ",";
-      }
-
-      result += "])";
-      break;
-   default :
-      result = nil;
-      break;
+         result += "])";
+         break;
+      default :
+         result = nil;
+         break;
    }
    return result;
 }

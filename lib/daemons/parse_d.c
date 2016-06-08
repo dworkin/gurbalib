@@ -129,7 +129,7 @@ void add_object_rules(string * rules) {
       object_rules[prev_ob] = ([]);
    }
    if (typeof(object_rules[prev_ob][rules[0]]) != T_MAPPING) {
- object_rules[prev_ob] = ([rules[0]:rules[1..(sizeof(rules) - 1)]]);
+      object_rules[prev_ob] = ([rules[0]:rules[1..(sizeof(rules) - 1)]]);
    } else {
       object_rules[prev_ob][rules[0]] += rules[1..(sizeof(rules) - 1)];
    }

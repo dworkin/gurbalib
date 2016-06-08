@@ -391,6 +391,7 @@ void chan_imud_rcv_emote(string chan, string who, string where, string what) {
    if (!imud[chan]) {
       return;
    }
+
    what = replace_string(what, "$N", who + "@" + where);
    chan_send_string(imud[chan], who + "@" + where, what, EMOTE);
 }
@@ -414,8 +415,80 @@ int query_subscribed(string chan) {
    return 0;
 }
 
+string handle_emote(string cmd, string arg) {
+   string rule, what, *rules, *result;
+   object target;
+
+   rules = EMOTE_D->query_rules(cmd);
+
+   /* Targeted emote? Find the target */
+   if (arg && arg != "") {
+      target = this_environment()->present(arg);
+      if (!target) {
+         target = USER_D->find_player(arg);
+      }
+
+   } else {
+      target = nil;
+   }
+   if (target) {
+      /* We've found our target, check for the correct rule */
+
+      if (target->is_living()) {
+         /* We're looking for a LIV rule */
+         if (member_array("LIV", rules) != -1) {
+            rule = "LIV";
+         } else {
+            rule = "";
+         }
+      } else {
+         /* We're looking for a OBJ rule */
+         if (member_array("OBJ", rules) != -1) {
+            rule = "OBJ";
+         } else {
+            rule = "";
+         }
+      }
+   } else {
+      /* Or are we just looking for a string? */
+      if (member_array("STR", rules) != -1 && arg != "") {
+         rule = "STR";
+      } else {
+         rule = "";
+      }
+   }
+
+   if (rule == "LIV") {
+      result =
+         compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
+         target, nil);
+      what = result[2];
+   } else if (rule == "OBJ") {
+      result =
+         compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
+         nil, ({ target }));
+      what = result[2];
+   } else if (rule == "STR") {
+      result =
+         compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
+         nil, ({ arg }));
+      what = result[2];
+   } else {
+      if (member_array("", rules) != -1) {
+         result =
+            compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
+            nil, nil);
+         what = result[2];
+      } else {
+         write("No such emote.\n");
+         what = "";
+      }
+   }
+   return what;
+}
+
 void chan_emote(string chan, string what) {
-   string *ichans, *result;
+   string *ichans;
    int i, sz;
    string cmd, arg;
 
@@ -438,73 +511,7 @@ void chan_emote(string chan, string what) {
    }
 
    if (EMOTE_D->is_emote(cmd)) {
-      string rule, *rules;
-      object target;
-
-      rules = EMOTE_D->query_rules(cmd);
-
-      /* Targeted emote? Find the target */
-      if (arg && arg != "") {
-         target = this_environment()->present(arg);
-         if (!target) {
-            target = USER_D->find_player(arg);
-         }
-
-      } else {
-         target = nil;
-      }
-      if (target) {
-         /* We've found our target, check for the correct rule */
-
-         if (target->is_living()) {
-            /* We're looking for a LIV rule */
-            if (member_array("LIV", rules) != -1) {
-               rule = "LIV";
-            } else {
-               rule = "";
-            }
-         } else {
-            /* We're looking for a OBJ rule */
-            if (member_array("OBJ", rules) != -1) {
-               rule = "OBJ";
-            } else {
-               rule = "";
-            }
-         }
-      } else {
-         /* Or are we just looking for a string? */
-         if (member_array("STR", rules) != -1 && arg != "") {
-            rule = "STR";
-         } else {
-            rule = "";
-         }
-      }
-
-      if (rule == "LIV") {
-         result =
-            compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
-            target, nil);
-         what = result[2];
-      } else if (rule == "OBJ") {
-         result =
-            compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
-            nil, ({ target }));
-         what = result[2];
-      } else if (rule == "STR") {
-         result =
-            compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
-            nil, ({ arg }));
-         what = result[2];
-      } else {
-         if (member_array("", rules) != -1) {
-            result =
-               compose_message(this_player(), EMOTE_D->query_emote(cmd, rule),
-               nil, nil);
-            what = result[2];
-         } else {
-            write("No such emote.\n");
-         }
-      }
+      what = handle_emote(cmd, arg);
    } else {
       if (arg && arg != "") {
          what = this_player()->query_Name() + " " + cmd + " " + arg;

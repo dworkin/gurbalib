@@ -20,15 +20,15 @@ static object clone_object(string path) {
 
    if (this_object()->is_player() && this_object()->query_name()) {
       cloner = this_object()->query_name();
-   } else if (sscanf(object_name(this_object()), "/cmds/wiz/%*s") == 1
-      && this_user()) {
+   } else if ((sscanf(object_name(this_object()), "/cmds/wiz/%*s") == 1) &&
+      this_user()) {
       cloner = this_user()->query_name();
    } else {
       cloner = _owner;
    }
 
    if (strlen(path) > 2) {
-      if (path[strlen(path) - 2] == '.' && path[strlen(path) - 1] == 'c') {
+      if ((path[strlen(path) - 2] == '.') && (path[strlen(path) - 1] == 'c')) {
          path = path[..strlen(path) - 3];
       }
    }

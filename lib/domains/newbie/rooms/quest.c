@@ -28,7 +28,7 @@ int do_push(string arg) {
       } else {
          this_player()->add_completed_quest("NewbieVille");
          this_player()->increase_expr(200);
-         write("Congratulations!!!\n);
+         write("Congratulations!!!\n");
          write("You have just completed the NewbieVille " +
             "Quest which earns you 200 exp!\n");
       }

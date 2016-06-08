@@ -330,8 +330,8 @@ static string filter_for_edges(string * nodes) {
    tmp = get_nodes(node);
    if (tmp && sizeof(tmp) > 0) {
       pile += tmp;
-   } else if (!test_inheritable(node) || !dep_list[node]
-      || !sizeof(dep_list[node])) {
+   } else if (!test_inheritable(node) || !dep_list[node] ||
+      !sizeof(dep_list[node])) {
       return node;
    }
 }
@@ -604,9 +604,8 @@ string allow_inherit(string path, string file) {
    if (sscanf(path, AUTO + "%*s") != 1) {
       switch (explode(path, "/")[0]) {
          case "kernel":
-            if (file &&
-               sscanf(file, "/kernel/%*s") != 1 &&
-               sscanf(file, "/sys/%*s") != 1) {
+            if (file && (sscanf(file, "/kernel/%*s") != 1) &&
+               (sscanf(file, "/sys/%*s") != 1)) {
                error("permission denied");
             }
          case "sys":

@@ -207,8 +207,8 @@ static string _parse_colors(string str, int curdepth, mapping cache,
             if (translations[tmp[i]]) {
                tmp[i] = translations[tmp[i]];
             } else if (curdepth < MAX_RECURSION) {
-               if (player && player_trans[player]
-                  && player_trans[player][tmp[i]]) {
+               if (player && player_trans[player] &&
+                  player_trans[player][tmp[i]]) {
                   tmp[i] =
                      _parse_colors(player_trans[player][tmp[i]], curdepth + 1,
                      cache, player);

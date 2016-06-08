@@ -237,8 +237,8 @@ int unsiteban(string str) {
       remove_file("/data/banned/c/" + str);
       flag = 1;
       c_banned_sites -= ({ str });
-   } else if ((tmp[0] == "new") && (tmp[1] == "new") && (tmp[2] == "new")
-      && (tmp[3] == "new")) {
+   } else if ((tmp[0] == "new") && (tmp[1] == "new") && (tmp[2] == "new") &&
+      (tmp[3] == "new")) {
       /* A class siteban */
       remove_file("/data/banned/a/" + str);
       flag = 1;

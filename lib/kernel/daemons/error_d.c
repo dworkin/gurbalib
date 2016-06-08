@@ -26,8 +26,8 @@ string format_runtime_error(string error, mixed ** trace, int caught, int ticks,
          result = pre + ":" + result;
       }
    } else if ((sz = sizeof(trace) - 1) > 0) {
-      if (sscanf(error, MAGIC_ERROR_ARGCHECK + "%s", tmp) == 1
-         && trace[sz - 1][1] == AUTO && trace[sz - 1][2] == "argcheck") {
+      if ((sscanf(error, MAGIC_ERROR_ARGCHECK + "%s", tmp) == 1) &&
+         (trace[sz - 1][1] == AUTO) && (trace[sz - 1][2] == "argcheck")) {
          sz -= 2;
       }
 
@@ -105,9 +105,8 @@ static void log_runtime_error(string result, int caught) {
    lines = explode(result, "\n");
 
    if (caught) {
-      if (player && player->query_name()
-         && find_object(USER_D) 
-         && USER_D->query_wizard(player->query_name())) {
+      if (player && player->query_name() && find_object(USER_D) &&
+         USER_D->query_wizard(player->query_name())) {
          if (player->display_caught() ) {
             if (verbose) {
                write(result);
@@ -125,11 +124,11 @@ static void log_runtime_error(string result, int caught) {
       if (player && find_object(USER_D)) {
          if (USER_D->query_wizard(player->query_name()) == 1) {
             if (verbose) {
-            write("%^RED%^Runtime error: %^RESET%^" + "%^CYAN%^" + 
-               result + "%^RESET%^");
+               write("%^RED%^Runtime error: %^RESET%^" + "%^CYAN%^" + 
+                  result + "%^RESET%^");
             } else {
-            write("%^RED%^Runtime error: %^RESET%^" + "%^CYAN%^" + 
-               lines[0] + "%^RESET%^");
+               write("%^RED%^Runtime error: %^RESET%^" + "%^CYAN%^" + 
+                  lines[0] + "%^RESET%^");
             }
          } else {
             write("You have encountered a rift in reality. " +
