@@ -105,3 +105,8 @@ Also fix it so we avoid the too many objects error...
 Convert DEBUG define's to LOG_D->log's & levels...
 
 update doc checker to look at -h for commands  (see also and other things)
+
+Fix channels so that there is no conflict  between wiz command and wiz channel.
+also make sure you can't create an empty channel.
+	Maybe make it chan cmd wiz (channel)
+	(all commands need to be prefixed with 'cmd')
