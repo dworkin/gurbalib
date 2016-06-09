@@ -43,27 +43,16 @@ int show_help_for_command(string cmd) {
    return call_other(this_player(), "do_game_command", tmp);
 }
 
-int show_help(string filename) {
-   string blah, *tmp, *lines;
-   int i, sz, len, where, width;
-
-   if (file_exists(filename) < 1) {
-      return 0;
-   }
+string *get_data(string filename) {
+   string *lines, *tmp;
+   int i, sz, where, len, width;
 
    width = this_player()->query_width();
-
-   lines = ( { "Help for " + capitalize(filename) + "." } );
-
-   blah = "";
-   sz = strlen(lines[0]);
-   for (i = 0; i < sz; i++) {
-      blah += "-";
-   }
-   lines += ( { blah } );
-
    tmp = explode(read_file(filename), "\n");
    sz = sizeof(tmp);
+
+   lines = ({ });
+
    for (i = 0; i < sz; i++) {
       if (strlen(tmp[i]) > width) {
          /* Big line. Break it up. */
@@ -82,6 +71,27 @@ int show_help(string filename) {
          lines += ( { tmp[i] } );
       }
    }
+   return lines;
+}
+
+int show_help(string filename) {
+   string blah, *lines;
+   int i, sz;
+
+   if (file_exists(filename) < 1) {
+      return 0;
+   }
+
+   lines = ( { "Help for " + capitalize(filename) + "." } );
+
+   blah = "";
+   sz = strlen(lines[0]);
+   for (i = 0; i < sz; i++) {
+      blah += "-";
+   }
+   lines += ( { blah } );
+
+   lines += get_data(filename);
 
    this_player()->more(lines);
    return 1;
