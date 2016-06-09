@@ -210,7 +210,6 @@ static void chan_cmd(string cmd, string chan) {
 
 static void main(string str) {
    string chan, cmd, rest;
-   int res;
 
    if (!alsos) {
       setup_alsos();
