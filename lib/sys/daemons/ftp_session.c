@@ -10,8 +10,20 @@ int priv, binary, filesize, where, closing, connected, timeout_handle;
 string file_name, chunk, cwd, name, store_file_name;
 object connection;
 
-void FTP_connection_wait(void);
-void FTP_CMD_list(string str);
+void ftp_cmd_list(string str);
+
+void ftp_connection_wait(void) {
+   if (!connection) {
+      send_message("425 Can't open data connection\n");
+      return;
+   }
+
+   if (connection->is_connected() == 0) {
+      call_out("ftp_connection_wait", 1);
+      return;
+   }
+   send_message("200 PORT command successful.\n");
+}
 
 void restore_privs(void) {
    string cpriv;
@@ -51,22 +63,22 @@ void open(void) {
    send_message("220-GurbaLib FTP daemon v0.01 ready.\n");
    send_message("220 Use your mud name as login.\n");
    cmds = ([
-      "user" : "FTP_CMD_user",
-      "pass" : "FTP_CMD_pass",
-      "retr" : "FTP_CMD_retr",
-      "stor" : "FTP_CMD_stor",
-      "nlst" : "FTP_CMD_nlst",
-      "list" : "FTP_CMD_list",
-      "pwd" : "FTP_CMD_pwd",
-      "cdup" : "FTP_CMD_cdup",
-      "cwd" : "FTP_CMD_cwd",
-      "quit" : "FTP_CMD_quit",
-      "type" : "FTP_CMD_type",
-      "mkd" : "FTP_CMD_mkd",
-      "port" : "FTP_CMD_port",
-      "noop" : "FTP_CMD_noop",
-      "dele" : "FTP_CMD_dele",
-      "syst" : "FTP_CMD_syst",
+      "user" : "ftp_cmd_user",
+      "pass" : "ftp_cmd_pass",
+      "retr" : "ftp_cmd_retr",
+      "stor" : "ftp_cmd_stor",
+      "nlst" : "ftp_cmd_nlst",
+      "list" : "ftp_cmd_list",
+      "pwd" : "ftp_cmd_pwd",
+      "cdup" : "ftp_cmd_cdup",
+      "cwd" : "ftp_cmd_cwd",
+      "quit" : "ftp_cmd_quit",
+      "type" : "ftp_cmd_type",
+      "mkd" : "ftp_cmd_mkd",
+      "port" : "ftp_cmd_port",
+      "noop" : "ftp_cmd_noop",
+      "dele" : "ftp_cmd_dele",
+      "syst" : "ftp_cmd_syst",
    ]);
    connected = 0;
    name = "";
@@ -98,7 +110,7 @@ static string normalize_path(string file, string dir) {
    }
 }
 
-void FTP_CMD_user(string arg) {
+void ftp_cmd_user(string arg) {
    arg = lowercase(arg);
    if (connected) {
       send_message("530 User " + arg + " access denied.\n");
@@ -118,7 +130,7 @@ void FTP_CMD_user(string arg) {
    return;
 }
 
-void FTP_CMD_pass(string arg) {
+void ftp_cmd_pass(string arg) {
    if (!name || name == "") {
       send_message("530 Login with USER first.\n");
       return;
@@ -154,7 +166,7 @@ void FTP_CMD_pass(string arg) {
    USER_D->user_online(name, this_object());
 }
 
-void FTP_CMD_retr(string str) {
+void ftp_cmd_retr(string str) {
    string p;
 
    if (!str) {
@@ -195,17 +207,17 @@ void FTP_CMD_retr(string str) {
    }
 
    if (filesize < CHUNK_SIZE) {
-      connection->set_callback("FTP_write");
+      connection->set_callback("ftp_write");
       connection->send_data(chunk);
    } else {
-      connection->set_callback("FTP_retr");
+      connection->set_callback("ftp_retr");
       connection->send_data(chunk);
    }
 
    FTPLOG(name + " GOT " + str + ".\n");
 }
 
-void FTP_CMD_stor(string arg) {
+void ftp_cmd_stor(string arg) {
    string path, dir, *dirs;
 
    if (priv == 0) {
@@ -240,7 +252,7 @@ void FTP_CMD_stor(string arg) {
       remove_file(store_file_name);
    }
 
-   connection->set_read_callback("FTP_stor");
+   connection->set_read_callback("ftp_stor");
 
    if (binary == 0) {
       send_message("150 Opening ASCII mode data connection for " + arg + ".\n");
@@ -252,13 +264,13 @@ void FTP_CMD_stor(string arg) {
    FTPLOG(name + " PUT " + store_file_name + ".\n");
 }
 
-void FTP_CMD_nlst(string str) {
+void ftp_cmd_nlst(string str) {
    mixed *files, *objects;
    string *names, timestr, size, dirlist;
    int *sizes, *times, long, ancient, i, j, sz, max, len, rows, time;
 
    if (str == "-l") {
-      FTP_CMD_list("./");
+      ftp_cmd_list("./");
       return;
    }
 
@@ -311,11 +323,11 @@ void FTP_CMD_nlst(string str) {
       dirlist += names[i] + "\r\n";
    }
    send_message("150 Opening ASCII mode data connection for file list.\n");
-   connection->set_callback("FTP_write");
+   connection->set_callback("ftp_write");
    connection->send_data(dirlist);
 }
 
-string FTP_myctime(int nTime) {
+string ftp_myctime(int nTime) {
 
    string zDate, zWeekday, zMon, zTime, zYear, zThis_year, zDay;
    int nDay;
@@ -337,7 +349,7 @@ string FTP_myctime(int nTime) {
    }
 }
 
-void FTP_CMD_list(string str) {
+void ftp_cmd_list(string str) {
    mixed *files, *objects;
    string *names, timestr, size, dirlist;
    int *sizes, *times, long, ancient, i, j, sz, max, len, rows, time;
@@ -391,40 +403,40 @@ void FTP_CMD_list(string str) {
       if (sizes[i] < 0) {
          /* We're dealing with a directory */
          dirlist += "drwxr-xr-x   1 gurba    gurba        1024 " +
-            FTP_myctime(times[i]) + " " + names[i] + "\r\n";
+            ftp_myctime(times[i]) + " " + names[i] + "\r\n";
       } else {
          /* We're dealing with a file */
          dirlist += "-rw-r--r--   1 gurba    gurba ";
          size = "                    " + sizes[i];
          size = size[strlen(size) - 11..];
-         dirlist += size + " " + FTP_myctime(times[i]) + " " + names[i] +
+         dirlist += size + " " + ftp_myctime(times[i]) + " " + names[i] +
             "\r\n";
       }
 
    }
    send_message("150 Opening ASCII mode data connection for /bin/ls.\n");
-   connection->set_callback("FTP_write");
+   connection->set_callback("ftp_write");
    connection->send_data(dirlist);
 }
 
-void FTP_connection_wait(void) {
+void ftp_connection_wait(void) {
    if (!connection) {
       send_message("425 Can't open data connection\n");
       return;
    }
 
    if (connection->is_connected() == 0) {
-      call_out("FTP_connection_wait", 1);
+      call_out("ftp_connection_wait", 1);
       return;
    }
    send_message("200 PORT command successful.\n");
 }
 
-void FTP_CMD_pwd(string arg) {
+void ftp_cmd_pwd(string arg) {
    send_message("257 \"" + cwd + "\" is current directory.\n");
 }
 
-void FTP_CMD_cwd(string arg) {
+void ftp_cmd_cwd(string arg) {
    arg = normalize_path(arg, cwd);
 
    if (!arg || arg == "" || !valid_read(arg)) {
@@ -444,17 +456,17 @@ void FTP_CMD_cwd(string arg) {
    send_message("250 CWD command successful.\n");
 }
 
-void FTP_CMD_cdup(string arg) {
-   FTP_CMD_cwd("..");
+void ftp_cmd_cdup(string arg) {
+   ftp_cmd_cwd("..");
 }
 
-void FTP_CMD_quit(string arg) {
+void ftp_cmd_quit(string arg) {
    send_message("221 Goodbye.\n");
    FTPLOG(name + " quit.\n");
    USER_D->user_offline(name, this_object());
 }
 
-void FTP_CMD_type(string arg) {
+void ftp_cmd_type(string arg) {
    switch (arg) {
       case "a":
       case "A":
@@ -472,7 +484,7 @@ void FTP_CMD_type(string arg) {
    }
 }
 
-void FTP_CMD_mkd(string arg) {
+void ftp_cmd_mkd(string arg) {
    string file;
 
    file = normalize_path(arg, cwd);
@@ -494,7 +506,7 @@ void FTP_CMD_mkd(string arg) {
    }
 }
 
-void FTP_CMD_port(string arg) {
+void ftp_cmd_port(string arg) {
    string ip, *tmp;
    int port;
 
@@ -514,13 +526,13 @@ void FTP_CMD_port(string arg) {
 
    connection = clone_object("/sys/daemons/ftp_data");
    connection->start_connection(ip, port, binary);
-   FTP_connection_wait();
+   ftp_connection_wait();
 }
 
-void FTP_CMD_noop(string arg) {
+void ftp_cmd_noop(string arg) {
 }
 
-void FTP_CMD_dele(string arg) {
+void ftp_cmd_dele(string arg) {
    string file;
 
    file = normalize_path(arg, cwd);
@@ -546,16 +558,16 @@ void FTP_CMD_dele(string arg) {
    }
 }
 
-void FTP_CMD_syst(string arg) {
+void ftp_cmd_syst(string arg) {
    send_message("215 UNIX Mud name: Gurba\n");
 }
 
-void FTP_write(void) {
+void ftp_write(void) {
    send_message("226 Transfer complete.\n");
    connection->terminate();
 }
 
-void FTP_retr(void) {
+void ftp_retr(void) {
    string *converted;
 
    if (where < filesize) {
@@ -574,13 +586,13 @@ void FTP_retr(void) {
    }
 
    if ((where + CHUNK_SIZE) > filesize) {
-      connection->set_callback("FTP_write");
+      connection->set_callback("ftp_write");
    }
    connection->send_data(chunk);
    where += CHUNK_SIZE;
 }
 
-void FTP_stor(string str) {
+void ftp_stor(string str) {
    string *lines;
 
    if (binary == 0) {
@@ -617,16 +629,16 @@ void receive_message(string message) {
       /* Only allow these commands if not connected */
       switch (cmd) {
          case "user":
-            FTP_CMD_user(arg);
+            ftp_cmd_user(arg);
             return;
          case "pass":
-            FTP_CMD_pass(arg);
+            ftp_cmd_pass(arg);
             return;
          case "quit":
-            FTP_CMD_quit(arg);
+            ftp_cmd_quit(arg);
             return;
          case "noop":
-            FTP_CMD_noop(arg);
+            ftp_cmd_noop(arg);
             return;
          default:
             send_message("503 Log in with USER first.\n");

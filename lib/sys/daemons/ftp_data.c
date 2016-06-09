@@ -28,7 +28,7 @@ void message_done(void) {
 }
 
 static void create(void) {
-   callback = "FTP_write";
+   callback = "ftp_write";
    connected = 0;
    run_as("network");
 }
@@ -46,8 +46,8 @@ int is_connected(void) {
 }
 
 void close(varargs int force) {
-   if (read_callback == "FTP_stor") {
-      call_other(prev, "FTP_write");
+   if (read_callback == "ftp_stor") {
+      call_other(prev, "ftp_write");
    }
    connected = 0;
    destruct_object(this_object());
