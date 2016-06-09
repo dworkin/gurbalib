@@ -157,13 +157,14 @@ int chan_delete(string chan) {
       return 0;
    }
 
-   channels -= ({ channels[chan] });
-   permanent -= ({ permanent[chan] });
-   colors -= ({ colors[chan] });
-   imud -= ({ imud[chan] });
-   guilds -= ({ guilds[chan] });
-   history -= ({ history[chan] });
-   listeners -= ({ listeners[chan] });
+   channels[chan] = nil;
+   permanent[chan] = nil;
+   colors[chan] = nil;
+   imud[chan] = nil;
+   guilds[chan] = nil;
+   history[chan] = nil;
+   listeners[chan] = nil;
+
    save_me();
    write("Channel " + chan + " deleted.\n");
 

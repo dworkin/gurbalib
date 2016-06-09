@@ -7,7 +7,7 @@ inherit M_COMMAND;
 string *usage(void) {
    string *lines;
 
-   lines = ({ "Usage: chan [-h] [COMMAND CHANNEL | CHANNEL MSG]" });
+   lines = ({ "Usage: chan [-h] [cmd COMMAND CHANNEL | CHANNEL MSG]" });
    lines += ({ "" });
    lines += ({ "The chan command allows you to interact with channels." });
    lines += ({ "Channels are basically a way to group chat both within the " });
@@ -45,11 +45,11 @@ string *usage(void) {
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
-   lines += ({ "\tchan on announce" });
-   lines += ({ "\tchan off announce" });
+   lines += ({ "\tchan cmd off announce" });
+   lines += ({ "\tchan cmd on announce" });
    lines += ({ "\tchan announce hi all!" });
-   lines += ({ "\tchan announce :woo" });
-   lines += ({ "\tchan announce ::woo" });
+   lines += ({ "\tchan gossip :woo" });
+   lines += ({ "\tchan gossip ::woo" });
 
    lines += get_alsos();
 
@@ -202,24 +202,15 @@ static void chan_cmd(string cmd, string chan) {
             CHANNEL_D->chan_set_guild(args[1], args[0]);
          break;
       default:
-         rest = chan;
-         chan = cmd;
-
-         if ((rest[0] == ';') || (rest[0] == ':') || (rest[0] == '!')) {
-            if (rest[1] != rest[0]) {
-               CHANNEL_D->chan_emote(chan, rest[1..]);
-               return;
-            } else {
-               rest = rest[1..];
-            }
-         }
-         CHANNEL_D->chan_say(chan, rest);
+         write("Invalid command " + cmd + "\n");
+         this_player()->more(usage());
          break;
    }
 }
 
 static void main(string str) {
-   string chan, cmd;
+   string chan, cmd, rest;
+   int res;
 
    if (!alsos) {
       setup_alsos();
@@ -235,15 +226,34 @@ static void main(string str) {
       return;
    }
 
-   if (str == "list" || str == "who") {
-      list_channels(0);
-      return;
-   }
-
    if (sscanf(str, "%s %s", cmd, chan) != 2) {
       this_player()->more(usage());
       return;
    }
 
-   chan_cmd(cmd, chan);
+   if (cmd == "cmd") {
+      if ((chan == "list") || (chan == "who")) {
+         list_channels(0);
+         return;
+      } else if (sscanf(chan, "%s %s", cmd, rest) < 2) {
+         this_player()->more(usage());
+         return;
+      }
+  
+      chan_cmd(cmd, rest);
+   } else {
+      if (sscanf(str, "%s %s", chan, rest) == 2) {
+         if ((rest[0] == ';') || (rest[0] == ':') || (rest[0] == '!')) {
+            if (rest[1] != rest[0]) {
+               CHANNEL_D->chan_emote(chan, rest[1..]);
+               return;
+            } else {
+               rest = rest[1..];
+            }
+         }
+         CHANNEL_D->chan_say(chan, rest);
+      } else {
+         this_player()->more(usage());
+      }
+   }
 }
