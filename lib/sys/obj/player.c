@@ -212,21 +212,21 @@ string query_title_string(void) {
 
 void login_player(void) {
    int i, is_new_player;
-   string *didlog, *tmpchannels;
+   string *wizlog, *tmpchannels;
    string race;
 
    restore_privs();
 
-   /* If we're a wiz, show the didlog since last login */
+   /* If we're a wiz, show the wizlog since last login */
    if (query_user_type(living_name) > 0) {
-      didlog = DID_D->get_entries(last_login);
+      wizlog = WIZLOG_D->get_entries(last_login);
 
-      if (didlog) {
-         for (i = 0; i < sizeof(didlog); i++) {
-            if (didlog[i] == "") {
+      if (wizlog) {
+         for (i = 0; i < sizeof(wizlog); i++) {
+            if (wizlog[i] == "") {
                write("\n");
             } else {
-               write(didlog[i]);
+               write(wizlog[i]);
             }
          }
       }
@@ -668,6 +668,10 @@ void write_prompt(void) {
 void more(string * lines, varargs int docolor) {
    string msg;
    int height;
+
+   if (!lines) {
+      return;
+   }
 
    if (docolor && (docolor == 1)) {
       color_more = 1;

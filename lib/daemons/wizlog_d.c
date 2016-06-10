@@ -1,15 +1,15 @@
-mixed *did;
+mixed *log;
 
 static void save_me(void) {
-   unguarded("save_object", "/daemons/data/did_d.o");
+   unguarded("save_object", "/daemons/data/wizlog_d.o");
 }
 
 static void restore_me(void) {
-   unguarded("restore_object", "/daemons/data/did_d.o");
+   unguarded("restore_object", "/daemons/data/wizlog_d.o");
 }
 
 void create(void) {
-   did = ( { } );
+   log = ( { } );
    restore_me();
 }
 
@@ -18,11 +18,11 @@ void add_entry(string str) {
    int i, sz;
 
    if (!query_wizard(this_player())) {
-      write("Sorry, only true wizards may add to the did log.\n");
+      write("Sorry, only true wizards may add to the wizlog.\n");
       return;
    }
    str = this_player()->query_Name() + " " + str;
-   did += ( { ( { time(), str } ) });
+   log += ( { ( { time(), str } ) });
    save_me();
 
    usr = USER_D->query_users();
@@ -39,9 +39,9 @@ void add_entry(string str) {
 int start_index(int after) {
    int index;
 
-   index = sizeof(did);
+   index = sizeof(log);
 
-   while (index > 0 && did[index - 1][0] > after) {
+   while (index > 0 && log[index - 1][0] > after) {
       index--;
    }
 
@@ -54,7 +54,7 @@ string *get_entries(int after) {
 
    index = start_index(after);
 
-   sz = sizeof(did);
+   sz = sizeof(log);
    if (index >= sz) {
       return nil;
    }
@@ -62,7 +62,7 @@ string *get_entries(int after) {
    output = ( { "Change Log\n", "**********\n" } );
 
    for (; index < sz; index++) {
-      output += ( { ctime(did[index][0]) + ": " + did[index][1] + "\n" } );
+      output += ( { ctime(log[index][0]) + ": " + log[index][1] + "\n" } );
       output += ( { "" } );
    }
    return output;
