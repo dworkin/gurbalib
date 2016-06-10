@@ -1,9 +1,12 @@
 inherit M_COMMAND;
 
+/* Seconds in a week */
+#define ONEWEEK 605800
+
 string *usage(void) {
    string *lines;
 
-   lines = ({ "Usage: wizlog [-h] MSG" });
+   lines = ({ "Usage: wizlog [-h] [MSG]" });
    lines += ({ " " });
    lines += ({ "Allows a wizard to tell other wizards what they " +
       "have been up to." });
@@ -13,8 +16,12 @@ string *usage(void) {
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\tIf no options are specified show the log for the last week."
+      });
+   
    lines += ({ "Examples:" });
    lines += ({ "\twizlog worked on the usage for wizard commands." });
+   lines += ({ "\twizlog" });
 
    lines += get_alsos();
 
@@ -41,13 +48,20 @@ void setup_alsos() {
    add_also("admin", "wall");
 }
 
+static void show_log() {
+   string *lines;
+
+   lines = WIZLOG_D->get_entries(time() - ONEWEEK);
+   this_player()->more(lines);
+}
+
 static void main(string str) {
    if (!alsos) {
       setup_alsos();
    }
 
    if (empty_str(str)) {
-      this_player()->more(usage());
+      show_log();
       return;
    }
 
@@ -56,5 +70,5 @@ static void main(string str) {
       return;
    }
 
-   DID_D->add_entry(str);
+   WIZLOG_D->add_entry(str);
 }
