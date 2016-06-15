@@ -16,5 +16,6 @@ void setup(void) {
 }
 
 void after_wear(object player) {
-   player->message("You feel like your ready for some adventure.");
+   player->message("Slipping on the gloves makes you " +
+      "feel like you are ready for some adventure.");
 }
