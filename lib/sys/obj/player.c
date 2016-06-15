@@ -1092,6 +1092,9 @@ void receive_message(string message) {
       }
       if (is_history == 1 && message != get_history_character()) {
          out(message + "\n");
+         if (query_command_not_found_in_history(message)) {
+            flag = 1;
+         }
       }
 
       /* Expand the command */

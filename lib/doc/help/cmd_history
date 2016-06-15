@@ -1,0 +1,20 @@
+The last twenty successful commands are saved. You can repeat any command
+in the history. You may also remove commands from the history.
+
+To view the commands which are saved in the history:
+   >!
+
+To repeat the last command in the history:
+   >!!
+
+To repeat the 7th command in the history:
+   >!7
+
+To repeat the command which starts with a string in the history:
+   >!drink
+
+Removing commands from the history is by the history command with the
+option -r followed by the range of commands to be removed. For instance,
+the following removes the 3rd and the 5th throught the 8th commands:
+   >history -r 3,5-8
+

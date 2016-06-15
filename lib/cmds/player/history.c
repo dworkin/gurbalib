@@ -8,6 +8,8 @@ string *usage(void) {
 
    lines = ({ "Usage: history <-h|-r <range>>" });
    lines += ({ "" });
+   lines += ({ "Use 'man cmd_history' to get more information. " });
+   lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "\t-r\tRemove, removes a range of history." });
@@ -15,21 +17,13 @@ string *usage(void) {
    lines += ({ "Examples:" });
    lines += ({ "\thistory -h" });
    lines += ({ "\thistory -r 1-3,5,7-10" });
-   lines += get_alsos();
 
    return lines;
-}
-
-void setup_alsos() {
 }
 
 static void main(string str) {
    string opt;
    int *range, i, dim;
-
-   if (!alsos) {
-      setup_alsos();
-   }
 
    if (!empty_str(str) && sscanf(str, "-r %s", opt)) {
          range = parse_range(opt);

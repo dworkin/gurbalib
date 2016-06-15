@@ -3,8 +3,12 @@ string *history;
 #define MAX_HISTORY_DIM 20
 #define NO_SUCH_CMD "No such command in history."
 
+int query_command_not_found_in_history(string str) {
+   return empty_str(str) ? 0 : NO_SUCH_CMD == str;
+}
+
 string get_history_character(void) {
-   return "/";
+   return "!";
 }
 
 private void setup_history(void) {
@@ -66,6 +70,9 @@ string get_history(mixed arg) {
    }
    if (stringp(arg)) {
       str = (string) arg;
+      if (str == get_history_character()) {
+         return get_history_by_index(sizeof(history) - 1);
+      }
       return get_history_by_string(str);
    }
    return NO_SUCH_CMD;
@@ -76,6 +83,9 @@ void push_history(string str) {
       return;
    }
    setup_history();
+   if (str == history[sizeof(history) - 1]) {
+      return;
+   }
    if (sizeof(history) >= MAX_HISTORY_DIM) {
       history = history[1..];
    }
