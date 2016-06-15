@@ -30,7 +30,6 @@ void do_unwield(object ob) {
       if (wielding[i] == ob) {
          wielding -= ( { ob } );
          ob->set_wielded(0);
-         ob->after_unwield(this_player(), nil);
       }
    }
 }

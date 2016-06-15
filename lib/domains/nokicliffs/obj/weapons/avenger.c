@@ -98,7 +98,8 @@ int wield_hook(object player) {
 }
 
 void after_wield(object player) {
-   player->write("So good to see you again, master, let us " +
+   player->write("Your avenger says: " +
+      "So good to see you again, master, let us " +
       "spread our vengeance across the realms!");
 }
 
@@ -106,6 +107,7 @@ void after_unwield(object player, string cmd) {
    if (!player) {
       return;
    }
-   player->write("Master, I await our next chance to spread our " +
+   player->write("Your avenger says: " +
+      "Master, I await our next chance to spread our " +
       "vengeance across the realms!");
 }
