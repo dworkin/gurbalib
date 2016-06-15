@@ -58,8 +58,10 @@
 #define M_COMMAND       "/sys/lib/modules/m_command"
 #define M_PORT          "/sys/lib/modules/m_port"
 #define M_SERIALIZE     "/sys/lib/modules/m_serialize"
+#define M_GETOPT        "/sys/lib/modules/m_getopt"
 
 #define M_MENU          "/std/modules/m_menu"
+#define M_HISTORY       "/std/modules/m_history"
 
 #define DRIVER          "/kernel/sys/driver"
 #define AUTO            "/kernel/lib/auto"

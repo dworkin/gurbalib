@@ -13,6 +13,7 @@ inherit "/std/modules/m_autoload_string";
 inherit "/std/modules/m_language";
 inherit "/std/body/skills";
 inherit cmd "/sys/lib/modules/m_cmds";
+inherit history M_HISTORY;
 
 static object user; 		/* This players user object */
 static string input_to_func;	/* The function we're redirecting input to */
@@ -159,6 +160,7 @@ void create(void) {
    con::create();
    bod::create();
    cmd::create();
+   history::create();
 
    channels = ( { "gossip", "announce" } );
    ignored = ( { } );
@@ -1049,10 +1051,11 @@ string random_error(void) {
 void receive_message(string message) {
    mixed result;
    string func, cmd, arg, *exits;
-   int i, flag;
+   int i, flag, is_history;
    object room;
 
    flag = 0;
+   is_history = 0;
 
    /* Update the timestamp so we're not idle */
    timestamp = time();
@@ -1072,6 +1075,24 @@ void receive_message(string message) {
       this_player()->edit(message);
    } else {
       string temp;
+
+      /* History */
+      if (message == get_history_character()) {
+         out(list_history());
+         is_history = 1;
+         flag = 1;
+      } else if (!empty_str(message) && message[0] == get_history_character()[0]) {
+         int history_nr;
+         if (sscanf(message[1..], "%d", history_nr)) {
+            message = get_history(history_nr);
+         } else {
+            message = get_history(message[1..]);
+         }
+         is_history = 1;
+      }
+      if (is_history == 1 && message != get_history_character()) {
+         out(message + "\n");
+      }
 
       /* Expand the command */
       temp = ALIAS_D->expand_alias(message);
@@ -1231,6 +1252,10 @@ void receive_message(string message) {
 
       if (!flag && cmd != "") {
          write(random_error());
+      } else {
+         if (is_history == 0) {
+            push_history(message);
+         }
       }
       if (!quitting && (input_to_func == "") && !is_editing()) {
          write_prompt();
