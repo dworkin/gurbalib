@@ -29,3 +29,8 @@ void announce_yourself(void) {
    respond("say My life for my master.");
    respond("bow");
 }
+
+void random_act_of_menace(void) {
+   respond("growl");
+}
+

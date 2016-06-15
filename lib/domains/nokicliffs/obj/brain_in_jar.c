@@ -60,10 +60,16 @@ void summon_guard(void) {
          guard = clone_object(NOKICLIFFS_BRAIN_GUARD);
          guard->setup();
       }
-      guard->move(env);
-      env->tell_room(this_object(), "The brain's guardian " +
-         "appears in a puff of smoke.");
-      guard->announce_yourself();
+      if (guard->query_environment() != env) {
+         guard->move(env);
+         env->tell_room(this_object(), "The brain's guardian " +
+            "appears in a puff of smoke.");
+         guard->announce_yourself();
+      } else {
+         if (!random(3)) {
+            guard->random_act_of_menace();
+         }
+      }
    }
 }
 
