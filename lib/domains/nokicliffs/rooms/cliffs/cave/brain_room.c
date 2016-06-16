@@ -28,6 +28,14 @@ int cmd_break_jar(string str) {
    return 1;
 }
 
+int cmd_smash_jar(string str) {
+   return cmd_break_jar(str);
+}
+
+int cmd_shatter_jar(string str) {
+   return cmd_break_jar(str);
+}
+
 void setup(void) {
    ::setup();
    set_short("A large cave chamber in the Noki Cliffs");
@@ -39,4 +47,6 @@ void setup(void) {
    set_objects(NOKICLIFFS_BRAIN_IN_JAR);
    set_exits((["south" : DIR + "/rooms/cliffs/cave/puzzle_chamber.c"]));
    add_action("cmd_break_jar", "break");
+   add_action("cmd_smash_jar", "smash");
+   add_action("cmd_shatter_jar", "shatter");
 }

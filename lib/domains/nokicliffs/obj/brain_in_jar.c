@@ -3,9 +3,51 @@
 inherit obj "/std/object";
 inherit timer "/std/body/heart_beat";
 
-#define INTERVAL 5
+#define INTERVAL 8
 static int count;
 static object guard;
+
+void remove_corpse(void) {
+   object *inv;
+   int i, dim;
+
+   inv = this_object()->query_environment()->query_inventory();
+   for (i = 0, dim = sizeof(inv); i < dim; i++) {
+      if (inv[i]->query_id() == "corpse") {
+         inv[i]->destruct();
+      }
+   }
+}
+
+void summon_guard(void) {
+   object env;
+
+   remove_corpse();
+   env = this_object()->query_environment();
+
+   if (env) {
+      count = 0;
+      if (!find_object(NOKICLIFFS_BRAIN_GUARD)) {
+         compile_object(NOKICLIFFS_BRAIN_GUARD);
+      }
+      if (!guard) {
+         guard = clone_object(NOKICLIFFS_BRAIN_GUARD);
+         guard->setup();
+      }
+      if (guard->query_environment() != env) {
+         guard->move(env);
+         env->tell_room(this_object(),
+            "The brain's guardian " +
+            "appears in a puff " +
+            "of smoke.");
+         guard->announce_yourself();
+      } else {
+         if (!random(3)) {
+            guard->random_act_of_menace();
+         }
+      }
+   }
+}
 
 void setup(void) {
    obj::set_id("brain");
@@ -34,45 +76,6 @@ string query_name(void) {
    return "brain";
 }
 
-void remove_corpse(void) {
-   object *inv;
-   int i, dim;
-
-   inv = this_object()->query_environment()->query_inventory();
-   for (i = 0, dim = sizeof(inv); i < dim; i++) {
-      if (inv[i]->query_id() == "corpse") {
-         inv[i]->destruct();
-      }
-   }
-}
-
-void summon_guard(void) {
-   object env;
-
-   remove_corpse();
-   env = this_object()->query_environment();
-
-   if (env) {
-      if (!find_object(NOKICLIFFS_BRAIN_GUARD)) {
-         compile_object(NOKICLIFFS_BRAIN_GUARD);
-      }
-      if (!guard) {
-         guard = clone_object(NOKICLIFFS_BRAIN_GUARD);
-         guard->setup();
-      }
-      if (guard->query_environment() != env) {
-         guard->move(env);
-         env->tell_room(this_object(), "The brain's guardian " +
-            "appears in a puff of smoke.");
-         guard->announce_yourself();
-      } else {
-         if (!random(3)) {
-            guard->random_act_of_menace();
-         }
-      }
-   }
-}
-
 void event_heart_beat(void) {
    object env;
    env = this_object()->query_environment();
@@ -84,3 +87,20 @@ void event_heart_beat(void) {
    }
 }
 
+void outside_message(string str) {
+   object env;
+   env = this_object()->query_environment();
+
+   if (sscanf(str, "%s enters.")) {
+      env->tell_room(this_object(), "The brain " +
+         "ripples with some mystic blue energy.");
+      summon_guard();
+   }
+   if (str == "Guard falls to the ground...dead.") {
+      if (env) {
+         env->tell_room(this_object(), "The brain " +
+            "turns green and then back to grey.");
+         count = 0;
+      }
+   }
+}
