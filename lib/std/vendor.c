@@ -5,6 +5,12 @@ inherit "/std/modules/m_triggers";
 static mapping stored_items;
 static int will_buy, will_sell, restock_delay;
 
+void init_stored_items(void) {
+   if (!stored_items) {
+      stored_items = ([ ]);
+   }
+}
+
 int is_vendor(void) {
    return 1;
 }
@@ -39,6 +45,7 @@ void do_sell(object player, string what) {
    object obj;
    int i, found, value, maxi;
 
+   init_stored_items();
    objs = map_indices(stored_items);
 
    found = 0;
@@ -108,6 +115,7 @@ void do_buy(object player, object what) {
    what->query_environment()->remove_object(what);
    what->destruct();
 
+   init_stored_items();
    if (!member_map(name, stored_items)) {
       stored_items[name] = 1;
    } else {
@@ -123,10 +131,7 @@ void add_item(string name, int amount) {
       amount = 1;
    }
 
-   if (!stored_items) {
-      stored_items = ([]);
-   }
-
+   init_stored_items();
    stored_items[name] = amount;
 }
 
@@ -153,10 +158,7 @@ string query_list(void) {
    object obj;
    int i, maxi;
 
-   if (!stored_items) {
-      stored_items = ([]);
-   }
-
+   init_stored_items();
    objs = map_indices(stored_items);
    str = "";
 
