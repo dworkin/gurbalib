@@ -26,3 +26,4 @@
 #define NOKICLIFFS_CHAOSDEMON NOKICLIFFS_MONSTERS_DIR + "/chaosdemon"
 #define NOKICLIFFS_LAWBRINGER NOKICLIFFS_WEAPONS_DIR + "/lawbringer"
 #define NOKICLIFFS_DIMENSIONAL_BEADS DIR + "/obj/dimensional_beads"
+#define NOKICLIFFS_VENDER DIR + "/lib/vendor"
