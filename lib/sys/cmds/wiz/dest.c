@@ -55,6 +55,10 @@ static void main(string str) {
       } else {
          this_player()->simple_action("$N $vtouch the " + ob->query_id() +
             ", and it disappears.\n");
+         if (ob->is_living() && ob == this_player()->get_target(ob)) {
+            ob->halt_fight();
+            this_player()->halt_fight();
+         }
          if (ob->query_environment()) {
             ob->query_environment()->remove_object(ob);
          }
@@ -71,11 +75,13 @@ static void main(string str) {
                this_player()->do_remove(ob);
                this_player()->targeted_action(ob->query_remove_message(),
                   nil, ob);
+               ob->after_unwear(this_player(), "dest");
             }
             if (ob->is_wielded()) {
                this_player()->do_unwield(ob);
                this_player()->targeted_action(ob->query_unwield_message(),
                   nil, ob);
+               ob->after_unwield(this_player(), "dest");
             }
             this_player()->simple_action("$N $vtouch the " + ob->query_id() +
                ", and it disappears.\n");
