@@ -2,16 +2,57 @@
 
 inherit "/std/object";
 
+int cmd_put_relic_in_orb(string str) {
+   string  what, msg;
+   object *inv;
+   object  potion;
+   int     i, dim;
+
+   if (empty_str(str)) {
+      return 0;
+   }
+
+   sscanf(str, "%s in orb", what);
+   inv = this_player()->query_inventory();
+   dim = sizeof(inv);
+   for (i = 0; i < dim; i++) {
+      if (inv[i]->is_id(what) &&
+            inv[i]->property(ANCIENT_RELIC_PROP) == 1) {
+         potion = clone_object(NOKICLIFFS_REJUV_POTION);
+         potion->setup();
+         msg = "$N $vput an ancient relic into the " +
+            "orb. The orb's activity increases dramatically " +
+            "for a moment as it accepts the offering. " +
+            "A moment before the orb settles and returns " +
+            "to normal a rejuvination potion pops out!";
+         this_player()->targeted_action(msg, this_player());
+         inv[i]->destruct();
+         potion->move(query_environment());
+         return 1;
+      }
+   }
+   return 0;
+}
+
 void setup(void) {
    set_gettable(0);
    set_id("pedestal");
    add_adj("ancient");
    set_short("An ancient pedestal of the Ancient One");
-   set_long("This is not yet implemented. " +
-      "Upon this ancient pedestal belongs " +
-      "the blade of the ancient one.");
+   set_long("The ancient pedestal has a swirling orb " +
+      "of mystical blue energy hoving just over the " +
+      "top of it. The orb is actually a rift in the " +
+      "spacetime continuum, a direct link to the " +
+      "mysterious realms of the Ancient One. The "+
+      "faeries have come here for thousand and " +
+      "thousands of years to pay tribute to the " +
+      "Ancient One. Yoou can do the same by " +
+      "placing any relic of the Ancient One's " +
+      "avatars that you find; relics like finger " +
+      "bones, locks of hair, and so on.");
    set_weight(5000);
    set_value(0);
+   add_action("cmd_put_relic_in_orb", "put");
 }
 
 void outside_message(string str) {

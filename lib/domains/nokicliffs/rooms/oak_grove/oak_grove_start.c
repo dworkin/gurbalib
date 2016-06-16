@@ -6,9 +6,10 @@ void setup(void) {
    ::setup();
 
    set_short("Oak grove in a pocket dimension");
-   set_long("You can 'leave' the pocket dimension. " +
-      "Ideally it will return you to the room you " +
-      "arrived from; if it is not found, then you " + "go to the base camp.");
+   set_long("The oak grove is one of the oldest realms " +
+      "of the multiverse. Only those with the mark of " +
+      "the Ancient One are allowed to explore it in any " +
+      "depth.");
 
    set_exits(([
       "north" : DIR + "/rooms/oak_grove/oak_grove_middle.c",

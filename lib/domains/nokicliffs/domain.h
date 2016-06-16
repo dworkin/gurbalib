@@ -30,3 +30,6 @@
 #define NOKICLIFFS_VENDER DIR + "/lib/vendor"
 #define PIXIES_CONTROLLER DIR + "/obj/controller/pixies"
 #define PIXIES_DATA DIR + "/obj/controller/pixies.o"
+#define NOKICLIFFS_ANCIENT_RELIC DIR + "/lib/ancient_relic"
+#define ANCIENT_RELIC_PROP "ancient-relic"
+#define NOKICLIFFS_REJUV_POTION DIR + "/obj/rejuv_potion"
