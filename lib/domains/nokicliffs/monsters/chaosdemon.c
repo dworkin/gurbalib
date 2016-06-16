@@ -30,6 +30,8 @@ int after_damage_hook(object aggressor, object weapon, int damage) {
 
    if (nilp(law_shard) && !weapon_is_lawbringer) {
       aggressor->message("You need the law on your side!");
+      halt_fight();
+      aggressor->halt_fight();
       return 0;
    }
 
