@@ -9,7 +9,7 @@ int wield_hook(object player) {
          "and disappears in a blinding flash.\n" +
          "You think you hear the words 'puny mortal!' from " +
          "somewhere far away...");
-      player->message("Should move it from your inventory.");
+      move(NOKICLIFFS_VOID);
       return 0;
    }
 
@@ -24,7 +24,7 @@ void setup(void) {
       "to glow with soft darkness. It looks strangely unnatural, " +
       "and it would probably be a bad move even to try to wield " + 
       "this weapon. Maybe someone else wants it? Come to think " +
-      "of it, perhaps ther eis somewhere you could bring this " +
+      "of it, perhaps there is somewhere you could bring this " +
       "sword and collect a reward?");
    set_combat_stats(1, 10, 10);
    set_sword_skill("large");
