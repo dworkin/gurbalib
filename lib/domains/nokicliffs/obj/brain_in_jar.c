@@ -90,6 +90,7 @@ void event_heart_beat(void) {
 void outside_message(string str) {
    object env;
    env = this_object()->query_environment();
+   str = ANSI_D->strip_colors(str);
 
    if (sscanf(str, "%s enters.")) {
       env->tell_room(this_object(), "The brain " +
