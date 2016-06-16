@@ -7,23 +7,12 @@ inherit "/std/modules/m_triggers";
 int count;
 
 private void equip() {
-   object axe;
-   object jacket;
    object climbing_gear;
 
-   if (!this_object()->present("axe")) {
-      axe = clone_object("/domains/2.4.5/obj/axe.c");
-      axe->setup();
-      axe->move(this_object());
-      do_wield(axe);
-   }
-
-   if (!this_object()->present("jacket")) {
-      jacket = clone_object("/domains/2.4.5/obj/jacket.c");
-      jacket->setup();
-      jacket->move(this_object());
-      do_wear(jacket);
-   }
+   equip_monster(({
+      "/domains/2.4.5/obj/axe.c",
+      "/domains/2.4.5/obj/jacket.c"
+   }));
 
    if (!this_object()->present("climbing gear")) {
       climbing_gear = clone_object(DIR + "/obj/climbing_gear.c");
@@ -71,4 +60,12 @@ void do_extra_actions() {
 
 int do_block(object who) {
    return 1;
+}
+
+void monster_died(void) {
+   if (!nilp(killer)) {
+      killer->message("The bandit's dying words were: " +
+         "Swami saves seashell from the seashore. " +
+         "Try saying that ten times fa...");
+   }
 }
