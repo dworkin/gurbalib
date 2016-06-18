@@ -83,7 +83,7 @@ void push_history(string str) {
       return;
    }
    setup_history();
-   if (str == history[sizeof(history) - 1]) {
+   if (sizeof(history) > 0 && str == history[sizeof(history) - 1]) {
       return;
    }
    if (sizeof(history) >= MAX_HISTORY_DIM) {

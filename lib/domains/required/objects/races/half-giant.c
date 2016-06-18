@@ -4,7 +4,7 @@ inherit "/std/race";
 void create(void) {
    ::create();
 
-   set_race_short_desc("Gnomes are the brainy brothers of the dwarves..");
+   set_race_short_desc("Half giants are a brutish crossbreed with humans");
    set_race_long_desc("Half giants. The crossbreed between man and giant. " +
       "The result is a\ncreature that looks human, except that it is twice " +
       "the size. Because of this,\nthey make excellent fighters, little " +
