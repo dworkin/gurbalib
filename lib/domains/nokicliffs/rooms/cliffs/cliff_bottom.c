@@ -5,8 +5,6 @@ inherit "/std/modules/m_block_exits";
 inherit DIR + "/lib/climbing_gear_required";
 
 void setup(void) {
-   ::setup();
-
    set_short("At the bottom of the Noki Cliffs");
    set_long("You are the bottom of the Noki Cliffs " +
       "which rise high over head and disappear into the " +

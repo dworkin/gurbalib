@@ -3,8 +3,6 @@
 inherit DIR + "/lib/faerie";
 
 void setup(void) {
-   ::setup();
-
    set_name("faerie");
    set_short("A faerie");
    set_long("A tiny little naked faerie. " +

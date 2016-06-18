@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_short("A clearing in the oak grove pocket dimension");
    set_long("You are in a small clearing of the oak " +
       "grove. This is truly hallowed ground upon which " +

@@ -11,8 +11,6 @@ private void add_pixie_dust() {
 }
 
 void setup(void) {
-   ::setup();
-
    set_name("pixie");
    set_short("A pixie");
    set_long("A tiny little naked pixie. " +

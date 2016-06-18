@@ -26,7 +26,6 @@ private void arm(void) {
 }
 
 void setup(void) {
-   ::setup();
    set_name("paladin");
    set_gender("male");
    set_short("Paladin (undead)");

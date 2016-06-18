@@ -3,7 +3,8 @@
 inherit "/std/object";
 inherit "/sys/lib/modules/m_properties";
 
-void setup(void) {
+void create(void) {
+   ::create();
    set_id("ancient relic");
    add_adj("ancient");
    set_weight(1);

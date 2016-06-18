@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_short("Doomspire level one");
    set_long("Here we can return to the base camp by leaving.");
 

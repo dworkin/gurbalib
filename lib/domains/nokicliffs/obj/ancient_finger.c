@@ -3,7 +3,6 @@
 inherit NOKICLIFFS_ANCIENT_RELIC;
 
 void setup(void) {
-   ::setup();
    add_id("ancient finger", "finger", "ancient finger bone",
       "finger bone");
    set_short("An ancient finger bone");

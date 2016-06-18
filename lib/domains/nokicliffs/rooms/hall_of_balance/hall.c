@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_short("The Hall of Balance");
    set_long("You are standing in the fabled Hall of Balance. " +
       "If you thought the outside was the epitome of balance, think again. " +

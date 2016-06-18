@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_short("A cave entrance in the Noki Cliffs");
    set_long("You are standing at the entrance of a cave in the Noki Cliffs. " +
       "It is not clear how large the cave is from here as it turns into " +

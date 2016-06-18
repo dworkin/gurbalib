@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_light(0);
    set_short("The lair of the Chaosdemon in the Den of Chaos in a " + 
       "pocket dimension");

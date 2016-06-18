@@ -11,6 +11,10 @@ void init_stored_items(void) {
    }
 }
 
+string ducats(int val) {
+   return val == 1 ? "" : "s";
+}
+
 int is_vendor(void) {
    return 1;
 }
@@ -110,7 +114,8 @@ void do_buy(object player, object what) {
       return;
    }
 
-   player->targeted_action("$N $vsell $t $o for " + value + " ducats.",
+   player->targeted_action("$N $vsell $t $o for " + value + " ducat" +
+      ducats(value) + ".",
       this_object(), what);
    what->query_environment()->remove_object(what);
    what->destruct();
@@ -136,18 +141,22 @@ void add_item(string name, int amount) {
 }
 
 string build_string(string str, object obj, string num, string *objs) {
+   int val;
+
+   val = obj->query_value();
    if (!obj->query_Name()) {
       if (!obj->query_adj() || obj->query_adj() == "") {
          str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_id() +
-            ", " + obj->query_value() + " ducats.\n";
+            ", " + val + " ducat" + ducats(val) + ".\n";
       } else {
          str += " %^CYAN%^[" + num + "]%^RESET%^ " +
             obj->query_adj() + " " + obj->query_id() + ", " +
-            obj->query_value() + " ducats.\n";
+            val + " ducat" + ducats(val) + ".\n";
       }
    } else {
+      val = objs->query_value();
       str += " %^CYAN%^[" + num + "]%^RESET%^ " + obj->query_Name() +
-         ", " + objs->query_value() + " ducats.\n";
+         ", " + val + " ducat" + ducats(val) + ".\n";
    }
 
    return str;

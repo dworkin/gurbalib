@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_short("A cave passage in the Noki Cliffs filled with busts");
    set_long("This is a strange chamber indeed. The purpose is entirely " +
       "unclear, but it seems to be kind of ancestor worship or possibly " +

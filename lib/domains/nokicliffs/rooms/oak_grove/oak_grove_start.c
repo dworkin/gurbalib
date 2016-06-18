@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_short("Oak grove in a pocket dimension");
    set_long("The oak grove is one of the oldest realms " +
       "of the multiverse. Only those with the mark of " +

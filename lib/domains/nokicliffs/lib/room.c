@@ -2,7 +2,8 @@ inherit "/std/room";
 
 #include "../domain.h"
 
-void setup(void) {
+void create(void) {
+   ::create();
    add_area(NOKICLIFFS_AREA);
    add_area("2.4.5");
 }

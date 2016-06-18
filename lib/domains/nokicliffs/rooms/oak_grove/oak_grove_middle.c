@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_short("Oak grove pocket dimension");
    set_long("Continue north to the great oak. " +
       "Here the sun is warm, the breeze is " +

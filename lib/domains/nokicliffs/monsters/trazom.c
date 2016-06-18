@@ -3,7 +3,6 @@
 inherit DIR + "/lib/vampire";
 
 void setup(void) {
-   ::setup();
    set_name("trazom");
    set_short("Trazom the vampire");
    set_long("Trazom's cold dead flesh is desiccated, pulling his maw open " +

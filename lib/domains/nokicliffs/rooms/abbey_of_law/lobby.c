@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_short("The Abbey of Law's lobby");
    set_long("You are in the lobby of the Abbey of Law.");
 

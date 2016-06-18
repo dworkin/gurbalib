@@ -43,7 +43,8 @@ string *get_default_acts() {
    return default_acts;
 }
 
-void setup(void) {
+void create(void) {
+   ::create();
    set_gender("female");
    set_race("faerie");
    set_level(1);

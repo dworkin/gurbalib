@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_short("The Abbot of the Abbey of Law's dorm.");
    set_long("You are in the abbot's dorm. To describe this room as " +
       "'spartan' is a terrific understatement. There is an incredibly " +

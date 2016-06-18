@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_short("Noki Cliffs entrance area");
    set_long("To the east you can see the Noki Cliffs " +
       "looming large. There is a small plateau to the west.");

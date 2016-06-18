@@ -3,8 +3,6 @@
 inherit DIR + "/lib/room";
 
 void setup(void) {
-   ::setup();
-
    set_light(0);
    set_short("A wind tunnel in the Den of Chaos in a pocket dimension");
    set_long("You are in a wind tunnel of the Den of Chaos. The chaos " +

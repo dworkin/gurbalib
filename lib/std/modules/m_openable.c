@@ -66,14 +66,22 @@ string query_closed_description(void) {
    return closed_desc;
 }
 
+string query_default_closed_desc() {
+   return this_object()->query_short() + " %^RED%^[closed]%^RESET%^";
+}
+
+string query_default_open_desc() {
+   return this_object()->query_short() + " %^GREEN%^[open]%^RESET%^";
+}
+
 void update_description(void) {
 
    if (!open_desc || open_desc == "") {
-      open_desc = this_object()->query_short() + " %^GREEN%^[open]%^RESET%^";
+      open_desc = query_default_open_desc();
    }
 
    if (!closed_desc || closed_desc == "") {
-      closed_desc = this_object()->query_short() + " %^RED%^[closed]%^RESET%^";
+      closed_desc = query_default_closed_desc();
    }
 
    if (open_state == 1) {
@@ -98,9 +106,18 @@ int query_open_state(void) {
    return open_state;
 }
 
+string query_cannot_open_message(object who) {
+   return "It seems to be stuck.";
+}
+
 int do_open(object who) {
    if (open_state == 1) {
       write("It's already open.");
+      return 0;
+   }
+   if (!can_open(who)) {
+      who->targeted_action(query_cannot_open_message(who), nil,
+         this_object());
       return 0;
    }
    open_state = 1;
@@ -110,6 +127,7 @@ int do_open(object who) {
    } else {
       this_object()->simple_action("$N $vopen.");
    }
+   return 1;
 }
 
 int do_close(object who) {
@@ -124,4 +142,5 @@ int do_close(object who) {
    } else {
       this_object()->simple_action("$N $vclose.");
    }
+   return 1;
 }

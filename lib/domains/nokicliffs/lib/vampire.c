@@ -6,7 +6,8 @@ int is_vampire(void) {
    return 1;
 }
 
-void setup(void) {
+void create(void) {
+   ::create();
    set_race("vampire");
    add_bane("garlic");
    add_vulnerability("silver");

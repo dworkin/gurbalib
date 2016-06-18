@@ -37,7 +37,6 @@ int cmd_shatter_jar(string str) {
 }
 
 void setup(void) {
-   ::setup();
    set_short("A large cave chamber in the Noki Cliffs");
    set_long("The chamber here is huge. You get the feeling that this is " +
       "an ancient place of magic where wondrous (and strange) things occur. " +

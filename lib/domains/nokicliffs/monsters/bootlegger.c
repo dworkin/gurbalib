@@ -6,7 +6,6 @@ inherit DIR + "/lib/vendor";
 static int count;
 
 void setup(void) {
-   ::setup();
    set_name("bootlegger");
    set_gender("female");
    set_short("Bootlegger");
