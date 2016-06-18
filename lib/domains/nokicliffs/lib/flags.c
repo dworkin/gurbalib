@@ -19,3 +19,7 @@ void toggle_flag(int which) {
    }
    set_flag(which);
 }
+
+void create(void) {
+   flags = 0;
+}

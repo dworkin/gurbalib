@@ -48,3 +48,5 @@
 #define NOKICLIFFS_TOWN_SHOP_KEEPER DIR + "/monsters/town/bridgette.c"
 #define NOKICLIFFS_TOWN_SHOP_REGULAR DIR + "/monsters/town/jerry.c"
 #define DEFAULT_RESTOCK_DELAY 7000
+#define NOKICLIFFS_ROOT DIR + "/lib/root"
+#define DEFAULT_SPOIL_INTERVAL 10
