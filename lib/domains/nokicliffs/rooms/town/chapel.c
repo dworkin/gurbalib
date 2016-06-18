@@ -13,5 +13,6 @@ void setup(void) {
    set_exits(([
       "west" : DIR + "/rooms/town/square_middle.c"
    ]));
+   set_objects(DIR + "/obj/donation_box.c");
 }
 

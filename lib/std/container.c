@@ -348,6 +348,9 @@ void move_or_destruct_inventory(void) {
    }
 }
 
+void after_move(object player, object what) {
+}
+
 void upgraded(void) {
    int i, sz;
 

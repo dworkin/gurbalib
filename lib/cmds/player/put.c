@@ -94,6 +94,7 @@ static void do_put(object obj1, object obj2, int loud) {
 
    if (obj1->move(obj2)) {
       this_player()->targeted_action("$N $vput $o in $o1.", nil, obj1, obj2);
+      obj2->after_move(this_player(), obj1);
    } else {
       this_player()->targeted_action("$N $vtry to put $o in $o1, but it " +
          "does not fit.", nil, obj1, obj2);

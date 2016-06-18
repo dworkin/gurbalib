@@ -6,7 +6,7 @@ inherit "/std/modules/m_triggers";
 static string *acts;
 static int     index;
 
-void setup() {
+void setup(void) {
    set_name("jerry");
    add_id("the regular");
    set_gender("male");
@@ -32,20 +32,28 @@ void setup() {
    });
 }
 
-void outside_message(string str) {
+static int should_jerry_respond(string str) {
    string who;
 
+   if (!empty_str(str) &&
+         (sscanf(str, "%s says: %*s", who) > 0 ||
+         sscanf(str, "%s says excitedly: %*s", who) > 0 ||
+         sscanf(str, "%s asks: %*s", who) > 0)) {
+      return who != "Jerry" && (who == "Bridgette" || random(2));
+   }
+   return 0;
+}
+
+void outside_message(string str) {
    if (is_fighting()) {
       return;
    }
 
    str = ANSI_D->strip_colors(str);
-   if (sscanf(str, "%s says: %*s", who) > 0) {
-      if (who != "Jerry" && (who == "Bridgette" || random(2))) {
-         respond(acts[index++]);
-         if (index == sizeof(acts)) {
-            index = 0;
-         }
+   if (should_jerry_respond(str)) {
+      respond(acts[index++]);
+      if (index == sizeof(acts)) {
+         index = 0;
       }
    }
 }

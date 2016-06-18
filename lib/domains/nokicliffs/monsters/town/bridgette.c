@@ -5,7 +5,7 @@ inherit NOKICLIFFS_VENDOR;
 #define INTERVAL 30
 #define RESTOCK_INTERVAL 120
 
-static int     count, restock_track;
+static int     count, restock_count, restock_track;
 static string *acts;
 
 void setup(void) {
@@ -25,6 +25,7 @@ void setup(void) {
    add_item(DIR + "/obj/fak", 20);
    add_item(DIR + "/obj/climbing_gear", 1);
    count = 0;
+   restock_count = 0;
    restock_track = 0;
    acts = ({ 
       "emote smiles politely.",
@@ -54,11 +55,13 @@ void setup(void) {
 
 private string time_to_restock() {
    string str;
+   int    i;
    str = "";
+   i = restock_delay - restock_track;
 
-   if (restock_delay > 3600) {
+   if (i > 3600) {
       str = "Sorry. We won't restock for at least another hour.";
-   } else if (restock_delay > 1800) {
+   } else if (i > 1800) {
       str = "FYI. We won't restock for at least another " +
          "thirty minutes.";
    } else {
@@ -68,17 +71,19 @@ private string time_to_restock() {
    return str;
 }
 
-void do_extra_actions() {
+void do_extra_actions(void) {
+   restock_track++;
+
    if (is_fighting()) {
       return;
    }
 
    count++;
-   restock_track++;
+   restock_count++;
 
-   if (restock_track > RESTOCK_INTERVAL) {
+   if (restock_count > RESTOCK_INTERVAL) {
       respond("say " + time_to_restock());
-      restock_track = 0;
+      restock_count = 0;
    }
 
    if (count > INTERVAL) {
@@ -86,5 +91,30 @@ void do_extra_actions() {
          respond(acts[random(sizeof(acts))]);
          count = 0;
       }
+   }
+}
+
+string get_minutes() {
+   int m;
+   m = (restock_delay - restock_track) / 60;
+   return "" + m + " " + (m == 1 ? "minute" : "minutes") + ".";
+}
+
+int asks_or_says_about_restocking(string str) {
+   string who, what;
+   return (sscanf(str, "%s asks: %s", who, what) == 2 ||
+         sscanf(str, "%s says: %s", who, what) == 2 ||
+         sscanf(str, "%s says excitedly: %s", who, what) == 2) ?
+         (strstr(what, "restock") > -1 && who != "Bridgette") : 0;
+}
+
+void outside_message(string str) {
+   str = lowercase(ANSI_D->strip_colors(str));
+   if (asks_or_says_about_restocking(str)) {
+      if (is_fighting()) {
+         respond("say Kinda busy here!");
+         return;
+      }
+      respond("say Specifically, about " + get_minutes());
    }
 }

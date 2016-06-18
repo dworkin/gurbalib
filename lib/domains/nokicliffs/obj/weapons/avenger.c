@@ -19,6 +19,7 @@ string query_long(void) {
 }
 
 void setup(void) {
+   ::setup();
    set_id("falchion", "avenging falchion", "avenger");
    set_adj("avenging");
    set_short("An avenging falchion of the immortals");
