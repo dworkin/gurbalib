@@ -1,5 +1,7 @@
 #include <type.h>
 
+#define ENDS_WITH_Y ({ "enjoy", "toy", "employ", "deploy" })
+
 string *compose_message(object who, string msg, object target,
    varargs mixed * objs) {
    string *words;
@@ -66,6 +68,12 @@ string *compose_message(object who, string msg, object target,
                others += who->query_gender_possessive() + " ";
                pronounFlag = 1;
                break;
+            case 'P': /* capital P */
+               us += "your ";
+               them += who->query_gender_determiner()  + " ";
+               others += who->query_gender_determiner()  + " ";
+               pronounFlag = 1;
+               break;
             case 'v':
                if (strlen(words[i]) < 3) {
                   break;
@@ -114,8 +122,13 @@ string *compose_message(object who, string msg, object target,
                   them += words[i][2..] + "es ";
                   others += words[i][2..] + "es ";
                } else if (words[i][strlen(words[i]) - 1] == 'y') {
-                  them += words[i][2..strlen(words[i]) - 2] + "ies ";
-                  others += words[i][2..strlen(words[i]) - 2] + "ies ";
+                  if (member_array(words[i][2..], ENDS_WITH_Y) == -1) {
+                     them += words[i][2..strlen(words[i]) - 2] + "ies ";
+                     others += words[i][2..strlen(words[i]) - 2] + "ies ";
+                  } else {
+                     them += words[i][2..] + "s ";
+                     others += words[i][2..] + "s ";
+                  }
                } else if (words[i][strlen(words[i]) - 1] == 's') {
                   them += words[i][2..] + "es ";
                   others += words[i][2..] + "es ";

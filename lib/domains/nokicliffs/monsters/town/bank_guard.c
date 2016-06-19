@@ -1,4 +1,4 @@
-#include "../domain.h"
+#include "../../domain.h"
 
 inherit "/std/monster";
 

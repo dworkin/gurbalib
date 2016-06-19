@@ -20,36 +20,21 @@ void setup(void) {
    set_weight(1);
 }
 
-/* we won't stop you. */
-int hp_needed(object patient) {
-   return 1;
-}
-
-int mana_needed(object patient) {
-   return 1;
-}
-
-int end_needed(object patient) {
-   return 1;
-}
-
 int do_eat(void) {
-   string str;
-   object doc, patient;
    int    max_hp, max_mana, max_end;
 
-   str = "$N $vdrink a potion of rejuvination " +
-      "and $vlook like a new " + 
-      this_player()->query_race() + ". " +
-      "The potion itself disappears in a puff of " +
-      "smoke.";
-   doc = this_player();
+
+   set_doctor(this_object());
+   set_patient(this_player());
    patient = this_player();
    max_hp = patient->query_max_hp();
    max_mana = patient->query_max_mana();
    max_end = patient->query_max_end();
-   recover_hp(doc, patient, max_hp, nil);
-   recover_mana(doc, patient, max_mana, nil);
-   recover_end(doc, patient, max_end, str);
+   recover_hp(max_hp, nil);
+   recover_mana(max_mana, nil);
+   recover_end(max_end, "$N $vdrink a potion of rejuvination and " +
+      "$vlook like a new " + this_player()->query_race() + ". " +
+      "The potion itself disappears in a puff of smoke.");
    this_object()->destruct();
+   return 1;
 }

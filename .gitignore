@@ -4,6 +4,8 @@ lib/daemons/data/*
 lib/data/*
 lib/domains/gurba/data
 lib/domains/required/data
+lib/domains/nokicliffs/data
+lib/domains/nokicliffs/logs
 lib/doc/lpc/*
 lib/doc/dgd/*
 lib/doc/kfun

@@ -3,9 +3,8 @@
 inherit NOKICLIFFS_VENDOR;
 
 #define INTERVAL 30
-#define RESTOCK_INTERVAL 120
 
-static int     count, restock_count, restock_track;
+static int     count;
 static string *acts;
 
 void setup(void) {
@@ -15,18 +14,15 @@ void setup(void) {
    set_race("human");
    set_level(1);
    set_short("Bridgette the shopkeeper");
-   set_long("She comely young lass.");
+   set_long("She is a comely young lass.");
    add_item(CLASSBEER, 20);
    add_item(COM_MEAL, 10);
    add_item(FIREBREATHER, 20);
    add_item(MUG, 20);
    add_item(SPECIAL, 20);
    add_item(TORCH, 10);
-   add_item(DIR + "/obj/fak", 20);
    add_item(DIR + "/obj/climbing_gear", 1);
    count = 0;
-   restock_count = 0;
-   restock_track = 0;
    acts = ({ 
       "emote smiles politely.",
       "emote smiles.",
@@ -53,51 +49,19 @@ void setup(void) {
    });
 }
 
-private string time_to_restock() {
-   string str;
-   int    i;
-   str = "";
-   i = restock_delay - restock_track;
-
-   if (i > 3600) {
-      str = "Sorry. We won't restock for at least another hour.";
-   } else if (i > 1800) {
-      str = "FYI. We won't restock for at least another " +
-         "thirty minutes.";
-   } else {
-      str = "We should be restocking in less than thirty minutes.";
-   }
-
-   return str;
-}
-
 void do_extra_actions(void) {
-   restock_track++;
-
    if (is_fighting()) {
       return;
    }
 
-   count++;
-   restock_count++;
+   /* XXX give approx time to restock. */
 
-   if (restock_count > RESTOCK_INTERVAL) {
-      respond("say " + time_to_restock());
-      restock_count = 0;
-   }
-
-   if (count > INTERVAL) {
+   if (count++ > INTERVAL) {
       if (random(2)) {
          respond(acts[random(sizeof(acts))]);
          count = 0;
       }
    }
-}
-
-string get_minutes() {
-   int m;
-   m = (restock_delay - restock_track) / 60;
-   return "" + m + " " + (m == 1 ? "minute" : "minutes") + ".";
 }
 
 int asks_or_says_about_restocking(string str) {
@@ -115,6 +79,6 @@ void outside_message(string str) {
          respond("say Kinda busy here!");
          return;
       }
-      respond("say Specifically, about " + get_minutes());
+      /* XXX she can say how many minutes. */
    }
 }

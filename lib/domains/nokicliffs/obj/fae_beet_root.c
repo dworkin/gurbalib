@@ -2,7 +2,7 @@
 
 inherit NOKICLIFFS_ROOT;
 
-void do_eat() {
+int do_eat() {
    if (is_spoiled()) {
       write("It's spoiled. Yuck!");
    } else {
@@ -12,12 +12,12 @@ void do_eat() {
          "a moment.", this_object());
    }
    this_object()->destruct();
+   return 1;
 }
 
-void notify_properly_dried() {
+void handle_properly_dried() {
    object env;
 
-   ::notify_properly_dried();
    env = this_object()->query_environment();
    if (env->is_living()) {
       env->message("The beet root has properly dried. " +

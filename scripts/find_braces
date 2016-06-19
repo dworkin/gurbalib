@@ -1,0 +1,58 @@
+#!/bin/bash
+
+if [ $# = 0 ]; then
+   echo "Usage: $0 <file>"
+   exit
+fi
+
+/usr/bin/gawk '
+BEGIN { 
+   dots_statck = 0; 
+   open_arrays_index = 0; 
+   closed_arrays_index = 0; 
+   open_mappings_index = 0; 
+   closed_mappings_index = 0; 
+} 
+/\.\./ { 
+   dots[dots_index++] = NR; 
+} 
+/\(\{/ { 
+   open_arrays[open_arrays_index++] = NR; 
+} 
+/\}\)/ { 
+   closed_arrays[closed_arrays_index++] = NR; 
+} 
+/\(\[/ { 
+   open_mappings[open_mappings_index++] = NR; 
+} 
+/\]\)/ { 
+   closed_mappings[open_mappings_index++] = NR; 
+} 
+END { 
+   if (dots_index > 0) { 
+      print_array(".. found on lines: ", dots); 
+   } 
+   if (open_arrays_index > 0) { 
+      print_array("({ found on lines: ", open_arrays); 
+   } 
+   if (closed_arrays_index > 0) { 
+      print_array("}) found on lines: ", closed_arrays); 
+   } 
+   if (open_mappings_index > 0) { 
+      print_array("([ found on lines: ", open_mappings); 
+   } 
+   if (closed_mappings_index > 0) { 
+      print_array("]) found on lines: ", closed_mappings); 
+   } 
+} 
+function print_array(str, arr) { 
+   dim = length(arr); 
+   for (i = 0; i < dim; i++) { 
+      str = str arr[i]  
+      if (i < dim - 1) { 
+         str = str ", "; 
+      } 
+   } 
+   print str; 
+} 
+' $1

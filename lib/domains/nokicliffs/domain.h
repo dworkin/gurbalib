@@ -1,4 +1,5 @@
 #define DIR "/domains/nokicliffs"
+#define NOKICLIFFS_DATA_DIR DIR + "/data"
 #define NOKICLIFFS_AREA "noki-cliffs"
 #define NOKICLIFFS_START DIR + "/rooms/start.c"
 #define NOKICLIFFS_VOID DIR + "/rooms/void.c"
@@ -29,7 +30,7 @@
 #define NOKICLIFFS_DIMENSIONAL_BEADS DIR + "/obj/dimensional_beads"
 #define NOKICLIFFS_VENDOR DIR + "/lib/vendor"
 #define PIXIES_CONTROLLER DIR + "/obj/controller/pixies"
-#define PIXIES_DATA DIR + "/obj/controller/pixies.o"
+#define PIXIES_DATA NOKICLIFFS_DATA_DIR + "/pixies.o"
 #define NOKICLIFFS_ANCIENT_RELIC DIR + "/lib/ancient_relic"
 #define ANCIENT_RELIC_PROP "ancient-relic"
 #define NOKICLIFFS_HEALING_LIB DIR + "/lib/healing"
@@ -49,4 +50,4 @@
 #define NOKICLIFFS_TOWN_SHOP_REGULAR DIR + "/monsters/town/jerry.c"
 #define DEFAULT_RESTOCK_DELAY 7000
 #define NOKICLIFFS_ROOT DIR + "/lib/root"
-#define DEFAULT_SPOIL_INTERVAL 10
+#define DEFAULT_SPOIL_INTERVAL 1800

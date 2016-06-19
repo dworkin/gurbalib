@@ -1,59 +1,77 @@
-int can_heal(object patient) {
+static object doctor, patient;
+
+void set_doctor(object obj) {
+   doctor = obj;
+}
+
+void set_patient(object obj) {
+   patient = obj;
+}
+
+object query_doctor() {
+   return doctor;
+}
+
+object query_patient() {
+   return patient;
+}
+
+nomask int can_heal() {
    return !nilp(patient) && patient->is_living();
 }
 
-int hp_needed(object patient) {
-   return patient->query_hp() < patient->query_max_hp();
+int hp_needed() {
+   return can_heal() && patient->query_hp() < patient->query_max_hp();
 }
 
-int mana_needed(object patient) {
-   return patient->query_mana() < patient->query_max_mana();
+int mana_needed() {
+   return can_heal() && patient->query_mana() < patient->query_max_mana();
 }
 
-int end_needed(object patient) {
-   return patient->query_end() < patient->query_max_end();
+int end_needed() {
+   return can_heal() && patient->query_end() < patient->query_max_end();
 }
 
-int healing_hp_needed(object patient) {
-   return can_heal(patient) && hp_needed(patient);
+int should_heal_hp() {
+   return 1;
 }
 
-int healing_mana_needed(object patient) {
-   return can_heal(patient) && mana_needed(patient);
+int should_heal_mana() {
+   return 1;
 }
 
-int healing_end_needed(object patient) {
-   return can_heal(patient) && end_needed(patient);
+int should_heal_end() {
+   return 1;
 }
 
-void show_message(object doc, object patient, string msg) {
-   if (!nilp(doc) && !nilp(patient) && !empty_str(msg)) {
-      doc->targeted_action(msg, patient);
+void show_healing_message(string msg) {
+   if (!nilp(doctor) && !nilp(patient) && !empty_str(msg)) {
+      doctor->targeted_action(msg, patient);
    }
 }
 
-int recover_hp(object doc, object patient, int amt, string msg) {
-   if (healing_hp_needed(patient)) {
+int recover_hp(int amt, string msg) {
+   if (should_heal_hp()) {
       patient->increase_hp(amt);
-      show_message(doc, patient, msg);
+      show_healing_message(msg);
       return 1;
    }
    return 0;
 }
 
-int recover_mana(object doc, object patient, int amt, string msg) {
-   if (healing_mana_needed(patient)) {
+int recover_mana(int amt, string msg) {
+   if (should_heal_mana()) {
       patient->increase_mana(amt);
-      show_message(doc, patient, msg);
+      show_healing_message(msg);
       return 1;
    }
    return 0;
 }
 
-int recover_end(object doc, object patient, int amt, string msg) {
-   if (healing_end_needed(patient)) {
+int recover_end(int amt, string msg) {
+   if (should_heal_end()) {
       patient->increase_end(amt);
-      show_message(doc, patient, msg);
+      show_healing_message(msg);
       return 1;
    }
    return 0;

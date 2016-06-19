@@ -10,5 +10,6 @@ void setup(void) {
    set_exits(([
       "east" : DIR + "/rooms/town/square_north.c"
    ]));
+   set_objects(DIR + "/monsters/town/silverspun.c");
 }
 

@@ -28,6 +28,12 @@ string query_gender_pronoun(void) {
    }
 }
 
+string query_gender_determiner(void) {
+   return gender == "male" ? "his" :
+      gender == "female" ? "her" :
+      "its";
+}
+
 string query_gender_possessive(void) {
    switch (gender) {
       case "male":

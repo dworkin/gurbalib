@@ -6,8 +6,7 @@ inherit flags DIR + "/lib/flags";
 #define IS_SPOILED 1
 #define IS_DRIED   2
 
-static int count;
-static int spoil_handle;
+static int count, spoil_interval, spoil_handle;
 
 int is_spoiled() {
    return test_flag(IS_SPOILED);
@@ -41,37 +40,64 @@ void emit_message(string str) {
    }
 }
 
-void spoil(void) {
-   emit_message("The " + query_id() + " spoils because it was not properly dried.");
+string get_spoil_message() {
+   return "The " + query_id() + " spoils because it was not " +
+      "properly dried.";
+}
+
+void spoil_hook() {
+}
+
+nomask void spoil(void) {
+   remove_call_out(spoil_handle);
+   emit_message(get_spoil_message());
    set_value(0);
    set_short(get_spoiled_short());
    set_long(get_spoiled_long());
    set_flag(IS_SPOILED);
+   spoil_hook();
 }
 
-void handle_warn_spoil() {
-   emit_message("The " + query_id() + " needs to be properly dried soon or it will spoil.");
+string get_warn_message() {
+   return "The " + query_id() + " needs to be properly dried soon " +
+      "or it will spoil.";
+}
+
+nomask void handle_warn_spoil() {
+   emit_message(get_warn_message());
    set_short(get_warn_short());
    set_long(get_warn_long());
 }
 
+private void check_spoil_interval() {
+   if (spoil_interval < 5) {
+      spoil_interval = DEFAULT_SPOIL_INTERVAL;
+   }
+}
+
 nomask static void warn_spoil(void) {
+   check_spoil_interval();
    remove_call_out(spoil_handle);
-   spoil_handle = call_out("spoil", DEFAULT_SPOIL_INTERVAL);
+   spoil_handle = call_out("spoil", spoil_interval);
    handle_warn_spoil();
 }
 
 nomask void start_spoiling(void) {
-   spoil_handle = call_out("warn_spoil", DEFAULT_SPOIL_INTERVAL);
+   check_spoil_interval();
+   spoil_handle = call_out("warn_spoil", spoil_interval);
 }
 
 void handle_properly_dried() {
 }
 
-void notify_properly_dried() {
+nomask void notify_properly_dried() {
    remove_call_out(spoil_handle);
    set_flag(IS_DRIED);
    handle_properly_dried();
+}
+
+void set_spoil_interval(int interval) {
+   spoil_interval = interval;
 }
 
 void setup(void) {
@@ -82,6 +108,7 @@ void setup(void) {
    set_gettable(1);
    set_weight(1);
    set_value(5);
+   set_spoil_interval(DEFAULT_SPOIL_INTERVAL);
 }
 
 void create(void) {

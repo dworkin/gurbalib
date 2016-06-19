@@ -3,49 +3,59 @@
 
 inherit "/std/object";
 inherit NOKICLIFFS_HEALING_LIB;
+inherit DIR + "/lib/reloadable";
+
+string query_short() {
+   return "A first aid kit [" + query_charges() + "]";
+}
+
+string query_long() {
+   int i;
+   i = query_charges();
+
+   return "A first kit with enough supplies for " + i +
+      " more use" + (i != 1 ? "s" : "") + ". You can " +
+      "'bandage' yourself or a comrade to help recovery " +
+      "from physical injury.";
+}
 
 void setup(void) {
    set_id("first aid kit");
    add_id("kit");
-   set_short("Individual first aid kit");
-   set_long("An individual first aid kit has enough supplies " +
-      "for one time usages. You can 'bandage' yourself or " +
-      "a comrade to help recovery from injury.");
    set_gettable(1);
-   set_value(5);
+   set_value(200);
    set_weight(1);
+   set_max_charges(10);
+   set_charges(10);
    add_action("bandage_cmd", "bandage");
 }
 
 int bandage_cmd(string str) {
-   object doc, patient;
-   int    was_bandaged;
-   string msg;
-
-   doc = this_player();
-   if (empty_str(str)) {
-      patient = this_player();
-   } else {
-      if (str == "me" || str == "self" || str == "myself") {
-         patient = this_player();
-      } else {
-         patient = this_player()->query_environment()->present(str);
-      }
+   if (query_charges() < 1) {
+      write("Your first aid kit is out of supplies.");
+      return 1;
    }
-   if (!patient) {
+   set_doctor(this_player());
+   if (empty_str(str)) {
+      set_patient(this_player());
+   } else {
+      set_patient((str == "me" || str == "self" || str == "myself") ?
+         this_player() :
+         this_player()->query_environment()->present(str));
+   }
+   if (!query_patient()) {
       write("Bandage who?");
       return 1;
    }
-   if (patient == doc) {
-      msg = "$N $vapply a first aid kit.";
-   } else {
-      msg = "$N $vapply a first aid kit to $T.";
+   if (!hp_needed()) {
+      show_healing_message("$N $veye $p first aid kit and " +
+         " $vshow concern for $T.");
+      return 1;
    }
-   was_bandaged = recover_hp(doc, patient, HEALING_AMT, msg);
-   if (!was_bandaged) {
-      write("How kind, but really it's not necessary.");
-   } else {
-      destruct();
+   recover_hp(HEALING_AMT, "$N $vapply a first aid kit to $T.");
+   decrement_charges();
+   if (query_charges() < 1) {
+      write("You have used all the supplies in your first aid kit.");
    }
    return 1;
 }

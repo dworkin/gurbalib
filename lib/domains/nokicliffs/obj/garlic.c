@@ -2,6 +2,12 @@
 
 inherit "/std/object";
 
+int do_eat() {
+   this_player()->targeted_action("$N $veat some garlic.", nil);
+   this_object()->destruct();
+   return 1;
+}
+
 void setup(void) {
    set_id("garlic");
    set_short("A garlic clove");
@@ -10,5 +16,6 @@ void setup(void) {
    set_value(5);
    set_weight(1);
    add_bane("garlic"); /* XXX is this correct? forgot how these work! */
+   set_eatable(1);
 }
 

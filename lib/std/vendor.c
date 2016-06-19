@@ -44,45 +44,63 @@ int query_will_sell(void) {
    return will_sell;
 }
 
+void after_sale_transfer(object sold_what, object sold_to) {
+}
+
+string get_successful_sale_msg() {
+   return "$N $vgive $t $o.";
+}
+
+string emit_successful_sale_msg(object obj, object player) {
+   this_object()->other_action(this_object(),
+      get_successful_sale_msg(), player, obj);
+}
+
+void deduct_coins_from_buyer(int amount, object player) {
+   player->add_money("ducat", amount);
+}
+
+void sale_transfer(object obj, object player) {
+   obj->move(player);
+}
+
+void reduce_vendor_inventory(string idx) {
+   stored_items[idx] = stored_items[idx] - 1;
+}
+
+void handle_sale(string idx, object obj, object player) {
+   emit_successful_sale_msg(obj, player);
+   deduct_coins_from_buyer(-obj->query_value(), player);
+   sale_transfer(obj, player);
+   after_sale_transfer(obj, player);
+   reduce_vendor_inventory(idx);
+}
+
 void do_sell(object player, string what) {
    string *objs;
    object obj;
-   int i, found, value, maxi;
+   int i, maxi;
 
    init_stored_items();
    objs = map_indices(stored_items);
-
-   found = 0;
    maxi = sizeof(objs);
    for (i = 0; i < maxi; i++) {
-
       obj = clone_object(objs[i]);
       if (obj) {
          obj->move(this_object());
          obj->setup();
 
          /* Found the object */
-         if (obj->query_id() == what && found != 1) {
-            value = obj->query_value();
-
-            if (stored_items[objs[i]] < 1) {
-               /* Skip here, out of stock... */
-            } else {
-               if (value <= player->query_total_money() ) {
-                  this_object()->other_action(this_object(),
-                     "$N $vgive $t $o", player, obj);
-                  value = -1 * value;
-                  player->add_money("ducat", value);
-                  obj->move(player);
-                  stored_items[objs[i]] = stored_items[objs[i]] - 1;
-                  found = 1;
-                  return;
-               } else {
-                  write("You do not have enough money for that.\n");
-                  obj->query_environment()->remove_object(obj);
-                  obj->destruct();
+         if (obj->query_id() == what) {
+            if (stored_items[objs[i]] > 0) {
+               if (obj->query_value() <= player->query_total_money() ) {
+                  handle_sale(objs[i], obj, player);
                   return;
                }
+               write("You do not have enough money for that.\n");
+               obj->query_environment()->remove_object(obj);
+               obj->destruct();
+               return;
             }
          } else {
             obj->query_environment()->remove_object(obj);
@@ -91,9 +109,7 @@ void do_sell(object player, string what) {
       }
    }
 
-   if (found == 0) {
-      player->message("That item is out of stock.");
-   }
+   player->message("That item is out of stock.");
 }
 
 void do_buy(object player, object what) {
