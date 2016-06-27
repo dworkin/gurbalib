@@ -6,11 +6,11 @@
 mapping domains;
 
 static int restore_me(void) {
-   return restore_object("/kernel/daemons/data/domain_d.o");
+   return restore_object("/sys/daemons/data/domain_d.o");
 }
 
 static void save_me(void) {
-   save_object("/kernel/daemons/data/domain_d.o");
+   save_object("/sys/daemons/data/domain_d.o");
 }
 
 static void mkdomains(void) {
