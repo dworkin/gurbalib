@@ -1,6 +1,6 @@
 This mudlib is considered a learning tool, so the following file explains
 a little bit about the layout of the mud and what you'll find in the following
-directories.  If you have any questions email: sirdude (mein@cs.umn.edu)
+directories.  If you have any questions email: sirdude (mein@umn.edu)
 
 TODO items are marked with XXX so you can easily grep -r XXX in the
 mud and see what needs to be worked on.
