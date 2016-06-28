@@ -14,11 +14,13 @@ inherit M_COMMAND;
 string *usage(void) {
    string *lines;
 
-   lines = ({ "Usage: [-h] domain list" });
-   lines += ({ "\tList all known domains." });
-   lines += ({ " " });
-   lines += ({ "Usage: domain <domain> <command> [arg]" });
-   lines += ({ "where command is one of the following:" });
+   lines = ({ "Usage: domain [-h] [list] [<domain> <command> [arg]]" });
+   lines += ({ "This command is used to manage domains." });
+   lines += ({ "If you call it with list it will print all registered " +
+      "domains." });
+   lines += ({ "To create a new domain, just call the add command with " +
+      "your domain admin as arg." });
+   lines += ({ "If your not listing domains you will use a domain command" });
    lines += ({ "\tadd [name] : adds 'name' as a member to the domain." });
    lines += ({ "\tdel [name] : removes 'name' as a member from the domain." });
 
@@ -27,8 +29,7 @@ string *usage(void) {
       lines += ({ "\tdem [name] : demote 'name' from admin to normal member " +
          "of the domain." });
    }
-
-   lines += ({ "\tlist       : lists the members of a domain." });
+   lines += ({ "\tlist       : list members of the domain." });
    lines += ({ "\tleave      : leave the named domain (if you are a member)" });
 
    lines += ({ "Options:" });
@@ -38,6 +39,7 @@ string *usage(void) {
    lines += ({ "\tdomain boothill add sirdude" });
    lines += ({ "\tdomain boothill pro sirdude" });
    lines += ({ "\tdomain boothill del sirdude" });
+   lines += ({ "\tdomain boothill list sirdude" });
 
    lines += get_alsos();
 
@@ -67,7 +69,8 @@ static int action_list_domains(void) {
 
    write("We know about the following domains:\n");
 
-   for (i = 0, sz = sizeof(dn); i < sz; i++) {
+   sz = sizeof(dn);
+   for (i = 0; i < sz; i++) {
       string opt;
       if (DOMAIN_D->query_domain_admin(dn[i], name)) {
          opt = " (admin)";
@@ -78,6 +81,7 @@ static int action_list_domains(void) {
       }
       write(dn[i] + opt + "\n");
    }
+   return 1;
 }
 
 static string format_member_display(string member, string domain) {
@@ -105,6 +109,7 @@ static int action_list_members(string domain) {
       }
       return 1;
    }
+   return 0;
 }
 
 static int action_del_member(string domain, string member) {
@@ -128,7 +133,7 @@ static int action_del_member(string domain, string member) {
       }
       return i;
    }
-   return 0;                    /* explicit */
+   return 0;
 }
 
 static int action_add_member(string domain, string member) {
@@ -154,7 +159,7 @@ static int action_add_member(string domain, string member) {
       }
       return i;
    }
-   return 0;                    /* explicit */
+   return 0;
 }
 
 static int action_promote_member(string domain, string name) {
@@ -190,6 +195,11 @@ static void main(string arg) {
       setup_alsos();
    }
 
+   if (empty_str(arg) || sscanf(arg, "-%s", cmd)) {
+      this_player()->more(usage());
+      return;
+   }
+
    if ((sscanf(arg, "%s %s %s", dname, cmd, uname) != 3) &&
       (sscanf(arg, "%s %s", dname, cmd) != 2)) {
       if (arg == "list") {
@@ -201,9 +211,39 @@ static void main(string arg) {
    }
 
    if (!DOMAIN_D->is_domain(dname)) {
-      notify_fail("Domain " + dname + " does not exist, use 'domain list' " +
-         "for a list of domains.\n");
-      r = 0;
+      if (cmd[..2] == "add") {
+         if (query_admin(this_player())) {
+            string path;
+            path = DOMAINS_DIR + "/" + dname;
+
+            if (file_exists(path) != 0) {
+                  notify_fail("Directory for domain " + dname +
+                     " does not exist.");
+                  r = 0;
+            }
+
+            if (DOMAIN_D->add_domain(dname)) {
+               r = unguarded("action_add_member", dname, uname);
+               if (!r) {
+                  r = action_promote_member(dname, uname);
+               } else {
+                  notify_fail("Error adding " + uname + " to domain " +
+                     dname);
+                  r = 0;
+               }
+            } else {
+              notify_fail("Error trying to create domain: " + dname);
+              r = 0;
+            }
+         } else {
+            notify_fail("You are not an admin you can not add that domain.");
+            r = 0;
+         }
+      } else {
+         notify_fail("Domain " + dname + " does not exist, use 'domain list' " +
+            "for a list of domains.\n");
+         r = 0;
+      }
    } else if (strlen(cmd) < 3) {
       notify_fail("Unknown command " + cmd);
       r = 0;
@@ -256,13 +296,12 @@ static void main(string arg) {
 
       str = query_notify_fail();
 
-      if (str) {
+      if (!empty_str(str)) {
          err = ({ ANSI_D->parse_colors("%^RED%^BOLD%^Error: " + str + 
             "%^RESET%^") });
       } else {
          err = ({ });
       }
-      err += map_array(usage(), "parse_colors", ANSI_D);
       this_player()->more(err);
    } else {
       write("Ok.\n");
