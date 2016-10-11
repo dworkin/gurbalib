@@ -419,19 +419,6 @@ void ftp_cmd_list(string str) {
    connection->send_data(dirlist);
 }
 
-void ftp_connection_wait(void) {
-   if (!connection) {
-      send_message("425 Can't open data connection\n");
-      return;
-   }
-
-   if (connection->is_connected() == 0) {
-      call_out("ftp_connection_wait", 1);
-      return;
-   }
-   send_message("200 PORT command successful.\n");
-}
-
 void ftp_cmd_pwd(string arg) {
    send_message("257 \"" + cwd + "\" is current directory.\n");
 }
