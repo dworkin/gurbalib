@@ -27,9 +27,11 @@ private string _clone_trace;
 private string _owner;
 
 #include "afun/require_priv.c"
+
 #ifdef CLOSURES_EXTENSION
 #include "afun/functionp.c"
 #endif
+
 #include "afun/stringp.c"
 #include "afun/argcheck.c"
 #include "afun/unguarded.c"
@@ -91,9 +93,11 @@ private string _owner;
 #include "afun/query_locale_data.c"
 #include "afun/call_trace.c"
 #include "afun/connect.c"
+
 #ifdef SYS_NETWORKING
 #include "afun/open_port.c"
 #endif
+
 #include "afun/make_dir.c"
 #include "afun/get_dir.c"
 #include "afun/rename_file.c"
