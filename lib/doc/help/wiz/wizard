@@ -16,5 +16,8 @@ cd /logs or cd /logs/errors and poke around....
 If you haven't yet type: help bootcamp
 bootcamp is a very brief introduction to get you started as a new wizard.
 
-You can also read up on the following additional wizard help files:
-	language_d coding bootcamp room_code monster_code object_code
+You can also read up on the following additional wizard help files, which
+are located in /doc/wiz/help:
+area           coding         monster_code   room_code      wizard
+bootcamp       language_d     object_code    style
+
