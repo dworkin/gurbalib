@@ -31,6 +31,7 @@ nomask static void do_menu(mixed header, mixed * menu, varargs mixed footer) {
 
       if (menu[item][2] && (!stringp(menu[item][2]) && 
          !arrayp(menu[item][2]))) {
+
          error("Error in menu item " + item +
             ", string, fcall array or nil expected in element 2");
       }

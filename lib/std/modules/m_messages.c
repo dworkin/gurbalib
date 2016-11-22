@@ -4,8 +4,7 @@
 
 string *compose_message(object who, string msg, object target,
    varargs mixed * objs) {
-   string *words;
-   string us, them, others, tmp;
+   string *words, us, them, others, tmp;
    int punc, i, objnum, pronounFlag;
 
    us = "";
