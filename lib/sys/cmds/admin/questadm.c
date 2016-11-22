@@ -67,8 +67,10 @@ static void main(string str) {
       }
       return;
    }
+
    if ((cmd == "del") || (cmd == "delete") || (cmd == "rm") ||
       (cmd == "remove")) {
+
       if (!QUEST_D->is_quest(rest)) {
          this_player()->write("That is not a valid quest.");
          return;

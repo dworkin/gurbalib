@@ -123,6 +123,7 @@ int menu_priv( string priv, string prev, string path) {
  
    if (!priv || strlen(priv) == 0 || (pt = SECURE_D->query_priv_type(priv)) ==
       PT_UNKNOWN) {
+
       if (priv && strlen(priv) && pt == PT_UNKNOWN) {
          this_player()->write(priv + " is not a recognized privilege.\n");
       }
@@ -164,6 +165,7 @@ int menu_add(string arg) {
    }
    if ((sscanf(arg, "\"%s\" %s", path, priv) != 2) && 
       (sscanf(arg, "%s %s", path, priv) != 2)) {
+
       path = arg;
       priv = nil;
    }

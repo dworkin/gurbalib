@@ -5,7 +5,7 @@ string *history;
 
 int query_command_not_found_in_history(string str) {
    if (empty_str(str) {
-	return 0;
+      return 0;
    }
 
    return NO_SUCH_CMD == str;

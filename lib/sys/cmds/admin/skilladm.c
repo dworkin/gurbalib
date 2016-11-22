@@ -67,6 +67,7 @@ static void main(string str) {
       write("Skill added. ");
    } else if ((cmd == "del") || (cmd == "delete") || (cmd == "rm") || 
       (cmd == "remove")) {
+
       if (!SKILL_D->is_skill(skill)) {
          this_player()->write("That skill does not exist.");
          return;
