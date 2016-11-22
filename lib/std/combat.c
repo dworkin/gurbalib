@@ -48,9 +48,11 @@ int query_kills(void) {
 
 void add_killed_by(object who, int t) {
    string str;
+
    if (!mappingp(killed_by)) {
       killed_by = ([]);
    }
+
    killed_by[t] = who->file_name();
 #ifdef DO_STATS
    str = "killed: " + this_object()->file_name() + " by " +
@@ -101,7 +103,8 @@ int run_away(void) {
    int x, y;
 
    if (!empty_str(wimpy_dir) &&
-    this_object()->query_environment()->query_exit(wimpy_dir)) {
+      this_object()->query_environment()->query_exit(wimpy_dir)) {
+
       write("You attempt to run " + wimpy_dir + ".\n");
       error = this_object()->this_environment()->body_exit(this_object(),
          wimpy_dir);
@@ -111,7 +114,8 @@ int run_away(void) {
          return 1;
       }
    } else if (!empty_str(wimpy_dir) &&
-    this_object()->query_environment()->query_hidden_exit(wimpy_dir)) {
+      this_object()->query_environment()->query_hidden_exit(wimpy_dir)) {
+
       write("You attempt to run " + wimpy_dir + ".\n");
       error = this_object()->this_environment()->body_exit(this_object(),
          wimpy_dir);
@@ -154,7 +158,7 @@ void receive_damage(object who, int dam) {
    int x, when;
 
    this_object()->message("%^RED%^You took " + dam + " damage from " +
-    who->query_id() + ".%^RESET%^");
+      who->query_id() + ".%^RESET%^");
 
    if (this_object()->query_hp() <= dam) {
       x = this_object()->query_max_hp();
@@ -227,8 +231,8 @@ int do_swing(int me) {
 
 #ifdef DEBUG_COMBAT
    this_object()->message("Roll [%^RED%^" + me_roll + "%^RESET%^/%^GREEN%^" +
-    me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" +
-    opponent + "%^RESET%^]");
+      me + "%^RESET%^  vs %^RED%^" + opponent_roll + "%^RESET%^/%^GREEN%^" +
+      opponent + "%^RESET%^]");
 #endif
 
    if (me_roll > opponent_roll) {
@@ -266,10 +270,11 @@ object get_target(object targ) {
          }
       }
       if (i < sizeof(targets) &&
-       targets[i] && (targets[i]->query_environment() ==
-       this_object()->query_environment())) {
-          fighting = FIGHTING_TIMEOUT;
-          return targets[i];
+         targets[i] && (targets[i]->query_environment() ==
+         this_object()->query_environment())) {
+
+         fighting = FIGHTING_TIMEOUT;
+         return targets[i];
       }
    }
    fighting = fighting - 1;
@@ -308,7 +313,8 @@ void attack_with(string skill, object weapon, object target) {
    int me, tmp, damage;
 
    if ( (wimpy == 1) &&
-   (wimpy_hp > this_object()->query_hp())) {
+      (wimpy_hp > this_object()->query_hp())) {
+
       run_away();
       return;
    }

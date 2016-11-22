@@ -4,7 +4,11 @@ string *history;
 #define NO_SUCH_CMD "No such command in history."
 
 int query_command_not_found_in_history(string str) {
-   return empty_str(str) ? 0 : NO_SUCH_CMD == str;
+   if (empty_str(str) {
+	return 0;
+   }
+
+   return NO_SUCH_CMD == str;
 }
 
 string get_history_character(void) {
@@ -51,8 +55,9 @@ private string get_history_by_string(string str) {
       if (history[i] == str) {
          return history[i];
       }
-      if (strlen(history[i]) > strlen(str)
-         && history[i][..strlen(str) - 1] == str) {
+      if (strlen(history[i]) > strlen(str) &&
+         history[i][..strlen(str) - 1] == str) {
+
          return history[i];
       }
    }

@@ -159,7 +159,7 @@ mixed *query_all_stats(void) {
    ret = ({ });
    for (i = 0; i < sizeof(stat_names); i++) {
       ret += ({ ({ stat_names[i], base_stats[stat_names[i]],
-      bonus_stats[stat_names[i]]}) });
+         bonus_stats[stat_names[i]]}) });
    }
    return ret;
 }
