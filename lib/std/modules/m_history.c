@@ -4,7 +4,7 @@ string *history;
 #define NO_SUCH_CMD "No such command in history."
 
 int query_command_not_found_in_history(string str) {
-   if (empty_str(str) {
+   if (empty_str(str)) {
       return 0;
    }
 
