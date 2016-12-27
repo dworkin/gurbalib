@@ -6,10 +6,10 @@ string *usage(void) {
    lines = ({ "Usage: dumpstate [-h]" });
    lines += ({ "" });
    lines += ({ "Create a backup of the current state of the mud." });
-   lines += ({ "* Note:" });
-   lines += ({ "* The statedump is made when the current thread ends." });
-   lines += ({ "* We schedule a 0 delay call_out which will run after" });
-   lines += ({ "* the current thread ends to notify the user." });
+   lines += ({ "Note:" });
+   lines += ({ "\tThe statedump is made when the current thread ends." });
+   lines += ({ "\tWe schedule a 0 delay call_out which will run after" });
+   lines += ({ "\tthe current thread ends to notify the user." });
    lines += ({ "" });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });

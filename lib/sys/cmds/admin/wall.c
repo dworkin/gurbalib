@@ -3,7 +3,7 @@ inherit M_COMMAND;
 string *usage(void) {
    string *lines;
 
-   lines = ({ "Usage: wall [-h] MSG" });
+   lines = ({ "Usage: wall [-h] [-w] MSG" });
    lines += ({ "" });
    lines += ({ "Tell everyone on the mud: MSG." });
    lines += ({ "" });
