@@ -30,7 +30,7 @@ private object find_guard(object thief) {
 
 void summon_guard(object thief, object stethoscope, int unlocked) {
    if (!alarms) {
-      this_environment()->tell_room(nil, "The bank alarms start "+
+      this_environment()->tell_room(nil, "The bank alarms start " +
          "blaring. It's difficult to concentrate. But you " +
          "should hurry, the guard has been summoned.");
       if (!unlocked) {
@@ -109,9 +109,9 @@ string query_cannot_open_message(object thief) {
 void setup(void) {
    set_id("vault");
    set_short("The bank vault");
-   set_long("This is the bank's vault. On the door is a "+
+   set_long("This is the bank's vault. On the door is a " +
       "dial. You can turn dial left or turn dial right " +
-      "and try to break in, but only professionals really "+
+      "and try to break in, but only professionals really " +
       "have a chance.");
    set_open_state(0);
    alarms = 0;

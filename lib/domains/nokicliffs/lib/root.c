@@ -18,7 +18,7 @@ string get_warn_short() {
 
 string get_warn_long() {
    return "The root is less the fresh as " +
-      "as it continues to spoil. There is "+
+      "as it continues to spoil. There is " +
       "still time to properly dry it, " +
       "however.";
 }

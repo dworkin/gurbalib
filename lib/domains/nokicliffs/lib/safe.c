@@ -109,8 +109,8 @@ int turn_dial_cmd(string str) {
       write("You hear an encouraging click.");
       turns++;
       if (turns == sizeof(TURNS)) {
-         write("You hear the "+
-            "lock on the safe switch into the open "+
+         write("You hear the " +
+            "lock on the safe switch into the open " +
             "position.");
          notify_unlock(this_player(), stethoscope);
       }

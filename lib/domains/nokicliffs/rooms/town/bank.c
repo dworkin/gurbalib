@@ -6,7 +6,7 @@ void setup(void) {
    set_short("Noki Town bank");
    set_long("You are in the Noki Town bank. " +
       "This is a fairly secure place. The vault " +
-      "room where clients' money is kept is to "+
+      "room where clients' money is kept is to " +
       "the east and it is even more secure. You " +
       "get back to the town square by going west.");
 

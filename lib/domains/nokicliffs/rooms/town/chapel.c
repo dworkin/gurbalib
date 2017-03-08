@@ -8,7 +8,7 @@ void setup(void) {
       "Villagers come here to meditate and be at peace " +
       "with the multiverse. There " + 
       "is plenty of seating so take a load off for a " +
-      "while and enjoy the peace and quiet when there is "+
+      "while and enjoy the peace and quiet when there is " +
       "not a wedding ceremony going on, of course.");
    set_exits(([
       "west" : DIR + "/rooms/town/square_middle.c"

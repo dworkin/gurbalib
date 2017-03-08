@@ -10,7 +10,7 @@ void setup(void) {
    set_long("The bank guard means business. " + 
       "You can tell this by his perfectly pressed " +
       "and heavily starched uniform and perfectly " +
-      "shined shoes. He is here to keep your money "+
+      "shined shoes. He is here to keep your money " +
       "safe.");
    set_race("human");
    set_level(80);

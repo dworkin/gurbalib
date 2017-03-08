@@ -22,7 +22,7 @@ string get_warn_message() {
 }
 
 string get_spoil_message() {
-   return "The ice cream has not been eaten soon enough and it has "+
+   return "The ice cream has not been eaten soon enough and it has " +
       "melted away and exists only as drip marks on the ground.";
 }
 

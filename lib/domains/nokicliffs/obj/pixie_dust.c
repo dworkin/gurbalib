@@ -49,7 +49,7 @@ void setup(void) {
    add_ids("dust", "bag of pixie dust",
       "small bag of pixie dust");
    set_short("A small bag of pixie dust");
-   set_long("A small bag of pixie dust. "+
+   set_long("A small bag of pixie dust. " +
       "According to legend strange things " +
       "happen to those who inhale pixie dust.");
    set_gettable(1);
