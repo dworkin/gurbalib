@@ -4,13 +4,14 @@ string *banished_names;
 
 #ifndef SYS_RESERVED_NAMES                                 
 #define SYS_RESERVED_NAMES ({ "kernel", "system", "network", "wizard", "wiz",\
-    "game" })
+    "game", "2.4.5", "boothill", "required", "gurba", "test", "nokicliffs",\
+    "newbie"})
 #endif               
 
 void create(void) {
    mixed *list;
 
-   banished_names = SYS_RESERVED_NAMES + DOMAIN_D->query_domains();          
+   banished_names = SYS_RESERVED_NAMES;          
    list = get_dir(BAN_DIR + "*");
    banished_names |= list[0];                  
 }
