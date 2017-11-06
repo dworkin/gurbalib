@@ -239,10 +239,6 @@ nomask int move(mixed destination) {
 
    object_environment = dest;
 
-   if (this_object()->is_living()) {
-      dest->event("body_enter", this_object());
-   }
-
    return 1;
 }
 
