@@ -1,20 +1,21 @@
 #!/bin/bash
+ROOT=.
 
-if [ -d ./lib/logs ]; then
-	LOG=./lib/logs/gurba-driver.log
+if [ -d $ROOT/lib/logs ]; then
+	LOG=$ROOT/lib/logs/gurba-driver.log
 	mv $LOG $LOG.old
 else
-	echo "Cannot locate ./lib/logs"
-	echo "did you run scripts/create_data_dirs?"
+	echo "Cannot locate $ROOT/lib/logs"
+	echo "did you run $ROOT/scripts/create_data_dirs?"
 	exit 1
 fi
 
-if [ -f ./bin/dgd ]; then
-	if [ -f ./dump ]; then
+if [ -f $ROOT/bin/dgd ]; then
+	if [ -f $ROOT/dump ]; then
 		echo DGD starting from dump...
-		./bin/dgd ./mud.dgd ./dump >& $LOG
+		$ROOT/bin/dgd $ROOT/mud.dgd $ROOT/dump >& $LOG
 	else
 		echo DGD starting from scratch...
-		./bin/dgd ./mud.dgd >& $LOG
+		$ROOT/bin/dgd $ROOT/mud.dgd >& $LOG
 	fi
 fi
