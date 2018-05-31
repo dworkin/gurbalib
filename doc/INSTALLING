@@ -13,12 +13,6 @@ cd to your gurbalib dir and perform the following actions:
 		git submodule init
 		git submodule update
 		cd src
-		edit Makefile if you want networking
-			to enable support for intermud and the ftp daemon, 
-			change the line that looks like:
-	DEFINES=-D$(HOST)        #-DNETWORK_EXTENSIONS -DCLOSURES ...
-	to:
-	DEFINES=-D$(HOST)        -DNETWORK_EXTENSIONS #-DCLOSURES ...
 		make
 		make install
 			** Note: you will get 1 error on this when it tries to
