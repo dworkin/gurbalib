@@ -29,24 +29,19 @@ void setup_alsos() {
 
 static int do_drop_coin(int amount, string type) {
    object obj;
+   int value;
 
-   if ((type == "ducat") || (type == "ducats") || (type == "coins")) {
-      /* No need to change amount */
-   } else if ((type == "royal") || (type == "royals")) {
-      amount = amount * MONEY_D->query_value("royal");
-   } else if ((type == "crown") || (type == "crowns")) {
-      amount = amount * MONEY_D->query_value("crown");
-   } else {
-      return 0;
-   }
+   value = amount * MONEY_D->query_value(type);
 
-   if (this_player()->query_total_money() >= amount) {
-      this_player()->add_money("ducat", -amount);
-      write("you drop " + amount + " ducats.");
+   if (this_player()->query_total_money() >= value) {
+      this_player()->add_money(type, -amount);
+      write("you drop " + amount + " " + type + "s.");
       this_player()->query_environment()->tell_room(this_player(),
-         this_player()->query_Name() + " drops " + amount + "ducats.\n");
+         this_player()->query_Name() + " drops " + amount + " " + type +
+         "s.\n");
       obj = clone_object(DOMAINS_DIR + "/required/objects/coin.c");
       obj->set_amount(amount);
+      obj->set_type(type);
       obj->move(this_player()->query_environment());
    } else {
       write("You do not have that much money.\n");

@@ -36,16 +36,6 @@ static int get_coins(object here, int amount, string type) {
    string str;
    int value;
 
-   if ((type == "ducat") || (type == "ducats") || (type == "coins")) {
-      /* No need to change amount */
-   } else if ((type == "royal") || (type == "royals")) {
-      amount = amount * MONEY_D->query_value("royal");
-   } else if ((type == "crown") || (type == "crowns")) {
-      amount = amount * MONEY_D->query_value("crown");
-   } else {
-      return 0;
-   }
-
    obj = here->present("coin");
    value = obj->query_value();
    if (amount > value) {
@@ -116,7 +106,7 @@ static int do_get(object obj1, object obj2, int loud) {
       int x;
 
       x = obj1->query_value();
-      get_coins(obj1->query_environment(), x, "ducat");
+      get_coins(obj1->query_environment(), x, obj1->query_currency());
       return 1;
    }
 
