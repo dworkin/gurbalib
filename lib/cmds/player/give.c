@@ -14,7 +14,7 @@ string *usage(void) {
    lines += ({ "\tgive sword to sirdude" });
    lines += ({ "\tgive sword sirdude" });
    lines += ({ "\tgive all to sirdude" });
-   lines += ({ "\tgive 5 ducats to sirdude" });
+   lines += ({ "\tgive 5 coins to sirdude" });
    lines += get_alsos();
 
    return lines;
@@ -114,12 +114,12 @@ static int transfer_money(int amount, string cointype, string where) {
 
    worth = MONEY_D->query_value(cointype);
    if (worth > 0) {
-      amount = amount * worth;
-      if (this_player()->query_total_money() > amount) {
-         this_player()->add_money("ducat", -amount);
-         obj->add_money("ducat", amount);
+      worth = amount * worth;
+      if (this_player()->query_total_money() > worth) {
+         this_player()->add_money(cointype, -amount);
+         obj->add_money(cointype, amount);
          this_player()->targeted_action("$N $vgive " + amount +
-            " ducats to $t.", obj);
+            " " + cointype + "s to $t.", obj);
          return 1;
       } else {
          write("You do not have enough money to give.\n");
@@ -159,14 +159,8 @@ static void main(string str) {
 
    if (sscanf(str, "%s to %s", what, where) == 2) {
       if (sscanf(what, "%d %s", amount, coin) == 2) {
-         if ((coin == "ducat") || (coin == "ducats") || (coin == "coins")) {
-            transfer_money(amount, "ducat", where);
-            return;
-         } else if ((coin == "royal") || (coin == "royals")) {
-            transfer_money(amount, "royal", where);
-            return;
-         } else if ((coin == "crown") || (coin == "crowns")) {
-            transfer_money(amount, "crown", where);
+         if (MONEY_D->is_currency(coin)) {
+            transfer_money(amount, coin, where);
             return;
          }
       }
