@@ -275,7 +275,7 @@ void login_player(void) {
    }
 
    set_short(query_title());
-   set_internal_max_weight(15 + query_statbonus("str"));
+   set_internal_max_weight((15 + query_statbonus("str")) * 100);
    ANSI_D->set_player_translations(custom_colors);
 
    if (autoload == 1) {
