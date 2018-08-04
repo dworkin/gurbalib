@@ -31,6 +31,7 @@ void create(void) {
          "d": "go down $*",
          "i": "inventory $*",
          "l": "look $*",
+         "exa": "look $*",
          "drink": "eat $*",
          "sc": "score $*",
          "kill": "attack $*"
