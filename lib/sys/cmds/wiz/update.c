@@ -3,17 +3,17 @@ inherit M_COMMAND;
 string *usage(void) {
    string *lines;
 
-   lines = ({ "Usage: update [-h] [FILE|obj]" });
+   lines = ({ "Usage: update [-h] [-here] [FILE|obj]" });
    lines += ({ " " });
    lines += ({ "Recompile the file, or object specified." });
-   lines += ({ "If FILE equals \"here\" recompile the current room." });
+   lines += ({ "If FILE equals \"-here\" recompile the current room." });
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
    lines += ({ "Examples:" });
    lines += ({ "\tupdate " + DOMAINS_DIR + "/required/rooms/start.c" });
    lines += ({ "\tupdate start.c" });
-   lines += ({ "\tupdate here" });
+   lines += ({ "\tupdate -here" });
    lines += ({ "\tupdate sword" });
 
    lines += get_alsos();
@@ -53,29 +53,24 @@ static object recompile_object(string str) {
 
    ob = find_object(str);
 
-   /*
-    * object isn't loaded yet, compile it
-    * and make sure the create() function is
-    * called.
-    */
+    /* object isn't loaded yet, compile it
+     * and make sure the create() function is
+     * called.  */
    if (!ob) {
       ob = compile_object(str);
 
-      /*
-       * if this fails, we destruct the object so
-       * we aren't left with half constructed objects.
-       */
+      /* if this fails, we destruct the object so
+       * we aren't left with half constructed objects.  */
       if (catch(call_other(ob, "???"))) {
          destruct_object(ob);
          rethrow();
       }
    } else {
-      /*
-       * object is loaded, simply recompile it and let the
-       * driver object handle the rest.
-       */
+      /* object is loaded, simply recompile it and let the
+       * driver object handle the rest.  */
       ob = compile_object(str);
    }
+
    return ob;
 }
 
@@ -98,8 +93,10 @@ static void main(string str) {
    }
 
    if (sscanf(str, "-%s", str)) {
-      this_player()->more(usage());
-      return;
+      if (str!="here") {
+         this_player()->more(usage());
+         return;
+      }
    }
 
    path = this_player()->query_env("cwd");
@@ -126,6 +123,7 @@ static void main(string str) {
       objs = this_environment()->query_inventory();
       players = ( { } );
       sz = sizeof(objs);
+
       for (i = 0; i < sz; i++) {
          if (objs[i]->is_player()) {
             players += ({ objs[i] });
@@ -142,14 +140,16 @@ static void main(string str) {
       ob = compile_object(str);
 
       /* And move into the new room */
-
       for (i = 0; i < sz; i++) {
          players[i]->move(str);
       }
+
       this_player()->do_look(this_environment());
+
    } else if (file_exists(path + ".c")) {
       this_player()->write("Updating: " + path + ".c\n");
       this_player()->set_env("cwf", path + ".c");
+
       if (compiler_d->test_inheritable(path)) {
          if (recompile_library(path)) {
             write("Compilation successful.\n");
@@ -161,6 +161,7 @@ static void main(string str) {
             switch (caught_error()) {
                case "Cannot recompile inherited object":
                   write(path + " is inherited, trying to destruct/compile.");
+
                   if (!recompile_library(path)) {
                      write("Something went wrong. ");
                   } else {

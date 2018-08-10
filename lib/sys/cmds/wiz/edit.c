@@ -3,7 +3,7 @@ inherit M_COMMAND;
 string *usage(void) {
    string *lines;
 
-   lines = ({ "Usage: edit [-h] [FILENAME]" });
+   lines = ({ "Usage: edit [-h] [-here] [FILENAME]" });
    lines += ({ " " });
    lines += ({ "Start up the ed editor and edit a file." });
    lines += ({ "Ed is a line editor, you can only work with one line at a " +
@@ -16,6 +16,7 @@ string *usage(void) {
    lines += ({ " " });
    lines += ({ "Options:" });
    lines += ({ "\t-h\tHelp, this usage message." });
+   lines += ({ "\t-here\tHere, edit the room you are in." });
    lines += ({ "Useful commands:" });
    lines += ({ "\tp\tprint line." });
    lines += ({ "\td\tdelete line." });
@@ -52,6 +53,10 @@ void setup_alsos() {
 static void main(string str) {
    if (!alsos) {
       setup_alsos();
+   }
+
+   if(str=="-here") {
+      str = this_player()->query_environment()->file_name();
    }
 
    if (empty_str(str)) {
