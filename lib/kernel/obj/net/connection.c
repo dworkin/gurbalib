@@ -49,18 +49,7 @@ void create(void) {
 void set_mode(int m) {
    if (m != mode && m != MODE_NOCHANGE) {
       if (m == MODE_DISCONNECT) {
-         if (sizeof(users() & ( { this_object() } ) )) {
-#ifdef SYS_NETWORKING
-            catch {
-               close_user();
-            }
-            call_out("remove_me", 0);
-#else
-            destruct_object(this_object());
-#endif
-         } else {
-            destruct_object(this_object());
-         }
+         destruct_object(this_object());
       } else if (m >= MODE_UNBLOCK) {
          if (m - MODE_UNBLOCK != blocked) {
             block_input(blocked = m - MODE_UNBLOCK);
@@ -87,10 +76,6 @@ void set_protocol(string proto) {
       return;
    } else {
       switch (proto) {
-         case "telnet":
-            protocol = proto;
-            set_mode(MODE_UNBLOCK | MODE_ECHO);
-            break;
          case "tcp":
             protocol = proto;
             set_mode(MODE_UNBLOCK | MODE_RAW);
@@ -140,28 +125,15 @@ static void close(varargs int force) {
    _close(DRIVER->new_tls(), force);
 }
 
-void connect(string ip, int port, varargs string proto) {
+void connect(string ip, int port) {
    if (previous_object() == user) {
-      if (!proto) {
-         proto = "tcp";
-      }
-#ifndef SYS_NETWORKING
-      if (proto != "tcp") {
-         error("Unsupported protocol");
-      }
-#endif
-
-      set_protocol(proto);
+      set_protocol("tcp");
 
       if (protocol) {
          DEBUG("Making outbound " + protocol + " connection to : " + ip + ", " +
             port);
          catch {
-#ifdef SYS_NETWORKING
-            ::connect(ip, port, proto);
-#else
             ::connect(ip, port);
-#endif
          } : {
             _receive_error(nil, caught_error());
          }
@@ -222,8 +194,6 @@ static void receive_error(string err) {
    _receive_error(DRIVER->new_tls(), err);
 }
 
-#ifndef SYS_NETWORKING
-
 static void unconnected(int refused) {
    if (refused) {
       _receive_error(DRIVER->new_tls(), "Connection refused");
@@ -231,8 +201,6 @@ static void unconnected(int refused) {
       _receive_error(DRIVER->new_tls(), "Connection failed");
    }
 }
-
-#endif
 
 static void _receive_message(mixed * tls, string str) {
    if (user) {
