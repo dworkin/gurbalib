@@ -52,6 +52,53 @@ static void create(void) {
       return;
    }
 
+   if (file_exists("/data") == 0) {
+      console_msg("Setting up directories\n");
+
+      make_dir("/data");
+      make_dir("/data/banished");
+      make_dir("/data/banned");
+      make_dir("/data/banned/a");
+      make_dir("/data/banned/b");
+      make_dir("/data/banned/c");
+      make_dir("/data/fortunes");
+      make_dir("/data/mail");
+      make_dir("/data/messages");
+      make_dir("/data/players");
+
+      if (file_exists("/sys/daemons/data") == 0) {
+         make_dir("/sys/daemons/data");
+         make_dir("/sys/daemons/data/users");
+      }
+
+      if (file_exists("/daemons/data") == 0) {
+         make_dir("/daemons/data");
+      }
+
+      if (file_exists("/domains/players") == 0) {
+         make_dir("/domains/players");
+      }
+
+      if (file_exists("/kernel/daemons/data") == 0) {
+         make_dir("/kernel/daemons/data");
+      }
+
+      if (file_exists("/logs") == 0) {
+         make_dir("/logs");
+         make_dir("/logs/errors");
+         make_dir("/logs/errors/runtime");
+         make_dir("/logs/nobody");
+      }
+
+      if (file_exists("/tmp") == 0) {
+         make_dir("/tmp");
+      }
+
+      if (file_exists("/wiz") == 0) {
+         make_dir("/wiz");
+      }
+   }
+
    console_msg("Setting up events\n");
    EVENT_D->add_event("player_login");
    EVENT_D->add_event("player_logout");
