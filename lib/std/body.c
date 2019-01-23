@@ -27,11 +27,37 @@ int is_living(void) {
 }
 
 string query_name(void) {
+   if ((!living_name) || (living_name=="") || (living_name=="mudlib")) {
+      return nil;
+   }
+
    return living_name;
 }
 
 string query_Name(void) {
+   if ((!living_name) || (living_name=="") || (living_name=="mudlib")) {
+      return nil;
+   }
+
    return capitalize(living_name);
+}
+
+string query_name_proofed(string prefix) {
+   string result;
+
+   argcheck(prefix, 1, "string");
+
+   if (nilp(prefix)) {
+      prefix="the";
+   }
+
+   result=query_name();
+
+   if (!result) {
+      result= prefix + " " + query_id();
+   }
+
+   return result;
 }
 
 int is_possessed(void) {

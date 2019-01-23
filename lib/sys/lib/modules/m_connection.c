@@ -2,14 +2,14 @@
 
 private object "connection" connection;
 
-nomask static void connect(string ip, int port, varargs string proto) {
+nomask static void connect(string ip, int port) {
    if (!require_priv("network")) {
       error("Permission denied.");
    }
    if (!connection) {
       connection = clone_object(CONNECTION);
       connection->set_user(this_object());
-      connection->connect(ip, port, proto);
+      connection->connect(ip, port);
    }
 }
 
