@@ -58,15 +58,14 @@ int do_tie(string str) {
    object obj;
 
    if (str == "ring" || str == "rope") {
-      obj = this_player()->present("rope");
-      if (obj) {
-         /* XXX we do not need a rope for to secure already tied one. */
-         if (tied_rope) {
-            write("You make sure the rope is securely tied to the ring.\n");
-            this_player()->query_environment()->tell_room(this_player(),
-               this_player()->query_Name() +
-               " makes sure the rope is secure.\n");
-         } else {
+      if (tied_rope) {
+         write("You make sure the rope is securely tied to the ring.\n");
+         this_player()->query_environment()->tell_room(this_player(),
+            this_player()->query_Name() +
+            " makes sure the rope is secure.\n");
+      } else {
+         obj = this_player()->present("rope");
+         if (obj) {
             if (obj->move(this_player()->query_environment())) {
                obj->set_gettable(0);
                obj->set_tied("ring");
@@ -77,9 +76,9 @@ int do_tie(string str) {
                   "the ceiling!\n");
                tied_rope = 1;
             }
+         } else {
+            write("You do not have a rope to tie to the ring.\n");
          }
-      } else {
-         write("You do not have a rope to tie to the ring.\n");
       }
       return 1;
    }
