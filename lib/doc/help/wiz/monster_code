@@ -27,7 +27,7 @@ Here is a description of what is going on in this basic monster:
 Just like in our object code, the setup function gets called when an object
 is first cloned.
 
-XXX (set_name?  why is this different than objects?)
+set_name is similar to set_id but for living things.
 
 Monsters have id's, adjectives, a short and a long, just like other objects.
 
