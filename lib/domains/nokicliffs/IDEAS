@@ -1,20 +1,13 @@
 /* XXX */
-* Chaosblade and lawbringer in the hall of balance?
+* Fix light/dark rooms, lighting
 * Bane/vulnerabilities completed
 * Put command - handle coins
-* First aid kit should have multiple uses; can have only one kit
 * Use player attributes more (bash door, NPC reactions)
 * Bag of wonders - put something in, get something different out
 * roff-ish implementation (again)
-* Reconsider kfun extensions
 * Nightvision devices (magic helmet, spectacles)
 * Stethoscope 'apply', extend functionality
 * Games - roulette, darts, dice, black jack
-* Noki Town: sheriff (bank robber, rewards of some kind)
-* Noki Town: medical clinic (Eliza!)
-* Noki Town: residential area (player houses?)
-* Noki Town: toss coins into the fountain
-* Pocket dims: Candyland, Murky Mists, Doomspire
 * Note where took Padrone's stuff
 * Other castles re-implemented for gurbalib
 * Documentation, domain read through, Padrone

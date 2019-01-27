@@ -3,10 +3,10 @@
 inherit "/std/object";
 
 int cmd_put_relic_in_orb(string str) {
-   string  what, msg;
+   string what, msg;
    object *inv;
-   object  potion;
-   int     i, dim;
+   object potion;
+   int i, dim;
 
    if (empty_str(str)) {
       return 0;
@@ -24,14 +24,19 @@ int cmd_put_relic_in_orb(string str) {
             "orb. The orb's activity increases dramatically " +
             "for a moment as it accepts the offering. " +
             "A moment before the orb settles and returns " +
-            "to normal a rejuvination potion pops out!";
+            "to normal a rejuvination potion pops out and " +
+            "settles gently on the pedestal.";
          this_player()->targeted_action(msg, this_player());
          inv[i]->destruct();
          potion->move(query_environment());
          return 1;
       }
    }
-   return 0;
+
+   this_player()->message_orig(
+      "That is not an appropriate offering to the Ancient One.\n");
+
+   return 1;
 }
 
 void setup(void) {
@@ -46,15 +51,10 @@ void setup(void) {
       "mysterious realms of the Ancient One. The "+
       "faeries have come here for thousand and " +
       "thousands of years to pay tribute to the " +
-      "Ancient One. Yoou can do the same by " +
-      "placing any relic of the Ancient One's " +
-      "avatars that you find; relics like finger " +
-      "bones, locks of hair, and so on.");
-   set_weight(5000);
-   set_value(0);
-   add_action("cmd_put_relic_in_orb", "put");
-}
+      "Ancient One. You can do the same by " +
+      "putting any relic of the Ancient One's " +
+      "avatars that you find (relics like finger " +
+      "bones, locks of hair, and so on) in the orb.");
 
-void outside_message(string str) {
-   str = ANSI_D->strip_colors(str);
+   add_action("cmd_put_relic_in_orb", "put");
 }

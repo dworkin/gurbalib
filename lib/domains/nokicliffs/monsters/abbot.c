@@ -9,8 +9,5 @@ void setup(void) {
       "hunched. He is balding with a crescent of pure white hair " +
       "around the back of his head. He wears an old robe secured " +
       "with a simple rope. Upon his feet he wears sandals.");
-   set_level(40);
-   set_skill("combat/defense", 200);
-   set_skill("combat/unarmed", 2);
 }
 

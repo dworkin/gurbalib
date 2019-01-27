@@ -10,8 +10,5 @@ void setup(void) {
       "the martial arts. Although clothed in nothing more than " +
       "a robe and some simple sandals you cannot shake the feeling " +
       "that this might be a new life for him.");
-   set_level(20);
-   set_skill("combat/defense", 200);
-   set_skill("combat/unarmed", 200);
 }
 

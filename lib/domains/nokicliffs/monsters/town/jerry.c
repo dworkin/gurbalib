@@ -1,10 +1,10 @@
 #include "../../domain.h"
 
-inherit "/std/monster";
+inherit DIR + "/lib/monster";
 inherit "/std/modules/m_triggers";
 
 static string *acts;
-static int     index;
+static int index;
 
 void setup(void) {
    set_name("jerry");
@@ -15,7 +15,6 @@ void setup(void) {
       "in the shop. He doesn't have much else to " +
       "do. It seems like he's never really listening.");
    set_race("human");
-   set_level(1);
    index = 0;
    acts = ({
       "say Mhm.",

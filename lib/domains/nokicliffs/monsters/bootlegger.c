@@ -20,7 +20,7 @@ void setup(void) {
 }
 
 private void say_current_lucky_numbers(void) {
-   int    m, n;
+   int m, n;
    string fibos_string;
    float *fibos;
    fibos_string = "";

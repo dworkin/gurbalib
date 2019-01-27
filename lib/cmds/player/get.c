@@ -164,7 +164,6 @@ static void main(string str) {
    } else if (sscanf(str, "%s from %s", what, where) == 2) {
    } else if (sscanf(str, "%s %d", what, amount) == 2) {
       what = str;
-   } else if (sscanf(str, "%s %s", what, where) == 2) {
    } else if (sscanf(str, "%d %s", amount, type) == 2) {
       if (get_coins(this_environment(), amount, type)) {
          return;

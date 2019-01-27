@@ -1,6 +1,6 @@
 #include "../../domain.h"
 
-inherit "/std/monster";
+inherit DIR + "/lib/monster";
 
 void setup(void) {
    set_name("guard");
@@ -13,10 +13,9 @@ void setup(void) {
       "shined shoes. He is here to keep your money " +
       "safe.");
    set_race("human");
-   set_level(80);
-   set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 90);
-   set_skill("combat/defense", 200);
-   equip_monster(({ NOKICLIFFS_WEAPONS_DIR + "/baton.c" }));
+   equip_monster(({
+      NOKICLIFFS_WEAPONS_DIR + "/baton.c",
+      DIR + "/obj/town/bg_badge.c"
+   }));
 }
 

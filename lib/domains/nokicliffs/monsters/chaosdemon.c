@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit "/std/monster";
+inherit DIR + "/lib/monster";
 
 void monster_died(void) {
    object shard;
@@ -49,11 +49,6 @@ void setup(void) {
       "arms. This creature looks very powerful, and clearly a very " +
       "special weapon is needed if you want to hurt it.");
    set_race("demon");
-   set_level(1);
-   set_hit_skill("combat/unarmed");
-   set_skill("combat/defense", 1);
-   set_skill("combat/sharp/large", 200);
-   set_aggressive(0);
    set_spell_chance(50);
    set_spell_damage(1);
    set_spell_message("The chaosdemon casts a SEVERE INTERNAL " +

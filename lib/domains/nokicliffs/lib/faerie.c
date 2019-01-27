@@ -4,15 +4,15 @@ inherit "/std/monster";
 
 #define INTERVAL 10
 static string *acts;
-static int     count;
+static int count;
 
-void do_extra_actions() {
+void do_extra_actions(void) {
    count++;
    if (count >= INTERVAL) {
       count = 0;
       if (!is_fighting()) {
          if (random(2)) {
-            respond(acts[random(sizeof(acts))]);
+            respond(random_element(acts));
          }
       }
    }
@@ -32,7 +32,7 @@ void set_acts(string *new_acts) {
    acts = new_acts;
 }
    
-string *get_default_acts() {
+string *get_default_acts(void) {
    string *default_acts;
    default_acts = allocate(5);
    default_acts[0] = "emote flutters about in the sun.";

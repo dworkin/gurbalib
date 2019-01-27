@@ -7,7 +7,7 @@ void setup(void) {
    set_long("You are on a pass in the Noki Cliffs. " +
       "The terrain is very steep here, better to watch " +
       "your step. The winds blow through the pass " +
-      "with some ferocity. Go west to get out of here " +
+      "with some ferocity. Go west to get out of here; " +
       "go up and over the pass.");
 
    set_exits(([

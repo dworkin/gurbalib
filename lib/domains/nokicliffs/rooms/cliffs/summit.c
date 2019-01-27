@@ -9,7 +9,6 @@ void setup(void) {
        "to breathe here; you probably should not stay here " +
        "for long if you wish to not suffocate.");
 
-    set_objects(NOKICLIFFS_MONSTERS_DIR + "/guru.c");
     set_exits(([ "down" : NOKICLIFFS_BASE_CAMP ]));
 }
 

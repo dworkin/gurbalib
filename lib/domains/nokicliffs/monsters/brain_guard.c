@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit "/std/monster";
+inherit DIR + "/lib/monster";
 
 void setup(void) {
    set_name("guard");
@@ -11,13 +11,9 @@ void setup(void) {
       "permanent demonic snarl revealing disgusting brown " +
       "teeth. Protruding from his forehead are two large " +
       "slightly curved horns. His skin is a deep blood red " +
-      "colour. He is clearly not pleased by your " +
+      "color. He is clearly not pleased by your " +
       "presence here so close to his master, the brain.");
    set_race("demon");
-   set_level(40);
-   set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 90);
-   set_skill("combat/defense", 200);
 
    set_spell_chance(50);
    set_spell_damage(30);

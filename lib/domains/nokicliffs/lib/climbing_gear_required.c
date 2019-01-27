@@ -10,4 +10,3 @@ int do_block(object who) {
    write("You need some climbing gear first.");
    return 1;
 }
-

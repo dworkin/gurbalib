@@ -2,7 +2,7 @@
 
 inherit NOKICLIFFS_ROOT;
 
-int do_eat() {
+int do_eat(void) {
    if (is_spoiled()) {
       write("It's spoiled. Yuck!");
    } else {
@@ -15,7 +15,7 @@ int do_eat() {
    return 1;
 }
 
-void handle_properly_dried() {
+void handle_properly_dried(void) {
    object env;
 
    env = this_object()->query_environment();
