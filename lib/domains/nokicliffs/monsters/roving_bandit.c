@@ -17,7 +17,6 @@ private void equip(void) {
 }
 
 void setup(void) {
-   object obj;
    set_name("bandit");
    set_gender("male");
    add_adj("roving");
