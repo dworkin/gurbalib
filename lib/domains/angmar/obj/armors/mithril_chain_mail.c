@@ -7,11 +7,9 @@ void setup(void) {
    set_short("Mithril chain mail");
    set_long("It looks very light.");
    set_gettable(1);
-
-   set_ac(1);
-
    set_slot("body");
-   set_value(20);
-   set_size(2);
-   set_weight(1);
+   set_ac(4);
+   set_value(2500);
+   set_size(3);
+   set_weight(5);
 }

@@ -15,6 +15,6 @@ void setup() {
       "\n\t'show item' shows the item to the smith.");
    set_level(1);
    set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 50);
-   set_skill("combat/defense", 100);
+   set_skill("combat/unarmed", BASE_OFFENSE);
+   set_skill("combat/defense", BASE_DEFENSE);
 }

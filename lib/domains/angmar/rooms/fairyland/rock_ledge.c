@@ -21,7 +21,7 @@ void setup(void) {
    add_item("ledge", "The ledge seems very dangerous. Try not to fall off.");
    add_item("fire", "There are a few ashes around a chunk of charred wood.");
 
-   set_objects(DIR + "/obj/oracle.c");
+   set_objects(DIR + "/monsters/oracle.c");
 
    add_action("search_ashes_cmd", "search");
 }

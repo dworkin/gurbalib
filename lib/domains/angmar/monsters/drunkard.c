@@ -24,10 +24,10 @@ void setup() {
    set_long("The drunkard enjoys drinking at the Laughing Horse Inn.");
 
    set_race("human");
-   set_level(1);
+   set_level(15);
    set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 50);
-   set_skill("combat/defense", 100);
+   set_skill("combat/unarmed", BASE_OFFENSE);
+   set_skill("combat/defense", BASE_DEFENSE * 5);
 
    attack_messages = allocate(3);
    messages = allocate(3);

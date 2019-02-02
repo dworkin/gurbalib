@@ -11,9 +11,9 @@ void setup() {
 
    set_race("human");
    set_level(1);
-   set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 50);
-   set_skill("combat/defense", 100);
+   set_hit_skill("combat/blunt/small");
+   set_skill("combat/blunt/small", BASE_OFFENSE);
+   set_skill("combat/defense", BASE_DEFENSE);
 
    set_objects(DIR + "/obj/weapons/stick.c", DIR + "/obj/armors/shoes.c");
 }

@@ -7,10 +7,10 @@ void setup() {
    set_short("An elf warrior");
    set_long("He looks very confused. He probably wonders where the wizard he just fought went.");
    set_race("elf");
-   set_level(1);
-   set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 50);
-   set_skill("combat/defense", 100);
+   set_level(15);
+   set_hit_skill("combat/blunt/large");
+   set_skill("combat/blunt/large", BASE_OFFENSE);
+   set_skill("combat/defense", BASE_DEFENSE * 5);
 
    equip_monster(({
       DIR + "/obj/weapons/heavy_mace.c",

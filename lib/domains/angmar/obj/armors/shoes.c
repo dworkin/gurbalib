@@ -6,11 +6,9 @@ void setup(void) {
    set_short("A pair of shoes");
    set_long("The tattered shoes are not useful for keeping your feet dry when walking through water.");
    set_gettable(1);
-
-   set_ac(1);
-
    set_slot("feet");
-   set_value(20);
-   set_size(2);
+   set_ac(0);
+   set_value(5);
+   set_size(1);
    set_weight(1);
 }

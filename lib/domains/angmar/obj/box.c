@@ -12,6 +12,8 @@ void setup(void) {
    set_long("It is a small rusty box. It must have been very long in the water.");
    set_gettable(1);
    set_open_state(0);
+   set_weight(1);
+   set_value(0);
 
    scroll_flag = 0;
 }

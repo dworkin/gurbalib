@@ -10,7 +10,6 @@ void setup(void) {
    set_eatable(1);
    set_gettable(1);
    set_value(50);
-   set_weight(2);
 }
 
 int do_eat(void) {

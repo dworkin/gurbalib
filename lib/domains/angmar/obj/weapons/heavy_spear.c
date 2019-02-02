@@ -3,6 +3,7 @@
 inherit "/std/weapon";
 
 void setup(void) {
+   ::setup();
    set_id("spear");
    add_id("heavy spear");
    set_short("A heavy spear");
@@ -20,9 +21,5 @@ void setup(void) {
       "pierce"
    }));
 
-   set_combat_stats(1, 5, 10);
-
-   set_value(2000);
-   set_size(5);
-   set_weight(300);
+   set_combat_stats(5, 25, 5);
 }

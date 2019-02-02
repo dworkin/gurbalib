@@ -75,6 +75,7 @@ int consider_cmd(string str) {
       " hit points and " + target->query_mana() + " mana.");
    write("\tstatus: " + target->query_status() + "\n");
    write("\tlevel: " + target->query_level() + "\n");
+   write("\tstr: " + target->query_stat("str") + ", dex: " + target->query_stat("dex") + "\n");
    write(skill_detail);
 
    return 1;

@@ -18,10 +18,10 @@ void setup(void) {
    set_short("A suspicious looking thief");
    set_long("The thief seems to be doing something with the doors.");
 
-   set_level(1);
-   set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 50);
-   set_skill("combat/defense", 100);
+   set_level(15);
+   set_hit_skill("combat/edge/small");
+   set_skill("combat/edge/small", BASE_OFFENSE);
+   set_skill("combat/defense", BASE_DEFENSE);
 
    a_str = ({
       "say Noo! I got here first!",

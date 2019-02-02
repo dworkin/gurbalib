@@ -9,11 +9,11 @@ int wimpy_hp;
 string wimpy_dir;
 
 #define FIGHTING_TIMEOUT 300
-/* Ammount of Endurance required to Attack */
+/* Amount of Endurance required to Attack */
 #define ATTACK_COST 1
 
 /* Uncomment this to get extra info in combat */
-/* #define DEBUG_COMBAT 1 */
+#define DEBUG_COMBAT 1
 
 void create(void) {
    targets = ({ });
@@ -332,22 +332,23 @@ void attack_with(string skill, object weapon, object target) {
 
    if (!weapon) {
       me = (this_object()->query_skill("combat/unarmed") / 50) +
-      this_object()->query_statbonus("str");
+         this_object()->query_statbonus("str");
    } else {
-      me = (this_object()->query_skill(weapon->query_weapon_skill()) / 50)
-      + this_object()->query_statbonus("str")
-      + weapon->query_hit_bonus();
+      me = (this_object()->query_skill(weapon->query_weapon_skill()) / 50) +
+         this_object()->query_statbonus("str") + weapon->query_hit_bonus();
    }
 
    if (do_swing(me) == 1) {
       if (!weapon) {
          damage = random(3) + this_object()->query_statbonus("str");
          tmp = this_object()->query_skill("combat/unarmed") +
-         this_object()->query_skill("combat/unarmed") / 2;
+            this_object()->query_skill("combat/unarmed") / 2;
          if (tmp <= target->query_skill("combat/defense")) {
             this_object()->learn_skill(this_object()->query_hit_skill());
+#ifdef DEBUG_COMBAT
             this_object()->message("Learn: hit_skill, " +
                this_object()->query_skill("combat/unarmed"));
+#endif
          }
 
          damage = damage_hook(target, nil, damage);
@@ -363,13 +364,15 @@ void attack_with(string skill, object weapon, object target) {
          }
       } else {
          damage = this_object()->query_statbonus("str") +
-         weapon->query_weapon_damage();
+            weapon->query_weapon_damage();
          tmp = this_object()->query_skill(weapon->query_weapon_skill()) +
             this_object()->query_skill(weapon->query_weapon_skill()) / 2;
          if (tmp <= target->query_skill("combat/defense")) {
             this_object()->learn_skill(weapon->query_weapon_skill());
+#ifdef DEBUG_COMBAT
             this_object()->message("Learn: hit_skill, " +
                this_object()->query_skill(weapon->query_weapon_skill()));
+#endif
          }
 
          damage = damage_hook(target, weapon, damage);
@@ -409,8 +412,10 @@ void attack_with(string skill, object weapon, object target) {
       }
       if (target->query_skill("combat/defense") <= tmp) {
          target->learn_skill("combat/defense");
+#ifdef DEBUG_COMBAT
          target->message("Learn: defense, " +
             this_object()->query_skill("combat/defense"));
+#endif
       }
    }
 }
@@ -509,7 +514,7 @@ void do_fight(void) {
       line = get_status(this_object());
 
 #ifdef DEBUG_COMBAT
-      line += " " get_status(target);
+      line += " " + get_status(target);
 #endif
 
       this_object()->message(line);

@@ -17,14 +17,14 @@ void setup() {
             "thoughts about losing a battle. His scars make you realize why. "+
             "The feeling his gaze inflicts in you gives you an insight in the "+
             "term \"premonition\".");
-   set_level(1);
+   set_level(30);
    set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 50);
-   set_skill("combat/defense", 100);
+   set_skill("combat/unarmed", BASE_OFFENSE * 8);
+   set_skill("combat/defense", BASE_DEFENSE * 10);
 
-   set_spell_chance(50);
-   set_spell_damage(1);
-   set_spell_message("$N $vbathe $t with some fire breath.");
+   set_spell_chance(30);
+   set_spell_damage(5);
+   set_spell_message("Smaug bathes $t with some fire breath.");
 }
 
 private void add_treasure(string id, string str) {
