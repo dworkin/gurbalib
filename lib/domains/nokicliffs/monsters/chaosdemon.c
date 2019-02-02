@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit DIR + "/lib/monster";
+inherit "/std/monster";
 
 void monster_died(void) {
    object shard;
@@ -48,7 +48,11 @@ void setup(void) {
       "industrial strength muscles in what should probably be called " +
       "arms. This creature looks very powerful, and clearly a very " +
       "special weapon is needed if you want to hurt it.");
+   set_level(NOKICLIFFS_MONSTER_LEVEL);
    set_race("demon");
+   set_hit_skill("combat/edge/large");
+   set_skill("combat/edge/large", NOKICLIFFS_OFFENSE);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE * 8);
    set_spell_chance(50);
    set_spell_damage(1);
    set_spell_message("The chaosdemon casts a SEVERE INTERNAL " +

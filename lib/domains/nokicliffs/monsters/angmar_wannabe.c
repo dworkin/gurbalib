@@ -1,6 +1,6 @@
-#include "../../domain.h"
+#include "../domain.h"
 
-inherit DIR + "/lib/monster";
+inherit "/std/monster";
 inherit "/std/modules/m_triggers";
 inherit DIR + "/lib/simple_block";
 
@@ -87,6 +87,11 @@ void setup(void) {
    set_long("The necromancer has animated many, many monsters so " +
       "far. He aspires to be like Angmar, the greatest necromancer " +
       "all time and place.");
+   set_race("human");
+   set_level(NOKICLIFFS_MONSTER_LEVEL);
+   set_hit_skill("combat/unarmed");
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE * 3);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE * 5);
    add_block("up");
 
    acts = ({

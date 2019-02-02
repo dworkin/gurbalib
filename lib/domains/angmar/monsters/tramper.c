@@ -2,7 +2,7 @@
 
 inherit "/std/monster";
 
-void setup() {
+void setup(void) {
    set_name("tramper");
    set_adj("wandering");
    add_id("wandering tramper");

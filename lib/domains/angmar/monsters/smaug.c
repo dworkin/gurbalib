@@ -2,7 +2,7 @@
 
 inherit "/std/monster";
 
-void setup() {
+void setup(void) {
    set_name("smaug");
    set_race("dragon");
    set_adj("large ferocious");

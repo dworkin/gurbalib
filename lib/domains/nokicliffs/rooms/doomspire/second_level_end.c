@@ -13,5 +13,5 @@ void setup(void) {
       "south" : DIR + "/rooms/doomspire/second_level_start.c"
    ]));
 
-   set_objects(DIR + "/monsters/doomspire/animated_skeleton.c");
+   set_objects(DIR + "/monsters/animated_skeleton.c");
 }

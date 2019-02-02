@@ -13,5 +13,5 @@ void setup(void) {
       "south" : DIR + "/rooms/doomspire/fourth_level_start.c"
    ]));
 
-   set_objects(DIR + "/monsters/doomspire/doom_queen.c");
+   set_objects(DIR + "/monsters/doom_queen.c");
 }

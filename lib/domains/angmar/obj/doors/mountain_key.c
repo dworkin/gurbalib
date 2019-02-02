@@ -2,7 +2,7 @@
 
 inherit "/std/object";
 
-string query_key_code() {
+string query_key_code(void) {
    return "auxd";
 }
 

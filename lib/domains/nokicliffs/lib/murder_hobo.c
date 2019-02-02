@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit DIR + "/lib/monster";
+inherit "/std/monster";
 inherit "/std/modules/m_triggers";
 
 int is_murder_hobo(void) {
@@ -47,4 +47,11 @@ void equip_murder_hobo(string *equip, varargs string coin, int x, int y) {
    }
 
    add_coins(coin, x + random(y));
+}
+
+void create(void) {
+   ::create();
+   set_level(NOKICLIFFS_MONSTER_LEVEL);
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE * 3);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE * 6);
 }

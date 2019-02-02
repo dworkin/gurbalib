@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit DIR + "/lib/monster";
+inherit "/std/monster";
 
 #define INTERVAL 8
 static int count;
@@ -19,6 +19,10 @@ void setup(void) {
    set_long("Apep the chaos serpent is a giant beast with a strong " +
       "hiss and long sharp fangs that look like they hit hard.");
    set_race("demon");
+   set_level(NOKICLIFFS_MONSTER_LEVEL);
+   set_hit_skill("combat/unarmed");
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE * 3);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE * 5);
    set_spell_chance(50);
    set_spell_damage(1);
    set_spell_message("Apep casts a chaotic brain scrambling spell at $t.");

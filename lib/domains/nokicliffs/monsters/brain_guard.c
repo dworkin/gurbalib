@@ -1,6 +1,6 @@
 #include "../domain.h"
 
-inherit DIR + "/lib/monster";
+inherit "/std/monster";
 
 void setup(void) {
    set_name("guard");
@@ -14,9 +14,13 @@ void setup(void) {
       "color. He is clearly not pleased by your " +
       "presence here so close to his master, the brain.");
    set_race("demon");
+   set_level(NOKICLIFFS_MONSTER_LEVEL);
+   set_hit_skill("combat/unarmed");
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE * 4);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE * 7);
 
-   set_spell_chance(50);
-   set_spell_damage(30);
+   set_spell_chance(30);
+   set_spell_damage(3);
    set_spell_message("Guard casts a lightning bolt at $t.\n");
 }
 

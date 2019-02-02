@@ -5,7 +5,7 @@ inherit "/std/modules/m_triggers";
 
 string *a_str;
 
-void do_extra_actions() {
+void do_extra_actions(void) {
    if (is_fighting() && random(100) < 50) {
       respond(random_element(a_str));
    }

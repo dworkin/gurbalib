@@ -14,7 +14,7 @@ void setup(void) {
    ]));
 
    set_objects(
-      DIR + "/monsters/doomspire/angmar_wannabe.c",
+      DIR + "/monsters/angmar_wannabe.c",
       DIR + "/obj/inert_automaton.c"
    );
 }

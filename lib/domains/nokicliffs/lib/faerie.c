@@ -48,8 +48,9 @@ void create(void) {
    set_gender("female");
    set_race("faerie");
    set_level(1);
-   set_skill("combat/defense", 25);
-   set_skill("combat/unarmed", 25);
+   set_hit_skill("combat/unarmed");
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE);
    set_acts(get_default_acts());
 }
 

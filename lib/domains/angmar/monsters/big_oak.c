@@ -2,7 +2,7 @@
 
 inherit "/std/monster";
 
-void setup() {
+void setup(void) {
    set_name("oak");
    set_adj("big");
    set_short("A big oak");

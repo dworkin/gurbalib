@@ -14,8 +14,8 @@ void setup(void) {
    set_race("human");
    set_level(5);
    set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 100);
-   set_skill("combat/defense", 100);
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE);
    count = 0;
 }
 

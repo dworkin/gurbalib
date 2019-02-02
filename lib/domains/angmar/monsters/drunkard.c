@@ -5,7 +5,7 @@ inherit "/std/monster";
 string *messages;
 string *attack_messages;
 
-void do_extra_actions() {
+void do_extra_actions(void) {
    if (is_fighting()) {
       if (random(100) < 40) {
          respond(random_element(attack_messages));
@@ -18,7 +18,7 @@ void do_extra_actions() {
    }
 }
 
-void setup() {
+void setup(void) {
    set_name("drunkard");
    set_short("A drunkard");
    set_long("The drunkard enjoys drinking at the Laughing Horse Inn.");

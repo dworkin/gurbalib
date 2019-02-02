@@ -2,7 +2,7 @@
 
 inherit "/std/monster";
 
-void setup() {
+void setup(void) {
    set_name("scarecrow");
    set_short("A scarecrow");
    set_long("He is seeing to that nobody steals the corn...");

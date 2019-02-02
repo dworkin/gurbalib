@@ -1,6 +1,6 @@
 #include "../../domain.h"
 
-inherit DIR + "/lib/monster";
+inherit "/std/monster";
 
 int busy_right_now;
 
@@ -86,6 +86,9 @@ void setup(void) {
       "to the point. He is very skilled at his trade and is " +
       "always looking to improve his skills.");
    set_race("half-giant");
-
+   set_level(NOKICLIFFS_MONSTER_LEVEL);
+   set_hit_skill("combat/unarmed");
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE);
    busy_right_now = FALSE;
 }

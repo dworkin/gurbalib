@@ -2,7 +2,7 @@
 
 inherit "/std/monster";
 
-void setup() {
+void setup(void) {
    set_name("smith");
    add_id("angmar's smith");
    set_gender("male");

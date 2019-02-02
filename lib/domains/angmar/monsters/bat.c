@@ -2,7 +2,7 @@
 
 inherit "/std/monster";
 
-void setup() {
+void setup(void) {
    set_name("bat");
    set_short("A bat");
    set_long("A small bat, with sharp fangs. It seems to be all alone here.");

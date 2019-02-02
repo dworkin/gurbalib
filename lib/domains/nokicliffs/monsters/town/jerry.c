@@ -1,6 +1,6 @@
 #include "../../domain.h"
 
-inherit DIR + "/lib/monster";
+inherit "/std/monster";
 inherit "/std/modules/m_triggers";
 
 static string *acts;
@@ -29,6 +29,9 @@ void setup(void) {
       "say I'm not so sure about that.",
       "emote nods."
    });
+   set_level(NOKICLIFFS_MONSTER_LEVEL);
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE);
 }
 
 static int should_jerry_respond(string str) {

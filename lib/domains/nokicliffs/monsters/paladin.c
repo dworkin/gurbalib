@@ -38,6 +38,9 @@ void setup(void) {
       "still very great within him.");
    arm();
    add_coins("royal", 1 + random(5));
+   set_hit_skill("combat/edge/medium");
+   set_skill("combat/edge/medium", NOKICLIFFS_OFFENSE);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE * 7);
 }
 
 void monster_died(void) {

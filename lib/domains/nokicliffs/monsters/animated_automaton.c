@@ -1,6 +1,6 @@
-#include "../../domain.h"
+#include "../domain.h"
 
-inherit DIR + "/lib/monster";
+inherit "/std/monster";
 inherit DIR + "/lib/simple_block";
 
 nomask int is_inert(void) {
@@ -18,5 +18,10 @@ void setup(void) {
       "bits, pieces, and parts from other heroes, champions, " +
       "and villains. It has one and " +
       "only one purpose, and that is to destroy the living.");
+   set_race("monster");
+   set_level(NOKICLIFFS_MONSTER_LEVEL);
+   set_hit_skill("combat/unarmed");
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE * 3);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE * 5);
    add_block("up");
 }

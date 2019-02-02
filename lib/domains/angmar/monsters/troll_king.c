@@ -2,7 +2,7 @@
 
 inherit "/std/monster";
 
-void setup() {
+void setup(void) {
    set_name("troll");
    add_ids("forest king", "troll king", "troll king of Darkwood");
    set_short("The troll king of Darkwood");
