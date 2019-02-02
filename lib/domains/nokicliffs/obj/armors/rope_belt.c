@@ -12,4 +12,7 @@ void setup(void) {
    set_remove_message("$N $vuntie $o.");
 
    set_slot("waist");
+   set_ac(0);
+   set_value(1);
+   set_weight(1);
 }

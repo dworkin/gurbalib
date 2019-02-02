@@ -9,4 +9,5 @@ void setup(void) {
    set_adj("simple");
    set_long("A simple dagger for the unenthusiastic combatant.");
    set_sword_skill("small");
+   set_combat_stats(5, 10, 3);
 }

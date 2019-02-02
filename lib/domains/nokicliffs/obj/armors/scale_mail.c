@@ -9,6 +9,5 @@ void setup(void) {
    set_long("This set of scale mail comes already battle " +
       "tested. It is still in a condition that makes it " +
       "suitable for most adventurers.");
-
    set_medium();
 }

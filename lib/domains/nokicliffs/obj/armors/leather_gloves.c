@@ -9,8 +9,7 @@ void setup(void) {
    set_long("A standard pair of adventurer's leather gloves.");
 
    set_slot("hands");
-   set_value(1);
-   set_size(1);
+   set_value(20);
    set_weight(1);
    set_ac(1);
 }

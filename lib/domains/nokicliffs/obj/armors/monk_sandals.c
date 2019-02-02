@@ -12,4 +12,7 @@ void setup(void) {
       "However did you come by a pair of these?");
 
    set_slot("feet");
+   set_ac(0);
+   set_weight(1);
+   set_value(1);
 }

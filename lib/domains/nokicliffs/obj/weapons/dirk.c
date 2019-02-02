@@ -13,4 +13,5 @@ void setup(void) {
    set_weapon_actions(({
       "stab", "poke", "skewer", "pierce"
    }));
+   set_combat_stats(5, 10, 3);
 }

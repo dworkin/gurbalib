@@ -13,9 +13,8 @@ void setup(void) {
    set_wield_message("$N $vtake up $p $o.");
    set_unwield_message("$N $vremove $p $o.");
    set_wield_type("single");
-   set_value(1);
-   set_size(1);
-   set_weight(1);
+   set_value(250);
+   set_weight(5);
    set_ac(2);
 
    add_bane("holy");

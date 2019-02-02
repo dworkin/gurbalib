@@ -12,7 +12,6 @@ void setup(void) {
    set_adj("");
    set_long("The is the favored weapons of clerics. This mace appears " +
       "to be used a lot, but it still is in excellent condition.");
-   set_combat_stats(10, 15, 10);
 
    a = query_weapon_actions();
    a += ({ "mangle", "clobber" });
