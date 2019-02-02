@@ -3,7 +3,6 @@
 private int is_lit;
 
 int query_lit(void) {
-   console_msg("query_list()");
    return is_lit;
 }
 
