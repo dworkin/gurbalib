@@ -9,10 +9,10 @@ int count;
 
 private void equip(void) {
    equip_monster(({
-      "/domains/2.4.5/obj/axe.c",
-      "/domains/2.4.5/obj/jacket.c",
-      DIR + "/obj/climbing_gear.c",
-      TWOFOURFIVE_DIR + "/obj/rope.c"
+      TWOFOURFIVE_DIR + "/obj/axe.c",
+      TWOFOURFIVE_DIR + "/obj/jacket.c",
+      TWOFOURFIVE_DIR + "/obj/rope.c",
+      DIR + "/obj/climbing_gear.c"
    }));
 }
 

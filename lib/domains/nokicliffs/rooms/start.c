@@ -9,7 +9,7 @@ void setup(void) {
 
    set_exits(([
       "east" : DIR + "/rooms/cliffs/path.c",
-      "west" : "/domains/2.4.5/rooms/mount_top2.c"
+      "west" : TWOFOURFIVE_DIR + "/rooms/mount_top2.c"
    ]));
 }
 
