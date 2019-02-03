@@ -2,7 +2,7 @@
 
 inherit "/std/object";
 
-int do_eat() {
+int do_eat(void) {
    this_player()->targeted_action("$N $veat some garlic.", nil);
    this_object()->destruct();
    return 1;

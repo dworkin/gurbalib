@@ -128,3 +128,8 @@ You should at least modify the first 3 entries.
 /* uncomment the line below to get even more debug output.. */
 /* #define DEBUG_STACK_SECURITY_DEEP 1 */
 #define DO_STATS 1
+
+/* Modules options. */
+#define M_LOCKABLE_DISABLED 0
+#define M_LOCKABLE_LOCKED 1
+#define M_LOCKABLE_UNLOCKED 2

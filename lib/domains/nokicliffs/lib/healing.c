@@ -8,39 +8,39 @@ void set_patient(object obj) {
    patient = obj;
 }
 
-object query_doctor() {
+object query_doctor(void) {
    return doctor;
 }
 
-object query_patient() {
+object query_patient(void) {
    return patient;
 }
 
-nomask int can_heal() {
+nomask int can_heal(void) {
    return !nilp(patient) && patient->is_living();
 }
 
-int hp_needed() {
+int hp_needed(void) {
    return can_heal() && patient->query_hp() < patient->query_max_hp();
 }
 
-int mana_needed() {
+int mana_needed(void) {
    return can_heal() && patient->query_mana() < patient->query_max_mana();
 }
 
-int end_needed() {
+int end_needed(void) {
    return can_heal() && patient->query_end() < patient->query_max_end();
 }
 
-int should_heal_hp() {
+int should_heal_hp(void) {
    return 1;
 }
 
-int should_heal_mana() {
+int should_heal_mana(void) {
    return 1;
 }
 
-int should_heal_end() {
+int should_heal_end(void) {
    return 1;
 }
 

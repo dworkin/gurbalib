@@ -47,6 +47,9 @@ static void display_object(object who, object what) {
 
    if (what->is_closed()) {
       who->message("It is closed.");
+      if (what->is_locked()) {
+         who->message("It is locked.");
+      }
    } else if (what->is_container()) {
       objs = what->query_inventory();
       who->message(" \nIt contains:\n");

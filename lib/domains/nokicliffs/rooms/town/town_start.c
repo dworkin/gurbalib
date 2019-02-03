@@ -6,7 +6,8 @@ void setup(void) {
    set_short("Noki Town entrance");
    set_long("You are in a valley and are standing " +
       "at the entrance to Noki Town. " +
-      "It more of a village than a town but the people " +
+      "It's more of a village than a town and you can tell "+
+      "that the people " +
       "are friendly. Being a long way from home you will " +
       "find some very welcomed creature comforts in town. " +
       "Head north from here to enter the town square. " +

@@ -2,14 +2,6 @@
 
 inherit DIR + "/lib/faerie";
 
-private void add_pixie_dust() {
-   object dust;
-
-   dust = compile_object(DIR + "/obj/pixie_dust.c");
-   dust->setup();
-   dust->move(this_object());
-}
-
 void setup(void) {
    set_name("pixie");
    set_short("A pixie");
@@ -18,6 +10,8 @@ void setup(void) {
       "of blonde hair flowing from head. Her eyes " +
       "are steel blue, but soft and easy to gaze " +
       "into. She has gorgeous gossamer wings.");
-   add_pixie_dust();
-}
 
+   equip_monster(({
+      DIR + "/obj/pixie_dust.c"
+   }));
+}

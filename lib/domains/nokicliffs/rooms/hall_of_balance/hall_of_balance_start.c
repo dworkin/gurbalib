@@ -9,7 +9,7 @@ void setup(void) {
    set_long("You are standing in a small pocket dimension containing the " +
       "fabled Hall of Balance. As you gaze upon the facade of the Hall of " +
       "Balance it is impossible to miss how utterly balanced is everything " +
-      "about it; everything from the sizes to shapes to colours to " + 
+      "about it; everything from the sizes to shapes to colors to " +
       "measurements of every conceivable kind. This is the epitome of " +
       "balance and you know that only those who are prepared to bring " +
       "this kind of balance to the realms shall be allowed to enter the " +
@@ -26,7 +26,7 @@ void setup(void) {
 
 int do_block(object player) {
    if (sizeof(balance_check(player)) != 2) {
-      write("You found not balance yet, hero.");
+      write("You have not found balance yet, hero.");
       return 1;
    }
 

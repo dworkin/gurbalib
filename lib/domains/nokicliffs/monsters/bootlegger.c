@@ -14,13 +14,13 @@ void setup(void) {
    set_race("human");
    set_level(5);
    set_hit_skill("combat/unarmed");
-   set_skill("combat/unarmed", 100);
-   set_skill("combat/defense", 100);
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE);
    count = 0;
 }
 
 private void say_current_lucky_numbers(void) {
-   int    m, n;
+   int m, n;
    string fibos_string;
    float *fibos;
    fibos_string = "";

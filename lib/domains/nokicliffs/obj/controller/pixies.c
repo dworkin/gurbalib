@@ -2,11 +2,11 @@
 
 mapping cursed;
 
-static void restore_me() {
+static void restore_me(void) {
    unguarded("restore_object", PIXIES_DATA);
 }
 
-static void save_me() {
+static void save_me(void) {
    unguarded("save_object", PIXIES_DATA);
 }
 

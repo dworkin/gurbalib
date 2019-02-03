@@ -3,8 +3,9 @@
 inherit "/std/object";
 
 void setup(void) {
-   set_id("potion");
-   set_adj("small", "endurance");
+   set_id("endurance potion");
+   set_adj("endurance");
+   add_ids("potion");
    set_short("A small potion of endurance");
    set_long("A small potion of endurance. Drinking it will make you " +
       "feel as if you could fight forever; or until you " +

@@ -1,6 +1,6 @@
 #include "../../domain.h"
 
-inherit "/std/weapons/sword";
+inherit DIR + "/lib/sword";
 
 int wield_hook(object player) {
    if (player->is_player()) {
@@ -26,7 +26,5 @@ void setup(void) {
       "this weapon. Maybe someone else wants it? Come to think " +
       "of it, perhaps there is somewhere you could bring this " +
       "sword and collect a reward?");
-   set_combat_stats(1, 10, 10);
    set_sword_skill("large");
-   set_weight(3);
 }

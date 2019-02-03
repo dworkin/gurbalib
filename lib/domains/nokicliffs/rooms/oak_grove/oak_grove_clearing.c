@@ -15,4 +15,3 @@ void setup(void) {
 
    set_objects(DIR + "/obj/ancient_pedestal.c");
 }
-

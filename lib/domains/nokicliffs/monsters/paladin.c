@@ -16,10 +16,10 @@ private void add_lawbringer(void) {
 
 private void arm(void) {
    equip_monster(({
-      NOKICLIFFS_ARMOURS_DIR + "/crown",
-      NOKICLIFFS_ARMOURS_DIR + "/leather_gloves",
-      NOKICLIFFS_ARMOURS_DIR + "/cuirass",
-      NOKICLIFFS_ARMOURS_DIR + "/tower_shield",
+      NOKICLIFFS_ARMORS_DIR + "/crown",
+      NOKICLIFFS_ARMORS_DIR + "/leather_gloves",
+      NOKICLIFFS_ARMORS_DIR + "/cuirass",
+      NOKICLIFFS_ARMORS_DIR + "/tower_shield",
       NOKICLIFFS_WEAPONS_DIR + "/ataghan",
    }));
    add_lawbringer();
@@ -36,12 +36,11 @@ void setup(void) {
       "long ago lost their light now his soul seeks to rest in " +
       "peace. However, despite this terrible fate, the law is " +
       "still very great within him.");
-   set_level(40);
-   set_skill("combat/defense", 200);
-   set_skill("combat/sharp/medium", 200);
-
    arm();
    add_coins("royal", 1 + random(5));
+   set_hit_skill("combat/edge/medium");
+   set_skill("combat/edge/medium", NOKICLIFFS_OFFENSE);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE * 7);
 }
 
 void monster_died(void) {
