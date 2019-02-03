@@ -4,7 +4,7 @@ inherit "/std/monster";
 inherit "/std/modules/m_triggers";
 
 static string *acts;
-static int     index;
+static int index;
 
 void setup(void) {
    set_name("jerry");
@@ -15,7 +15,6 @@ void setup(void) {
       "in the shop. He doesn't have much else to " +
       "do. It seems like he's never really listening.");
    set_race("human");
-   set_level(1);
    index = 0;
    acts = ({
       "say Mhm.",
@@ -30,6 +29,9 @@ void setup(void) {
       "say I'm not so sure about that.",
       "emote nods."
    });
+   set_level(NOKICLIFFS_MONSTER_LEVEL);
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE);
 }
 
 static int should_jerry_respond(string str) {

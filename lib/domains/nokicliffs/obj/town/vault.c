@@ -43,7 +43,7 @@ void summon_guard(object thief, object stethoscope, int unlocked) {
    }
 }
 
-void bring_in_guard() {
+void bring_in_guard(void) {
    object guard;
    guard = clone_object(DIR + "/monsters/bank_guard.c");
    guard->setup();

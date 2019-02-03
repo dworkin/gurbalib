@@ -11,8 +11,7 @@ static object sibling;
 void create(void) {
    ::create();
    set_id("door");
-   set_short("A wooden door");
-   set_long("Your average wooden door.");
+   set_short("A door");
    set_gettable(0);
    set_open_state(0);
 }
@@ -32,6 +31,7 @@ void refresh_sibling(void) {
    if (!sibling) {
       /* We've lost the cached sibling. Find it again. */
       sibling_room = this_object()->query_environment()->query_exit(our_exit);
+      sibling_room = sibling_room[0 .. strlen(sibling_room) - 3];
       obs = sibling_room->query_inventory();
       if (obs) {
          for (i = 0; i < sizeof(obs); i++) {
@@ -50,15 +50,8 @@ void update_sibling(void) {
       refresh_sibling();
    }
 
-   if (this_object()->query_open_state() == 1) {
-      sibling->do_open(0);
-   }
-
-   if (sibling) {
-      if (sibling->query_open_state() == 1) {
-         /* We need to update this doors state */
-         this_object()->do_open(0);
-      }
+   if (sibling && this_object()->query_open_state() == 1) {
+      sibling->do_open(nil);
    }
 }
 

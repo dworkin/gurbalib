@@ -12,7 +12,7 @@ int calculate_amount(object player) {
    return amt;
 }
 
-int do_eat() {
+int do_eat(void) {
    if (!is_spoiled()) {
       set_doctor(this_object());
       set_patient(this_player());
@@ -26,28 +26,28 @@ int do_eat() {
    return 1;
 }
 
-string get_warn_short() {
+string get_warn_short(void) {
    return "Less than fresh fruit";
 }
 
-string get_warn_long() {
+string get_warn_long(void) {
    return "The fruit is looks less and less fresh.";
 }
 
-string get_spoiled_short() {
+string get_spoiled_short(void) {
    return "Spoiled fruit";
 }
 
-string get_spoiled_long() {
+string get_spoiled_long(void) {
    return "The fruit is spoiled. It probably tastes disgusting.";
 }
 
-string get_warn_message() {
+string get_warn_message(void) {
    return "The fruit is browning. Better eat it soon to " +
       "get that energy boost.";
 }
 
-string get_spoil_message() {
+string get_spoil_message(void) {
    return "The fruit has been out for too long as has spoiled.";
 }
 

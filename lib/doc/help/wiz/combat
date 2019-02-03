@@ -1,0 +1,43 @@
+DEFENSE
+
+Starts with random value of "combat/defense" / 50
+Adds dexterity bonus
+Iterates through inventory:
+    if item->is_armor() is true, then add item->query_ac()
+Iterates through wielded:
+    if item->is_armor() is true, then add item->query_ac()
+
+
+OFFENSE
+
+If unarmed
+    Starts with combat/unarmed / 50
+    Add dexterity bonus
+
+If armed
+    Starts with weapon skill / 50
+    Add dexterity bonus
+    Add weapon hit bonus
+
+
+STRIKES
+
+If the offense value < 3, then set value to 3
+Take random value of the offense value
+Take random value of target's defense
+If the offense value is greater than the defense value, then damage
+
+
+DAMAGE
+
+If unarmed
+    Start with random(3) + strength bonus
+    The damage is modified by damage hook
+
+If armed
+    Start with strength bonus
+    Add results of weapon->query_weapon_damage()
+        (random(max_damage - min_damage) + min_damage)
+    The damage is modified by damage hook
+        If the target is vulnerable to the weapon's materials
+            extra_damage += (damage / 3);

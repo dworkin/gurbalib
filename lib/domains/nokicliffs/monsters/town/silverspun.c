@@ -13,6 +13,9 @@ void setup(void) {
    set_gender("female");
    set_race("elf");
    set_level(1);
+   set_hit_skill("combat/unarmed");
+   set_skill("combat/unarmed", NOKICLIFFS_OFFENSE);
+   set_skill("combat/defense", NOKICLIFFS_DEFENSE);
    set_short("Silverspun the apothecarist");
    set_long("Silverspun is old and wise. Everything that she sells " +
       "she produces herself. She produces garlic because " +

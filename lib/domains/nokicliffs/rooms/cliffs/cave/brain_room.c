@@ -20,7 +20,7 @@ int cmd_break_jar(string str) {
       tell_room(this_player(), "The jar with the brain and it explodes in " +
          "a shower of sparks. The brain falls to the ground with " + 
          "a soft, wet thud.");
-      destruct_object(brain);
+      brain->destruct();
       add_object(NOKICLIFFS_BRAIN, 1);
    } else {
       write("There is no jar to break.");

@@ -781,6 +781,9 @@ static void do_look_obj(object obj) {
    write(obj->query_long());
    if (obj->is_closed()) {
       write("It is closed.");
+      if (obj->is_locked()) {
+         write("It is locked.");
+      }
    } else if (obj->is_container()) {
       flag = 0;
       objs = obj->query_inventory();

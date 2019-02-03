@@ -2,7 +2,7 @@
 
 inherit NOKICLIFFS_VENDOR;
 
-#define INTERVAL 30
+#define INTERVAL 10
 
 static int     count;
 static string *acts;
@@ -58,7 +58,7 @@ void do_extra_actions(void) {
 
    if (count++ > INTERVAL) {
       if (random(2)) {
-         respond(acts[random(sizeof(acts))]);
+         respond(random_element(acts));
          count = 0;
       }
    }

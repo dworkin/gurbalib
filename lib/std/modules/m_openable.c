@@ -110,15 +110,28 @@ string query_cannot_open_message(object who) {
    return "It seems to be stuck.";
 }
 
+string query_cannot_close_message(object who) {
+   return "It seems to be stuck.";
+}
+
+void do_on_open(object who) {
+
+}
+
+void do_on_close(object who) {
+
+}
+
 int do_open(object who) {
    if (open_state == 1) {
       write("It's already open.");
       return 0;
    }
-   if (!can_open(who)) {
+
+   if (who && !can_open(who)) {
       who->targeted_action(query_cannot_open_message(who), nil,
          this_object());
-      return 0;
+      return 1;
    }
    open_state = 1;
    update_description();
@@ -127,6 +140,7 @@ int do_open(object who) {
    } else {
       this_object()->simple_action("$N $vopen.");
    }
+   do_on_open(who);
    return 1;
 }
 
@@ -135,6 +149,10 @@ int do_close(object who) {
       write("It's already closed.");
       return 0;
    }
+   if (who && !can_close(who)) {
+      who->targeted_action(query_cannot_close_message(who), nil, this_object());
+      return 1;
+   }
    open_state = 0;
    update_description();
    if (who) {
@@ -142,5 +160,6 @@ int do_close(object who) {
    } else {
       this_object()->simple_action("$N $vclose.");
    }
+   do_on_close(who);
    return 1;
 }

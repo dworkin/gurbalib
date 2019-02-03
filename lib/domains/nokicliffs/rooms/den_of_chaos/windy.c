@@ -4,8 +4,8 @@ inherit DIR + "/lib/room";
 
 void setup(void) {
    set_light(0);
-   set_short("A wind tunnel in the Den of Chaos in a pocket dimension");
-   set_long("You are in a wind tunnel of the Den of Chaos. The chaos " +
+   set_short("A windy tunnel in the Den of Chaos in a pocket dimension");
+   set_long("You are in a windy tunnel of the Den of Chaos. The chaos " +
       "winds are strong here. A closer looks reveals the source of the " +
       "winds is a pit to the east.");
 

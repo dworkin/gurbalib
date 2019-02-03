@@ -8,11 +8,11 @@ static mapping tmp_properties;
 static string  properties_file_name;
 static int     was_warning;
 
-int query_was_warning() {
+int query_was_warning(void) {
    return was_warning;
 }
 
-private void init_tmp_properties() {
+private void init_tmp_properties(void) {
    if (!tmp_properties) {
       tmp_properties = ([ ]);
    }
@@ -47,7 +47,7 @@ private void read_property_line(string property_line, int line) {
    properties_warn("Invalid line: " + line);
 }
 
-private void load_tmp_properties() {
+private void load_tmp_properties(void) {
    string *keys;
    int     i, dim;
 

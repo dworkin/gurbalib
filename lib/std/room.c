@@ -24,7 +24,7 @@ private int object_is_lighted(object obj) {
       objs = obj->query_inventory();
       for (i = 0, dim = sizeof(objs); i < dim; i++) {
          if (objs[i]->functionp("query_lit")) {
-            if (objs[i]->query_list()) {
+            if (objs[i]->query_lit()) {
                return 1;
             }
          }

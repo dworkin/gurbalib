@@ -2,8 +2,8 @@
 
 inherit "/std/container";
 inherit "/std/modules/m_openable";
+inherit MONEY_MAKER;
 
-#define COIN_OBJECT "/domains/required/objects/coin.c"
 #define COIN_AMT (10 * (random(5) + 2))
 #define TURNS ({ "left", "right", "left" })
 
@@ -13,26 +13,20 @@ int can_open(object thief) {
    return turns == sizeof(TURNS);
 }
 
-int query_turns() {
+int query_turns(void) {
    return turns;
 }
 
-static void add_coins() {
+static void add_coins(void) {
    object royals, crowns;
 
-   royals = clone_object(COIN_OBJECT);
-   royals->set_currency("royal");
-   royals->set_amount(COIN_AMT);
-   royals->move(this_object());
-
-   crowns = clone_object(COIN_OBJECT);
-   crowns->set_currency("crown");
-   crowns->set_amount(COIN_AMT);
-   crowns->move(this_object());
+   make_money("royal", COIN_AMT)->move(this_object());
+   make_money("crown", COIN_AMT)->move(this_object());
 }
 
-static void add_actions() {
+static void add_actions(void) {
    add_action("turn_dial_cmd", "turn");
+   add_action("spin_dial_cmd", "spin");
 }
 
 int do_close(object thief) {
@@ -57,7 +51,22 @@ void notify_good_turn(object thief, object stethoscope) {
 void notify_bad_turn(object thief, object stethoscope) {
 }
 
-void notify_unlock(object thief, object stethscope) {
+void notify_unlock(object thief, object stethoscope) {
+}
+
+int spin_dial_cmd(string str) {
+   if (empty_str(str)) {
+      write("Spin what?");
+      return 1;
+   }
+
+   if (str == "dial") {
+      this_player()->targeted_action("$N $vspin the dial, " +
+         "resetting the lock.", this_player());
+      return 1;
+   }
+
+   return 0;
 }
 
 int turn_dial_cmd(string str) {

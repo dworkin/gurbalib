@@ -2,9 +2,9 @@
 
 inherit "/std/sign";
 
-private string get_sign_text() {
+private string get_sign_text(void) {
    return
-      "          _______________________\n" +
+      "       _______________________\n" +
       "     =(_______________________)=\n" +
       "       |                     |\n" +
       "       |      THANKS FOR     |\n" +

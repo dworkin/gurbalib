@@ -36,25 +36,28 @@ int activate_cmd(string str) {
    }
    if (empty_str(str)) {
       write("You can 'activate' the following pocket dimensions: " +
-         "oak groave, doomspire, abbey of law, den of chaos, " +
-         "hall of balance, candyland, murky mists.\n" +
+         "\n\tabbey\n" +
+         "\n\tden of chaos\n" +
+         "\n\tdoomspire\n" +
+         "\n\thall of balance\n" +
+         "\n\toak grove\n" +
+         "\n\tmurky mists\n" +
          "For instance, to activate the den of " +
-         "chaos pocket dimension, use command:\nactivate den of chaos");
+         "chaos pocket dimension, use command: " +
+         "activate den of chaos");
       return 1;
    }
 
-   if (lowercase(str) == "oak grove") {
-      this_player()->move(NOKICLIFFS_OAK_GROVE_START);
-   } else if (lowercase(str) == "doomspire") {
+   if (lowercase(str) == "doomspire") {
       this_player()->move(NOKICLIFFS_DOOMSPIRE_START);
-   } else if (lowercase(str) == "abbey of law") {
+   } else if (lowercase(str) == "oak grove") {
+      this_player()->move(NOKICLIFFS_OAK_GROVE);
+   } else if (lowercase(str) == "abbey") {
       this_player()->move(NOKICLIFFS_ABBEY_START);
    } else if (lowercase(str) == "den of chaos") {
       this_player()->move(NOKICLIFFS_DEN_START);
    } else if (lowercase(str) == "hall of balance") {
       this_player()->move(NOKICLIFFS_HALL_START);
-   } else if (lowercase(str) == "candyland" || lowercase(str) == "candy land") {
-      this_player()->move(NOKICLIFFS_CANDYLAND_START);
    } else if (lowercase(str) == "murky mists") {
       this_player()->move(NOKICLIFFS_MURKY_MISTS_START);
    } else {

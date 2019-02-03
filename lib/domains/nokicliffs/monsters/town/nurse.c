@@ -4,8 +4,7 @@ inherit NOKICLIFFS_VENDOR;
 
 private int reload_first_aid_kit(object player) {
    object *pinv;
-   int     fak_handled, i, dim;
-   int     need, cost;
+   int fak_handled, i, dim, need, cost;
 
    pinv = player->query_inventory();
    dim = sizeof(pinv);
@@ -48,10 +47,14 @@ void handle_sale(string idx, object obj, object player) {
 void setup(void) {
    set_name("nurse");
    set_short("A nurse");
-   set_long("The Noki Town nurse. You can always buy " +
-      "first aid kits from her, even if they seem to be " +
-      "out of stock.");
+   set_long("The Noki Town nurse. You can buy various " +
+      "items created from the very best practitioners of " +
+      "the medical arts.");
    set_race("human");
+   set_gender("female");
    set_level(1);
-   add_item(DIR + "/obj/fak.c", 2);   
+   set_will_buy(0);
+   add_item(DIR + "/obj/endurance_potion", 10);
+   add_item(DIR + "/obj/fak.c", 20);
+   add_item(DIR + "/obj/mana_potion.c", 10);
 }
