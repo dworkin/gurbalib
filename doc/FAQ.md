@@ -45,6 +45,6 @@ A: Don't do this. It is not supported and the possible gain it could give is ver
 Q: **I upgraded my mudlib, and now things don't work, what do I do?**  
 A: Look at **doc/UPGRADING**  
 
-### Wtf?!! Why aren't my new commands useable?
+### Wtf?!! Why aren't my new commands usable?
 Q: **I've added a command but it's not available even tho it updated just fine?**  
 A: As an admin give the **rehash** command.  
