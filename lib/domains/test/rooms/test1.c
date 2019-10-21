@@ -11,7 +11,7 @@ int test_area(void) {
    areas = query_areas();
    if (!areas) {
       errors += 1;
-      output += ({ "Error in query_areas() when areas nill" });
+      output += ({ "Error in query_areas() when areas nil" });
    } else {
       valid += 1;
    }
