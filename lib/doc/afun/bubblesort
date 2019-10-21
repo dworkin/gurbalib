@@ -13,9 +13,9 @@ RETURN VALUE
 EXAMPLES
 	mixed *list;
 
-	list = ([ 'bee' ]);
-	list += ([ 'alpha' ]);
-	list += ([ 'dog' ]);
+	list = ({ "bee" });
+	list += ({ "alpha" });
+	list += ({ "dog" });
 
 	list = bubblesort(list);
 
