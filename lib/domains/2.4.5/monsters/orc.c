@@ -38,7 +38,7 @@ void setup() {
 void do_extra_actions() {
    count = count + 1;
    if (count >= INTERVAL) {
-      switch(random(7)) {
+      switch(random(8)) {
          case 0:
             respond("say Kill him!");
             break;
@@ -56,6 +56,9 @@ void do_extra_actions() {
             break;
          case 5:
             respond("say Kill 'em before they run away!");
+            break;
+         case 6:
+            respond("say Put their heads on a pike!");
             break;
          default:
             respond("say What is that doing here?");
