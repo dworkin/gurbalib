@@ -192,10 +192,17 @@ void damage_target(int dam, object who) {
 }
 
 int query_defense(void) {
-   int me, i, max;
+   int me, i, max, skill;
    object *armor;
+   
+   /* this section needed to prevent defence from going infinite */
+   /* random(0) causes the full range to be used */
+   skill = (this_object()->query_skill("combat/defense") / 50);
+   if (skill == 0) {
+      skill = 1;
+   }
 
-   me = random(this_object()->query_skill("combat/defense") / 50);
+   me = random(skill);
    me += this_object()->query_statbonus("dex");
    armor = this_object()->query_equipment();
 
