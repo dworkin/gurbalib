@@ -13,7 +13,7 @@ string wimpy_dir;
 #define ATTACK_COST 1
 
 /* Uncomment this to get extra info in combat */
-#define DEBUG_COMBAT 1
+/* #define DEBUG_COMBAT 1 */
 
 void create(void) {
    targets = ({ });
