@@ -1,4 +1,4 @@
-static int remove_file(string file) {
+int remove_file(string file) {
    if (!valid(file, MODE_WRITE)) {
 #ifdef ENABLE_STACK_SECURITY
       console_msg("Access to " + file + " denied\n");
