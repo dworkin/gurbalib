@@ -3,7 +3,8 @@
 inherit cont "/std/container";
 
 static mapping exits, hidden_exits, areas, items;
-static int last_exit, weather, light;
+static int last_exit, weather, light, pk;
+
 string dark_msg;
 
 void setup(void);
@@ -75,6 +76,17 @@ void set_weather(int flag) {
 
 int query_weather(void) {
    return weather;
+}
+
+void set_pk(int flag) {
+   pk = flag;
+}
+
+int query_pk(void) {
+  if (!pk) {
+    return 0;
+  }
+  return pk;
 }
 
 void add_area(string str) {
