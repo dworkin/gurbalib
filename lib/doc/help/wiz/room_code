@@ -97,3 +97,17 @@ void remove_hidden_exit(string direction );
 int query_in_area( string area );
 	Tells you if the room is a part of the area you specify.
 	It returns 1 if it is, 0 if not.
+
+void set_pk(int flag);
+	By default all rooms are player killing safe, this means
+	that if a player tries to kill another player it will fail.
+        By default pk is 0, /std/combat.c will run
+        query_pk() on attack, if it returns a 1 then player killing
+	will be allowed.
+
+int query_pk(void);
+	This will return the player killing status, right now code
+	only exists in combat for 0 - pk safe, or 1 - pk unsafe,
+	however query_pk will return any int so other flags such as
+	2 could be added to make a room pk safe for newbies but not
+	players above x level.
