@@ -37,7 +37,7 @@ void setup_alsos() {
    add_also("wiz", "snoop");
    add_also("wiz", "where");
    add_also("wiz", "who");
-   
+
 }
 
 static void main(string str) {
@@ -65,12 +65,15 @@ static void main(string str) {
       }
    }
 
-   if (!str || str == "" || strcmp(str, "room") == 0) {
+   if (!str || str == "" || strcmp(str, "room") == 0 || str == "here") {
       obj = this_player()->query_environment();
    } else {
       obj = this_player()->present(str);
       if (!obj) {
          obj = this_player()->query_environment()->present(str);
+         if (!obj) {
+            obj = this_player()->query_environment();
+         }
       }
    }
 
@@ -81,7 +84,7 @@ static void main(string str) {
 
    if (!call_other(obj, "do_search")) {
       this_player()->query_environment()->tell_room(this_player(),
-         this_player()->query_Name() + " searches " + 
+         this_player()->query_Name() + " searches " +
          obj->query_id() + "\n");
       write("You find nothing.\n");
    }
