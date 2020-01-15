@@ -223,7 +223,7 @@ string query_desc(varargs int brief) {
                inventory[count]->query_short()) + "%^RESET%^";
          } else {
             mixed x;
-            string pc;
+            string pc, rest;
 
             if (inventory[count] == this_player()) {
                continue;
@@ -236,13 +236,19 @@ string query_desc(varargs int brief) {
                pc = "%^NPC_FRIENDLY%^";
             }
 
+            if (inventory[count]->is_resting()) {
+               rest = "(Resting)";
+            } else {
+               rest = "";
+            }
+
             if (x && x > 60) {
                desc = "  " + pc + capitalize(inventory[count]->query_short()) +
                   " [idle" + fmt_time(inventory[count]->query_idle()) +
-                  "]%^RESET%^";
+                  "]  " + rest + "%^RESET%^";
             } else {
                desc = "  " + pc + capitalize(inventory[count]->query_short()) +
-                  "%^RESET%^";
+                  rest + "%^RESET%^";
             }
          }
 #ifdef LONG_ROOM_INV

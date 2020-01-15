@@ -47,6 +47,11 @@ static void main(string str) {
       return;
    }
 
+   if (this_player()->is_resting()) {
+      write("You can not do that when your are resting.\n");
+      return;
+   }
+
    error = this_environment()->body_exit(this_player(), str);
 
    if (error) {

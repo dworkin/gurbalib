@@ -48,6 +48,11 @@ static void main(string str) {
       return;
    }
 
+   if (this_player()->is_resting()) {
+      write("You can not do that when your are resting.\n");
+      return;
+   }
+
    len = strlen(str);
    if (str[len - 1] == ' ') {
       str = str[..len - 2];

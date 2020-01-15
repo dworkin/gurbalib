@@ -65,6 +65,11 @@ static void main(string str) {
       return;
    }
 
+   if (this_player()->is_resting()) {
+      write("You can not do that when your are resting.\n");
+      return;
+   }
+
    obj = this_player()->present(str);
    if (obj) {
       /* Found the item */

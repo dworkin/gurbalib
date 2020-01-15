@@ -36,6 +36,7 @@ void create(void) {
          "sc": "score $*",
          "kill": "attack $*"
       ]);
+
       wizard_alias = ([
          "z": "update $*"
       ]);

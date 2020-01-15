@@ -26,6 +26,8 @@ void setup_alsos() {
    add_also("player", "pray");
    add_also("player", "query");
    add_also("player", "quit");
+   add_also("player", "rest");
+   add_also("player", "stand");
    add_also("player", "wimpy");
 }
 
@@ -48,6 +50,11 @@ static void main(string str) {
 
    if (this_player()->is_dead()) {
       write("You can not do that when your are not among the living.\n");
+      return;
+   }
+
+   if (this_player()->is_resting()) {
+      write("You can not do that when your are resting.\n");
       return;
    }
 

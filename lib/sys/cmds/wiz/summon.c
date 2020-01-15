@@ -52,6 +52,11 @@ static void main(string str) {
             this_player()->query_Name() + " requests your presence.%^RESET%^");
          usr->query_environment()->tell_room(usr, usr->query_Name() +
             " disappears in a flurry of fluff.\n");
+
+         if (usr->is_resting()) {
+            usr->rest();
+         }
+
          usr->move(this_player()->query_environment());
          usr->message("You abruptly find yourself somewhere else.\n");
          usr->do_look(usr->query_environment());

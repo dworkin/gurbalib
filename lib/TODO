@@ -81,7 +81,6 @@ Fix it so you can do the following:
 	possess rat
 	call -h
 
-add a rest/stand command where you gain hp otherwise you don't...
 Add fullness/intoxication to score output...
 
  a built in history command, for the last 20 commands

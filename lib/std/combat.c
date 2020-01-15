@@ -500,6 +500,11 @@ void do_fight(void) {
          if (x && (random(100) <= x)) {
             cast_spell(target);
          }
+      } else if (this_object()->is_resting()) {
+         this_object()->query_environment()->tell_room(this_object(),
+         this_object()->query_Name() +
+         " stands up.");
+         this_object()->rest();
       }
 
       weapons = this_object()->query_wielded();

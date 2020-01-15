@@ -128,6 +128,12 @@ static void main(string str) {
          }
       }
    }
+
+   if (this_player()->is_resting()) {
+      l += ({ "" });
+      l += ({ obj->query_name() + " is resting." });
+   }
+
    this_player()->more(l);
 
    return;

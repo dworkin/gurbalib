@@ -1,4 +1,4 @@
-int cur_hp, max_hp, cur_mana, max_mana, cur_end, max_end, is_dead;
+int cur_hp, max_hp, cur_mana, max_mana, cur_end, max_end, is_dead, is_resting;
 static int performance_enhancement;
 
 void set_performance_enhancement(int i) {
@@ -177,6 +177,15 @@ string query_status(void) {
    }
 }
 
+string rest() {
+   if (is_resting == 0) {
+      is_resting = 1;
+      return "sit";
+   }
+   is_resting = 0;
+   return "stand";
+}
+
 void set_dead(int x) {
    is_dead = x;
 }
@@ -190,6 +199,13 @@ int is_dead(void) {
 
 int is_alive(void) {
    if (is_dead()) {
+      return 0;
+   }
+   return 1;
+}
+
+int is_resting(void) {
+   if (is_resting == 0) {
       return 0;
    }
    return 1;

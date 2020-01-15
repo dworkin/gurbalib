@@ -121,6 +121,10 @@ static void main(string str) {
       write("You can not do that when your are not among the living.\n");
       return;
    }
+   if (this_player()->is_resting()) {
+      write("You can not do that when your are resting.\n");
+      return;
+   }
 
    if (sscanf(str, "%s %s", spellname, who) != 2) {
       cast_spell(str, nil);

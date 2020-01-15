@@ -100,6 +100,11 @@ static void main(string str) {
       return;
    }
 
+   if (this_player()->is_resting()) {
+      write("You can not do that when your are resting.\n");
+      return;
+   }
+
    if (str == "all") {
       inv = this_player()->query_inventory();
       max = sizeof(inv);

@@ -62,5 +62,9 @@ static void main(string str) {
       return;
    }
 
+   if (this_player()->is_resting()) {
+      this_player()->rest();
+   }
+
    this_player()->do_quit();
 }

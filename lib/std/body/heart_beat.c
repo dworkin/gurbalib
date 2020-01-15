@@ -68,24 +68,46 @@ void event_heart_beat(void) {
          return;
       }
    } else {
-      heal_time++;
-      if (heal_time > heal_rate) {
-         heal_time = 0;
-
-         if (this_object()->query_hp() < this_object()->query_max_hp()) {
-            this_object()->increase_hp(random(heal_amount) + 1);
-         }
-         if (this_object()->query_mana() < this_object()->query_max_mana()) {
-            this_object()->increase_mana(random(heal_amount) + 1);
-         }
-         if (this_object()->query_end() < this_object()->query_max_end()) {
-            this_object()->increase_end(random(2 * heal_amount) + 1);
-         }
-      }
-
-      /* allow monsters to talk, cast spells etc... */
       if (!this_object()->is_player()) {
+         /* allow monsters to talk, cast spells etc... */
          this_object()->do_extra_actions();
+
+         /* Monsters do not need to rest to heal */
+         heal_time++;
+         if (heal_time > heal_rate) {
+            heal_time = 0;
+
+            if (this_object()->query_hp() < this_object()->query_max_hp()) {
+               this_object()->increase_hp(random(heal_amount) + 1);
+            }
+            if (this_object()->query_mana() < this_object()->query_max_mana()) {
+               this_object()->increase_mana(random(heal_amount) + 1);
+            }
+            if (this_object()->query_end() < this_object()->query_max_end()) {
+               this_object()->increase_end(random(2 * heal_amount) + 1);
+            }
+         }
+      } else {
+         heal_time++;
+         if (heal_time > heal_rate) {
+            heal_time = 0;
+
+            
+            /* Players do need to rest to heal hp and mana */
+            if (this_object()->is_resting()) {
+               if (this_object()->query_hp() < this_object()->query_max_hp()) {
+                  this_object()->increase_hp(random(heal_amount) + 1);
+               }
+               if (this_object()->query_mana() <
+                  this_object()->query_max_mana()) {
+                  this_object()->increase_mana(random(heal_amount) + 1);
+               }
+            }
+
+            if (this_object()->query_end() < this_object()->query_max_end()) {
+               this_object()->increase_end(random(2 * heal_amount) + 1);
+            }
+         }
       }
 
       reduce_stunned();
@@ -220,6 +242,9 @@ void die(void) {
 
    if (this_object()->is_player()) {
       this_object()->set_dead(1);
+      if (this_object()->is_resting()) {
+         this_object()->rest();
+      }
       this_object()->move(VOID);
       this_object()->message("You have died.");
       this_object()->clear_money();

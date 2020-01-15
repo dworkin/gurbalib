@@ -65,6 +65,11 @@ static void main(string str) {
       return;
    }
 
+   if (this_player()->is_resting()) {
+      write("You can not do that when your are resting.\n");
+      return;
+   }
+
    objs = this_environment()->query_inventory();
    for (i = 0; i < sizeof(objs); i++) {
       if (objs[i]->is_vendor() == 1) {
