@@ -55,7 +55,7 @@ void create(void) {
 
       colors["admin"] = "%^BLUE%^";
       colors["announce"] = "%^CYAN%^";
-      colors["dchat"] = "%^CYAN%^"; 
+      colors["dchat"] = "%^CYAN%^";
       colors["dgd"] = "%^BLUE%^";
       colors["fighter"] = "%^BLUE%^";
       colors["gossip"] = "%^GREEN%^";
@@ -363,7 +363,7 @@ void chan_send_string(string chan, string from, string str,
       for (i = 0, sz = sizeof(users); i < sz; i++) {
          if (!users[i]->query_ignored(from)) {
             if (users[i]->query_env("imud_timestamp")) {
-               users[i]->message( "%^CHAN_DATE%^[" + (ctime(time())[11..18]) + 
+               users[i]->message( "%^CHAN_DATE%^[" + (ctime(time())[11..18]) +
                   "]%^RESET%^" + line, 1);
             } else {
                users[i]->message( line, 1);
@@ -654,6 +654,9 @@ string *query_channels(void) {
 }
 
 void event_new_player(string * args) {
+   if (args[0] == "who") {
+     return;
+   }
    if (channels["announce"]) {
       chan_send_string("announce", "channel_d",
          "Trumpets sound as " + capitalize(args[0]) + " joins the realm.",
@@ -662,6 +665,9 @@ void event_new_player(string * args) {
 }
 
 void event_player_login(string * args) {
+   if (args[0] == "who") {
+     return;
+   }
    if (channels["announce"]) {
       chan_send_string("announce", "channel_d",
          capitalize(args[0]) + " logs in.", NOT_EMOTE);
@@ -669,6 +675,9 @@ void event_player_login(string * args) {
 }
 
 void event_player_logout(string * args) {
+   if (args[0] == "who") {
+     return;
+   }
    if (channels["announce"]) {
       chan_send_string("announce", "channel_d",
          capitalize(args[0]) + " logs out.", NOT_EMOTE);
@@ -676,6 +685,9 @@ void event_player_logout(string * args) {
 }
 
 void event_player_linkdeath(string * args) {
+   if (args[0] == "who") {
+     return;
+   }
    if (channels["announce"]) {
       chan_send_string("announce", "", capitalize(args[0]) +
          " goes link-dead.", EMOTE);
@@ -683,6 +695,9 @@ void event_player_linkdeath(string * args) {
 }
 
 void event_player_unlinkdeath(string * args) {
+   if (args[0] == "who") {
+     return;
+   }
    if (channels["announce"]) {
       chan_send_string("announce", "", capitalize(args[0]) +
          " returns from link-death.", EMOTE);
@@ -690,6 +705,9 @@ void event_player_unlinkdeath(string * args) {
 }
 
 void event_player_join(string * args) {
+   if (args[0] == "who") {
+     return;
+   }
    if (channels["announce"]) {
       chan_send_string("announce", "channel_d",
          "Trumpets blast a fanfare as " + capitalize(args[0]) + " joins " +
@@ -756,4 +774,3 @@ void show_info(string channel) {
       this_player()->message("Access level: open\n");
    }
 }
-
