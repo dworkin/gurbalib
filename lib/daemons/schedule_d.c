@@ -6,6 +6,7 @@ static int micros_count;
 static int seconds_count;
 static int minutes_count;
 static int hours_count;
+static int days_count;
 static int reset_counter;
 static float micro_beat_interval;
 static mapping timed_events, queued_events;
@@ -15,6 +16,7 @@ static void setup(void) {
    EVENT_D->add_event("second_tick");
    EVENT_D->add_event("minute_tick");
    EVENT_D->add_event("hour_tick");
+   EVENT_D->add_event("day_tick");
    EVENT_D->add_event("heart_beat");
 
    heartbeat_counter = 0;
@@ -22,9 +24,10 @@ static void setup(void) {
    seconds_count = 0;
    minutes_count = 0;
    hours_count = 0;
+   days_count = 0;
    reset_counter = 0;
    queued_events = ([ ]);
-   timed_events = (["seconds" : ([ ]), "minutes" : ([ ]), "hours" : ([ ]) ]);
+   timed_events = (["seconds" : ([ ]), "minutes" : ([ ]), "hours" : ([ ]), "days" : ([  ])]);
    micro_beat_interval = 1.0 / (float) MICROS_PER_SECOND;
 
    if (!micro_beat_handle) {
@@ -74,6 +77,10 @@ static int get_hours_count() {
    return hours_count;
 }
 
+static int get_days_count() {
+   return days_count;
+}
+
 static void heart_beat(void) {
    EVENT_D->event("heart_beat");
 }
@@ -82,12 +89,19 @@ static void reset(void) {
    EVENT_D->event("reset");
 }
 
+static void day_tick(void) {
+   days_count++;
+
+   EVENT_D->event("day_tick");
+   dispatch_timed_events("days");
+}
+
 static void hour_tick(void) {
    hours_count++;
    
    if (hours_count > 23) {
       hours_count = 0;
-      /* XXX TODO: days_tick() */
+      day_tick();
    }
    EVENT_D->event("hour_tick");
    dispatch_timed_events("hours");
@@ -177,6 +191,9 @@ void add_timed_event(string unit, int amount, string name) {
       case "hours":
          max_size = 24;
          break;
+      case "days":
+         max_size = 999999999;
+         break;
       default:
          error("Arg 1 must be a legal unit of time.");
          break;
@@ -185,20 +202,16 @@ void add_timed_event(string unit, int amount, string name) {
    if (amount < max_size) {
       if (unit_count + amount < max_size) {
          unit_count += amount;
-      }
-      else {
+      } else {
          unit_count = amount - (max_size - unit_count);
-      }
-      if (!timed_events[unit][unit_count]) {
+      } if (!timed_events[unit][unit_count]) {
          timed_events[unit][unit_count] = ({ ({name, ob}) });
-      }
-      else {
+      } else {
          timed_events[unit][unit_count] += ({ ({name, ob}) });
       }
-   }
-   else {
-   /* XXX TODO: allow larger values to work */
-      error("Amount cannot exceed max unit size.");
+   } else {
+      error("Amount cannot exceed max unit size: Unit: " + unit +
+         " Max_size: " + max_size);
    }
 }
 
