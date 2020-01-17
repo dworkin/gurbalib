@@ -15,7 +15,7 @@ void setup(void) {
    set_gettable(1);
    set_value(5);
    set_weight(1);
-   add_bane("garlic"); /* XXX is this correct? forgot how these work! */
+   add_bane("garlic");
    set_eatable(1);
 }
 
