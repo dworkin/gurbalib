@@ -34,7 +34,7 @@ static void main(string str) {
    int mh, h, expr, level, quest, mm, m, me, e, ac, i, mw, w, next_xp;
    mixed *money;
    object obj;
-   string age, *l;
+   string age, *l, follower;
 
    if (!alsos) {
       setup_alsos();
@@ -132,6 +132,11 @@ static void main(string str) {
    if (this_player()->is_resting()) {
       l += ({ "" });
       l += ({ obj->query_name() + " is resting." });
+   }
+   follower = this_player()->query_follower();
+   if (follower != "") {
+      l += ({ "" });
+      l += ({ "You are followinging: " + follower });
    }
 
    this_player()->more(l);

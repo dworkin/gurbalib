@@ -505,6 +505,36 @@ string body_exit(object who, string dir) {
       } else {
          return "\nConstruction blocks your path.\n";
       }
+   } else {
+      string *followers;
+      int x, max;
+      object obj;
+
+      followers = this_player()->query_followers();
+      max = sizeof(followers);
+      for (x=0; x< max; x++) {
+         obj = USER_D->find_player(followers[x]);
+
+         if (obj) {
+            obj->query_environment()->body_exit(obj, dir);
+            if (obj->query_environment() !=
+               this_player()->query_environemnt()) {
+               write("You lost " + obj->query_Name() +
+                  " they stop following you.\n");
+               obj->message("You lost " + this_player()->query_Name() +
+                  " you stop following them.\n");
+               this_object()->query_environment()->tell_room(obj,
+                  obj->query_Name() + " looses " +
+                  this_player()->query_Name() + "they stop following them.\n",
+                  this_player());
+  
+               obj->query_environment()->tell_room(obj,
+                  obj->query_Name() + " looses " +
+                  this_player()->query_Name() + "they stop following them.\n",
+                  this_player());
+            }
+         }
+      }
    }
 
    if (who->is_player() || who->is_possessed()) {

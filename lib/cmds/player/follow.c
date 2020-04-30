@@ -31,8 +31,6 @@ void setup_alsos() {
    add_also("player", "wimpy");
 }
 
-/* XXX need to still put backend of this in..... */
-
 static void main(string str) {
    string name;
    object obj;
@@ -70,7 +68,7 @@ static void main(string str) {
          capitalize(str) + ".\n");
       obj = USER_D->find_player(name);
 
-      obj->remove_follower(this_player());
+      obj->remove_follower(this_player()->query_name());
       return;
    }
 
@@ -83,7 +81,7 @@ static void main(string str) {
       this_environment()->tell_room(this_player(), 
          this_player()->query_Name() + " starts following " + 
          capitalize(str) + ".\n");
-       obj->add_follower(this_player());
+       obj->add_follower(this_player()->query_name());
    } else {
       write("You can not find: " + str + ".\n");
    }

@@ -1,7 +1,7 @@
-object *followers;
+string *followers;
 string following;
 
-int add_follower(object who) {
+int add_follower(string who) {
    if (!followers) {
       followers = ({ });
    }
@@ -10,13 +10,22 @@ int add_follower(object who) {
    return 1;
 }
 
-int remove_follower(object who) {
+int remove_follower(string who) {
    followers -= ( { who } );
    return 1;
 }
 
+void clear_followers() {
+   followers = ({ });
+}
+
+
+string *query_followers() {
+   return followers;
+}
+
 /* return 1 if who is a follower */
-int is_follower(object who) {
+int is_follower(string who) {
    int i;
 
    if (!followers) {

@@ -46,6 +46,9 @@ void verify_remove(string str) {
 }
 
 static void main(string str) {
+   string follower;
+   object obj, *followers;
+   int x, max;
 
    if (!alsos) {
       setup_alsos();
@@ -65,6 +68,32 @@ static void main(string str) {
    if (this_player()->is_resting()) {
       this_player()->rest();
    }
+   follower = this_player()->query_follower();
+   if (follower != "") {
+      write("You stop following " + follower + ".\n");
+      this_environment()->tell_room(this_player(),
+         this_player()->query_Name() + " stops following " +
+         capitalize(follower) + ".\n");
+      obj = USER_D->find_player(follower);
+      obj->remove_follower(this_player()->query_name());
+      this_player()->set_follower("");
+   }
+   followers = this_player()->query_followers();
+   max = sizeof(followers);
+   for (x=0; x< max; x++) {
+      obj = USER_D->find_player(followers[x]);
+      if (obj) {
+         followers[x]->message("You stop following " +
+            this_player()->query_Name() + " they quit.\n");
+         followers[x]->query_environment()->tell_room(followers[x],
+            followers[x]->query_Name() + " stops following " +
+            this_player()->query_Name() + ".\n",
+            this_player());
+      }
+
+   }
+
+   this_player()->clear_followers();
 
    this_player()->do_quit();
 }
