@@ -103,6 +103,8 @@ static void main(string arg) {
    
    /* remove capability of path traversal */
    /* discoverd by David Byrne of X-Force Red */
+   exparg = explode(arg, "/");
+   szof = sizeof(exparg);
    if (szof > 1) {
       return 1;
    }
