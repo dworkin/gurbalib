@@ -98,7 +98,14 @@ int show_help(string filename) {
 }
 
 static void main(string arg) {
-   string file;
+   string file, *exparg;
+   int szof;
+   
+   /* remove capability of path traversal */
+   /* discoverd by David Byrne of X-Force Red */
+   if (szof > 1) {
+      return 1;
+   }
 
    if (!alsos) {
       setup_alsos();
