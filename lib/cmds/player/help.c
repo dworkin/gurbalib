@@ -103,6 +103,7 @@ static void main(string arg) {
    
    /* remove capability of path traversal */
    /* discoverd by David Byrne of X-Force Red */
+   /* CVE-2020-12649 */
    exparg = explode(arg, "/");
    szof = sizeof(exparg);
    if (szof > 1) {
