@@ -98,17 +98,7 @@ int show_help(string filename) {
 }
 
 static void main(string arg) {
-   string file, *exparg;
-   int szof;
-   
-   /* remove capability of path traversal */
-   /* discoverd by David Byrne of X-Force Red */
-   /* CVE-2020-12649 */
-   exparg = explode(arg, "/");
-   szof = sizeof(exparg);
-   if (szof > 1) {
-      return 1;
-   }
+   string file;
 
    if (!alsos) {
       setup_alsos();
