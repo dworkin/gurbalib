@@ -79,18 +79,19 @@ static void main(string str) {
       this_player()->set_follower("");
    }
    followers = this_player()->query_followers();
-   max = sizeof(followers);
-   for (x=0; x< max; x++) {
-      obj = USER_D->find_player(followers[x]);
-      if (obj) {
-         followers[x]->message("You stop following " +
+   if (followers) {
+     max = sizeof(followers);
+     for (x=0; x< max; x++) {
+        obj = USER_D->find_player(followers[x]);
+        if (obj) {
+          followers[x]->message("You stop following " +
             this_player()->query_Name() + " they quit.\n");
-         followers[x]->query_environment()->tell_room(followers[x],
+          followers[x]->query_environment()->tell_room(followers[x],
             followers[x]->query_Name() + " stops following " +
             this_player()->query_Name() + ".\n",
             this_player());
-      }
-
+        }
+     }
    }
 
    this_player()->clear_followers();
