@@ -1,6 +1,6 @@
 inherit M_COMMAND;
 
-#define SPELL_DIR "/cmds/spells"
+#define SPELL_DIR "/cmds/spells/"
 
 string find_spell(string spellname);
 
@@ -61,7 +61,7 @@ static void list_spells(void) {
    int i, x;
    string name;
 
-   files = get_dir(SPELL_DIR + "/*.c")[0];
+   files = get_dir(SPELL_DIR + "*.c")[0];
 
    write("Available spells:\n");
    for (i = sizeof(files) - 1; i >= 0; i--) {
@@ -76,7 +76,13 @@ static void list_spells(void) {
 static string find_spell(string spellname) {
    string str;
 
-   str = SPELL_DIR + "/" + spellname;
+   str = normalize_path(spellname, SPELL_DIR);
+
+   if (strcmp(str[0..12], SPELL_DIR) != 0) {
+write("Ouchie: " + str + "," + SPELL_DIR + "\n");
+      return nil;
+   }
+   
    if (file_exists(str + ".c")) {
       return str;
    }
