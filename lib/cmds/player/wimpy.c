@@ -33,13 +33,13 @@ string *usage(void) {
 
 void setup_alsos() {
    add_also("player", "attack");
+   add_also("player", "consider");
    add_also("player", "cast");
    add_also("player", "eat");
    add_also("player", "enter");
    add_also("player", "follow");
    add_also("player", "go");
    add_also("player", "pray");
-   add_also("player", "query");
    add_also("player", "quit");
 }
 

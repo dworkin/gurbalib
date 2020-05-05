@@ -24,7 +24,6 @@ void setup_alsos() {
    add_also("player", "follow");
    add_also("player", "go");
    add_also("player", "pray");
-   add_also("player", "query");
    add_also("player", "quit");
    add_also("player", "wimpy");
 }
@@ -71,18 +70,6 @@ static void main(string str) {
    if (this_player()->is_fighting() ) {
       write("You are already in combat.\n");
       return;
-   }
-
-  if (obj->is_player()) {
-      if (obj->query_environment()->query_pk() == 0) {
-         write("You cannot kill other players");
-         return;
-      }
-   }
-
-   if(obj->query_environment()->query_nokill() == 1) {
-     write("You can't kill anything in here, this is unholy ground!");
-     return;
    }
 
    level = obj->query_level();

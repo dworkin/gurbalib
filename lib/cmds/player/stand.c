@@ -20,6 +20,7 @@ string *usage(void) {
 
 void setup_alsos() {
    add_also("player", "attack");
+   add_also("player", "consider");
    add_also("player", "cast");
    add_also("player", "rest");
    add_also("player", "score");
