@@ -3,7 +3,7 @@
 inherit cont "/std/container";
 
 static mapping exits, hidden_exits, areas, items;
-static int last_exit, weather, light, pk;
+static int last_exit, weather, light, pk, nokill;
 
 string dark_msg;
 
@@ -87,6 +87,17 @@ int query_pk(void) {
     return 0;
   }
   return pk;
+}
+
+void set_nokill(int flag) {
+   nokill = flag;
+}
+
+int query_nokill(void) {
+  if (!nokill) {
+    return 0;
+  }
+  return nokill;
 }
 
 void add_area(string str) {
