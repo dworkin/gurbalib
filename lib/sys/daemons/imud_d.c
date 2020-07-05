@@ -867,6 +867,9 @@ void create(void) {
    restore_me();
 
    if (!default_router) {
+      if (!mpRouterList) {
+         set_default_router_list();
+      }
       default_router = mpRouterList[0][0];
       current_router = 0;
       mudlist = ([]);
