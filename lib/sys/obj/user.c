@@ -4,6 +4,7 @@
 #include <ports.h>
 
 inherit "/sys/lib/runas";
+inherit telnet "/sys/lib/telnet";
 
 object player;
 object ansid;
@@ -38,6 +39,7 @@ void _open(mixed * tls) {
          "Please email " + ADMIN_EMAIL + " about access from your site.\n");
       destruct_object(this_object());
    }
+   telnet::open();
    send_message("Welcome to " + MUD_NAME + ".\n");
    send_message("Running " + LIB_NAME + " " + LIB_VERSION + " on " +
       status()[ST_VERSION] + ".\n");
@@ -209,7 +211,7 @@ void wrap_message(string str, varargs int chat_flag) {
    }
 }
 
-static void _receive_message(mixed * tls, string message) {
+static void _receive_message(string message) {
    rlimits(MAX_DEPTH; MAX_TICKS) {
       if (player->query_possessing()) {
          set_this_player(player->query_possessing());
@@ -222,7 +224,7 @@ static void _receive_message(mixed * tls, string message) {
 }
 
 void receive_message(string message) {
-   _receive_message(allocate(DRIVER->query_tls_size()), message);
+   telnet::receive(allocate(DRIVER->query_tls_size()), message);
 }
 
 /* query USER_D for our privs and setup privileges accordingly */

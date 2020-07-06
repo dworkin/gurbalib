@@ -1,0 +1,13 @@
+#define IAC                     "\xff"
+#define DONT                    "\xfe"
+#define DO                      "\xfd"
+#define WONT                    "\xfc"
+#define WILL                    "\xfb"
+#define SB                      "\xfa"
+#define SE                      "\xf0"
+
+#define TELOPT_ECHO             "\x01"
+#define TELOPT_TM               "\x06"
+#define TELOPT_LINEMODE         "\x22"
+#define  LM_MODE                "\x01"
+#define  MODE_EDIT              "\x01"

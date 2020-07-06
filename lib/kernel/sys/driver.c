@@ -534,7 +534,7 @@ object _telnet_connect(mixed * tls, int port) {
 }
 
 object telnet_connect(int port) {
-   return _telnet_connect(allocate(query_tls_size()), port);
+   error("Telnet port should be disabled");
 }
 
 object _binary_connect(mixed * tls, int port) {
@@ -545,7 +545,9 @@ object _binary_connect(mixed * tls, int port) {
 }
 
 object binary_connect(int port) {
-   return _binary_connect(allocate(query_tls_size()), port);
+   return (port == 0) ?
+           _telnet_connect(allocate(query_tls_size()), port) :
+           _binary_connect(allocate(query_tls_size()), port);
 }
 
 void _interrupt(mixed * tls) {

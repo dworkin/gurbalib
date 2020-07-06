@@ -1,6 +1,6 @@
 #include <status.h>
 
-#define LOGIN_PORT  (status()[ST_TELNETPORTS][0])
+#define LOGIN_PORT  (status()[ST_BINARYPORTS][0])
 #define FTP_PORT    (LOGIN_PORT + 1)
 #define I3_TCP_PORT (LOGIN_PORT + 2)
 #define I3_UDP_PORT (LOGIN_PORT + 3)

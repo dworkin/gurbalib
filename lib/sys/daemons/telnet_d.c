@@ -56,3 +56,67 @@ string query_motd(void) {
          "gurbalib/doc/INSTALLING";
    }
 }
+
+/*
+ * find telnet commands in input, return results in the form:
+ *
+ *  ({
+ *    ({
+ *      character sequence or telnet command,
+ *      character sequence or telnet command,
+ *      ...
+ *    }),
+ *    partial telnet command or empty string
+ *  })
+ */
+string *parse_telnet(string str) {
+    return parse_string("\
+unescaped = /[^\xff]+/ \
+escaped = /[^\xff]+\xff\xff/ \
+command = /\xff[\x00-\xf9\xff]/ \
+command = /\xff\xfa([^\xff]|\xff[^\xf0])*\xff\xf0/ \
+command = /\xff[\xfb-\xfe]./ \
+partial = /\xff/ \
+partial = /\xff\xfa([^\xff]|\xff[^\xf0])*\xff?/ \
+partial = /\xff[\xfb-\xfe]/ \
+\
+Sequence: Commands Data         ? sequence \
+Sequence: Commands Data partial ? sequence_partial \
+\
+Commands: \
+Commands: Commands Data command \
+\
+Data: \
+Data: String                    ? telnet_data \
+\
+String: unescaped \
+String: Escaped \
+String: String unescaped \
+String: String Escaped \
+\
+Escaped: escaped                ? telnet_escaped", str);
+}
+
+static string *sequence(string *parsed) {
+    /* no partial telnet command */
+    return ({ parsed, "" });
+}
+
+static string *sequence_partial(string *parsed) {
+    int size;
+
+    /* partial telnet command included */
+    size = sizeof(parsed);
+    return ({ parsed[.. size - 2], parsed[size - 1] });
+}
+
+static string *telnet_data(string *parsed) {
+    return ({ implode(parsed, "") });
+}
+
+static string *telnet_escaped(string *parsed) {
+    string str;
+
+    str = parsed[0];
+    return ({ str[.. strlen(str) - 2] });
+}
