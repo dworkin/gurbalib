@@ -58,6 +58,7 @@ int verbose_errors;     /* 1 for longer error codes */
 int display_caught;     /* 1 to show caught runtime errors */
 static mixed menu_data;		/* temp storage for menu system */
 int muzzle;			/* if 0 we are allowed to shout. */
+int mxp;
 
 string query_name(void);
 
@@ -156,6 +157,14 @@ void set_ansi(int state) {
    save_me();
 }
 
+int query_mxp(void) {
+   return mxp | user->mxp_support();
+}
+
+void set_mxp(int state) {
+   mxp = state;
+}
+
 void create(void) {
    con::create();
    bod::create();
@@ -218,6 +227,7 @@ void login_player(void) {
    string race;
 
    restore_privs();
+   set_mxp(0);
 
    /* If we're a wiz, show the wizlog since last login */
    if (query_user_type(living_name) > 0) {
@@ -655,15 +665,27 @@ void write_prompt(void) {
       result = replace_string(result, "%a", "(none)");
       }
 
-   result = replace_string(result, "%h", "" + this_player()->query_hp());
-   result = replace_string(result, "%H", "" + this_player()->query_max_hp());
-   result = replace_string(result, "%b", "" + this_player()->query_mana());
-   result = replace_string(result, "%B", "" + 
-      this_player()->query_max_mana());
-   result = replace_string(result, "%e", "" + this_player()->query_end());
-   result = replace_string(result, "%E", "" + 
-      this_player()->query_max_end());
-   out(result + "%^RESET%^ ");
+   if (query_mxp() == 1) {
+      result = replace_string(result, "%h", "<Hp>" + this_player()->query_hp() + "</Hp>");
+      result = replace_string(result, "%H", "<MaxHp>" + this_player()->query_max_hp() + "</MaxHp>");
+      result = replace_string(result, "%b", "<Mana>" + this_player()->query_mana()+ "</Mana>");
+      result = replace_string(result, "%B", "<MaxMana>" + 
+         this_player()->query_max_mana() + "</MaxMana>");
+      result = replace_string(result, "%e", "<End>" + this_player()->query_end()) + "</End>";
+      result = replace_string(result, "%E", "<MaxEnd>" + 
+         this_player()->query_max_end() + "</MaxEnd>");
+      out("%^MXP_LSM%^<Prompt>" + result + "</Prompt>%^MXP_LLM%^%^RESET%^");
+   } else {
+      result = replace_string(result, "%h", "" + this_player()->query_hp());
+      result = replace_string(result, "%H", "" + this_player()->query_max_hp());
+      result = replace_string(result, "%b", "" + this_player()->query_mana());
+      result = replace_string(result, "%B", "" + 
+         this_player()->query_max_mana());
+      result = replace_string(result, "%e", "" + this_player()->query_end());
+      result = replace_string(result, "%E", "" + 
+         this_player()->query_max_end());
+      out(result + "%^RESET%^ ");
+   }
 }
 
 /* More a set of lines */
@@ -772,9 +794,10 @@ void more_prompt(string arg) {
 }
 
 static void do_look_obj(object obj) {
-   int i, flag;
+   int i, flag, mxp;
    object *objs;
 
+   mxp = query_mxp();
    this_environment()->event("body_look_at", this_player(), obj);
    this_environment()->tell_room(this_player(), this_player()->query_Name() +
       " looks at the " + obj->query_id() + ".\n");
@@ -787,10 +810,22 @@ static void do_look_obj(object obj) {
    } else if (obj->is_container()) {
       flag = 0;
       objs = obj->query_inventory();
+      if (mxp == 1) {
+         out("%^MXP_LSM%^");
+      }
       write(" \nIt contains:\n");
 
       for (i = 0; i < sizeof(objs); i++) {
-         write("  " + objs[i]->query_short() + "\n");
+         if (mxp == 1) {
+            write("  <send \"get " + objs[i]->query_id() + " from " + obj->query_id() + "\">" +
+               objs[i]->query_short() + "</send>\n");
+         } else {
+            write("  " + objs[i]->query_short() + "\n");
+         }
+      }
+
+      if (mxp == 1) {
+        out("%^MXP_LLM%^");
       }
    }
 }

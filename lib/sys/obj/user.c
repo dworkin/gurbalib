@@ -2,6 +2,7 @@
 #include <limits.h>
 #include <status.h>
 #include <ports.h>
+#include <telnet.h>
 
 inherit "/sys/lib/runas";
 inherit telnet "/sys/lib/telnet";
@@ -15,6 +16,7 @@ static int logged_in;
 static int data_version;
 static int timeout_handle;
 private static int auto_admin, auto_wiz;
+private int mxp;
 object query_player(void);
 
 void create(void) {
@@ -30,6 +32,28 @@ void create(void) {
    run_as("nobody");
 }
 
+static void telnet_do(int option) {
+    if (option == TELOPT_MXP[0]) {
+        telnet::send(IAC + SB + TELOPT_MXP + IAC + SE);
+        mxp = TRUE;
+    } else {
+        ::telnet_do(option);    /* pass on other options to lower layer */
+    }
+}
+
+static void telnet_dont(int option) {
+    if (option == TELOPT_MXP[0]) {
+        telnet::send(IAC + WONT + TELOPT_MXP);
+        mxp = FALSE;
+    } else {
+        ::telnet_dont(option);  /* pass on other options to lower layer */
+    }
+}
+
+int mxp_support(void) {
+    return mxp;
+}
+
 void _open(mixed * tls) {
    if (SITEBAN_D->is_banned(query_ip_number(this_object()))) {
       /* site is banned */
@@ -40,15 +64,17 @@ void _open(mixed * tls) {
       destruct_object(this_object());
    }
    telnet::open();
+   telnet::send(IAC + WILL + TELOPT_MXP);
+   mxp = FALSE;
    send_message("Welcome to " + MUD_NAME + ".\n");
    send_message("Running " + LIB_NAME + " " + LIB_VERSION + " on " +
       status()[ST_VERSION] + ".\n");
-   send_message("\n");
+   send_message("\x1b[7z\n");
    send_message(TELNET_D->query_banner());
    send_message("\nEnter your name (or 'who', 'guest', 'quit'): ");
    send_message(1);
 
-   timeout_handle = call_out("login_timeout", 600);
+   timeout_handle = call_out("login_timeout", 120);
    player = clone_object(PLAYER_OB);
    player->set_user(this_object());
    player->initialize_cmd_path();
@@ -474,7 +500,7 @@ void input_name(string str) {
       user_name = usr;
 
       /* Skip ahead for the guest user, no need for password and other stuff */
-      send_message("Please enter your gender (male/female/neuter) : ");
+      send_message("Please enter your gender (male/female/other) : ");
       player->input_to_object(this_object(), "input_get_gender");
       return;
    } 
@@ -682,13 +708,13 @@ void input_get_email(string str) {
 void input_get_website(string str) {
    player->set_website(str);
 
-   send_message("\nEnter your gender (male/female/neuter) : ");
+   send_message("\nEnter your gender (male/female/other) : ");
    player->input_to_object(this_object(), "input_get_gender");
 }
 
 void input_get_gender(string str) {
    if (!str || str == "") {
-      send_message("Please enter your gender (male/female/neuter) : ");
+      send_message("Please enter your gender (male/female/other) : ");
       player->input_to_object(this_object(), "input_get_gender");
       return;
    }
@@ -698,16 +724,16 @@ void input_get_gender(string str) {
       player->set_gender("male");
    } else if (str == "f" || str == "female") {
       player->set_gender("female");
-   } else if (str == "n" || str == "neuter") {
-      player->set_gender("neuter");
+   } else if (str == "n" || str == "other") {
+      player->set_gender("other");
    } else if (str == "quit") {
       write("Goodbye!!!\n");
       destruct_object(player);
       destruct_object(this_object());
       return;
    } else {
-      send_message("Please use 'male', 'female' or 'neuter'.\n");
-      send_message("Please enter your gender (male/female/neuter) : ");
+      send_message("Please use 'male', 'female' or 'other'.\n");
+      send_message("Please enter your gender (male/female/other) : ");
       player->input_to_object(this_object(), "input_get_gender");
       return;
    }

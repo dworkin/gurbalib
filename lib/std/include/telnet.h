@@ -11,3 +11,4 @@
 #define TELOPT_LINEMODE         "\x22"
 #define  LM_MODE                "\x01"
 #define  MODE_EDIT              "\x01"
+#define TELOPT_MXP              "\x5b"
