@@ -57,10 +57,23 @@
 #define SAVE       "\x1b[s"
 #define RESTORE    "\x1b[u"
 
+#define MXP_OPEN	"\x1b[0z"
+#define MXP_SECURE	"\x1b[1z"
+#define MXP_LOCKED	"\x1b[2z"
+#define MXP_RESET	"\x1b[3z"
+#define MXP_TSM		"\x1b[4z"
+#define MXP_LOM		"\x1b[5z"
+#define MXP_LSM		"\x1b[6z"
+#define MXP_LLM		"\x1b[7z"
+#define MXP_ROOM_NAME	"\x1b[10z"
+#define MXP_ROOM_DESC	"\x1b[11z"
+#define MXP_ROOM_EXITS	"\x1b[12z"
+
 static mapping color_trans, attr_trans, terminal_trans;
 mapping symbolic_trans;
 static mapping translations;
 static mapping player_trans;
+static mapping mxp_trans;
 
 static void restore_me(void) {
    unguarded("restore_object", ANSI_DATA);
@@ -128,6 +141,21 @@ void setup(void) {
       "HOME" : HOME,
    ]);
 
+   mxp_trans = ([
+      "MXP_OPEN" : MXP_OPEN,
+      "MXP_SECURE" : MXP_SECURE,
+      "MXP_LOCKED" : MXP_LOCKED,
+      "MXP_RESET" : MXP_RESET,
+      "MXP_TSM" : MXP_TSM,
+      "MXP_LOM" : MXP_LOM,
+      "MXP_LSM" : MXP_LSM,
+      "MXP_LLM" : MXP_LLM,
+      "MXP_ROOM_NAME" : MXP_ROOM_NAME,
+      "MXP_ROOM_DESC" : MXP_ROOM_DESC,
+      "MXP_ROOM_EXITS" : MXP_ROOM_EXITS,
+   ]);
+
+
    tmp = ([
       "CHAN_NAME" : BLUE,
       "CHAN_DATE" : CYAN,
@@ -158,7 +186,7 @@ void setup(void) {
       symbolic_trans = tmp + symbolic_trans;
    }
 
-   translations = color_trans + attr_trans + terminal_trans;
+   translations = color_trans + attr_trans + terminal_trans + mxp_trans;
 }
 
 void create(void) {

@@ -30,7 +30,7 @@ void setup_alsos() {
 
 static void main(string str) {
    object *inv;
-   int i;
+   int i, mxp;
    string loc, *lines;
 
    if (!alsos) {
@@ -43,13 +43,18 @@ static void main(string str) {
    }
 
    inv = this_player()->query_inventory();
+   mxp = this_player()->query_mxp();
 
    if (sizeof(inv) == 0) {
       write("You are carrying nothing.\n");
    } else {
       lines = ({ "You are carrying:" });
       for (i = 0; i < sizeof(inv); i++) {
-         loc = "  " + inv[i]->query_short();
+         if (mxp == 1) {
+            loc = "%^MXP_LSM%^<Itm>" + inv[i]->query_id() + "%^MXP_LSM%^<Itm>";
+         } else {
+            loc = "  " + inv[i]->query_short();
+         }
          if (inv[i]->is_wielded() || inv[i]->is_worn()) {
             loc += " %^CYAN%^[";
                if (inv[i]->is_wielded() ) {
