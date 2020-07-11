@@ -21,8 +21,29 @@ void setup() {
    set_skill("combat/defense", 100);
    count = 0;
 
+   add_pattern("%s picks up %s.", "say Why did $1 take $2?");
+   add_pattern("%s drops %s.", "say Why did $1 drop $2?");
+
+   /* These need to be checked */
+   add_pattern("shut up", "say WHy do you want me to shut up?");
+   add_pattern("Shut up", "say WHy do you want me to shut up?");
+   add_pattern("%s sells", "say WHy did you sell $1?");
+   add_pattern("%s attack", "say Why do you attack that $1?");
+   add_pattern("%s left the game", "say Why did $1 quit the game?");
+   add_pattern("is now level", "say How does it feel to now be level $2?");
+   add_pattern("smiles", "smiles");
+   add_pattern("happily", "smiles");
+   add_pattern("%s arrives", "say Hello $1, nice to see you!");
+   add_pattern("%s enters", "say Hello $1, nice to see you!");
+   add_pattern("%s appears", "say Hello $1, nice to see you!");
+   add_pattern("%s says:", "test_say");
+   add_pattern("%s tells you:", "test_say");
+   add_pattern("%s leaves %s", "go $2");
+   add_pattern("%s gives you %s", "gives");
+   add_pattern("%s gives you %s", "gives");
+
    a_str = ({
-      "say Don't hit men",
+      "say Don't hit me!",
       "say That hurt!",
       "say Help, someone!",
       "say Why can't you go bullying elsewhere?",
@@ -56,66 +77,6 @@ private int check_verb(string str, string verb) {
 
 private int is_harry(string str) {
    return lowercase(str) == "harry";
-}
-
-/* XXX get harry from vill_road2.c  Needs lots of work... */
-private void why_did(string str) {
-   string who, what, tmp;
-
-   sscanf(str, "%s %s", who, what);
-   if (is_harry(who)) {
-      return;
-   }
-   if (sscanf(what, "sells %*s") == 1) {
-      respond("say Why did you sell " + what);
-   }
-   if (sscanf(str, "%s attacks %s.", who, what) == 2) {
-      respond("say Why does " + who + " attack " + what + "?");
-   }
-   if (sscanf(str, "%s left the game.", who) == 1) {
-      respond("say Why did " + who + " quit the game ?");
-   }
-   if (sscanf(str, "%s takes %s.\n", who, what) == 2) {
-      respond("say Why did " + who + " take " + what + " ?");
-   }
-   if (sscanf(what, "drops %s.", tmp) == 1) {
-      respond("say Why did " + who + " drop " + tmp + "?");
-   }
-}
-
-private void how_does_it_feel(string str) {
-   string who, what;
-   sscanf(str, "%s %s", who, what);
-   if (is_harry(who)) {
-      return;
-   }
-   if (sscanf(str, "%s is now level %s.\n", who, what) == 2) {
-      respond("say How does it feel, being of level " + what + " ?");
-   }
-}
-
-private void smiles(string str) {
-   string who, what;
-
-   sscanf(str, "%s %s", who, what);
-   if (is_harry(who)) {
-      return;
-   }
-   if (check_verb(what, "smile") == 1) {
-      respond("smile");
-   }
-}
-
-private void say_hello(string str) {
-   string who, what;
-
-   sscanf(str, "%s %s", who, what);
-   if (is_harry(who)) {
-      return;
-   }
-   if (check_verb(what, "appears") == 1 || check_verb(what, "enters") == 1) {
-      respond("say Hi " + who + ", nice to see you!");
-   }
 }
 
 private int contains(string needle, string hay) {
@@ -204,6 +165,7 @@ private void gives(string str) {
    } else {
       if (this_object()->present(what)) {
          who_obj = this_object()->query_environment()->present(who);
+
          /* XXX sir, ma'am, creature... */
          respond("say Thank you very much, sir.");
       }
@@ -230,19 +192,4 @@ void do_extra_actions() {
       }
       count = 0;
    }
-}
-
-void outside_message(string str) {
-   /* XXX some from these can be spoofed with player emotes... */
-   if (is_fighting()) {
-      return;
-   }
-
-   str = ANSI_D->strip_colors(str);
-   smiles(str);
-   say_hello(str);
-   why_did(str);
-   follow(str);
-   gives(str);
-   handle_say(str);
 }
