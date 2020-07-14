@@ -99,6 +99,7 @@ static void telnet_subnegotiation(string subnegotiation) {
 static void receive(mixed tls, string str) {
     string *strings, head, pre;
     int i, len;
+    string rc;
 
     /* find telnet commands in input */
     /* stop jerks from running cat /dev/urandom | nc mudname 4000 and crashing */
