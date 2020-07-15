@@ -99,9 +99,14 @@ static void telnet_subnegotiation(string subnegotiation) {
 static void receive(mixed tls, string str) {
     string *strings, head, pre;
     int i, len;
+    string rc;
 
     /* find telnet commands in input */
-    ({ strings, partial }) = TELNET_PARSER->parse_telnet(partial + str);
+    /* stop jerks from running cat /dev/urandom | nc mudname 4000 and crashing */
+    rc = catch(({ strings, partial }) = TELNET_PARSER->parse_telnet(partial + str));
+    if (rc) {
+       destruct_object(this_player());
+    }
 
     for (i = 0; i < sizeof(strings); i++) {
         /*
